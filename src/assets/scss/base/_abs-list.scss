@@ -1,0 +1,97 @@
+table {
+  border: 1px solid #CCC;
+}
+
+.text--center {
+  text-align: center;
+}
+
+.tabs {
+  padding: 15px;
+}
+
+.nav-tabs {
+  border-bottom: 0px!important;
+  width: 70%;
+  float: left;
+}
+
+// .header-list__1 {
+//   min-height: 35px !important;
+//   padding-top: 0px !important;
+//   background: transparent!important;
+//   margin-top: 34px;
+//   float: right;
+// }
+
+.ABSTabs__active {
+  background: #FFFFFF !important;
+  margin-top: 8px !important;
+  margin-left: 12px !important;
+  margin-right: 12px !important;
+  margin-bottom: 10px !important;
+  -webkit-box-shadow: 3px 3px #c1c1c1 !important;
+  box-shadow: 4px 4px 2px -2px #c1c1c1 !important;
+  border: none!important;
+  border-left: 5px solid #007bff;
+}
+
+// DROPDOWN GEAR
+.dropdown--gear {
+  float: right;
+}
+
+// CHECKBOX
+// @import url(https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css);
+
+input[type=checkbox] {
+  position: relative;
+}
+
+.custom-checkbox input[type=checkbox]:before {
+  position: absolute;
+  background-color: #FFFFFF;
+  height: 100%;
+  width: 100%;
+  font-family: FontAwesome;
+  display: inline-block;
+  content:"\f096";
+  letter-spacing: 10px;
+}
+
+.custom-checkbox input[type=checkbox]:checked:before {
+  font-family: FontAwesome;
+  display: inline-block;
+  content:"\f046";
+  letter-spacing: 5px;
+}
+
+// PAGINATION
+ul.pagination {
+  margin-top: 10px;
+  
+  li {
+    a {
+      background-color: #FFFFFF;
+      border: 1px solid #dee2e6;
+      margin-right: 5px;
+      border-radius: 3px;
+    }
+  }
+}
+
+.page-item.active .page-link {
+  background-color: #007bff !important;
+  color: #FFFFFF!important;
+}
+
+.page-link {
+  color: #000!important;
+  border-style: solid!important;
+
+  &:hover {
+    background-color: #007bff !important;
+    color: #FFFFFF!important;
+    border: 1px solid #007bff !important;
+  }
+}

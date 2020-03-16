@@ -1,0 +1,28 @@
+@media screen and (max-width: 375px) {
+
+    // .abs-login__box-position-right .box-layer-form .box-login-form{
+    //     // width: 350px;
+    //     // padding: 15px;
+    //     // margin-left: 4%;
+    //     // margin-top: 38%;
+    //     width: 100%;
+    //     padding: 15px;
+    //     margin-left: 0%;
+    //     margin-top: 6%;
+    //   }
+    .badgeContent {
+        text-align: center !important;
+    }
+
+    .contentFill {
+
+        // padding: 0.6% 0px 0px 2.5% !important;
+        &__nextaction {
+            text-align: center !important;
+        }
+    }
+
+    .CommisionIcon {
+        max-width: 33% !important;
+    }
+}

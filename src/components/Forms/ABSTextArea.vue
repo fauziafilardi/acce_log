@@ -1,0 +1,129 @@
+<template>
+  <span>
+    <b-row v-show="prop.cVisible">
+      <b-col :md="prop.cLabelSize" class="lbl-col-align">
+        <label v-show="inputStatus=='new' || inputStatus=='edit'" class="text-field-form"><span v-if="isRequired" style="color:red;">*</span> {{ prop.cLabel }} :&nbsp;</label>
+        <label v-show="inputStatus=='view'" class="lbl-view-form"><span v-if="isRequired" style="color:red;">*</span> {{ prop.cLabel }} :&nbsp;</label>
+      </b-col>
+      <b-col>
+        <b-form-textarea
+          v-show="inputStatus!=='view'"
+          v-validate="prop.cValidate"
+          :class="{'input': true, 'error-text-field': errors.has(prop.cParentForm+'.'+prop.cName)}"
+          v-bind:name="prop.cName"
+          v-bind:data-vv-as="prop.cLabel"
+          v-model="value"
+          class="text-field-form"
+          @input="handleInput"
+          :maxlength="size"
+          :tabindex="prop.cOrder"
+          :disabled="inputStatus=='edit' && prop.cKey || prop.cProtect"
+          :style="style"
+          :ref="prop.cName"
+          :id="prop.cName"
+          :no-resize="prop.cResize"
+          :rows="prop.cRows"
+          :max-rows="prop.cMaxRows"
+          :readonly="prop.cReadonly"
+          :size="prop.cSize"
+        />
+
+          <span v-show="errors.has(prop.cParentForm+'.'+prop.cName)"
+            class="error-span">{{ errors.first(prop.cParentForm+'.'+prop.cName) }}
+          </span>
+          <label class="lbl-value-view-form notranslate" v-show="inputStatus=='view'">{{value}}</label>
+      </b-col>
+    </b-row>
+  </span>
+</template>
+
+<script>
+import { EventBus } from '../../main'
+export default {
+  props: {
+    prop: {
+      cValidate: String,
+      cName: String,
+      cLabel: String,
+      cLabelSize: String,
+      cOrder: Number,
+      cKey: Boolean,
+      cDefault: String,
+      cProtect: Boolean,
+      cVisible: Boolean,
+      cResize: Boolean,
+      cReadonly: Boolean,
+      cRows: Number,
+      cMaxRows: Number,
+      cSize: String,
+      cPageLevel: String,
+      cTabIndex: String,
+      cParentForm: String
+    },
+    value: String
+  },
+  data() {
+    return {
+      size: 0,
+      isRequired: false,
+      style: {},
+      // validators: {}
+    }
+  },
+  computed: {
+    inputStatus() {
+      this.$validator.pause()
+      this.$nextTick(() => {
+        this.$validator.errors.clear(this.prop.cParentForm)
+        this.$validator.resume()
+      })
+
+      if(this.$store.getters.getLevel == this.prop.cPageLevel && this.$store.getters.getTab == this.prop.cTabIndex){
+        return this.$store.getters.getStatus
+      }
+      else {
+        return 'view'
+      }
+    }
+  },
+  methods: {
+    handleInput () {
+      this.$emit('input', this.value)
+    },
+    focus() {
+      this.$nextTick().then(() => document.getElementById(this.prop.cName).focus())
+    },
+  },
+  watch: {
+  },
+  created: function() {
+    this.prop.cLabelSize = this.prop.cLabelSize ? this.prop.cLabelSize : 4
+    this.prop.cSize = this.prop.cSize ? this.prop.cSize : "md"
+    this.prop.cProtect = this.prop.cProtect ? this.prop.cProtect : false
+    this.prop.cResize = this.prop.cResize ? this.prop.cResize : false
+    this.prop.cReadonly = this.prop.cReadonly ? this.prop.cReadonly : false
+    this.prop.cVisible = this.prop.cVisible === undefined ? true : this.prop.cVisible
+    this.value = this.prop.cDefault ? this.prop.cDefault : ''
+    this.prop.cRows = this.prop.cRows ? this.prop.cRows : 3
+    this.prop.cMaxRows = this.prop.cMaxRows ? this.prop.cMaxRows : this.prop.cRows
+
+    // get max, for maxlength
+    if(this.prop.cValidate !== undefined && this.prop.cValidate !== null && this.prop.cValidate !== ''){
+      var str_array = this.prop.cValidate.split('|')
+      for (var i = 0; i < str_array.length; i++) {
+        var s = str_array[i].split(':')
+        
+        if(s[0] == 'required') {
+          this.isRequired = true
+        }
+      }
+    }
+  },
+  mounted: function () {
+  },
+  beforeDestroy: function() {
+  },
+  updated: function () {
+  }
+}
+</script>

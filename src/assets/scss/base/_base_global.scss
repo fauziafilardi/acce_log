@@ -1,0 +1,128 @@
+.pull--left {
+  float: left!important;
+}
+
+.pull--right {
+  cursor: pointer;
+  float: right!important;
+}
+
+.margin-bottom--50 {
+  margin-bottom: 50px;
+}
+
+.display--flex {
+  display: flex!important;
+  justify-content: space-between!important;
+  flex-wrap: wrap!important;
+}
+
+.header--dark {
+  background-color: #FFFFFF!important;
+  border-bottom: 1px solid #CCC!important;
+}
+
+// LOADER
+.loader--page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1050;
+  overflow: hidden;
+  outline: 0;
+  background-color: #000;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  opacity: 0.8;
+}
+
+.loader--page__box {
+  max-width: 50%;
+}
+
+.loader--page__box .title {
+  font-size: 1.5rem;
+  color: #fff;
+  font-family: 'Segoe UI'!important;
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* LOADER 1 */
+
+.loader--page__box .spinner {
+  margin: auto;
+  width: 50px;
+  height: 40px;
+  text-align: center;
+  font-size: 10px;
+}
+
+.loader--page__box .spinner > div {
+  background-color: #0680ff;
+  height: 100%;
+  width: 6px;
+  display: inline-block;
+
+  -webkit-animation: sk-stretchdelay 1.2s infinite ease-in-out;
+  animation: sk-stretchdelay 1.2s infinite ease-in-out;
+  // -webkit-animation: sk-stretchdelay 0.5s infinite ease-in-out;
+  // animation: sk-stretchdelay 0.5s infinite ease-in-out;
+}
+
+.loader--page__box .spinner .rect2 {
+  -webkit-animation-delay: -1.1s;
+  animation-delay: -1.1s;
+  // -webkit-animation-delay: -0.4s;
+  // animation-delay: -0.4s;
+}
+
+.loader--page__box .spinner .rect3 {
+  -webkit-animation-delay: -1s;
+  animation-delay: -1s;
+  // -webkit-animation-delay: -0.3s;
+  // animation-delay: -0.3s;
+}
+
+.loader--page__box .spinner .rect4 {
+  -webkit-animation-delay: -0.9s;
+  animation-delay: -0.9s;
+  // -webkit-animation-delay: -0.2s;
+  // animation-delay: -0.2s;
+}
+
+.loader--page__box .spinner .rect5 {
+  -webkit-animation-delay: -0.8s;
+  animation-delay: -0.8s;
+  // -webkit-animation-delay: -0.1s;
+  // animation-delay: -0.1s;
+}
+
+@-webkit-keyframes sk-stretchdelay {
+  0%,
+  40%,
+  100% {
+    -webkit-transform: scaleY(0.4);
+  }
+  20% {
+    -webkit-transform: scaleY(1);
+  }
+}
+
+@keyframes sk-stretchdelay {
+  0%,
+  40%,
+  100% {
+    transform: scaleY(0.4);
+    -webkit-transform: scaleY(0.4);
+  }
+  20% {
+    transform: scaleY(1);
+    -webkit-transform: scaleY(1);
+  }
+}

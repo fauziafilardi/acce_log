@@ -1,0 +1,160 @@
+@media screen and (max-width: 768px){
+    .lbl-col-align{
+        text-align: left !important;
+    }
+    
+    .bColMasterForm{
+        margin-left: 15px !important;
+        // margin-right: 27px !important;
+    }
+
+    .absolute-connection-wrapper .header--top__profile-menu {
+        width: 60px;
+    }
+
+    .absolute-connection-wrapper .header--top__profile-menu .information {
+        display: none;
+    }
+
+    .abs-login__box-position-left .bullet {
+        width: 30px;
+        height: 30px;
+        background-color: #2C3136;
+        border-radius: 50px;
+        text-align: right;
+        position: absolute;
+        right: 0;
+        margin-right: -13px;
+    }
+
+    .abs-login__box-position-left .box-information__title {
+        font-size: 20px;
+    }
+
+    .abs-login__box-position-left .box-information__subtitle {
+        font-size: 14px;
+    }
+
+    #AbsInputTest .v-select .selected-tag{
+        margin: 9px 2px 0 !important;
+      }
+    
+    //   .abs-login__box-position-right .box-layer-form .box-login-form{
+    //     width: 350px;
+    //     padding: 15px;
+    //     margin-left: 28%;
+    //     margin-top: 38%;
+    //   }
+
+      ul.pagination{
+          margin-top:45px;
+      }
+
+      .absolute-connection-wrapper .header--top__info-subportfolio {
+          display: none !important;
+      }
+
+      .block-scope-container {
+        height: 79% !important;
+        // height: 500px !important;
+        min-width: 290px;
+      }
+
+      .master-span {
+          display: none;
+      }
+
+    //   .absolute-connection-wrapper .sidebar-app {
+    //     height: 93% !important;
+    //   }
+    .container-status{
+        padding: 42px 1px 20px 1px !important;
+    }
+
+    .container-ava{
+        float: left;
+        margin: 27px 0px 0px 0px !important;
+        // height: 54px;
+      }
+
+    .footer--content {
+        z-index: 777;
+        position: fixed;
+        // left: 0;
+        bottom: 0px;
+        width: 100%;
+        // background-color: #FFFFFF;
+        color: white;
+        text-align: center !important;
+        border-top: 1px solid rgb(204, 204, 204);
+        
+        &__title {
+          background-color: #FFFFFF;
+          padding: 6px 15px;
+          font-weight: 600;
+          color: #215B7D;
+          margin-left: 0px;
+        }
+    }
+
+    .avatar-class{
+        float: left;
+        margin-right: 10px;
+        height: 77px;
+        align-items: center;
+        display: flex;
+    }
+
+    .delete-detail-list{
+        height: 33px;
+        position: relative;
+        margin-left: -5px;
+        max-width: 100% !important;
+        display: flex;
+        align-items: center;
+    }
+
+    .modal-header-multiple {
+        &-sm{
+            width: 95%;
+        }
+      
+        &-md{          
+            width: 95%;
+        }
+      
+        &-lg{  
+            width: 95%;
+        }
+      }
+      
+      /* Modal Content */
+      .modal-content-multiple {
+        &-sm{
+            width: 95%;
+        }
+      
+        &-md{          
+            width: 95%;
+        }
+      
+        &-lg{  
+            width: 95%;
+        }
+      }
+      
+      .modal-footer-multiple {  
+        &-sm{
+            width: 95%;
+        }
+      
+        &-md{          
+            width: 95%;
+        }
+      
+        &-lg{  
+            width: 95%;
+        }
+      }
+
+}

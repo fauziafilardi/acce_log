@@ -1,0 +1,23 @@
+@media screen and (max-width: 570px){
+  .lbl-col-align{
+    text-align: left !important;
+  }
+
+  .col-padding{
+    padding-left:10px !important;
+  }
+
+  .row-padding{
+    padding-left:10px;        
+  }
+
+  .col.tab-padding{
+    padding-left:10px !important; 
+    padding-right:10px !important;
+  }
+
+  .search-toolbar{
+    // max-width: 90% !important;
+    padding-bottom: 10px !important;
+  }
+}

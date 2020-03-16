@@ -1,0 +1,19 @@
+/**
+* ABSOLUTE CONNECTION WRAPPER
+*/
+.absolute-connection-wrapper {
+  height: 100%;
+  // background: rgb(116, 119, 124);
+  // min-width: 1024px;
+
+  @import 'blank';
+  @import 'header';
+  @import 'sidebar';
+  @import 'content';
+  @import 'acce';
+  @import 'dashboard_acce';
+}
+
+@import 'page/login';
+@import 'page/error';
+@import 'page/dashboard';

@@ -1,0 +1,28 @@
+@media screen and (max-width: 1020px){
+    // .abs-login__box-position-right .box-layer-form .box-login-form{
+    //     width: 350px;
+    //     padding: 15px;
+    //     margin-left: 33%;
+    //     margin-top: 18%;
+    // }
+
+    .content-app {
+        float: left;
+        height: 91%;
+        // padding-left: 0px !important;
+        overflow-y: auto;
+        max-width: 100%;
+        overflow: hidden;
+        width: 100%;
+        position: relative;
+        // background: #55b3ff;
+        // background: #FFFFFF;
+        
+        &__body {
+            padding: 15px;
+            padding-top: 60px;
+            font-size: 12px;
+            margin-bottom: 50px;
+        }
+    }
+}
