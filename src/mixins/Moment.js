@@ -20,6 +20,10 @@ export default {
     momentDateBetween (from, to) {
       const momentRange = extendMoment(moment)
       return momentRange(from).isSameOrBefore(to)
+    },
+
+    getMonthName (date) {
+      return moment(date).format('MMMM')
     }
 
   }

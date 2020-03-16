@@ -106,17 +106,17 @@
             <div class="card__body">
               <b-row>
                 <b-col>
-                  <span>
+                  <span @click="changeProspect('min')" style="cursor: pointer;">
                     <font-awesome-icon class="isGrey" icon="less-than" size="lg" />
                   </span>
                 </b-col>
                 <b-col style="text-align: center">
                   <span>
-                    <h6 class="isGrey">March 2020</h6>
+                    <h6 class="isGrey">{{ DataProspect.monthName + ' ' + DataProspect.year }}</h6>
                   </span>
                 </b-col>
                 <b-col style="text-align: right">
-                  <span>
+                  <span @click="changeProspect('add')" style="cursor: pointer;">
                     <font-awesome-icon class="isGrey" icon="greater-than" size="lg" />
                   </span>
                 </b-col>
@@ -124,13 +124,13 @@
               <b-row style="margin-top:6px;">
                 <b-col>
                   <div class="buleth__blue">
-                    <span>10</span>
+                    <span>{{ DataProspect.target && DataProspect.target !== '' ? DataProspect.target : 0 }}</span>
                   </div>
                   <div class="buleth-text">Target</div>
                 </b-col>
                 <b-col>
                   <div class="buleth__green">
-                    <span>7</span>
+                    <span>{{ DataProspect.achievement && DataProspect.achievement !== '' ? DataProspect.achievement : 0 }}</span>
                   </div>
                   <div class="buleth-text">Achievement</div>
                 </b-col>
@@ -146,7 +146,7 @@
                           <span class="prospect__content">Target</span>
                         </b-col>
                         <b-col>
-                          <span class="prospect__content">: 1056 Point</span>
+                          <span class="prospect__content">: {{ DataProspect.targetPoint && DataProspect.targetPoint !== '' ? DataProspect.targetPoint : 0 }} Point</span>
                         </b-col>
                       </b-row>
                       <b-row>
@@ -154,7 +154,7 @@
                           <span class="prospect__content">Achievement Point</span>
                         </b-col>
                         <b-col>
-                          <span class="prospect__content">: 788 Point</span>
+                          <span class="prospect__content">: {{ DataProspect.achievementPoint && DataProspect.achievementPoint !== '' ? DataProspect.achievementPoint : 0 }} Point</span>
                         </b-col>
                       </b-row>
                     </div>
@@ -1017,6 +1017,42 @@ export default {
             type: "Rental"
           }
         ]
+      },
+      Prospect: [
+        {
+          month: '2',
+          year: '2020',
+          target: 10,
+          achievement: 3,
+          targetPoint: 800,
+          achievementPoint: 577
+        },
+        {
+          month: '3',
+          year: '2020',
+          target: 10,
+          achievement: 7,
+          targetPoint: 1056,
+          achievementPoint: 788
+        },
+        {
+          month: '4',
+          year: '2020',
+          target: 10,
+          achievement: 9,
+          targetPoint: 2010,
+          achievementPoint: 900
+        }
+      ],
+
+      DataProspect: {
+        month: '',
+        monthName: '',
+        year: '',
+        target: '',
+        achievement: '',
+        targetPoint: '',
+        achievementPoint: ''
       }
     };
   },
@@ -1153,10 +1189,55 @@ export default {
       });
 
       myBarChart.update();
+    },
+    getProspect(date = null) {
+      var now = date ? new Date(date) : new Date()
+      var month = now.getMonth()
+      var year = now.getFullYear()
+      var datas = this.Prospect.filter(x => {
+        return (x.month).toString() === (month + 1).toString() && x.year.toString() === year.toString()
+      })
+      console.log(datas)
+      
+      this.DataProspect = {
+        month: month + 1,
+        monthName: this.getMonthName(now),
+        year: year,
+        target: datas.length > 0 ? datas[0].target : 0,
+        achievement: datas.length > 0 ? datas[0].achievement : 0,
+        targetPoint: datas.length > 0 ? datas[0].targetPoint : 0,
+        achievementPoint: datas.length > 0 ? datas[0].achievementPoint : 0
+      }
+
+      console.log(this.DataProspect)
+    },
+    changeProspect(act) {
+      var date = new Date()
+      if (act === 'min') {
+        // var d = moment(date, 'YYYY-MM-DD').add(i, number)
+        var mth = this.DataProspect.month && this.DataProspect.month !== '' ? parseInt(this.DataProspect.month) : 0
+        var year = this.DataProspect.year
+        mth = mth < 10 ? ('0' + mth) : mth
+        var frm = year + '-' + mth + '-' + '01'
+        date = this.dateAdd2('m', frm, -1)
+        // date = this.momentDateFormatting(date, frm)
+      }
+      else if (act === 'add') {
+        var mth = this.DataProspect.month && this.DataProspect.month !== '' ? parseInt(this.DataProspect.month) : 0
+        var year = this.DataProspect.year
+        mth = mth < 10 ? ('0' + mth) : mth
+        var frm = year + '-' + mth + '-' + '01'
+        date = date = this.dateAdd2('m', frm, 1)
+        // date = this.momentDateFormatting(date, frm)
+      }
+
+      console.log(date)
+      this.getProspect(date)
     }
   },
   mounted() {
-    this.renderChart();
+    this.renderChart()
+    this.getProspect()
   }
 };
 </script>
