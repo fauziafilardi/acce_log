@@ -84,6 +84,19 @@
         margin: auto;
     }
 
+    &__red {
+        background-color: #cc0000;
+        height: 73px;
+        width: 73px;
+        border-radius: 50px;
+        text-align: center;
+        padding: 10px;
+        font-size: 32px;
+        font-weight: bold;
+        color: white;
+        margin: auto;
+    }
+
 }
 
 .buleth-text {
