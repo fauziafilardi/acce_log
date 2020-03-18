@@ -7,35 +7,12 @@
             <div class="card__title">
               <b-row>
                 <b-col style="max-width:fit-content !important;">
-                  <span>Complete Order</span>
+                  <span>Fleet Master</span>
                 </b-col>
                 <b-col style="text-align: right;">
-                  <span style="padding-right:5px">
-                    <font-awesome-icon
-                      style="font-size: medium; color: #333399;"
-                      icon="circle"
-                      size="sm"
-                    />
-                  </span>
-                  <span
-                    style="padding-right:5px; font-size: 11px !important; font-weight: normal !important; color: #666666;"
-                  >On Progress</span>
-
-                  <span style="padding-right:5px">
-                    <font-awesome-icon
-                      style="font-size: medium; color: #cc0000;"
-                      icon="circle"
-                      size="sm"
-                    />
-                  </span>
-                  <span
-                    style="padding-right:5px; font-size: 11px !important; font-weight: normal !important; color: #666666;"
-                  >Create Invoice</span>
-                </b-col>
-                <b-col md="2" style="text-align: right;">
                   <span>
                     <ABSButton
-                      :text="'View All (5)'"
+                      :text="'View All'"
                       classButton="button button--new"
                       classIcon="icon-style-1"
                       :disabled="true"
@@ -55,19 +32,29 @@
                 :dark="false"
                 :fixed="false"
                 :foot-clone="false"
-                :fields="Order.Header"
-                :items="Order.Data"
+                :fields="FleetDocument.Header"
+                :items="FleetDocument.Data"
               >
                 <template v-slot:cell(no)="data">{{data.index + 1}}</template>
-                <template v-slot:cell(status)="data">
-                  <b-badge
-                    style="height: 12px !important; width: 12px !important; font-size: 10px !important; padding: 1px 3px !important;"
-                    variant="primary"
-                  >{{data.item.status.progress}}</b-badge>&nbsp;
-                  <b-badge
-                    style="height: 12px !important; width: 12px !important; font-size: 10px !important; padding: 1px 3px !important;"
-                    variant="danger"
-                  >{{data.item.status.invoice}}</b-badge>
+                <template v-slot:cell(bpkb_expired)="data">
+                  <span
+                    v-if="data.item.bpkb_expired.status == 'S'"
+                    style="color:#333399;font-weight:700;"
+                  >{{data.item.bpkb_expired.date}}</span>
+                  <span
+                    v-else
+                    style="color:#cc0000;font-weight:700;"
+                  >{{data.item.bpkb_expired.date}}</span>
+                </template>
+                <template v-slot:cell(stnk_expired)="data">
+                  <span
+                    v-if="data.item.stnk_expired.status == 'S'"
+                    style="color:#333399;font-weight:700;"
+                  >{{data.item.stnk_expired.date}}</span>
+                  <span
+                    v-else
+                    style="color:#cc0000;font-weight:700;"
+                  >{{data.item.stnk_expired.date}}</span>
                 </template>
               </b-table>
             </div>
@@ -78,24 +65,26 @@
             <div class="card__title">
               <b-row>
                 <b-col style="max-width:fit-content !important;">
-                  <span>Complete Order Status</span>
+                  <span>Fleet Master Status</span>
                 </b-col>
               </b-row>
             </div>
             <div class="card__body">
               <b-row>
                 <b-col style="max-width: fit-content !important;">
-                  <span @click="changeOrder('min')" style="cursor: pointer;">
+                  <span @click="changeFleetDocumentStatus('min')" style="cursor: pointer;">
                     <font-awesome-icon class="isGrey" icon="less-than" size="lg" />
                   </span>
                 </b-col>
                 <b-col style="text-align: center">
                   <span>
-                    <h6 class="isGrey">{{ DataOrderStatus.monthName + ' ' + DataOrderStatus.year }}</h6>
+                    <h6
+                      class="isGrey"
+                    >{{ DataFleetDocumentStatus.monthName + ' ' + DataFleetDocumentStatus.year }}</h6>
                   </span>
                 </b-col>
                 <b-col style="text-align: right;max-width: fit-content !important;">
-                  <span @click="changeOrder('add')" style="cursor: pointer;">
+                  <span @click="changeFleetDocumentStatus('add')" style="cursor: pointer;">
                     <font-awesome-icon class="isGrey" icon="greater-than" size="lg" />
                   </span>
                 </b-col>
@@ -103,15 +92,15 @@
               <b-row style="margin-top:37px;margin-bottom:36px;">
                 <b-col>
                   <div class="buleth__blue">
-                    <span>{{ DataOrderStatus.target && DataOrderStatus.target !== '' ? DataOrderStatus.target : 0 }}</span>
+                    <span>{{ DataFleetDocumentStatus.target && DataFleetDocumentStatus.target !== '' ? DataFleetDocumentStatus.target : 0 }}</span>
                   </div>
-                  <div class="buleth-text">On Progress</div>
+                  <div class="buleth-text">Schedule</div>
                 </b-col>
                 <b-col>
                   <div class="buleth__red">
-                    <span>{{ DataOrderStatus.achievement && DataOrderStatus.achievement !== '' ? DataOrderStatus.achievement : 0 }}</span>
+                    <span>{{ DataFleetDocumentStatus.achievement && DataFleetDocumentStatus.achievement !== '' ? DataFleetDocumentStatus.achievement : 0 }}</span>
                   </div>
-                  <div class="buleth-text">Create Invoice</div>
+                  <div class="buleth-text">Overdue</div>
                 </b-col>
               </b-row>
             </div>
@@ -124,27 +113,12 @@
             <div class="card__title">
               <b-row>
                 <b-col style="max-width:fit-content !important;">
-                  <span>Vendor Complete Order</span>
+                  <span>Driver Management</span>
                 </b-col>
                 <b-col style="text-align: right;">
-                  <span style="padding-right:5px">
-                    <font-awesome-icon class="faw-circle__blue" icon="circle" size="sm" />
-                  </span>
-                  <span
-                    style="padding-right:5px; font-size: 11px !important; font-weight: normal !important; color: #666666;"
-                  >Order Completed</span>
-
-                  <span style="padding-right:5px">
-                    <font-awesome-icon class="faw-circle__green" icon="circle" size="sm" />
-                  </span>
-                  <span
-                    style="padding-right:5px; font-size: 11px !important; font-weight: normal !important; color: #666666;"
-                  >Invoice Submited</span>
-                </b-col>
-                <b-col md="2" style="text-align: right;">
                   <span>
                     <ABSButton
-                      :text="'View All (5)'"
+                      :text="'View All'"
                       classButton="button button--new"
                       classIcon="icon-style-1"
                       :disabled="true"
@@ -164,13 +138,16 @@
                 :dark="false"
                 :fixed="false"
                 :foot-clone="false"
-                :fields="VendorOrder.Header"
-                :items="VendorOrder.Data"
+                :fields="DriverDocument.Header"
+                :items="DriverDocument.Data"
               >
                 <template v-slot:cell(no)="data">{{data.index + 1}}</template>
-                <template v-slot:cell(status)="data">
-                  <b-badge class="badge-circle" variant="primary">{{data.item.status.complete}}</b-badge>&nbsp;
-                  <b-badge class="badge-circle" variant="success">{{data.item.status.submit}}</b-badge>
+                <template v-slot:cell(sim_expired)="data">
+                  <span
+                    v-if="data.item.sim_expired.status == 'S'"
+                    style="color:#333399;font-weight:700;"
+                  >{{data.item.sim_expired.date}}</span>
+                  <span v-else style="color:#cc0000;font-weight:700;">{{data.item.sim_expired.date}}</span>
                 </template>
               </b-table>
             </div>
@@ -181,14 +158,14 @@
             <div class="card__title">
               <b-row>
                 <b-col style="max-width:fit-content !important;">
-                  <span>Vendor Complete Order Status</span>
+                  <span>Driver Document Status</span>
                 </b-col>
               </b-row>
             </div>
             <div class="card__body">
               <b-row>
                 <b-col style="max-width: fit-content !important;">
-                  <span @click="changeVendorOrder('min')" style="cursor: pointer;">
+                  <span @click="changeDriverDocumentStatus('min')" style="cursor: pointer;">
                     <font-awesome-icon class="isGrey" icon="less-than" size="lg" />
                   </span>
                 </b-col>
@@ -196,11 +173,11 @@
                   <span>
                     <h6
                       class="isGrey"
-                    >{{ DataVendorOrderStatus.monthName + ' ' + DataVendorOrderStatus.year }}</h6>
+                    >{{ DataDriverDocumentStatus.monthName + ' ' + DataDriverDocumentStatus.year }}</h6>
                   </span>
                 </b-col>
                 <b-col style="text-align: right;max-width: fit-content !important;">
-                  <span @click="changeVendorOrder('add')" style="cursor: pointer;">
+                  <span @click="changeDriverDocumentStatus('add')" style="cursor: pointer;">
                     <font-awesome-icon class="isGrey" icon="greater-than" size="lg" />
                   </span>
                 </b-col>
@@ -208,15 +185,15 @@
               <b-row style="margin-top:37px;margin-bottom:36px;">
                 <b-col>
                   <div class="buleth__blue">
-                    <span>{{ DataVendorOrderStatus.target && DataVendorOrderStatus.target !== '' ? DataVendorOrderStatus.target : 0 }}</span>
+                    <span>{{ DataDriverDocumentStatus.target && DataDriverDocumentStatus.target !== '' ? DataDriverDocumentStatus.target : 0 }}</span>
                   </div>
-                  <div class="buleth-text">Order Completed</div>
+                  <div class="buleth-text">Applicable</div>
                 </b-col>
                 <b-col>
-                  <div class="buleth__green">
-                    <span>{{ DataVendorOrderStatus.achievement && DataVendorOrderStatus.achievement !== '' ? DataVendorOrderStatus.achievement : 0 }}</span>
+                  <div class="buleth__red">
+                    <span>{{ DataDriverDocumentStatus.achievement && DataDriverDocumentStatus.achievement !== '' ? DataDriverDocumentStatus.achievement : 0 }}</span>
                   </div>
-                  <div class="buleth-text">Invoice Submited</div>
+                  <div class="buleth-text">Expire</div>
                 </b-col>
               </b-row>
             </div>
@@ -224,32 +201,17 @@
         </b-col>
       </b-row>
       <b-row class="dashboardBody">
-        <b-col md="6">
+        <b-col md="8">
           <div class="card">
             <div class="card__title">
               <b-row>
                 <b-col style="max-width:fit-content !important;">
-                  <span>Outstanding Invoice</span>
+                  <span>Driver Management</span>
                 </b-col>
                 <b-col style="text-align: right;">
-                  <span style="padding-right:5px">
-                    <font-awesome-icon class="faw-circle__blue" icon="circle" size="sm" />
-                  </span>
-                  <span
-                    style="padding-right:5px; font-size: 11px !important; font-weight: normal !important; color: #666666;"
-                  >On Progress</span>
-
-                  <span style="padding-right:5px">
-                    <font-awesome-icon class="faw-circle__green" icon="circle" size="sm" />
-                  </span>
-                  <span
-                    style="padding-right:5px; font-size: 11px !important; font-weight: normal !important; color: #666666;"
-                  >Paid</span>
-                </b-col>
-                <b-col md="2" style="text-align: right;">
                   <span>
                     <ABSButton
-                      :text="'View All (5)'"
+                      :text="'View All'"
                       classButton="button button--new"
                       classIcon="icon-style-1"
                       :disabled="true"
@@ -269,80 +231,27 @@
                 :dark="false"
                 :fixed="false"
                 :foot-clone="false"
-                :fields="Order.Header"
-                :items="Order.Data"
+                :fields="UserManagement.Header"
+                :items="UserManagement.Data"
               >
                 <template v-slot:cell(no)="data">{{data.index + 1}}</template>
-                <template v-slot:cell(status)="data">
-                  <b-badge class="badge-circle" variant="primary">{{data.item.status.progress}}</b-badge>&nbsp;
-                  <b-badge class="badge-circle" variant="success">{{data.item.status.invoice}}</b-badge>
+                <template v-slot:cell(role)="data">
+                  <span style="color:#333399;font-weight:700;">{{data.item.role}}</span>
                 </template>
               </b-table>
             </div>
           </div>
         </b-col>
-        <b-col md="6">
+        <b-col md="4">
           <div class="card">
             <div class="card__title">
               <b-row>
                 <b-col style="max-width:fit-content !important;">
-                  <span>Vendor Payment</span>
-                </b-col>
-                <b-col style="text-align: right;">
-                  <span style="padding-right:5px">
-                    <font-awesome-icon class="faw-circle__red" icon="circle" size="sm" />
-                  </span>
-                  <span
-                    style="padding-right:5px; font-size: 11px !important; font-weight: normal !important; color: #666666;"
-                  >Pending</span>
-
-                  <span style="padding-right:5px">
-                    <font-awesome-icon class="faw-circle__blue" icon="circle" size="sm" />
-                  </span>
-                  <span
-                    style="padding-right:5px; font-size: 11px !important; font-weight: normal !important; color: #666666;"
-                  >On Progress</span>
-
-                  <span style="padding-right:5px">
-                    <font-awesome-icon class="faw-circle__green" icon="circle" size="sm" />
-                  </span>
-                  <span
-                    style="padding-right:5px; font-size: 11px !important; font-weight: normal !important; color: #666666;"
-                  >Paid</span>
-                </b-col>
-                <b-col md="2" style="text-align: right;">
-                  <span>
-                    <ABSButton
-                      :text="'View All (5)'"
-                      classButton="button button--new"
-                      classIcon="icon-style-1"
-                      :disabled="true"
-                    />
-                  </span>
+                  <span>User Management Status</span>
                 </b-col>
               </b-row>
             </div>
-            <div class="card__body">
-              <b-table
-                :responsive="true"
-                :striped="false"
-                :bordered="true"
-                :outlined="false"
-                :small="false"
-                :hover="false"
-                :dark="false"
-                :fixed="false"
-                :foot-clone="false"
-                :fields="Order.Header"
-                :items="Order.Data"
-              >
-                <template v-slot:cell(no)="data">{{data.index + 1}}</template>
-                <template v-slot:cell(status)="data">
-                  <b-badge class="badge-circle" variant="primary">{{data.item.status.progress}}</b-badge>&nbsp;
-                  <b-badge class="badge-circle" variant="success">{{data.item.status.invoice}}</b-badge>
-                </template>
-              </b-table>
-            </div>
+            <div class="card__body"></div>
           </div>
         </b-col>
       </b-row>
@@ -355,7 +264,7 @@
 export default {
   data() {
     return {
-      Order: {
+      FleetDocument: {
         Header: [
           {
             key: "no",
@@ -364,64 +273,118 @@ export default {
             tdClass: "ContentTable__Center"
           },
           {
-            key: "name",
-            label: "Customer",
+            key: "vehicle",
+            label: "Vehicle",
             thClass: "HeaderTable",
             tdClass: "ContentTable"
           },
           {
-            key: "status",
-            label: "Status",
+            key: "type",
+            label: "Type",
+            thClass: "HeaderTable",
+            tdClass: "ContentTable__Center"
+          },
+          {
+            key: "driver",
+            label: "Driver",
+            thClass: "HeaderTable",
+            tdClass: "ContentTable__Center"
+          },
+          {
+            key: "bpkb_expired",
+            label: "BPKP Expired",
+            thClass: "HeaderTable",
+            tdClass: "ContentTable__Center"
+          },
+          {
+            key: "stnk_expired",
+            label: "STNK Expired",
             thClass: "HeaderTable",
             tdClass: "ContentTable__Center"
           }
         ],
         Data: [
           {
-            name: "PT Abadi Sentosa",
-            status: {
-              progress: 4,
-              invoice: 3
+            vehicle: "B 1234 AB",
+            type: "FUSO",
+            driver: "Budi",
+            bpkb_expired: {
+              date: "20/01/2020",
+              status: "O"
+            },
+            stnk_expired: {
+              date: "20/01/2020",
+              status: "O"
             }
           },
           {
-            name: "PT Gemini Perkasa Abadi",
-            status: {
-              progress: 4,
-              invoice: 3
+            vehicle: "B 1234 AC",
+            type: "FUSO",
+            driver: "Jupri",
+            bpkb_expired: {
+              date: "19/01/2020",
+              status: "O"
+            },
+            stnk_expired: {
+              date: "19/01/2020",
+              status: "O"
             }
           },
           {
-            name: "PT Garuda Perkasa",
-            status: {
-              progress: 4,
-              invoice: 3
+            vehicle: "B 1234 AD",
+            type: "FUSO",
+            driver: "Joko",
+            bpkb_expired: {
+              date: "20/01/2020",
+              status: "S"
+            },
+            stnk_expired: {
+              date: "20/01/2020",
+              status: "S"
             }
           },
           {
-            name: "PT Indo Sejahtera",
-            status: {
-              progress: 4,
-              invoice: 3
+            vehicle: "B 1234 AE",
+            type: "FUSO",
+            driver: "Dadang",
+            bpkb_expired: {
+              date: "20/01/2020",
+              status: "S"
+            },
+            stnk_expired: {
+              date: "20/01/2020",
+              status: "S"
             }
           },
           {
-            name: "PT Abadi Sentosa",
-            status: {
-              progress: 4,
-              invoice: 3
+            vehicle: "B 1234 AF",
+            type: "FUSO",
+            driver: "Galang",
+            bpkb_expired: {
+              date: "20/01/2020",
+              status: "S"
+            },
+            stnk_expired: {
+              date: "20/01/2020",
+              status: "S"
             }
           },
           {
-            name: "PT Gemini Perkasa Abadi",
-            status: {
-              progress: 4,
-              invoice: 3
+            vehicle: "B 1234 AG",
+            type: "FUSO",
+            driver: "Santo",
+            bpkb_expired: {
+              date: "20/01/2020",
+              status: "S"
+            },
+            stnk_expired: {
+              date: "20/01/2020",
+              status: "S"
             }
           }
         ]
       },
-      OrderStatus: [
+      FleetDocumentStatus: [
         {
           month: "2",
           year: "2020",
@@ -447,7 +410,7 @@ export default {
           achievementPoint: 900
         }
       ],
-      DataOrderStatus: {
+      DataFleetDocumentStatus: {
         month: "",
         monthName: "",
         year: "",
@@ -456,8 +419,7 @@ export default {
         targetPoint: "",
         achievementPoint: ""
       },
-
-      VendorOrder: {
+      DriverDocument: {
         Header: [
           {
             key: "no",
@@ -466,64 +428,88 @@ export default {
             tdClass: "ContentTable__Center"
           },
           {
-            key: "name",
-            label: "Customer",
+            key: "driver",
+            label: "Driver",
             thClass: "HeaderTable",
-            tdClass: "ContentTable"
+            tdClass: "ContentTable__Center"
           },
           {
-            key: "status",
-            label: "Status",
+            key: "phone",
+            label: "Phone",
+            thClass: "HeaderTable",
+            tdClass: "ContentTable__Center"
+          },
+          {
+            key: "date_added",
+            label: "Date Added",
+            thClass: "HeaderTable",
+            tdClass: "ContentTable__Center"
+          },
+          {
+            key: "sim_expired",
+            label: "SIM Expired",
             thClass: "HeaderTable",
             tdClass: "ContentTable__Center"
           }
         ],
         Data: [
           {
-            name: "PT Abadi Sentosa",
-            status: {
-              complete: 4,
-              submit: 3
+            driver: "Budi",
+            phone: "+62-898-9588-2938",
+            date_added: "23/01/2020",
+            sim_expired: {
+              date: "20/01/2020",
+              status: "O"
             }
           },
           {
-            name: "PT Gemini Perkasa Abadi",
-            status: {
-              complete: 4,
-              submit: 3
+            driver: "Jupri",
+            phone: "+62-898-9588-2938",
+            date_added: "23/01/2020",
+            sim_expired: {
+              date: "19/01/2020",
+              status: "O"
             }
           },
           {
-            name: "PT Garuda Perkasa",
-            status: {
-              complete: 4,
-              submit: 3
+            driver: "Joko",
+            phone: "+62-898-9588-2938",
+            date_added: "23/01/2020",
+            sim_expired: {
+              date: "20/01/2020",
+              status: "S"
             }
           },
           {
-            name: "PT Indo Sejahtera",
-            status: {
-              complete: 4,
-              submit: 3
+            driver: "Dadang",
+            phone: "+62-898-9588-2938",
+            date_added: "23/01/2020",
+            sim_expired: {
+              date: "20/01/2020",
+              status: "S"
             }
           },
           {
-            name: "PT Abadi Sentosa",
-            status: {
-              complete: 4,
-              submit: 3
+            driver: "Galang",
+            phone: "+62-898-9588-2938",
+            date_added: "23/01/2020",
+            sim_expired: {
+              date: "20/01/2020",
+              status: "S"
             }
           },
           {
-            name: "PT Gemini Perkasa Abadi",
-            status: {
-              complete: 4,
-              submit: 3
+            driver: "Santo",
+            phone: "+62-898-9588-2938",
+            date_added: "23/01/2020",
+            sim_expired: {
+              date: "20/01/2020",
+              status: "S"
             }
           }
         ]
       },
-      VendorOrderStatus: [
+      DriverDocumentStatus: [
         {
           month: "2",
           year: "2020",
@@ -549,7 +535,7 @@ export default {
           achievementPoint: 900
         }
       ],
-      DataVendorOrderStatus: {
+      DataDriverDocumentStatus: {
         month: "",
         monthName: "",
         year: "",
@@ -557,6 +543,78 @@ export default {
         achievement: "",
         targetPoint: "",
         achievementPoint: ""
+      },
+      UserManagement: {
+        Header: [
+          {
+            key: "no",
+            label: "No",
+            thClass: "HeaderTable",
+            tdClass: "ContentTable__Center"
+          },
+          {
+            key: "user",
+            label: "User",
+            thClass: "HeaderTable",
+            tdClass: "ContentTable__Center"
+          },
+          {
+            key: "phone",
+            label: "Phone",
+            thClass: "HeaderTable",
+            tdClass: "ContentTable__Center"
+          },
+          {
+            key: "date_added",
+            label: "Date Added",
+            thClass: "HeaderTable",
+            tdClass: "ContentTable__Center"
+          },
+          {
+            key: "role",
+            label: "Role",
+            thClass: "HeaderTable",
+            tdClass: "ContentTable__Center"
+          }
+        ],
+        Data: [
+          {
+            user: "Budi",
+            phone: "+62-898-9588-2938",
+            date_added: "23/01/2020",
+            role: "Marketing"
+          },
+          {
+            user: "Jupri",
+            phone: "+62-898-9588-2938",
+            date_added: "23/01/2020",
+            role: "Operation"
+          },
+          {
+            user: "Joko",
+            phone: "+62-898-9588-2938",
+            date_added: "23/01/2020",
+            role: "Settlement"
+          },
+          {
+            user: "Dadang",
+            phone: "+62-898-9588-2938",
+            date_added: "23/01/2020",
+            role: "Fleet Maintenance"
+          },
+          {
+            user: "Galang",
+            phone: "+62-898-9588-2938",
+            date_added: "23/01/2020",
+            role: "Management"
+          },
+          {
+            user: "Santo",
+            phone: "+62-898-9588-2938",
+            date_added: "23/01/2020",
+            role: "General Affair"
+          }
+        ]
       }
     };
   },
@@ -566,7 +624,7 @@ export default {
       var now = date ? new Date(date) : new Date();
       var month = now.getMonth();
       var year = now.getFullYear();
-      var datas = this.OrderStatus.filter(x => {
+      var datas = this.FleetDocumentStatus.filter(x => {
         return (
           x.month.toString() === (month + 1).toString() &&
           x.year.toString() === year.toString()
@@ -574,7 +632,7 @@ export default {
       });
       console.log(datas);
 
-      this.DataOrderStatus = {
+      this.DataFleetDocumentStatus = {
         month: month + 1,
         monthName: this.getMonthName(now),
         year: year,
@@ -584,27 +642,29 @@ export default {
         achievementPoint: datas.length > 0 ? datas[0].achievementPoint : 0
       };
 
-      console.log(this.DataOrderStatus);
+      console.log(this.DataFleetDocumentStatus);
     },
-    changeOrder(act) {
+    changeFleetDocumentStatus(act) {
       var date = new Date();
       if (act === "min") {
         // var d = moment(date, 'YYYY-MM-DD').add(i, number)
         var mth =
-          this.DataOrderStatus.month && this.DataOrderStatus.month !== ""
-            ? parseInt(this.DataOrderStatus.month)
+          this.DataFleetDocumentStatus.month &&
+          this.DataFleetDocumentStatus.month !== ""
+            ? parseInt(this.DataFleetDocumentStatus.month)
             : 0;
-        var year = this.DataOrderStatus.year;
+        var year = this.DataFleetDocumentStatus.year;
         mth = mth < 10 ? "0" + mth : mth;
         var frm = year + "-" + mth + "-" + "01";
         date = this.dateAdd2("m", frm, -1);
         // date = this.momentDateFormatting(date, frm)
       } else if (act === "add") {
         var mth =
-          this.DataOrderStatus.month && this.DataOrderStatus.month !== ""
-            ? parseInt(this.DataOrderStatus.month)
+          this.DataFleetDocumentStatus.month &&
+          this.DataFleetDocumentStatus.month !== ""
+            ? parseInt(this.DataFleetDocumentStatus.month)
             : 0;
-        var year = this.DataOrderStatus.year;
+        var year = this.DataFleetDocumentStatus.year;
         mth = mth < 10 ? "0" + mth : mth;
         var frm = year + "-" + mth + "-" + "01";
         date = date = this.dateAdd2("m", frm, 1);
@@ -618,7 +678,7 @@ export default {
       var now = date ? new Date(date) : new Date();
       var month = now.getMonth();
       var year = now.getFullYear();
-      var datas = this.OrderStatus.filter(x => {
+      var datas = this.DriverDocumentStatus.filter(x => {
         return (
           x.month.toString() === (month + 1).toString() &&
           x.year.toString() === year.toString()
@@ -626,7 +686,7 @@ export default {
       });
       console.log(datas);
 
-      this.DataVendorOrderStatus = {
+      this.DataDriverDocumentStatus = {
         month: month + 1,
         monthName: this.getMonthName(now),
         year: year,
@@ -636,29 +696,29 @@ export default {
         achievementPoint: datas.length > 0 ? datas[0].achievementPoint : 0
       };
 
-      console.log(this.DataVendorOrderStatus);
+      console.log(this.DataDriverDocumentStatus);
     },
-    changeVendorOrder(act) {
+    changeDriverDocumentStatus(act) {
       var date = new Date();
       if (act === "min") {
         // var d = moment(date, 'YYYY-MM-DD').add(i, number)
         var mth =
-          this.DataVendorOrderStatus.month &&
-          this.DataVendorOrderStatus.month !== ""
-            ? parseInt(this.DataVendorOrderStatus.month)
+          this.DataDriverDocumentStatus.month &&
+          this.DataDriverDocumentStatus.month !== ""
+            ? parseInt(this.DataDriverDocumentStatus.month)
             : 0;
-        var year = this.DataVendorOrderStatus.year;
+        var year = this.DataDriverDocumentStatus.year;
         mth = mth < 10 ? "0" + mth : mth;
         var frm = year + "-" + mth + "-" + "01";
         date = this.dateAdd2("m", frm, -1);
         // date = this.momentDateFormatting(date, frm)
       } else if (act === "add") {
         var mth =
-          this.DataVendorOrderStatus.month &&
-          this.DataVendorOrderStatus.month !== ""
-            ? parseInt(this.DataVendorOrderStatus.month)
+          this.DataDriverDocumentStatus.month &&
+          this.DataDriverDocumentStatus.month !== ""
+            ? parseInt(this.DataDriverDocumentStatus.month)
             : 0;
-        var year = this.DataVendorOrderStatus.year;
+        var year = this.DataDriverDocumentStatus.year;
         mth = mth < 10 ? "0" + mth : mth;
         var frm = year + "-" + mth + "-" + "01";
         date = date = this.dateAdd2("m", frm, 1);

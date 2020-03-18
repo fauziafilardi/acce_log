@@ -364,3 +364,27 @@
         outline: 1px solid slategrey;
     }
 }
+
+.faw-circle {
+    &__blue {
+        font-size: medium;
+        color: #333399;
+    }
+
+    &__green {
+        font-size: medium;
+        color: #00cc33;
+    }
+
+    &__red {
+        font-size: medium;
+        color: #cc0000;
+    }
+}
+
+.badge-circle {
+    height: 12px !important;
+    width: 12px !important;
+    font-size: 10px !important;
+    padding: 1px 3px !important;
+}
