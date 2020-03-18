@@ -1,41 +1,44 @@
 export default {
   methods: {
 
-    getDataUser () {
+    getDataUser() {
       return localStorage.lsDataUser === undefined ? undefined : JSON.parse(localStorage.lsDataUser)
     },
 
-    getFavoriteMenu () {
+    getFavoriteMenu() {
       return localStorage.lsFavoriteMenu === undefined ? undefined : JSON.parse(localStorage.lsFavoriteMenu)
     },
 
-    getMenu () {
+    getMenu() {
       return localStorage.lsMenu === undefined ? undefined : JSON.parse(localStorage.lsMenu)
     },
 
-    getSession () {
+    getSession() {
       return localStorage.lsSession === undefined ? undefined : JSON.parse(localStorage.lsSession)
     },
 
-    getOptionSeq () {
+    getOptionSeq() {
       return this.$route.query.oid === undefined ? undefined : { OptionSeq: this.$route.query.oid }
       // return localStorage.lsOptionSeq === undefined ? undefined : JSON.parse(localStorage.lsOptionSeq)
     },
-    getIsPopup () {
+    getOptionUrl() {
+      return this.$route.path
+    },
+    getIsPopup() {
       return this.$route.query.isPopup
     },
-    getIsCallBack () {
+    getIsCallBack() {
       return this.$route.query.isCallBack
     },
-    getFrom () {
+    getFrom() {
       return this.$route.query.from
     },
 
-    getStatusForm () {
+    getStatusForm() {
       return localStorage.statusForm === undefined ? undefined : localStorage.statusForm
     },
 
-    doClearLocalStorage () {
+    doClearLocalStorage() {
       return localStorage.clear()
     }
 

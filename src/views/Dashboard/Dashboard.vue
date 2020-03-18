@@ -16,6 +16,7 @@ export default {
   methods: {},
   mounted() {
     // this.urlDashboard = this.getDataUser().url_dashboard
+    // this.urlDashboard = "settlement_dashboard";
     this.urlDashboard = "DashboardOP";
     this.component = () => import(`./${this.urlDashboard}.vue`);
   }

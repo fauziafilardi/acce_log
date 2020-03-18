@@ -6,7 +6,8 @@ export default {
     return {
       version: 'v: 0.0.1',
       //New API ACCE LOG
-      url: 'http://192.168.6.98:8899/',
+      // url: 'http://192.168.6.98:8899/',
+      url: 'http://36.91.141.98:8989/',
 
 
       // ini ga boleh
@@ -48,18 +49,18 @@ export default {
       // // url report public
       // urlReportTemplate: 'http://36.91.141.98:8181/ReportPams/',
 
-      segmentDelete: 'DynamicAPI/Delete',
-      segmentInsert: 'DynamicAPI/Insert',
-      // segmentInsert: 'DynamicAPI/InsertWithT',
-      segmentUpdate: 'DynamicAPI/Update',
-      // segmentUpdate: 'DynamicAPI/UpdateWithT',
+      segmentDelete: 'api/DynamicAPI/Delete',
+      segmentInsert: 'api/DynamicAPI/Insert',
+      // segmentInsert: 'api/DynamicAPI/InsertWithT',
+      segmentUpdate: 'api/DynamicAPI/Update',
+      // segmentUpdate: 'api/DynamicAPI/UpdateWithT',
 
-      segmentGetList: 'DynamicAPI/GetList',
-      segmentGetGrid: 'DynamicAPI/GetGrid',
-      segmentGetDataList: 'DynamicAPI/GetDataList',
+      segmentGetList: 'api/DynamicAPI/GetList',
+      segmentGetGrid: 'api/DynamicAPI/GetGrid',
+      segmentGetDataList: 'api/DynamicAPI/GetDataList',
 
       // old
-      // segmentGetLookUp: 'DynamicAPI/GetLookUp',
+      // segmentGetLookUp: 'api/DynamicAPI/GetLookUp',
       segmentGetDBConnection: 'Function/GetDBConnection',
 
       // new table
@@ -69,7 +70,7 @@ export default {
       segmentGetLookUpList: 'LookUp/GetList',
       segmentGetLookUpDataBy: 'LookUp/GetDataBy',
 
-      segmentGetById: 'DynamicAPI/GetById',
+      segmentGetById: 'api/DynamicAPI/GetById',
       segmentGetMenuById: 'Menu/GetMenuBy',
 
       segmentGetPropertyInput: 'Menu/GetPropertyMenuBy',
@@ -109,13 +110,13 @@ export default {
 
       segmentDefineColumn: 'DefineColumn/Insert',
 
-      segmentNewDeleteMulti: 'DynamicAPIMulti/NewDelete',
-      segmentDeleteMulti: 'DynamicAPIMulti/Delete',
-      segmentInsertMulti: 'DynamicAPIMulti/Insert',
-      segmentUpdateMulti: 'DynamicAPIMulti/Update',
-      segmentProsesDataPostMulti: 'DynamicAPIMulti/ProsesDataPostMulti',
-      segmentProsesDataPostMultiUrl: 'DynamicAPIMultiv2/ProsesDataPostMulti',
-      segmentPostMulti: 'DynamicAPIMulti/Post',
+      segmentNewDeleteMulti: 'api/DynamicAPIMulti/NewDelete',
+      segmentDeleteMulti: 'api/DynamicAPIMulti/Delete',
+      segmentInsertMulti: 'api/DynamicAPIMulti/Insert',
+      segmentUpdateMulti: 'api/DynamicAPIMulti/Update',
+      segmentProsesDataPostMulti: 'api/DynamicAPIMulti/ProsesDataPostMulti',
+      segmentProsesDataPostMultiUrl: 'api/DynamicAPIMultiv2/ProsesDataPostMulti',
+      segmentPostMulti: 'api/DynamicAPIMulti/Post',
       segmentDeleteFavorite: 'UserFavorite/Delete',
       segmentInsertFavorite: 'UserFavorite/Insert',
 
@@ -124,22 +125,22 @@ export default {
 
       segmentUrlSetOptionSelected: 'Menu/SetSortMenu',
 
-      segmentInsert2: 'DynamicAPI/Insert2',
-      segmentInsert3: 'DynamicAPI/Insert3',
-      segmentInsert4: 'DynamicAPI/Insert4',
-      segmentInsert5: 'DynamicAPI/Insert5',
+      segmentInsert2: 'api/DynamicAPI/Insert2',
+      segmentInsert3: 'api/DynamicAPI/Insert3',
+      segmentInsert4: 'api/DynamicAPI/Insert4',
+      segmentInsert5: 'api/DynamicAPI/Insert5',
 
-      segmentUpdate2: 'DynamicAPI/Update2',
-      segmentUpdate3: 'DynamicAPI/Update3',
-      segmentUpdate4: 'DynamicAPI/Update4',
-      segmentUpdate5: 'DynamicAPI/Update5',
+      segmentUpdate2: 'api/DynamicAPI/Update2',
+      segmentUpdate3: 'api/DynamicAPI/Update3',
+      segmentUpdate4: 'api/DynamicAPI/Update4',
+      segmentUpdate5: 'api/DynamicAPI/Update5',
 
-      segmentDeleteMulti2: 'DynamicAPIMulti/Delete2',
-      segmentDeleteMulti3: 'DynamicAPIMulti/Delete3',
-      segmentDeleteMulti4: 'DynamicAPIMulti/Delete4',
-      segmentDeleteMulti5: 'DynamicAPIMulti/Delete5',
+      segmentDeleteMulti2: 'api/DynamicAPIMulti/Delete2',
+      segmentDeleteMulti3: 'api/DynamicAPIMulti/Delete3',
+      segmentDeleteMulti4: 'api/DynamicAPIMulti/Delete4',
+      segmentDeleteMulti5: 'api/DynamicAPIMulti/Delete5',
 
-      segmentGetById2Obj: 'DynamicAPI/GetById2Obj',
+      segmentGetById2Obj: 'api/DynamicAPI/GetById2Obj',
 
       segmentGetPageInfoByOption: 'Menu/GetPageInfoByOption',
       segmentGetPageInfoByOptionUrl: 'Menu/GetPageInfoByOptionUrl',
@@ -204,6 +205,9 @@ export default {
       segmentUserInsert: 'User/Insert',
       segmentUserUpdate: 'User/Update',
 
+      segmentGetSsMenu: 'api/SsMenu/datalist',
+      segmentSsMenu: 'api/SsMenu',
+
       queryString: require('querystring'),
       // content type
       urlEncoded: 'application/x-www-form-urlencoded',
@@ -217,10 +221,13 @@ export default {
   },
   methods: {
     getUrlV2(oldUrl) {
-      return oldUrl.replace('DynamicAPI', 'DynamicAPIv2')
+      return oldUrl.replace('api/DynamicAPI', 'api/DynamicAPIv2')
     },
     getUrlMultiV2(oldUrl) {
-      return oldUrl.replace('DynamicAPIMulti', 'DynamicAPIMultiv2')
+      return oldUrl.replace('api/DynamicAPIMulti', 'api/DynamicAPIMultiv2')
+    },
+    getUrlSsMenu() {
+      return this.url + this.segmentSsMenu
     },
     getUrlAuthChangePassword() {
       return this.url + this.segmentAuthChangePassword
@@ -826,6 +833,217 @@ export default {
     //       return null
     //     })
     // },
+    putJSONMulti(fullUrl, param) {
+      this.$store.commit('setStatusLoader', true)
+      return axios
+        .put(
+          fullUrl,
+          param, {
+            headers: {
+              'Content-Type': this.json,
+              Accept: this.json,
+              // Session_Id: this.getSession().Session_Id
+              Token: this.getSession().Session_Id
+            }
+          }
+        )
+        .then(response => {
+          console.log(response)
+          console.log('url', fullUrl)
+          let responses = response.data
+
+          let error = responses.Error
+
+          this.$store.commit('setStatusLoader', false)
+          // if (error) {
+
+          // var html = ''
+          // html += '<div style="overflow: auto;height: 325px;"><table border=1 style="font-size: 12px;font-weight: normal;width: 100%;">'
+          // html += '<thead><tr>'
+          // if (fullUrl === this.getUrlProsesDataPostMulti()) {
+          //   console.log('postmulti', response)
+          //   if (responses.Data === null) {
+          //     if (error) {
+          //       this.alertError(responses.Message)
+          //       return null
+          //     } else {
+          //       return responses
+          //     }
+          //   }
+          // } else if (fullUrl === this.getUrlMultiV2(this.getUrlProsesDataPostMulti())) { // Versi 2
+          //   if (responses.Data === null) {
+          //     if (error) {
+          //       this.alertError(responses.Message)
+          //       return null
+          //     } else {
+          //       return responses
+          //     }
+          //   }
+          // } else if (fullUrl === this.getUrlPostMulti() || fullUrl === this.getUrlNewDeleteMulti() || fullUrl === this.getUrlDeleteMulti() || fullUrl === this.getUrlUpdateMulti()) { // POST MULTI OR new multi delete
+          //   if (responses.Data === null) {
+          //     if (error) {
+          //       this.alertError(responses.Message)
+          //       return null
+          //     } else {
+          //       this.alertSuccess('Posting Data Successfully')
+          //       return responses
+          //     }
+          //   } else {
+          //     if (responses.Data.length > 0) {
+          //       // html += '<th> Status </th> <th> Description </th>'
+          //       html += '<th> No </th> <th> Status </th> <th> Message </th>'
+          //       html += '</tr></thead><tbody>'
+          //       // console.log(responses.Data)
+          //       var loop = 0
+          //       responses.Data.forEach(val => {
+          //         // console.log(val.No)
+          //         // console.log(val.Error)
+          //         // console.log(val.Message)
+          //         // console.log(val.Data.OutputMessage)
+
+          //         var keys = Object.keys(param.Data[0])
+          //         var key = ''
+          //         var KeyOutput = ''
+          //         let message = ''
+          //         for (var j = 0; j < keys.length; j++) {
+
+          //           if (keys[j].includes('_Output')) {
+          //             // key = keys[j].replace('_Output', '')
+          //             KeyOutput = keys[j].replace('_Output', '')
+          //             // break
+          //           } else if (keys[j].includes('_Message_')) {
+          //             // console.log(param.Data[j]._Message_)
+          //             message = param.Data[loop]._Message_ == '' ? '' : param.Data[loop]._Message_ + ', '
+          //             key = keys[j].replace('_', '')
+          //             key = key.replace('_', '')
+          //             // break
+          //           }
+
+          //         }
+
+          //         var msg = ''
+          //         if (val.Error === true) {
+          //           msg = val.Message
+          //         } else {
+          //           key = KeyOutput !== '' ? KeyOutput : key
+          //           msg = val.Data[key]
+          //         }
+
+          //         var sts = val.Error
+          //         if (sts) {
+          //           sts = 'Error'
+
+          //           html += '<tr style="text-align: left;padding-left: 5px;padding-right: 5px;">'
+          //           html += '<td style="padding-left: 5px;padding-right: 5px;">' + val.No + '</td>'
+          //           html += '<td style="color:red; padding-left: 5px;padding-right: 5px;">' + sts + '</td>'
+          //           // html += '<td style="padding-left: 5px;padding-right: 5px;">' + message + msg + '</td>'
+          //           html += '<td style="padding-left: 5px;padding-right: 5px;">' + msg + '</td>'
+          //           html += '</tr>'
+          //         } else {
+          //           sts = 'Success'
+
+          //           html += '<tr style="text-align: left;">'
+          //           html += '<td style="padding-left: 5px;padding-right: 5px;">' + val.No + '</td>'
+          //           html += '<td style="padding-left: 5px;padding-right: 5px;">' + sts + '</td>'
+          //           if (fullUrl === this.getUrlNewDeleteMulti() || fullUrl === this.getUrlDeleteMulti()) {
+          //             html += '<td style="padding-left: 5px;padding-right: 5px;">' + message + msg + ' Deleted Successfully' + '</td>'
+          //           } else if (fullUrl === this.getUrlPostMulti()) {
+          //             // html += '<td style="padding-left: 5px;padding-right: 5px;">' + message + msg + ' Posting Successfully' + '</td>'
+          //             html += '<td style="padding-left: 5px;padding-right: 5px;">' + msg + ' Posting Successfully' + '</td>'
+          //           } else if (fullUrl === this.getUrlUpdateMulti()) {
+          //             html += '<td style="padding-left: 5px;padding-right: 5px;">' + message + msg + ' Update Successfully' + '</td>'
+          //           }
+
+          //           html += '</tr>'
+          //         }
+          //         loop++
+          //       })
+          //       html += '</tbody></table>'
+          //       // console.log(html)
+          //       this.alertWithHtml('Information', 'info', html)
+          //       // return null
+          //     }
+          //     // return responses
+          //   }
+          // } else if (fullUrl === this.getUrlDeleteMulti()) { // delete multi
+          //   console.log(responses)
+          //   if (responses.Data === null) {
+          //     if (error) {
+          //       this.alertError(responses.Message)
+          //       return null
+          //     } else {
+          //       // this.alertSuccess("Deleting Data Successfully")
+          //       return responses
+          //     }
+          //   } else {
+          //     // alert('tetot')
+          //     if (responses.Data.length > 0) {
+          //       html += '<th> Data </th> <th> Error Message </th>'
+          //       html += '</tr></thead><tbody>'
+          //       responses.Data.forEach(val => {
+          //         html += '<tr>'
+          //         html += '<td> ' + val.Data + ' </td> <td> ' + val.ErrorMsg + ' </td>'
+          //         html += '</tr>'
+          //       })
+
+          //       html += '</tbody></table>'
+          //       this.alertWithHtml('Error', 'error', html)
+
+          //       return null
+          //     }
+          //   }
+          // } else if (fullUrl === this.getUrlUpdateMulti()) { // delete multi
+          //   if (responses.Data === null) {
+          //     if (error) {
+          //       this.alertError(responses.Message)
+          //       return null
+          //     } else {
+          //       // this.alertSuccess("Deleting Data Successfully")
+          //       return responses
+          //     }
+          //   } else {
+          //     // alert()
+          //     var err = []
+          //     if (responses.Data.length > 0) {
+          //       html += '<th> Data </th> <th> Error Message </th>'
+          //       html += '</tr></thead><tbody>'
+          //       responses.Data.forEach(val => {
+          //         if (val.Error) {
+          //           err.push(val.Error)
+          //           html += '<tr>'
+          //           html += '<td> ' + JSON.stringify(val.Data) + ' </td> <td> ' + val.Message + ' </td>'
+          //           html += '</tr>'
+          //         }
+          //       })
+
+          //       html += '</tbody></table></div>'
+
+          //       if (err.indexOf(true) < 0) {
+          //         return responses
+          //       } else {
+          //         this.alertWithHtml('Error', 'error', html)
+          //         return null
+          //       }
+          //     }
+          //   }
+          // } else {
+          //   if (error) {
+          //     return null
+          //   }
+          // }
+          // html += '</tbody></table>'
+
+          // this.alertWithHtml('Error', 'error', html)
+          // return null
+          // }
+          return responses
+        })
+        .catch(err => {
+          this.checkResponseCode(err)
+          this.$store.commit('setStatusLoader', false)
+          return null
+        })
+    },
     postJSONMulti(fullUrl, param) {
       this.$store.commit('setStatusLoader', true)
       return axios
