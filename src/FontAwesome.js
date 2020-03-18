@@ -147,8 +147,21 @@ import {
 import {
     faStopwatch
 } from '@fortawesome/free-solid-svg-icons'
-
-
+import {
+    faArrowAltCircleLeft
+} from '@fortawesome/free-solid-svg-icons'
+import {
+    faArrowAltCircleRight
+} from '@fortawesome/free-solid-svg-icons'
+import {
+    faMapMarkerAlt
+} from '@fortawesome/free-solid-svg-icons'
+import {
+    faCube
+} from '@fortawesome/free-solid-svg-icons'
+import {
+    faBalanceScale
+} from '@fortawesome/free-solid-svg-icons'
 
 
 
@@ -199,5 +212,10 @@ library.add(faExclamationTriangle)
 library.add(faCoins)
 library.add(faExclamationCircle)
 library.add(faStopwatch)
+library.add(faArrowAltCircleLeft)
+library.add(faArrowAltCircleRight)
+library.add(faMapMarkerAlt)
+library.add(faCube)
+library.add(faBalanceScale)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
