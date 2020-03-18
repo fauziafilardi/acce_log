@@ -67,6 +67,8 @@ import Notification from '@/views/UserContent/Notification'
 import ChangePassword from '@/views/UserContent/ChangePassword'
 import UserProfile from '@/views/UserContent/UserProfile'
 
+import D2 from '@/views/Dashboard/Dashboard2'
+
 Vue.use(Router)
 
 export default new Router({
@@ -88,6 +90,17 @@ export default new Router({
             requiresAuth: true,
             breadcrumbs: [{
               name: 'Dashboard'
+            }]
+          }
+        },
+        {
+          path: '/D2',
+          name: 'Dashboard2',
+          component: D2,
+          meta: {
+            requiresAuth: true,
+            breadcrumbs: [{
+              name: 'D2'
             }]
           }
         },
