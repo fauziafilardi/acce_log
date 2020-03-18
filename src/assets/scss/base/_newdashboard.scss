@@ -18,6 +18,280 @@
     }
 }
 
+.Plan {
+    &-Dot-Primary {
+        background-color: #333399;
+        height: 60px;
+        width: 60px;
+        border-radius: 50px;
+        text-align: center;
+        padding: 10px;
+        font-size: 23px;
+        font-weight: bold;
+        color: white;
+        margin: auto;
+    }
+
+    &-Dot-Magenta {
+        background-color: #9a0368;
+        height: 60px;
+        width: 60px;
+        border-radius: 50px;
+        text-align: center;
+        padding: 10px;
+        font-size: 23px;
+        font-weight: bold;
+        color: white;
+        margin: auto;
+    }
+
+    &-Dot-Lime {
+        background-color: #686803;
+        height: 60px;
+        width: 60px;
+        border-radius: 50px;
+        text-align: center;
+        padding: 10px;
+        font-size: 23px;
+        font-weight: bold;
+        color: white;
+        margin: auto;
+    }
+
+    &-Dot-Green {
+        background-color: #039a03;
+        height: 60px;
+        width: 60px;
+        border-radius: 50px;
+        text-align: center;
+        padding: 10px;
+        font-size: 23px;
+        font-weight: bold;
+        color: white;
+        margin: auto;
+    }
+
+    &-Dot-Purple {
+        background-color: #9a03ff;
+        height: 60px;
+        width: 60px;
+        border-radius: 50px;
+        text-align: center;
+        padding: 10px;
+        font-size: 23px;
+        font-weight: bold;
+        color: white;
+        margin: auto;
+    }
+
+    &-Dot-Blue {
+        background-color: #0335ff;
+        height: 60px;
+        width: 60px;
+        border-radius: 50px;
+        text-align: center;
+        padding: 10px;
+        font-size: 23px;
+        font-weight: bold;
+        color: white;
+        margin: auto;
+    }
+
+    &-Dot-Blue {
+        background-color: #0335ff;
+        height: 60px;
+        width: 60px;
+        border-radius: 50px;
+        text-align: center;
+        padding: 10px;
+        font-size: 23px;
+        font-weight: bold;
+        color: white;
+        margin: auto;
+    }
+
+    &-Dot-Orange {
+        background-color: #ff9a03;
+        height: 60px;
+        width: 60px;
+        border-radius: 50px;
+        text-align: center;
+        padding: 10px;
+        font-size: 23px;
+        font-weight: bold;
+        color: white;
+        margin: auto;
+    }
+
+    &-Dot-Red {
+        background-color: #cd0303;
+        height: 60px;
+        width: 60px;
+        border-radius: 50px;
+        text-align: center;
+        padding: 10px;
+        font-size: 23px;
+        font-weight: bold;
+        color: white;
+        margin: auto;
+    }
+
+    &-Dot-Gold {
+        background-color: #9a9a03;
+        height: 60px;
+        width: 60px;
+        border-radius: 50px;
+        text-align: center;
+        padding: 10px;
+        font-size: 23px;
+        font-weight: bold;
+        color: white;
+        margin: auto;
+    }
+
+    &-Dot-LightGreen {
+        background-color: #35cd03;
+        height: 60px;
+        width: 60px;
+        border-radius: 50px;
+        text-align: center;
+        padding: 10px;
+        font-size: 23px;
+        font-weight: bold;
+        color: white;
+        margin: auto;
+    }
+
+    &-Dot-Pink {
+        background-color: #ff03ff;
+        height: 60px;
+        width: 60px;
+        border-radius: 50px;
+        text-align: center;
+        padding: 10px;
+        font-size: 23px;
+        font-weight: bold;
+        color: white;
+        margin: auto;
+    }
+
+    &-Dot-Yellow {
+        background-color: #ffcd03;
+        height: 60px;
+        width: 60px;
+        border-radius: 50px;
+        text-align: center;
+        padding: 10px;
+        font-size: 23px;
+        font-weight: bold;
+        color: white;
+        margin: auto;
+    }
+
+    &-Dot-Text {
+        text-align: center;
+        font-size: 15px;
+        padding-top: 5px;
+    }
+
+    &-DotTable-Magenta {
+        background-color: #9a0368;
+        width: 10px;
+        height: 10px;
+        padding: 10px;
+        border-radius: 10px;
+        margin: auto;
+    }
+    &-DotTable-Lime {
+        background-color: #686803;
+        width: 10px;
+        height: 10px;
+        padding: 10px;
+        border-radius: 10px;
+        margin: auto;
+    }
+    &-DotTable-Green {
+        background-color: #039a03;
+        width: 10px;
+        height: 10px;
+        padding: 10px;
+        border-radius: 10px;
+        margin: auto;
+    }
+    &-DotTable-Purple {
+        background-color: #9a03ff;
+        width: 10px;
+        height: 10px;
+        padding: 10px;
+        border-radius: 10px;
+        margin: auto;
+    }
+    &-DotTable-Blue {
+        background-color: #0335ff;
+        width: 10px;
+        height: 10px;
+        padding: 10px;
+        border-radius: 10px;
+        margin: auto;
+    }
+    &-DotTable-Blue {
+        background-color: #0335ff;
+        width: 10px;
+        height: 10px;
+        padding: 10px;
+        border-radius: 10px;
+        margin: auto;
+    }
+    &-DotTable-Orange {
+        background-color: #ff9a03;
+        width: 10px;
+        height: 10px;
+        padding: 10px;
+        border-radius: 10px;
+        margin: auto;
+    }
+    &-DotTable-Red {
+        background-color: #cd0303;
+        width: 10px;
+        height: 10px;
+        padding: 10px;
+        border-radius: 10px;
+        margin: auto;
+    }
+    &-DotTable-Gold {
+        background-color: #9a9a03;
+        width: 10px;
+        height: 10px;
+        padding: 10px;
+        border-radius: 10px;
+        margin: auto;
+    }
+    &-DotTable-LightGreen {
+        background-color: #35cd03;
+        width: 10px;
+        height: 10px;
+        padding: 10px;
+        border-radius: 10px;
+        margin: auto;
+    }
+    &-DotTable-Pink {
+        background-color: #ff03ff;
+        width: 10px;
+        height: 10px;
+        padding: 10px;
+        border-radius: 10px;
+        margin: auto;
+    }
+    &-DotTable-Yellow {
+        background-color: #ffcd03;
+        width: 10px;
+        height: 10px;
+        padding: 10px;
+        border-radius: 10px;
+        margin: auto;
+    }
+}
+
 .MyBadge {
     &__Header {
         width: 100%;
@@ -70,6 +344,42 @@
     &__Title {
         font-size: 20px;
         color: #4e5052;
+    }
+}
+
+.CardTag {
+    &-Title {
+        border-style: solid;
+        border-color: #333399;
+        border-width: 2px;
+        text-align: center;
+        color: #fff;
+        font-size: 16px;
+        background-color: #333399;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        max-height: 10%;
+        min-height: 26px;
+        font-weight: bold;
+    }
+
+    &-Descs {
+        border-style: solid;
+        border-color: #333399;
+        border-width: 2px;
+        text-align: center;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        font-size: 15px;
+    }
+}
+
+.Listing {
+    &Row {
+        font-size: 15px;
+        padding-bottom: 5px;
+        margin-bottom: 5px;
+        border-bottom: 2px solid #ced0d6;
     }
 }
 
