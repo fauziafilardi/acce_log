@@ -246,7 +246,7 @@
                     style="padding-right:5px; font-size: 11px !important; font-weight: normal !important; color: #666666;"
                   >Paid</span>
                 </b-col>
-                <b-col md="2" style="text-align: right;">
+                <b-col md="3" style="text-align: right;">
                   <span>
                     <ABSButton
                       :text="'View All (5)'"
@@ -310,7 +310,7 @@
                     style="padding-right:5px; font-size: 11px !important; font-weight: normal !important; color: #666666;"
                   >Paid</span>
                 </b-col>
-                <b-col md="2" style="text-align: right;">
+                <b-col md="3" style="text-align: right;">
                   <span>
                     <ABSButton
                       :text="'View All (5)'"
