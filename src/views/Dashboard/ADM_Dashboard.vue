@@ -251,7 +251,9 @@
                 </b-col>
               </b-row>
             </div>
-            <div class="card__body"></div>
+            <div class="card__body">
+              <canvas id="user-chart"></canvas>
+            </div>
           </div>
         </b-col>
       </b-row>
@@ -727,11 +729,214 @@ export default {
 
       console.log(date);
       this.getVendorOrder(date);
-    }
+    },
+    renderChart() {
+      var valuedata = [2478, 5267, 734, 784, 433];
+      var valuedata2 = [
+        {
+          label: "Marketing",
+          backgroundColor: "#333399",
+          borderColor: "#333399",
+          data: [20],
+          fill: true
+        },
+        {
+          label: "Operation",
+          backgroundColor: "#00cc33",
+          borderColor: "#00cc33",
+          data: [5],
+          fill: true
+        },
+        {
+          label: "Settlement",
+          backgroundColor: "#ff9a03",
+          borderColor: "#ff9a03",
+          data: [2],
+          fill: true
+        },
+        {
+          label: "Fleet Maintenance",
+          backgroundColor: "#9a03ff",
+          borderColor: "#9a03ff",
+          data: [5],
+          fill: true
+        },
+        {
+          label: "Management",
+          backgroundColor: "#ffcd03",
+          borderColor: "#ffcd03",
+          data: [5],
+          fill: true
+        },
+        {
+          label: "General Affair",
+          backgroundColor: "#cd0303",
+          borderColor: "#cd0303",
+          data: [2],
+          fill: true
+        }
+      ];
+      var valuelabel = [
+        "",
+        // "A",
+        // "B",
+        // "Fleet Maintenance",
+        // "Management",
+        // "General Affair",
+        // "Jul",
+        // "Aug",
+        // "Sep",
+        // "Oct",
+        // "Nov",
+        // "Dec"
+      ];
+
+      var ctx = document.getElementById("user-chart").getContext("2d");
+
+      // Chart.plugins.unregister(ChartDataLabels)
+      Chart.helpers.merge(Chart.defaults.global.plugins.datalabels, {
+        color: "black"
+      });
+
+      var myUserChart = new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: valuelabel,
+          // datasets: [
+          //   {
+          //     label: "Population (millions)",
+          //     backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+          //     data: valuedata
+          //   }
+          // ]
+          datasets: valuedata2
+        },
+        options: {
+          // barValueSpacing: 20,
+          legend: {
+            display: true,
+            position: "bottom",
+            align: "center",
+            labels: {
+              generateLabels: function(chart) {
+                var data = chart.data;
+                if (data.datasets.length > 0) {
+                    return data.datasets.map(function(x, i) {
+                        // console.log(x)
+                        var label = x.label
+                        var fill = x.backgroundColor
+                        var stroke = x.borderColor
+                        var total = 0
+                        
+                        x.data.map(datass => {
+                            total += datass
+                        })
+                        
+                        var meta = chart.getDatasetMeta(i);
+                        return {
+                            text: label + " (" + total + ")",
+                            fillStyle: fill,
+                            strokeStyle: stroke,
+                            lineWidth: 1,
+                            hidden: isNaN(x.data[0]) || meta.data[0].hidden,
+                            datasetIndex: i
+                        };
+                    });
+                }
+              }
+            },
+            // reverse: true,
+            fontFamily: "Segoe UI"
+          },
+          title: {
+            display: false,
+            text: "Predicted world population (millions) in 2050"
+          },
+          scales: {
+            xAxes: [
+              {
+                gridLines: {
+                  // display:false
+                  // offsetGridLines : true
+                }
+              }
+            ],
+            yAxes: [
+              {
+                scaleLabel: {
+                  // display: true,
+                  // labelString: 'cek'
+                },
+                gridLines: {
+                  // display:false,
+                  // drawBorder: false
+                },
+                ticks: {
+                  display: true,
+                  min: 0,
+                  stepSize: 10,
+                  max: 30,
+                  callback: function(value, index, values) {
+                    return value;
+                  }
+                }
+              }
+            ]
+          },
+          animation: {
+            duration: 1,
+            onProgress: function(x) {
+              // console.log(x)
+              var chartInstance = x.chartInstance;
+              var ctx = chartInstance.ctx;
+              var dete = chartInstance.data;
+
+              ctx.font = Chart.helpers.fontString(
+                Chart.defaults.global.defaultFontSize,
+                Chart.defaults.global.defaultFontStyle,
+                Chart.defaults.global.defaultFontFamily
+              );
+              ctx.textAlign = "center";
+              ctx.textBaseline = "bottom";
+
+              dete.datasets.forEach(function(dataset, i) {
+                var meta = chartInstance.controller.getDatasetMeta(i);
+                meta.data.forEach(function(bar, index) {
+                  var data = dataset.data[index];
+                  ctx.fillText(data, bar._model.x, bar._model.y - 5);
+                });
+              });
+            }
+          },
+          plugins: {
+            datalabels: {
+              color: "black"
+              // display: function(context) {
+              //   console.log("Algo: "+context);
+              //   return context.dataset.data[context.dataIndex] > 15;
+              // },
+              // font: {
+              //   weight: 'bold'
+              // },
+              // formatter: function(value, context) {
+              //   return context.dataIndex + ': ' + Math.round(value*100) + '%';
+              // }
+            }
+          }
+        }
+      });
+
+      myUserChart.update();
+    },
   },
   mounted() {
     this.getOrder();
     this.getVendorOrder();
+    this.renderChart();
   }
 };
 </script>
+
+<style scoped>
+    @import "./../../assets/css/Chart.min.css";
+</style>

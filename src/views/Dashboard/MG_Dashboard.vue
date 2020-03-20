@@ -329,7 +329,7 @@ export default {
                                             fillStyle: fill,
                                             strokeStyle: stroke,
                                             lineWidth: 1,
-                                            hidden: isNaN(x.data[i]) || meta.data[i].hidden,
+                                            hidden: isNaN(x.data[0]) || meta.data[0].hidden,
                                             datasetIndex: i
                                         };
                                     });
@@ -497,7 +497,7 @@ export default {
                                             fillStyle: fill,
                                             strokeStyle: stroke,
                                             lineWidth: 1,
-                                            hidden: isNaN(x.data[i]) || meta.data[i].hidden,
+                                            hidden: isNaN(x.data[0]) || meta.data[0].hidden,
                                             datasetIndex: i
                                         };
                                     });
@@ -854,7 +854,7 @@ export default {
                                             fillStyle: fill,
                                             strokeStyle: stroke,
                                             lineWidth: 1,
-                                            hidden: isNaN(x.data[i]) || meta.data[i].hidden,
+                                            hidden: isNaN(x.data[0]) || meta.data[0].hidden,
                                             datasetIndex: i
                                         };
                                     });
@@ -1029,7 +1029,7 @@ export default {
                                             fillStyle: fill,
                                             strokeStyle: stroke,
                                             lineWidth: 1,
-                                            hidden: isNaN(x.data[i]) || meta.data[i].hidden,
+                                            hidden: isNaN(x.data[0]) || meta.data[0].hidden,
                                             datasetIndex: i
                                         };
                                     });
