@@ -40,8 +40,9 @@
               </b-row>
             </div>
             <div class="card__body">
-              <b-row>
-                <div class="bedge-container" style="width:100%;">
+              <div class="bedge-container">
+                <b-row style="min-width: 800px;">
+                  <!-- <div class="bedge-container" style="width:100%;"> -->
                   <b-col class="ChartLegend__Wrap" style="min-width:712px;">
                     <b-row style="padding-top:10px !important;">
                       <b-col
@@ -57,47 +58,48 @@
                       </b-col>
                     </b-row>
                   </b-col>
-                </div>
-              </b-row>
-              <b-row style="margin-top: 15px;">
-                <b-col>
-                  <b-table
-                    :responsive="true"
-                    :striped="false"
-                    :bordered="true"
-                    :outlined="false"
-                    :small="false"
-                    :hover="false"
-                    :dark="false"
-                    :fixed="false"
-                    :foot-clone="false"
-                    :fields="PlanExTable.Header"
-                    :items="PlanExTable.Data"
-                    thStyle="padding: 5px !important;"
-                  >
-                    <!-- class="table-sm table-style-1" -->
-                    <template v-slot:cell(no)="data">{{data.index + 1}}</template>
-                    <template v-slot:cell(fleetsource)="data">
-                      <font-awesome-icon
-                        style="color: #333399;"
-                        icon="arrow-alt-circle-left"
-                        size="lg"
-                        v-if="data.item.fleetsource == 'l'"
-                      />
-                      <font-awesome-icon
-                        style="color: #333399;"
-                        icon="arrow-alt-circle-right"
-                        size="lg"
-                        v-if="data.item.fleetsource == 'r'"
-                      />
-                    </template>
-                    <template v-slot:cell(from)="data">{{ data.item.from + ' - ' + data.item.to }}</template>
-                    <template v-slot:cell(status)="data">
-                      <div :class="'Plan-DotTable-' + PlanExecution[data.item.status].variant"></div>
-                    </template>
-                  </b-table>
-                </b-col>
-              </b-row>
+                  <!-- </div> -->
+                </b-row>
+                <b-row style="margin-top: 15px; min-width:800px;">
+                  <b-col>
+                    <b-table
+                      :responsive="false"
+                      :striped="false"
+                      :bordered="true"
+                      :outlined="false"
+                      :small="false"
+                      :hover="false"
+                      :dark="false"
+                      :fixed="false"
+                      :foot-clone="false"
+                      :fields="PlanExTable.Header"
+                      :items="PlanExTable.Data"
+                      thStyle="padding: 5px !important;"
+                    >
+                      <!-- class="table-sm table-style-1" -->
+                      <template v-slot:cell(no)="data">{{data.index + 1}}</template>
+                      <template v-slot:cell(fleetsource)="data">
+                        <font-awesome-icon
+                          style="color: #333399;"
+                          icon="arrow-alt-circle-left"
+                          size="lg"
+                          v-if="data.item.fleetsource == 'l'"
+                        />
+                        <font-awesome-icon
+                          style="color: #333399;"
+                          icon="arrow-alt-circle-right"
+                          size="lg"
+                          v-if="data.item.fleetsource == 'r'"
+                        />
+                      </template>
+                      <template v-slot:cell(from)="data">{{ data.item.from + ' - ' + data.item.to }}</template>
+                      <template v-slot:cell(status)="data">
+                        <div :class="'Plan-DotTable-' + PlanExecution[data.item.status].variant"></div>
+                      </template>
+                    </b-table>
+                  </b-col>
+                </b-row>
+              </div>
             </div>
           </div>
         </b-col>
