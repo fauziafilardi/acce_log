@@ -16,12 +16,14 @@ export default {
   methods: {},
   mounted() {
     // this.urlDashboard = this.getDataUser().url_dashboard
-    // this.urlDashboard = "settlement_dashboard";
-    // this.urlDashboard = "Dashboard2";
-    // this.urlDashboard = "fleetmaintenance_dashboard";
-    // this.urlDashboard = "generalafair_dashboard";
-    // this.urlDashboard = "admin_dashboard";
-    this.urlDashboard = "DashboardOP";
+
+    // this.urlDashboard = "MK_Dashboard";
+    this.urlDashboard = "OP_Dashboard";
+    // this.urlDashboard = "FM_Dashboard";
+    // this.urlDashboard = "GA_Dashboard";
+    // this.urlDashboard = "ST_Dashboard";
+    // this.urlDashboard = "ADM_Dashboard";
+    // this.urlDashboard = "MG_Dashboard";
     this.component = () => import(`./${this.urlDashboard}.vue`);
   }
 };
