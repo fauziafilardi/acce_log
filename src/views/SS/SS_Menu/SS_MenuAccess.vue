@@ -46,7 +46,7 @@
                       <ABSInputSelect2
                         @change="OnmodulecdChange"
                         :prop="PI_modulecd"
-                        :value="M_SS_MenuEntry.modulecd"
+                        :value="M_SS_MenuEntry.moduleid"
                         ref="ref_modulecd"
                       />
                       <ABSinputTextVuex :prop="PI_title" v-model="M_SS_MenuEntry.title" />
@@ -92,7 +92,14 @@
                     classIcon="icon-style-1"
                   />
                   <ABSButton
-                    @click="M_Delete('M')"
+                    @click="openModalMenuUpdate(1)"
+                    icon="edit"
+                    text="Edit"
+                    classButton="btnList__btnPrimary"
+                    classIcon="icon-style-2"
+                  />
+                  <ABSButton
+                    @click="M_Delete(1)"
                     icon="trash"
                     text="Delete"
                     classButton="btnList__btnPrimary"
@@ -151,7 +158,15 @@
                   />
                   <ABSButton
                     :disabled="!moduleAccessEntrySelected"
-                    @click="M_Delete('E')"
+                    @click="openModalMenuUpdate(2)"
+                    icon="edit"
+                    text="Edit"
+                    classButton="btnList__btnPrimary"
+                    classIcon="icon-style-2"
+                  />
+                  <ABSButton
+                    :disabled="!moduleAccessEntrySelected"
+                    @click="M_Delete(2)"
                     icon="trash"
                     text="Delete"
                     classButton="btnList__btnPrimary"
@@ -192,6 +207,22 @@
                     text="Add"
                     classButton="btnList__btnPrimary"
                     classIcon="icon-style-1"
+                  />
+                  <ABSButton
+                    :disabled="!Level_2_Selected || !moduleAccessEntrySelected"
+                    @click="openModalMenuUpdate(3)"
+                    icon="edit"
+                    text="Edit"
+                    classButton="btnList__btnPrimary"
+                    classIcon="icon-style-2"
+                  />
+                  <ABSButton
+                    :disabled="!moduleAccessEntrySelected"
+                    @click="M_Delete(3)"
+                    icon="trash"
+                    text="Delete"
+                    classButton="btnList__btnPrimary"
+                    classIcon="icon-style-2"
                   />
                   <!-- <ABSButton :disabled="!Level_2_Selected || !moduleAccessEntrySelected" icon="trash" text="Delete" classButton="btnList__btnPrimary" classIcon="icon-style-2"/> -->
                   <ABSButton
@@ -259,6 +290,7 @@ export default {
       optLevel2: [],
       Level_3_Selected: null,
       optLevel3: [],
+      ListModuel: [],
       eventOptionTemp: [],
       options: [
         { value: null, text: "Please select some item" },
@@ -270,7 +302,8 @@ export default {
         { value: "e", text: "This is option f" }
       ],
       M_SS_MenuEntry: {
-        modulecd: null,
+        menu_id: 0,
+        moduleid: 0,
         title: null,
         menu_url: null,
         icon_class: null,
@@ -292,7 +325,7 @@ export default {
       //     ParamWhere: ""
       //   },
       //   cValidate: "required",
-      //   cName: "modulecd",
+      //   cName: "moduleid",
       //   cLabel: "Module",
       //   cKey: false,
       //   cStatic: false,
@@ -306,7 +339,7 @@ export default {
       PI_modulecd: {
         dataLookUp: null,
         cValidate: "",
-        cName: "modulecd",
+        cName: "moduleid",
         cLabel: "Module",
         cLabelSize: 4,
         cOrder: 1,
@@ -322,9 +355,9 @@ export default {
         cParentForm: "FormScope_1_1",
         cStatic: true,
         cOption: [
-          { label: "Staff", id: "S" },
-          { label: "Supervisor", id: "P" },
-          { label: "Manager", id: "M" }
+          // { label: "Staff", id: "S" },
+          // { label: "Supervisor", id: "P" },
+          // { label: "Manager", id: "M" }
         ],
         cMasterUrl: "",
         cDisplayColumn: ""
@@ -395,7 +428,9 @@ export default {
     };
   },
   methods: {
-    OnmodulecdChange() {},
+    OnmodulecdChange(data) {
+      this.M_SS_MenuEntry.moduleid = data.id;
+    },
     Onpmenu_typeChange() {},
     M_PageSize() {},
     M_TabClick() {},
@@ -489,6 +524,35 @@ export default {
     },
     M_Save() {
       // alert(this.$store.getters.getStatus.toUpperCase())
+      var param = {
+        title: this.M_SS_MenuEntry.title,
+        menu_url: this.M_SS_MenuEntry.menu_url,
+        menu_type: this.M_SS_MenuEntry.menu_type,
+        parent_menu_id: this.M_SS_MenuEntry.parent_menu_id,
+        icon_class: this.M_SS_MenuEntry.icon_class,
+        ss_module_id: this.M_SS_MenuEntry.moduleid,
+        level_no: this.M_SS_MenuEntry.level_no,
+        user_input: this.getDataUser().user_id
+      };
+      console.log(JSON.stringify(param, null, 2));
+
+      this.postJSON(this.getUrlSsMenu(), param).then(response => {
+        if (response == null) return;
+
+        // this.$parent.resultInsert(response.Message);
+        this.alertSuccess("Data Has Been Save Successfull");
+        this.$refs.modalModulAccessEntry.hide();
+        if (this.M_SS_MenuEntry.level_no == 1) {
+          this.getDataLevel1();
+          this.optLevel2 = [];
+          this.optLevel3 = [];
+        } else if (this.M_SS_MenuEntry.level_no == 2) {
+          this.getDataLevel2(this.M_SS_MenuEntry.parent_menu_id);
+          this.optLevel3 = [];
+        } else {
+          this.getDataLevel3(this.M_SS_MenuEntry.parent_menu_id);
+        }
+      });
     },
     // M_SaveSort(){
     M_Insert() {
@@ -806,7 +870,7 @@ export default {
     onChangeLevel3(data) {},
     onChangeLevel2(data) {
       this.Level_2_Id = data.value;
-      this.getDataLevel3(data);
+      this.getDataLevel3(data.value);
       //   this.Level_3_Selected = null
       //   this.optLevel3 = []
       //   var param = {
@@ -837,9 +901,7 @@ export default {
     getDataLevel3(datas) {
       console.log(datas);
       var param =
-        "/datalist?initialwhere=parent_menu_id=" +
-        datas.value +
-        " and level_no=3";
+        "/datalist?initialwhere=parent_menu_id=" + datas + " and level_no=3";
       this.getJSON(this.getUrlSsMenu() + param).then(response => {
         if (response == null) return;
         var data = response.Data;
@@ -860,13 +922,11 @@ export default {
     },
     onChangeLevel1(data) {
       this.Level_1_Id = data.value;
-      this.getDataLevel2(data);
+      this.getDataLevel2(data.value);
     },
-    getDataLevel2(data) {
+    getDataLevel2(datas) {
       var param =
-        "/datalist?initialwhere=parent_menu_id=" +
-        data.value +
-        " and level_no=2";
+        "/datalist?initialwhere=parent_menu_id=" + datas + " and level_no=2";
       this.getJSON(this.getUrlSsMenu() + param).then(response => {
         if (response == null) return;
         var data = response.Data;
@@ -913,11 +973,45 @@ export default {
     openModalMenuEntry(level) {
       this.TitleLevel = "Level " + level;
 
-      this.M_SS_MenuEntry.modulecd = "";
+      this.M_SS_MenuEntry.moduleid = 0;
       this.M_SS_MenuEntry.title = "";
       this.M_SS_MenuEntry.level_no = level;
+      if (level == 1) {
+        this.M_SS_MenuEntry.parent_menu_id = 0;
+      } else if (level == 2) {
+        this.M_SS_MenuEntry.parent_menu_id = this.Level_1_Id;
+      } else {
+        this.M_SS_MenuEntry.parent_menu_id = this.Level_2_Id;
+      }
       // this.getToolbar().FormStatus = "NEW";
       this.$refs.modalModulAccessEntry.show();
+    },
+    openModalMenuUpdate(level) {
+      var param = 0;
+      if (level == 1) {
+        param = "/" + this.Level_1_Id;
+      } else if (level == 2) {
+        param = "/" + this.Level_2_Id;
+      } else {
+        param = "/" + this.Level_3_Id;
+      }
+
+      this.getJSON(this.getUrlSsMenu() + param).then(response => {
+        if (response == null) return;
+        var data = response.Data;
+        this.ListModuel = [];
+
+        this.M_SS_MenuEntry.menu_id = data.ss_menu_id;
+        this.M_SS_MenuEntry.title = data.title;
+        this.M_SS_MenuEntry.menu_url = data.menu_url;
+        this.M_SS_MenuEntry.menu_type = data.menu_type;
+        this.M_SS_MenuEntry.parent_menu_id = data.parent_menu_id;
+        this.M_SS_MenuEntry.icon_class = data.icon_class;
+        this.M_SS_MenuEntry.moduleid = data.ss_module_id;
+        this.M_SS_MenuEntry.level_no = data.level_no;
+
+        this.$refs.modalModulAccessEntry.show();
+      });
     },
     openEditModuleAccsessEntry(data) {
       alert(data);
@@ -950,6 +1044,27 @@ export default {
       this.getToolbar().isNew = true;
       this.getToolbar().statusFunction[6].disabled = true;
       this.getToolbar().statusFunction[7].disabled = false;
+    },
+
+    getDataModule() {
+      var param = "/datalist";
+      this.getJSON(this.getUrlSsModule() + param).then(response => {
+        if (response == null) return;
+        var data = response.Data;
+        this.ListModuel = [];
+        if (data.length > 0) {
+          // data = data[0]
+          // this.$nextTick(() => {
+          data.forEach((dt, idx) => {
+            this.ListModuel.push({
+              label: dt.descs,
+              id: dt.ss_module_id
+            });
+          });
+          this.PI_modulecd.cOption = this.ListModuel;
+          // });
+        }
+      });
     }
   },
   beforeCreate: function() {},
@@ -959,6 +1074,7 @@ export default {
   beforeMount: function() {},
   mounted: function() {
     this.getDataLevel1();
+    this.getDataModule();
 
     // this.getAllAccess()
     // this.hideSideBarMenu()

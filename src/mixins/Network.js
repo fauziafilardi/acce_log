@@ -6,7 +6,7 @@ export default {
     return {
       version: 'v: 0.0.1',
       //New API ACCE LOG
-      // url: 'http://192.168.6.98:8899/',
+      // url: 'http://127.0.0.1:8899/',
       url: 'http://36.91.141.98:8989/',
 
 
@@ -208,6 +208,8 @@ export default {
       segmentGetSsMenu: 'api/SsMenu/datalist',
       segmentSsMenu: 'api/SsMenu',
 
+      segementSsModule: 'api/SsModule',
+
       queryString: require('querystring'),
       // content type
       urlEncoded: 'application/x-www-form-urlencoded',
@@ -225,6 +227,9 @@ export default {
     },
     getUrlMultiV2(oldUrl) {
       return oldUrl.replace('api/DynamicAPIMulti', 'api/DynamicAPIMultiv2')
+    },
+    getUrlSsModule() {
+      return this.url + this.segementSsModule
     },
     getUrlSsMenu() {
       return this.url + this.segmentSsMenu
@@ -647,7 +652,7 @@ export default {
         this.alertError(message)
       }
 
-      if (String(message) === 'Error: Request failed with status code 404') {}
+      if (String(message) === 'Error: Request failed with status code 404') { }
     },
 
     postEncode(fullUrl, param) {
@@ -662,21 +667,21 @@ export default {
       }
 
       // loader off when lookup and click add button toolbar
-      if (fullUrl === this.getUrlLookup() || fullUrl === this.getUrlTanalysisAdd()) {} else {
+      if (fullUrl === this.getUrlLookup() || fullUrl === this.getUrlTanalysisAdd()) { } else {
         this.$store.commit('setStatusLoader', true)
       }
       return axios
         .post(
           fullUrl,
           this.queryString.stringify(param), {
-            headers: {
-              'Content-Type': this.urlEncoded,
-              // 'Content-Type': this.json,
-              Accept: this.json,
-              // Session_Id: this.getSession().Session_Id
-              Token: fullUrl === this.getUrlLogin() ? '' : this.getSession().Session_Id
-            }
+          headers: {
+            'Content-Type': this.urlEncoded,
+            // 'Content-Type': this.json,
+            Accept: this.json,
+            // Session_Id: this.getSession().Session_Id
+            Token: fullUrl === this.getUrlLogin() ? '' : this.getSession().Session_Id
           }
+        }
         )
         .then(response => {
           let responses = response.data
@@ -719,13 +724,13 @@ export default {
         .post(
           fullUrl,
           param, {
-            headers: {
-              'Content-Type': this.json,
-              Accept: this.json,
-              // Session_Id: this.getSession().Session_Id
-              Token: this.getSession().Session_Id
-            }
+          headers: {
+            'Content-Type': this.json,
+            Accept: this.json,
+            // Session_Id: this.getSession().Session_Id
+            Token: this.getSession().Session_Id
           }
+        }
         )
         .then(response => {
           let responses = response.data
@@ -769,13 +774,13 @@ export default {
         .post(
           fullUrl,
           param, {
-            headers: {
-              'Content-Type': this.json,
-              Accept: this.json,
-              // Session_Id: this.getSession().Session_Id
-              Token: this.getSession().Session_Id
-            }
+          headers: {
+            'Content-Type': this.json,
+            Accept: this.json,
+            // Session_Id: this.getSession().Session_Id
+            Token: this.getSession().Session_Id
           }
+        }
         )
         .then(response => {
           let responses = response.data
@@ -839,13 +844,13 @@ export default {
         .put(
           fullUrl,
           param, {
-            headers: {
-              'Content-Type': this.json,
-              Accept: this.json,
-              // Session_Id: this.getSession().Session_Id
-              Token: this.getSession().Session_Id
-            }
+          headers: {
+            'Content-Type': this.json,
+            Accept: this.json,
+            // Session_Id: this.getSession().Session_Id
+            Token: this.getSession().Session_Id
           }
+        }
         )
         .then(response => {
           console.log(response)
@@ -1050,13 +1055,13 @@ export default {
         .post(
           fullUrl,
           param, {
-            headers: {
-              'Content-Type': this.json,
-              Accept: this.json,
-              // Session_Id: this.getSession().Session_Id
-              Token: this.getSession().Session_Id
-            }
+          headers: {
+            'Content-Type': this.json,
+            Accept: this.json,
+            // Session_Id: this.getSession().Session_Id
+            Token: this.getSession().Session_Id
           }
+        }
         )
         .then(response => {
           console.log(response)
@@ -1262,13 +1267,13 @@ export default {
         .post(
           fullUrl,
           param, {
-            headers: {
-              'Content-Type': this.urlEncoded,
-              Accept: this.json,
-              // Session_Id: this.getSession().Session_Id
-              Token: this.getSession().Session_Id
-            }
+          headers: {
+            'Content-Type': this.urlEncoded,
+            Accept: this.json,
+            // Session_Id: this.getSession().Session_Id
+            Token: this.getSession().Session_Id
           }
+        }
         )
         .then(response => {
           let responses = response.data
@@ -1379,12 +1384,12 @@ export default {
       return axios
         .get(
           param, {
-            headers: {
-              'Content-Type': this.json,
-              Accept: this.json,
-              Token: this.getSession().Session_Id
-            }
+          headers: {
+            'Content-Type': this.json,
+            Accept: this.json,
+            Token: this.getSession().Session_Id
           }
+        }
         )
         .then(response => {
           let responses = response.data
