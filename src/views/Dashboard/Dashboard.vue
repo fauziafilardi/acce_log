@@ -18,11 +18,12 @@ export default {
     // this.urlDashboard = this.getDataUser().url_dashboard
 
     // this.urlDashboard = "MK_Dashboard";
-    this.urlDashboard = "OP_Dashboard";
+    // this.urlDashboard = "OP_Dashboard";
     // this.urlDashboard = "FM_Dashboard";
     // this.urlDashboard = "GA_Dashboard";
     // this.urlDashboard = "ST_Dashboard";
     // this.urlDashboard = "ADM_Dashboard";
+    this.urlDashboard = "MG_Dashboard";
     this.component = () => import(`./${this.urlDashboard}.vue`);
   }
 };
