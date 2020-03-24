@@ -75,6 +75,7 @@ import GA_Dashboard from '@/views/Dashboard/GA_Dashboard'
 import OP_Dashboard from '@/views/Dashboard/OP_Dashboard'
 import ST_Dashboard from '@/views/Dashboard/ST_Dashboard'
 import ADM_Dashboard from '@/views/Dashboard/ADM_Dashboard'
+import MG_Dashboard from '@/views/Dashboard/MG_Dashboard'
 
 
 Vue.use(Router)
@@ -356,6 +357,28 @@ export default new Router({
             requiresAuth: true,
             breadcrumbs: [{
               name: 'Settlement Dashboard'
+            }]
+          }
+        },
+        {
+          path: '/MG_Dashboard',
+          name: 'MG_Dashboard',
+          component: MG_Dashboard,
+          meta: {
+            requiresAuth: true,
+            breadcrumbs: [{
+              name: 'Management Dashboard'
+            }]
+          }
+        },
+        {
+          path: '/ADM_Dashboard',
+          name: 'ADM_Dashboard',
+          component: ADM_Dashboard,
+          meta: {
+            requiresAuth: true,
+            breadcrumbs: [{
+              name: 'Admin Dashboard'
             }]
           }
         },
