@@ -212,12 +212,12 @@ export default {
   created: function() {
     // this.favoriteMenus = JSON.parse(localStorage.lsFavoriteMenu)
     this.menus = this.getMenu();
-    console.log(JSON.stringify(this.menus))
+    // console.log(JSON.stringify(this.menus))
 
     this.modules = this.menus.filter(function(x) {
       return x.level.toString() == "1";
     });
-    console.log(this.modules)
+    // console.log(this.modules)
 
     this.events = this.menus.filter(x => {
       return x.level.toString() == "2";
@@ -367,7 +367,7 @@ export default {
       });
     },
     doCallMenu: function(menu) {
-      console.log(menu);
+      // console.log(menu);
       // return;
       if (
           !menu.menu_url || menu.menu_url == null || menu.menu_url == undefined || menu.menu_url == '' || menu.menu_url == '#'
