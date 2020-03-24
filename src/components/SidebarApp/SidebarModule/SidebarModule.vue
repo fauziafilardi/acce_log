@@ -65,6 +65,7 @@
             :visible="false"
             v-for="(event, indexEvent) in events.filter(x => x.parent_menu_id == fm.ss_menu_id)"
             :key="indexEvent"
+            accordion="collapseE"
           >
             <a
               href="#"
