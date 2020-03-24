@@ -999,18 +999,21 @@ export default {
       this.getJSON(this.getUrlSsMenu() + param).then(response => {
         if (response == null) return;
         var data = response.Data;
-        this.ListModuel = [];
 
-        this.M_SS_MenuEntry.menu_id = data.ss_menu_id;
-        this.M_SS_MenuEntry.title = data.title;
-        this.M_SS_MenuEntry.menu_url = data.menu_url;
-        this.M_SS_MenuEntry.menu_type = data.menu_type;
-        this.M_SS_MenuEntry.parent_menu_id = data.parent_menu_id;
-        this.M_SS_MenuEntry.icon_class = data.icon_class;
-        this.M_SS_MenuEntry.moduleid = data.ss_module_id;
-        this.M_SS_MenuEntry.level_no = data.level_no;
+        this.$nextTick(() => {
+          console.log("data", JSON.stringify(data, null, 0));
+          this.M_SS_MenuEntry.menu_id = data.ss_menu_id;
+          this.M_SS_MenuEntry.title = data.title;
+          this.M_SS_MenuEntry.menu_url = data.menu_url;
+          this.M_SS_MenuEntry.menu_type = data.menu_type;
+          this.M_SS_MenuEntry.parent_menu_id = data.parent_menu_id;
+          this.M_SS_MenuEntry.icon_class = data.icon_class;
+          this.M_SS_MenuEntry.moduleid = data.ss_module_id;
+          this.M_SS_MenuEntry.level_no = data.level_no;
 
-        this.$refs.modalModulAccessEntry.show();
+          this.$refs.modalModulAccessEntry.show();
+          console.log("Model", JSON.stringify(this.M_SS_MenuEntry, null, 0));
+        });
       });
     },
     openEditModuleAccsessEntry(data) {
