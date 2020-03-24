@@ -42,6 +42,7 @@
             v-if="textMenu"
             v-b-toggle="'collapseE_'+index"
             :id="'collapseE_' + index"
+            @click="doCallMenu(fm)"
             style="border: 0px solid #e7eaec !important;height:30px;"
           >
             <span style="padding-left: 20px; padding-right: 5px;" v-if="fm.menu_type == 'O'">-</span>
@@ -70,6 +71,7 @@
               class="list-group-item"
               v-b-toggle="'collapseO_'+index+'_'+indexEvent"
               :id="'collapseO_'+index+'_'+indexEvent"
+              @click="doCallMenu(event)"
               style="border: 0px solid #e7eaec !important;height:30px;"
             >
               <span style="padding-left: 15px; padding-right: 10px;" v-if="event.menu_type == 'O'">-</span>
@@ -210,19 +212,21 @@ export default {
   created: function() {
     // this.favoriteMenus = JSON.parse(localStorage.lsFavoriteMenu)
     this.menus = this.getMenu();
+    console.log(JSON.stringify(this.menus))
 
     this.modules = this.menus.filter(function(x) {
-      return x.level.toString() == "0";
-    });
-
-    this.events = this.menus.filter(x => {
       return x.level.toString() == "1";
     });
+    console.log(this.modules)
 
-    console.log(this.events);
+    this.events = this.menus.filter(x => {
+      return x.level.toString() == "2";
+    });
+
+    // console.log(this.events);
 
     this.options = this.menus.filter(x => {
-      return x.level.toString() == "2";
+      return x.level.toString() == "3";
     });
 
     // this.menus === undefined ? undefined : this.menus.module_list;
@@ -364,6 +368,10 @@ export default {
     },
     doCallMenu: function(menu) {
       console.log(menu);
+      // return;
+      if (
+          !menu.menu_url || menu.menu_url == null || menu.menu_url == undefined || menu.menu_url == '' || menu.menu_url == '#'
+        ) return;
       // this.getSegmentUrl();
       // this.$store.dispatch('handlePaddingHeader', '0px')
       // this.$store.dispatch('handlePaddingLeftContent', '0px')
