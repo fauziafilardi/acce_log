@@ -239,6 +239,8 @@ export default {
         //     }
         // }
 
+        console.log(this.value, this.options)
+
         if (this.value == "" || this.value == null) {
           return null;
         } else {
@@ -246,11 +248,11 @@ export default {
           if (this.isCanChange) {
             if (typeof this.value == "object") {
               return this.options[
-                this.options.map(x => x.id).indexOf(this.value.id.toString())
+                this.options.map(x => x.id).indexOf(this.value.id)
               ];
             } else {
               return this.options[
-                this.options.map(x => x.id).indexOf(this.value.toString())
+                this.options.map(x => x.id).indexOf(this.value)
               ];
             }
           } else {

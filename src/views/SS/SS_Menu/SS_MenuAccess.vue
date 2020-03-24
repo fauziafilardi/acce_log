@@ -47,11 +47,12 @@
                         @change="OnmodulecdChange"
                         :prop="PI_modulecd"
                         :value="M_SS_MenuEntry.moduleid"
+                        :label="M_SS_MenuEntry.module_name"
                         ref="ref_modulecd"
                       />
-                      <ABSinputTextVuex :prop="PI_title" v-model="M_SS_MenuEntry.title" />
-                      <ABSinputTextVuex :prop="PI_menu_url" v-model="M_SS_MenuEntry.menu_url" />
-                      <ABSinputTextVuex :prop="PI_icon_class" v-model="M_SS_MenuEntry.icon_class" />
+                      <ABSinputTextVuex @input="OntitleChange" :prop="PI_title" v-model="M_SS_MenuEntry.title" ref="ref_title" />
+                      <ABSinputTextVuex @input="Onmenu_urlChange" :prop="PI_menu_url" v-model="M_SS_MenuEntry.menu_url" ref="ref_menu_url" />
+                      <ABSinputTextVuex @input="Onicon_classChange" :prop="PI_icon_class" v-model="M_SS_MenuEntry.icon_class" ref="ref_icon_class" />
 
                       <ABSinputRadioButtonVuex
                         @input="Onpmenu_typeChange"
@@ -304,6 +305,7 @@ export default {
       M_SS_MenuEntry: {
         menu_id: 0,
         moduleid: 0,
+        module_name: '',
         title: null,
         menu_url: null,
         icon_class: null,
@@ -430,8 +432,12 @@ export default {
   methods: {
     OnmodulecdChange(data) {
       this.M_SS_MenuEntry.moduleid = data.id;
+      this.M_SS_MenuEntry.module_name = data.label;
     },
     Onpmenu_typeChange() {},
+    OntitleChange(data) {},
+    Onmenu_urlChange(data) {},
+    Onicon_classChange(data) {},
     M_PageSize() {},
     M_TabClick() {},
     M_Pagination() {},
@@ -1000,8 +1006,9 @@ export default {
         if (response == null) return;
         var data = response.Data;
 
+          this.$refs.modalModulAccessEntry.show();
         this.$nextTick(() => {
-          console.log("data", JSON.stringify(data, null, 0));
+          // console.log("data", JSON.stringify(data, null, 0));
           this.M_SS_MenuEntry.menu_id = data.ss_menu_id;
           this.M_SS_MenuEntry.title = data.title;
           this.M_SS_MenuEntry.menu_url = data.menu_url;
@@ -1009,11 +1016,13 @@ export default {
           this.M_SS_MenuEntry.parent_menu_id = data.parent_menu_id;
           this.M_SS_MenuEntry.icon_class = data.icon_class;
           this.M_SS_MenuEntry.moduleid = data.ss_module_id;
+          this.M_SS_MenuEntry.module_name = data.ss_module_id;
           this.M_SS_MenuEntry.level_no = data.level_no;
 
-          this.$refs.modalModulAccessEntry.show();
-          console.log("Model", JSON.stringify(this.M_SS_MenuEntry, null, 0));
+          // console.log("Model", JSON.stringify(this.M_SS_MenuEntry, null, 0));
         });
+
+        this.$forceUpdate();
       });
     },
     openEditModuleAccsessEntry(data) {
