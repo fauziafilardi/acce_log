@@ -36,6 +36,7 @@
               <b-modal
                 id="modalModulAccessEntry"
                 :title="TitleLevel"
+                @hidden="resetModal"
                 size="lg"
                 ref="modalModulAccessEntry"
                 class="modalCustomABS"
@@ -47,11 +48,27 @@
                         @change="OnmodulecdChange"
                         :prop="PI_modulecd"
                         :value="M_SS_MenuEntry.moduleid"
+                        :label="M_SS_MenuEntry.module_name"
                         ref="ref_modulecd"
                       />
-                      <ABSinputTextVuex :prop="PI_title" v-model="M_SS_MenuEntry.title" />
-                      <ABSinputTextVuex :prop="PI_menu_url" v-model="M_SS_MenuEntry.menu_url" />
-                      <ABSinputTextVuex :prop="PI_icon_class" v-model="M_SS_MenuEntry.icon_class" />
+                      <ABSinputTextVuex
+                        @input="OntitleChange"
+                        :prop="PI_title"
+                        v-model="M_SS_MenuEntry.title"
+                        ref="ref_title"
+                      />
+                      <ABSinputTextVuex
+                        @input="Onmenu_urlChange"
+                        :prop="PI_menu_url"
+                        v-model="M_SS_MenuEntry.menu_url"
+                        ref="ref_menu_url"
+                      />
+                      <ABSinputTextVuex
+                        @input="Onicon_classChange"
+                        :prop="PI_icon_class"
+                        v-model="M_SS_MenuEntry.icon_class"
+                        ref="ref_icon_class"
+                      />
 
                       <ABSinputRadioButtonVuex
                         @input="Onpmenu_typeChange"
@@ -217,7 +234,7 @@
                     classIcon="icon-style-2"
                   />
                   <ABSButton
-                    :disabled="!moduleAccessEntrySelected"
+                    :disabled="!Level_2_Selected || !moduleAccessEntrySelected"
                     @click="M_Delete(3)"
                     icon="trash"
                     text="Delete"
@@ -304,11 +321,13 @@ export default {
       M_SS_MenuEntry: {
         menu_id: 0,
         moduleid: 0,
+        module_name: "",
         title: null,
         menu_url: null,
         icon_class: null,
         parent_menu_id: 0,
         menu_type: "M",
+        order_seq: 0,
         level_no: 1,
         modulecdLabel: ""
       },
@@ -429,9 +448,17 @@ export default {
   },
   methods: {
     OnmodulecdChange(data) {
-      this.M_SS_MenuEntry.moduleid = data.id;
+      this.$nextTick(() => {
+        this.M_SS_MenuEntry.moduleid = data.id;
+        this.M_SS_MenuEntry.module_name = data.label;
+      });
+
+      this.$forceUpdate();
     },
     Onpmenu_typeChange() {},
+    OntitleChange(data) {},
+    Onmenu_urlChange(data) {},
+    Onicon_classChange(data) {},
     M_PageSize() {},
     M_TabClick() {},
     M_Pagination() {},
@@ -456,103 +483,119 @@ export default {
     M_Edit() {
       this.$nextTick().then(() => document.getElementById("TextMenu").focus());
     },
-    M_Delete(from) {
-      //   if (from == "M") {
-      //     if (this.moduleAccessEntrySelected == null) {
-      //       this.alertError("No Module Selected !")
-      //       return
-      //     }
-      //     if (this.optLevel2.length > 0) {
-      //       this.alertError("This Module Could Not Be Delete !")
-      //     } else {
-      //       this.alertConfirmation(
-      //         "Are You Sure Want To Delete This Module ?"
-      //       ).then(ress => {
-      //         if (ress.value) {
-      //           var param = {
-      //             OptionSeq: this.getOptionSeq().OptionSeq,
-      //             LineNo: 0,
-      //             module_seq: this.moduleAccessEntrySelected.value,
-      //             lastupdatestamp: this.moduleAccessEntrySelected.lastupdatestamp
-      //           }
-      //           this.postJSON(this.getUrlDelete(), param).then(response => {
-      //             if (response == null) return
-      //             this.alertSuccess("Deleting Data Successfully").then(() => {
-      //               this.optLevel2 = []
-      //               this.optLevel3 = []
-      //               this.moduleAccessEntrySelected = null
-      //               this.Level_2_Selected = null
-      //               this.Level_3_Selected = null
-      //               this.getDataLevel1()
-      //             })
-      //           })
-      //         }
-      //       })
-      //     }
-      //   } else if (from == "E") {
-      //     if (this.Level_2_Selected == null) {
-      //       this.alertError("No Event Selected !")
-      //       return
-      //     }
-      //     if (this.optLevel3.length > 0) {
-      //       this.alertError("This Event Could Not Be Delete !")
-      //     } else {
-      //       this.alertConfirmation(
-      //         "Are You Sure Want To Delete This Event ?"
-      //       ).then(ress => {
-      //         // console.log(ress)
-      //         if (ress.value) {
-      //           var param = {
-      //             OptionSeq: this.getOptionSeq().OptionSeq,
-      //             LineNo: 1,
-      //             module_seq: this.Level_2_Selected.module_seq,
-      //             event_seq: this.Level_2_Selected.value,
-      //             lastupdatestamp: this.Level_2_Selected.lastupdatestamp
-      //           }
-      //           this.postJSON(this.getUrlDelete(), param).then(response => {
-      //             if (response == null) return
-      //             this.alertSuccess("Deleting Data Successfully").then(() => {
-      //               this.optLevel3 = []
-      //               this.Level_3_Selected = null
-      //               this.getDataLevel2(this.moduleAccessEntrySelected)
-      //             })
-      //           })
-      //         }
-      //       })
-      //     }
-      //   }
+    M_Delete(level) {
+      var param = 0;
+      if (level == 1) {
+        if (this.Level_1_Id == 0 || this.Level_1_Id == null) {
+          this.alertError("No Level 1 Selected !");
+          return;
+        }
+        param = "/" + this.Level_1_Id;
+      } else if (level == 2) {
+        if (this.Level_2_Id == 0 || this.Level_2_Id == null) {
+          this.alertError("No Level 2 Selected !");
+          return;
+        }
+        param = "/" + this.Level_2_Id;
+      } else {
+        if (this.Level_3_Id == 0 || this.Level_3_Id == null) {
+          this.alertError("No Level 3 Selected !");
+          return;
+        }
+        param = "/" + this.Level_3_Id;
+      }
+      this.alertConfirmation("Are You Sure Want To Delete This Menu ?").then(
+        ress => {
+          if (ress.value) {
+            this.deleteJSON(this.getUrlSsMenu() + param).then(response => {
+              if (response == null) return;
+              var data = response.Data;
+
+              this.alertSuccess("Data Has Deleted Successfull");
+              if (level == 1) {
+                this.getDataLevel1();
+                this.optLevel2 = [];
+                this.optLevel3 = [];
+                this.Level_1_Id = null;
+              } else if (level == 2) {
+                this.getDataLevel2(this.Level_1_Id);
+                this.optLevel3 = [];
+                this.Level_2_Id = null;
+              } else {
+                this.getDataLevel3(this.Level_2_Id);
+                this.Level_3_Id = null;
+              }
+            });
+          }
+        }
+      );
+      return;
     },
     M_Save() {
       // alert(this.$store.getters.getStatus.toUpperCase())
-      var param = {
-        title: this.M_SS_MenuEntry.title,
-        menu_url: this.M_SS_MenuEntry.menu_url,
-        menu_type: this.M_SS_MenuEntry.menu_type,
-        parent_menu_id: this.M_SS_MenuEntry.parent_menu_id,
-        icon_class: this.M_SS_MenuEntry.icon_class,
-        ss_module_id: this.M_SS_MenuEntry.moduleid,
-        level_no: this.M_SS_MenuEntry.level_no,
-        user_input: this.getDataUser().user_id
-      };
-      console.log(JSON.stringify(param, null, 2));
+      if (this.M_SS_MenuEntry.menu_id > 0) {
+        var param = {
+          ss_menu_id: this.M_SS_MenuEntry.menu_id,
+          title: this.M_SS_MenuEntry.title,
+          menu_url: this.M_SS_MenuEntry.menu_url,
+          menu_type: this.M_SS_MenuEntry.menu_type,
+          parent_menu_id: this.M_SS_MenuEntry.parent_menu_id,
+          icon_class: this.M_SS_MenuEntry.icon_class,
+          order_seq: this.M_SS_MenuEntry.order_seq,
+          ss_module_id: this.M_SS_MenuEntry.moduleid,
+          level_no: this.M_SS_MenuEntry.level_no,
+          user_edit: this.getDataUser().user_id
+        };
+        console.log(JSON.stringify(param, null, 2));
 
-      this.postJSON(this.getUrlSsMenu(), param).then(response => {
-        if (response == null) return;
+        this.putJSON(this.getUrlSsMenu(), param).then(response => {
+          if (response == null) return;
 
-        // this.$parent.resultInsert(response.Message);
-        this.alertSuccess("Data Has Been Save Successfull");
-        this.$refs.modalModulAccessEntry.hide();
-        if (this.M_SS_MenuEntry.level_no == 1) {
-          this.getDataLevel1();
-          this.optLevel2 = [];
-          this.optLevel3 = [];
-        } else if (this.M_SS_MenuEntry.level_no == 2) {
-          this.getDataLevel2(this.M_SS_MenuEntry.parent_menu_id);
-          this.optLevel3 = [];
-        } else {
-          this.getDataLevel3(this.M_SS_MenuEntry.parent_menu_id);
-        }
-      });
+          // this.$parent.resultInsert(response.Message);
+          this.alertSuccess("Data Has Been Save Successfull");
+          this.$refs.modalModulAccessEntry.hide();
+          if (this.M_SS_MenuEntry.level_no == 1) {
+            this.getDataLevel1();
+            this.optLevel2 = [];
+            this.optLevel3 = [];
+          } else if (this.M_SS_MenuEntry.level_no == 2) {
+            this.getDataLevel2(this.M_SS_MenuEntry.parent_menu_id);
+            this.optLevel3 = [];
+          } else {
+            this.getDataLevel3(this.M_SS_MenuEntry.parent_menu_id);
+          }
+        });
+      } else {
+        var param = {
+          title: this.M_SS_MenuEntry.title,
+          menu_url: this.M_SS_MenuEntry.menu_url,
+          menu_type: this.M_SS_MenuEntry.menu_type,
+          parent_menu_id: this.M_SS_MenuEntry.parent_menu_id,
+          icon_class: this.M_SS_MenuEntry.icon_class,
+          ss_module_id: this.M_SS_MenuEntry.moduleid,
+          level_no: this.M_SS_MenuEntry.level_no,
+          user_input: this.getDataUser().user_id
+        };
+        console.log(JSON.stringify(param, null, 2));
+
+        this.postJSON(this.getUrlSsMenu(), param).then(response => {
+          if (response == null) return;
+
+          // this.$parent.resultInsert(response.Message);
+          this.alertSuccess("Data Has Been Save Successfull");
+          this.$refs.modalModulAccessEntry.hide();
+          if (this.M_SS_MenuEntry.level_no == 1) {
+            this.getDataLevel1();
+            this.optLevel2 = [];
+            this.optLevel3 = [];
+          } else if (this.M_SS_MenuEntry.level_no == 2) {
+            this.getDataLevel2(this.M_SS_MenuEntry.parent_menu_id);
+            this.optLevel3 = [];
+          } else {
+            this.getDataLevel3(this.M_SS_MenuEntry.parent_menu_id);
+          }
+        });
+      }
     },
     // M_SaveSort(){
     M_Insert() {
@@ -653,19 +696,16 @@ export default {
     },
     paramFromParent() {},
     rowClicked(record, index) {
-      this.$parent.state = "UPDATE";
-      this.$store.commit("SetPage1Data", record);
-      this.$store.commit("setEventStatus", "rowClick");
-      this.$store.commit("setLevel", 1);
-      this.getDataBy(record);
-      this.$parent.isDetail = true;
-
-      this.PageMasterSeqShow = true;
-
-      this.PageMasterSeq = record.page_master_seq;
-      this.LastUpdateStamp = record.lastupdatestamp;
-
-      this.FormToMasterPage().ValidasiPage();
+      // this.$parent.state = "UPDATE";
+      // this.$store.commit("SetPage1Data", record);
+      // this.$store.commit("setEventStatus", "rowClick");
+      // this.$store.commit("setLevel", 1);
+      // this.getDataBy(record);
+      // this.$parent.isDetail = true;
+      // this.PageMasterSeqShow = true;
+      // this.PageMasterSeq = record.page_master_seq;
+      // this.LastUpdateStamp = record.lastupdatestamp;
+      // this.FormToMasterPage().ValidasiPage();
     },
     rowLink: function(url) {
       this.$refs.modalTest.show();
@@ -971,10 +1011,10 @@ export default {
       });
     },
     openModalMenuEntry(level) {
+      this.clearModelForm();
       this.TitleLevel = "Level " + level;
+      // this.M_SS_MenuEntry.menu_id = 0;
 
-      this.M_SS_MenuEntry.moduleid = 0;
-      this.M_SS_MenuEntry.title = "";
       this.M_SS_MenuEntry.level_no = level;
       if (level == 1) {
         this.M_SS_MenuEntry.parent_menu_id = 0;
@@ -989,28 +1029,44 @@ export default {
     openModalMenuUpdate(level) {
       var param = 0;
       if (level == 1) {
+        if (this.Level_1_Id == 0 || this.Level_1_Id == null) {
+          return;
+        }
         param = "/" + this.Level_1_Id;
       } else if (level == 2) {
+        if (this.Level_2_Id == 0 || this.Level_2_Id == null) {
+          return;
+        }
         param = "/" + this.Level_2_Id;
       } else {
+        if (this.Level_3_Id == 0 || this.Level_3_Id == null) {
+          return;
+        }
         param = "/" + this.Level_3_Id;
       }
 
       this.getJSON(this.getUrlSsMenu() + param).then(response => {
         if (response == null) return;
         var data = response.Data;
-        this.ListModuel = [];
-
-        this.M_SS_MenuEntry.menu_id = data.ss_menu_id;
-        this.M_SS_MenuEntry.title = data.title;
-        this.M_SS_MenuEntry.menu_url = data.menu_url;
-        this.M_SS_MenuEntry.menu_type = data.menu_type;
-        this.M_SS_MenuEntry.parent_menu_id = data.parent_menu_id;
-        this.M_SS_MenuEntry.icon_class = data.icon_class;
-        this.M_SS_MenuEntry.moduleid = data.ss_module_id;
-        this.M_SS_MenuEntry.level_no = data.level_no;
 
         this.$refs.modalModulAccessEntry.show();
+        this.$nextTick(() => {
+          console.log("data", JSON.stringify(data, null, 0));
+          this.M_SS_MenuEntry.menu_id = data.ss_menu_id;
+          this.M_SS_MenuEntry.title = data.title;
+          this.M_SS_MenuEntry.menu_url = data.menu_url;
+          this.M_SS_MenuEntry.menu_type = data.menu_type;
+          this.M_SS_MenuEntry.parent_menu_id = data.parent_menu_id;
+          this.M_SS_MenuEntry.icon_class = data.icon_class;
+          this.M_SS_MenuEntry.order_seq = data.order_seq;
+          this.M_SS_MenuEntry.moduleid = data.ss_module_id;
+          this.M_SS_MenuEntry.module_name = data.ss_module_id;
+          this.M_SS_MenuEntry.level_no = data.level_no;
+
+          console.log("Model", JSON.stringify(this.M_SS_MenuEntry, null, 0));
+        });
+
+        this.$forceUpdate();
       });
     },
     openEditModuleAccsessEntry(data) {
@@ -1044,6 +1100,25 @@ export default {
       this.getToolbar().isNew = true;
       this.getToolbar().statusFunction[6].disabled = true;
       this.getToolbar().statusFunction[7].disabled = false;
+    },
+    clearModelForm() {
+      this.M_SS_MenuEntry = {
+        menu_id: 0,
+        moduleid: 0,
+        module_name: "",
+        title: null,
+        menu_url: null,
+        icon_class: null,
+        parent_menu_id: 0,
+        menu_type: "M",
+        order_seq: 0,
+        level_no: 0,
+        modulecdLabel: ""
+      };
+      this.$forceUpdate();
+    },
+    resetModal() {
+      this.clearModelForm();
     },
 
     getDataModule() {
