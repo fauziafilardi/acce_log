@@ -252,7 +252,9 @@
               </b-row>
             </div>
             <div class="card__body">
-              <canvas id="user-chart"></canvas>
+              <b-row style="margin-top: 27px; margin-bottom: 27px;">
+                <canvas id="user-chart"></canvas>
+              </b-row>
             </div>
           </div>
         </b-col>
@@ -777,7 +779,7 @@ export default {
         }
       ];
       var valuelabel = [
-        "",
+        ""
         // "A",
         // "B",
         // "Fleet Maintenance",
@@ -821,27 +823,27 @@ export default {
               generateLabels: function(chart) {
                 var data = chart.data;
                 if (data.datasets.length > 0) {
-                    return data.datasets.map(function(x, i) {
-                        // console.log(x)
-                        var label = x.label
-                        var fill = x.backgroundColor
-                        var stroke = x.borderColor
-                        var total = 0
-                        
-                        x.data.map(datass => {
-                            total += datass
-                        })
-                        
-                        var meta = chart.getDatasetMeta(i);
-                        return {
-                            text: label + " (" + total + ")",
-                            fillStyle: fill,
-                            strokeStyle: stroke,
-                            lineWidth: 1,
-                            hidden: isNaN(x.data[0]) || meta.data[0].hidden,
-                            datasetIndex: i
-                        };
+                  return data.datasets.map(function(x, i) {
+                    // console.log(x)
+                    var label = x.label;
+                    var fill = x.backgroundColor;
+                    var stroke = x.borderColor;
+                    var total = 0;
+
+                    x.data.map(datass => {
+                      total += datass;
                     });
+
+                    var meta = chart.getDatasetMeta(i);
+                    return {
+                      text: label + " (" + total + ")",
+                      fillStyle: fill,
+                      strokeStyle: stroke,
+                      lineWidth: 1,
+                      hidden: isNaN(x.data[0]) || meta.data[0].hidden,
+                      datasetIndex: i
+                    };
+                  });
                 }
               }
             },
@@ -927,7 +929,7 @@ export default {
       });
 
       myUserChart.update();
-    },
+    }
   },
   mounted() {
     this.getOrder();
@@ -938,5 +940,5 @@ export default {
 </script>
 
 <style scoped>
-    @import "./../../assets/css/Chart.min.css";
+@import "./../../assets/css/Chart.min.css";
 </style>
