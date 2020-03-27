@@ -252,8 +252,12 @@
               </b-row>
             </div>
             <div class="card__body">
-              <b-row style="margin-top: 27px; margin-bottom: 27px;">
-                <canvas id="user-chart"></canvas>
+              <b-row>
+                <b-col>
+                  <div class="chart-container" style="position: relative;height: 42vh;">
+                    <canvas id="user-chart"></canvas>
+                  </div>
+                </b-col>
               </b-row>
             </div>
           </div>
@@ -815,6 +819,7 @@ export default {
         },
         options: {
           // barValueSpacing: 20,
+          maintainAspectRatio: false,
           legend: {
             display: true,
             position: "bottom",

@@ -8,7 +8,9 @@
             <div class="card__body">
               <b-row>
                 <b-col>
-                  <canvas id="revenue-chart" width="350" height="100"></canvas>
+                  <div class="chart-container" style="position: relative; height: 38vh;">
+                    <canvas id="revenue-chart"></canvas>
+                  </div>
                 </b-col>
               </b-row>
             </div>
@@ -36,7 +38,9 @@
             <div class="card__body">
               <b-row style="margin-top:15px; margin-bottom:15px;">
                 <b-col>
-                  <canvas id="tOcupancy-chart"></canvas>
+                  <div class="chart-container" style="position: relative;">
+                    <canvas id="tOcupancy-chart"></canvas>
+                  </div>
                 </b-col>
               </b-row>
             </div>
@@ -300,6 +304,7 @@ export default {
         },
         options: {
           // barValueSpacing: 20,
+          maintainAspectRatio: false,
           legend: {
             display: true,
             position: "bottom",
@@ -423,6 +428,7 @@ export default {
           label: "Total Available",
           backgroundColor: "#333399",
           borderColor: "#333399",
+          width: "",
           data: [20, 22, 25, 22, 20, 27, 20],
           fill: true
         },
@@ -471,6 +477,9 @@ export default {
         },
         options: {
           // barValueSpacing: 20,
+          maintainAspectRatio: false,
+          defaultFontSize: 11,
+          defaultFontStyle: "normal",
           legend: {
             display: true,
             position: "bottom",
@@ -554,8 +563,8 @@ export default {
               var dete = chartInstance.data;
 
               ctx.font = Chart.helpers.fontString(
-                Chart.defaults.global.defaultFontSize,
-                Chart.defaults.global.defaultFontStyle,
+                // Chart.defaults.global.defaultFontSize,
+                // Chart.defaults.global.defaultFontStyle,
                 Chart.defaults.global.defaultFontFamily
               );
               ctx.textAlign = "center";
@@ -641,6 +650,7 @@ export default {
         },
         options: {
           // barValueSpacing: 20,
+          // maintainAspectRatio: false,
           legend: { display: false },
           title: {
             display: false,
@@ -830,6 +840,7 @@ export default {
         },
         options: {
           // barValueSpacing: 20,
+          maintainAspectRatio: false,
           legend: {
             display: true,
             position: "bottom",
@@ -1005,6 +1016,7 @@ export default {
         },
         options: {
           // barValueSpacing: 20,
+          maintainAspectRatio: false,
           legend: {
             display: true,
             position: "bottom",

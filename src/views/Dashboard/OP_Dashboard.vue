@@ -201,7 +201,7 @@
               </b-row>
             </div>
             <div class="card__body">
-              <b-row class="ListingRow">
+              <b-row class="ListingRowHeader">
                 <b-col md="4" style="width: 33% !important;">
                   <font-awesome-icon style="color: #333399;" icon="map-marker-alt" size="lg" />&nbsp;
                   <span>Zone</span>
@@ -215,7 +215,11 @@
                   <span>Kg</span>
                 </b-col>
               </b-row>
-              <b-row v-for="(data, index) in ConsoleIncoming" v-bind:key="index" class="ListingRow">
+              <b-row
+                v-for="(data, index) in ConsoleIncoming"
+                v-bind:key="index"
+                class="ListingRowBody"
+              >
                 <b-col md="4" style="width: 33% !important;">
                   <span>{{data.zone}}</span>
                 </b-col>
@@ -249,7 +253,7 @@
               </b-row>
             </div>
             <div class="card__body">
-              <b-row class="ListingRow">
+              <b-row class="ListingRowHeader">
                 <b-col md="4" style="width: 33% !important;">
                   <font-awesome-icon style="color: #333399;" icon="map-marker-alt" size="lg" />&nbsp;
                   <span>Zone</span>
@@ -263,7 +267,11 @@
                   <span>Incoming</span>
                 </b-col>
               </b-row>
-              <b-row v-for="(data, index) in ConsoleIncoming" v-bind:key="index" class="ListingRow">
+              <b-row
+                v-for="(data, index) in ConsoleIncoming"
+                v-bind:key="index"
+                class="ListingRowBody"
+              >
                 <b-col md="4" style="width: 33% !important;">
                   <span>{{data.zone}}</span>
                 </b-col>
