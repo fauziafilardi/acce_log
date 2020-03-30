@@ -144,6 +144,9 @@ import ABSListTest from './components/List/ABSListTest.vue'
 import ABSTextAreaVuex from './components/Input_Vuex/ABSTextArea_Vuex.vue'
 import ABSInputTextPeriodYear from './components/Input_Vuex/ABSInputTextPeriodYear.vue'
 
+// ACCELOG Component
+import ACCList from './components/List/ACCList.vue'
+
 import HeaderFormVuex from './components/HeaderForm/HeaderFormVuex.vue'
 import ABSMasterPageFormVuex from './components/Forms/ABSMasterPageFormVuex.vue'
 import ABSPreviewReport from './components/Forms/ABSPreviewReport.vue'
@@ -263,6 +266,9 @@ Vue.component('ABSGrid', ABSGrid)
 Vue.component('ABSListTest', ABSListTest)
 Vue.component('ABSTextAreaVuex', ABSTextAreaVuex)
 Vue.component('ABSInputTextPeriodYear', ABSInputTextPeriodYear)
+
+//ACCELOG Component
+Vue.component('ACCList', ACCList)
 
 // componen Vuex - By Fauzi
 Vue.component('HeaderFormVuex', HeaderFormVuex)
