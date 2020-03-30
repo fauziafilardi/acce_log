@@ -99,7 +99,31 @@
                         />
                     </template> -->
                 </b-table>
-                </div>
+            </div>
+
+            <b-form inline style="float: left; color: #333;">
+                <label class="font-lbl" style="margin-bottom:0px !important; margin-right:0px !important;">Page Size</label>
+                <b-form-select
+                    id="cmbPerPage"
+                    v-model="perPage"
+                    v-on:input="doGetList($store.getters['getSearch' + prop.PageLevel], 'pageSize')"
+                    :options="pagingData"
+                    class="sm-3 mgn-left-10 font-lbl page-size-left"
+                    :disabled="isDisableTable"
+                ></b-form-select>
+                of {{ this.totalRows }} Records
+            </b-form>
+
+            <b-pagination
+                align="right"
+                v-model="currentPage"
+                @input="doGetList($store.getters['getSearch' + prop.PageLevel], 'pagination')"
+                :total-rows="totalRows"
+                :per-page="perPage"
+                :limit="limit"
+                style="margin-bottom: 0px;"
+                :disabled="isDisableTable"
+            ></b-pagination>
         </div>
     </div>
 </template>
