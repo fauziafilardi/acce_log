@@ -384,8 +384,16 @@
 }
 
 .Listing {
-    &Row {
+    &RowHeader {
         font-size: 15px;
+        padding-bottom: 5px;
+        margin-bottom: 5px;
+        border-bottom: 2px solid #ced0d6;
+        color: #333399;
+    }
+
+    &RowBody {
+        font-size: 12px;
         padding-bottom: 5px;
         margin-bottom: 5px;
         border-bottom: 2px solid #ced0d6;

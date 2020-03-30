@@ -815,7 +815,63 @@ export default {
           return null
         })
     },
+    putJSON(fullUrl, param) {
+      var paramtoset = param
+      if (fullUrl === this.getUrlInsert() || fullUrl === this.getUrlUpdate()) {
+        param['DataT'] = this.$store.getters.getDataT
+      }
 
+      // set data from pop up (window) to parent(master)
+      // if (fullUrl === this.getUrlInsert() && this.getIsPopup()) {
+      //   this.$store.commit('setParamInsertPopup', param)
+      // }
+
+      this.$store.commit('setStatusLoader', true)
+      return axios
+        .put(
+          fullUrl,
+          param, {
+          headers: {
+            'Content-Type': this.json,
+            Accept: this.json,
+            // Session_Id: this.getSession().Session_Id
+            Token: this.getSession().Session_Id
+          }
+        }
+        )
+        .then(response => {
+          let responses = response.data
+          // console.log(responses)
+
+          let error = responses.Error
+          let message = responses.Message
+          // this.error = true
+
+          this.$store.commit('setStatusLoader', false)
+          if (error) {
+            this.alertError(message)
+            return null
+          }
+
+          if (fullUrl === this.getUrlById()) {
+            this.$store.commit('SetPage' + this.$store.getters.getLevel + 'GetDataBy', responses.Data[0])
+          }
+
+          if (fullUrl === this.getUrlInsert() && this.getIsPopup()) {
+            // alert('yey')
+            // console.log(responses.Data[0])
+            paramtoset.row_id = responses.Data[0].row_id
+            this.$store.commit('setParamInsertPopup', paramtoset)
+            // console.log(paramtoset)
+          }
+          return responses
+        })
+        .catch(err => {
+          this.checkResponseCode(err)
+          this.$store.commit('setStatusLoader', false)
+          return null
+        })
+    },
     // postJSONMulti (fullUrl, param) {
     //   return axios
     //     .post(
@@ -1383,6 +1439,38 @@ export default {
     getJSON(param) {
       return axios
         .get(
+          param, {
+          headers: {
+            'Content-Type': this.json,
+            Accept: this.json,
+            Token: this.getSession().Session_Id
+          }
+        }
+        )
+        .then(response => {
+          let responses = response.data
+          // console.log(responses)
+
+          let error = responses.error
+          let message = responses.message
+          // this.error = true
+
+          this.$store.commit('setStatusLoader', false)
+          if (error) {
+            this.alertError(message)
+            return null
+          }
+          return responses
+        })
+        .catch(err => {
+          this.checkResponseCode(err)
+          this.$store.commit('setStatusLoader', false)
+          return null
+        })
+    },
+    deleteJSON(param) {
+      return axios
+        .delete(
           param, {
           headers: {
             'Content-Type': this.json,
