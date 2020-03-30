@@ -66,7 +66,7 @@
                         </b-row>
                       </b-col>
                       <b-col md="8" style="max-width:fit-content !important;">
-                        <span style="font-size: 29px; font-weight: bold; color: #666666;">(98.5 %)</span>
+                        <span style="font-size: 25px; font-weight: bold; color: #666666;">(98.5 %)</span>
                       </b-col>
                     </b-row>
                   </span>
@@ -377,11 +377,11 @@
         <b-col md="6">
           <div class="card">
             <div class="card__title">
-              <b-row>
+              <!-- <b-row>
                 <b-col style="max-width:fit-content !important;">
                   <span>Order</span>
                 </b-col>
-                <b-col style="text-align: right;">
+                <b-col style="text-align: right; max-width:fit-content !important;">
                   <span style="position: absolute; right: 25%;">
                     <b-badge variant="warning">&nbsp;</b-badge>
                     <span
@@ -396,6 +396,56 @@
                       style="color: #666666; font-size:12px; font-weight: normal !important; padding-left: 5px;"
                     >Issue</span> &nbsp;
                   </span>
+                </b-col>
+                <b-col md="4" style="text-align: end !important;">
+                  <span>
+                    <ABSButton
+                      :text="'View All (5)'"
+                      classButton="button button--new"
+                      classIcon="icon-style-1"
+                      :disabled="true"
+                    />
+                  </span>
+                </b-col>
+              </b-row>-->
+              <b-row>
+                <b-col style="max-width:fit-content !important;">
+                  <span>Order</span>
+                </b-col>
+                <b-col style="text-align: right;">
+                  <span style="padding-right:10px">
+                    <font-awesome-icon
+                      style="font-size: medium; color: #ff9900;"
+                      icon="circle"
+                      size="sm"
+                    />
+                  </span>
+                  <span
+                    style="padding-right:10px; font-size: 12px !important; font-weight: normal !important; color: #666666;"
+                  >Pending</span>
+
+                  <span style="padding-right:10px">
+                    <font-awesome-icon
+                      style="font-size: medium; color: #00cc33;"
+                      icon="circle"
+                      size="sm"
+                    />
+                  </span>
+                  <span
+                    style="padding-right:10px; font-size: 12px !important; font-weight: normal !important; color: #666666;"
+                  >On Progress</span>
+
+                  <span style="padding-right:10px">
+                    <font-awesome-icon
+                      style="font-size: medium; color: #cc0000;"
+                      icon="circle"
+                      size="sm"
+                    />
+                  </span>
+                  <span
+                    style="padding-right:10px; font-size: 12px !important; font-weight: normal !important; color: #666666;"
+                  >Issue</span>
+
                   <span>
                     <ABSButton
                       :text="'View All (5)'"
