@@ -28,6 +28,8 @@ import MK_LogBook_Edit from '@/views/MK/MK_LogBook_Mobile/MK_LogBook_Edit'
 import MK_LogBook_New from '@/views/MK/MK_LogBook_Mobile/MK_LogBook_New'
 import MK_LogBook_New2 from '@/views/MK/MK_LogBook_Mobile/MK_LogBook_New2'
 
+import MK_NewProspect from '@/views/MK/MK_NewProspect/MK_NewProspect'
+
 
 export const MKRender = {
     path: '/MK',
@@ -207,6 +209,14 @@ export const MKRender = {
             path: '/MK/MK_LogBook_New2',
             name: 'MK_LogBook_New2',
             component: MK_LogBook_New2,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/MK/MK_NewProspect',
+            name: 'MK_NewProspect',
+            component: MK_NewProspect,
             meta: {
                 requiresAuth: true
             }
