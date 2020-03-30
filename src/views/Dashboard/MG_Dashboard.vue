@@ -128,7 +128,7 @@
                         </b-row>
                       </b-col>
                       <b-col md="8" style="max-width:fit-content !important;">
-                        <span style="font-size: 29px; font-weight: bold; color: #666666;">(98.5 %)</span>
+                        <span style="font-size: 25px; font-weight: bold; color: #666666;">(98.5 %)</span>
                       </b-col>
                     </b-row>
                   </span>
