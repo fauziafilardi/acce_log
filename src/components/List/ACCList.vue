@@ -95,12 +95,34 @@
                             :disabled="isDisableTable || (isCheckDisable == undefined ? false: row.item[isCheckDisable] == null)"
                             style="min-height:15px !important;padding-top:0px !important;"
                         />
-          </template>-->
-        </b-table>
-      </div>
-    </div>
-    <div class="card_footer">
-      <b-pagination v-model="currentPage" pills :total-rows="rows" align="right"></b-pagination>
+                    </template> -->
+                </b-table>
+            </div>
+
+            <b-form inline style="float: left; color: #333;">
+                <label class="font-lbl" style="margin-bottom:0px !important; margin-right:0px !important;">Page Size</label>
+                <b-form-select
+                    id="cmbPerPage"
+                    v-model="perPage"
+                    v-on:input="doGetList($store.getters['getSearch' + prop.PageLevel], 'pageSize')"
+                    :options="pagingData"
+                    class="sm-3 mgn-left-10 font-lbl page-size-left"
+                    :disabled="isDisableTable"
+                ></b-form-select>
+                of {{ this.totalRows }} Records
+            </b-form>
+
+            <b-pagination
+                align="right"
+                v-model="currentPage"
+                @input="doGetList($store.getters['getSearch' + prop.PageLevel], 'pagination')"
+                :total-rows="totalRows"
+                :per-page="perPage"
+                :limit="limit"
+                style="margin-bottom: 0px;"
+                :disabled="isDisableTable"
+            ></b-pagination>
+        </div>
     </div>
   </div>
 </template>
