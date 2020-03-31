@@ -45,6 +45,11 @@
         min-height: 1px;
         padding: 10px 10px 10px 10px;
     }
+
+    &__footer {
+        border-top: solid 1px #dee2e6;
+        padding: 10px;
+    }
 }
 
 .card-list {

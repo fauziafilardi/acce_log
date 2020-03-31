@@ -316,7 +316,7 @@ ul.box-languages {
 }
 
 .table {
-  border: 1px solid #dee2e6;
+  // border: 1px solid #dee2e6;
   color: #666666 !important;
 
   thead {
@@ -406,9 +406,9 @@ ul.box-languages {
   font-size: 12px;
 }
 
-ul.pagination {
-  margin-top: 10px;
-}
+// ul.pagination {
+//   margin-top: 10px;
+// }
 
 .page-link {
   margin-bottom: 10px;
@@ -417,8 +417,13 @@ ul.pagination {
 }
 
 .page-size-left {
-  margin-top: 5px;
-  height: 30px !important;
+  // margin-top: 5px;
+  height: 25px !important;
+}
+
+.custom-select {
+  font-size: 12px !important;
+  padding: 0px 25px 0px 10px !important;
 }
 
 .dropdown {
@@ -823,4 +828,9 @@ ul.pagination {
 .table th,
 .table td {
   padding: 5px !important;
+}
+
+.col-right {
+  text-align: end !important;
+  max-width: fit-content !important;
 }

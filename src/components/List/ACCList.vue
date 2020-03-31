@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <div class="card__title">
+    <div class="card__title" style="padding-bottom: 5px !important;">
       <b-row>
         <b-col style="max-width:fit-content !important;">
           <span>New Prospect</span>
@@ -22,35 +22,57 @@
                 ></b-form-input>
               </span>
             </b-col>
-            <b-col md="3" style="max-width:fit-content !important;">
-              <span>
-                <ABSButton
-                  :text="'Search'"
-                  classButton="button button--new"
-                  classIcon="icon-style-1"
-                  :disabled="true"
-                />
-              </span>
-
-              <span>
-                <ABSButton
-                  :text="'Add New'"
-                  classButton="button button--new"
-                  classIcon="icon-style-1"
-                  :disabled="true"
-                />
-              </span>
-
-              <span>
-                <ABSButton
-                  :text="'Back'"
-                  classButton="button button--new"
-                  classIcon="icon-style-1"
-                  :disabled="true"
-                />
-              </span>
-            </b-col>
           </b-row>
+        </b-col>
+        <b-col md="3" class="col-right">
+          <span>
+            <ABSButton
+              :text="'Search'"
+              classButton="button button--new"
+              classIcon="icon-style-1"
+              :disabled="true"
+            />
+          </span>
+
+          <span>
+            <ABSButton
+              :text="'Add New'"
+              classButton="button button--new"
+              classIcon="icon-style-1"
+              :disabled="true"
+            />
+          </span>
+
+          <span>
+            <ABSButton
+              :text="'Back'"
+              classButton="button button--new"
+              classIcon="icon-style-1"
+              :disabled="true"
+            />
+          </span>
+          <span>
+            <div
+              :class="isDisableTable ? '' : 'dropdown'"
+              style="float:right;"
+              v-show="!hideCheckboxAndGear"
+            >
+              <button class="dropbtn">
+                <i class="icon-settings"></i>
+              </button>
+              <div class="dropdown-content">
+                <div class="dropdown-modal-list" @click="openModalExport">
+                  <font-awesome-icon icon="file-export" class="icon-style-3" />&nbsp;&nbsp;Export
+                </div>
+                <div class="dropdown-modal-list" @click="openModalColumn">
+                  <font-awesome-icon icon="columns" class="icon-style-1" />&nbsp;&nbsp;Column
+                </div>
+                <div class="dropdown-modal-list" @click="openModalFilter">
+                  <font-awesome-icon icon="columns" class="icon-style-1" />&nbsp;&nbsp;Advance Filter
+                </div>
+              </div>
+            </div>
+          </span>
         </b-col>
       </b-row>
     </div>
@@ -95,35 +117,248 @@
                             :disabled="isDisableTable || (isCheckDisable == undefined ? false: row.item[isCheckDisable] == null)"
                             style="min-height:15px !important;padding-top:0px !important;"
                         />
-                    </template> -->
-                </b-table>
-            </div>
-
-            <b-form inline style="float: left; color: #333;">
-                <label class="font-lbl" style="margin-bottom:0px !important; margin-right:0px !important;">Page Size</label>
-                <b-form-select
-                    id="cmbPerPage"
-                    v-model="perPage"
-                    v-on:input="doGetList($store.getters['getSearch' + prop.PageLevel], 'pageSize')"
-                    :options="pagingData"
-                    class="sm-3 mgn-left-10 font-lbl page-size-left"
-                    :disabled="isDisableTable"
-                ></b-form-select>
-                of {{ this.totalRows }} Records
-            </b-form>
-
-            <b-pagination
-                align="right"
-                v-model="currentPage"
-                @input="doGetList($store.getters['getSearch' + prop.PageLevel], 'pagination')"
-                :total-rows="totalRows"
-                :per-page="perPage"
-                :limit="limit"
-                style="margin-bottom: 0px;"
-                :disabled="isDisableTable"
-            ></b-pagination>
-        </div>
+          </template>-->
+        </b-table>
+      </div>
     </div>
+    <div class="card__footer">
+      <b-form inline style="float: left; color: #333;">
+        <label
+          class="font-lbl"
+          style="margin-bottom:0px !important; margin-right:0px !important;"
+        >Page Size</label>
+        <b-form-select
+          id="cmbPerPage"
+          v-model="perPage"
+          v-on:input="doGetList($store.getters['getSearch' + prop.PageLevel], 'pageSize')"
+          :options="pagingData"
+          class="sm-3 mgn-left-10 font-lbl page-size-left"
+          :disabled="isDisableTable"
+        ></b-form-select>
+        of {{ this.totalRows }} Records
+      </b-form>
+
+      <b-pagination
+        align="right"
+        v-model="currentPage"
+        @input="doGetList($store.getters['getSearch' + prop.PageLevel], 'pagination')"
+        :total-rows="totalRows"
+        :per-page="perPage"
+        :limit="limit"
+        style="margin-bottom: 0px;"
+        :disabled="isDisableTable"
+      ></b-pagination>
+    </div>
+    <!-- Start Modal -->
+    <b-modal
+      id="modalExport"
+      :hide-footer="true"
+      :hide-header-close="true"
+      size="md"
+      ref="modalExport"
+      class="modal-customize-abs"
+    >
+      <b-row>
+        <b-col sm="12">
+          <div class="modal-customize-abs__modal-header">
+            <div class="modal-customize-abs__modal-header--title">Export {{title}} to Excel</div>
+            <div class="modal-customize-abs__modal-header--icon" @click="$refs.modalExport.hide()">
+              <i class="icon-close"></i>
+            </div>
+          </div>
+          <div class="modal-customize-abs__modal-body">
+            <p>Select data that will be exported</p>
+            <div class="box-category">
+              <div class="box-category__list-category-export" @click="doExportXLS('S')">
+                <img :src="require('@/assets/export-select.png')" alt />
+                Export Selected Data
+              </div>
+              <div
+                class="box-category__list-category-export category-all"
+                @click="doExportXLS('A')"
+              >
+                <img :src="require('@/assets/export-all.png')" alt />
+                Export All
+              </div>
+            </div>
+          </div>
+        </b-col>
+      </b-row>
+    </b-modal>
+
+    <b-modal
+      id="modalColumn"
+      :hide-footer="true"
+      :hide-header-close="true"
+      size="lg"
+      ref="modalColumn"
+      class="modal-customize-abs"
+    >
+      <b-container class="bv-example-row">
+        <b-row>
+          <b-col sm="12">
+            <div class="modal-customize-abs__modal-header">
+              <div class="modal-customize-abs__modal-header--title">Edit Column</div>
+              <div
+                class="modal-customize-abs__modal-header--icon"
+                @click="$refs.modalColumn.hide()"
+              >
+                <i class="icon-close"></i>
+              </div>
+            </div>
+            <div class="modal-customize-abs__modal-body">
+              <b-row>
+                <b-col sm="5">
+                  <div>
+                    <div class="divCustom">
+                      <b>Available Columns</b>
+                      <br />
+                      <span>Select column below to display in your grid</span>
+                    </div>
+                    <br />
+                    <div v-if="availableColumn.length > 0">
+                      <ABSMultiSelect
+                        v-model="availableColumnSelected"
+                        :options="availableColumn"
+                        size="10"
+                        class="selectCustom"
+                      />
+                    </div>
+                    <div v-else>
+                      <b>No Additional Properties</b>
+                    </div>
+                  </div>
+                </b-col>
+                <b-col sm="2">
+                  <div class="arrow-move">
+                    <b-button @click="M_moveRight" size="sm" variant="primary">
+                      <font-awesome-icon icon="angle-double-right" class="icon-style-5" />
+                    </b-button>
+                  </div>
+                </b-col>
+                <b-col sm="5">
+                  <div>
+                    <div class="divCustom">
+                      <b>Selected Column</b>
+                      <br />
+                      <span>Drag the column names below to reorder how they will appear above your grid</span>
+                    </div>
+                    <br />
+                    <draggable
+                      v-if="selectedColumn.length > 0"
+                      v-model="selectedColumn"
+                      @start="drag=true"
+                      @end="drag=false"
+                      class="drag-area"
+                    >
+                      <div v-for="element in selectedColumn" :key="element.value" class="draggable">
+                        {{element.key}}
+                        <span>
+                          <span
+                            class="btn-remove"
+                            style="margin-top:0px; float:right;"
+                            @click="M_moveLeft(element.value)"
+                          >
+                            <font-awesome-icon icon="trash" />&nbsp;Delete
+                          </span>
+                        </span>
+                      </div>
+                    </draggable>
+                    <div v-else>
+                      <b>No Column Selected</b>
+                    </div>
+                  </div>
+                </b-col>
+              </b-row>
+              <br />
+              <b-row>
+                <b-col cols="12">
+                  <b-button size="sm" block variant="success" @click="modalColumnHandleOk">Ok</b-button>
+                </b-col>
+              </b-row>
+              <br />
+            </div>
+          </b-col>
+        </b-row>
+      </b-container>
+    </b-modal>
+
+    <b-modal
+      id="modalFilter"
+      :hide-footer="true"
+      :hide-header-close="true"
+      size="md"
+      ref="modalFilter"
+      class="modal-customize-abs"
+    >
+      <b-container class="bv-example-row">
+        <b-row>
+          <b-col sm="12">
+            <div class="modal-customize-abs__modal-header">
+              <div class="modal-customize-abs__modal-header--title">Filter Builder</div>
+              <div
+                class="modal-customize-abs__modal-header--icon"
+                @click="$refs.modalFilter.hide()"
+              >
+                <i class="icon-close"></i>
+              </div>
+            </div>
+            <div class="modal-customize-abs__modal-body">
+              <div class="list-filter">
+                <b-row v-for="(data, index) in filteredColumn" :key="index">
+                  <b-col sm="4">
+                    <b-form-select
+                      v-model="data.columnName"
+                      :options="selectedColumn"
+                      class="sm-3 font-lbl"
+                      size="sm"
+                    />
+                  </b-col>
+                  <b-col sm="3">
+                    <b-form-select
+                      v-model="data.signFilter"
+                      :options="signFilter"
+                      class="sm-3 font-lbl"
+                      size="sm"
+                    />
+                  </b-col>
+                  <b-col sm="4">
+                    <b-form-input
+                      v-if="signFilter[signFilter.map(x => {return x.value}).indexOf(data.signFilter)].type=='text'"
+                      v-model="data.value"
+                      type="text"
+                      placeholder="Enter a value"
+                      size="sm"
+                      class="sm-3 font-lbl"
+                    />
+                  </b-col>
+                  <b-col sm="1">
+                    <div class="icon-close-filter" @click="M_RemoveFilter(index)">
+                      <i class="icon-trash"></i>
+                    </div>
+                  </b-col>
+                </b-row>
+              </div>
+              <hr />
+              <b-row align-h="between">
+                <b-col cols="3">
+                  <b-button @click="doAddFilter" block size="sm" variant="outline-primary">Add</b-button>
+                </b-col>
+                <b-col cols="3">
+                  <b-button
+                    size="sm"
+                    block
+                    variant="outline-success"
+                    @click="modalFilterHandleOk"
+                  >Ok</b-button>
+                </b-col>
+              </b-row>
+              <br />
+            </div>
+          </b-col>
+        </b-row>
+      </b-container>
+    </b-modal>
   </div>
 </template>
 
@@ -219,6 +454,28 @@ export default {
   },
   computed: {},
   methods: {
+    openModalExport() {
+      // this.$store.commit("setLevel", this.prop.PageLevel);
+      // this.$store.commit("setTab", this.prop.TabIndex);
+      this.$refs.modalExport.show();
+    },
+    openModalColumn() {
+      // this.$store.commit("setLevel", this.prop.PageLevel);
+      // this.$store.commit("setTab", this.prop.TabIndex);
+      // this.availableColumnTemp = this.availableColumnStatic
+      // this.selectedColumnTemp = this.selectedColumnStatic
+
+      // this.availableColumn = this.availableColumnStatic
+      // this.selectedColumn = this.selectedColumnStatic
+
+      this.doGetList("", "refresh_column");
+      this.$refs.modalColumn.show();
+    },
+    openModalFilter() {
+      // this.$store.commit("setLevel", this.prop.PageLevel);
+      // this.$store.commit("setTab", this.prop.TabIndex);
+      this.$refs.modalFilter.show();
+    },
     checkOrderBy() {
       if (this.prop.OrderBy == undefined) {
       } else if (this.prop.OrderBy == "") {
@@ -750,5 +1007,104 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+div.draggable {
+  cursor: move;
+  position: relative;
+  display: block;
+  padding: 10px 15px;
+  /* margin-bottom: -1px; */
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+}
+
+span.btn-remove {
+  cursor: pointer;
+  display: inline-block;
+  min-width: 10px;
+  padding: 5px 7px;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 1;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  background-color: #dc3545;
+  border-radius: 0;
+  float: right;
+  margin-top: 5px;
+}
+
+div.arrow-move {
+  text-align: center;
+  /* margin-top: 23%; */
+  align-self: center;
+  margin: 20px;
+}
+
+span.likeLink {
+  cursor: pointer;
+  text-decoration: none;
+  color: #007bff;
+}
+span.likeLink:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+.dropbtn {
+  background: transparent;
+  border: none;
+  font-size: 15px !important;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  text-align: left;
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  /* transition: all 100s; */
+}
+
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+.dropdown:hover .dropbtn {
+  background-color: #d9efff;
+}
+
+.dropdown:not(:hover) {
+  transition: all 0.1s;
+  transition-delay: 5s;
+}
+
+.dropdown-content:not(:hover) {
+  transition: all 0.1s;
+  transition-delay: 5s;
+}
+
+.isProcessNeeds {
+  color: #000000 !important;
+  height: 36px !important;
+}
 </style>
