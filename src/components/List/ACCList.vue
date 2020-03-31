@@ -553,178 +553,123 @@ export default {
             this.doGetList(this.search, "headTable");
             this.resetSelected();
             this.$emit("headClicked");
-            },
-            rowClicked: function(record, index) {
-                if (this.isDisableTable || this.isProcess == true) return;
-                if (this.rowSel != -1) {
-                    this.items[this.rowSel]["_rowVariant"] = "";
-                }
-
-                this.rowSel = index;
-                this.items[index]["_rowVariant"] = "primary";
-                this.$forceUpdate();
-
-                this.$emit("rowClicked", record, index)
-            },
-            rowDblClicked: function(record, index) {
-                if (this.isDisableTable) return;
-                this.$emit("rowDblClicked", record, index);
-            },
-            doGetList(search, method) {
-            this.checkOrderBy();
-            // if (this.getIsCallBack()) {
-            // } else if (this.getIsPopup() && method == 'eb_getList') {
-            //     return
-            // }
-            var data = {
-                Event: method,
-                PageLevel: this.prop.PageLevel,
-                TabIndex: this.dataState.TabIndex
-            };
-
-            // this.$store.commit("setEventStatus", method);
-            // jika advance filter kosong '' maka kasih initial where aja
-            // selainnya berarti inital where + advance filter
-
-            // var temp =
-            //     this.tempAdvanceFilter == ""
-            //     ? this.prop.initialWhere
-            //     : this.prop.initialWhere == "" ? this.prop.initialWhere + this.tempAdvanceFilter : this.prop.initialWhere + " AND " + this.tempAdvanceFilter;
-            var temp = this.prop.initialWhere;
-
-            if (method != undefined) {
-                if (method == "save" || method == "update" || method == "refresh") {
-                temp = this.prop.initialWhere;
-                this.sortedField = [];
-                if (this.prop.OrderBy && this.prop.OrderBy != "") {
-                    this.sort = this.prop.OrderBy;
-                } else {
-                    this.sort = "time_edit DESC";
-                    this.sortedField.push({ field: "time_edit", sort: "DESC" });
-                    this.firstSort = true;
-                }
-                this.perPage = 5;
-                this.currentPage = 1;
-                } else if (method == "pageSize" || method == "ONSEARCHENTER") {
-                this.currentPage = 1;
-                }
+        },
+        rowClicked: function(record, index) {
+            if (this.isDisableTable || this.isProcess == true) return;
+            if (this.rowSel != -1) {
+                this.items[this.rowSel]["_rowVariant"] = "";
             }
 
-            // if (this.formType == "Inquiry") {
-            //   this.sort = ""
-            // }
+            this.rowSel = index;
+            this.items[index]["_rowVariant"] = "primary";
+            this.$forceUpdate();
 
-            var param = {
-                // OptionSeq: this.getOptionSeq().OptionSeq,
-                // LineNo: this.prop.LineNo,
-                // user_id: this.getDataUser().user_id,
-                // portfolio_cd: this.getDataUser().portfolio_cd,
-                // subportfolio_cd: this.getDataUser().subportfolio_cd,
-                CurrentPage: this.currentPage,
-                PerPage: this.perPage,
-                ParamWhere: search,
-                InitialWhere: temp,
-                SortField: this.sort,
-                SourceField: this.prop.SourceField,
-                ParamView: this.prop.ParamView
-            };
+            this.$emit("rowClicked", record, index)
+        },
+        rowDblClicked: function(record, index) {
+            if (this.isDisableTable) return;
+            this.$emit("rowDblClicked", record, index);
+        },
+        doGetList(search, method) {
+        this.checkOrderBy();
+        // if (this.getIsCallBack()) {
+        // } else if (this.getIsPopup() && method == 'eb_getList') {
+        //     return
+        // }
+        var data = {
+            Event: method,
+            PageLevel: this.prop.PageLevel,
+            TabIndex: this.dataState.TabIndex
+        };
 
-            // this.loader = true;
-            this.postJSON(this.getUrlList(), param).then(response => {
-                // this.loader = false;
-                if (response == null) return;
+        // this.$store.commit("setEventStatus", method);
+        // jika advance filter kosong '' maka kasih initial where aja
+        // selainnya berarti inital where + advance filter
 
-                this.selected = false;
+        // var temp =
+        //     this.tempAdvanceFilter == ""
+        //     ? this.prop.initialWhere
+        //     : this.prop.initialWhere == "" ? this.prop.initialWhere + this.tempAdvanceFilter : this.prop.initialWhere + " AND " + this.tempAdvanceFilter;
+        var temp = this.prop.initialWhere;
 
-                this.rowSelected = [];
+        if (method != undefined) {
+            if (method == "save" || method == "update" || method == "refresh") {
+            temp = this.prop.initialWhere;
+            this.sortedField = [];
+            if (this.prop.OrderBy && this.prop.OrderBy != "") {
+                this.sort = this.prop.OrderBy;
+            } else {
+                this.sort = "time_edit DESC";
+                this.sortedField.push({ field: "time_edit", sort: "DESC" });
+                this.firstSort = true;
+            }
+            this.perPage = 5;
+            this.currentPage = 1;
+            } else if (method == "pageSize" || method == "ONSEARCHENTER") {
+            this.currentPage = 1;
+            }
+        }
 
-                this.rowSel = 0;
+        // if (this.formType == "Inquiry") {
+        //   this.sort = ""
+        // }
 
-                this.responses = response;
+        var param = {
+            // OptionSeq: this.getOptionSeq().OptionSeq,
+            // LineNo: this.prop.LineNo,
+            // user_id: this.getDataUser().user_id,
+            // portfolio_cd: this.getDataUser().portfolio_cd,
+            // subportfolio_cd: this.getDataUser().subportfolio_cd,
+            CurrentPage: this.currentPage,
+            PerPage: this.perPage,
+            ParamWhere: search,
+            InitialWhere: temp,
+            SortField: this.sort,
+            SourceField: this.prop.SourceField,
+            ParamView: this.prop.ParamView
+        };
 
-                this.ExportToken = this.responses.ExportToken;
+        // this.loader = true;
+        this.postJSON(this.getUrlList(), param).then(response => {
+            // this.loader = false;
+            if (response == null) return;
 
-                if (this.responses.Data.length > 0) {
-                }
-                this.items = [];
-                this.fieldHeader = [];
+            this.selected = false;
 
-                this.items = this.responses.Data;
+            this.rowSelected = [];
 
-                var str_array = this.responses.DefineColumn.split(",");
-                var defineSize = this.responses.DefineSize.split(",");
-                this.allColumn_bf = this.responses.AllColumn.split(",");
-                var index = this.allColumn_bf.indexOf("lastupdatestamp");
-                if (index > -1) {
-                    this.allColumn_bf.splice(index, 1);
-                }
-                var allColumn = [];
-                var filteredColumn = [];
-                var definedColumn = [];
+            this.rowSel = 0;
 
-                this.fieldHeader.push({
-                    value: 0,
-                    key: "chkBoxAction"
-                });
+            this.responses = response;
 
-                this.allColumn_bf.forEach((val, idx) => {
-                    var thClass = "ABSthClassList";
-                    var isSorted = this.sortedField.map(x => x.field).indexOf(val);
-                    if (isSorted > -1) {
-                        if (this.sortedField[isSorted].sort == "ASC") {
-                            thClass = thClass + " AscSorted";
-                        } else {
-                            thClass = thClass + " DescSorted";
-                        }
-                    }
+            this.ExportToken = this.responses.ExportToken;
 
-                    allColumn.push({
-                        value: idx + 1,
-                        key: val,
-                        thClass: thClass,
-                        tdClass: "ABStdClassList notranslate",
-                        text: val
-                    });
+            if (this.responses.Data.length > 0) {
+            }
+            this.items = [];
+            this.fieldHeader = [];
 
-                    filteredColumn.push({
-                        value: idx + 1,
-                        key: val,
-                        thClass: thClass,
-                        tdClass: "ABStdClassList notranslate"
-                    });
-                });
+            this.items = this.responses.Data;
 
-                for (var i = 0; i < str_array.length; i++) {
-                filteredColumn = filteredColumn.filter(val => {
-                    if (val.key == str_array[i]) {
-                        definedColumn.push({
-                            value: val.value,
-                            key: val.key,
-                            thClass: val.thClass,
-                            tdClass: val.tdClass,
-                            text: val.key
-                        });
-                    }
+            var str_array = this.responses.DefineColumn.split(",");
+            var defineSize = this.responses.DefineSize.split(",");
+            this.allColumn_bf = this.responses.AllColumn.split(",");
+            var index = this.allColumn_bf.indexOf("lastupdatestamp");
+            if (index > -1) {
+                this.allColumn_bf.splice(index, 1);
+            }
+            var allColumn = [];
+            var filteredColumn = [];
+            var definedColumn = [];
 
-                    return val.key != str_array[i];
-                });
+            this.fieldHeader.push({
+                value: 0,
+                key: "chkBoxAction"
+            });
 
-                var thClass = "ABSthClassList " + defineSize[i];
-
-                var tdClass = "ABStdClassList notranslate";
-                if (
-                    str_array[i].toLowerCase().includes("amount") ||
-                    str_array[i].toLowerCase().includes("amt") ||
-                    str_array[i].toLowerCase().includes("rate") ||
-                    str_array[i].toLowerCase().includes("price")
-                ) {
-                    tdClass = "ABStdClassList2 notranslate";
-                    thClass = "ABSthClassList2";
-                }
-
-                var isSorted = this.sortedField
-                    .map(x => x.field)
-                    .indexOf(str_array[i]);
+            this.allColumn_bf.forEach((val, idx) => {
+                var thClass = "ABSthClassList";
+                var isSorted = this.sortedField.map(x => x.field).indexOf(val);
                 if (isSorted > -1) {
                     if (this.sortedField[isSorted].sort == "ASC") {
                         thClass = thClass + " AscSorted";
@@ -733,295 +678,350 @@ export default {
                     }
                 }
 
-                if (this.languageStatus) {
-                    this.fieldHeader.push({
-                        value: i + 1,
-                        key: str_array[i],
-                        thClass: thClass,
-                        tdClass: tdClass,
-                        label: this.$t(str_array[i])
-                    });
-                } else {
-                    var listReplace = [
-                        {
-                            key: "_",
-                            value: " "
-                        },
-                        {
-                            key: "Amt",
-                            value: " Amount"
-                        },
-                        {
-                            key: "Cd",
-                            value: " Code"
-                        },
-                        {
-                            key: "Descs",
-                            value: " Description"
-                        },
-                        {
-                            key: "Time Edit",
-                            value: "Last Update"
-                        },
-                        {
-                            key: "Batch Status",
-                            value: "Status"
-                        },
-                        {
-                            key: "garing",
-                            value: "/"
-                        },
-                        {
-                            key: "titik",
-                            value: "."
-                        },
-                        {
-                            key: "SnP",
-                            value: "SnP "
-                        },
-                        {
-                            key: "VO",
-                            value: "VO "
-                        }
-                    ];
-                    var isGotIt = false;
-                    var labelHeader = undefined;
+                allColumn.push({
+                    value: idx + 1,
+                    key: val,
+                    thClass: thClass,
+                    tdClass: "ABStdClassList notranslate",
+                    text: val
+                });
 
-                    if (str_array[i].includes("_")) {
-                        labelHeader = str_array[i]
-                        .toLowerCase()
-                        .split("_")
-                        .map(s => {
-                        return s.charAt(0).toUpperCase() + s.substring(1);
-                        }).join(" ");
-                    } else {
-                        // if (str_array[i] !== 'lastupdatestamp') {
-                        labelHeader =
-                            str_array[i].charAt(0).toUpperCase() +
-                            str_array[i].substring(1);
-                        // }
-                    }
-
-                    // for (var data of listReplace) {
-                    //   if (str_array[i].includes(data.key)) {
-                    //     isGotIt = true
-                    //     if (labelHeader == undefined) {
-                    //       // labelHeader = str_array[i].replace(data.key, data.value)
-                    //       labelHeader = this.replaceAllString(str_array[i], data.key, data.value)
-                    //     } else {
-                    //       // labelHeader = labelHeader.replace(data.key, data.value)
-                    //       labelHeader = this.replaceAllString(labelHeader, data.key, data.value)
-                    //     }
-                    //     // break
-                    //   }
-                    // }
-
-                    for (var data of listReplace) {
-                    if (labelHeader == undefined) {
-                        labelHeader = this.replaceAllString(
-                        str_array[i],
-                        data.key,
-                        data.value
-                        );
-                    } else {
-                        if (labelHeader.includes(data.key)) {
-                            labelHeader = this.replaceAllString(
-                                labelHeader,
-                                data.key,
-                                data.value
-                            );
-                        }
-                    }
-                    }
-
-                    this.fieldHeader.push({
-                        value: i + 1,
-                        key: str_array[i],
-                        thClass: thClass,
-                        tdClass: tdClass,
-                        label: labelHeader
-                    });
-
-                    // if (isGotIt) {
-                    //   // str_array[i] = 'Last Update'
-                    //   this.fieldHeader.push({
-                    //     value: i + 1,
-                    //     key: str_array[i],
-                    //     thClass: thClass,
-                    //     tdClass: tdClass,
-                    //     label: labelHeader
-                    //   })
-                    // } else {
-                    //   labelHeader = undefined
-
-                    //   if (str_array[i].includes('SnP')) {
-                    //     labelHeader = this.replaceAllString(str_array[i], 'SnP', 'SnP ')
-                    //   }
-                    //   else if (str_array[i].includes('VO')) {
-                    //     labelHeader = this.replaceAllString(str_array[i], 'VO', 'VO ')
-                    //   }
-
-                    //   this.fieldHeader.push({
-                    //     value: i + 1,
-                    //     key: str_array[i],
-                    //     thClass: thClass,
-                    //     tdClass: tdClass,
-                    //     label: labelHeader
-                    //   })
-                    // }
-                    // this.fieldHeader.push({
-                    //   value: i + 1,
-                    //   key: str_array[i],
-                    //   thClass: thClass,
-                    //   tdClass: tdClass
-                    // });
-                }
-                }
-
-                this.availableColumn = filteredColumn;
-                this.selectedColumn = definedColumn;
-
-                this.availableColumnTemp = filteredColumn;
-                this.selectedColumnTemp = definedColumn;
-
-                // this.availableColumnStatic = filteredColumn;
-                // this.selectedColumnStatic = definedColumn;
-
-                this.totalRows = this.responses.Total;
-                this.lastPage = this.responses.Last_Page;
-
-                if (this.isCheckAsStatus != undefined) {
-                    var cInt = 0;
-                    for (var i = 0; i < this.items.length; i++) {
-                        var d = this.isCheckAsStatus.split("=")[0];
-                        var dt = this.items[i][d];
-                        var value = this.isCheckAsStatus.split("=")[1];
-                        // if (this.isCheckAsStatus.split("=")[1] == "true") {
-                        //   value = true
-                        // }
-                        // else if (this.isCheckAsStatus.split("=")[1] == "false") {
-                        //   value = false
-                        // }
-                        // if (this.items[i]._checked == 'Y') {
-                        if (dt) {
-                            if (dt.toString() == value) {
-                                this.rowSelected.push(i);
-                                cInt++;
-                            }
-                        }
-
-                        if (cInt == this.items.length) {
-                            this.selected = true;
-                        }
-                    }
-                }
+                filteredColumn.push({
+                    value: idx + 1,
+                    key: val,
+                    thClass: thClass,
+                    tdClass: "ABStdClassList notranslate"
+                });
             });
 
-            if (method != undefined) {
-                var datax = {
-                    // pageLevel: this.prop.PageLevel,
-                    // tabIndex: this.prop.TabIndex
-                };
-                if (method.toUpperCase() == "REFRESH") {
-                    this.currentPage = 1;
-                    // this.getToolbarAbsList().unselectRow(datax);
-                } else if (method == "pageSize") {
-                    this.$emit("pageSize");
-                    // this.getToolbarAbsList().unselectRow(datax);
-                } else if (method == "pagination") {
-                    this.$emit("pagination");
-                    // this.getToolbarAbsList().unselectRow(datax);
-                } else if (method == "refresh_filter") {
-                    this.$emit("filter");
-                    // this.getToolbarAbsList().unselectRow(datax);
-                } else if (method == "headTable") {
-                    this.$emit("headTable");
-                    // this.getToolbarAbsList().unselectRow(datax);
-                } else if (method == "ONSEARCHENTER") {
-                    // this.getToolbarAbsList().unselectRow(datax);
-                } else if (method == "refresh_column") {
-                    // this.$emit("refreshColumn");
+            for (var i = 0; i < str_array.length; i++) {
+            filteredColumn = filteredColumn.filter(val => {
+                if (val.key == str_array[i]) {
+                    definedColumn.push({
+                        value: val.value,
+                        key: val.key,
+                        thClass: val.thClass,
+                        tdClass: val.tdClass,
+                        text: val.key
+                    });
+                }
+
+                return val.key != str_array[i];
+            });
+
+            var thClass = "ABSthClassList " + defineSize[i];
+
+            var tdClass = "ABStdClassList notranslate";
+            if (
+                str_array[i].toLowerCase().includes("amount") ||
+                str_array[i].toLowerCase().includes("amt") ||
+                str_array[i].toLowerCase().includes("rate") ||
+                str_array[i].toLowerCase().includes("price")
+            ) {
+                tdClass = "ABStdClassList2 notranslate";
+                thClass = "ABSthClassList2";
+            }
+
+            var isSorted = this.sortedField
+                .map(x => x.field)
+                .indexOf(str_array[i]);
+            if (isSorted > -1) {
+                if (this.sortedField[isSorted].sort == "ASC") {
+                    thClass = thClass + " AscSorted";
+                } else {
+                    thClass = thClass + " DescSorted";
                 }
             }
-        },
-        doGetlist2() {
-        this.items = [
-            {
-            no: 1,
-            date: "10-01-2020 12.00",
-            customer_name: "PT Abadi Sentosa",
-            contact_person: "Basa Aritonang",
-            phone_no: "+62-818-889978788",
-            row_id: 1
-            },
-            {
-            no: 2,
-            date: "10-01-2020 12.00",
-            customer_name: "PT Gemini Perkasa Abadi",
-            contact_person: "Ivan Laksana",
-            phone_no: "+62-818-889978788",
-            row_id: 2
-            },
-            {
-            no: 3,
-            date: "10-01-2020 12.00",
-            customer_name: "PT Garuda Perkasa",
-            contact_person: "Steven Chai",
-            phone_no: "+62-818-889978788",
-            row_id: 3
-            },
-            {
-            no: 4,
-            date: "10-01-2020 12.00",
-            customer_name: "PT Indo Sejahtera",
-            contact_person: "Triyono",
-            phone_no: "+62-818-889978788",
-            row_id: 4
-            },
-            {
-            no: 5,
-            date: "10-01-2020 12.00",
-            customer_name: "PT Provost Utama Tama",
-            contact_person: "Fingky Endawan",
-            phone_no: "+62-818-889978788",
-            row_id: 5
-            }
-        ];
 
-        this.fieldHeader = [
-            {
-            key: "no",
-            label: "No",
-            thClass: "HeaderACCList",
-            tdClass: "ContentACCList"
-            },
-            {
-            key: "date",
-            label: "Date Added",
-            thClass: "HeaderACCList",
-            tdClass: "ContentACCList"
-            },
-            {
-            key: "customer_name",
-            label: "Customer Name",
-            thClass: "HeaderACCList",
-            tdClass: "ContentACCList"
-            },
-            {
-            key: "contact_person",
-            label: "Contact Person",
-            thClass: "HeaderACCList",
-            tdClass: "ContentACCList"
-            },
-            {
-            key: "phone_no",
-            label: "Phone No",
-            thClass: "HeaderACCList",
-            tdClass: "ContentACCList"
+            if (this.languageStatus) {
+                this.fieldHeader.push({
+                    value: i + 1,
+                    key: str_array[i],
+                    thClass: thClass,
+                    tdClass: tdClass,
+                    label: this.$t(str_array[i])
+                });
+            } else {
+                var listReplace = [
+                    {
+                        key: "_",
+                        value: " "
+                    },
+                    {
+                        key: "Amt",
+                        value: " Amount"
+                    },
+                    {
+                        key: "Cd",
+                        value: " Code"
+                    },
+                    {
+                        key: "Descs",
+                        value: " Description"
+                    },
+                    {
+                        key: "Time Edit",
+                        value: "Last Update"
+                    },
+                    {
+                        key: "Batch Status",
+                        value: "Status"
+                    },
+                    {
+                        key: "garing",
+                        value: "/"
+                    },
+                    {
+                        key: "titik",
+                        value: "."
+                    },
+                    {
+                        key: "SnP",
+                        value: "SnP "
+                    },
+                    {
+                        key: "VO",
+                        value: "VO "
+                    }
+                ];
+                var isGotIt = false;
+                var labelHeader = undefined;
+
+                if (str_array[i].includes("_")) {
+                    labelHeader = str_array[i]
+                    .toLowerCase()
+                    .split("_")
+                    .map(s => {
+                    return s.charAt(0).toUpperCase() + s.substring(1);
+                    }).join(" ");
+                } else {
+                    // if (str_array[i] !== 'lastupdatestamp') {
+                    labelHeader =
+                        str_array[i].charAt(0).toUpperCase() +
+                        str_array[i].substring(1);
+                    // }
+                }
+
+                // for (var data of listReplace) {
+                //   if (str_array[i].includes(data.key)) {
+                //     isGotIt = true
+                //     if (labelHeader == undefined) {
+                //       // labelHeader = str_array[i].replace(data.key, data.value)
+                //       labelHeader = this.replaceAllString(str_array[i], data.key, data.value)
+                //     } else {
+                //       // labelHeader = labelHeader.replace(data.key, data.value)
+                //       labelHeader = this.replaceAllString(labelHeader, data.key, data.value)
+                //     }
+                //     // break
+                //   }
+                // }
+
+                for (var data of listReplace) {
+                if (labelHeader == undefined) {
+                    labelHeader = this.replaceAllString(
+                    str_array[i],
+                    data.key,
+                    data.value
+                    );
+                } else {
+                    if (labelHeader.includes(data.key)) {
+                        labelHeader = this.replaceAllString(
+                            labelHeader,
+                            data.key,
+                            data.value
+                        );
+                    }
+                }
+                }
+
+                this.fieldHeader.push({
+                    value: i + 1,
+                    key: str_array[i],
+                    thClass: thClass,
+                    tdClass: tdClass,
+                    label: labelHeader
+                });
+
+                // if (isGotIt) {
+                //   // str_array[i] = 'Last Update'
+                //   this.fieldHeader.push({
+                //     value: i + 1,
+                //     key: str_array[i],
+                //     thClass: thClass,
+                //     tdClass: tdClass,
+                //     label: labelHeader
+                //   })
+                // } else {
+                //   labelHeader = undefined
+
+                //   if (str_array[i].includes('SnP')) {
+                //     labelHeader = this.replaceAllString(str_array[i], 'SnP', 'SnP ')
+                //   }
+                //   else if (str_array[i].includes('VO')) {
+                //     labelHeader = this.replaceAllString(str_array[i], 'VO', 'VO ')
+                //   }
+
+                //   this.fieldHeader.push({
+                //     value: i + 1,
+                //     key: str_array[i],
+                //     thClass: thClass,
+                //     tdClass: tdClass,
+                //     label: labelHeader
+                //   })
+                // }
+                // this.fieldHeader.push({
+                //   value: i + 1,
+                //   key: str_array[i],
+                //   thClass: thClass,
+                //   tdClass: tdClass
+                // });
             }
-        ];
+            }
+
+            this.availableColumn = filteredColumn;
+            this.selectedColumn = definedColumn;
+
+            this.availableColumnTemp = filteredColumn;
+            this.selectedColumnTemp = definedColumn;
+
+            // this.availableColumnStatic = filteredColumn;
+            // this.selectedColumnStatic = definedColumn;
+
+            this.totalRows = this.responses.Total;
+            this.lastPage = this.responses.Last_Page;
+
+            if (this.isCheckAsStatus != undefined) {
+                var cInt = 0;
+                for (var i = 0; i < this.items.length; i++) {
+                    var d = this.isCheckAsStatus.split("=")[0];
+                    var dt = this.items[i][d];
+                    var value = this.isCheckAsStatus.split("=")[1];
+                    // if (this.isCheckAsStatus.split("=")[1] == "true") {
+                    //   value = true
+                    // }
+                    // else if (this.isCheckAsStatus.split("=")[1] == "false") {
+                    //   value = false
+                    // }
+                    // if (this.items[i]._checked == 'Y') {
+                    if (dt) {
+                        if (dt.toString() == value) {
+                            this.rowSelected.push(i);
+                            cInt++;
+                        }
+                    }
+
+                    if (cInt == this.items.length) {
+                        this.selected = true;
+                    }
+                }
+            }
+        });
+
+        if (method != undefined) {
+            var datax = {
+                // pageLevel: this.prop.PageLevel,
+                // tabIndex: this.prop.TabIndex
+            };
+            if (method.toUpperCase() == "REFRESH") {
+                this.currentPage = 1;
+                // this.getToolbarAbsList().unselectRow(datax);
+            } else if (method == "pageSize") {
+                this.$emit("pageSize");
+                // this.getToolbarAbsList().unselectRow(datax);
+            } else if (method == "pagination") {
+                this.$emit("pagination");
+                // this.getToolbarAbsList().unselectRow(datax);
+            } else if (method == "refresh_filter") {
+                this.$emit("filter");
+                // this.getToolbarAbsList().unselectRow(datax);
+            } else if (method == "headTable") {
+                this.$emit("headTable");
+                // this.getToolbarAbsList().unselectRow(datax);
+            } else if (method == "ONSEARCHENTER") {
+                // this.getToolbarAbsList().unselectRow(datax);
+            } else if (method == "refresh_column") {
+                // this.$emit("refreshColumn");
+            }
         }
-  },
+    },
+        doGetlist2() {
+            this.items = [
+                {
+                    no: 1,
+                    date: "10-01-2020 12.00",
+                    customer_name: "PT Abadi Sentosa",
+                    contact_person: "Basa Aritonang",
+                    phone_no: "+62-818-889978788",
+                    row_id: 1
+                },
+                {
+                    no: 2,
+                    date: "10-01-2020 12.00",
+                    customer_name: "PT Gemini Perkasa Abadi",
+                    contact_person: "Ivan Laksana",
+                    phone_no: "+62-818-889978788",
+                    row_id: 2
+                },
+                {
+                    no: 3,
+                    date: "10-01-2020 12.00",
+                    customer_name: "PT Garuda Perkasa",
+                    contact_person: "Steven Chai",
+                    phone_no: "+62-818-889978788",
+                    row_id: 3
+                },
+                {
+                    no: 4,
+                    date: "10-01-2020 12.00",
+                    customer_name: "PT Indo Sejahtera",
+                    contact_person: "Triyono",
+                    phone_no: "+62-818-889978788",
+                    row_id: 4
+                },
+                {
+                    no: 5,
+                    date: "10-01-2020 12.00",
+                    customer_name: "PT Provost Utama Tama",
+                    contact_person: "Fingky Endawan",
+                    phone_no: "+62-818-889978788",
+                    row_id: 5
+                }
+            ];
+
+            this.fieldHeader = [
+                {
+                    key: "no",
+                    label: "No",
+                    thClass: "HeaderACCList",
+                    tdClass: "ContentACCList"
+                },
+                {
+                    key: "date",
+                    label: "Date Added",
+                    thClass: "HeaderACCList",
+                    tdClass: "ContentACCList"
+                },
+                {
+                    key: "customer_name",
+                    label: "Customer Name",
+                    thClass: "HeaderACCList",
+                    tdClass: "ContentACCList"
+                },
+                {
+                    key: "contact_person",
+                    label: "Contact Person",
+                    thClass: "HeaderACCList",
+                    tdClass: "ContentACCList"
+                },
+                {
+                    key: "phone_no",
+                    label: "Phone No",
+                    thClass: "HeaderACCList",
+                    tdClass: "ContentACCList"
+                }
+            ];
+        }
+    },
   mounted() {
     this.doGetlist2();
   }
