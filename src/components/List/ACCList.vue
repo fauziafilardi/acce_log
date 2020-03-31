@@ -76,7 +76,7 @@
         </b-col>
       </b-row>
     </div>
-    <div class="card__body">
+    <div class="card__body" style="padding-bottom: 0px !important;">
       <div class="table--list">
         <b-table
           :responsive="true"
