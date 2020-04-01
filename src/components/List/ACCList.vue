@@ -27,35 +27,36 @@
                 <b-col md="3" class="col-right">
                     <span>
                         <ABSButton
-                        :text="'Search'"
-                        classButton="button button--new"
-                        classIcon="icon-style-1"
-                        :disabled="true"
+                            :text="'Search'"
+                            classButton="button button--new"
+                            classIcon="icon-style-1"
+                            :disabled="true"
+                            @click="onSearchEnter"
                         />
                     </span>
 
                     <span>
                         <ABSButton
-                        :text="'Add New'"
-                        classButton="button button--new"
-                        classIcon="icon-style-1"
-                        :disabled="true"
+                            :text="'Add New'"
+                            classButton="button button--new"
+                            classIcon="icon-style-1"
+                            :disabled="true"
                         />
                     </span>
 
                     <span>
                         <ABSButton
-                        :text="'Back'"
-                        classButton="button button--new"
-                        classIcon="icon-style-1"
-                        :disabled="true"
+                            :text="'Back'"
+                            classButton="button button--new"
+                            classIcon="icon-style-1"
+                            :disabled="true"
                         />
                     </span>
                     <span>
                         <div
-                        :class="isDisableTable ? '' : 'dropdown'"
-                        style="float:right;"
-                        v-show="!hideCheckboxAndGear"
+                            :class="isDisableTable ? '' : 'dropdown'"
+                            style="float:right;"
+                            v-show="!hideCheckboxAndGear"
                         >
                             <button class="dropbtn">
                                 <i class="icon-settings"></i>
@@ -492,7 +493,177 @@ export default {
             }
         },
         onSearchEnter(data) {
-            console.log(data);
+            // console.log(data);
+            this.doGetList(this.search, "onSearchEnter")
+        },
+        doAddFilter() {
+            var dataColumn = this.selectedColumn;
+            this.filteredColumn.push({
+                columnName: dataColumn[0].value,
+                signFilter: "=",
+                value: ""
+            })
+        },
+        M_RemoveFilter(idx) {
+            this.filteredColumn.splice(idx, 1)
+            this.$forceUpdate()
+        },
+        modalFilterHandleOk() {
+            var col = this.selectedColumn
+            var filterString = ""
+
+            this.filteredColumn.forEach((filter, index) => {
+                var i = col
+                .map(value => {
+                    return value.value
+                })
+                .indexOf(filter.columnName)
+                var theFilter = ""
+                var sign = filter.signFilter
+                if (sign == "in" || sign == "notin") {
+                var val = filter.value.split(",")
+                var xVal = ""
+                val.forEach(v => {
+                    xVal += "'" + v + "',"
+                })
+
+                xVal = xVal.substr(0, xVal.length - 1);
+
+                if (sign == "in") {
+                    theFilter = "in (" + xVal + ")"
+                } else {
+                    theFilter = "not in (" + xVal + ")"
+                }
+                } else if (sign == "like") {
+                theFilter += "like '%" + filter.value + "%'"
+                } else if (sign == "null") {
+                theFilter += " is null "
+                } else if (sign == "notnull") {
+                theFilter += " is not null "
+                } else {
+                theFilter += filter.signFilter + " '" + filter.value + "'"
+                }
+                filterString += this.selectedColumn[i].key + " " + theFilter + " AND "
+            })
+            filterString = filterString.substr(0, filterString.length - 4)
+            this.tempAdvanceFilter = filterString
+            this.doGetList("", "refresh_filter")
+            this.$refs.modalFilter.hide()
+        },
+        modalColumnHandleOk() {
+            var field = ""
+
+            this.selectedColumn.forEach((el, index) => {
+                if (index == this.selectedColumn.length - 1) {
+                field += el.key;
+                } else {
+                field += el.key + ","
+                }
+            });
+
+            var param = {
+                OptionSeq: this.getOptionSeq().OptionSeq,
+                user_id: this.getDataUser().user_id,
+                subportfolio_cd: this.getDataUser().subportfolio_cd,
+                column_field: field,
+                user_input: this.getDataUser().user_id,
+                LineNo: this.prop.LineNo
+            }
+
+            this.postJSON(this.getUrlDefineColumn(), param).then(response => {
+                // response from API
+                if (response == null) return
+
+                this.responses = response
+
+                this.fieldHeader = []
+                this.fieldHeader.push({
+                value: 0,
+                key: "chkBoxAction"
+                })
+                
+                this.selectedColumn.forEach(ar => {
+                var thClass = "ABSthClassList"
+                var isSorted = this.sortedField.map(x => x.field).indexOf(ar.key)
+                if (isSorted > -1) {
+                    if (this.sortedField[isSorted].sort == "ASC") {
+                    thClass = thClass + " AscSorted"
+                    } else {
+                    thClass = thClass + " DescSorted"
+                    }
+                }
+
+                this.fieldHeader.push({
+                    value: ar.value,
+                    key: ar.key,
+                    thClass: thClass,
+                    tdClass: "ABStdClassList notranslate",
+                    value: ar.key
+                })
+                })
+
+                this.doGetList("", "refresh_column")
+                this.$refs.modalColumn.hide()
+            });
+        },
+        M_moveRight() {
+            if (
+                this.availableColumnSelected &&
+                this.availableColumnSelected.length > 0
+            ) {
+                var arr = this.availableColumn
+                var x = 0
+                this.availableColumnTemp.forEach((dt, idx) => {
+                if (dt.value == this.availableColumnSelected[x]) {
+                    arr = arr.filter(function(arr, index) {
+                    return arr.value != dt.value
+                    })
+
+                    this.selectedColumn.push({
+                    value: dt.value,
+                    key: dt.key,
+                    text: dt.key
+                    })
+
+                    x += 1
+                }
+
+                if (x == this.availableColumnSelected.length) {
+                    this.availableColumn = arr
+                    this.selectedColumnTemp = this.selectedColumn
+                    this.availableColumnTemp = this.availableColumn
+                }
+                });
+            }
+        },
+        M_moveLeft(selected) {
+            if (this.selectedColumn.length == 1) {
+                this.alertWarning("Selected Column Should Have At Least One Column")
+                return
+            }
+
+            this.selectedColumnSelected = [selected]
+            var arr = this.selectedColumn
+            var x = 0;
+            this.selectedColumnTemp.forEach((dt, idx) => {
+                if (dt.value == this.selectedColumnSelected[x]) {
+                arr = arr.filter(function(arr, index) {
+                    return arr.value != dt.value
+                });
+
+                this.availableColumn.push({
+                    value: dt.value,
+                    key: dt.key,
+                    text: dt.key
+                });
+
+                x += 1
+                }
+
+                if (x == this.selectedColumnSelected.length) {
+                this.selectedColumn = arr
+                }
+            })
         },
         headClicked: function(field, index) {
             if (field.toUpperCase() == "NO") {
@@ -620,13 +791,25 @@ export default {
             // user_id: this.getDataUser().user_id,
             // portfolio_cd: this.getDataUser().portfolio_cd,
             // subportfolio_cd: this.getDataUser().subportfolio_cd,
-            CurrentPage: this.currentPage,
-            PerPage: this.perPage,
-            ParamWhere: search,
-            InitialWhere: temp,
-            SortField: this.sort,
-            SourceField: this.prop.SourceField,
-            ParamView: this.prop.ParamView
+            // CurrentPage: this.currentPage,
+            // PerPage: this.perPage,
+            // ParamWhere: search,
+            // InitialWhere: temp,
+            // SortField: this.sort,
+            // SourceField: this.prop.SourceField,
+            // ParamView: this.prop.ParamView
+            option_url: "/SS/SS_Portfolio",//this.getOptionUrl(),
+            line_no: this.prop.LineNo,
+            user_id: this.getDataUser().user_id,
+            portfolio_id: this.getDataUser().portfolio_id,
+            subportfolio_id: this.getDataUser().subportfolio_id,
+            current_page: this.currentPage,
+            per_page: this.perPage,
+            param_where: search,
+            initial_where: temp,
+            sort_field: this.sort,
+            source_field: this.prop.SourceField,
+            param_view: this.prop.ParamView
         };
 
         // this.loader = true;
@@ -662,13 +845,16 @@ export default {
             var filteredColumn = [];
             var definedColumn = [];
 
-            this.fieldHeader.push({
-                value: 0,
-                key: "chkBoxAction"
-            });
+            // this.fieldHeader.push({
+            //     value: 0,
+            //     key: "chkBoxAction"
+            // });
+
+            // HeaderACCList
+            // ContentACCList
 
             this.allColumn_bf.forEach((val, idx) => {
-                var thClass = "ABSthClassList";
+                var thClass = "HeaderACCList";
                 var isSorted = this.sortedField.map(x => x.field).indexOf(val);
                 if (isSorted > -1) {
                     if (this.sortedField[isSorted].sort == "ASC") {
@@ -682,7 +868,7 @@ export default {
                     value: idx + 1,
                     key: val,
                     thClass: thClass,
-                    tdClass: "ABStdClassList notranslate",
+                    tdClass: "ContentACCList notranslate",
                     text: val
                 });
 
@@ -690,7 +876,7 @@ export default {
                     value: idx + 1,
                     key: val,
                     thClass: thClass,
-                    tdClass: "ABStdClassList notranslate"
+                    tdClass: "ContentACCList notranslate"
                 });
             });
 
@@ -709,9 +895,9 @@ export default {
                 return val.key != str_array[i];
             });
 
-            var thClass = "ABSthClassList " + defineSize[i];
+            var thClass = "HeaderACCList " + defineSize[i];
 
-            var tdClass = "ABStdClassList notranslate";
+            var tdClass = "ContentACCList notranslate";
             if (
                 str_array[i].toLowerCase().includes("amount") ||
                 str_array[i].toLowerCase().includes("amt") ||
@@ -1023,7 +1209,7 @@ export default {
         }
     },
   mounted() {
-    this.doGetlist2();
+    // this.doGetlist2();
   }
 };
 </script>

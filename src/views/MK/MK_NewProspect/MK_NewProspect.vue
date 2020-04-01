@@ -14,6 +14,7 @@
                         @filter = "M_Advance_Filter"
                         @headTable = "M_Head_Table"
                         @refreshColumn = "refreshColumn"
+                        ref="ref_NewProspectList"
                     />
                 </b-col>
             </b-row>
@@ -45,6 +46,9 @@ export default {
         M_Advance_Filter() {},
         M_Head_Table() {},
         refreshColumn() {},
+    },
+    mounted() {
+        this.$refs.ref_NewProspectList.doGetList('')
     }
 }
 </script>
