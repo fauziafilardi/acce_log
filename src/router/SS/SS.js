@@ -8,6 +8,7 @@ import SS_User_Master from '@/views/SS/SS_User/SS_User_Master'
 // import SS_PortIn_Master from  '@/views/SS/SS_PortIn/SS_PortIn_Master'
 // import SS_TableViewer_Master from  '@/views/SS/SS_TableViewer/SS_TableViewer_Master'
 // import SS_CopySubPortfolio_Master from  '@/views/SS/SS_CopySubPortfolio/SS_CopySubPortfolio_Master'
+import SS_Portfolio from '@/views/SS/SS_Portfolio/SS_Portfolio'
 // import SS_TableChecker_Master from  '@/views/SS/SS_TableChecker/SS_TableChecker_Master'
 // import SS_TableViewerLotMonthlyRentalRate_Master from  '@/views/SS/SS_TableViewerLotMonthlyRentalRate/SS_TableViewerLotMonthlyRentalRate_Master'
 // import SS_ValidDatePortin_Master from  '@/views/SS/SS_ValidDatePortin/SS_ValidDatePortin_Master'
@@ -38,7 +39,9 @@ import SS_UserPrivilegeReport_Master from '@/views/SS/SS_UserPrivilegeReport/Pag
 export const SSRender = {
     path: '/SS',
     component: {
-        render(c) { return c('router-view') }
+        render(c) {
+            return c('router-view')
+        }
     },
     children: [
         // Sementara aja
@@ -181,6 +184,16 @@ export const SSRender = {
         //         requiresAuth: true
         //     }
         // }
+
+        ,
+        {
+            path: '/SS/SS_Portfolio',
+            name: 'SS_Portfolio',
+            component: SS_Portfolio,
+            meta: {
+                requiresAuth: true
+            }
+        }
 
         // ,
         // {
@@ -339,8 +352,7 @@ export const SSRender = {
             meta: {
                 requiresAuth: true
             }
-        }
-        ,
+        },
         {
             path: '/SS/SS_FormParameter',
             name: 'SS_FormParameter_Master',
@@ -348,8 +360,7 @@ export const SSRender = {
             meta: {
                 requiresAuth: true
             }
-        }
-        ,
+        },
         {
             path: '/SS/SS_FormParameterMobile',
             name: 'SS_FormParameterMobile_Master',
@@ -357,8 +368,7 @@ export const SSRender = {
             meta: {
                 requiresAuth: true
             }
-        }
-        ,
+        },
         {
             path: '/SS/SS_LookupEntry',
             name: 'SS_LookupEntry_Master',

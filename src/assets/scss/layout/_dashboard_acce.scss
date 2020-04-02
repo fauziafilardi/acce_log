@@ -44,12 +44,13 @@
         flex: 1 1 auto;
         min-height: 1px;
         padding: 10px 10px 10px 10px;
+
     }
 
     &__footer {
         border-top: solid 1px #dee2e6;
-        padding: 10px;
-        height: 44px;
+        padding: 10px 10px 0px 10px;
+        // height: 44px;
     }
 }
 
