@@ -100,6 +100,9 @@ import {
     faFilePdf
 } from '@fortawesome/free-solid-svg-icons'
 import {
+    faFileCsv
+} from '@fortawesome/free-solid-svg-icons'
+import {
     faChevronLeft
 } from '@fortawesome/free-solid-svg-icons'
 import {
@@ -174,6 +177,7 @@ library.add(faChevronLeft)
 library.add(faChevronRight)
 library.add(faFileExcel)
 library.add(faFilePdf)
+library.add(faFileCsv)
 library.add(faCoffee)
 library.add(faList)
 library.add(faUser)
