@@ -370,6 +370,7 @@
         // min-height: 26px;
         font-weight: bold;
         padding: 5px;
+        min-width: 80px;
     }
 
     &-Descs {
@@ -380,6 +381,7 @@
         border-bottom-left-radius: 10px;
         border-bottom-right-radius: 10px;
         font-size: 12px;
+        min-width: 80px;
     }
 }
 
