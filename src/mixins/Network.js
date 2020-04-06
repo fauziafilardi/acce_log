@@ -80,8 +80,8 @@ export default {
       segmentGetGroupPermisionOption: 'Menu/GetGroupPermisionOption',
 
       segmentGetUploadFile: 'File/UploadFile',
-      segmentGetTokenExport: 'File/GetTokenExport',
-      segmentExportExcel: 'File/ExportFileList?fileName={segmentFileName}&Key={segmentKey}',
+      segmentGetTokenExport: 'api/File/GetTokenExport',
+      segmentExportExcel: 'api/File/ExportFileList?fileName={segmentFileName}&Key={segmentKey}',
       segmentExportEfaktur: 'File/ExporEfaktur?Oid={segmentOid}&Delimiter={segmentDelimeter}&Filter={segmentFilter}',
       segmentExportEfakturTrans: 'File/ExporEfakturLawanTransaksi?Oid={segmentOid}&Delimiter={segmentDelimeter}&Filter={segmentFilter}',
       segmentReportGenerator: 'ReportGenerator/DownloadFile?fileName=',

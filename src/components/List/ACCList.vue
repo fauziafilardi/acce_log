@@ -71,10 +71,10 @@
                 <div class="dropdown-modal-list" @click="openModalExport">
                   <font-awesome-icon icon="file-pdf" class="icon-style-1__exportPdf" />&nbsp;&nbsp;PDF
                 </div>
-                <div class="dropdown-modal-list" @click="openModalColumn">
+                <div class="dropdown-modal-list" @click="openModalExport">
                   <font-awesome-icon icon="file-csv" class="icon-style-1__exportIcon" />&nbsp;&nbsp;CSV
                 </div>
-                <div class="dropdown-modal-list" @click="openModalFilter">
+                <div class="dropdown-modal-list" @click="openModalExport">
                   <font-awesome-icon icon="file-excel" class="icon-style-1__exportIcon" />&nbsp;&nbsp;Excel
                 </div>
               </div>
@@ -484,6 +484,40 @@ export default {
       // this.$store.commit("setLevel", this.prop.PageLevel);
       // this.$store.commit("setTab", this.prop.TabIndex);
       this.$refs.modalFilter.show();
+    },
+    doExportXLS(param) {
+        if (param == "A") {
+            var url = this.getFileExcel(this.title, this.ExportToken)
+            window.location.href = url
+            this.$refs.modalExport.hide()
+        } else {
+            if (this.rowSelected.length > 0) {
+                var data = ""
+                this.rowSelected.forEach(idx => {
+                    data += this.items[idx].row_id + ","
+                })
+
+                data = data.slice(0, -1)
+
+                this.M_ExportXLS(data)
+            } else {
+                this.alertWarning("No Data Selected To Export")
+            }
+        }
+    },
+    M_ExportXLS(data) {
+        var param = {
+            Token: this.ExportToken,
+            Data: data
+        }
+
+        this.postJSON(this.getUrlGetTokenExport(), param).then(response => {
+            if (response == null) return
+
+            var url = this.getFileExcel(this.title, response.Data.Token)
+            window.location.href = url
+            this.$refs.modalExport.hide()
+        })
     },
     resetSelected() {
       this.rowSelected = [0];
