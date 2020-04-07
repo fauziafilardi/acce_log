@@ -81,7 +81,7 @@ export default {
 
       segmentGetUploadFile: 'File/UploadFile',
       segmentGetTokenExport: 'api/File/GetTokenExport',
-      segmentExportExcel: 'api/File/ExportFileList?fileName={segmentFileName}&Key={segmentKey}',
+      segmentExportExcel: 'api/File/ExportFileList?N={segmentFileName}&T={segmentType}&K={segmentKey}',
       segmentExportEfaktur: 'File/ExporEfaktur?Oid={segmentOid}&Delimiter={segmentDelimeter}&Filter={segmentFilter}',
       segmentExportEfakturTrans: 'File/ExporEfakturLawanTransaksi?Oid={segmentOid}&Delimiter={segmentDelimeter}&Filter={segmentFilter}',
       segmentReportGenerator: 'ReportGenerator/DownloadFile?fileName=',
@@ -1353,9 +1353,15 @@ export default {
         })
     },
 
-    getFileExcel(fileName, key) {
+    getFileExcel_1(fileName, key) {
       var url = this.getUrlExportExcel()
       url = url.replace('{segmentFileName}', fileName).replace('{segmentKey}', key)
+      return url
+    },
+
+    getFileExcel(fileName, type, key) {
+      var url = this.getUrlExportExcel()
+      url = url.replace('{segmentFileName}', fileName).replace('{segmentType}', type).replace('{segmentKey}', key)
       return url
     },
 

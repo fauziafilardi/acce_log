@@ -68,14 +68,17 @@
                 :disabled="false"
               />
               <div class="dropdown-content">
-                <div class="dropdown-modal-list" @click="openModalExport">
+                <div class="dropdown-modal-list" @click="openModalExportPdf">
                   <font-awesome-icon icon="file-pdf" class="icon-style-1__exportPdf" />&nbsp;&nbsp;PDF
                 </div>
-                <div class="dropdown-modal-list" @click="openModalExport">
+                <div class="dropdown-modal-list" @click="openModalExportCsv">
                   <font-awesome-icon icon="file-csv" class="icon-style-1__exportIcon" />&nbsp;&nbsp;CSV
                 </div>
                 <div class="dropdown-modal-list" @click="openModalExport">
                   <font-awesome-icon icon="file-excel" class="icon-style-1__exportIcon" />&nbsp;&nbsp;Excel
+                </div>
+                <div class="dropdown-modal-list" @click="PrintTable">
+                  <font-awesome-icon icon="file-excel" class="icon-style-1__exportIcon" />&nbsp;&nbsp;Print
                 </div>
               </div>
             </div>
@@ -84,7 +87,7 @@
       </b-row>
     </div>
     <div class="card__body">
-      <div class="table--list">
+      <div class="table--list" :id="tableId">
         <b-table
           :responsive="true"
           :striped="false"
@@ -183,6 +186,78 @@
               <div
                 class="box-category__list-category-export category-all"
                 @click="doExportXLS('A')"
+              >
+                <img :src="require('@/assets/export-all.png')" alt />
+                Export All
+              </div>
+            </div>
+          </div>
+        </b-col>
+      </b-row>
+    </b-modal>
+
+    <b-modal
+      id="modalExportPdf"
+      :hide-footer="true"
+      :hide-header-close="true"
+      size="md"
+      ref="modalExportPdf"
+      class="modal-customize-abs"
+    >
+      <b-row>
+        <b-col sm="12">
+          <div class="modal-customize-abs__modal-header">
+            <div class="modal-customize-abs__modal-header--title">Export {{title}} to PDF</div>
+            <div class="modal-customize-abs__modal-header--icon" @click="$refs.modalExportPdf.hide()">
+              <i class="icon-close"></i>
+            </div>
+          </div>
+          <div class="modal-customize-abs__modal-body">
+            <p>Select data that will be exported</p>
+            <div class="box-category">
+              <div class="box-category__list-category-export" @click="doExportPDF('S')">
+                <img :src="require('@/assets/export-select.png')" alt />
+                Export Selected Data
+              </div>
+              <div
+                class="box-category__list-category-export category-all"
+                @click="doExportPDF('A')"
+              >
+                <img :src="require('@/assets/export-all.png')" alt />
+                Export All
+              </div>
+            </div>
+          </div>
+        </b-col>
+      </b-row>
+    </b-modal>
+
+    <b-modal
+      id="modalExportCsv"
+      :hide-footer="true"
+      :hide-header-close="true"
+      size="md"
+      ref="modalExportCsv"
+      class="modal-customize-abs"
+    >
+      <b-row>
+        <b-col sm="12">
+          <div class="modal-customize-abs__modal-header">
+            <div class="modal-customize-abs__modal-header--title">Export {{title}} to CSV</div>
+            <div class="modal-customize-abs__modal-header--icon" @click="$refs.modalExportCsv.hide()">
+              <i class="icon-close"></i>
+            </div>
+          </div>
+          <div class="modal-customize-abs__modal-body">
+            <p>Select data that will be exported</p>
+            <div class="box-category">
+              <div class="box-category__list-category-export" @click="doExportCSV('S')">
+                <img :src="require('@/assets/export-select.png')" alt />
+                Export Selected Data
+              </div>
+              <div
+                class="box-category__list-category-export category-all"
+                @click="doExportCSV('A')"
               >
                 <img :src="require('@/assets/export-all.png')" alt />
                 Export All
@@ -368,6 +443,7 @@
         </b-row>
       </b-container>
     </b-modal>
+    <iframe name="print_frame" width="0" height="0" frameborder="0" src="about:blank"></iframe>
   </div>
 </template>
 
@@ -461,12 +537,26 @@ export default {
       allColumn_bf: []
     };
   },
-  computed: {},
+  computed: {
+      tableId() {
+          return "AccList-" + Math.floor(Math.random() * 10);
+      }
+  },
   methods: {
     openModalExport() {
       // this.$store.commit("setLevel", this.prop.PageLevel);
       // this.$store.commit("setTab", this.prop.TabIndex);
       this.$refs.modalExport.show();
+    },
+    openModalExportPdf() {
+      // this.$store.commit("setLevel", this.prop.PageLevel);
+      // this.$store.commit("setTab", this.prop.TabIndex);
+      this.$refs.modalExportPdf.show();
+    },
+    openModalExportCsv() {
+      // this.$store.commit("setLevel", this.prop.PageLevel);
+      // this.$store.commit("setTab", this.prop.TabIndex);
+      this.$refs.modalExportCsv.show();
     },
     openModalColumn() {
       // this.$store.commit("setLevel", this.prop.PageLevel);
@@ -487,7 +577,7 @@ export default {
     },
     doExportXLS(param) {
         if (param == "A") {
-            var url = this.getFileExcel(this.title, this.ExportToken)
+            var url = this.getFileExcel(this.title, 1, this.ExportToken)
             window.location.href = url
             this.$refs.modalExport.hide()
         } else {
@@ -499,13 +589,53 @@ export default {
 
                 data = data.slice(0, -1)
 
-                this.M_ExportXLS(data)
+                this.M_ExportXLS(1, data)
             } else {
                 this.alertWarning("No Data Selected To Export")
             }
         }
     },
-    M_ExportXLS(data) {
+    doExportPDF(param) {
+        if (param == "A") {
+            var url = this.getFileExcel(this.title, 2, this.ExportToken)
+            window.location.href = url
+            this.$refs.modalExportPdf.hide()
+        } else {
+            if (this.rowSelected.length > 0) {
+                var data = ""
+                this.rowSelected.forEach(idx => {
+                    data += this.items[idx].row_id + ","
+                })
+
+                data = data.slice(0, -1)
+
+                this.M_ExportXLS(2, data)
+            } else {
+                this.alertWarning("No Data Selected To Export")
+            }
+        }
+    },
+    doExportCSV(param) {
+        if (param == "A") {
+            var url = this.getFileExcel(this.title, 3, this.ExportToken)
+            window.location.href = url
+            this.$refs.modalExportCsv.hide()
+        } else {
+            if (this.rowSelected.length > 0) {
+                var data = ""
+                this.rowSelected.forEach(idx => {
+                    data += this.items[idx].row_id + ","
+                })
+
+                data = data.slice(0, -1)
+
+                this.M_ExportXLS(3, data)
+            } else {
+                this.alertWarning("No Data Selected To Export")
+            }
+        }
+    },
+    M_ExportXLS(type = 1, data) {
         var param = {
             Token: this.ExportToken,
             Data: data
@@ -514,10 +644,19 @@ export default {
         this.postJSON(this.getUrlGetTokenExport(), param).then(response => {
             if (response == null) return
 
-            var url = this.getFileExcel(this.title, response.Data.Token)
+            var url = this.getFileExcel(this.title, type, response.Data.Token)
             window.location.href = url
             this.$refs.modalExport.hide()
         })
+    },
+    PrintTable() {
+        // var divToPrint=document.getElementById("printTable");
+        // newWin= window.open("");
+        // newWin.document.write(divToPrint.outerHTML);
+        // newWin.print();
+        window.frames["print_frame"].document.body.innerHTML = document.getElementById(this.tableId).innerHTML;
+        window.frames["print_frame"].window.focus();
+        window.frames["print_frame"].window.print();
     },
     resetSelected() {
       this.rowSelected = [0];
