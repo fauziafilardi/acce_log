@@ -1,0 +1,49 @@
+@media screen and (max-width: 960px) {
+    // .col-md-4 {
+    //     flex: auto !important;
+    //     max-width: 100% !important;
+    // }
+
+    // .col-md-8 {
+    //     flex: auto !important;
+    //     max-width: 100% !important;
+    // }
+
+    .dashboard-page-chart {
+        &__body {
+            min-width: 950px !important;
+        }
+    }
+
+    .AppointmentData {
+        margin-bottom: 6px !important;
+    }
+
+    .RowTruckOccu {
+        margin-top: 15px !important;
+        margin-bottom: 15px !important;
+    }
+
+    .RowNewProspect {
+        &Top {
+            margin-top: 40px !important;
+        }
+
+        &Bottom {
+            margin-bottom: 40px !important;
+        }
+    }
+
+    .RowStatus {
+        margin-top: 40px !important;
+        margin-bottom: 40px !important;
+    }
+
+    .chart-user-management {
+        height: 35vh !important;
+    }
+
+    // .chart-target {
+    //     height: 27vh !important;
+    // }
+}

@@ -8,7 +8,7 @@
             <div class="card__body">
               <b-row>
                 <b-col>
-                  <div class="chart-container" style="position: relative; height: 38vh;">
+                  <div class="chart-container" style="position: relative; height: 35vh;">
                     <canvas id="revenue-chart"></canvas>
                   </div>
                 </b-col>
@@ -36,9 +36,9 @@
               </b-row>
             </div>
             <div class="card__body">
-              <b-row style="margin-top:15px; margin-bottom:15px;">
+              <b-row class="RowTruckOccu">
                 <b-col>
-                  <div class="chart-container" style="position: relative;">
+                  <div class="chart-container" style="position: relative; height: 30vh;">
                     <canvas id="tOcupancy-chart"></canvas>
                   </div>
                 </b-col>
@@ -70,13 +70,16 @@
             <div class="card__body">
               <b-row>
                 <b-col>
-                  <canvas id="marketing-chart" width="350" height="100"></canvas>
+                  <div class="chart-container" style="position: relative; height: 30vh;">
+                    <!-- <canvas id="marketing-chart" width="350" height="100"></canvas> -->
+                    <canvas id="marketing-chart"></canvas>
+                  </div>
                   <hr style="margin: 5px !important;" />
                 </b-col>
               </b-row>
               <b-row>
                 <b-col md="2" style="margin:auto;">
-                  <span>Cumulative Totale</span>
+                  <span>Cumulative Total</span>
                 </b-col>
                 <b-col class="ChartLegend-Wrap">
                   <span>
@@ -160,7 +163,7 @@
                   </span>
                 </b-col>
               </b-row>
-              <b-row style="margin-top:40px;">
+              <b-row class="RowNewProspectTop">
                 <b-col>
                   <div class="buleth__blue">
                     <span>{{ DataCustomerPerformance.booking && DataCustomerPerformance.booking !== '' ? DataCustomerPerformance.booking : 0 }}</span>
@@ -174,7 +177,7 @@
                   <div class="buleth-text">Fullfill</div>
                 </b-col>
               </b-row>
-              <b-row style="margin-bottom:40px;">
+              <b-row class="RowNewProspectBottom">
                 <b-col md="12" style="text-align: center;">
                   <span style="font-size: 25px; font-weight: bold; color: #666666;">(78.5 %)</span>
                 </b-col>
@@ -190,7 +193,9 @@
             <div class="card__body">
               <b-row>
                 <b-col>
-                  <canvas id="operationalP-chart"></canvas>
+                  <div class="chart-container" style="position: relative; height: 30vh;">
+                    <canvas id="operationalP-chart"></canvas>
+                  </div>
                 </b-col>
               </b-row>
             </div>
@@ -202,7 +207,9 @@
             <div class="card__body">
               <b-row>
                 <b-col>
-                  <canvas id="driverP-chart"></canvas>
+                  <div class="chart-container" style="position: relative; height: 30vh;">
+                    <canvas id="driverP-chart"></canvas>
+                  </div>
                 </b-col>
               </b-row>
             </div>
@@ -650,7 +657,7 @@ export default {
         },
         options: {
           // barValueSpacing: 20,
-          // maintainAspectRatio: false,
+          maintainAspectRatio: false,
           legend: { display: false },
           title: {
             display: false,

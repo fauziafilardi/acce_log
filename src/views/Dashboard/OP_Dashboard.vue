@@ -147,11 +147,9 @@
           <div class="card">
             <div class="card__title">
               <b-row>
-                <b-col style="max-width:fit-content !important;">
-                  <span>Operation Petty Cash</span> &nbsp;
-                </b-col>
-                <b-col style="text-align: right;">
-                  <span>
+                <b-col>
+                  <span style="float: left !important;">Operation Petty Cash</span> &nbsp;
+                  <span style="float: right !important;">
                     <ABSButton
                       :text="'View All (5)'"
                       classButton="button button--new"
@@ -160,6 +158,8 @@
                     />
                   </span>
                 </b-col>
+                <!-- <b-col style="text-align: right;">
+                </b-col>-->
               </b-row>
             </div>
             <div class="card__body">
@@ -202,15 +202,15 @@
             </div>
             <div class="card__body">
               <b-row class="ListingRowHeader">
-                <b-col md="4" style="width: 33% !important;">
+                <b-col md="4" style="width: 30% !important;">
                   <font-awesome-icon style="color: #333399;" icon="map-marker-alt" size="lg" />&nbsp;
                   <span>Zone</span>
                 </b-col>
-                <b-col md="4" style="width: 33% !important; text-align:center;">
+                <b-col md="4" style="width: 35% !important; text-align:center;">
                   <font-awesome-icon style="color: #333399;" icon="cube" size="lg" />&nbsp;
                   <span>m3</span>
                 </b-col>
-                <b-col md="4" style="width: 33% !important; text-align:center;">
+                <b-col md="4" style="width: 35% !important; text-align:center;">
                   <font-awesome-icon style="color: #333399;" icon="balance-scale" size="lg" />&nbsp;
                   <span>Kg</span>
                 </b-col>
@@ -219,14 +219,15 @@
                 v-for="(data, index) in ConsoleIncoming"
                 v-bind:key="index"
                 class="ListingRowBody"
+                style="height: 29.25px !important;"
               >
-                <b-col md="4" style="width: 33% !important;">
+                <b-col md="4" style="width: 30% !important;">
                   <span>{{data.zone}}</span>
                 </b-col>
-                <b-col md="4" style="width: 33% !important; text-align:center;">
+                <b-col md="4" style="width: 35% !important; text-align:center;">
                   <span>{{data.m3}}</span>
                 </b-col>
-                <b-col md="4" style="width: 33% !important; text-align:center;">
+                <b-col md="4" style="width: 35% !important; text-align:center;">
                   <span>{{data.kg}}</span>
                 </b-col>
               </b-row>
@@ -254,15 +255,21 @@
             </div>
             <div class="card__body">
               <b-row class="ListingRowHeader">
-                <b-col md="4" style="width: 33% !important;">
+                <b-col md="4" style="width: 30% !important;">
                   <font-awesome-icon style="color: #333399;" icon="map-marker-alt" size="lg" />&nbsp;
                   <span>Zone</span>
                 </b-col>
-                <b-col md="4" style="width: 33% !important;text-align: center;">
+                <b-col
+                  md="4"
+                  style="width: 35% !important;font-size: 14px !important;text-align: center;"
+                >
                   <b-badge variant="success">&nbsp;</b-badge>&nbsp;
                   <span>Available</span>
                 </b-col>
-                <b-col md="4" style="width: 33% !important;text-align: center;">
+                <b-col
+                  md="4"
+                  style="width: 35% !important;font-size: 13px !important;text-align: center;"
+                >
                   <b-badge variant="primary">&nbsp;</b-badge>&nbsp;
                   <span>Incoming</span>
                 </b-col>
@@ -271,16 +278,17 @@
                 v-for="(data, index) in ConsoleIncoming"
                 v-bind:key="index"
                 class="ListingRowBody"
+                style="height: 29.25px !important;"
               >
-                <b-col md="4" style="width: 33% !important;">
+                <b-col md="4" style="width: 30% !important;">
                   <span>{{data.zone}}</span>
                 </b-col>
-                <b-col md="4" style="width: 33% !important;text-align: center;">
+                <b-col md="4" style="width: 35% !important;text-align: center;">
                   <span>
                     <b-badge variant="success">{{data.available}}</b-badge>
                   </span>
                 </b-col>
-                <b-col md="4" style="width: 33% !important;text-align: center;">
+                <b-col md="4" style="width: 35% !important;text-align: center;">
                   <span>
                     <b-badge variant="primary">{{data.incoming}}</b-badge>
                   </span>

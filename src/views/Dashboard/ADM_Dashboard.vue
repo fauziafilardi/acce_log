@@ -89,7 +89,7 @@
                   </span>
                 </b-col>
               </b-row>
-              <b-row style="margin-top:37px;margin-bottom:36px;">
+              <b-row class="RowStatus">
                 <b-col>
                   <div class="buleth__blue">
                     <span>{{ DataFleetDocumentStatus.target && DataFleetDocumentStatus.target !== '' ? DataFleetDocumentStatus.target : 0 }}</span>
@@ -182,7 +182,7 @@
                   </span>
                 </b-col>
               </b-row>
-              <b-row style="margin-top:37px;margin-bottom:36px;">
+              <b-row class="RowStatus">
                 <b-col>
                   <div class="buleth__blue">
                     <span>{{ DataDriverDocumentStatus.target && DataDriverDocumentStatus.target !== '' ? DataDriverDocumentStatus.target : 0 }}</span>
@@ -201,7 +201,7 @@
         </b-col>
       </b-row>
       <b-row class="dashboardBody">
-        <b-col md="8">
+        <b-col md="6">
           <div class="card">
             <div class="card__title">
               <b-row>
@@ -242,7 +242,7 @@
             </div>
           </div>
         </b-col>
-        <b-col md="4">
+        <b-col md="6">
           <div class="card">
             <div class="card__title">
               <b-row>
@@ -254,7 +254,8 @@
             <div class="card__body">
               <b-row>
                 <b-col>
-                  <div class="chart-container" style="position: relative;height: 42vh;">
+                  <!-- <div class="chart-container" style="position: relative;height: 30vh;"> -->
+                  <div class="chart-user-management">
                     <canvas id="user-chart"></canvas>
                   </div>
                 </b-col>

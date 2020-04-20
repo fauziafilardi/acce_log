@@ -1,9 +1,9 @@
-@media screen and (max-width: 768px){
-    .lbl-col-align{
+@media screen and (max-width: 768px) {
+    .lbl-col-align {
         text-align: left !important;
     }
-    
-    .bColMasterForm{
+
+    .bColMasterForm {
         margin-left: 15px !important;
         // margin-right: 27px !important;
     }
@@ -35,10 +35,10 @@
         font-size: 14px;
     }
 
-    #AbsInputTest .v-select .selected-tag{
+    #AbsInputTest .v-select .selected-tag {
         margin: 9px 2px 0 !important;
-      }
-    
+    }
+
     //   .abs-login__box-position-right .box-layer-form .box-login-form{
     //     width: 350px;
     //     padding: 15px;
@@ -46,36 +46,36 @@
     //     margin-top: 38%;
     //   }
 
-      ul.pagination{
-          margin-top:45px;
-      }
+    ul.pagination {
+        margin-top: 45px;
+    }
 
-      .absolute-connection-wrapper .header--top__info-subportfolio {
-          display: none !important;
-      }
+    .absolute-connection-wrapper .header--top__info-subportfolio {
+        display: none !important;
+    }
 
-      .block-scope-container {
+    .block-scope-container {
         height: 79% !important;
         // height: 500px !important;
         min-width: 290px;
-      }
+    }
 
-      .master-span {
-          display: none;
-      }
+    .master-span {
+        display: none;
+    }
 
     //   .absolute-connection-wrapper .sidebar-app {
     //     height: 93% !important;
     //   }
-    .container-status{
+    .container-status {
         padding: 42px 1px 20px 1px !important;
     }
 
-    .container-ava{
+    .container-ava {
         float: left;
         margin: 27px 0px 0px 0px !important;
         // height: 54px;
-      }
+    }
 
     .footer--content {
         z-index: 777;
@@ -87,17 +87,17 @@
         color: white;
         text-align: center !important;
         border-top: 1px solid rgb(204, 204, 204);
-        
+
         &__title {
-          background-color: #FFFFFF;
-          padding: 6px 15px;
-          font-weight: 600;
-          color: #215B7D;
-          margin-left: 0px;
+            background-color: #FFFFFF;
+            padding: 6px 15px;
+            font-weight: 600;
+            color: #215B7D;
+            margin-left: 0px;
         }
     }
 
-    .avatar-class{
+    .avatar-class {
         float: left;
         margin-right: 10px;
         height: 77px;
@@ -105,7 +105,7 @@
         display: flex;
     }
 
-    .delete-detail-list{
+    .delete-detail-list {
         height: 33px;
         position: relative;
         margin-left: -5px;
@@ -115,46 +115,64 @@
     }
 
     .modal-header-multiple {
-        &-sm{
+        &-sm {
             width: 95%;
         }
-      
-        &-md{          
+
+        &-md {
             width: 95%;
         }
-      
-        &-lg{  
+
+        &-lg {
             width: 95%;
         }
-      }
-      
-      /* Modal Content */
-      .modal-content-multiple {
-        &-sm{
+    }
+
+    /* Modal Content */
+    .modal-content-multiple {
+        &-sm {
             width: 95%;
         }
-      
-        &-md{          
+
+        &-md {
             width: 95%;
         }
-      
-        &-lg{  
+
+        &-lg {
             width: 95%;
         }
-      }
-      
-      .modal-footer-multiple {  
-        &-sm{
+    }
+
+    .modal-footer-multiple {
+        &-sm {
             width: 95%;
         }
-      
-        &-md{          
+
+        &-md {
             width: 95%;
         }
-      
-        &-lg{  
+
+        &-lg {
             width: 95%;
         }
-      }
+    }
+
+    .dashboard-page-chart {
+        &__body {
+            min-width: 200px !important;
+        }
+    }
+
+    .column-right {
+        margin-left: 25% !important;
+        margin-right: 25% !important;
+        width: 100% !important;
+    }
+
+    .column-left {
+        // margin-left: 25%;
+        // margin-right: 25%;
+        width: 100% !important;
+    }
 
 }

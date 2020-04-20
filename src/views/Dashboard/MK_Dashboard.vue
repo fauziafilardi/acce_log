@@ -8,13 +8,16 @@
             <div class="card__body">
               <b-row>
                 <b-col>
-                  <canvas id="bar-chart" width="350" height="100"></canvas>
+                  <!-- <canvas id="bar-chart" width="350" height="100"></canvas> -->
+                  <div class="chart-target">
+                    <canvas id="bar-chart" height="100"></canvas>
+                  </div>
                   <hr style="margin: 5px !important;" />
                 </b-col>
               </b-row>
-              <b-row>
+              <b-row class="row-comulative">
                 <b-col md="2" style="margin:auto;">
-                  <span>Cumulative Totale</span>
+                  <span>Cumulative Total</span>
                 </b-col>
                 <b-col class="ChartLegend-Wrap">
                   <span>
@@ -126,13 +129,13 @@
                   <div class="buleth__blue">
                     <span>{{ DataProspect.target && DataProspect.target !== '' ? DataProspect.target : 0 }}</span>
                   </div>
-                  <div class="buleth-text">Target</div>
+                  <div class="buleth-text" style="margin-top: 0px !important;">Target</div>
                 </b-col>
                 <b-col>
                   <div class="buleth__green">
                     <span>{{ DataProspect.achievement && DataProspect.achievement !== '' ? DataProspect.achievement : 0 }}</span>
                   </div>
-                  <div class="buleth-text">Achievement</div>
+                  <div class="buleth-text" style="margin-top: 0px !important;">Achievement</div>
                 </b-col>
               </b-row>
               <!-- <br /> -->
@@ -1163,6 +1166,7 @@ export default {
         },
         options: {
           // barValueSpacing: 20,
+          maintainAspectRatio: false,
           legend: { display: false },
           title: {
             display: false,

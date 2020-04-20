@@ -401,3 +401,38 @@
     height: 90px;
     margin: auto;
 }
+
+//Row Custom Class
+
+.RowTruckOccu {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.RowNewProspect {
+    &Top {
+        margin-top: 24px;
+    }
+
+    &Bottom {
+        margin-bottom: 23px;
+    }
+}
+
+.RowStatus {
+    margin-top: 37px;
+    margin-bottom: 36px;
+}
+
+.chart-user-management {
+    height: 41vh;
+}
+
+.chart-target {
+    height: 32vh;
+}
+
+.row-comulative {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
