@@ -49,6 +49,7 @@ export default {
 
       // // url report public
       // urlReportTemplate: 'http://36.91.141.98:8181/ReportPams/',
+      segmentCRUD: 'api/DynamicAPI',
 
       segmentDelete: 'api/DynamicAPI/Delete',
       segmentInsert: 'api/DynamicAPI/Insert',
@@ -68,7 +69,7 @@ export default {
       segmentGetLookUp: 'LookUp/GetData',
 
       // ini untuk lookup modal
-      segmentGetLookUpList: 'LookUp/GetList',
+      segmentGetLookUpList: 'api/DynamicAPI/GetListLookup',
       segmentGetLookUpDataBy: 'LookUp/GetDataBy',
 
       segmentGetById: 'api/DynamicAPI/GetById',
@@ -253,6 +254,11 @@ export default {
     getUrlDBConnection() {
       return this.url + this.segmentGetDBConnection
     },
+
+    getUrlCRUD() {
+      return this.url + this.segmentCRUD
+    },
+
     getUrlInsert() {
       return this.url + this.segmentInsert
     },
@@ -1443,10 +1449,10 @@ export default {
       return searchParams
     },
 
-    getJSON(param) {
+    getJSON(url, param) {
       return axios
-        .get(
-          param, {
+        .get( url, {
+            params: param,
             headers: {
               'Content-Type': this.json,
               Accept: this.json,
@@ -1475,10 +1481,10 @@ export default {
           return null
         })
     },
-    deleteJSON(param) {
+    deleteJSON(url, param) {
       return axios
-        .delete(
-          param, {
+        .delete( url, {
+            params: param,
             headers: {
               'Content-Type': this.json,
               Accept: this.json,

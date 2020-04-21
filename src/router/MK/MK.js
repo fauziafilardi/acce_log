@@ -29,6 +29,8 @@ import MK_LogBook_New from '@/views/MK/MK_LogBook_Mobile/MK_LogBook_New'
 import MK_LogBook_New2 from '@/views/MK/MK_LogBook_Mobile/MK_LogBook_New2'
 
 import MK_NewProspect from '@/views/MK/MK_NewProspect/MK_NewProspect'
+import MK_AddNewProspect from '@/views/MK/MK_NewProspect/MK_AddNewProspect'
+import MK_ViewNewProspect from '@/views/MK/MK_NewProspect/MK_ViewNewProspect'
 
 
 export const MKRender = {
@@ -213,6 +215,7 @@ export const MKRender = {
                 requiresAuth: true
             }
         },
+
         {
             path: '/MK/MK_NewProspect',
             name: 'MK_NewProspect',
@@ -220,6 +223,22 @@ export const MKRender = {
             meta: {
                 requiresAuth: true
             }
+        },
+        {
+            path: '/MK/MK_NewProspect/Add',
+            name: 'MK_AddNewProspect',
+            component: MK_AddNewProspect,
+            meta: {
+                requiresAuth: true
+            },
+        },
+        {
+            path: '/MK/MK_NewProspect/View',
+            name: 'MK_ViewNewProspect',
+            component: MK_ViewNewProspect,
+            meta: {
+                requiresAuth: true
+            },
         }
     ]
 }

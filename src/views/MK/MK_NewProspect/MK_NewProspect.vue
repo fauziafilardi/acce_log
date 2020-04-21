@@ -15,6 +15,7 @@
                         @headTable = "M_Head_Table"
                         @refreshColumn = "refreshColumn"
                         ref="ref_NewProspectList"
+                        urlAdd="MK_AddNewProspect"
                     />
                 </b-col>
             </b-row>
@@ -39,7 +40,11 @@ export default {
     },
     methods: {
         rowClicked(record, index) {},
-        doDoubleClick() {},
+        doDoubleClick(record, index) {
+            var param = record
+            param.option_url = this.getOptionUrl()
+            this.$router.push({ name: "MK_ViewNewProspect", params: param })
+        },
         rowLink(url) {},
         M_PageSize() {},
         M_Pagination() {},

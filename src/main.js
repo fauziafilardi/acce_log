@@ -146,6 +146,11 @@ import ABSInputTextPeriodYear from './components/Input_Vuex/ABSInputTextPeriodYe
 
 // ACCELOG Component
 import ACCList from './components/List/ACCList.vue'
+import ACCTextBox from './components/ACCForms/ACCTextBox.vue'
+import ACCLookUp from './components/ACCForms/ACCLookUp.vue'
+import ACCLookUpDetail from './components/ACCForms/ACCLookUpDetail.vue'
+import ACCDropDown from './components/ACCForms/ACCDropDown.vue'
+import ACCTextArea from './components/ACCForms/ACCTextArea.vue'
 
 import HeaderFormVuex from './components/HeaderForm/HeaderFormVuex.vue'
 import ABSMasterPageFormVuex from './components/Forms/ABSMasterPageFormVuex.vue'
@@ -269,6 +274,11 @@ Vue.component('ABSInputTextPeriodYear', ABSInputTextPeriodYear)
 
 //ACCELOG Component
 Vue.component('ACCList', ACCList)
+Vue.component('ACCTextBox', ACCTextBox)
+Vue.component('ACCLookUp', ACCLookUp)
+Vue.component('ACCLookUpDetail', ACCLookUpDetail)
+Vue.component('ACCDropDown', ACCDropDown)
+Vue.component('ACCTextArea', ACCTextArea)
 
 // componen Vuex - By Fauzi
 Vue.component('HeaderFormVuex', HeaderFormVuex)

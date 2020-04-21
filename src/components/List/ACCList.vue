@@ -40,7 +40,8 @@
               :text="'Add New'"
               classButton="button button--new"
               classIcon="icon-style-1"
-              :disabled="true"
+              :disabled="!isCanAdd"
+              @click="onAddNewClick"
             />
           </span>
 
@@ -466,7 +467,8 @@ export default {
     statusFalse: String,
     hideCheckboxAndGear: Boolean,
     hideCheckbox: Boolean,
-    cShowNumber: Boolean
+    cShowNumber: Boolean,
+    urlAdd: String
   },
   data() {
     return {
@@ -538,8 +540,20 @@ export default {
     };
   },
   computed: {
+    isDisableTable() {
+      return false
+    },
       tableId() {
           return "AccList-" + Math.floor(Math.random() * 10);
+      },
+      isCanAdd() {
+        var url = this.urlAdd
+        if (!url || url == '' || url == undefined) {
+          return false
+        }
+        else {
+          return true
+        }
       }
   },
   methods: {
@@ -674,6 +688,15 @@ export default {
     onSearchEnter(data) {
       // console.log(data);
       this.doGetList(this.search, "onSearchEnter");
+    },
+    onAddNewClick() {
+      var url = this.urlAdd
+      if (!url || url == '' || url == undefined) return
+      var param = {
+        option_url: this.getOptionUrl(),
+        title: this.title
+      }
+      this.$router.push({ name: url, params: param })
     },
     doAddFilter() {
       var dataColumn = this.selectedColumn;
@@ -978,7 +1001,7 @@ export default {
         // SortField: this.sort,
         // SourceField: this.prop.SourceField,
         // ParamView: this.prop.ParamView
-        option_url: "/SS/SS_Portfolio", //this.getOptionUrl(),
+        option_url: this.getOptionUrl(),
         line_no: this.prop.LineNo,
         user_id: this.getDataUser().user_id,
         portfolio_id: this.getDataUser().portfolio_id,
@@ -1019,7 +1042,7 @@ export default {
         this.allColumn_bf = this.responses.AllColumn.split(",");
         var index = this.allColumn_bf.indexOf("lastupdatestamp");
         if (index > -1) {
-          this.allColumn_bf.splice(index, 1);
+          // this.allColumn_bf.splice(index, 1);
         }
         var allColumn = [];
         var filteredColumn = [];
