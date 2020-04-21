@@ -2,7 +2,7 @@
   <div class="dashboard-page-chart">
     <div class="dashboard-page-chart__body">
       <b-row class="dashboardBody">
-        <b-col md="8">
+        <b-col md="7">
           <div class="card">
             <div class="card__title" style="border-bottom-style: unset !important;">Revenue</div>
             <div class="card__body">
@@ -16,7 +16,7 @@
             </div>
           </div>
         </b-col>
-        <b-col md="4">
+        <b-col md="5">
           <div class="card">
             <div class="card__title">
               <b-row>
@@ -26,7 +26,7 @@
                 <b-col style="text-align: right;">
                   <span>
                     <ABSButton
-                      :text="'View All (5)'"
+                      :text="'View All'"
                       classButton="button button--new"
                       classIcon="icon-style-1"
                       :disabled="true"
@@ -48,7 +48,7 @@
         </b-col>
       </b-row>
       <b-row class="dashboardBody">
-        <b-col md="8">
+        <b-col md="7">
           <div class="card">
             <div class="card__title" style="border-bottom-style: unset !important;">
               <b-row>
@@ -58,7 +58,7 @@
                 <b-col style="text-align: right;">
                   <span>
                     <ABSButton
-                      :text="'View All (5)'"
+                      :text="'View All'"
                       classButton="button button--new"
                       classIcon="icon-style-1"
                       :disabled="true"
@@ -140,7 +140,7 @@
             </div>
           </div>
         </b-col>
-        <b-col md="4">
+        <b-col md="5">
           <div class="card">
             <div class="card__title">New Prospect</div>
             <div class="card__body">

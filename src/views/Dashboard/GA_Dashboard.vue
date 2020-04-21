@@ -89,7 +89,7 @@
                   </span>
                 </b-col>
               </b-row>
-              <b-row style="margin-top:37px;margin-bottom:36px;">
+              <b-row class="row-fleet-doc">
                 <b-col>
                   <div class="buleth__blue">
                     <span>{{ DataFleetDocumentStatus.target && DataFleetDocumentStatus.target !== '' ? DataFleetDocumentStatus.target : 0 }}</span>
@@ -182,7 +182,7 @@
                   </span>
                 </b-col>
               </b-row>
-              <b-row style="margin-top:37px;margin-bottom:36px;">
+              <b-row class="row-fleet-doc">
                 <b-col>
                   <div class="buleth__blue">
                     <span>{{ DataDriverDocumentStatus.target && DataDriverDocumentStatus.target !== '' ? DataDriverDocumentStatus.target : 0 }}</span>

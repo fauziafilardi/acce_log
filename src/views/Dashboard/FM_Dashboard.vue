@@ -91,7 +91,7 @@
                   </span>
                 </b-col>
               </b-row>
-              <b-row style="margin-top:37px;margin-bottom:36px;">
+              <b-row class="row-complete-order">
                 <b-col>
                   <div class="buleth__blue">
                     <span>{{ DataMaintenanceStatus.target && DataMaintenanceStatus.target !== '' ? DataMaintenanceStatus.target : 0 }}</span>
@@ -199,7 +199,7 @@
                   </span>
                 </b-col>
               </b-row>
-              <b-row style="margin-top:37px;margin-bottom:36px;">
+              <b-row class="row-complete-order">
                 <b-col>
                   <div class="buleth__blue">
                     <span>{{ DataVendorOrderStatus.target && DataVendorOrderStatus.target !== '' ? DataVendorOrderStatus.target : 0 }}</span>

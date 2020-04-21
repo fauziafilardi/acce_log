@@ -2,7 +2,7 @@
   <div class="dashboard-page-chart">
     <div class="dashboard-page-chart__body">
       <b-row class="dashboardBody">
-        <b-col md="8">
+        <b-col md="7">
           <div class="card">
             <div class="card__title">Target</div>
             <div class="card__body">
@@ -78,7 +78,7 @@
             </div>
           </div>
         </b-col>
-        <b-col md="4">
+        <b-col md="5">
           <div class="card">
             <div class="card__title">
               <b-row>
@@ -97,7 +97,7 @@
 
                   <span>
                     <ABSButton
-                      :text="'View All (5)'"
+                      :text="'View All'"
                       classButton="button button--new"
                       classIcon="icon-style-1"
                       :disabled="true"
@@ -124,7 +124,7 @@
                   </span>
                 </b-col>
               </b-row>
-              <b-row style="margin-top:6px;">
+              <b-row class="row-dash-new-prospect-top">
                 <b-col>
                   <div class="buleth__blue">
                     <span>{{ DataProspect.target && DataProspect.target !== '' ? DataProspect.target : 0 }}</span>
@@ -139,7 +139,7 @@
                 </b-col>
               </b-row>
               <!-- <br /> -->
-              <b-row>
+              <b-row class="row-dash-new-prospect-bottom">
                 <b-col>
                   <div class="prospect">
                     <div class="prospect__title">Monthly Point</div>
@@ -173,7 +173,7 @@
         </b-col>
       </b-row>
       <b-row class="dashboardBody">
-        <b-col md="8">
+        <b-col md="7">
           <div class="card">
             <div class="card__title">
               <b-row>
@@ -205,7 +205,7 @@
 
                   <span>
                     <ABSButton
-                      :text="'View All (5)'"
+                      :text="'View All'"
                       classButton="button button--new"
                       classIcon="icon-style-1"
                       :disabled="true"
@@ -287,7 +287,7 @@
             </div>
           </div>
         </b-col>
-        <b-col md="4">
+        <b-col md="5">
           <div class="card">
             <div class="card__title">
               <b-row>
@@ -297,7 +297,7 @@
                 <b-col style="text-align: right;">
                   <span>
                     <ABSButton
-                      :text="'View All (5)'"
+                      :text="'View All'"
                       classButton="button button--new"
                       classIcon="icon-style-1"
                       :disabled="true"
@@ -345,7 +345,7 @@
                 <b-col style="text-align: right;">
                   <span>
                     <ABSButton
-                      :text="'View All (5)'"
+                      :text="'View All'"
                       classButton="button button--new"
                       classIcon="icon-style-1"
                       :disabled="true"
@@ -403,7 +403,7 @@
                 <b-col md="4" style="text-align: end !important;">
                   <span>
                     <ABSButton
-                      :text="'View All (5)'"
+                      :text="'View All'"
                       classButton="button button--new"
                       classIcon="icon-style-1"
                       :disabled="true"
@@ -416,7 +416,7 @@
                   <span>Order</span>
                 </b-col>
                 <b-col style="text-align: right;">
-                  <span style="padding-right:10px">
+                  <span style="padding-right:5px">
                     <font-awesome-icon
                       style="font-size: medium; color: #ff9900;"
                       icon="circle"
@@ -424,10 +424,10 @@
                     />
                   </span>
                   <span
-                    style="padding-right:10px; font-size: 12px !important; font-weight: normal !important; color: #666666;"
+                    style="padding-right:5px; font-size: 12px !important; font-weight: normal !important; color: #666666;"
                   >Pending</span>
 
-                  <span style="padding-right:10px">
+                  <span style="padding-right:5px">
                     <font-awesome-icon
                       style="font-size: medium; color: #00cc33;"
                       icon="circle"
@@ -435,10 +435,10 @@
                     />
                   </span>
                   <span
-                    style="padding-right:10px; font-size: 12px !important; font-weight: normal !important; color: #666666;"
+                    style="padding-right:5px; font-size: 12px !important; font-weight: normal !important; color: #666666;"
                   >On Progress</span>
 
-                  <span style="padding-right:10px">
+                  <span style="padding-right:5px">
                     <font-awesome-icon
                       style="font-size: medium; color: #cc0000;"
                       icon="circle"
@@ -446,12 +446,12 @@
                     />
                   </span>
                   <span
-                    style="padding-right:10px; font-size: 12px !important; font-weight: normal !important; color: #666666;"
+                    style="padding-right:5px; font-size: 12px !important; font-weight: normal !important; color: #666666;"
                   >Issue</span>
 
                   <span>
                     <ABSButton
-                      :text="'View All (5)'"
+                      :text="'View All'"
                       classButton="button button--new"
                       classIcon="icon-style-1"
                       :disabled="true"
@@ -508,7 +508,7 @@
                 <b-col style="text-align: right;">
                   <span>
                     <ABSButton
-                      :text="'View All (5)'"
+                      :text="'View All'"
                       classButton="button button--new"
                       classIcon="icon-style-1"
                       :disabled="true"
@@ -549,7 +549,7 @@
                 <b-col style="text-align: right;">
                   <span>
                     <ABSButton
-                      :text="'View All (5)'"
+                      :text="'View All'"
                       classButton="button button--new"
                       classIcon="icon-style-1"
                       :disabled="true"
@@ -664,7 +664,7 @@
                 <b-col style="text-align: right;">
                   <span>
                     <ABSButton
-                      :text="'View All (5)'"
+                      :text="'View All'"
                       classButton="button button--new"
                       classIcon="icon-style-1"
                       :disabled="true"
