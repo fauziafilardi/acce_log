@@ -34,8 +34,89 @@
         overflow-x: scroll !important;
     }
 
-    .row-comulative {
-        margin-top: 15px !important;
-        margin-bottom: 10px !important;
+    // .row-comulative {
+    //     margin-top: 15px !important;
+    //     margin-bottom: 10px !important;
+    // }
+
+    .row-dash-new-prospect {
+        &-top {
+            margin-top: 0px !important;
+            margin-bottom: 0px !important;
+        }
+
+        &-bottom {
+            margin-top: 3px !important;
+            margin-bottom: 0px !important;
+        }
+
+    }
+
+    .chart-target {
+        height: 22vh !important;
+    }
+
+    .CardTag {
+        &-Title {
+            padding: 0px !important;
+            min-width: 70px !important;
+        }
+
+        &-Descs {
+            font-size: 11px !important;
+            min-width: 70px !important;
+        }
+    }
+
+    .row-petty-cash {
+        // margin-top: 20px !important;
+        margin-bottom: 21px !important;
+    }
+
+    .ListingRowHeader {
+        font-size: 12px !important;
+    }
+
+    // .div-console {
+    //     margin-top: 12px !important;
+    //     margin-bottom: 13px !important;
+    // }
+
+    .col-header-fleet {
+        font-size: 9px !important;
+    }
+
+    .row-complete-order {
+        margin-top: 40px !important;
+        margin-bottom: 40px !important;
+    }
+
+    .buleth-text {
+        font-size: 12px !important;
+    }
+
+    .RowTruckOccu {
+        margin-bottom: 18px !important;
+    }
+
+    .RowNewProspect {
+        &Top {
+            margin-top: 46px !important;
+            margin-bottom: 44px !important;
+        }
+
+        &Bottom {
+            margin-top: 44px !important;
+            margin-bottom: 44px !important;
+        }
+    }
+
+    .row-fleet-doc {
+        margin-top: 40px !important;
+        margin-bottom: 44px !important;
+    }
+
+    .div-driver-mgm {
+        margin-bottom: 43px !important;
     }
 }

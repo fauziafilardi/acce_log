@@ -151,7 +151,7 @@
                   <span style="float: left !important;">Operation Petty Cash</span> &nbsp;
                   <span style="float: right !important;">
                     <ABSButton
-                      :text="'View All (5)'"
+                      :text="'View All'"
                       classButton="button button--new"
                       classIcon="icon-style-1"
                       :disabled="true"
@@ -163,7 +163,7 @@
               </b-row>
             </div>
             <div class="card__body">
-              <b-row>
+              <b-row class="row-petty-cash">
                 <b-col
                   md="4"
                   v-for="(data, index) in OPPettyCash"
@@ -191,7 +191,7 @@
                 <b-col style="text-align: right;">
                   <span>
                     <ABSButton
-                      :text="'View All (5)'"
+                      :text="'View All'"
                       classButton="button button--new"
                       classIcon="icon-style-1"
                       :disabled="true"
@@ -201,36 +201,38 @@
               </b-row>
             </div>
             <div class="card__body">
-              <b-row class="ListingRowHeader">
-                <b-col md="4" style="width: 30% !important;">
-                  <font-awesome-icon style="color: #333399;" icon="map-marker-alt" size="lg" />&nbsp;
-                  <span>Zone</span>
-                </b-col>
-                <b-col md="4" style="width: 35% !important; text-align:center;">
-                  <font-awesome-icon style="color: #333399;" icon="cube" size="lg" />&nbsp;
-                  <span>m3</span>
-                </b-col>
-                <b-col md="4" style="width: 35% !important; text-align:center;">
-                  <font-awesome-icon style="color: #333399;" icon="balance-scale" size="lg" />&nbsp;
-                  <span>Kg</span>
-                </b-col>
-              </b-row>
-              <b-row
-                v-for="(data, index) in ConsoleIncoming"
-                v-bind:key="index"
-                class="ListingRowBody"
-                style="height: 29.25px !important;"
-              >
-                <b-col md="4" style="width: 30% !important;">
-                  <span>{{data.zone}}</span>
-                </b-col>
-                <b-col md="4" style="width: 35% !important; text-align:center;">
-                  <span>{{data.m3}}</span>
-                </b-col>
-                <b-col md="4" style="width: 35% !important; text-align:center;">
-                  <span>{{data.kg}}</span>
-                </b-col>
-              </b-row>
+              <div class="div-console">
+                <b-row class="ListingRowHeader">
+                  <b-col md="4" style="width: 30% !important;">
+                    <font-awesome-icon style="color: #333399;" icon="map-marker-alt" size="lg" />&nbsp;
+                    <span>Zone</span>
+                  </b-col>
+                  <b-col md="4" style="width: 35% !important; text-align:center;">
+                    <font-awesome-icon style="color: #333399;" icon="cube" size="lg" />&nbsp;
+                    <span>m3</span>
+                  </b-col>
+                  <b-col md="4" style="width: 35% !important; text-align:center;">
+                    <font-awesome-icon style="color: #333399;" icon="balance-scale" size="lg" />&nbsp;
+                    <span>Kg</span>
+                  </b-col>
+                </b-row>
+                <b-row
+                  v-for="(data, index) in ConsoleIncoming"
+                  v-bind:key="index"
+                  class="ListingRowBody"
+                  style="height: 29.25px !important;"
+                >
+                  <b-col md="4" style="width: 30% !important;">
+                    <span>{{data.zone}}</span>
+                  </b-col>
+                  <b-col md="4" style="width: 35% !important; text-align:center;">
+                    <span>{{data.m3}}</span>
+                  </b-col>
+                  <b-col md="4" style="width: 35% !important; text-align:center;">
+                    <span>{{data.kg}}</span>
+                  </b-col>
+                </b-row>
+              </div>
             </div>
           </div>
         </b-col>
@@ -244,7 +246,7 @@
                 <b-col style="text-align: right;">
                   <span>
                     <ABSButton
-                      :text="'View All (5)'"
+                      :text="'View All'"
                       classButton="button button--new"
                       classIcon="icon-style-1"
                       :disabled="true"
@@ -259,17 +261,11 @@
                   <font-awesome-icon style="color: #333399;" icon="map-marker-alt" size="lg" />&nbsp;
                   <span>Zone</span>
                 </b-col>
-                <b-col
-                  md="4"
-                  style="width: 35% !important;font-size: 14px !important;text-align: center;"
-                >
+                <b-col md="4" class="col-header-fleet">
                   <b-badge variant="success">&nbsp;</b-badge>&nbsp;
                   <span>Available</span>
                 </b-col>
-                <b-col
-                  md="4"
-                  style="width: 35% !important;font-size: 13px !important;text-align: center;"
-                >
+                <b-col md="4" class="col-header-fleet">
                   <b-badge variant="primary">&nbsp;</b-badge>&nbsp;
                   <span>Incoming</span>
                 </b-col>
@@ -299,7 +295,7 @@
         </b-col>
       </b-row>
       <b-row class="dashboardBody">
-        <b-col md="6">
+        <b-col md="5">
           <div class="card">
             <div class="card__title">
               <b-row>
@@ -309,7 +305,7 @@
                 <b-col style="text-align: right;">
                   <span>
                     <ABSButton
-                      :text="'View All (5)'"
+                      :text="'View All'"
                       classButton="button button--new"
                       classIcon="icon-style-1"
                       :disabled="true"
@@ -319,27 +315,29 @@
               </b-row>
             </div>
             <div class="card__body">
-              <b-table
-                :responsive="true"
-                :striped="false"
-                :bordered="true"
-                :outlined="false"
-                :small="false"
-                :hover="false"
-                :dark="false"
-                :fixed="false"
-                :foot-clone="false"
-                :fields="Vendor.Header"
-                :items="Vendor.Data"
-                thStyle="padding: 5px !important;"
-              >
-                <!-- class="table-sm table-style-1" -->
-                <template v-slot:cell(no)="data">{{data.index + 1}}</template>
-              </b-table>
+              <div>
+                <b-table
+                  :responsive="true"
+                  :striped="false"
+                  :bordered="true"
+                  :outlined="false"
+                  :small="false"
+                  :hover="false"
+                  :dark="false"
+                  :fixed="false"
+                  :foot-clone="false"
+                  :fields="Vendor.Header"
+                  :items="Vendor.Data"
+                  thStyle="padding: 5px !important;"
+                >
+                  <!-- class="table-sm table-style-1" -->
+                  <template v-slot:cell(no)="data">{{data.index + 1}}</template>
+                </b-table>
+              </div>
             </div>
           </div>
         </b-col>
-        <b-col md="6">
+        <b-col md="7">
           <div class="card">
             <div class="card__title">
               <b-row>
@@ -349,7 +347,7 @@
                 <b-col style="text-align: right;">
                   <span>
                     <ABSButton
-                      :text="'View All (5)'"
+                      :text="'View All'"
                       classButton="button button--new"
                       classIcon="icon-style-1"
                       :disabled="true"

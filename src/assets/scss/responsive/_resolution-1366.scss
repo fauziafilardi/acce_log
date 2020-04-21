@@ -1,0 +1,47 @@
+@media screen and (max-width: 1366px) {
+    .chart-target {
+        height: 17vh !important;
+    }
+
+    .row-dash-new-prospect {
+        &-top {
+            margin-top: 0px !important;
+            margin-bottom: 0px !important;
+        }
+
+        &-bottom {
+            margin-top: 4px !important;
+            margin-bottom: 4px !important;
+        }
+    }
+
+    .row-complete-order {
+        margin-top: 40px !important;
+        margin-bottom: 40px !important;
+    }
+
+    .RowTruckOccu {
+        margin-bottom: 30px !important;
+    }
+
+    .RowNewProspect {
+        &Top {
+            margin-top: 78px !important;
+            margin-bottom: 70px !important;
+        }
+
+        &Bottom {
+            margin-top: 60px !important;
+            margin-bottom: 60px !important;
+        }
+    }
+
+    .row-fleet-doc {
+        margin-top: 40px !important;
+        margin-bottom: 40px !important;
+    }
+
+    .div-driver-mgm {
+        margin-bottom: 123px !important;
+    }
+}

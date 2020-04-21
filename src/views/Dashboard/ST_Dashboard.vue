@@ -35,7 +35,7 @@
                 <b-col md="2" style="text-align: right;">
                   <span>
                     <ABSButton
-                      :text="'View All (5)'"
+                      :text="'View All'"
                       classButton="button button--new"
                       classIcon="icon-style-1"
                       :disabled="true"
@@ -100,7 +100,7 @@
                   </span>
                 </b-col>
               </b-row>
-              <b-row style="margin-top:37px;margin-bottom:36px;">
+              <b-row class="row-complete-order">
                 <b-col>
                   <div class="buleth__blue">
                     <span>{{ DataOrderStatus.target && DataOrderStatus.target !== '' ? DataOrderStatus.target : 0 }}</span>
@@ -144,7 +144,7 @@
                 <b-col md="2" style="text-align: right;">
                   <span>
                     <ABSButton
-                      :text="'View All (5)'"
+                      :text="'View All'"
                       classButton="button button--new"
                       classIcon="icon-style-1"
                       :disabled="true"
@@ -205,7 +205,7 @@
                   </span>
                 </b-col>
               </b-row>
-              <b-row style="margin-top:37px;margin-bottom:36px;">
+              <b-row class="row-complete-order">
                 <b-col>
                   <div class="buleth__blue">
                     <span>{{ DataVendorOrderStatus.target && DataVendorOrderStatus.target !== '' ? DataVendorOrderStatus.target : 0 }}</span>
@@ -249,7 +249,7 @@
                 <b-col md="3" style="text-align: right;">
                   <span>
                     <ABSButton
-                      :text="'View All (5)'"
+                      :text="'View All'"
                       classButton="button button--new"
                       classIcon="icon-style-1"
                       :disabled="true"
@@ -313,7 +313,7 @@
                 <b-col md="3" style="text-align: right;">
                   <span>
                     <ABSButton
-                      :text="'View All (5)'"
+                      :text="'View All'"
                       classButton="button button--new"
                       classIcon="icon-style-1"
                       :disabled="true"

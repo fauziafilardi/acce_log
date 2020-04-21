@@ -89,7 +89,7 @@
                   </span>
                 </b-col>
               </b-row>
-              <b-row class="RowStatus">
+              <b-row class="row-fleet-doc">
                 <b-col>
                   <div class="buleth__blue">
                     <span>{{ DataFleetDocumentStatus.target && DataFleetDocumentStatus.target !== '' ? DataFleetDocumentStatus.target : 0 }}</span>
@@ -182,7 +182,7 @@
                   </span>
                 </b-col>
               </b-row>
-              <b-row class="RowStatus">
+              <b-row class="row-fleet-doc">
                 <b-col>
                   <div class="buleth__blue">
                     <span>{{ DataDriverDocumentStatus.target && DataDriverDocumentStatus.target !== '' ? DataDriverDocumentStatus.target : 0 }}</span>
@@ -201,7 +201,7 @@
         </b-col>
       </b-row>
       <b-row class="dashboardBody">
-        <b-col md="6">
+        <b-col md="8">
           <div class="card">
             <div class="card__title">
               <b-row>
@@ -221,28 +221,30 @@
               </b-row>
             </div>
             <div class="card__body">
-              <b-table
-                :responsive="true"
-                :striped="false"
-                :bordered="true"
-                :outlined="false"
-                :small="false"
-                :hover="false"
-                :dark="false"
-                :fixed="false"
-                :foot-clone="false"
-                :fields="UserManagement.Header"
-                :items="UserManagement.Data"
-              >
-                <template v-slot:cell(no)="data">{{data.index + 1}}</template>
-                <template v-slot:cell(role)="data">
-                  <span style="color:#333399;font-weight:700;">{{data.item.role}}</span>
-                </template>
-              </b-table>
+              <div class="div-driver-mgm">
+                <b-table
+                  :responsive="true"
+                  :striped="false"
+                  :bordered="true"
+                  :outlined="false"
+                  :small="false"
+                  :hover="false"
+                  :dark="false"
+                  :fixed="false"
+                  :foot-clone="false"
+                  :fields="UserManagement.Header"
+                  :items="UserManagement.Data"
+                >
+                  <template v-slot:cell(no)="data">{{data.index + 1}}</template>
+                  <template v-slot:cell(role)="data">
+                    <span style="color:#333399;font-weight:700;">{{data.item.role}}</span>
+                  </template>
+                </b-table>
+              </div>
             </div>
           </div>
         </b-col>
-        <b-col md="6">
+        <b-col md="4">
           <div class="card">
             <div class="card__title">
               <b-row>

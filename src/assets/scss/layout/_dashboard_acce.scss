@@ -222,7 +222,7 @@
     border-bottom-style: solid;
     border-bottom-color: #cfcfcf;
     padding-bottom: 5px;
-    margin-bottom: 5px;
+    margin-bottom: 6px;
 }
 
 .AppointmentIcon {
@@ -355,7 +355,7 @@
     position: relative;
     min-width: 290px;
     overflow-x: auto;
-    overflow: hidden;
+    // overflow: hidden;
 
     &::-webkit-scrollbar {
         width: 2px;
@@ -405,16 +405,18 @@
 //Row Custom Class
 
 .RowTruckOccu {
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 15px;
+    margin-bottom: 12px;
 }
 
 .RowNewProspect {
     &Top {
         margin-top: 24px;
+        margin-bottom: 0px;
     }
 
     &Bottom {
+        margin-top: 0px;
         margin-bottom: 23px;
     }
 }
@@ -424,15 +426,58 @@
     margin-bottom: 36px;
 }
 
+.row-petty-cash {
+    margin-top: unset;
+    margin-bottom: unset;
+
+}
+
 .chart-user-management {
-    height: 41vh;
+    height: 31vh;
 }
 
 .chart-target {
-    height: 32vh;
+    height: 25vh;
 }
 
 .row-comulative {
     margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.row-top-dash-new-prospect {
+    &-top {
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+
+    &-bottom {
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+
+}
+
+.div-console {
+    margin-top: unset;
+    margin-bottom: unset;
+}
+
+.col-header-fleet {
+    width: 35% !important;
+    text-align: center;
+}
+
+.row-complete-order {
+    margin-top: 35px;
+    margin-bottom: 38px;
+}
+
+.row-fleet-doc {
+    margin-top: 37px;
+    margin-bottom: 36px;
+}
+
+.div-driver-mgm {
     margin-bottom: 0px;
 }

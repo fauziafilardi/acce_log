@@ -1,30 +1,81 @@
-@media screen and (max-width: 1280px){
-    // .abs-login__box-position-right .box-layer-form .box-login-form{
-    //     width: 350px;
-    //     padding: 15px;
-    //     margin-left: 36%;
-    //     margin-top: 12%;
-    // }
-    #AbsInputTest .v-select .selected-tag{
-        margin: 18px 2px 0 !important;
-      }
-    
-    // .content-app {
-    //     float: left;
-    //     height: 91%;
-    //     padding-left: 0px !important;
-    //     overflow-y: auto;
-    //     max-width: 100%;
-    //     overflow: hidden;
-    //     width: 100%;
-    //     position: relative;
-    //     background: #55b3ff;
-        
-    //     &__body {
-    //         padding: 15px;
-    //         padding-top: 60px;
-    //         font-size: 12px;
-    //         margin-bottom: 50px;
-    //     }
-    // }
+@media screen and (max-width: 1280px) {
+
+  // .abs-login__box-position-right .box-layer-form .box-login-form{
+  //     width: 350px;
+  //     padding: 15px;
+  //     margin-left: 36%;
+  //     margin-top: 12%;
+  // }
+  #AbsInputTest .v-select .selected-tag {
+    margin: 18px 2px 0 !important;
+  }
+
+  .chart-target {
+    height: 25vh !important;
+  }
+
+  .row-dash-new-prospect {
+    &-top {
+      margin-top: 0px !important;
+      margin-bottom: 0px !important;
+    }
+
+    &-bottom {
+      margin-top: 0px !important;
+      margin-bottom: 0px !important;
+    }
+  }
+
+  .row-complete-order {
+    margin-top: 35px !important;
+    margin-bottom: 38px !important;
+  }
+
+  .RowTruckOccu {
+    margin-bottom: 12px !important;
+  }
+
+  .RowNewProspect {
+    &Top {
+      margin-top: 24px !important;
+      margin-bottom: 24px !important;
+    }
+
+    &Bottom {
+      margin-top: 0px !important;
+      margin-bottom: 47px !important;
+    }
+  }
+
+  .row-fleet-doc {
+    margin-top: 37px !important;
+    margin-bottom: 36px !important;
+  }
+
+  .chart-user-management {
+    height: 31vh !important;
+  }
+
+  .div-driver-mgm {
+    margin-bottom: 0px !important;
+  }
+
+  // .content-app {
+  //     float: left;
+  //     height: 91%;
+  //     padding-left: 0px !important;
+  //     overflow-y: auto;
+  //     max-width: 100%;
+  //     overflow: hidden;
+  //     width: 100%;
+  //     position: relative;
+  //     background: #55b3ff;
+
+  //     &__body {
+  //         padding: 15px;
+  //         padding-top: 60px;
+  //         font-size: 12px;
+  //         margin-bottom: 50px;
+  //     }
+  // }
 }
