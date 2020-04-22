@@ -1,6 +1,6 @@
 <template>
     <div id="ACCImageUpload">
-        <label :for="'acc_image_upload_' + prop.cName" style="border: 1px solid #ccc; display: inline-block; padding: 6px 12px; cursor: pointer;">
+        <label :for="'acc_image_upload_' + prop.cName" :style="'border: 1px solid #ccc; display: inline-block; padding: 6px 12px; cursor: pointer;' + prop.cStyle">
             {{prop.cTitle}}
         </label>
         <b-form-file
@@ -22,7 +22,8 @@ export default {
             cName: String,
             cAccept: String,
             cTitle: String,
-            cModule: String
+            cModule: String,
+            cStyle: String
         },
         file: String
     },
@@ -107,6 +108,8 @@ export default {
         if (this.prop.cAccept == undefined) {
             this.prop.cAccept = '.jpg, .png, .gif'
         }
+
+        this.prop.cStyle = this.prop.cStyle ? this.prop.cStyle : ""
     },
     mounted(){}
 }

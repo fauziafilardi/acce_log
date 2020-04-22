@@ -62,7 +62,7 @@
       :readonly="true"
       :ref="prop.cName"
       :id="prop.cName"
-      :style="inputStatus=='edit' && prop.cKey || prop.cProtect ? 'background-color:  #e9ecef; padding-right:36px !important;' : 'background-color: #FFF; padding-right:36px !important;'"
+      :style="(inputStatus=='edit' && prop.cKey || prop.cProtect ? 'background-color:  #e9ecef; padding-right:36px !important;' : 'background-color: #FFF; padding-right:36px !important;') + prop.cStyle"
       :disabled="inputStatus=='edit' && prop.cKey || prop.cProtect"
       @click.native="openLookup"
     />
@@ -110,6 +110,7 @@ export default {
       cName: String,
       ckey: Boolean,
       cOrder: Number,
+      cStyle: String,
       cDefault: String,
       cProtect: Boolean,
       cParentForm: String,
@@ -362,6 +363,8 @@ export default {
     this.prop.cInputStatus = this.prop.cInputStatus
       ? this.prop.cInputStatus
       : "new";
+
+    this.prop.cStyle = this.prop.cStyle ? this.prop.cStyle : ""
   },
   mounted() {
     // if (this.prop.cStatic == undefined || this.prop.cStatic == null) {

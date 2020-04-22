@@ -37,6 +37,7 @@ export default {
       cType: String,
       cProtect: Boolean,
       cParentForm: String,
+      cStyle: String,
       cDecimal: [String, Number],
       cInputStatus: String
     },
@@ -240,6 +241,7 @@ export default {
     // this.prop.cHideRowColumnCSS = this.prop.cHideRowColumnCSS ? this.prop.cHideRowColumnCSS : false
     // this.prop.cRowDisable = this.prop.cRowDisable && this.prop.cRowDisable.length > 0 ? this.prop.cRowDisable.length : []
     this.prop.cInputStatus = this.prop.cInputStatus ? this.prop.cInputStatus : "new"
+    this.prop.cStyle = this.prop.cStyle ? this.prop.cStyle : ""
 
     if (this.prop.cType == 'email') {
         this.type = "email"
@@ -260,6 +262,7 @@ export default {
       }
 
       // this.style = { 'text-align': 'right', 'font-family': 'VnArialNarrow' }
+      this.style = "text-align: right !important; " + this.prop.cStyle
     }
 
     if (this.prop.cType == 'numeric') {

@@ -22,7 +22,7 @@
           :tabindex="prop.cOrder"
           :disabled="inputStatus=='edit' && prop.cKey || prop.cProtect"
           :plaintext="inputStatus=='view'"
-          :style="style"
+          :style="style + prop.cStyle"
           :ref="prop.cName"
           :id="prop.cName"
           :no-resize="!prop.cResize"
@@ -69,7 +69,7 @@ export default {
   data() {
     return {
       isRequired: false,
-      style: {}
+      style: ""
     }
   },
   computed: {
@@ -114,6 +114,7 @@ export default {
     this.prop.cRows = this.prop.cRows ? this.prop.cRows : 1
     this.prop.cMaxRows = this.prop.cMaxRows ? this.prop.cMaxRows : this.prop.cRows
     this.prop.cInputStatus = this.prop.cInputStatus ? this.prop.cInputStatus : "new"
+    this.prop.cStyle = this.prop.cStyle ? this.prop.cStyle : ""
 
     // get max, for maxlength
     if(this.prop.cValidate !== undefined && this.prop.cValidate !== null && this.prop.cValidate !== ''){
