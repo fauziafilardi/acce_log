@@ -2,4 +2,17 @@
     &-default {
         color: #333399;
     }
+
+    &-searchIconLeft {
+        color: #333399 !important;
+        position: absolute !important;
+        // left: 17px !important;
+        top: 0 !important;
+        display: inline-block;
+        cursor: pointer !important;
+        // margin-right: 0px !important;
+        // height: 13px !important;
+        margin-top: 13px !important;
+        // margin-right: 743px !important
+    }
 }
