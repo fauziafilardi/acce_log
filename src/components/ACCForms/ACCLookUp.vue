@@ -153,20 +153,19 @@ export default {
   },
   computed: {
     inputStatus() {
-      this.$validator.pause()
-      this.$nextTick(() => {
-        this.$validator.errors.clear(this.prop.cParentForm)
-        this.$validator.resume()
-      })
-      // return this.$store.getters.getStatus
+        this.$validator.pause()
+        this.$nextTick(() => {
+            this.$validator.errors.clear(this.prop.cParentForm)
+            this.$validator.resume()
+        })
 
-    //   if (this.$store.getters.getLevel == this.prop.cPageLevel && this.$store.getters.getTab == this.prop.cTabIndex) {
-    //     return this.$store.getters.getStatus
-    //   }
-    //   else {
-    //     return 'view'
-    //   }
+        // var ret = 'new'
 
+        // if (this.prop.cInputStatus && this.prop.cInputStatus !== '' && this.prop.cInputStatus !== undefined) {
+        //     ret = this.prop.cInputStatus
+        // }
+
+        // return ret
         return this.prop.cInputStatus.toLowerCase()
     },
     languageStatus () {
@@ -346,8 +345,7 @@ export default {
     // if (this.prop.cIsAlwaysShow != false || this.prop.cIsAlwaysShow != true) {
     //   this.prop.cIsAlwaysShow = false
     // }
-  },
-  mounted () {
+
     if (this.prop.cStatic == undefined || this.prop.cStatic == null) {
       this.prop.cStatic = false
     }
@@ -356,16 +354,28 @@ export default {
         this.options = this.prop.cOption
       }
     }
+    this.prop.cProtect = this.prop.cProtect ? this.prop.cProtect : false
+    this.prop.cInputStatus = this.prop.cInputStatus ? this.prop.cInputStatus : "new"
+  },
+  mounted () {
+    // if (this.prop.cStatic == undefined || this.prop.cStatic == null) {
+    //   this.prop.cStatic = false
+    // }
+    // else {
+    //   if (this.prop.cStatic){
+    //     this.options = this.prop.cOption
+    //   }
+    // }
+    // this.prop.cProtect = this.prop.cProtect ? this.prop.cProtect : false
+    // this.prop.cInputStatus = this.prop.cInputStatus ? this.prop.cInputStatus : "new"
     // this.prop.cLabelSize = this.prop.cLabelSize ? this.prop.cLabelSize : 4
     // this.prop.cTriggered = this.prop.cTriggered ? this.prop.cTriggered : false
-    this.prop.cProtect = this.prop.cProtect ? this.prop.cProtect : false
     // this.prop.cAsync = this.prop.cAsync ? this.prop.cAsync : true
     // this.prop.cVisible = this.prop.cVisible == undefined || this.prop.cVisible == null ? true : this.prop.cVisible
     // this.prop.cIsAlwaysShow = this.prop.cIsAlwaysShow ? this.prop.cIsAlwaysShow : false
 
     // this.prop.cMasterUrl = this.prop.cMasterUrl == '' ? undefined : this.prop.cMasterUrl
 
-    this.prop.cInputStatus = this.prop.cInputStatus ? this.prop.cInputStatus : "new"
 
     if (this.prop.cValidate !== undefined && this.prop.cValidate !== null && this.prop.cValidate !== '') {
       var str_array = this.prop.cValidate.split('|')
