@@ -238,7 +238,7 @@ export default {
         cProtect: false,
         cParentForm: this.FormParent,
         cDecimal: 2,
-        cInputStatus: "new"
+        cInputStatus: this.inputStatus
       },
       PI_address: {
         cValidate: "",
@@ -252,7 +252,7 @@ export default {
         cMaxRows: 2,
         cSize: "md",
         cParentForm: this.FormParent,
-        cInputStatus: "new"
+        cInputStatus: this.inputStatus
       },
       PI_district: {
         dataLookUp: {
@@ -275,7 +275,7 @@ export default {
         cStatic: false,
         cOption: [],
         cDisplayColumn: "district,city,province,country,time_edit",
-        cInputStatus: "new"
+        cInputStatus: this.inputStatus
       },
       PI_city: {
         dataLookUp: {
@@ -298,7 +298,7 @@ export default {
         cStatic: false,
         cOption: [],
         cDisplayColumn: "city,province,country,time_edit",
-        cInputStatus: "new"
+        cInputStatus: this.inputStatus
       },
       PI_province: {
         dataLookUp: {
@@ -321,7 +321,7 @@ export default {
         cStatic: false,
         cOption: [],
         cDisplayColumn: "province,country,time_edit",
-        cInputStatus: "new"
+        cInputStatus: this.inputStatus
       },
       PI_country: {
         dataLookUp: {
@@ -344,7 +344,7 @@ export default {
         cStatic: false,
         cOption: [],
         cDisplayColumn: "country,time_edit",
-        cInputStatus: "new"
+        cInputStatus: this.inputStatus
       },
       PI_phone_no_1: {
         cValidate: "max:3",
@@ -355,7 +355,7 @@ export default {
         cProtect: false,
         cParentForm: this.FormParent,
         cDecimal: 2,
-        cInputStatus: "new"
+        cInputStatus: this.inputStatus
       },
       PI_phone_no_2: {
         cValidate: "max:3",
@@ -366,7 +366,7 @@ export default {
         cProtect: false,
         cParentForm: this.FormParent,
         cDecimal: 2,
-        cInputStatus: "new"
+        cInputStatus: this.inputStatus
       },
       PI_phone_no_3: {
         cValidate: "max:8",
@@ -377,7 +377,7 @@ export default {
         cProtect: false,
         cParentForm: this.FormParent,
         cDecimal: 2,
-        cInputStatus: "new"
+        cInputStatus: this.inputStatus
       },
       PI_email: {
         cValidate: "",
@@ -388,7 +388,7 @@ export default {
         cProtect: false,
         cParentForm: this.FormParent,
         cDecimal: 2,
-        cInputStatus: "new"
+        cInputStatus: this.inputStatus
       },
       PI_website: {
         cValidate: "",
@@ -399,7 +399,7 @@ export default {
         cProtect: false,
         cParentForm: this.FormParent,
         cDecimal: 2,
-        cInputStatus: "new"
+        cInputStatus: this.inputStatus
       },
       PI_contact_person: {
         cValidate: "",
@@ -410,7 +410,7 @@ export default {
         cProtect: false,
         cParentForm: this.FormParent,
         cDecimal: 2,
-        cInputStatus: "new"
+        cInputStatus: this.inputStatus
       },
       PI_contact_phone_no_1: {
         cValidate: "max:3",
@@ -421,7 +421,7 @@ export default {
         cProtect: false,
         cParentForm: this.FormParent,
         cDecimal: 2,
-        cInputStatus: "new"
+        cInputStatus: this.inputStatus
       },
       PI_contact_phone_no_2: {
         cValidate: "max:3",
@@ -432,7 +432,7 @@ export default {
         cProtect: false,
         cParentForm: this.FormParent,
         cDecimal: 2,
-        cInputStatus: "new"
+        cInputStatus: this.inputStatus
       },
       PI_contact_phone_no_3: {
         cValidate: "max:8",
@@ -443,10 +443,11 @@ export default {
         cProtect: false,
         cParentForm: this.FormParent,
         cDecimal: 2,
-        cInputStatus: "new"
+        cInputStatus: this.inputStatus
       },
       M_NewProspect: {
         customer_name: "",
+        contact_created: "",
         address: "",
         district: "",
         districtLabel: "",
@@ -483,8 +484,14 @@ export default {
           return param;
         }
       }
-
-      // return param
+    },
+    inputStatus() {
+      var param = this.$route.params;
+      if (param.isEdit && param.isEdit === true) {
+        return "edit";
+      } else {
+        return "new";
+      }
     }
   },
   methods: {
@@ -531,17 +538,51 @@ export default {
         this.M_NewProspect.cityLabel = data.city;
       });
     },
-    OnprovinceChange(data) {
-      this.$nextTick(() => {
-        this.M_NewProspect.province = data.ss_province_id;
-        this.M_NewProspect.provinceLabel = data.province;
-      });
+    cValidate: "",
+    cName: "district",
+    ckey: false,
+    cOrder: 3,
+    // cDefault: '',
+    cProtect: false,
+    cParentForm: this.FormParent,
+    cStatic: false,
+    cOption: [],
+    cDisplayColumn: "district,city,province,country,time_edit",
+    cInputStatus: "new"
+  },
+  PI_city: {
+    dataLookUp: {
+      LookUpCd: "GetCity",
+      ColumnDB: "city_id",
+      InitialWhere: "ss_country_id = 2",
+      ParamWhere: "",
+      OrderBy: "",
+      ParamView: "",
+      SourceField: "",
+      DisplayLookUp: "city,province,country,time_edit"
     },
-    OncountryChange(data) {
-      this.$nextTick(() => {
-        this.M_NewProspect.country = data.ss_country_id;
-        this.M_NewProspect.countryLabel = data.country;
-      });
+    cValidate: "",
+    cName: "city",
+    ckey: false,
+    cOrder: 4,
+    // cDefault: '',
+    cProtect: false,
+    cParentForm: this.FormParent,
+    cStatic: false,
+    cOption: [],
+    cDisplayColumn: "city,province,country,time_edit",
+    cInputStatus: "new"
+  },
+  PI_province: {
+    dataLookUp: {
+      LookUpCd: "GetProvince",
+      ColumnDB: "province_id",
+      InitialWhere: "ss_country_id = 2",
+      ParamWhere: "",
+      OrderBy: "",
+      ParamView: "",
+      SourceField: "",
+      DisplayLookUp: "province,country,time_edit"
     },
     doSave() {
       this.$validator._base.validateAll(this.FormParent).then(result => {
@@ -550,7 +591,11 @@ export default {
           ress => {
             if (ress.value) {
               this.$validator.errors.clear(this.FormParent);
-              this.M_Save();
+              if (this.inputStatus == "edit") {
+                this.M_Update();
+              } else {
+                this.M_Save();
+              }
             }
           }
         );
@@ -572,20 +617,124 @@ export default {
         ss_district_id: this.M_NewProspect.district,
         phone_no:
           this.M_NewProspect.phone_no_1 +
+          "-" +
           this.M_NewProspect.phone_no_2 +
+          "-" +
           this.M_NewProspect.phone_no_3,
         email: this.M_NewProspect.email,
         website: this.M_NewProspect.website,
         contact_person: this.M_NewProspect.contact_person,
         contact_phone_no:
           this.M_NewProspect.contact_phone_no_1 +
+          "-" +
           this.M_NewProspect.contact_phone_no_2 +
+          "-" +
           this.M_NewProspect.contact_phone_no_3,
         user_input: this.getDataUser().user_id
       };
 
       this.postJSON(this.getUrlCRUD(), param).then(response => {
-        console.log(response);
+        // console.log(response)
+        if (response == null) return;
+        this.alertSuccess(response.Message).then(() => {
+          this.doBack();
+        });
+      });
+    },
+    GetDataBy() {
+      var param = {
+        option_url: this.paramFromList.option_url,
+        line_no: 0,
+        id: this.paramFromList.row_id,
+        lastupdatestamp: this.paramFromList.lastupdatestamp
+      };
+
+      this.getJSON(this.getUrlCRUD(), param).then(response => {
+        // response from API
+        if (response == null) return;
+
+        var data = response.Data[0];
+
+        // this.M_NewProspect = {
+        //     customer_name: data.name,
+        //     contact_created: this.momentDateFormatting(new Date(data.contact_created), 'DD-MM-YYYY HH.mm'),
+        //     address: (data.address + ", " + data.district + ", " + data.city + ", " + data.province + ", " + data.country),
+        //     email: data.email,
+        //     website: data.website,
+        //     contact_person: data.contact_person,
+        //     contact_phone_no: data.contact_phone_no
+        // }
+
+        var phone_no =
+          data.phone_no && data.phone_no !== "" ? data.phone_no.split("-") : "";
+        var contact_phone_no =
+          data.contact_phone_no && data.contact_phone_no !== ""
+            ? data.contact_phone_no.split("-")
+            : "";
+
+        this.M_NewProspect = {
+          customer_name: data.name,
+          contact_created: this.momentDateFormatting(
+            new Date(data.contact_created),
+            "DD-MM-YYYY HH.mm"
+          ),
+          address: data.address,
+          district: data.ss_district_id,
+          districtLabel: data.district,
+          city: data.ss_city_id,
+          cityLabel: data.city,
+          province: data.ss_province_id,
+          provinceLabel: data.province,
+          country: data.ss_country_id,
+          countryLabel: data.country,
+          phone_no_1: phone_no !== "" ? phone_no[0] : phone_no,
+          phone_no_2: phone_no !== "" ? phone_no[1] : phone_no,
+          phone_no_3: phone_no !== "" ? phone_no[2] : phone_no,
+          email: data.email,
+          website: data.website,
+          contact_person: data.contact_person,
+          contact_phone_no_1:
+            contact_phone_no !== "" ? contact_phone_no[0] : contact_phone_no,
+          contact_phone_no_2:
+            contact_phone_no !== "" ? contact_phone_no[1] : contact_phone_no,
+          contact_phone_no_3:
+            contact_phone_no !== "" ? contact_phone_no[2] : contact_phone_no
+        };
+      });
+    },
+    M_Update() {
+      var param = {
+        option_url: this.paramFromList.option_url,
+        line_no: 0,
+        cm_contact_id: this.paramFromList.row_id,
+        ss_portfolio_id: this.getDataUser().portfolio_id,
+        name: this.M_NewProspect.customer_name,
+        address: this.M_NewProspect.address,
+        ss_country_id: this.M_NewProspect.country,
+        ss_province_id: this.M_NewProspect.province,
+        ss_city_id: this.M_NewProspect.city,
+        ss_district_id: this.M_NewProspect.district,
+        phone_no:
+          this.M_NewProspect.phone_no_1 +
+          "-" +
+          this.M_NewProspect.phone_no_2 +
+          "-" +
+          this.M_NewProspect.phone_no_3,
+        email: this.M_NewProspect.email,
+        website: this.M_NewProspect.website,
+        contact_person: this.M_NewProspect.contact_person,
+        contact_phone_no:
+          this.M_NewProspect.contact_phone_no_1 +
+          "-" +
+          this.M_NewProspect.contact_phone_no_2 +
+          "-" +
+          this.M_NewProspect.contact_phone_no_3,
+        lastupdatestamp: this.paramFromList.lastupdatestamp,
+        user_edit: this.getDataUser().user_id
+      };
+
+      this.putJSON(this.getUrlCRUD(), param).then(response => {
+        // console.log(response)
         if (response == null) return;
         this.alertSuccess(response.Message).then(() => {
           this.doBack();
@@ -595,6 +744,9 @@ export default {
   },
   mounted() {
     this.M_ClearForm();
+    if (this.inputStatus == "edit") {
+      this.GetDataBy();
+    }
   }
 };
 </script>

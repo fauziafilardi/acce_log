@@ -225,7 +225,7 @@ export const MKRender = {
             }
         },
         {
-            path: '/MK/MK_NewProspect/Add',
+            path: '/MK/MK_NewProspect/Form',
             name: 'MK_AddNewProspect',
             component: MK_AddNewProspect,
             meta: {
