@@ -151,6 +151,7 @@ import ACCLookUp from './components/ACCForms/ACCLookUp.vue'
 import ACCLookUpDetail from './components/ACCForms/ACCLookUpDetail.vue'
 import ACCDropDown from './components/ACCForms/ACCDropDown.vue'
 import ACCTextArea from './components/ACCForms/ACCTextArea.vue'
+import ACCImageUpload from './components/ACCForms/ACCImageUpload.vue'
 
 import HeaderFormVuex from './components/HeaderForm/HeaderFormVuex.vue'
 import ABSMasterPageFormVuex from './components/Forms/ABSMasterPageFormVuex.vue'
@@ -279,6 +280,7 @@ Vue.component('ACCLookUp', ACCLookUp)
 Vue.component('ACCLookUpDetail', ACCLookUpDetail)
 Vue.component('ACCDropDown', ACCDropDown)
 Vue.component('ACCTextArea', ACCTextArea)
+Vue.component('ACCImageUpload', ACCImageUpload)
 
 // componen Vuex - By Fauzi
 Vue.component('HeaderFormVuex', HeaderFormVuex)
