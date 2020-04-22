@@ -699,7 +699,7 @@ export default {
           file_logo: data.file_name,
           file_show: this.url + data.path_file,
           file_logo_name: data.file_name,
-          file_logo_path: path_file
+          file_logo_path: data.path_file
         };
       });
     },

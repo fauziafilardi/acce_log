@@ -129,8 +129,8 @@
                                     style="min-height:15px !important;padding-top:0px !important;"
                                 />
           </template>-->
-          <template v-slot:cell(row_id)="data" v-show="WithViewButton">
-            <b-button
+          <template v-slot:cell(row_id)="data">
+            <b-button v-if="WithViewButton == true"
               size="sm"
               @click.stop="viewClicked(data.item, data.index)"
               :disabled="false"
@@ -138,6 +138,9 @@
               <!-- <font-awesome-icon :icon="icon" :class="classIcon" :style="styleIcon"/> -->
               View
             </b-button>
+            <span v-else>
+              {{data.item.row_id}}
+            </span>
           </template>
         </b-table>
       </div>
@@ -1053,7 +1056,7 @@ export default {
 
         this.items = this.responses.Data;
 
-        var str_array = this.responses.DefineColumn.split(",");
+        var str_array = this.responses.DefineColumn && this.responses.DefineColumn !== '' ? this.responses.DefineColumn.split(",") : ("no," + this.responses.AllColumn).split(",");
         var defineSize = this.responses.DefineSize.split(",");
         this.allColumn_bf = this.responses.AllColumn.split(",");
         var index = this.allColumn_bf.indexOf("lastupdatestamp");
@@ -1189,10 +1192,16 @@ export default {
               {
                 key: "VO",
                 value: "VO "
+              },
+              {
+                key: "Row Id",
+                value: "View"
               }
             ];
             var isGotIt = false;
             var labelHeader = undefined;
+
+            // console.log(str_array[i])
 
             if (str_array[i].includes("_")) {
               labelHeader = str_array[i]
@@ -1223,6 +1232,7 @@ export default {
             //     // break
             //   }
             // }
+            // console.log(labelHeader == 'Row Id', this.WithViewButton)
 
             for (var data of listReplace) {
               if (labelHeader == undefined) {
@@ -1233,11 +1243,17 @@ export default {
                 );
               } else {
                 if (labelHeader.includes(data.key)) {
-                  labelHeader = this.replaceAllString(
-                    labelHeader,
-                    data.key,
-                    data.value
-                  );
+                  if (labelHeader == 'Row Id' && !this.WithViewButton) continue
+                  // if (labelHeader == 'Row Id' && !this.WithViewButton) {
+
+                  // }
+                  // else {
+                    labelHeader = this.replaceAllString(
+                      labelHeader,
+                      data.key,
+                      data.value
+                    );
+                  // }
                 }
               }
             }
@@ -1432,6 +1448,11 @@ export default {
   },
   mounted() {
     // this.doGetlist2();
+  },
+  created() {
+    // if (this.WithViewButton == undefined) {
+    //   this.WithViewButton = false
+    // }
   }
 };
 </script>
