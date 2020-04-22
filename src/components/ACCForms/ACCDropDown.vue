@@ -33,7 +33,7 @@
           v-model="selected"
           :class="{'abs-custom-select-async': true,'input': true, 'error-text-field': errors.has(prop.cParentForm+'.'+prop.cName)}"
           v-validate="prop.cValidate"
-          style="font-size:11px !important"
+          :style="'font-size:11px !important;' + prop.cStyle"
           v-bind:name="prop.cName"
           :tabindex="prop.cOrder"
           :disabled="inputStatus=='edit' && prop.cKey || prop.cProtect"
@@ -102,6 +102,7 @@ export default {
       cLabel: String,
       cLabelSize: String,
       cOrder: Number,
+      cStyle: String,
       cTriggered: Boolean,
       cDefault: String,
       cProtect: Boolean,
@@ -436,8 +437,8 @@ export default {
     this.prop.cAsync = this.prop.cAsync ? this.prop.cAsync : false;
     this.prop.cFilter = this.prop.cFilter ? this.prop.cFilter : true;
     this.prop.cInputStatus = this.prop.cInputStatus ? this.prop.cInputStatus : "new"
-    this.prop.cVisible =
-      this.prop.cVisible === undefined ? true : this.prop.cVisible;
+    this.prop.cVisible = this.prop.cVisible === undefined ? true : this.prop.cVisible;
+    this.prop.cStyle = this.prop.cStyle ? this.prop.cStyle : ""
 
     // get max, for maxlength
     if (
