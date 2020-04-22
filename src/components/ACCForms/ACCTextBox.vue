@@ -47,7 +47,7 @@ export default {
     return {
       size: 9999,
       isRequired: false,
-      style: {},
+      style: "",
       decimals: "00",
       type: "text"
     }
@@ -242,7 +242,7 @@ export default {
     // this.prop.cRowDisable = this.prop.cRowDisable && this.prop.cRowDisable.length > 0 ? this.prop.cRowDisable.length : []
     this.prop.cInputStatus = this.prop.cInputStatus ? this.prop.cInputStatus : "new"
     this.prop.cStyle = this.prop.cStyle ? this.prop.cStyle : ""
-    this.style +=this.prop.cStyle
+    // this.style += this.prop.cStyle
 
     if (this.prop.cType == 'email') {
         this.type = "email"
@@ -263,7 +263,10 @@ export default {
       }
 
       // this.style = { 'text-align': 'right', 'font-family': 'VnArialNarrow' }
-      this.style += "text-align: right !important;"
+      this.style = "text-align: right !important; " + this.prop.cStyle
+    }
+    else {
+        this.style = this.prop.cStyle
     }
 
     if (this.prop.cType == 'numeric') {
