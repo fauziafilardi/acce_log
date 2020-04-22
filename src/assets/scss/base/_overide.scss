@@ -6,7 +6,9 @@ $brand-colors: ("new", #0680FF),
 ("cancel", #F50404),
 ("refresh", #0680FF),
 ("post", #424242),
-("cancelnew", #a5a0a0);
+("cancelnew", #a5a0a0),
+("default", #333399),
+("back", #999999);
 
 .button {
   padding: 2px 10px !important;
