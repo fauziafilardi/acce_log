@@ -24,13 +24,9 @@
                                 <b-row>
                                     <b-col md="2">
                                         <div>
-                                            <img src="" alt="">
+                                            <img id="logo" :src="M_NewProspect.file_show" alt="" width="100%">
                                         </div>
-                                        <ABSButton
-                                            :text="'Add Logo'"
-                                            classButton="button button--new"
-                                            classIcon="icon-style-1"
-                                        />
+                                        <ACCImageUpload :prop="PI_logo" @change="onlogoChange" v-model="M_NewProspect.file_logo" />
                                     </b-col>
                                     <b-col md="10">
                                         <b-row>
@@ -161,6 +157,12 @@
 export default {
     data() {
         return {
+            PI_logo: {
+                cName: 'Logo',
+                cAccept: '.jpg, .png, .gif',
+                cTitle: 'Add Logo',
+                cModule: 'MK'
+            },
             PI_customer_name: {
                 cValidate: '',
                 cName: 'customer_name',
@@ -398,6 +400,10 @@ export default {
                 contact_phone_no_1: '+62',
                 contact_phone_no_2: '',
                 contact_phone_no_3: '',
+                file_logo: '',
+                file_show: '',
+                file_logo_name: '',
+                file_logo_path: ''
             }
         }
     },
@@ -455,7 +461,17 @@ export default {
                 contact_phone_no_1: '+62',
                 contact_phone_no_2: '',
                 contact_phone_no_3: '',
+                file_logo: '',
+                file_show: '',
+                file_logo_name: '',
+                file_logo_path: ''
             }
+        },
+        onlogoChange(data) {
+            console.log(data)
+            this.M_NewProspect.file_logo_name = data.name
+            this.M_NewProspect.file_logo_path = data.path
+            this.M_NewProspect.file_show = this.url + data.path
         },
         OndistrictChange(data) {
             console.log(data)
@@ -518,6 +534,8 @@ export default {
                 website: this.M_NewProspect.website,
                 contact_person: this.M_NewProspect.contact_person,
                 contact_phone_no: (this.M_NewProspect.contact_phone_no_1 + '-' + this.M_NewProspect.contact_phone_no_2 + '-' + this.M_NewProspect.contact_phone_no_3),
+                file_name: this.M_NewProspect.file_logo_name,
+                path_file: this.M_NewProspect.file_logo_path,
                 user_input: this.getDataUser().user_id
             }
 
@@ -579,7 +597,11 @@ export default {
                     contact_person: data.contact_person,
                     contact_phone_no_1: contact_phone_no !== '' ? contact_phone_no[0] : contact_phone_no,
                     contact_phone_no_2: contact_phone_no !== '' ? contact_phone_no[1] : contact_phone_no,
-                    contact_phone_no_3: contact_phone_no !== '' ? contact_phone_no[2] : contact_phone_no
+                    contact_phone_no_3: contact_phone_no !== '' ? contact_phone_no[2] : contact_phone_no,
+                    file_logo: data.file_name,
+                    file_show: this.url + data.path_file,
+                    file_logo_name: data.file_name,
+                    file_logo_path: path_file
                 }
             })
         },
@@ -600,6 +622,8 @@ export default {
                 website: this.M_NewProspect.website,
                 contact_person: this.M_NewProspect.contact_person,
                 contact_phone_no: (this.M_NewProspect.contact_phone_no_1 + '-' + this.M_NewProspect.contact_phone_no_2 + '-' + this.M_NewProspect.contact_phone_no_3),
+                file_name: this.M_NewProspect.file_logo_name,
+                path_file: this.M_NewProspect.file_logo_path,
                 lastupdatestamp: this.paramFromList.lastupdatestamp,
                 user_edit: this.getDataUser().user_id
             }

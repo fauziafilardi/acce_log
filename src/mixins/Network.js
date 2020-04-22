@@ -81,7 +81,7 @@ export default {
       segmentGetGroupPermisionEvent: 'Menu/GetGroupPermisionEvent',
       segmentGetGroupPermisionOption: 'Menu/GetGroupPermisionOption',
 
-      segmentGetUploadFile: 'File/UploadFile',
+      segmentGetUploadFile: 'api/File/UploadFile',
       segmentGetTokenExport: 'api/File/GetTokenExport',
       segmentExportExcel: 'api/File/ExportFileList?N={segmentFileName}&T={segmentType}&K={segmentKey}',
       segmentExportEfaktur: 'File/ExporEfaktur?Oid={segmentOid}&Delimiter={segmentDelimeter}&Filter={segmentFilter}',
