@@ -16,7 +16,7 @@
                         @refreshColumn = "refreshColumn"
                         ref="ref_NewProspectList"
                         urlAdd="MK_AddNewProspect"
-                        WithButtonView
+                        WithViewButton
                         @buttonViewClicked = "doViewClick"
                     />
                 </b-col>
@@ -46,6 +46,8 @@ export default {
         doViewClick(record, index) {
             var param = record
             param.option_url = this.getOptionUrl()
+            param.urlAdd="MK_AddNewProspect"
+            param.title = "New Prospect"
             this.$router.push({ name: "MK_ViewNewProspect", params: param })
         },
         rowLink(url) {},
