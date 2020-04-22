@@ -12,7 +12,9 @@
         <b-row>
           <b-col sm="12">
             <div class="modal-customize-abs__modal-header">
-              <div class="modal-customize-abs__modal-header--title">Edit Column</div>
+              <div class="modal-customize-abs__modal-header--title">
+                Edit Column
+              </div>
               <div
                 class="modal-customize-abs__modal-header--icon"
                 @click="$refs.modalColumn.hide()"
@@ -26,15 +28,15 @@
                   <div>
                     <div class="divCustom">
                       <b>Available Columns</b>
-                      <br />
+                      <br>
                       <span>Select column below to display in your grid</span>
                     </div>
-                    <br />
+                    <br>
                     <div v-if="availableColumn.length > 0">
                       <ABSMultiSelect
                         v-model="availableColumnSelected"
                         :options="availableColumn"
-                        size="10"
+                        size=10
                         class="selectCustom"
                       />
                     </div>
@@ -46,7 +48,7 @@
                 <b-col sm="2">
                   <div class="arrow-move">
                     <b-button @click="M_moveRight" size="sm" variant="primary">
-                      <font-awesome-icon icon="angle-double-right" class="icon-style-5" />
+                      <font-awesome-icon icon="angle-double-right" class="icon-style-5"/>
                     </b-button>
                   </div>
                 </b-col>
@@ -54,10 +56,10 @@
                   <div>
                     <div class="divCustom">
                       <b>Selected Column</b>
-                      <br />
+                      <br>
                       <span>Drag the column names below to reorder how they will appear above your grid</span>
                     </div>
-                    <br />
+                    <br>
                     <draggable
                       v-if="selectedColumn.length > 0"
                       v-model="selectedColumn"
@@ -73,7 +75,7 @@
                             style="margin-top:0px; float:right;"
                             @click="M_moveLeft(element.value)"
                           >
-                            <font-awesome-icon icon="trash" />&nbsp;Delete
+                            <font-awesome-icon icon="trash"/>&nbsp;Delete
                           </span>
                         </span>
                       </div>
@@ -84,13 +86,20 @@
                   </div>
                 </b-col>
               </b-row>
-              <br />
+              <br>
               <b-row>
                 <b-col cols="12">
-                  <b-button size="sm" block variant="success" @click="modalColumnHandleOk">Ok</b-button>
+                  <b-button
+                    size="sm"
+                    block
+                    variant="success"
+                    @click="modalColumnHandleOk"
+                  >
+                    Ok
+                  </b-button>
                 </b-col>
               </b-row>
-              <br />
+              <br>
             </div>
           </b-col>
         </b-row>
@@ -109,7 +118,9 @@
         <b-row>
           <b-col sm="12">
             <div class="modal-customize-abs__modal-header">
-              <div class="modal-customize-abs__modal-header--title">Filter Builder</div>
+              <div class="modal-customize-abs__modal-header--title">
+                Filter Builder
+              </div>
               <div
                 class="modal-customize-abs__modal-header--icon"
                 @click="$refs.modalFilter.hide()"
@@ -147,16 +158,26 @@
                     />
                   </b-col>
                   <b-col sm="1">
-                    <div class="icon-close-filter" @click="M_RemoveFilter(index)">
+                    <div
+                      class="icon-close-filter"
+                      @click="M_RemoveFilter(index)"
+                    >
                       <i class="icon-trash"></i>
                     </div>
                   </b-col>
                 </b-row>
               </div>
-              <hr />
+              <hr>
               <b-row align-h="between">
                 <b-col cols="3">
-                  <b-button @click="doAddFilter" block size="sm" variant="outline-primary">Add</b-button>
+                  <b-button
+                    @click="doAddFilter"
+                    block
+                    size="sm"
+                    variant="outline-primary"
+                  >
+                    Add
+                  </b-button>
                 </b-col>
                 <b-col cols="3">
                   <b-button
@@ -164,10 +185,12 @@
                     block
                     variant="outline-success"
                     @click="modalFilterHandleOk"
-                  >Ok</b-button>
+                  >
+                    Ok
+                  </b-button>
                 </b-col>
               </b-row>
-              <br />
+              <br>
             </div>
           </b-col>
         </b-row>
@@ -210,8 +233,8 @@
           </div>
         </b-col>
       </b-row>
-    </b-modal>-->
-
+    </b-modal> -->
+    
     <!-- <b-row align-h="right" class="header-list__1">
       <b-col>
         <div class="dropdown" style="float:right;">
@@ -225,11 +248,8 @@
           </div>
         </div>
       </b-col>
-    </b-row>-->
-    <div
-      class="modal-customize-abs__modal-header"
-      style="padding-top:0px !important; padding-bottom:0px !important;"
-    >
+    </b-row> -->
+    <div class="modal-customize-abs__modal-header" style="padding-top:0px !important; padding-bottom:0px !important;">
       <!-- <div class="modal-customize-abs__modal-header--title" style="width: 97% !important;"> -->
       <div class="modal-customize-abs__modal-header--title">
         <b-row style="padding-bottom:0px">
@@ -240,23 +260,18 @@
               type="text"
               :placeholder="'Search ' + title"
               class="text-field-search"
-              style="width: 100% !important; margin-bottom: 0px !important;margin-top: 3px !important; padding-left:30px !important; border-top: none; border-right: none; border-left: none; min-height: 40px; border-radius: 0px !important;"
+              style="margin-bottom: 0px !important;margin-top: 3px !important; padding-left:30px !important; border-top: none; border-right: none; border-left: none; min-height: 40px; border-radius: 0px !important;"
               @keyup.enter.native="onSearchEnter"
-              autocomplete="off"
-            ></b-form-input>
-            <font-awesome-icon
-              @click="onSearchEnter"
-              icon="search"
-              class="icon-style-1__searchIconLeft"
-              style="margin-top: 16px !important; margin-right:743px !important"
-            />
+              autocomplete="off">
+            </b-form-input>
+            <font-awesome-icon @click="onSearchEnter" icon="search" class="icon-style-1__searchIconLeft" style="margin-top: 16px !important; margin-right:743px !important"/>        
             <!-- <i @click="closeLookup()" class="icon-style-1__searchIcon icon-close" style="margin-top: 16px !important; right:-10px !important; color: red !important;"></i> -->
           </b-col>
         </b-row>
-      </div>
+      </div>      
       <div
         class="modal-customize-abs__modal-header--icon"
-        style="padding-top: 15px !important;"
+        style="padding-top: 15px !important;"        
         @click="closeLookup()"
       >
         <i class="icon-close"></i>
@@ -277,12 +292,31 @@
         <font-awesome-icon @click="onSearchEnter" icon="search" class="icon-style-1__searchIconLeft" style="margin-top: 16px !important; margin-right:743px !important"/>        
         <i @click="closeLookup()" class="icon-style-1__searchIcon icon-close" style="margin-top: 16px !important; right:-10px !important; color: red !important;"></i>
       </b-col>
-    </b-row>-->
+    </b-row>     -->
+    <b-form inline style="float: left; color: #333;width:100%;font-size:11px;">
+      <label class="font-lbl" style="margin-bottom:0px !important; margin-right:0px !important;">Page Size</label>
+      <b-form-select
+        id="cmbPerPage"
+        v-model="perPage"
+        v-on:input="doGetList('', 'pageSize')"
+        :options="pagingData"
+        class="sm-3 mgn-left-10 font-lbl page-size-left"
+        :disabled="isDisableTable">
+      </b-form-select>
+      of {{ this.totalRows }} Records
+    </b-form>
 
-    <div
-      class="table--list"
-      style="position:relative; overflow:auto;max-height:400px;margin-top:13px;"
-    >
+    <b-pagination align="right"
+      v-model="currentPage"
+      v-on:input="doGetList('', 'pagination')"
+      :total-rows="totalRows"
+      :per-page="perPage"
+      :limit="limit"
+      style="margin-bottom: 0px;"
+      :disabled="isDisableTable">
+    </b-pagination>
+
+    <div class="table--list" style="position:relative; overflow:auto;max-height:400px;margin-top:13px;">
       <b-table
         :striped="false"
         :bordered="false"
@@ -320,36 +354,9 @@
             :disabled="isDisableTable"
             style="min-height:15px !important;padding-top:0px !important;"
           />
-        </template>-->
+        </template> -->
       </b-table>
     </div>
-
-    <b-form inline style="float: left; color: #333;width:100%;font-size:11px;">
-      <label
-        class="font-lbl"
-        style="margin-bottom:0px !important; margin-right:0px !important;"
-      >Page Size</label>
-      <b-form-select
-        id="cmbPerPage"
-        v-model="perPage"
-        v-on:input="doGetList('', 'pageSize')"
-        :options="pagingData"
-        class="sm-3 mgn-left-10 font-lbl page-size-left"
-        :disabled="isDisableTable"
-      ></b-form-select>
-      of {{ this.totalRows }} Records
-    </b-form>
-
-    <b-pagination
-      align="right"
-      v-model="currentPage"
-      v-on:input="doGetList('', 'pagination')"
-      :total-rows="totalRows"
-      :per-page="perPage"
-      :limit="limit"
-      style="margin-bottom: 0px;"
-      :disabled="isDisableTable"
-    ></b-pagination>
 
     <!-- <b-form inline style="float: left; color: #333;">
       <label class="font-lbl">Page Size</label>
@@ -372,7 +379,7 @@
       :limit="limit"
       style="margin-bottom: 0px;"
       :disabled="isDisableTable">
-    </b-pagination>-->
+    </b-pagination> -->
 
     <!-- <div class="loader--page" v-if="loader">
       <div class="loader--page__box">
@@ -385,15 +392,16 @@
         </div>
         <div class="title">Please wait...</div>
       </div>
-    </div>-->
+    </div> -->
     <!-- <ABSLoader /> -->
   </div>
 </template>
 
 <script>
+
 export default {
   props: {
-    dataLookUp: {
+    dataLookUp : {
       LookUpCd: String,
       ColumnDB: String,
       InitialWhere: String,
@@ -413,7 +421,7 @@ export default {
   },
   data() {
     return {
-      searchValue: "",
+      searchValue: '',
       loader: false,
       // isDisableTable: false,
       isDisableTable: false,
@@ -487,13 +495,13 @@ export default {
     };
   },
   computed: {
-    //   isDisableTable() {
-    //     return this.$store.getters.getListStatus;
-    //   }
+  //   isDisableTable() {
+  //     return this.$store.getters.getListStatus;
+  //   }
   },
   methods: {
     closeLookup() {
-      this.$parent.$parent.$parent.closeLookup();
+      this.$parent.$parent.$parent.closeLookup()
     },
     getToolbarAbsList() {
       return this.$parent.$parent.$parent.$parent.$parent.$parent.$children[0]
@@ -521,10 +529,10 @@ export default {
     onSearchEnter() {
       this.doGetList(this.searchValue, "onSearchEnter");
     },
-    onClose() {
+    onClose(){
       // alert('test')
       // console.log(this.modalLookup)
-      this.$emit("close");
+      this.$emit('close');
     },
     // getRowSelected (param, method) {
     //   var data = []
@@ -660,7 +668,7 @@ export default {
       // v-b-modal.modalFilter
     },
     doCursorSearch() {
-      document.getElementById(this.cName + "search").focus();
+      document.getElementById(this.cName + "search").focus()
       // document.getElementById(frmObj.id).select();
       // alert("cursor");
     },
@@ -727,10 +735,11 @@ export default {
 
       this.selectedColumn.forEach((el, index) => {
         if (index == this.selectedColumn.length - 1) {
-          field += el.key;
+          field += el.key
           // field = field.substr(0, field.length - 1);
-        } else {
-          field += el.key + ",";
+        }
+        else {
+          field += el.key + ","
         }
       });
 
@@ -755,16 +764,17 @@ export default {
           key: "chkBoxAction"
         });
         this.selectedColumn.forEach(ar => {
-          var thClass = "ABSthClassList";
-          var isSorted = this.sortedField.map(x => x.field).indexOf(ar.key);
+          var thClass = "ABSthClassList"
+          var isSorted = this.sortedField.map(x => x.field).indexOf(ar.key)
           if (isSorted > -1) {
-            if (this.sortedField[isSorted].sort == "ASC") {
-              thClass = thClass + " AscSorted";
-            } else {
-              thClass = thClass + " DescSorted";
+            if (this.sortedField[isSorted].sort == 'ASC') {
+              thClass = thClass + ' AscSorted'
+            }
+            else {
+              thClass = thClass + ' DescSorted'
             }
           }
-
+          
           if (this.languageStatus) {
             this.fieldHeader.push({
               value: ar.value,
@@ -772,20 +782,20 @@ export default {
               thClass: thClass,
               tdClass: "ABStdClassList",
               label: this.$t(ar.key)
-            });
+            })
           } else {
             this.fieldHeader.push({
               value: ar.value,
               key: ar.key,
               thClass: thClass,
-              tdClass: "ABStdClassList"
-            });
+              tdClass: "ABStdClassList",
+            })
           }
-        });
+        })
 
-        this.doGetList("", "refresh_column");
-        this.$refs.modalColumn.hide();
-      });
+        this.doGetList("", "refresh_column")
+        this.$refs.modalColumn.hide()
+      })
     },
     M_moveRight() {
       if (
@@ -859,7 +869,7 @@ export default {
           this.sortedField[x].sort = "DESC";
         } else {
           // this.sortedField[x].sort = "ASC";
-          this.sortedField.splice(x, 1);
+          this.sortedField.splice(x, 1)
         }
       } else {
         this.sortedField.push({ field: field, sort: "ASC" });
@@ -922,7 +932,7 @@ export default {
       this.$forceUpdate();
     },
     rowDblClicked: function(record, index) {
-      this.$emit("rowDblClicked", record, index);
+      this.$emit("rowDblClicked", record, index)
     },
     rowLinkClick(url) {
       this.$emit("rowLinkClick", url);
@@ -942,12 +952,12 @@ export default {
 
       // jika advance filter kosong '' maka kasih initial where aja
       // selainnya berarti inital where + advance filter
-
-      var x = this.dataLookUp.InitialWhere;
+      
+      var x = this.dataLookUp.InitialWhere
       var temp =
         this.tempAdvanceFilter == ""
           ? this.dataLookUp.InitialWhere
-          : this.dataLookUp.InitialWhere + " " + this.tempAdvanceFilter;
+          : this.dataLookUp.InitialWhere + " " + this.tempAdvanceFilter
 
       var param = {
         // user_id: this.getDataUser().user_id,
@@ -963,17 +973,13 @@ export default {
         param_view: this.dataLookUp.ParamView
       };
 
-      if (
-        this.dataLookUp.sort_field == undefined ||
-        this.dataLookUp.DisplayLookUp == undefined ||
-        this.dataLookUp.sort_field == "" ||
-        this.dataLookUp.DisplayLookUp == ""
-      ) {
+      if (this.dataLookUp.sort_field == undefined || this.dataLookUp.DisplayLookUp == undefined ||
+          this.dataLookUp.sort_field == '' || this.dataLookUp.DisplayLookUp == '') {
       } else {
-        param.sort_field = this.dataLookUp.SourceField;
-        param.display_look_up = this.dataLookUp.DisplayLookUp;
+        param.sort_field = this.dataLookUp.SourceField
+        param.display_look_up = this.dataLookUp.DisplayLookUp
       }
-
+      
       var paramT = {
         user_id: this.getDataUser().user_id,
         portfolio_cd: this.getDataUser().portfolio_cd,
@@ -986,15 +992,15 @@ export default {
       };
 
       // this.loader = true;
-      this.$store.commit("setStatusLoader", true);
+      this.$store.commit('setStatusLoader', true)
 
-      var urls = this.getUrlLookupList(); //this.isTAnalysis ? this.urlApi :this.getUrlLookupList()
-      var params = param; //this.isTAnalysis && urls == this.getUrlTanalysisLookup() ? paramT :param
+      var urls = this.getUrlLookupList()//this.isTAnalysis ? this.urlApi :this.getUrlLookupList()
+      var params = param //this.isTAnalysis && urls == this.getUrlTanalysisLookup() ? paramT :param
       this.postJSON(urls, params).then(response => {
-        this.$store.commit("setStatusLoader", false);
-        if (method == "initial") {
+        this.$store.commit('setStatusLoader', false)
+        if (method == 'initial') {
           // this.search = searchValue
-          this.sortedField = [];
+          this.sortedField = []
         }
         // this.loader = false;
         if (response == null) return;
@@ -1020,36 +1026,33 @@ export default {
         //   keys = ["No", "TrxAnalysisCd", "Descs", "separator"]
         // }
         for (var j = 0; j < keys.length; j++) {
-          var thClass = "ABSthClassList";
 
-          var tdClass = "ABStdClassList";
-          if (
-            keys[j].toLowerCase().includes("amount") ||
-            keys[j].toLowerCase().includes("amt") ||
-            keys[j].toLowerCase().includes("rate")
-          ) {
-            tdClass = "ABStdClassList2";
-            thClass = "ABSthClassList2";
+          var thClass = "ABSthClassList"
+
+          var tdClass = 'ABStdClassList'
+          if (keys[j].toLowerCase().includes('amount') || keys[j].toLowerCase().includes('amt') || keys[j].toLowerCase().includes('rate')) {
+            tdClass = 'ABStdClassList2'
+            thClass = 'ABSthClassList2'
           }
 
-          for (var k in this.sortedField) {
-            var field = this.sortedField[k].field;
-            var sort = this.sortedField[k].sort;
+          for (var k in this.sortedField){
+            var field = this.sortedField[k].field
+            var sort = this.sortedField[k].sort
             // alert('urutan=>' + k + '_' + field + '_' + sort)
 
             if (field == keys[j]) {
-              if (sort == "ASC") {
-                thClass = thClass + " AscSorted";
+              if (sort == 'ASC') {
+                thClass = thClass + ' AscSorted'
               } else {
-                thClass = thClass + " DescSorted";
+                thClass = thClass + ' DescSorted'
               }
-              break;
+              break
             }
           }
-
+          
           // get value => record[keys[j]]
-          if (keys[j].toLowerCase() == "separator") {
-            continue;
+          if (keys[j].toLowerCase() == 'separator') {
+            continue
           }
 
           if (this.languageStatus) {
@@ -1060,119 +1063,108 @@ export default {
               tdClass: tdClass,
               text: keys[j],
               label: this.$t(keys[j])
-            });
+            })
           } else {
+
             var listReplace = [
               {
-                key: "TrxAnalysisCd",
-                value: "Trx Analysis Code"
+                key: 'TrxAnalysisCd',
+                value: 'Trx Analysis Code'
               },
               {
-                key: "DebtorAnalysisCd",
-                value: "Debtor Analysis Code"
+                key: 'DebtorAnalysisCd',
+                value: 'Debtor Analysis Code'
               },
               {
-                key: "FixedAssetAnalysisCd",
-                value: "Fixed Asset Analysis Code"
+                key: 'FixedAssetAnalysisCd',
+                value: 'Fixed Asset Analysis Code'
               },
               {
-                key: "AccountAnalysisCd",
-                value: "Account Analysis Code"
+                key: 'AccountAnalysisCd',
+                value: 'Account Analysis Code'
               },
               {
-                key: "StockAnalysisCd",
-                value: "Stock Analysis Code"
+                key: 'StockAnalysisCd',
+                value: 'Stock Analysis Code'
               },
               {
-                key: "TagAnalysisCd",
-                value: "Tag Analysis Code"
+                key: 'TagAnalysisCd',
+                value: 'Tag Analysis Code'
               },
               {
-                key: "ItemAnalysisCd",
-                value: "Item Analysis Code"
+                key: 'ItemAnalysisCd',
+                value: 'Item Analysis Code'
               },
               {
-                key: "SupplierAnalysisCd",
-                value: "Supplier Analysis Code"
+                key: 'SupplierAnalysisCd',
+                value: 'Supplier Analysis Code'
               },
               {
-                key: "LotAnalysisCd",
-                value: "Lot Analysis Code"
+                key: 'LotAnalysisCd',
+                value: 'Lot Analysis Code'
               },
               // {
               //   key: 'DocumentTypeCd',
               //   value: 'Document Type Code'
               // },
               {
-                key: "_",
-                value: " "
+                key: '_',
+                value: ' '
               },
               {
-                key: "Amt",
-                value: " Amount"
+                key: 'Amt',
+                value: ' Amount'
               },
               {
-                key: "Cd",
-                value: " Code"
+                key: 'Cd',
+                value: ' Code'
               },
               {
-                key: "Descs",
-                value: " Description"
+                key: 'Descs',
+                value: ' Description'
               },
               {
-                key: "time_edit",
-                value: "Last Update"
+                key: 'time_edit',
+                value: 'Last Update'
               },
               {
-                key: "garing",
-                value: "/"
+                key: 'garing',
+                value: '/'
               },
               {
-                key: "titik",
-                value: "."
-              }
-            ];
-            var isGotIt = false;
-            var labelHeader = undefined;
+                key: 'titik',
+                value: '.'
+              },
+            ]
+            var isGotIt = false
+            var labelHeader = undefined
 
-            if (keys[j].includes("_")) {
-              labelHeader = keys[j]
-                .toLowerCase()
-                .split("_")
-                .map(s => {
-                  return s.charAt(0).toUpperCase() + s.substring(1);
-                })
-                .join(" ");
-            } else {
-              labelHeader =
-                keys[j].charAt(0).toUpperCase() + keys[j].substring(1);
+            if (keys[j].includes('_')) {
+              labelHeader = keys[j].toLowerCase().split('_').map((s) => {
+                return s.charAt(0).toUpperCase() + s.substring(1)
+              }).join(' ')
+            }
+            else {
+              labelHeader = keys[j].charAt(0).toUpperCase() + keys[j].substring(1)
             }
 
             for (var data of listReplace) {
               if (labelHeader == undefined) {
-                labelHeader = this.replaceAllString(
-                  keys[j],
-                  data.key,
-                  data.value
-                );
+                labelHeader = this.replaceAllString(keys[j], data.key, data.value)
               } else {
                 if (labelHeader.includes(data.key)) {
-                  labelHeader = this.replaceAllString(
-                    labelHeader,
-                    data.key,
-                    data.value
-                  );
+                  labelHeader = this.replaceAllString(labelHeader, data.key, data.value)
                 }
               }
             }
-
+            
             this.fieldHeader.push({
               value: j + 1,
               key: keys[j].split("=")[0].trim(),
               thClass: thClass,
               tdClass: tdClass,
               label: labelHeader
-            });
+            })
 
             // for (var data of listReplace) {
             //   if (keys[j].includes(data.key)) {
@@ -1388,10 +1380,13 @@ span.likeLink:hover {
 }
 
 .form-control:focus {
-  box-shadow: none !important;
+  
+  box-shadow: none!important;
   border-top: transparent !important;
   border-right: transparent !important;
   border-left: transparent !important;
+
+  
 }
 
 @keyframes move {
