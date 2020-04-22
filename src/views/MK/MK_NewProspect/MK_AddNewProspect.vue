@@ -47,7 +47,10 @@
                     </b-row>
                     <b-row>
                       <b-col>
-                        <span>{{M_NewProspect.contact_created}}</span>
+                        <span>
+                          <font-awesome-icon class="icon-style-default" icon="check-circle" />
+                          {{M_NewProspect.contact_created}}
+                        </span>
                       </b-col>
                     </b-row>
                     <b-row>
@@ -424,8 +427,7 @@ export default {
         cProtect: false,
         cParentForm: this.FormParent,
         cDecimal: 2,
-        cInputStatus: this.inputStatus,
-        cStyle: "width: 50px !important;"
+        cInputStatus: this.inputStatus
       },
       PI_contact_phone_no_1: {
         cValidate: "max:3",
@@ -436,7 +438,8 @@ export default {
         cProtect: false,
         cParentForm: this.FormParent,
         cDecimal: 2,
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
+        cStyle: "width: 50px !important;"
       },
       PI_contact_phone_no_2: {
         cValidate: "max:3",
