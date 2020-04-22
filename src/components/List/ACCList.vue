@@ -129,6 +129,16 @@
                                     style="min-height:15px !important;padding-top:0px !important;"
                                 />
           </template>-->
+          <template v-slot:cell(row_id)="data" v-show="WithViewButton">
+            <b-button
+              size="sm"
+              @click.stop="viewClicked(data.item, data.index)"
+              :disabled="false"
+              variant="primary">
+              <!-- <font-awesome-icon :icon="icon" :class="classIcon" :style="styleIcon"/> -->
+              View
+            </b-button>
+          </template>
         </b-table>
       </div>
     </div>
@@ -468,7 +478,8 @@ export default {
     hideCheckboxAndGear: Boolean,
     hideCheckbox: Boolean,
     cShowNumber: Boolean,
-    urlAdd: String
+    urlAdd: String,
+    WithViewButton: Boolean
   },
   data() {
     return {
@@ -694,7 +705,8 @@ export default {
       if (!url || url == '' || url == undefined) return
       var param = {
         option_url: this.getOptionUrl(),
-        title: this.title
+        title: this.title,
+        isEdit: false
       }
       this.$router.push({ name: url, params: param })
     },
@@ -779,10 +791,10 @@ export default {
         this.responses = response;
 
         this.fieldHeader = [];
-        this.fieldHeader.push({
-          value: 0,
-          key: "chkBoxAction"
-        });
+        // this.fieldHeader.push({
+        //   value: 0,
+        //   key: "chkBoxAction"
+        // });
 
         this.selectedColumn.forEach(ar => {
           var thClass = "ABSthClassList";
@@ -944,6 +956,10 @@ export default {
       if (this.isDisableTable) return;
       this.$emit("rowDblClicked", record, index);
     },
+    viewClicked: function(record, index) {
+      if (this.isDisableTable) return;
+      this.$emit("buttonViewClicked", record, index)
+    },
     doGetList(search, method) {
       this.checkOrderBy();
       // if (this.getIsCallBack()) {
@@ -1042,7 +1058,7 @@ export default {
         this.allColumn_bf = this.responses.AllColumn.split(",");
         var index = this.allColumn_bf.indexOf("lastupdatestamp");
         if (index > -1) {
-          // this.allColumn_bf.splice(index, 1);
+          this.allColumn_bf.splice(index, 1);
         }
         var allColumn = [];
         var filteredColumn = [];
@@ -1131,6 +1147,8 @@ export default {
               label: this.$t(str_array[i])
             });
           } else {
+            if (str_array[i] == 'lastupdatestamp') continue
+
             var listReplace = [
               {
                 key: "_",

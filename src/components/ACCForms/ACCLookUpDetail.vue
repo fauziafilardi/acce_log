@@ -501,7 +501,7 @@ export default {
   },
   methods: {
     closeLookup() {
-      this.$parent.$parent.closeLookup()
+      this.$parent.$parent.$parent.closeLookup()
     },
     getToolbarAbsList() {
       return this.$parent.$parent.$parent.$parent.$parent.$parent.$children[0]

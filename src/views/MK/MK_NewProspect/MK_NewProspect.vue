@@ -16,6 +16,8 @@
                         @refreshColumn = "refreshColumn"
                         ref="ref_NewProspectList"
                         urlAdd="MK_AddNewProspect"
+                        WithButtonView
+                        @buttonViewClicked = "doViewClick"
                     />
                 </b-col>
             </b-row>
@@ -40,7 +42,8 @@ export default {
     },
     methods: {
         rowClicked(record, index) {},
-        doDoubleClick(record, index) {
+        doDoubleClick(record, index) {},
+        doViewClick(record, index) {
             var param = record
             param.option_url = this.getOptionUrl()
             this.$router.push({ name: "MK_ViewNewProspect", params: param })

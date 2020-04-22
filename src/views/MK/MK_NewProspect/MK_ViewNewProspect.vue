@@ -163,6 +163,7 @@ export default {
             M_NewProspect: {
                 customer_name: '',
                 address: '',
+                phone_no: '',
                 email: '',
                 website: '',
                 contact_person: '',
@@ -192,15 +193,12 @@ export default {
             this.$router.go(-1)
         },
         GetDataBy() {
-            console.log(this.paramFromList)
             var param = {
                 option_url: this.paramFromList.option_url,
                 line_no: 0,
                 id: this.paramFromList.row_id,
                 lastupdatestamp: this.paramFromList.lastupdatestamp
             }
-
-            console.log(param)
 
             this.getJSON ( this.getUrlCRUD(), param )
             .then(response => {
@@ -214,6 +212,7 @@ export default {
                     customer_name: data.name,
                     contact_created: this.momentDateFormatting(new Date(data.contact_created), 'DD-MM-YYYY HH.mm'),
                     address: (data.address + ", " + data.district + ", " + data.city + ", " + data.province + ", " + data.country),
+                    phone_no: data.phone_no,
                     email: data.email,
                     website: data.website,
                     contact_person: data.contact_person,
