@@ -10,7 +10,7 @@
       style="position:absolute;"
     >
       <b-row>
-        <b-col sm="12" style="margin-left: 10px;margin-bottom: 10px;">
+        <b-col sm="12">
           <!-- <div class="modal-customize-abs__modal-header">
             <div class="modal-customize-abs__modal-header--title">
               Lookup {{prop.cLabel}}
