@@ -28,8 +28,7 @@
           <span>
             <ABSButton
               :text="'Search'"
-              classButton="button button--new"
-              classIcon="icon-style-1"
+              styleButton="border-color: #999999 !important; background-color: #fff !important; color: #999999 !important;"
               :disabled="false"
               @click="onSearchEnter"
             />
@@ -38,8 +37,7 @@
           <span>
             <ABSButton
               :text="'Add New'"
-              classButton="button button--new"
-              classIcon="icon-style-1"
+              styleButton="border-color: #999999 !important; background-color: #fff !important; color: #999999 !important;"
               :disabled="!isCanAdd"
               @click="onAddNewClick"
             />
@@ -48,9 +46,8 @@
           <span>
             <ABSButton
               :text="'Back'"
-              classButton="button button--new"
-              classIcon="icon-style-1"
-              :disabled="true"
+              styleButton="border-color: #999999 !important; background-color: #fff !important; color: #999999 !important;"
+              @click="$router.go(-1)"
             />
           </span>
           <span>
@@ -67,6 +64,7 @@
                 classButton="button button--save"
                 classIcon="icon-style-1"
                 :disabled="false"
+                v-show="false"
               />
               <div class="dropdown-content">
                 <div class="dropdown-modal-list" @click="openModalExportPdf">
@@ -134,6 +132,7 @@
               size="sm"
               @click.stop="viewClicked(data.item, data.index)"
               :disabled="false"
+              style="background-color: #35359a !important;"
               variant="primary">
               <!-- <font-awesome-icon :icon="icon" :class="classIcon" :style="styleIcon"/> -->
               View
