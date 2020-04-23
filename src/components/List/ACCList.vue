@@ -1071,7 +1071,7 @@ export default {
         var str_array =
           this.responses.DefineColumn && this.responses.DefineColumn !== ""
             ? this.responses.DefineColumn.split(",")
-            : ("no," + this.responses.AllColumn).split(",");
+            : (this.responses.AllColumn).split(",");
         var defineSize = this.responses.DefineSize.split(",");
         this.allColumn_bf = this.responses.AllColumn.split(",");
         var index = this.allColumn_bf.indexOf("lastupdatestamp");
