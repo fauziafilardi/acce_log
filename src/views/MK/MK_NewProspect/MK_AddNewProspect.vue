@@ -7,7 +7,7 @@
             <div class="card__title">
               <b-row>
                 <b-col style="max-width:fit-content !important;">
-                  <span>{{paramFromList.title}}</span>
+                  <span>New Prospect</span>
                 </b-col>
                 <b-col style="text-align: right;">
                   <ABSButton
@@ -503,15 +503,15 @@ export default {
     },
     paramFromList() {
       var param = this.$route.params;
-      if (param == null || param == undefined) {
-        this.doBack();
-      } else {
-        if (Object.keys(param).length < 1) {
-          this.doBack();
-        } else {
+      // if (param == null || param == undefined) {
+      //   this.doBack();
+      // } else {
+      //   if (Object.keys(param).length < 1) {
+      //     this.doBack();
+      //   } else {
           return param;
-        }
-      }
+      //   }
+      // }
     },
     inputStatus() {
       var param = this.$route.params;
@@ -607,7 +607,7 @@ export default {
     },
     M_Save() {
       var param = {
-        option_url: this.paramFromList.option_url,
+        option_url: "/MK/MK_NewProspect",
         line_no: 0,
         ss_portfolio_id: this.getDataUser().portfolio_id,
         contact_type: "P",
@@ -649,7 +649,7 @@ export default {
     },
     GetDataBy() {
       var param = {
-        option_url: this.paramFromList.option_url,
+        option_url: "/MK/MK_NewProspect",
         line_no: 0,
         id: this.paramFromList.row_id,
         lastupdatestamp: this.paramFromList.lastupdatestamp
@@ -714,7 +714,7 @@ export default {
     },
     M_Update() {
       var param = {
-        option_url: this.paramFromList.option_url,
+        option_url: "/MK/MK_NewProspect",
         line_no: 0,
         cm_contact_id: this.paramFromList.row_id,
         ss_portfolio_id: this.getDataUser().portfolio_id,

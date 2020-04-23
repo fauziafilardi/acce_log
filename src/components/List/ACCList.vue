@@ -717,8 +717,8 @@ export default {
       var url = this.urlAdd;
       if (!url || url == "" || url == undefined) return;
       var param = {
-        option_url: this.getOptionUrl(),
-        title: this.title,
+        // option_url: this.getOptionUrl(),
+        // title: this.title,
         isEdit: false
       };
       this.$router.push({ name: url, params: param });

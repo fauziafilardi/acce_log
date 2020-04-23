@@ -7,7 +7,7 @@
             <div class="card__title">
               <b-row>
                 <b-col style="max-width:fit-content !important;">
-                  <span>{{paramFromList.title}}</span>
+                  <span>New Prospect</span>
                 </b-col>
                 <b-col style="text-align: right;">
                   <ABSButton
@@ -242,18 +242,13 @@ export default {
       this.$router.go(-1);
     },
     doEdit() {
-      // var param = {
-      //     option_url: this.paramFromList.option_url,
-      //     title: this.paramFromList.title,
-      //     isEdit: true
-      // }
       var param = this.paramFromList;
-      (param.title = this.paramFromList.title), (param.isEdit = true);
-      this.$router.push({ name: this.paramFromList.urlAdd, params: param });
+      (param.isEdit = true);
+      this.$router.push({ name: "MK_AddNewProspect", params: param });
     },
     GetDataBy() {
       var param = {
-        option_url: this.paramFromList.option_url,
+        option_url: "/MK/MK_NewProspect",
         line_no: 0,
         id: this.paramFromList.row_id,
         lastupdatestamp: this.paramFromList.lastupdatestamp
