@@ -130,17 +130,17 @@
                                 />
           </template>-->
           <template v-slot:cell(row_id)="data">
-            <b-button v-if="WithViewButton == true"
+            <b-button
+              v-if="WithViewButton == true"
               size="sm"
               @click.stop="viewClicked(data.item, data.index)"
               :disabled="false"
-              variant="primary">
+              class="button button--default"
+            >
               <!-- <font-awesome-icon :icon="icon" :class="classIcon" :style="styleIcon"/> -->
               View
             </b-button>
-            <span v-else>
-              {{data.item.row_id}}
-            </span>
+            <span v-else>{{data.item.row_id}}</span>
           </template>
         </b-table>
       </div>
@@ -222,7 +222,10 @@
         <b-col sm="12">
           <div class="modal-customize-abs__modal-header">
             <div class="modal-customize-abs__modal-header--title">Export {{title}} to PDF</div>
-            <div class="modal-customize-abs__modal-header--icon" @click="$refs.modalExportPdf.hide()">
+            <div
+              class="modal-customize-abs__modal-header--icon"
+              @click="$refs.modalExportPdf.hide()"
+            >
               <i class="icon-close"></i>
             </div>
           </div>
@@ -258,7 +261,10 @@
         <b-col sm="12">
           <div class="modal-customize-abs__modal-header">
             <div class="modal-customize-abs__modal-header--title">Export {{title}} to CSV</div>
-            <div class="modal-customize-abs__modal-header--icon" @click="$refs.modalExportCsv.hide()">
+            <div
+              class="modal-customize-abs__modal-header--icon"
+              @click="$refs.modalExportCsv.hide()"
+            >
               <i class="icon-close"></i>
             </div>
           </div>
@@ -555,20 +561,19 @@ export default {
   },
   computed: {
     isDisableTable() {
-      return false
+      return false;
     },
-      tableId() {
-          return "AccList-" + Math.floor(Math.random() * 10);
-      },
-      isCanAdd() {
-        var url = this.urlAdd
-        if (!url || url == '' || url == undefined) {
-          return false
-        }
-        else {
-          return true
-        }
+    tableId() {
+      return "AccList-" + Math.floor(Math.random() * 10);
+    },
+    isCanAdd() {
+      var url = this.urlAdd;
+      if (!url || url == "" || url == undefined) {
+        return false;
+      } else {
+        return true;
       }
+    }
   },
   methods: {
     openModalExport() {
@@ -604,87 +609,91 @@ export default {
       this.$refs.modalFilter.show();
     },
     doExportXLS(param) {
-        if (param == "A") {
-            var url = this.getFileExcel(this.title, 1, this.ExportToken)
-            window.location.href = url
-            this.$refs.modalExport.hide()
+      if (param == "A") {
+        var url = this.getFileExcel(this.title, 1, this.ExportToken);
+        window.location.href = url;
+        this.$refs.modalExport.hide();
+      } else {
+        if (this.rowSelected.length > 0) {
+          var data = "";
+          this.rowSelected.forEach(idx => {
+            data += this.items[idx].row_id + ",";
+          });
+
+          data = data.slice(0, -1);
+
+          this.M_ExportXLS(1, data);
         } else {
-            if (this.rowSelected.length > 0) {
-                var data = ""
-                this.rowSelected.forEach(idx => {
-                    data += this.items[idx].row_id + ","
-                })
-
-                data = data.slice(0, -1)
-
-                this.M_ExportXLS(1, data)
-            } else {
-                this.alertWarning("No Data Selected To Export")
-            }
+          this.alertWarning("No Data Selected To Export");
         }
+      }
     },
     doExportPDF(param) {
-        if (param == "A") {
-            var url = this.getFileExcel(this.title, 2, this.ExportToken)
-            window.location.href = url
-            this.$refs.modalExportPdf.hide()
+      if (param == "A") {
+        var url = this.getFileExcel(this.title, 2, this.ExportToken);
+        window.location.href = url;
+        this.$refs.modalExportPdf.hide();
+      } else {
+        if (this.rowSelected.length > 0) {
+          var data = "";
+          this.rowSelected.forEach(idx => {
+            data += this.items[idx].row_id + ",";
+          });
+
+          data = data.slice(0, -1);
+
+          this.M_ExportXLS(2, data);
         } else {
-            if (this.rowSelected.length > 0) {
-                var data = ""
-                this.rowSelected.forEach(idx => {
-                    data += this.items[idx].row_id + ","
-                })
-
-                data = data.slice(0, -1)
-
-                this.M_ExportXLS(2, data)
-            } else {
-                this.alertWarning("No Data Selected To Export")
-            }
+          this.alertWarning("No Data Selected To Export");
         }
+      }
     },
     doExportCSV(param) {
-        if (param == "A") {
-            var url = this.getFileExcel(this.title, 3, this.ExportToken)
-            window.location.href = url
-            this.$refs.modalExportCsv.hide()
+      if (param == "A") {
+        var url = this.getFileExcel(this.title, 3, this.ExportToken);
+        window.location.href = url;
+        this.$refs.modalExportCsv.hide();
+      } else {
+        if (this.rowSelected.length > 0) {
+          var data = "";
+          this.rowSelected.forEach(idx => {
+            data += this.items[idx].row_id + ",";
+          });
+
+          data = data.slice(0, -1);
+
+          this.M_ExportXLS(3, data);
         } else {
-            if (this.rowSelected.length > 0) {
-                var data = ""
-                this.rowSelected.forEach(idx => {
-                    data += this.items[idx].row_id + ","
-                })
-
-                data = data.slice(0, -1)
-
-                this.M_ExportXLS(3, data)
-            } else {
-                this.alertWarning("No Data Selected To Export")
-            }
+          this.alertWarning("No Data Selected To Export");
         }
+      }
     },
     M_ExportXLS(type = 1, data) {
-        var param = {
-            Token: this.ExportToken,
-            Data: data
-        }
+      var param = {
+        Token: this.ExportToken,
+        Data: data
+      };
 
-        this.postJSON(this.getUrlGetTokenExport(), param).then(response => {
-            if (response == null) return
+      this.postJSON(this.getUrlGetTokenExport(), param).then(response => {
+        if (response == null) return;
 
-            var url = this.getFileExcel(this.title, type, response.Data.Token)
-            window.location.href = url
-            this.$refs.modalExport.hide()
-        })
+        var url = this.getFileExcel(this.title, type, response.Data.Token);
+        window.location.href = url;
+        this.$refs.modalExport.hide();
+      });
     },
     PrintTable() {
-        // var divToPrint=document.getElementById("printTable");
-        // newWin= window.open("");
-        // newWin.document.write(divToPrint.outerHTML);
-        // newWin.print();
-        window.frames["print_frame"].document.body.innerHTML = document.getElementById(this.tableId).innerHTML;
-        window.frames["print_frame"].window.focus();
-        window.frames["print_frame"].window.print();
+      // var divToPrint=document.getElementById("printTable");
+      // newWin= window.open("");
+      // newWin.document.write(divToPrint.outerHTML);
+      // newWin.print();
+      window.frames[
+        "print_frame"
+      ].document.body.innerHTML = document.getElementById(
+        this.tableId
+      ).innerHTML;
+      window.frames["print_frame"].window.focus();
+      window.frames["print_frame"].window.print();
     },
     resetSelected() {
       this.rowSelected = [0];
@@ -704,14 +713,14 @@ export default {
       this.doGetList(this.search, "onSearchEnter");
     },
     onAddNewClick() {
-      var url = this.urlAdd
-      if (!url || url == '' || url == undefined) return
+      var url = this.urlAdd;
+      if (!url || url == "" || url == undefined) return;
       var param = {
         option_url: this.getOptionUrl(),
         title: this.title,
         isEdit: false
-      }
-      this.$router.push({ name: url, params: param })
+      };
+      this.$router.push({ name: url, params: param });
     },
     doAddFilter() {
       var dataColumn = this.selectedColumn;
@@ -961,7 +970,7 @@ export default {
     },
     viewClicked: function(record, index) {
       if (this.isDisableTable) return;
-      this.$emit("buttonViewClicked", record, index)
+      this.$emit("buttonViewClicked", record, index);
     },
     doGetList(search, method) {
       this.checkOrderBy();
@@ -1056,7 +1065,10 @@ export default {
 
         this.items = this.responses.Data;
 
-        var str_array = this.responses.DefineColumn && this.responses.DefineColumn !== '' ? this.responses.DefineColumn.split(",") : ("no," + this.responses.AllColumn).split(",");
+        var str_array =
+          this.responses.DefineColumn && this.responses.DefineColumn !== ""
+            ? this.responses.DefineColumn.split(",")
+            : ("no," + this.responses.AllColumn).split(",");
         var defineSize = this.responses.DefineSize.split(",");
         this.allColumn_bf = this.responses.AllColumn.split(",");
         var index = this.allColumn_bf.indexOf("lastupdatestamp");
@@ -1150,7 +1162,7 @@ export default {
               label: this.$t(str_array[i])
             });
           } else {
-            if (str_array[i] == 'lastupdatestamp') continue
+            if (str_array[i] == "lastupdatestamp") continue;
 
             var listReplace = [
               {
@@ -1243,16 +1255,16 @@ export default {
                 );
               } else {
                 if (labelHeader.includes(data.key)) {
-                  if (labelHeader == 'Row Id' && !this.WithViewButton) continue
+                  if (labelHeader == "Row Id" && !this.WithViewButton) continue;
                   // if (labelHeader == 'Row Id' && !this.WithViewButton) {
 
                   // }
                   // else {
-                    labelHeader = this.replaceAllString(
-                      labelHeader,
-                      data.key,
-                      data.value
-                    );
+                  labelHeader = this.replaceAllString(
+                    labelHeader,
+                    data.key,
+                    data.value
+                  );
                   // }
                 }
               }
