@@ -30,7 +30,6 @@
               :text="'Search'"
               classButton="button button--back2"
               classIcon="icon-style-1"
-              :disabled="false"
               @click="onSearchEnter"
             />
           </span>
@@ -48,9 +47,9 @@
           <span>
             <ABSButton
               :text="'Back'"
-              classButton="button button--back"
+              classButton="button button--back2"
               classIcon="icon-style-1"
-              :disabled="true"
+              @click="$router.go(-1)"
             />
           </span>
           <!-- <span>
@@ -465,7 +464,7 @@
       </b-container>
     </b-modal>
     <iframe name="print_frame" width="0" height="0" frameborder="0" src="about:blank"></iframe>
-    <ABSLoader />
+    <!-- <ABSLoader /> -->
   </div>
 </template>
 
@@ -972,7 +971,7 @@ export default {
     },
     viewClicked: function(record, index) {
       // alert("test");
-      this.$store.commit("setStatusLoader", true);
+      // this.$store.commit("setStatusLoader", true);
       if (this.isDisableTable) return;
       this.$emit("buttonViewClicked", record, index);
     },

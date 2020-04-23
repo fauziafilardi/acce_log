@@ -377,6 +377,7 @@
     <!-- /.MODAL CHANGE LANGUAGE -->
 
     <simplert :useRadius="true" :useIcon="true" ref="simplert"></simplert>
+    <ABSLoader />
   </div>
 </template>
 
