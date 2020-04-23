@@ -1450,6 +1450,7 @@ export default {
     },
 
     getJSON(url, param) {
+      this.$store.commit('setStatusLoader', true)
       return axios
         .get( url, {
             params: param,
@@ -1482,6 +1483,7 @@ export default {
         })
     },
     deleteJSON(url, param) {
+      this.$store.commit('setStatusLoader', true)
       return axios
         .delete( url, {
             params: param,
