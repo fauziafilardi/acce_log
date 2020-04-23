@@ -226,7 +226,7 @@ $brand-colors: ("new", #0680FF),
 
   &:focus {
     box-shadow: none !important;
-    border: 1px solid #0680FF !important;
+    border: 1px solid #333399 !important;
   }
 }
 
@@ -426,6 +426,11 @@ ul.box-languages {
 .custom-select {
   font-size: 12px !important;
   padding: 0px 25px 0px 10px !important;
+}
+
+.custom-select:focus {
+  border-color: #333399 !important;
+  box-shadow: 0 0 0 0.2rem rgba(51, 51, 153, 0.15) !important;
 }
 
 .dropdown {

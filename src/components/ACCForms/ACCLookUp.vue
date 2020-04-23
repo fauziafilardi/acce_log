@@ -364,7 +364,7 @@ export default {
       ? this.prop.cInputStatus
       : "new";
 
-    this.prop.cStyle = this.prop.cStyle ? this.prop.cStyle : ""
+    this.prop.cStyle = this.prop.cStyle ? this.prop.cStyle : "";
   },
   mounted() {
     // if (this.prop.cStatic == undefined || this.prop.cStatic == null) {
@@ -445,7 +445,7 @@ export default {
 
   position: absolute !important;
   right: 30px !important;
-  top: 0 !important;
+  top: 25px !important;
   /* margin-top: 5px !important; */
   display: inline-block;
   cursor: pointer !important;
