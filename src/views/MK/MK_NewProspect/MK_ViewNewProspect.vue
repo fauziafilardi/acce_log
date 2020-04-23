@@ -24,7 +24,7 @@
                 <b-row>
                   <b-col md="2">
                     <div>
-                      <img :src="M_NewProspect.path_file" alt="" width="100%" />
+                      <img :src="M_NewProspect.path_file" alt width="100%" />
                     </div>
                     <!-- <ABSButton
                                             :text="'Add Logo'"
@@ -63,7 +63,7 @@
                         <span>
                           <ABSButton
                             :text="'Contact'"
-                            classButton="button button--default"
+                            classButton="btn btn--default"
                             classIcon="icon-style-1"
                             @click="doBack"
                           />
@@ -71,7 +71,7 @@
                         <span>
                           <ABSButton
                             :text="'Edit'"
-                            classButton="button button--default"
+                            classButton="btn btn--default"
                             classIcon="icon-style-1"
                             @click="doEdit"
                           />
@@ -242,15 +242,14 @@ export default {
       this.$router.go(-1);
     },
     doEdit() {
-        // var param = {
-        //     option_url: this.paramFromList.option_url,
-        //     title: this.paramFromList.title,
-        //     isEdit: true
-        // }
-        var param = this.paramFromList
-        param.title = this.paramFromList.title,
-        param.isEdit = true
-        this.$router.push({ name: this.paramFromList.urlAdd, params: param })
+      // var param = {
+      //     option_url: this.paramFromList.option_url,
+      //     title: this.paramFromList.title,
+      //     isEdit: true
+      // }
+      var param = this.paramFromList;
+      (param.title = this.paramFromList.title), (param.isEdit = true);
+      this.$router.push({ name: this.paramFromList.urlAdd, params: param });
     },
     GetDataBy() {
       var param = {

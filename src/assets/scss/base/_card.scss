@@ -4,17 +4,17 @@
     padding-left: 15px;
     margin-right: auto;
     margin-left: auto;
-    
-    &::before{
+
+    &::before {
         box-sizing: border-box;
     }
 
-    &::after{
+    &::after {
         box-sizing: border-box;
     }
 }
 
-.fadeIn {    
+.fadeIn {
     animation-name: fadeIn;
 }
 
@@ -49,8 +49,8 @@
     background-color: #fff;
     background-clip: border-box;
     border-radius: .25rem;
-    box-shadow: 0 0 13px 0 rgba(82,63,105,.1);
-    -webkit-box-shadow: 0 0 13px 0 rgba(82,63,105,.1);
+    box-shadow: 0 0 13px 0 rgba(82, 63, 105, .1);
+    -webkit-box-shadow: 0 0 13px 0 rgba(82, 63, 105, .1);
 }
 
 .card-header {

@@ -3,7 +3,7 @@
     <div class="dashboard-page-chart__body">
       <b-row class="dashboardBody">
         <b-col md="12">
-          <div class="card">
+          <div class="card" style="font-size: 12px !important;">
             <div class="card__title">
               <b-row>
                 <b-col style="max-width:fit-content !important;">
@@ -33,8 +33,10 @@
                     />
                   </b-col>
                   <b-col md="10">
+                    <!-- <b-row>
+                    <b-col md="12">-->
                     <b-row>
-                      <b-col>
+                      <b-col md="9">
                         <span>
                           <label>Customer Name</label>
                         </span>
@@ -45,7 +47,10 @@
                         />
                       </b-col>
                     </b-row>
-                    <b-row>
+                    <b-row
+                      class="row-view"
+                      style="padding-bottom: 10px;padding-top: 5px; margin-left: 5px !important;"
+                    >
                       <b-col>
                         <span>
                           <font-awesome-icon class="icon-style-default" icon="check-circle" />
@@ -54,7 +59,7 @@
                       </b-col>
                     </b-row>
                     <b-row>
-                      <b-col>
+                      <b-col md="9">
                         <span>
                           <label>Address</label>
                         </span>
@@ -66,7 +71,7 @@
                       </b-col>
                     </b-row>
                     <b-row>
-                      <b-col>
+                      <b-col md="3">
                         <span>
                           <label>District</label>
                         </span>
@@ -78,7 +83,7 @@
                           ref="ref_district"
                         />
                       </b-col>
-                      <b-col>
+                      <b-col md="3">
                         <span>
                           <label>City</label>
                         </span>
@@ -90,7 +95,7 @@
                           ref="ref_city"
                         />
                       </b-col>
-                      <b-col>
+                      <b-col md="3">
                         <span>
                           <label>Province</label>
                         </span>
@@ -104,7 +109,7 @@
                       </b-col>
                     </b-row>
                     <b-row>
-                      <b-col>
+                      <b-col md="3">
                         <span>
                           <label>Country</label>
                         </span>
@@ -118,9 +123,9 @@
                       </b-col>
                     </b-row>
                     <b-row>
-                      <b-col style="max-width: fit-content !important;">
+                      <b-col md="1" class="col-p-1">
                         <span>
-                          <label>Phone No.</label>
+                          <label style="width: 100px;">Phone No.</label>
                         </span>
                         <ACCTextBox
                           :prop="PI_phone_no_1"
@@ -128,7 +133,7 @@
                           ref="ref_phone_no_1"
                         />
                       </b-col>
-                      <b-col style="max-width: fit-content !important;">
+                      <b-col md="1" class="col-p-2">
                         <span>
                           <label>&nbsp;</label>
                         </span>
@@ -138,7 +143,7 @@
                           ref="ref_phone_no_2"
                         />
                       </b-col>
-                      <b-col style="max-width: fit-content !important;">
+                      <b-col md="4" class="col-p-3">
                         <span>
                           <label>&nbsp;</label>
                         </span>
@@ -150,7 +155,7 @@
                       </b-col>
                     </b-row>
                     <b-row>
-                      <b-col>
+                      <b-col md="6">
                         <span>
                           <label>Email</label>
                         </span>
@@ -158,7 +163,7 @@
                       </b-col>
                     </b-row>
                     <b-row>
-                      <b-col>
+                      <b-col md="6">
                         <span>
                           <label>Website</label>
                         </span>
@@ -170,7 +175,7 @@
                       </b-col>
                     </b-row>
                     <b-row>
-                      <b-col>
+                      <b-col md="6">
                         <span>
                           <label>Contact Person</label>
                         </span>
@@ -182,9 +187,9 @@
                       </b-col>
                     </b-row>
                     <b-row>
-                      <b-col style="max-width: fit-content !important;">
+                      <b-col md="1" class="col-p-1">
                         <span>
-                          <label style="width: 92px;">Contact Phone No.</label>
+                          <label style="width: 100px;">Contact Phone No.</label>
                         </span>
                         <ACCTextBox
                           :prop="PI_contact_phone_no_1"
@@ -193,7 +198,7 @@
                           style="width: 50px;"
                         />
                       </b-col>
-                      <b-col style="max-width: fit-content !important; right: 40px;">
+                      <b-col md="1" class="col-p-2">
                         <span>
                           <label>&nbsp;</label>
                         </span>
@@ -203,7 +208,7 @@
                           ref="ref_contact_phone_no_2"
                         />
                       </b-col>
-                      <b-col style="max-width: fit-content !important; right: 40px;">
+                      <b-col md="4" class="col-p-3">
                         <span>
                           <label>&nbsp;</label>
                         </span>
@@ -214,16 +219,19 @@
                         />
                       </b-col>
                     </b-row>
-                    <b-row>
-                      <b-col>
+                    <b-row style="margin-top: 10px;">
+                      <b-col md="6">
                         <ABSButton
-                          :text="'Save'"
-                          classButton="button button--default"
+                          :text="'Save Customer'"
+                          classButton="btn btn--default"
                           classIcon="icon-style-default"
                           @click="doSave"
+                          styleButton="height: 40px;width: 100%;"
                         />
                       </b-col>
                     </b-row>
+                    <!-- </b-col>
+                    </b-row>-->
                   </b-col>
                 </b-row>
               </b-form>
@@ -371,8 +379,7 @@ export default {
         cProtect: false,
         cParentForm: this.FormParent,
         cDecimal: 2,
-        cInputStatus: this.inputStatus,
-        cStyle: "width: 50px !important;"
+        cInputStatus: this.inputStatus
       },
       PI_phone_no_2: {
         cValidate: "max:3",
@@ -438,8 +445,7 @@ export default {
         cProtect: false,
         cParentForm: this.FormParent,
         cDecimal: 2,
-        cInputStatus: this.inputStatus,
-        cStyle: "width: 50px !important;"
+        cInputStatus: this.inputStatus
       },
       PI_contact_phone_no_2: {
         cValidate: "max:3",

@@ -445,7 +445,7 @@ export default {
 
   position: absolute !important;
   right: 30px !important;
-  top: 25px !important;
+  top: 36px !important;
   /* margin-top: 5px !important; */
   display: inline-block;
   cursor: pointer !important;
@@ -489,7 +489,7 @@ export default {
 
   position: absolute !important;
   right: 12px !important;
-  top: 25px !important;
+  top: 36px !important;
   margin-top: 2px !important;
   display: inline-block;
   margin-right: 0px !important;

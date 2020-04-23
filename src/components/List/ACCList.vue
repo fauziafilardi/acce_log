@@ -28,7 +28,7 @@
           <span>
             <ABSButton
               :text="'Search'"
-              classButton="button button--new"
+              classButton="button button--back2"
               classIcon="icon-style-1"
               :disabled="false"
               @click="onSearchEnter"
@@ -38,7 +38,7 @@
           <span>
             <ABSButton
               :text="'Add New'"
-              classButton="button button--new"
+              classButton="button button--back2"
               classIcon="icon-style-1"
               :disabled="!isCanAdd"
               @click="onAddNewClick"
@@ -48,20 +48,20 @@
           <span>
             <ABSButton
               :text="'Back'"
-              classButton="button button--new"
+              classButton="button button--back"
               classIcon="icon-style-1"
               :disabled="true"
             />
           </span>
-          <span>
+          <!-- <span>
             <div
               :class="isDisableTable ? '' : 'dropdown'"
               style="float:right;"
               v-show="!hideCheckboxAndGear"
             >
-              <!-- <button class="dropbtn">
+              <button class="dropbtn">
                                 <i class="icon-settings"></i>
-              </button>-->
+              </button>
               <ABSButton
                 :text="'Export'"
                 classButton="button button--save"
@@ -83,7 +83,7 @@
                 </div>
               </div>
             </div>
-          </span>
+          </span>-->
         </b-col>
       </b-row>
     </div>
@@ -135,7 +135,7 @@
               size="sm"
               @click.stop="viewClicked(data.item, data.index)"
               :disabled="false"
-              class="button button--default"
+              class="btn btn--default"
             >
               <!-- <font-awesome-icon :icon="icon" :class="classIcon" :style="styleIcon"/> -->
               View
@@ -464,6 +464,7 @@
       </b-container>
     </b-modal>
     <iframe name="print_frame" width="0" height="0" frameborder="0" src="about:blank"></iframe>
+    <ABSLoader />
   </div>
 </template>
 
@@ -969,6 +970,8 @@ export default {
       this.$emit("rowDblClicked", record, index);
     },
     viewClicked: function(record, index) {
+      // alert("test");
+      this.$store.commit("setStatusLoader", true);
       if (this.isDisableTable) return;
       this.$emit("buttonViewClicked", record, index);
     },
