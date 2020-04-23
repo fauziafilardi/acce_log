@@ -67,6 +67,7 @@
                 classButton="button button--save"
                 classIcon="icon-style-1"
                 :disabled="false"
+                v-show="false"
               />
               <div class="dropdown-content">
                 <div class="dropdown-modal-list" @click="openModalExportPdf">

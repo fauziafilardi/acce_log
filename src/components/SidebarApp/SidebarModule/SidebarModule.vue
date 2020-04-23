@@ -37,13 +37,13 @@
           style="margin-bottom:0px !important; width:230px !important;"
         >
           <a
-            href="#"
+            role="button"
             class="list-group-item"
             v-if="textMenu"
             v-b-toggle="'collapseE_'+index"
             :id="'collapseE_' + index"
             @click="doCallMenu(fm)"
-            style="border: 0px solid #e7eaec !important;height:30px;"
+            style="border: 0px solid #e7eaec !important;height:30px; cursor:pointer !important;"
           >
             <span style="padding-left: 20px; padding-right: 5px;" v-if="fm.menu_type == 'O'">-</span>
             <font-awesome-icon
@@ -68,12 +68,12 @@
             accordion="collapseE"
           >
             <a
-              href="#"
+              role="button"
               class="list-group-item"
               v-b-toggle="'collapseO_'+index+'_'+indexEvent"
               :id="'collapseO_'+index+'_'+indexEvent"
               @click="doCallMenu(event)"
-              style="border: 0px solid #e7eaec !important;height:30px;"
+              style="border: 0px solid #e7eaec !important;height:30px; cursor:pointer !important;"
             >
               <span style="padding-left: 15px; padding-right: 10px;" v-if="event.menu_type == 'O'">-</span>
               <font-awesome-icon
@@ -151,9 +151,9 @@
               :key="indexChild"
             >
               <a
-                href="#"
+                role="button"
                 class="list-group-item"
-                style="border: 0px solid #e7eaec !important;height:30px;background-color:#3d3d3d; cursor:pointer;"
+                style="border: 0px solid #e7eaec !important;height:30px;background-color:#3d3d3d; cursor:pointer !important;"
                 @click="doCallMenu(option)"
                 v-if="segmentUrl == option.menu_url"
               >
