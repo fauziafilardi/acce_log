@@ -546,7 +546,6 @@ export default {
           level_no: this.M_SS_MenuEntry.level_no,
           user_edit: this.getDataUser().user_id
         };
-        console.log(JSON.stringify(param, null, 2));
 
         this.putJSON(this.getUrlSsMenu(), param).then(response => {
           if (response == null) return;
@@ -576,7 +575,7 @@ export default {
           level_no: this.M_SS_MenuEntry.level_no,
           user_input: this.getDataUser().user_id
         };
-        console.log(JSON.stringify(param, null, 2));
+        // console.log(JSON.stringify(param, null, 2));
 
         this.postJSON(this.getUrlSsMenu(), param).then(response => {
           if (response == null) return;
@@ -617,7 +616,7 @@ export default {
           Data: dataLevel1ToSave
         };
         this.putJSONMulti(this.getUrlUpdateMulti(), param).then(response => {
-          console.log("response", response);
+          // console.log("response", response);
           if (response == null) {
             this.alertError("Saving Data Level 1 Has A Problem");
             return;
@@ -657,7 +656,7 @@ export default {
                 param.Data = dataLevel3ToSave;
                 this.putJSONMulti(this.getUrlUpdateMulti(), param).then(
                   response => {
-                    console.log("response", response);
+                    // console.log("response", response);
                     if (response == null) {
                       this.alertError("Saving Data Level 3 Has A Problem");
                       return;
@@ -686,7 +685,7 @@ export default {
 
       param.Data = dataLevelToSave;
       this.putJSONMulti(this.getUrlUpdateMulti(), param).then(response => {
-        console.log("response", response);
+        // console.log("response", response);
         if (response == null) {
           let msg = "Saving Data Level" + level + " Has A Problem!";
           this.alertError(msg);
@@ -908,7 +907,6 @@ export default {
       }
     },
     onChangeLevel3(data) {
-      console.log("onChangeLevel3", data);
       this.Level_3_Id = data.value;
     },
     onChangeLevel2(data) {
@@ -942,7 +940,6 @@ export default {
       //   })
     },
     getDataLevel3(datas) {
-      console.log(datas);
       var param =
         "/datalist?initialwhere=parent_menu_id=" + datas + " and level_no=3";
       this.getJSON(this.getUrlSsMenu() + param).then(response => {
@@ -1030,8 +1027,6 @@ export default {
       this.$refs.modalModulAccessEntry.show();
     },
     openModalMenuUpdate(level) {
-      console.log(level);
-      console.log(this.Level_3_Id);
       var param = 0;
       if (level == 1) {
         if (this.Level_1_Id == 0 || this.Level_1_Id == null) {
@@ -1056,7 +1051,6 @@ export default {
 
         this.$refs.modalModulAccessEntry.show();
         this.$nextTick(() => {
-          console.log("data", JSON.stringify(data, null, 0));
           this.M_SS_MenuEntry.menu_id = data.ss_menu_id;
           this.M_SS_MenuEntry.title = data.title;
           this.M_SS_MenuEntry.menu_url = data.menu_url;
@@ -1067,8 +1061,6 @@ export default {
           this.M_SS_MenuEntry.moduleid = data.ss_module_id;
           this.M_SS_MenuEntry.module_name = data.ss_module_id;
           this.M_SS_MenuEntry.level_no = data.level_no;
-
-          console.log("Model", JSON.stringify(this.M_SS_MenuEntry, null, 0));
         });
 
         this.$forceUpdate();
