@@ -251,7 +251,7 @@ export default {
               dataUser.Language = "en";
               localStorage.lsDataUser = JSON.stringify(dataUser);
 
-              localStorage.lsFavoriteMenu = favoriteMenu;
+              localStorage.lsShortcutMenu = favoriteMenu;
               localStorage.lsMenu = menu;
               this.$parent.$children[1].$children[2].changeFavMenu(
                 favoriteMenu

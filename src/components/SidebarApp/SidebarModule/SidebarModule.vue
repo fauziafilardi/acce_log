@@ -211,7 +211,7 @@ export default {
     };
   },
   created: function() {
-    // this.favoriteMenus = JSON.parse(localStorage.lsFavoriteMenu)
+    // this.favoriteMenus = JSON.parse(localStorage.lsShortcutMenu)
     this.menus = this.getMenu();
     // console.log(JSON.stringify(this.menus))
 
@@ -338,9 +338,9 @@ export default {
         localStorage.lsMenu = JSON.stringify(this.menus);
         this.events = this.menus.event_with_child;
 
-        localStorage.lsFavoriteMenu = JSON.stringify(response.Data);
+        localStorage.lsShortcutMenu = JSON.stringify(response.Data);
         this.$parent.$children[1].$children[3].changeFavMenu(
-          localStorage.lsFavoriteMenu
+          localStorage.lsShortcutMenu
         );
       });
     },
@@ -361,9 +361,9 @@ export default {
         localStorage.lsMenu = JSON.stringify(this.menus);
         this.events = this.menus.event_with_child;
 
-        localStorage.lsFavoriteMenu = JSON.stringify(response.Data);
+        localStorage.lsShortcutMenu = JSON.stringify(response.Data);
         this.$parent.$children[1].$children[3].changeFavMenu(
-          localStorage.lsFavoriteMenu
+          localStorage.lsShortcutMenu
         );
       });
     },
@@ -371,8 +371,13 @@ export default {
       // console.log(menu);
       // return;
       if (
-          !menu.menu_url || menu.menu_url == null || menu.menu_url == undefined || menu.menu_url == '' || menu.menu_url == '#'
-        ) return;
+        !menu.menu_url ||
+        menu.menu_url == null ||
+        menu.menu_url == undefined ||
+        menu.menu_url == "" ||
+        menu.menu_url == "#"
+      )
+        return;
       // this.getSegmentUrl();
       // this.$store.dispatch('handlePaddingHeader', '0px')
       // this.$store.dispatch('handlePaddingLeftContent', '0px')
@@ -449,8 +454,8 @@ a.list-group-item {
 
 a.list-group-item:hover,
 a.list-group-item:focus {
-  background-color: #3d3d3d;
-  color: #fff;
+  background-color: #ffffff;
+  color: #339;
 }
 
 a.list-group-item.active,

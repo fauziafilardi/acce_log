@@ -1,116 +1,8 @@
 <template>
-  <div
+  <!-- <div
     class="sidebar-app__box-menu-fixed"
     style="height: 30px;color: white; padding: 0px 0px !important"
-  >
-    <!-- <router-link :to="'/'">
-      <div class="list-menus">
-        <div class="icon">
-          <i class="icon-home"></i>
-        </div>
-        <div class="text" v-if="textMenu">
-          <span>Dashboard</span>
-        </div>
-      </div>
-    </router-link>
-
-    <router-link :to="'/list-static'">
-      <div class="list-menus">
-        <div class="icon">
-          <i class="icon-home"></i>
-        </div>
-        <div class="text" v-if="textMenu">
-          <span>List Static</span>
-        </div>
-      </div>
-    </router-link>
-
-    <router-link :to="'/list-dynamic'">
-      <div class="list-menus">
-        <div class="icon">
-          <i class="icon-home"></i>
-        </div>
-        <div class="text" v-if="textMenu">
-          <span>List Dynamic</span>
-        </div>
-      </div>
-    </router-link>
-    
-    <router-link :to="'/list-static-h'">
-      <div class="list-menus">
-        <div class="icon">
-          <i class="icon-home"></i>
-        </div>
-        <div class="text" v-if="textMenu">
-          <span>List Group H</span>
-        </div>
-      </div>
-    </router-link>
-    
-    <router-link :to="'/list-static-tab'">
-      <div class="list-menus">
-        <div class="icon">
-          <i class="icon-home"></i>
-        </div>
-        <div class="text" v-if="textMenu">
-          <span>List Static Tab</span>
-        </div>
-      </div>
-    </router-link>
-    <router-link :to="'/subportfolio'">
-      <div class="list-menus">
-        <div class="icon">
-          <i class="icon-home"></i>
-        </div>
-        <div class="text" v-if="textMenu">
-          <span>List Subportfolio</span>
-        </div>
-      </div>
-    </router-link>
-    <router-link :to="'/subportfolio2'">
-      <div class="list-menus">
-        <div class="icon">
-          <i class="icon-home"></i>
-        </div>
-        <div class="text" v-if="textMenu">
-          <span>List Subportfolio 2</span>
-        </div>
-      </div>
-    </router-link>-->
-    <!-- <router-link :to="'/subportfolio3'"> -->
-    <!-- <div class="list-menus" @click="linkMenu('subportfolio3')">
-        <div class="icon">
-          <i class="icon-home"></i>
-        </div>
-        <div class="text" v-if="textMenu">
-          <span>List Subportfolio 3</span>
-        </div>
-      </div>
-
-      <div class="list-menus" @click="linkMenu('currencyMaster')">
-        <div class="icon">
-          <i class="icon-home"></i>
-        </div>
-        <div class="text" v-if="textMenu">
-          <span>Currency Master</span>
-        </div>
-    </div>-->
-    <!-- <div class="list-menus" @click="linkMenu('tes')">
-        <div class="icon">
-          <i class="icon-home"></i>
-        </div>
-        <div class="text" v-if="textMenu">
-          <span>Tes</span>
-        </div>
-      </div>
-      <div class="list-menus" @click="linkMenu('CM_CountryCityMasterVuex')">
-        <div class="icon">
-          <i class="icon-home"></i>
-        </div>
-        <div class="text" v-if="textMenu">
-          <span>Country City Vuex</span>
-        </div>
-    </div>-->
+  >    
     <div
       class="list-menus"
       @click="linkMenu('')"
@@ -125,20 +17,33 @@
       <div class="text" @click="onMenu" v-else>
         <span style="letter-spacing: 0px !important; color: white;">Dashboard</span>
       </div>
-    </div>
-    <!-- </router-link> -->
+    </div>    
+  </div>-->
+  <div class="sidebar-app__box-menu" style="width: 230px !important;">
+    <div>
+      <div class="row">
+        <div
+          id="main-menu"
+          class="list-group"
+          style="margin-bottom:0px !important; width:230px !important;"
+        >
+          <a
+            role="button"
+            class="list-group-item"
+            v-if="textMenu"
+            @click="linkMenu('')"
+            style="border: 0px solid #e7eaec !important;height:30px; cursor:pointer !important;"
+          >
+            <font-awesome-icon
+              icon="circle"
+              style="float:left; margin-top:5px; padding-top:5px; margin-right: 5px;"
+            />
 
-    <!-- <div
-      class="list-menus"
-      @click="showMenuBig"
-    >
-      <div class="icon">
-        <i class="icon-list"></i>
+            <span style="font-size:12px;">Dashboard</span>
+          </a>
+        </div>
       </div>
-      <div class="text" v-if="textMenu">
-        <span>All Menu</span>
-      </div>
-    </div>-->
+    </div>
   </div>
 </template>
 
@@ -176,3 +81,57 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+/* .nav-link[data-toggle].collapsed:after {
+    content: "▾";
+}
+.nav-link[data-toggle]:not(.collapsed):after {
+    content: "▴";
+} */
+
+#main-menu {
+  background-color: rgb(51, 51, 153);
+}
+
+.list-group-item {
+  background-color: rgb(51, 51, 153);
+  border: none;
+}
+
+a.list-group-item {
+  color: #ffffff;
+}
+
+a.list-group-item:hover,
+a.list-group-item:focus {
+  background-color: #ffffff;
+  color: #339;
+}
+
+a.list-group-item.active,
+a.list-group-item.active:hover,
+a.list-group-item.active:focus {
+  color: #fff;
+  background-color: #ffb43a;
+  border: none;
+}
+
+.list-group-item:first-child,
+.list-group-item:last-child {
+  border-radius: 0;
+}
+
+.list-group-level1 .list-group-item {
+  padding-left: 30px;
+}
+
+.list-group-level2 .list-group-item {
+  padding-left: 60px;
+}
+
+/* .collapsed > .when-opened,
+:not(.collapsed) > .when-closed {
+  display: none;
+} */
+</style>

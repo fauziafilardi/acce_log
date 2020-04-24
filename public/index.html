@@ -1,136 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/font-awesome/4.4.0/css/font-awesome.css"> -->
-    <!-- <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.css"> -->
-    <!-- <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/summernote/0.8.1/summernote.css"> -->
-    <!-- responsive -->
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-    <!-- unResponsive -->
-    <!-- <meta name="viewport" content="initial-scale=0.1">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!-- <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/font-awesome/4.4.0/css/font-awesome.css"> -->
+  <!-- <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.css"> -->
+  <!-- <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/summernote/0.8.1/summernote.css"> -->
+  <!-- responsive -->
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+  <!-- unResponsive -->
+  <!-- <meta name="viewport" content="initial-scale=0.1">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="viewport" content="width=1024, height=600"> -->
-    <meta name="theme-color" content="#000000">
-    <title>PT. Absolute Connection</title>
+  <meta name="theme-color" content="#000000">
+  <link rel="shortcut icon" type="image/png" href="../src/assets/logo.png">
+  <title>Acce Log</title>
 
-    <link rel="shortcut icon" href="../icons/favicon-16x16.png">
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css">
+  <!-- <link rel="shortcut icon" href="../icons/favicon-16x16.png"> -->
+
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css">
     <script src="https://www.gstatic.com/charts/loader.js"></script> -->
-    <!-- <link rel="stylesheet" href="../assets/simple-line-icons.css">
+  <!-- <link rel="stylesheet" href="../assets/simple-line-icons.css">
     <script src="../assets/charts-loader.js"></script> -->
-    <!-- <script src="../assets/ckeditor/ckeditor.js"></script> -->
-    <!-- <script src="https://cdn.ckeditor.com/4.11.4/full/ckeditor.js"></script> -->
-    <!-- <script src="../src/assets/js/ckeditor.js"></script> -->
-    <!-- <script src="./../src/assets/ckeditor/ckeditor.js"></script> -->
+  <!-- <script src="../assets/ckeditor/ckeditor.js"></script> -->
+  <!-- <script src="https://cdn.ckeditor.com/4.11.4/full/ckeditor.js"></script> -->
+  <!-- <script src="../src/assets/js/ckeditor.js"></script> -->
+  <!-- <script src="./../src/assets/ckeditor/ckeditor.js"></script> -->
 
-    <!-- <script type="text/javascript" src="https://cdn.bootcss.com/jquery/2.1.4/jquery.js"></script>
+  <!-- <script type="text/javascript" src="https://cdn.bootcss.com/jquery/2.1.4/jquery.js"></script>
     <script type="text/javascript" src="https://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.js"></script>
     <script type="text/javascript" src="https://cdn.bootcss.com/summernote/0.8.1/summernote.js"></script>
     <script type="text/javascript" src="https://rawgit.com/semplon/summernote-ext-codewrapper/master/src/summernote-ext-codewrapper.js"></script> -->
 
-    <!-- <%= BASE_URL %> -->
-    <link rel="manifest" href="/manifest.json" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">   
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedheader/3.1.6/css/fixedHeader.dataTables.min.css">
-    
-    <!-- <link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+  <!-- <%= BASE_URL %> -->
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" type="text/css"
+    href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
+  <link rel="stylesheet" type="text/css"
+    href="https://cdn.datatables.net/fixedheader/3.1.6/css/fixedHeader.dataTables.min.css">
+
+  <!-- <link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/plug-ins/e9421181788/integration/bootstrap/3/dataTables.bootstrap.css">
     <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/fixedheader/2.1.1/css/dataTables.fixedHeader.css"> -->
 
-    <!-- <link rel="stylesheet" href="https://unpkg.com/@coreui/coreui@3.0.0-beta.4/dist/css/coreui.min.css">
+  <!-- <link rel="stylesheet" href="https://unpkg.com/@coreui/coreui@3.0.0-beta.4/dist/css/coreui.min.css">
     <script src="https://unpkg.com/@coreui/coreui@3.0.0-beta.4/dist/js/coreui.min.js"></script> -->
-    
 
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    <script type="text/javascript" src="<%= BASE_URL %>summernote/jquery-min.js"></script>
-    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript" src="<%= BASE_URL %>summernote/bootstrap-min.js"></script>
+
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <script type="text/javascript" src="<%= BASE_URL %>summernote/jquery-min.js"></script>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+  <!-- <script type="text/javascript" src="<%= BASE_URL %>summernote/bootstrap-min.js"></script>
     <script type="text/javascript" src="<%= BASE_URL %>summernote/summernote-min.js"></script>
     <script type="text/javascript" src="<%= BASE_URL %>summernote/summernote-ext-codewrapper-min.js"></script>
-    <script type="text/javascript" src="<%= BASE_URL %>imagemapster/jquery.imagemapster.min.js"></script>
-    <script type="text/javascript" src="<%= BASE_URL %>printthis/printThis.js"></script>
-    <!-- <script type="text/javascript" src="<%= BASE_URL %>datatables/datatables.min.js"></script> -->
+    <script type="text/javascript" src="<%= BASE_URL %>imagemapster/jquery.imagemapster.min.js"></script> -->
+  <!-- <script type="text/javascript" src="<%= BASE_URL %>printthis/printThis.js"></script> -->
+  <!-- <script type="text/javascript" src="<%= BASE_URL %>datatables/datatables.min.js"></script> -->
 
-    <script type="text/javascript" src="<%= BASE_URL %>chartjs/chartjs-plugin-datalabels.min.js"></script>
-    <script type="text/javascript" src="<%= BASE_URL %>chartjs/Chart.min.js"></script>
-    <!-- <script type="text/javascript" src="<%= BASE_URL %>chartjs/Chart.bundle.min.js"></script> -->
-  
-    
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/fixedheader/3.1.6/js/dataTables.fixedHeader.min.js"></script>
+  <script type="text/javascript" src="<%= BASE_URL %>chartjs/chartjs-plugin-datalabels.min.js"></script>
+  <script type="text/javascript" src="<%= BASE_URL %>chartjs/Chart.min.js"></script>
+  <!-- <script type="text/javascript" src="<%= BASE_URL %>chartjs/Chart.bundle.min.js"></script> -->
 
-    <!-- <script type="text/javascript" src="http://cdn.datatables.net/1.10.0/js/jquery.dataTables.js"></script>
+
+  <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js">
+  </script>
+  <script type="text/javascript" src="https://cdn.datatables.net/fixedheader/3.1.6/js/dataTables.fixedHeader.min.js">
+  </script>
+
+  <!-- <script type="text/javascript" src="http://cdn.datatables.net/1.10.0/js/jquery.dataTables.js"></script>
     <script type="text/javascript" src="http://cdn.datatables.net/plug-ins/e9421181788/integration/bootstrap/3/dataTables.bootstrap.js"></script>
     <script type="text/javascript" src="http://cdn.datatables.net/fixedheader/2.1.1/js/dataTables.fixedHeader.min.js"></script> -->
-    
-    
-    <!-- google translate -->
-        <!-- // new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'ca,da,de,el,en,es,fr,it,ja,ko,nl,pl,pt,ru,sv,tl', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element'); -->
-    <script type="text/javascript">
+
+
+  <!-- google translate -->
+  <!-- // new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'ca,da,de,el,en,es,fr,it,ja,ko,nl,pl,pt,ru,sv,tl', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element'); -->
+  <!-- <script type="text/javascript">
       function googleTranslateElementInit() {
         new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'en,id,ja,th,vi,zh-CN', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
       }
-    </script>
-    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-    <!-- <script type="text/javascript" src="<%= BASE_URL %>googletranslate/element.js"></script> -->
+    </script> -->
+  <!-- <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script> -->
+  <!-- <script type="text/javascript" src="<%= BASE_URL %>googletranslate/element.js"></script> -->
 
-    <style>
+  <!-- <style>
       div#google_translate_element div.goog-te-gadget-simple{background-color:green;}
 
       div#google_translate_element div.goog-te-gadget-simple a.goog-te-menu-value span{color:yellow}
       
       div#google_translate_element div.goog-te-gadget-simple a.goog-te-menu-value span:hover{color:#ffffff}
     
-    </style>
+    </style> -->
 
-    <script>
-      document.addEventListener('contextmenu', event => event.preventDefault());
+  <script>
+    document.addEventListener('contextmenu', event => event.preventDefault());
 
-      //disable zoom by ctrl + scrolling mouse (not working yet)
-      document.addEventListener('wheel', function(e)
-      {
-          //ctrl key is pressed
-          if(e.ctrlKey == true)
-          {
-            //hmm
-            var scale = 'scale(1)';
-            document.body.style.webkitTransform =  scale;    // Chrome, Opera, Safari
-            document.body.style.msTransform =   scale;       // IE 9
-            document.body.style.transform = scale;     // General
-          }
-      });
+    //disable zoom by ctrl + scrolling mouse (not working yet)
+    document.addEventListener('wheel', function (e) {
+      //ctrl key is pressed
+      if (e.ctrlKey == true) {
+        //hmm
+        var scale = 'scale(1)';
+        document.body.style.webkitTransform = scale; // Chrome, Opera, Safari
+        document.body.style.msTransform = scale; // IE 9
+        document.body.style.transform = scale; // General
+      }
+    });
 
-      //disable zoom by ctrl and +/- key
-      $(window).keydown(function(event)
-      {
-          if((event.keyCode == 107 && event.ctrlKey == true) || (event.keyCode == 109 && event.ctrlKey == true))
-          {
-              event.preventDefault();
-          }
-      });
+    //disable zoom by ctrl and +/- key
+    $(window).keydown(function (event) {
+      if ((event.keyCode == 107 && event.ctrlKey == true) || (event.keyCode == 109 && event.ctrlKey == true)) {
+        event.preventDefault();
+      }
+    });
 
-      $(document).keydown(function(event) {
-        if (event.ctrlKey==true && (event.which == '61' || event.which == '107' || event.which == '173' || event.which == '109'  || event.which == '187'  || event.which == '189'  ) ) {
-          event.preventDefault();
-        }
-      });
-    </script>
+    $(document).keydown(function (event) {
+      if (event.ctrlKey == true && (event.which == '61' || event.which == '107' || event.which == '173' || event
+          .which == '109' || event.which == '187' || event.which == '189')) {
+        event.preventDefault();
+      }
+    });
+  </script>
 
-    <!-- <link href="/src/assets/summernote/jquery.js" rel="prefetch">
+  <!-- <link href="/src/assets/summernote/jquery.js" rel="prefetch">
     <link href="/src/assets/summernote/bootstrap.js" rel="prefetch">
     <link href="/src/assets/summernote/summernote.js" rel="prefetch">
     <link href="/src/assets/summernote/summernote-ext-codewrapper.js" rel="prefetch"> -->
-  </head>
-  <body>
-    <noscript>
-      <strong>We're sorry but theme-one doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-    </noscript>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
-  </body>
+</head>
+
+<body>
+  <noscript>
+    <strong>We're sorry but theme-one doesn't work properly without JavaScript enabled. Please enable it to
+      continue.</strong>
+  </noscript>
+  <div id="app"></div>
+  <!-- built files will be auto injected -->
+</body>
+
 </html>

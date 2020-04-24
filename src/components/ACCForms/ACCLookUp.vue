@@ -3,7 +3,7 @@
     <b-modal
       id="modalAccLookup"
       :hide-footer="true"
-      :hide-header-close="true"
+      :hide-header-close="false"
       size="lg"
       ref="modalAccLookup"
       class="modal-customize-abs"
