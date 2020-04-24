@@ -17,8 +17,8 @@ export default {
   mounted() {
     // this.urlDashboard = this.getDataUser().url_dashboard
 
-    // this.urlDashboard = "MK_Dashboard";
-    this.urlDashboard = "OP_Dashboard";
+    this.urlDashboard = "MK_Dashboard";
+    // this.urlDashboard = "OP_Dashboard";
     // this.urlDashboard = "FM_Dashboard";
     // this.urlDashboard = "GA_Dashboard";
     // this.urlDashboard = "ST_Dashboard";

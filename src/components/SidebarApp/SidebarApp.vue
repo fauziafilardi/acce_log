@@ -60,7 +60,7 @@
       <hr style="margin-top:6px !important; margin-bottom:5px !important; border-color: #babac6" />
       <!-- </div> -->
       <!-- <sidebar-title></sidebar-title> -->
-      <sidebar-fixed></sidebar-fixed>
+      <!-- <sidebar-fixed></sidebar-fixed> -->
       <sidebar-menu></sidebar-menu>
       <hr style="margin-top:6px !important; margin-bottom:5px !important; border-color: #babac6" />
       <div class="title" style="padding-left: 10px; color: white; font-weight: 700;">Modules</div>
