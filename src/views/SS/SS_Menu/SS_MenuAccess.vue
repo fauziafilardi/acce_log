@@ -907,7 +907,10 @@ export default {
         document.getElementById("module_" + param).innerHTML = "-";
       }
     },
-    onChangeLevel3(data) {},
+    onChangeLevel3(data) {
+      console.log("onChangeLevel3", data);
+      this.Level_3_Id = data.value;
+    },
     onChangeLevel2(data) {
       this.Level_2_Id = data.value;
       this.getDataLevel3(data.value);
@@ -1027,6 +1030,8 @@ export default {
       this.$refs.modalModulAccessEntry.show();
     },
     openModalMenuUpdate(level) {
+      console.log(level);
+      console.log(this.Level_3_Id);
       var param = 0;
       if (level == 1) {
         if (this.Level_1_Id == 0 || this.Level_1_Id == null) {
