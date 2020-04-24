@@ -933,7 +933,7 @@ end
   Dynamic ABS Select Async Start
 */
 #ABSSelectAsycn .dropdown-toggle {
-  height: 22px !important;
+  height: 40px !important;
   // height: 370px !important;
   // width: 335px !important;
   // width: 100% !important;
@@ -955,10 +955,11 @@ end
 
 #ABSSelectAsycn .v-select .dropdown-menu {
   font-size: 12px !important;
+  top: 40px !important;
 }
 
 #ABSSelectAsycn .v-select .selected-tag {
-  margin: 2px 2px 0 !important;
+  margin: 10px 2px 0 !important;
 }
 
 #ABSSelectAsycn .v-select .dropdown-toggle .clear {
