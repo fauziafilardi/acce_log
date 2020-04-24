@@ -32,6 +32,9 @@ import MK_NewProspect from '@/views/MK/MK_NewProspect/MK_NewProspect'
 import MK_AddNewProspect from '@/views/MK/MK_NewProspect/MK_AddNewProspect'
 import MK_ViewNewProspect from '@/views/MK/MK_NewProspect/MK_ViewNewProspect'
 
+import MK_Appointment from '@/views/MK/MK_Appointment/MK_Appointment'
+import MK_AddAppointment from '@/views/MK/MK_Appointment/MK_AddAppointment'
+
 
 export const MKRender = {
     path: '/MK',
@@ -239,6 +242,23 @@ export const MKRender = {
             meta: {
                 requiresAuth: true
             },
-        }
+        },
+
+        {
+            path: '/MK/MK_Appointment',
+            name: 'MK_Appointment',
+            component: MK_Appointment,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/MK/MK_Appointment/Form',
+            name: 'MK_AddAppointment',
+            component: MK_AddAppointment,
+            meta: {
+                requiresAuth: true
+            }
+        },
     ]
 }

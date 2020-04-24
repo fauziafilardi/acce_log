@@ -20,7 +20,7 @@
               </b-row>
             </div>
             <div class="card__body">
-              <b-form :data-vv-scope="FormParent" :data-vv-value-path="FormParent">
+              <b-form :data-vv-scope="'MK_AddNewProspect'" :data-vv-value-path="'MK_AddNewProspect'">
                 <b-row>
                   <b-col md="2">
                     <div>
@@ -260,7 +260,7 @@ export default {
         cKey: false,
         cType: "text",
         cProtect: false,
-        cParentForm: this.FormParent,
+        cParentForm: "MK_AddNewProspect",
         cDecimal: 2,
         cInputStatus: this.inputStatus
       },
@@ -275,7 +275,7 @@ export default {
         cRows: 1,
         cMaxRows: 2,
         cSize: "md",
-        cParentForm: this.FormParent,
+        cParentForm: "MK_AddNewProspect",
         cInputStatus: this.inputStatus
       },
       PI_district: {
@@ -295,7 +295,7 @@ export default {
         cOrder: 3,
         // cDefault: '',
         cProtect: false,
-        cParentForm: this.FormParent,
+        cParentForm: "MK_AddNewProspect",
         cStatic: false,
         cOption: [],
         cDisplayColumn: "district,city,province,country,time_edit",
@@ -318,7 +318,7 @@ export default {
         cOrder: 4,
         // cDefault: '',
         cProtect: false,
-        cParentForm: this.FormParent,
+        cParentForm: "MK_AddNewProspect",
         cStatic: false,
         cOption: [],
         cDisplayColumn: "city,province,country,time_edit",
@@ -341,7 +341,7 @@ export default {
         cOrder: 5,
         // cDefault: '',
         cProtect: false,
-        cParentForm: this.FormParent,
+        cParentForm: "MK_AddNewProspect",
         cStatic: false,
         cOption: [],
         cDisplayColumn: "province,country,time_edit",
@@ -364,7 +364,7 @@ export default {
         cOrder: 6,
         // cDefault: '',
         cProtect: false,
-        cParentForm: this.FormParent,
+        cParentForm: "MK_AddNewProspect",
         cStatic: false,
         cOption: [],
         cDisplayColumn: "country,time_edit",
@@ -377,7 +377,7 @@ export default {
         cKey: false,
         cType: "tel",
         cProtect: false,
-        cParentForm: this.FormParent,
+        cParentForm: "MK_AddNewProspect",
         cDecimal: 2,
         cInputStatus: this.inputStatus
       },
@@ -388,7 +388,7 @@ export default {
         cKey: false,
         cType: "numeric",
         cProtect: false,
-        cParentForm: this.FormParent,
+        cParentForm: "MK_AddNewProspect",
         cDecimal: 2,
         cInputStatus: this.inputStatus
       },
@@ -399,7 +399,7 @@ export default {
         cKey: false,
         cType: "numeric",
         cProtect: false,
-        cParentForm: this.FormParent,
+        cParentForm: "MK_AddNewProspect",
         cDecimal: 2,
         cInputStatus: this.inputStatus
       },
@@ -410,7 +410,7 @@ export default {
         cKey: false,
         cType: "email",
         cProtect: false,
-        cParentForm: this.FormParent,
+        cParentForm: "MK_AddNewProspect",
         cDecimal: 2,
         cInputStatus: this.inputStatus
       },
@@ -421,7 +421,7 @@ export default {
         cKey: false,
         cType: "text",
         cProtect: false,
-        cParentForm: this.FormParent,
+        cParentForm: "MK_AddNewProspect",
         cDecimal: 2,
         cInputStatus: this.inputStatus
       },
@@ -432,7 +432,7 @@ export default {
         cKey: false,
         cType: "text",
         cProtect: false,
-        cParentForm: this.FormParent,
+        cParentForm: "MK_AddNewProspect",
         cDecimal: 2,
         cInputStatus: this.inputStatus
       },
@@ -443,7 +443,7 @@ export default {
         cKey: false,
         cType: "tel",
         cProtect: false,
-        cParentForm: this.FormParent,
+        cParentForm: "MK_AddNewProspect",
         cDecimal: 2,
         cInputStatus: this.inputStatus
       },
@@ -454,7 +454,7 @@ export default {
         cKey: false,
         cType: "numeric",
         cProtect: false,
-        cParentForm: this.FormParent,
+        cParentForm: "MK_AddNewProspect",
         cDecimal: 2,
         cInputStatus: this.inputStatus
       },
@@ -465,7 +465,7 @@ export default {
         cKey: false,
         cType: "numeric",
         cProtect: false,
-        cParentForm: this.FormParent,
+        cParentForm: "MK_AddNewProspect",
         cDecimal: 2,
         cInputStatus: this.inputStatus
       },
@@ -498,9 +498,6 @@ export default {
     };
   },
   computed: {
-    FormParent() {
-      return "MK_AddNewProspect";
-    },
     paramFromList() {
       var param = this.$route.params;
       // if (param == null || param == undefined) {
@@ -589,12 +586,12 @@ export default {
       });
     },
     doSave() {
-      this.$validator._base.validateAll(this.FormParent).then(result => {
+      this.$validator._base.validateAll("MK_AddNewProspect").then(result => {
         if (!result) return;
         this.alertConfirmation("Are You Sure Want To Save This Data ?").then(
           ress => {
             if (ress.value) {
-              this.$validator.errors.clear(this.FormParent);
+              this.$validator.errors.clear("MK_AddNewProspect");
               if (this.inputStatus == "edit") {
                 this.M_Update();
               } else {
