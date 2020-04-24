@@ -234,32 +234,39 @@
       <div class="modal-customize-abs__modal-header--title">
         <b-row style="padding-bottom:0px">
           <b-col class="search-toolbar">
+            <font-awesome-icon
+              @click="onSearchEnter"
+              icon="search"
+              class="icon-style-searchIconLeft"
+            />
             <b-form-input
               :id="cName + 'search'"
               v-model="searchValue"
               type="text"
               :placeholder="'Search ' + title"
               class="text-field-search"
-              style="width: 100% !important; margin-bottom: 0px !important;margin-top: 3px !important; padding-left:30px !important; border-top: none; border-right: none; border-left: none; min-height: 40px; border-radius: 0px !important;"
+              style="float: none !important; width: 90% !important; margin-bottom: 0px !important;margin-top: 3px !important; padding-left:30px !important; border-top: none; border-right: none; border-left: none; min-height: 40px; border-radius: 0px !important;"
               @keyup.enter.native="onSearchEnter"
               autocomplete="off"
             ></b-form-input>
-            <font-awesome-icon
+
+            <ABSButton
+              :text="'Search'"
+              classButton="button button--back2"
+              classIcon="icon-style-1"
               @click="onSearchEnter"
-              icon="search"
-              class="icon-style-searchIconLeft"
             />
             <!-- <i @click="closeLookup()" class="icon-style-1__searchIcon icon-close" style="margin-top: 16px !important; right:-10px !important; color: red !important;"></i> -->
           </b-col>
         </b-row>
       </div>
-      <div
+      <!-- <div
         class="modal-customize-abs__modal-header--icon"
         style="padding-top: 15px !important;"
         @click="closeLookup()"
       >
         <i class="icon-close"></i>
-      </div>
+      </div>-->
     </div>
     <!-- <b-row style="padding-bottom:20px">
       <b-col class="search-toolbar">
@@ -291,13 +298,12 @@
         :dark="false"
         :fixed="false"
         :foot-clone="false"
-        :responsive="false"
+        :responsive="true"
         :fields="fieldHeader"
         :items="items"
         @head-clicked="headClicked"
         @row-dblclicked="rowDblClicked"
-        class="table-sm table-style-1"
-        rules="row"
+        class="table-sm table-style-2"
       >
         <!-- @row-clicked="rowClicked" -->
         <!-- <template slot="HEAD_chkBoxAction" slot-scope="data">
