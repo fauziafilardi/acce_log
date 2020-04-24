@@ -1,32 +1,36 @@
 <template>
-  <div class="sidebar-app__box-menu" style="width: 230px !important;">
-    <div>
-      <div class="row">
-        <div
-          id="main-menu"
-          class="list-group"
-          v-for="(fm, index) in favoriteMenus"
-          :key="index"
-          style="margin-bottom:0px !important; width:230px !important;"
-        >
-          <a
-            role="button"
-            class="list-group-item"
-            v-if="textMenu"
-            @click="doCallMenu(fm)"
-            style="border: 0px solid #e7eaec !important;height:30px; cursor:pointer !important;"
-          >
-            <font-awesome-icon
-              icon="circle"
-              style="float:left; margin-top:5px; padding-top:5px; margin-right: 5px;"
-            />
+  <!-- <span> -->
 
-            <span style="font-size:12px;">{{fm.title}}</span>
-          </a>
-        </div>
+  <div class="sidebar-app__box-menu">
+    <div
+      class="list-menus"
+      v-for="(fm, index) in favoriteMenus"
+      :key="index"
+      @click="doCallMenu(fm)"
+      style="height: 30px;color: white; padding: 0px 0px !important"
+    >
+      <div class="icon" style="margin-right: 8px !important;padding-left: 10px !important;">
+        <font-awesome-icon icon="circle" style="float:left; margin-top:4px; padding-top:5px" />
+      </div>
+
+      <div class="text" @click="offText" v-if="textMenu">
+        <span style="color:white;letter-spacing: 0px !important;">{{fm.text_menu}}</span>
+      </div>
+      <div class="text" @click="onText" v-else>
+        <span style="color:white;letter-spacing: 0px !important;">{{fm.text_menu}}</span>
       </div>
     </div>
+    <!-- <div v-for="i in 400" :key="i" class="list-menus">
+        <div class="icon">
+          <i class="icon-star"></i>
+        </div>
+        <div class="text">
+          <span>Module Access Entry</span>
+          <span v-if="i === 400">{{ i }}</span>
+        </div>
+    </div>-->
   </div>
+  <!-- </span> -->
 </template>
 
 <script>
@@ -80,57 +84,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-/* .nav-link[data-toggle].collapsed:after {
-    content: "▾";
-}
-.nav-link[data-toggle]:not(.collapsed):after {
-    content: "▴";
-} */
-
-#main-menu {
-  background-color: rgb(51, 51, 153);
-}
-
-.list-group-item {
-  background-color: rgb(51, 51, 153);
-  border: none;
-}
-
-a.list-group-item {
-  color: #ffffff;
-}
-
-a.list-group-item:hover,
-a.list-group-item:focus {
-  background-color: #ffffff;
-  color: #339;
-}
-
-a.list-group-item.active,
-a.list-group-item.active:hover,
-a.list-group-item.active:focus {
-  color: #fff;
-  background-color: #ffb43a;
-  border: none;
-}
-
-.list-group-item:first-child,
-.list-group-item:last-child {
-  border-radius: 0;
-}
-
-.list-group-level1 .list-group-item {
-  padding-left: 30px;
-}
-
-.list-group-level2 .list-group-item {
-  padding-left: 60px;
-}
-
-/* .collapsed > .when-opened,
-:not(.collapsed) > .when-closed {
-  display: none;
-} */
-</style>
