@@ -245,7 +245,7 @@
               type="text"
               :placeholder="'Search ' + title"
               class="text-field-search"
-              style="float: none !important; width: 90% !important; margin-bottom: 0px !important;margin-top: 3px !important; padding-left:30px !important; border-top: none; border-right: none; border-left: none; min-height: 40px; border-radius: 0px !important;"
+              style="float: none !important; width: 100% !important; margin-bottom: 0px !important;margin-top: 3px !important; padding-left:30px !important; border-top: none; border-right: none; border-left: none; min-height: 40px; border-radius: 0px !important;"
               @keyup.enter.native="onSearchEnter"
               autocomplete="off"
             ></b-form-input>
@@ -254,9 +254,14 @@
               :text="'Search'"
               classButton="button button--back2"
               classIcon="icon-style-1"
+              styleButton="position: absolute; right: 0px; margin-top: 12px;"
               @click="onSearchEnter"
             />
-            <!-- <i @click="closeLookup()" class="icon-style-1__searchIcon icon-close" style="margin-top: 16px !important; right:-10px !important; color: red !important;"></i> -->
+            <!-- <i
+              @click="closeLookup()"
+              class="icon-style-1__searchIcon icon-close"
+              style="margin-top: 16px !important; right:-10px !important; color: red !important;"
+            ></i>-->
           </b-col>
         </b-row>
       </div>
@@ -328,7 +333,7 @@
         </template>-->
       </b-table>
     </div>
-
+    <hr style="margin-top: 0px !important;" />
     <b-form inline style="float: left; color: #333;width:100%;font-size:11px;">
       <label
         class="font-lbl"

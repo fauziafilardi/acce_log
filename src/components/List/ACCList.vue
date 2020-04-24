@@ -154,7 +154,7 @@
         <b-form-select
           id="cmbPerPage"
           v-model="perPage"
-          v-on:input="doGetList($store.getters['getSearch' + prop.PageLevel], 'pageSize')"
+          v-on:input="doGetList(search, 'pageSize')"
           :options="pagingData"
           class="sm-3 mgn-left-10 font-lbl page-size-left"
           :disabled="isDisableTable"
@@ -165,7 +165,7 @@
       <b-pagination
         align="right"
         v-model="currentPage"
-        @input="doGetList($store.getters['getSearch' + prop.PageLevel], 'pagination')"
+        @input="doGetList(search, 'pagination')"
         :total-rows="totalRows"
         :per-page="perPage"
         :limit="limit"
@@ -1272,6 +1272,8 @@ export default {
                 }
               }
             }
+
+            if (labelHeader == "Row Id") continue;
 
             this.fieldHeader.push({
               value: i + 1,

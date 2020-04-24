@@ -153,7 +153,7 @@
               <a
                 role="button"
                 class="list-group-item"
-                style="border: 0px solid #e7eaec !important;height:30px;background-color:#3d3d3d; cursor:pointer !important;"
+                style="border: 0px solid #e7eaec !important;height:30px;background-color:#FFFFFF; cursor:pointer !important; color: #333399 !important;"
                 @click="doCallMenu(option)"
                 v-if="segmentUrl == option.menu_url"
               >
