@@ -211,7 +211,7 @@ export default {
     };
   },
   created: function() {
-    // this.favoriteMenus = JSON.parse(localStorage.lsFavoriteMenu)
+    // this.favoriteMenus = JSON.parse(localStorage.lsShortcutMenu)
     this.menus = this.getMenu();
     // console.log(JSON.stringify(this.menus))
 
@@ -338,9 +338,9 @@ export default {
         localStorage.lsMenu = JSON.stringify(this.menus);
         this.events = this.menus.event_with_child;
 
-        localStorage.lsFavoriteMenu = JSON.stringify(response.Data);
+        localStorage.lsShortcutMenu = JSON.stringify(response.Data);
         this.$parent.$children[1].$children[3].changeFavMenu(
-          localStorage.lsFavoriteMenu
+          localStorage.lsShortcutMenu
         );
       });
     },
@@ -361,9 +361,9 @@ export default {
         localStorage.lsMenu = JSON.stringify(this.menus);
         this.events = this.menus.event_with_child;
 
-        localStorage.lsFavoriteMenu = JSON.stringify(response.Data);
+        localStorage.lsShortcutMenu = JSON.stringify(response.Data);
         this.$parent.$children[1].$children[3].changeFavMenu(
-          localStorage.lsFavoriteMenu
+          localStorage.lsShortcutMenu
         );
       });
     },

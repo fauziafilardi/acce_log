@@ -5,8 +5,8 @@ export default {
       return localStorage.lsDataUser === undefined ? undefined : JSON.parse(localStorage.lsDataUser)
     },
 
-    getFavoriteMenu() {
-      return localStorage.lsFavoriteMenu === undefined ? undefined : JSON.parse(localStorage.lsFavoriteMenu)
+    getShortcitMenu() {
+      return localStorage.lsShortcutMenu === undefined ? undefined : JSON.parse(localStorage.lsShortcutMenu)
     },
 
     getMenu() {

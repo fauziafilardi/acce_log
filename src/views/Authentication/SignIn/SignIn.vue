@@ -170,7 +170,7 @@ export default {
             document.cookie = dataCookie;
           }
 
-          // var favoriteMenu = JSON.stringify(data.FavoriteMenu);
+          var favoriteMenu = JSON.stringify(data.Data.shorcut_menu);
           var menu = JSON.stringify(data.Data.menu);
 
           const session = {
@@ -183,7 +183,7 @@ export default {
 
           localStorage.lsDataUser = JSON.stringify(dataUser);
 
-          // localStorage.lsFavoriteMenu = favoriteMenu;
+          localStorage.lsShortcutMenu = favoriteMenu;
           localStorage.lsMenu = menu;
 
           localStorage.lsSession = JSON.stringify(session);
@@ -261,7 +261,7 @@ export default {
 
             localStorage.lsDataUser = JSON.stringify(dataUser);
 
-            localStorage.lsFavoriteMenu = favoriteMenu;
+            localStorage.lsShortcutMenu = favoriteMenu;
             localStorage.lsMenu = menu;
 
             localStorage.lsSession = JSON.stringify(session);
