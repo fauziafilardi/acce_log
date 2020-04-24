@@ -491,10 +491,11 @@ export default {
         contact_phone_no_2: "",
         contact_phone_no_3: "",
         file_logo: "",
-        file_show: "",
+        file_show: require('@/assets/default_photo_.png'),
         file_logo_name: "",
         file_logo_path: ""
-      }
+      },
+      default_pic: require('@/assets/default_photo_.png')
     };
   },
   computed: {
@@ -549,7 +550,7 @@ export default {
         contact_phone_no_2: "",
         contact_phone_no_3: "",
         file_logo: "",
-        file_show: "",
+        file_show: this.default_pic,
         file_logo_name: "",
         file_logo_path: ""
       };
@@ -703,7 +704,7 @@ export default {
           contact_phone_no_3:
             contact_phone_no !== "" ? contact_phone_no[2] : contact_phone_no,
           file_logo: data.file_name,
-          file_show: this.url + data.path_file,
+          file_show: data.path_file && data.path_file !== '' ? this.url + data.path_file : this.default_pic,
           file_logo_name: data.file_name,
           file_logo_path: data.path_file
         };
