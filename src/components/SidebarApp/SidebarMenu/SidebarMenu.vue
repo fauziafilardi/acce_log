@@ -46,8 +46,8 @@ export default {
     };
   },
   created: function() {
-    // this.favoriteMenus = JSON.parse(localStorage.lsFavoriteMenu)
-    this.favoriteMenus = this.getFavoriteMenu();
+    // this.favoriteMenus = JSON.parse(localStorage.lsShortcutMenu)
+    this.favoriteMenus = this.getShortcitMenu();
   },
   methods: {
     onText() {
