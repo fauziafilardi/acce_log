@@ -1645,3 +1645,17 @@ Dynamic Text Area End
   display: flex;
   align-items: center
 }
+
+.th-cus {
+  &-left {
+    text-align: left;
+  }
+
+  &-center {
+    text-align: center;
+  }
+
+  &-right {
+    text-align: right;
+  }
+}

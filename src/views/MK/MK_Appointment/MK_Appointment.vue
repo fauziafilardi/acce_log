@@ -156,7 +156,8 @@
                                 font-weight: normal;
                                 background-color: white !important;
                                 color: black;
-                                border: solid 1px #ced4da;"
+                                border: solid 1px #ced4da;
+                                text-align: left;"
                         >
                           <font-awesome-icon
                             style="color: blue;"
@@ -357,7 +358,10 @@ export default {
           this.responses.DefineColumn && this.responses.DefineColumn !== ""
             ? this.responses.DefineColumn.split(",")
             : this.responses.AllColumn.split(",");
-        var defineSize = this.responses.DefineSize.split(",");
+        var x = ",L,S,S,L,S,S,S";
+        // var defineSize = this.responses.DefineSize.split(",");
+        var defineSize = x.split(",");
+
         this.allColumn_bf = this.responses.AllColumn.split(",");
         var index = this.allColumn_bf.indexOf("lastupdatestamp");
         if (index > -1) {
@@ -409,8 +413,8 @@ export default {
             return val.key != str_array[i];
           });
 
-          //   var thClass = "HeaderACCList " + defineSize[i];
-          var thClass = "HeaderACCList L";
+          var thClass = "HeaderACCList " + defineSize[i];
+          //   var thClass = "HeaderACCList L";
 
           var tdClass = "ContentACCList notranslate";
           if (
