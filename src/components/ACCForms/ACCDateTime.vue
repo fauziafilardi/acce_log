@@ -1,8 +1,20 @@
 <template>
   <span>
     <b-row>
-      <b-col style="padding-left:0px !important;">
+      <b-col md="4" class="col-a-1" style="padding-left:0px !important;">
+        <!-- <span>
+          <font-awesome-icon style="color: blue;" icon="calendar-alt" size="lg" />
+        </span>-->
         <span @click="showDatepicker(prop.cName)">
+          <font-awesome-icon
+            style="color: #444; 
+            font-size: 30px;
+            position: absolute;
+            right: 10px;
+            padding-top: 8px;"
+            icon="calendar-alt"
+            size="lg"
+          />
           <masked-input
             :placeholder="prop.cFormat"
             v-model="valueMasking"
@@ -63,7 +75,7 @@
             class="error-span">{{ errors.first(prop.cParentForm+'.'+prop.cName + 'Time') }}
           </span>
       </b-col>-->
-      <b-col>
+      <b-col md="2" class="col-a-2">
         <b-form-input
           v-validate="'invalidHour'"
           :class="{'input': true, 'error-text-field': errors.has(prop.cParentForm+'.'+prop.cName+'Hour')}"
@@ -79,6 +91,7 @@
           :ref="prop.cName+'Hour'"
           :id="prop.cName+'Hour'"
           @blur.native="addTime"
+          style="text-align: center;"
         />
 
         <span
@@ -87,7 +100,7 @@
         >{{ errors.first(prop.cParentForm+'.'+prop.cName+'Hour') }}</span>
       </b-col>
 
-      <b-col>
+      <b-col md="2" class="col-a-3">
         <b-form-input
           v-validate="'invalidTime'"
           :class="{'input': true, 'error-text-field': errors.has(prop.cParentForm+'.'+prop.cName+'Time')}"
@@ -103,6 +116,7 @@
           :ref="prop.cName+'Time'"
           :id="prop.cName+'Time'"
           @blur.native="addTime"
+          style="text-align: center;"
         />
 
         <span

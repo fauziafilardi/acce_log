@@ -165,10 +165,14 @@ import {
 import {
     faBalanceScale
 } from '@fortawesome/free-solid-svg-icons'
+import {
+    faCalendarAlt
+} from '@fortawesome/free-solid-svg-icons'
 
 
 
 library.add(faSignOutAlt)
+library.add(faCalendarAlt)
 library.add(faCircle)
 library.add(faChevronCircleDown)
 library.add(faCheckCircle)
