@@ -7,7 +7,7 @@
             <div class="card__title">
               <b-row>
                 <b-col style="max-width:fit-content !important;">
-                  <span>To Do List</span>
+                  <span>Contact To Do List</span>
                 </b-col>
                 <b-col style="text-align: right;">
                   <ABSButton
