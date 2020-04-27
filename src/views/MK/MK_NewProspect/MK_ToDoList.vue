@@ -22,8 +22,8 @@
             <div class="card__body">
               <b-form :data-vv-scope="'Mk_AddTodoList'" :data-vv-value-path="'Mk_AddTodoList'">
                 <b-row>
-                  <b-col md="2">
-                    <img :src="require('@/assets/date.png')" alt style="width: 100px;" />
+                  <b-col md="2" style="text-align: center;">
+                    <img :src="require('@/assets/list.png')" alt style="width: 100px;" />
                   </b-col>
                   <b-col md="10">
                     <!-- <b-row>
@@ -37,7 +37,7 @@
                       </b-col>
                     </b-row>
                     <b-row>
-                      <b-col md="9">
+                      <b-col md="6">
                         <span>
                           <label>Type</label>
                         </span>
@@ -51,7 +51,7 @@
                       </b-col>
                     </b-row>
 
-                    <b-row style="margin-top: 10px;">
+                    <b-row style="margin-top: 30px;">
                       <b-col md="6">
                         <ABSButton
                           :text="'Add To Do List'"
