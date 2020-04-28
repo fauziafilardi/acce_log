@@ -1132,7 +1132,10 @@ export default {
             return val.key != str_array[i];
           });
 
-          var thClass = "HeaderACCList " + defineSize[i];
+          var thClass = "HeaderACCList "
+          if (str_array[i] !== "no") {
+            thClass += defineSize[i];
+          }
           // var thClass = "HeaderACCList ";
 
           var tdClass = "ContentACCList notranslate";

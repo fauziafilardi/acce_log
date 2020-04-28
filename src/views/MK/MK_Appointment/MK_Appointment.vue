@@ -429,6 +429,10 @@ export default {
             tdClass = "ABStdClassList2 notranslate";
             thClass = "ABSthClassList2";
           }
+          else if (str_array[i].toLowerCase() == "action") {
+              thClass += " th-cus-center"
+              tdClass += " th-cus-center";
+          }
 
           var isSorted = this.sortedField
             .map(x => x.field)
