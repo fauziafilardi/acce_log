@@ -335,7 +335,7 @@ export default {
     },
 
     dofilterAction() {
-      var filter = " action = '" + this.filterAction + "'";
+      var filter = " action_ = '" + this.filterAction + "'";
       this.propList.initialWhere = filter;
       this.doGetList(this.search);
     },
