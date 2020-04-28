@@ -312,6 +312,7 @@ textarea.form-control {
   font-weight: normal;
   font-style: normal;
   color: $red !important;
+  width: 200px;
   // line-height: 0.5!important;
   // height: 10px;
 }
@@ -972,8 +973,12 @@ end
 }
 
 .abs-custom-select-async {
-  height: 22px !important;
+  // height: 22px !important;
   font-size: 12px !important;
+  margin-left: -1px;
+  margin-right: -1px;
+  border-radius: 3px;
+  height: 42px !important;
 }
 
 #AbsInputTest .dropdown-toggle {
@@ -1644,4 +1649,18 @@ Dynamic Text Area End
   margin-left: -5px;
   display: flex;
   align-items: center
+}
+
+.th-cus {
+  &-left {
+    text-align: left;
+  }
+
+  &-center {
+    text-align: center;
+  }
+
+  &-right {
+    text-align: right;
+  }
 }

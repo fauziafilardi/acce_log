@@ -15,7 +15,7 @@ import MK_Quotation_Master from '@/views/MK/MK_Quotation/MK_Quotation_Master'
 import MK_ContactMaster from '@/views/MK/MK_Contact/MK_Contact_Master'
 import MK_MarketingAssigmentMaster from '@/views/MK/MK_MarketingAssigment/PageLevel_1/MK_MarketingAssigment'
 // import MK_MarketingAssigmentMaster from '@/views/MK/MK_MarketingAssigment/MK_MarketingAssigment_Master'
-import MK_ContactStatus_Master from '@/views/MK/MK_ContactStatus/MK_ContactStatus_Master' 
+import MK_ContactStatus_Master from '@/views/MK/MK_ContactStatus/MK_ContactStatus_Master'
 import MK_ContactStatus from '@/views/MK/MK_ContactStatus/MK_ContactStatus_Master'
 
 import MK_CustomerRequest_Master from '@/views/MK/MK_CustomerRequest/MK_CustomerRequest_Master'
@@ -31,6 +31,7 @@ import MK_LogBook_New2 from '@/views/MK/MK_LogBook_Mobile/MK_LogBook_New2'
 import MK_NewProspect from '@/views/MK/MK_NewProspect/MK_NewProspect'
 import MK_AddNewProspect from '@/views/MK/MK_NewProspect/MK_AddNewProspect'
 import MK_ViewNewProspect from '@/views/MK/MK_NewProspect/MK_ViewNewProspect'
+import MK_ToDoList from '@/views/MK/MK_NewProspect/MK_ToDoList'
 
 import MK_Appointment from '@/views/MK/MK_Appointment/MK_Appointment'
 import MK_AddAppointment from '@/views/MK/MK_Appointment/MK_AddAppointment'
@@ -40,7 +41,7 @@ import MK_EditAppointment from '@/views/MK/MK_Appointment/MK_EditAppointment'
 export const MKRender = {
     path: '/MK',
     component: {
-      render (c) { return c('router-view') }
+        render(c) { return c('router-view') }
     },
     children: [
         {
@@ -139,7 +140,7 @@ export const MKRender = {
                 requiresAuth: true
             }
         }
-        ,{
+        , {
             path: '/MK/MK_MarketingAssigment',
             name: 'MK_MarketingAssigment',
             component: MK_MarketingAssigmentMaster,
@@ -232,6 +233,14 @@ export const MKRender = {
             path: '/MK/MK_NewProspect/Form',
             name: 'MK_AddNewProspect',
             component: MK_AddNewProspect,
+            meta: {
+                requiresAuth: true
+            },
+        },
+        {
+            path: '/MK/MK_NewProspect/todo',
+            name: 'MK_ToDoList',
+            component: MK_ToDoList,
             meta: {
                 requiresAuth: true
             },

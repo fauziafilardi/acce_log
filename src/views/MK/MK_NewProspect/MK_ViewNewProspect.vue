@@ -65,7 +65,7 @@
                             :text="'Contact'"
                             classButton="btn btn--default"
                             classIcon="icon-style-1"
-                            @click="doBack"
+                            @click="doContact"
                           />
                         </span>
                         <span>
@@ -243,8 +243,13 @@ export default {
     },
     doEdit() {
       var param = this.paramFromList;
-      (param.isEdit = true);
+      param.isEdit = true;
       this.$router.push({ name: "MK_AddNewProspect", params: param });
+    },
+    doContact() {
+      var param = this.paramFromList;
+      // param.isEdit = true;
+      this.$router.push({ name: "MK_ToDoList", params: param });
     },
     GetDataBy() {
       var param = {

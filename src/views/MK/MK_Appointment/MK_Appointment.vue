@@ -11,9 +11,9 @@
                 </b-col>
                 <b-col style="text-align: right;">
                   <b-badge variant="primary">&nbsp;</b-badge>
-                  <span style="color: #7f8084; font-weight: normal;">Prospect</span> &nbsp;
+                  <span style="color: #7f8084; font-weight: normal; margin-left: 5px;">Prospect</span> &nbsp;
                   <b-badge variant="success">&nbsp;</b-badge>
-                  <span style="color: #7f8084; font-weight: normal;">Customer</span> &nbsp;
+                  <span style="color: #7f8084; font-weight: normal; margin-left: 5px;">Customer</span> &nbsp;
                 </b-col>
                 <b-col md="2">
                   <b-form-select
@@ -143,7 +143,7 @@
                       <span>
                         <b-badge
                           style="width: 15px; height: 15px; padding: 6px !important; border-radius: 15px !important;"
-                          :variant="data.item.action == '1' ? 'success' : 'primary'"
+                          :variant="data.item.action_ == '1' ? 'success' : 'primary'"
                         >&nbsp;</b-badge>
                       </span>
                       <span>
@@ -156,15 +156,16 @@
                                 font-weight: normal;
                                 background-color: white !important;
                                 color: black;
-                                border: solid 1px #ced4da;"
+                                border: solid 1px #ced4da;
+                                text-align: left;"
                             @click="doEdit(data.item)"
                         >
                           <font-awesome-icon
                             style="color: blue;"
-                            :icon="data.item.action=='C' ? 'phone-square-alt' : (data.item.action=='V' ? 'hand-paper' : 'utensils')"
+                            :icon="data.item.action_=='C' ? 'phone-square-alt' : (data.item.action_=='V' ? 'hand-paper' : 'utensils')"
                             size="lg"
                           />
-                          {{ data.item.action=='C' ? 'Call' : (data.item.action=='V' ? 'Visit' : 'Entertainment') }}
+                          {{ data.item.action_=='C' ? 'Call' : (data.item.action_=='V' ? 'Visit' : 'Entertainment') }}
                         </b-badge>
                       </span>
                       <!-- <span
@@ -172,27 +173,27 @@
                       >
                         <font-awesome-icon
                           style="color: blue;"
-                          :icon="data.item.action=='C' ? 'phone-square-alt' : (data.item.action=='V' ? 'hand-paper' : 'utensils')"
+                          :icon="data.item.action_=='C' ? 'phone-square-alt' : (data.item.action_=='V' ? 'hand-paper' : 'utensils')"
                           size="lg"
                         />
-                        {{ data.item.action=='C' ? 'Entertainment' : (data.item.action=='V' ? 'Visit' : 'Entertainment') }}
+                        {{ data.item.action_=='C' ? 'Entertainment' : (data.item.action_=='V' ? 'Visit' : 'Entertainment') }}
                       </span>-->
                     </div>
 
                     <!-- <span>
                       <span
                         class="ChartLegend__Content"
-                        :style="'background-color: '+(data.item.action == '1' ? 'blue' : 'green')+'; width: 10px; height: 10px; padding: 10px; border-radius: 10px;'"
+                        :style="'background-color: '+(data.item.action_ == '1' ? 'blue' : 'green')+'; width: 10px; height: 10px; padding: 10px; border-radius: 10px;'"
                       ></span>
                     </span>
                     <span>
                       <div style="border-radius: 4px; border: solid 1px #d4d7d8; padding: 5px;">
                         <font-awesome-icon
                           style="color: blue;"
-                          :icon="data.item.action=='C' ? 'phone-square-alt' : (data.item.action=='V' ? 'hand-paper' : 'utensils')"
+                          :icon="data.item.action_=='C' ? 'phone-square-alt' : (data.item.action_=='V' ? 'hand-paper' : 'utensils')"
                           size="lg"
                         />
-                        {{ data.item.action=='C' ? 'Call' : (data.item.action=='V' ? 'Visit' : 'Entertainment') }}
+                        {{ data.item.action_=='C' ? 'Call' : (data.item.action_=='V' ? 'Visit' : 'Entertainment') }}
                       </div>
                     </span>-->
                   </template>
@@ -360,7 +361,10 @@ export default {
           this.responses.DefineColumn && this.responses.DefineColumn !== ""
             ? this.responses.DefineColumn.split(",")
             : this.responses.AllColumn.split(",");
-        var defineSize = this.responses.DefineSize.split(",");
+        var x = ",L,S,S,L,S,S,S";
+        // var defineSize = this.responses.DefineSize.split(",");
+        var defineSize = x.split(",");
+
         this.allColumn_bf = this.responses.AllColumn.split(",");
         var index = this.allColumn_bf.indexOf("lastupdatestamp");
         if (index > -1) {
@@ -412,8 +416,8 @@ export default {
             return val.key != str_array[i];
           });
 
-          //   var thClass = "HeaderACCList " + defineSize[i];
-          var thClass = "HeaderACCList L";
+          var thClass = "HeaderACCList " + defineSize[i];
+          //   var thClass = "HeaderACCList L";
 
           var tdClass = "ContentACCList notranslate";
           if (
