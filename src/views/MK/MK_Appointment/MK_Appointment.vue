@@ -148,7 +148,7 @@
                       </span>
                       <span>
                         <b-badge
-                          style="padding-top: 8px;
+                            style="padding-top: 8px;
                                 height: 35px;
                                 margin-left: 10px;
                                 border-radius: 4px;
@@ -157,13 +157,14 @@
                                 background-color: white !important;
                                 color: black;
                                 border: solid 1px #ced4da;"
+                            @click="doEdit(data.item)"
                         >
                           <font-awesome-icon
                             style="color: blue;"
                             :icon="data.item.action=='C' ? 'phone-square-alt' : (data.item.action=='V' ? 'hand-paper' : 'utensils')"
                             size="lg"
                           />
-                          {{ data.item.action=='C' ? 'Entertainment' : (data.item.action=='V' ? 'Visit' : 'Entertainment') }}
+                          {{ data.item.action=='C' ? 'Call' : (data.item.action=='V' ? 'Visit' : 'Entertainment') }}
                         </b-badge>
                       </span>
                       <!-- <span
@@ -300,11 +301,11 @@ export default {
     rowClicked(record, index) {},
     doDoubleClick(record, index) {},
     doViewClick(record, index) {
-      var param = record;
+    //   var param = record;
       // param.option_url = this.getOptionUrl()
       // param.urlAdd="MK_AddNewProspect"
       // param.title = "New Prospect"
-      this.$router.push({ name: "MK_ViewNewProspect", params: param });
+    //   this.$router.push({ name: "MK_ViewNewProspect", params: param });
     },
     rowLink(url) {},
     M_PageSize() {},
@@ -312,12 +313,14 @@ export default {
     M_Advance_Filter() {},
     M_Head_Table() {},
     refreshColumn() {},
+    onSearchEnter(data) {
+      this.doGetList(this.search, "onSearchEnter");
+    },
     dofilterAction() {
       var filter = " action = '" + this.filterAction + "'";
       this.propList.initialWhere = filter;
       this.doGetList(this.search);
     },
-
     doGetList(search) {
       var param = {
         option_url: this.getOptionUrl(),
@@ -556,6 +559,11 @@ export default {
         this.totalRows = this.responses.Total;
         this.lastPage = this.responses.Last_Page;
       });
+    },
+    doEdit(record) {
+        var param = record;
+        param.isEdit = true
+        this.$router.push({ name: "MK_EditAppointment", params: param });
     }
   },
   mounted() {

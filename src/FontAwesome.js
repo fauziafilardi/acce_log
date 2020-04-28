@@ -165,6 +165,12 @@ import {
 import {
     faBalanceScale
 } from '@fortawesome/free-solid-svg-icons'
+import {
+    faEnvelope
+} from '@fortawesome/free-solid-svg-icons'
+import {
+    faGlobeAmericas
+} from '@fortawesome/free-solid-svg-icons'
 
 
 
@@ -221,5 +227,7 @@ library.add(faArrowAltCircleRight)
 library.add(faMapMarkerAlt)
 library.add(faCube)
 library.add(faBalanceScale)
+library.add(faEnvelope)
+library.add(faGlobeAmericas)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
