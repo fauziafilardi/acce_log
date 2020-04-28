@@ -11,9 +11,9 @@
                 </b-col>
                 <b-col style="text-align: right;">
                   <b-badge variant="primary">&nbsp;</b-badge>
-                  <span style="color: #7f8084; font-weight: normal;">Prospect</span> &nbsp;
+                  <span style="color: #7f8084; font-weight: normal; margin-left: 5px;">Prospect</span> &nbsp;
                   <b-badge variant="success">&nbsp;</b-badge>
-                  <span style="color: #7f8084; font-weight: normal;">Customer</span> &nbsp;
+                  <span style="color: #7f8084; font-weight: normal; margin-left: 5px;">Customer</span> &nbsp;
                 </b-col>
                 <b-col md="2">
                   <b-form-select

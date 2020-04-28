@@ -172,7 +172,10 @@
             @click="notification()"
           >
             <i class="fa fa-bell" style="color: #999999;"></i>
-            <span class="label label-primary notif">8</span>
+            <span
+              class="label label-primary notif"
+              style="background-color: #333399 !important; border-radius: 10px !important;"
+            >8</span>
           </a>
           <!-- <ul
             class="dropdown-menu dropdown-menu-left dropdown-alerts"
@@ -708,7 +711,7 @@ body {
   position: relative;
 }
 .notif {
-  top: 10px;
+  top: 9px;
   right: 8px;
   position: absolute;
   padding: 3px 5px !important;

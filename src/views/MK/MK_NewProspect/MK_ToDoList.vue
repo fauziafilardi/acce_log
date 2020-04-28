@@ -51,7 +51,7 @@
                       </b-col>
                     </b-row>
 
-                    <b-row style="margin-top: 30px;">
+                    <b-row style="margin-top: 10px;">
                       <b-col md="6">
                         <ABSButton
                           :text="'Add To Do List'"

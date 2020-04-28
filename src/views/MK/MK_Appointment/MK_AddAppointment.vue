@@ -32,7 +32,10 @@
                     <b-row>
                       <b-col md="9">
                         <span>
-                          <label>Customer</label>
+                          <label>
+                            Customer
+                            <span style="color:red;">*</span>
+                          </label>
                         </span>
                         <ACCLookUp
                           @change="OncustomerChange"
@@ -46,7 +49,10 @@
                     <b-row>
                       <b-col md="6">
                         <span>
-                          <label>Action</label>
+                          <label>
+                            Action
+                            <span style="color:red;">*</span>
+                          </label>
                         </span>
                         <ACCDropDown
                           @change="OnactionChange"
@@ -57,10 +63,13 @@
                         />
                       </b-col>
                     </b-row>
-                    <b-row style="margin-top: 25px;">
+                    <b-row>
                       <b-col md="6">
                         <span>
-                          <label>PIC</label>
+                          <label>
+                            PIC
+                            <span style="color:red;">*</span>
+                          </label>
                         </span>
                         <ACCTextBox
                           :prop="PI_contact_person"
@@ -72,7 +81,10 @@
                     <b-row>
                       <b-col md="6">
                         <span>
-                          <label>Appointment Date</label>
+                          <label>
+                            Appointment Date
+                            <span style="color:red;">*</span>
+                          </label>
                         </span>
                         <ACCDateTime
                           @input="Onappointment_dateChange"
@@ -97,7 +109,10 @@
                     <b-row>
                       <b-col md="9">
                         <span>
-                          <label>Description</label>
+                          <label>
+                            Description
+                            <span style="color:red;">*</span>
+                          </label>
                         </span>
                         <ACCTextArea
                           :prop="PI_descs"
@@ -153,7 +168,7 @@ export default {
           SourceField: "",
           DisplayLookUp: "name,contact_person,time_edit"
         },
-        cValidate: "",
+        cValidate: "required",
         cName: "customer",
         ckey: false,
         cOrder: 1,
@@ -166,7 +181,7 @@ export default {
       },
       PI_action: {
         dataLookUp: null,
-        cValidate: "",
+        cValidate: "required",
         cName: "action",
         ckey: false,
         cOrder: 2,
@@ -182,7 +197,7 @@ export default {
         cInputStatus: this.inputStatus
       },
       PI_contact_person: {
-        cValidate: "",
+        cValidate: "required",
         cName: "contact_person",
         cOrder: 3,
         cKey: false,
@@ -193,7 +208,7 @@ export default {
         cInputStatus: this.inputStatus
       },
       PI_appointment_date: {
-        cValidate: "",
+        cValidate: "required",
         cName: "appointment_date",
         cOrder: 4,
         cKey: false,
@@ -216,7 +231,7 @@ export default {
         cInputStatus: this.inputStatus
       },
       PI_descs: {
-        cValidate: "",
+        cValidate: "required",
         cName: "descs",
         cOrder: 2,
         cKey: false,

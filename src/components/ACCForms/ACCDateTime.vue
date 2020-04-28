@@ -77,7 +77,7 @@
       </b-col>-->
       <b-col md="2" class="col-a-2">
         <b-form-input
-          v-validate="'invalidHour'"
+          v-validate="prop.cValidate + '|invalidHour'"
           :class="{'input': true, 'error-text-field': errors.has(prop.cParentForm+'.'+prop.cName+'Hour')}"
           :type="'text'"
           v-bind:data-vv-name="prop.cName+'Hour'"
@@ -92,17 +92,18 @@
           :id="prop.cName+'Hour'"
           @blur.native="addTime"
           style="text-align: center;"
+          placeholder="00"
         />
 
-        <span
+        <!-- <span
           v-show="errors.has(prop.cParentForm+'.'+prop.cName+'Hour')"
           class="error-span"
-        >{{ errors.first(prop.cParentForm+'.'+prop.cName+'Hour') }}</span>
+        >{{ errors.first(prop.cParentForm+'.'+prop.cName+'Hour') }}</span>-->
       </b-col>
 
       <b-col md="2" class="col-a-3">
         <b-form-input
-          v-validate="'invalidTime'"
+          v-validate="prop.cValidate + '|invalidTime'"
           :class="{'input': true, 'error-text-field': errors.has(prop.cParentForm+'.'+prop.cName+'Time')}"
           :type="'text'"
           v-bind:data-vv-name="prop.cName+'Time'"
@@ -117,12 +118,13 @@
           :id="prop.cName+'Time'"
           @blur.native="addTime"
           style="text-align: center;"
+          placeholder="00"
         />
 
-        <span
+        <!-- <span
           v-show="errors.has(prop.cParentForm+'.'+prop.cName+'Time')"
           class="error-span"
-        >{{ errors.first(prop.cParentForm+'.'+prop.cName+'Time') }}</span>
+        >{{ errors.first(prop.cParentForm+'.'+prop.cName+'Time') }}</span>-->
       </b-col>
     </b-row>
   </span>
