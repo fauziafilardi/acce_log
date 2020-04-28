@@ -10,10 +10,16 @@
                   <span>Appointment</span>
                 </b-col>
                 <b-col style="text-align: right;">
-                  <b-badge variant="primary">&nbsp;</b-badge>
-                  <span style="color: #7f8084; font-weight: normal; margin-left: 5px;">Prospect</span> &nbsp;
-                  <b-badge variant="success">&nbsp;</b-badge>
-                  <span style="color: #7f8084; font-weight: normal; margin-left: 5px;">Customer</span> &nbsp;
+                  <b-badge variant="primary" @click="doProspect" style="cursor: pointer;">&nbsp;</b-badge>
+                  <span
+                    style="color: #7f8084; font-weight: normal; margin-left: 5px; cursor: pointer;"
+                    @click="doProspect"
+                  >Prospect</span> &nbsp;
+                  <b-badge variant="success" @click="doCustomer" style="cursor: pointer;">&nbsp;</b-badge>
+                  <span
+                    style="color: #7f8084; font-weight: normal; margin-left: 5px; cursor: pointer;"
+                    @click="doCustomer"
+                  >Customer</span> &nbsp;
                 </b-col>
                 <b-col md="2">
                   <b-form-select
@@ -148,7 +154,7 @@
                       </span>
                       <span>
                         <b-badge
-                            style="padding-top: 8px;
+                          style="padding-top: 8px;
                                 height: 35px;
                                 margin-left: 10px;
                                 border-radius: 4px;
@@ -158,10 +164,10 @@
                                 color: black;
                                 border: solid 1px #ced4da;
                                 text-align: left;"
-                            @click="doEdit(data.item)"
+                          @click="doEdit(data.item)"
                         >
                           <font-awesome-icon
-                            style="color: blue;"
+                            class="icon-style-default"
                             :icon="data.item.action_=='C' ? 'phone-square-alt' : (data.item.action_=='V' ? 'hand-paper' : 'utensils')"
                             size="lg"
                           />
@@ -302,11 +308,11 @@ export default {
     rowClicked(record, index) {},
     doDoubleClick(record, index) {},
     doViewClick(record, index) {
-    //   var param = record;
+      //   var param = record;
       // param.option_url = this.getOptionUrl()
       // param.urlAdd="MK_AddNewProspect"
       // param.title = "New Prospect"
-    //   this.$router.push({ name: "MK_ViewNewProspect", params: param });
+      //   this.$router.push({ name: "MK_ViewNewProspect", params: param });
     },
     rowLink(url) {},
     M_PageSize() {},
@@ -317,6 +323,17 @@ export default {
     onSearchEnter(data) {
       this.doGetList(this.search, "onSearchEnter");
     },
+    doProspect() {
+      var filter = " contact_type = 'P'";
+      this.propList.initialWhere = filter;
+      this.doGetList(this.search);
+    },
+    doCustomer() {
+      var filter = " contact_type = 'C'";
+      this.propList.initialWhere = filter;
+      this.doGetList(this.search);
+    },
+
     dofilterAction() {
       var filter = " action = '" + this.filterAction + "'";
       this.propList.initialWhere = filter;
@@ -565,9 +582,9 @@ export default {
       });
     },
     doEdit(record) {
-        var param = record;
-        param.isEdit = true
-        this.$router.push({ name: "MK_EditAppointment", params: param });
+      var param = record;
+      param.isEdit = true;
+      this.$router.push({ name: "MK_EditAppointment", params: param });
     }
   },
   mounted() {
