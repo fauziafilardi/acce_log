@@ -1212,6 +1212,10 @@ export default {
               {
                 key: "Row Id",
                 value: "View"
+              },
+              {
+                key: "Pic",
+                value: "PIC"
               }
             ];
             var isGotIt = false;

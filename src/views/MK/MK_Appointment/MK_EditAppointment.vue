@@ -21,8 +21,8 @@
             </div>
             <div class="card__body">
               <b-form
-                :data-vv-scope="'MK_AddAppointment'"
-                :data-vv-value-path="'MK_AddAppointment'"
+                :data-vv-scope="'MK_EditAppointment'"
+                :data-vv-value-path="'MK_EditAppointment'"
               >
                 <b-row>
                   <b-col md="2" style="text-align: center;">
@@ -32,11 +32,11 @@
                       <b-row>
                           <b-col>
                               <span>
-                                  {{ 'PT. Abadi Sentosa' }}
+                                  {{ M_Dt_Appointment.name }}
                                 </span> <br>
                               <span>
                                   <font-awesome-icon style="color: blue;" icon="map-marker-alt" size="sm" /> &nbsp;
-                                  {{ 'Jl. Pangkalan Raya 1 No 33 Cibuluh Bogor, Kota Bogor, Jawa Barat - Indonesia' }}
+                                  {{ M_Dt_Appointment.address }}
                               </span> <br>
                               <span>
                                  <font-awesome-icon
@@ -44,7 +44,7 @@
                                     icon="phone-square-alt"
                                     size="sm"
                                 />
-                                {{'+62-21-98399999'}}
+                                {{ M_Dt_Appointment.phone_no }}
                               </span> &nbsp;
                               <span>
                                  <font-awesome-icon
@@ -52,7 +52,7 @@
                                     icon="envelope"
                                     size="sm"
                                 />
-                                {{'info@abadisentosa.com'}}
+                                {{ M_Dt_Appointment.email }}
                               </span> &nbsp;
                               <span>
                                  <font-awesome-icon
@@ -60,7 +60,7 @@
                                     icon="globe-americas"
                                     size="sm"
                                 />
-                                {{'www.abadisentosa.com'}}
+                                {{ M_Dt_Appointment.website }}
                               </span> <br>
                               <span>
                                   <font-awesome-icon
@@ -68,7 +68,7 @@
                                     icon="user"
                                     size="sm"
                                 />
-                                {{'Basa Aritonang'}}
+                                {{ M_Dt_Appointment.pic }}
                               </span> &nbsp;
                               <span>
                                   <font-awesome-icon
@@ -76,7 +76,7 @@
                                     icon="phone-square-alt"
                                     size="sm"
                                 />
-                                {{'+62-818-889978788'}}
+                                {{ M_Dt_Appointment.pic_phone_no }}
                               </span>
                           </b-col>
                       </b-row>
@@ -205,7 +205,20 @@
                             :fields="fieldHeader"
                             :items="items"
                             class="table-sm table-style-2"
-                        > </b-table>
+                        >
+                            <template v-slot:cell(action)="data">
+                                <!-- <div v-if="data.item.customer_status == 'N'"> -->
+                                    <span>
+                                        <font-awesome-icon
+                                            style="color: blue;"
+                                            :icon="data.item.action_type=='C' ? 'phone-square-alt' : (data.item.action_type=='V' ? 'hand-paper' : 'utensils')"
+                                            size="lg"
+                                        />
+                                        {{ data.item.action }}
+                                    </span>
+                                <!-- </div> -->
+                            </template>
+                        </b-table>
                         <b-form inline style="float: left; color: #333;">
                             <label
                             class="font-lbl"
@@ -289,115 +302,130 @@ export default {
         isDisableTable: false,
         responses: [],
 
-      M_Appointment: {
-        customer: "",
-        customerLabel: "",
-        action: "",
-        actionLabel: "",
-        contac_person: "",
-        appointment_date: "",
-        meeting_location: "",
-        descs: "",
-        descs2: "",
-        next_appointment: "",
-        next_appointmentLabel: "",
-      },
-      PI_action: {
-        dataLookUp: null,
-        cValidate: "",
-        cName: "action",
-        ckey: false,
-        cOrder: 1,
-        cProtect: false,
-        cParentForm: "MK_AddAppointment",
-        cStatic: true,
-        cOption: [
-          { id: "C", label: "Call" },
-          { id: "V", label: "Visit" },
-          { id: "E", label: "Entertaintment" }
-        ],
-        cDisplayColumn: "action_type,descs",
-        cInputStatus: this.inputStatus
-      },
-      PI_contact_person: {
-        cValidate: "",
-        cName: "contact_person",
-        cOrder: 2,
-        cKey: false,
-        cType: "text",
-        cProtect: false,
-        cParentForm: "MK_AddAppointment",
-        cDecimal: 2,
-        cInputStatus: this.inputStatus
-      },
-      PI_descs2: {
-        cValidate: "",
-        cName: "descs2",
-        cOrder: 3,
-        cKey: false,
-        cProtect: false,
-        cResize: false,
-        cReadonly: false,
-        cRows: 3,
-        cMaxRows: 3,
-        cSize: "md",
-        cParentForm: "MK_AddAppointment",
-        cInputStatus: this.inputStatus
-      },
-      PI_next_appointment: {
-        dataLookUp: null,
-        cValidate: "",
-        cName: "next_appointment",
-        ckey: false,
-        cOrder: 4,
-        cProtect: false,
-        cParentForm: "MK_AddAppointment",
-        cStatic: true,
-        cOption: [
-          { id: "C", label: "Call" },
-          { id: "V", label: "Visit" },
-          { id: "E", label: "Entertaintment" }
-        ],
-        cDisplayColumn: "action_type,descs",
-        cInputStatus: this.inputStatus
-      },
-      PI_appointment_date: {
-        cValidate: "",
-        cName: "appointment_date",
-        cOrder: 6,
-        cKey: false,
-        cProtect: false,
-        cFormat: "dd/MM/yyyy",
-        cParentForm: "MK_AddAppointment"
-      },
-      PI_meeting_location: {
-        cValidate: "",
-        cName: "meeting_location",
-        cOrder: 5,
-        cKey: false,
-        cProtect: false,
-        cResize: false,
-        cReadonly: false,
-        cRows: 1,
-        cMaxRows: 2,
-        cSize: "md",
-        cParentForm: "MK_AddAppointment",
-        cInputStatus: this.inputStatus
-      },
-      PI_descs: {
-        cValidate: "",
-        cName: "descs",
-        cOrder: 7,
-        cKey: false,
-        cProtect: false,
-        cResize: false,
-        cReadonly: false,
-        cRows: 3,
-        cMaxRows: 3,
-        cSize: "md",
-        cParentForm: "MK_AddAppointment",
-        cInputStatus: this.inputStatus
-      }
+        M_Dt_Appointment: {
+            mk_appointment_id: "",
+            name: "",
+            address: "",
+            country: "",
+            province: "",
+            city: "",
+            district: "",
+            email: "",
+            website: "",
+            phone_no: "",
+            pic: "",
+            pic_phone_no: ""
+        },
+
+        M_Appointment: {
+            customer: "",
+            customerLabel: "",
+            action: "",
+            actionLabel: "",
+            contact_person: "",
+            appointment_date: "",
+            meeting_location: "",
+            descs: "",
+            descs2: "",
+            next_appointment: "",
+            next_appointmentLabel: "",
+        },
+        PI_action: {
+            dataLookUp: null,
+            cValidate: "",
+            cName: "action",
+            ckey: false,
+            cOrder: 1,
+            cProtect: false,
+            cParentForm: "MK_EditAppointment",
+            cStatic: true,
+            cOption: [
+                { id: "C", label: "Call" },
+                { id: "V", label: "Visit" },
+                { id: "E", label: "Entertaintment" }
+            ],
+            cDisplayColumn: "action_type,descs",
+            cInputStatus: this.inputStatus
+        },
+        PI_contact_person: {
+            cValidate: "",
+            cName: "contact_person",
+            cOrder: 2,
+            cKey: false,
+            cType: "text",
+            cProtect: false,
+            cParentForm: "MK_EditAppointment",
+            cDecimal: 2,
+            cInputStatus: this.inputStatus
+        },
+        PI_descs2: {
+            cValidate: "",
+            cName: "descs2",
+            cOrder: 3,
+            cKey: false,
+            cProtect: false,
+            cResize: false,
+            cReadonly: false,
+            cRows: 3,
+            cMaxRows: 3,
+            cSize: "md",
+            cParentForm: "MK_EditAppointment",
+            cInputStatus: this.inputStatus
+        },
+        PI_next_appointment: {
+            dataLookUp: null,
+            cValidate: "",
+            cName: "next_appointment",
+            ckey: false,
+            cOrder: 4,
+            cProtect: false,
+            cParentForm: "MK_EditAppointment",
+            cStatic: true,
+            cOption: [
+                { id: "C", label: "Call" },
+                { id: "V", label: "Visit" },
+                { id: "E", label: "Entertaintment" }
+            ],
+            cDisplayColumn: "action_type,descs",
+            cInputStatus: this.inputStatus
+        },
+        PI_appointment_date: {
+            cValidate: "",
+            cName: "appointment_date",
+            cOrder: 6,
+            cKey: false,
+            cProtect: false,
+            cFormat: "dd/MM/yyyy",
+            cParentForm: "MK_EditAppointment"
+        },
+        PI_meeting_location: {
+            cValidate: "",
+            cName: "meeting_location",
+            cOrder: 5,
+            cKey: false,
+            cProtect: false,
+            cResize: false,
+            cReadonly: false,
+            cRows: 1,
+            cMaxRows: 2,
+            cSize: "md",
+            cParentForm: "MK_EditAppointment",
+            cInputStatus: this.inputStatus
+        },
+        PI_descs: {
+            cValidate: "",
+            cName: "descs",
+            cOrder: 7,
+            cKey: false,
+            cProtect: false,
+            cResize: false,
+            cReadonly: false,
+            cRows: 3,
+            cMaxRows: 3,
+            cSize: "md",
+            cParentForm: "MK_EditAppointment",
+            cInputStatus: this.inputStatus
+        }
     };
   },
   computed: {
@@ -455,53 +483,93 @@ export default {
         customerLabel: "",
         action: "",
         actionLabel: "",
-        contac_person: "",
+        contact_person: "",
         appointment_date: "",
         meeting_location: "",
-        descs: ""
+        descs: "",
+        descs2: "",
+        next_appointment: "",
+        next_appointmentLabel: "",
       };
     },
     doSave() {
-      this.$validator._base.validateAll("MK_AddAppointment").then(result => {
-        if (!result) return;
-        this.alertConfirmation("Are You Sure Want To Save This Data ?").then(
-          ress => {
-            if (ress.value) {
-              this.$validator.errors.clear("MK_AddAppointment");
-              if (this.inputStatus == "edit") {
-                this.M_Update();
-              } else {
-                this.M_Save();
-              }
-            }
-          }
-        );
-      });
+        this.$validator._base.validateAll("MK_EditAppointment").then(result => {
+            if (!result) return;
+            this.alertConfirmation("Are You Sure Want To Save This Data ?").then(
+                ress => {
+                    if (ress.value) {
+                        this.$validator.errors.clear("MK_EditAppointment");
+                        this.M_Save();
+                    }
+                }
+            );
+        });
     },
     M_Save() {
-      var param = {
-        option_url: "/MK/MK_Appointment",
-        line_no: 0,
-        cm_contact_id: this.M_Appointment.customer,
-        ss_portfolio_id: this.getDataUser().portfolio_id,
-        action_type: this.M_Appointment.action,
-        pic: this.M_Appointment.contact_person,
-        appointment_date: this.M_Appointment.appointment_date,
-        meeting_address: this.M_Appointment.meeting_location,
-        descs: this.M_Appointment.descs,
-        user_input: this.getDataUser().user_id
-      };
+        var param = {
+            option_url: "/MK/MK_Appointment",
+            line_no: 0,
+            mk_appointment_id: this.paramFromList.row_id,
+            cm_contact_id: this.paramFromList.cm_contact_id,
+            ss_portfolio_id: this.getDataUser().portfolio_id,
+            action_type: this.M_Appointment.action,
+            pic: this.M_Appointment.contact_person,
+            descs: this.M_Appointment.descs,
+            next_action_type: this.M_Appointment.next_appointment,
+            next_appointment_date: this.M_Appointment.appointment_date,
+            next_meeting_address: this.M_Appointment.meeting_location,
+            next_descs: this.M_Appointment.descs2,
+            lastupdatestamp: this.paramFromList.lastupdatestamp,
+            user_edit: this.getDataUser().user_id
+        };
 
-      this.postJSON(this.getUrlCRUD(), param).then(response => {
-        // console.log(response)
-        if (response == null) return;
-        this.alertSuccess(response.Message).then(() => {
-          this.doBack();
+        this.putJSON(this.getUrlCRUD(), param).then(response => {
+            // console.log(response)
+            if (response == null) return;
+            this.alertSuccess(response.Message).then(() => {
+                this.doBack();
+            });
         });
-      });
     },
     GetDataBy() {
-        this.doGetlist(this.search)
+        var param = {
+            option_url: "/MK/MK_Appointment",
+            line_no: 0,
+            id: this.paramFromList.row_id,
+            lastupdatestamp: this.paramFromList.lastupdatestamp
+        };
+
+        this.getJSON(this.getUrlCRUD(), param).then(response => {
+            // response from API
+            if (response == null) return;
+
+            var data = response.Data[0];
+
+            this.M_Dt_Appointment = {
+                mk_appointment_id: data.mk_appointment_id,
+                name: data.name,
+                address: data.address +
+                    ", " +
+                    data.district +
+                    ", " +
+                    data.city +
+                    ", " +
+                    data.province +
+                    " - " +
+                    data.country,
+                country: data.country,
+                province: data.province,
+                city: data.city,
+                district: data.district,
+                email: data.email,
+                website: data.website,
+                phone_no: data.phone_no,
+                pic: data.pic,
+                pic_phone_no: "-"
+            }
+
+            this.doGetlist(this.search)
+        });
     },
     doGetlist(search) {
         var param = {
@@ -636,10 +704,6 @@ export default {
                 value: " "
               },
               {
-                key: "Amt",
-                value: " Amount"
-              },
-              {
                 key: "Cd",
                 value: " Code"
               },
@@ -652,10 +716,6 @@ export default {
                 value: "Last Update"
               },
               {
-                key: "Batch Status",
-                value: "Status"
-              },
-              {
                 key: "garing",
                 value: "/"
               },
@@ -664,16 +724,12 @@ export default {
                 value: "."
               },
               {
-                key: "SnP",
-                value: "SnP "
-              },
-              {
-                key: "VO",
-                value: "VO "
-              },
-              {
                 key: "Row Id",
                 value: "View"
+              },
+              {
+                key: "Pic",
+                value: "PIC"
               }
             ];
             var isGotIt = false;
