@@ -145,7 +145,7 @@
                   >{{data.item.last_action && data.item.last_action !== '' ? data.item.last_action : '-'}}</template>
 
                   <template v-slot:cell(action)="data">
-                    <div v-if="data.item.customer_status == 'N'">
+                    <div v-if="data.item.row_id && data.item.lastupdatestamp">
                       <span>
                         <b-badge
                           style="width: 15px; height: 15px; padding: 6px !important; border-radius: 15px !important;"

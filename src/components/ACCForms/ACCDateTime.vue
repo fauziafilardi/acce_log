@@ -167,7 +167,8 @@ export default {
     value: function(newData, oldData) {
       if (this.value == "" || this.value == null) {
         this.valueMasking = "";
-        this.valueMaskingTime = "";
+        this.vHour = "";
+        this.vTime = "";
       } else {
         // let tanggal = newData
         // if (newData.includes('/')) {
@@ -185,7 +186,8 @@ export default {
         );
         this.valueMasking = this.replaceAllString(this.valueMasking, "-", "/");
 
-        this.valueMaskingTime = this.momentDateFormatting(newData, "HH:mm");
+        this.vHour = this.momentDateFormatting(newData, "HH");
+        this.vTime = this.momentDateFormatting(newData, "mm");
 
         this.value = this.momentDateFormatting(this.value, "YYYY-MM-DD HH:mm");
       }

@@ -478,19 +478,34 @@ export default {
       // this.M_Appointment.appointment_date = data
     },
     M_ClearForm() {
-      this.M_Appointment = {
-        customer: "",
-        customerLabel: "",
-        action: "",
-        actionLabel: "",
-        contact_person: "",
-        appointment_date: "",
-        meeting_location: "",
-        descs: "",
-        descs2: "",
-        next_appointment: "",
-        next_appointmentLabel: "",
-      };
+        this.M_Appointment = {
+            customer: "",
+            customerLabel: "",
+            action: "",
+            actionLabel: "",
+            contact_person: "",
+            appointment_date: "",
+            meeting_location: "",
+            descs: "",
+            descs2: "",
+            next_appointment: "",
+            next_appointmentLabel: "",
+        };
+
+        this.M_Dt_Appointment = {
+            mk_appointment_id: "",
+            name: "",
+            address: "",
+            country: "",
+            province: "",
+            city: "",
+            district: "",
+            email: "",
+            website: "",
+            phone_no: "",
+            pic: "",
+            pic_phone_no: ""
+        };
     },
     doSave() {
         this.$validator._base.validateAll("MK_EditAppointment").then(result => {
@@ -567,6 +582,18 @@ export default {
                 pic: data.pic,
                 pic_phone_no: "-"
             }
+
+            this.M_Appointment = {
+                action: data.action_type,
+                actionLabel: data.action_type,
+                contact_person: data.pic,
+                appointment_date: data.next_appointment_date,
+                meeting_location: data.next_meeting_address,
+                descs: data.descs,
+                descs2: data.next_descs,
+                next_appointment: data.next_action_type,
+                next_appointmentLabel: data.next_action_type,
+            };
 
             this.doGetlist(this.search)
         });
