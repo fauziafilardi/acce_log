@@ -426,6 +426,7 @@ export default {
         cOrder: 6,
         cKey: false,
         cProtect: false,
+        cWithTime: true,
         cFormat: "dd/MM/yyyy",
         cParentForm: "MK_EditAppointment"
       },
@@ -612,7 +613,7 @@ export default {
           website: data.website,
           phone_no: data.phone_no,
           pic: data.pic,
-          pic_phone_no: "-"
+          pic_phone_no: data.contact_phone_no
         };
 
         this.M_Appointment = {

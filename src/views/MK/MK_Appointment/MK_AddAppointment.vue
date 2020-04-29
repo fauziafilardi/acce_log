@@ -213,6 +213,7 @@ export default {
         cOrder: 4,
         cKey: false,
         cProtect: false,
+        cWithTime: true,
         cFormat: "dd/MM/yyyy",
         cParentForm: "MK_AddAppointment"
       },
