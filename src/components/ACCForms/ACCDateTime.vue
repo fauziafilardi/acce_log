@@ -75,7 +75,7 @@
             class="error-span">{{ errors.first(prop.cParentForm+'.'+prop.cName + 'Time') }}
           </span>
       </b-col>-->
-      <b-col md="2" class="col-a-2">
+      <b-col md="2" class="col-a-2" v-show="prop.cWithTime">
         <b-form-input
           v-validate="prop.cValidate + '|invalidHour'"
           :class="{'input': true, 'error-text-field': errors.has(prop.cParentForm+'.'+prop.cName+'Hour')}"
@@ -101,7 +101,7 @@
         >{{ errors.first(prop.cParentForm+'.'+prop.cName+'Hour') }}</span>-->
       </b-col>
 
-      <b-col md="2" class="col-a-3">
+      <b-col md="2" class="col-a-3" v-show="prop.cWithTime">
         <b-form-input
           v-validate="prop.cValidate + '|invalidTime'"
           :class="{'input': true, 'error-text-field': errors.has(prop.cParentForm+'.'+prop.cName+'Time')}"
@@ -146,7 +146,8 @@ export default {
       cProtect: Boolean,
       cFormat: String,
       cParentForm: String,
-      cInputStatus: String
+      cInputStatus: String,
+      cWithTime: Boolean
     },
     // cValue: String
     value: ""
@@ -189,7 +190,12 @@ export default {
         this.vHour = this.momentDateFormatting(newData, "HH");
         this.vTime = this.momentDateFormatting(newData, "mm");
 
-        this.value = this.momentDateFormatting(this.value, "YYYY-MM-DD HH:mm");
+        if (this.prop.cWithTime) {
+          this.value = this.momentDateFormatting(this.value, "YYYY-MM-DD HH:mm");
+        }
+        else {
+          this.value = this.momentDateFormatting(this.value, "YYYY-MM-DD");
+        }
       }
       // this.value = this.momentDateFormatting(this.value, "YYYY-MM-DD HH:mm")
       this.$emit("input", this.value == null ? "" : this.value);
@@ -290,7 +296,7 @@ export default {
     handleInput() {
       var xx = this.valueMaskingTime != "" ? this.valueMaskingTime : "00:00";
       var dxx = moment(this.value).format("YYYY-MM-DD") + " " + xx;
-      this.value = this.momentDateFormatting(new Date(dxx), "YYYY-MM-DD HH:mm");
+      this.value = this.momentDateFormatting(new Date(dxx), (this.prop.cWithTime ? "YYYY-MM-DD HH:mm" : "YYYY-MM-DD"));
     },
     hideDatepicker(calendar) {
       // if contain _ on blur, return value before editing
@@ -328,7 +334,8 @@ export default {
           xx;
         this.value = this.momentDateFormatting(
           new Date(dxx),
-          "YYYY-MM-DD HH:mm"
+          // "YYYY-MM-DD HH:mm"
+          (this.prop.cWithTime ? "YYYY-MM-DD HH:mm" : "YYYY-MM-DD")
         );
         // console.log(this.value)
 
@@ -363,7 +370,8 @@ export default {
           xx;
         this.value = this.momentDateFormatting(
           new Date(dxx),
-          "YYYY-MM-DD HH:mm"
+          // "YYYY-MM-DD HH:mm"
+          (this.prop.cWithTime ? "YYYY-MM-DD HH:mm" : "YYYY-MM-DD")
         );
         // console.log(this.value)
       }
@@ -393,6 +401,7 @@ export default {
   },
   created: function() {
     this.prop.cProtect = this.prop.cProtect ? this.prop.cProtect : false;
+    this.prop.cWithTime = this.prop.cWithTime ? this.prop.cWithTime : false;
     this.prop.cFormat = this.prop.cFormat ? this.prop.cFormat : "dd/MM/yyyy";
     this.prop.cInputStatus = this.prop.cInputStatus
       ? this.prop.cInputStatus
@@ -490,7 +499,7 @@ export default {
 
     this.$validator.extend("invalidTime", {
       getMessage(field, val) {
-        return "Invalid Time";
+        return "Invalid Minutes";
       },
       validate(value, field) {
         // let startParts = self.startDate.split('-')
