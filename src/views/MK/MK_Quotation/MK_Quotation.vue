@@ -5,7 +5,7 @@
         <b-col md="12">
           <ACCList
             :prop="propList"
-            :title="'New Quotation'"
+            :title="'Quotation'"
             @rowClicked="rowClicked"
             @rowDblClicked="doDoubleClick"
             @rowLinkClick="rowLink"

@@ -157,7 +157,7 @@
                 @click="doCallMenu(option)"
                 v-if="segmentUrl == option.menu_url"
               >
-                <span style="padding-left: 20px; padding-right: 5px;">-</span>
+                <span style="padding-left: 31px; padding-right: 5px;">-</span>
                 <span style="font-size:12px;">{{option.title}}</span>
               </a>
               <a
@@ -166,7 +166,7 @@
                 style="border: 0px solid #e7eaec !important;height:30px;cursor:pointer;"
                 @click="doCallMenu(option)"
               >
-                <span style="padding-left: 20px; padding-right: 5px;">-</span>
+                <span style="padding-left: 31px; padding-right: 5px;">-</span>
                 <span style="font-size:12px;">{{option.title}}</span>
               </a>
             </b-collapse>
