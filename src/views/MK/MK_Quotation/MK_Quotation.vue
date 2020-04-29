@@ -5,7 +5,7 @@
         <b-col md="12">
           <ACCList
             :prop="propList"
-            :title="'New Prospect'"
+            :title="'New Quotation'"
             @rowClicked="rowClicked"
             @rowDblClicked="doDoubleClick"
             @rowLinkClick="rowLink"
@@ -14,8 +14,8 @@
             @filter="M_Advance_Filter"
             @headTable="M_Head_Table"
             @refreshColumn="refreshColumn"
-            ref="ref_NewProspectList"
-            urlAdd="MK_AddNewProspect"
+            ref="ref_NewQuotationList"
+            urlAdd="MK_AddNewQuotation"
             WithViewButton
             @buttonViewClicked="doViewClick"
           />
@@ -46,9 +46,9 @@ export default {
     doViewClick(record, index) {
       var param = record;
       // param.option_url = this.getOptionUrl()
-      // param.urlAdd="MK_AddNewProspect"
-      // param.title = "New Prospect"
-      this.$router.push({ name: "MK_ViewNewProspect", params: param });
+      // param.urlAdd="MK_AddNewQuotation"
+      // param.title = "New Quotation"
+      this.$router.push({ name: "MK_ViewNewQuotation", params: param });
     },
     rowLink(url) {},
     M_PageSize() {},
@@ -58,7 +58,7 @@ export default {
     refreshColumn() {}
   },
   mounted() {
-    this.$refs.ref_NewProspectList.doGetList("");
+    this.$refs.ref_NewQuotationList.doGetList("");
   }
 };
 </script>
