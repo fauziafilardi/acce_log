@@ -8,9 +8,9 @@ import MK_MarketingActivitySchedule_Master from '@/views/MK/MK_MarketingActivity
 import MK_LogBook_Master from '@/views/MK/MK_LogBook/MK_LogBook_Master'
 
 import MK_LogBookTest_Master from '@/views/MK/MK_LogBookTest/MK_LogBookTest_Master'
-import MK_QuotationTest_Master from '@/views/MK/MK_QuotationTest/MK_QuotationTest_Master'
+// import MK_QuotationTest_Master from '@/views/MK/MK_QuotationTest/MK_QuotationTest_Master'
 
-import MK_Quotation_Master from '@/views/MK/MK_Quotation/MK_Quotation_Master'
+// import MK_Quotation_Master from '@/views/MK/MK_Quotation/MK_Quotation_Master'
 
 import MK_ContactMaster from '@/views/MK/MK_Contact/MK_Contact_Master'
 import MK_MarketingAssigmentMaster from '@/views/MK/MK_MarketingAssigment/PageLevel_1/MK_MarketingAssigment'
@@ -37,14 +37,17 @@ import MK_Appointment from '@/views/MK/MK_Appointment/MK_Appointment'
 import MK_AddAppointment from '@/views/MK/MK_Appointment/MK_AddAppointment'
 import MK_EditAppointment from '@/views/MK/MK_Appointment/MK_EditAppointment'
 
+import MK_Quotation from '@/views/MK/MK_Quotation/MK_Quotation'
+
 
 export const MKRender = {
     path: '/MK',
     component: {
-        render(c) { return c('router-view') }
+        render(c) {
+            return c('router-view')
+        }
     },
-    children: [
-        {
+    children: [{
             path: '/MK/MK_Specification',
             name: 'MK_Specification',
             component: MK_Specification_Master,
@@ -116,22 +119,22 @@ export const MKRender = {
                 requiresAuth: true
             }
         },
-        {
-            path: '/MK/MK_QuotationTest',
-            name: 'MK_QuotationTest',
-            component: MK_QuotationTest_Master,
-            meta: {
-                requiresAuth: true
-            }
-        },
-        {
-            path: '/MK/MK_Quotation',
-            name: 'MK_Quotation',
-            component: MK_Quotation_Master,
-            meta: {
-                requiresAuth: true
-            }
-        },
+        // {
+        //     path: '/MK/MK_QuotationTest',
+        //     name: 'MK_QuotationTest',
+        //     component: MK_QuotationTest_Master,
+        //     meta: {
+        //         requiresAuth: true
+        //     }
+        // },
+        // {
+        //     path: '/MK/MK_Quotation',
+        //     name: 'MK_Quotation',
+        //     component: MK_Quotation_Master,
+        //     meta: {
+        //         requiresAuth: true
+        //     }
+        // },
         {
             path: '/MK/MK_Contact',
             name: 'MK_Contact',
@@ -139,8 +142,7 @@ export const MKRender = {
             meta: {
                 requiresAuth: true
             }
-        }
-        , {
+        }, {
             path: '/MK/MK_MarketingAssigment',
             name: 'MK_MarketingAssigment',
             component: MK_MarketingAssigmentMaster,
@@ -274,6 +276,15 @@ export const MKRender = {
             path: '/MK/MK_Appointment/Edit',
             name: 'MK_EditAppointment',
             component: MK_EditAppointment,
+            meta: {
+                requiresAuth: true
+            }
+        },
+
+        {
+            path: '/MK/MK_Quotation',
+            name: 'MK_Quotation',
+            component: MK_Quotation,
             meta: {
                 requiresAuth: true
             }
