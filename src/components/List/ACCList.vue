@@ -699,7 +699,7 @@ export default {
     resetSelected() {
       this.rowSelected = [0];
       this.selected = false;
-      this.items[0]["_rowVariant"] = "primary";
+      // this.items[0]["_rowVariant"] = "primary";
       this.rowSel = -1;
     },
     checkOrderBy() {
@@ -955,12 +955,12 @@ export default {
     },
     rowClicked: function(record, index) {
       if (this.isDisableTable || this.isProcess == true) return;
-      if (this.rowSel != -1) {
-        this.items[this.rowSel]["_rowVariant"] = "";
-      }
+      // if (this.rowSel != -1) {
+      //   this.items[this.rowSel]["_rowVariant"] = "";
+      // }
 
       this.rowSel = index;
-      this.items[index]["_rowVariant"] = "primary";
+      // this.items[index]["_rowVariant"] = "primary";
       this.$forceUpdate();
 
       this.$emit("rowClicked", record, index);

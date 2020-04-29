@@ -39,6 +39,8 @@ import MK_EditAppointment from '@/views/MK/MK_Appointment/MK_EditAppointment'
 
 import MK_Quotation from '@/views/MK/MK_Quotation/MK_Quotation'
 import MK_AddQuotation from '@/views/MK/MK_Quotation/MK_AddQuotation'
+import MK_ViewQuotationList from '@/views/MK/MK_Quotation/MK_ViewQuotationList'
+import MK_ViewQuotation from '@/views/MK/MK_Quotation/MK_ViewQuotation'
 
 
 export const MKRender = {
@@ -294,6 +296,22 @@ export const MKRender = {
             path: '/MK/MK_Quotation/Form',
             name: 'MK_AddQuotation',
             component: MK_AddQuotation,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/MK/MK_Quotation/ViewList',
+            name: 'MK_ViewQuotationList',
+            component: MK_ViewQuotationList,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/MK/MK_Quotation/View',
+            name: 'MK_ViewQuotation',
+            component: MK_ViewQuotation,
             meta: {
                 requiresAuth: true
             }
