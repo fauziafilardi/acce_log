@@ -15,8 +15,7 @@
             @headTable="M_Head_Table"
             @refreshColumn="refreshColumn"
             ref="ref_NewQuotationList"
-            urlAdd="MK_AddNewQuotation"
-            WithViewButton
+            urlAdd="MK_AddQuotation"
             @buttonViewClicked="doViewClick"
           />
         </b-col>
@@ -42,13 +41,10 @@ export default {
   },
   methods: {
     rowClicked(record, index) {},
-    doDoubleClick(record, index) {},
-    doViewClick(record, index) {
+    doViewClick(record, index) {},
+    doDoubleClick(record, index) {
       var param = record;
-      // param.option_url = this.getOptionUrl()
-      // param.urlAdd="MK_AddNewQuotation"
-      // param.title = "New Quotation"
-      this.$router.push({ name: "MK_ViewNewQuotation", params: param });
+      this.$router.push({ name: "MK_ViewQuotationList", params: param });
     },
     rowLink(url) {},
     M_PageSize() {},
