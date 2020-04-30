@@ -32,12 +32,16 @@
                     <b-row>
                       <b-col md="8">
                         <span>
-                          <label>
+                          <label v-if="inputStatus == 'new'">
                             Customer
                             <span style="color:red;">*</span>
                           </label>
+                          <template v-if="inputStatus == 'edit'">
+                              {{ M_Quotation.customerLabel }}
+                          </template>
                         </span>
                         <ACCLookUp
+                            v-if="inputStatus == 'new'"
                           @change="OncustomerChange"
                           :prop="PI_customer"
                           v-model="M_Quotation.customer"
@@ -491,10 +495,78 @@ export default {
                     this.doBack();
                 });
             });
+        },
+        M_Update() {
+            var param = {
+                option_url: "/MK/MK_Quotation",
+                line_no: 0,
+                mk_quotation_id: this.paramFromList.row_id,
+                ss_portfolio_id: this.getDataUser().portfolio_id,
+                ss_subportfolio_id: this.getDataUser().subportfolio_id,
+                cm_contact_id: this.M_Quotation.customer,
+                quotation_no: this.M_Quotation.quotation_no,
+                quotation_date: this.M_Quotation.date,
+                quotation_type: this.M_Quotation.type,
+                project_name: this.M_Quotation.project_name,
+                descs: this.M_Quotation.descs,
+                project_value: this.M_Quotation.project_value,
+                expired_date: this.M_Quotation.valid_until,
+                status: this.M_Quotation.status,
+                lastupdatestamp: this.paramFromList.lastupdatestamp,
+                user_edit: this.getDataUser().user_id,
+            };
+
+            this.putJSON(this.getUrlCRUD(), param).then(response => {
+                // console.log(response)
+                if (response == null) return;
+                    this.alertSuccess(response.Message).then(() => {
+                    this.doBack();
+                });
+            });
+        },
+        GetDataBy() {
+            var param = {
+                option_url: "/MK/MK_Quotation",
+                line_no: 0,
+                id: this.paramFromList.row_id,
+                lastupdatestamp: this.paramFromList.lastupdatestamp
+            };
+
+            this.getJSON(this.getUrlCRUD(), param).then(response => {
+                // response from API
+                if (response == null) return;
+
+                var data = response.Data[0];
+
+                this.M_Quotation = {
+                    customer: data.cm_contact_id,
+                    customerLabel: data.name,
+                    fulladdress: data.address + ", " + data.district + ", " + data.city + ", " + data.province + " - " + data.country,
+                    address: data.address,
+                    phone_no: (data.phone_no && data.phone_no !== '' ? data.phone_no : '-'),
+                    email: (data.email && data.email !== '' ? data.email : '-'),
+                    website: (data.website && data.website !== '' ? data.website : '-'),
+                    pic: (data.contact_person && data.contact_person !== '' ? data.contact_person : '-'),
+                    pic_phone_no: (data.contact_phone_no && data.contact_phone_no !== '' ? data.contact_phone_no : '-'),
+                    date: data.quotation_date,
+                    type: data.quotation_type,
+                    typeLabel: data.type,
+                    quotation_no: data.quotation_no,
+                    project_name: data.project_name,
+                    descs: data.descs,
+                    project_value: this.isCurrency(data.project_value, this.decimal),
+                    valid_until: data.expired_date,
+                    status: data.status,
+                    statusLabel: data.status
+                }
+            });
         }
     },
     mounted() {
         this.M_ClearForm();
+        if (this.inputStatus == "edit") {
+            this.GetDataBy();
+        }
     }
 };
 </script>

@@ -241,7 +241,11 @@ export default {
                 pic_phone_no: ""
             };
         },
-        viewClicked(record,index) {},
+        viewClicked(record,index) {
+            // MK_ViewQuotation
+            var param = record;
+            this.$router.push({ name: "MK_ViewQuotation", params: param });
+        },
         GetContactData() {
             var param = {
                 option_function_cd: "GetDataCMContact",
@@ -251,7 +255,6 @@ export default {
 
             this.CallFunction(param).then(response => {
                 // response from API
-                console.log(response)
                 if (response == null) return;
 
                 var data = response.Data[0];

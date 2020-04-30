@@ -30,26 +30,11 @@
                   </b-col>
                   <b-col md="10">
                     <b-row>
-                      <b-col md="8">
-                        <span>
-                          <label>
-                            Customer
-                            <span style="color:red;">*</span>
-                          </label>
-                        </span>
-                        <ACCLookUp
-                          @change="OncustomerChange"
-                          :prop="PI_customer"
-                          v-model="M_Quotation.customer"
-                          :label="M_Quotation.customerLabel"
-                          ref="ref_customer"
-                        />
-                      </b-col>
-                    </b-row>
-                    <b-row>
-                        <b-col md="8">
+                        <b-col>
                             <b-row>
                                 <b-col>
+                                    <span>{{ M_Quotation.customer }}</span>
+                                    <br />
                                     <span>
                                         <font-awesome-icon
                                             class="icon-style-default"
@@ -58,6 +43,14 @@
                                         />
                                         &nbsp;
                                         {{ M_Quotation.fulladdress }}
+                                    </span>
+                                    <span class="pull-right">
+                                        <ABSButton
+                                            :text="'Edit'"
+                                            classButton="btn btn--default"
+                                            classIcon="icon-style-1"
+                                            @click="doEdit"
+                                        />
                                     </span>
                                     <br />
                                     <span>
@@ -99,116 +92,90 @@
                     </b-row>
                     <hr>
                     <b-row>
-                        <b-col md="4">
+                        <b-col md="2">
                             <span>
-                                <label>Date</label>
+                                <label>
+                                    Date
+                                </label>
+                            </span> <br>
+                            <span>
+                                {{ M_Quotation.date }}
                             </span>
-                            <ACCDateTime
-                                @input="OndateChange"
-                                :prop="PI_date"
-                                v-model="M_Quotation.date"
-                                ref="ref_date"
-                            />
                         </b-col>
-                        <b-col md="4">
+                        <b-col md="2">
                             <span>
-                                <label>Type</label>
+                                <label>
+                                    Type
+                                </label>
+                            </span> <br>
+                            <span>
+                                {{ M_Quotation.type }}
                             </span>
-                            <ACCDropDown
-                                @change="OntypeChange"
-                                :prop="PI_type"
-                                v-model="M_Quotation.type"
-                                :label="M_Quotation.typeLabel"
-                                ref="ref_type"
-                            />
                         </b-col>
-                    </b-row>
-                    <b-row>
-                        <b-col md="4">
+                        <b-col md="2">
                             <span>
-                                <label>Quotation Number</label>
+                                <label>
+                                    Quotation Number
+                                </label>
+                            </span> <br>
+                            <span>
+                                {{ M_Quotation.quotation_no }}
                             </span>
-                            <ACCTextBox
-                                :prop="PI_quotation_no"
-                                v-model="M_Quotation.quotation_no"
-                                ref="ref_quotation_no"
-                            />
                         </b-col>
                     </b-row>
                     <b-row>
-                        <b-col md="6">
+                        <b-col>
                             <span>
-                                <label>Project Name</label>
+                                {{ M_Quotation.project_name }}
                             </span>
-                            <ACCTextBox
-                                :prop="PI_project_name"
-                                v-model="M_Quotation.project_name"
-                                ref="ref_project_name"
-                            />
                         </b-col>
                     </b-row>
                     <b-row>
-                        <b-col md="6">
+                        <b-col>
                             <span>
-                                <label>Description</label>
+                                {{ M_Quotation.descs }}
                             </span>
-                            <ACCTextArea
-                                :prop="PI_descs"
-                                v-model="M_Quotation.descs"
-                                ref="ref_descs"
-                            />
                         </b-col>
                     </b-row>
                     <b-row>
-                        <b-col md="6">
+                        <b-col md="2">
                             <span>
-                                <label>Project Value</label>
+                                <font-awesome-icon
+                                    style="color: #333399;margin-right: 20px;"
+                                    icon="coins"
+                                    size="sm"
+                                /> &nbsp;
+                                <label>
+                                    Project Value
+                                </label>
                             </span>
-                            <ACCTextBox
-                                :prop="PI_project_value"
-                                v-model="M_Quotation.project_value"
-                                ref="ref_project_value"
-                            />
+                        </b-col>
+                        <b-col md="2">
+                            <span>
+                                : Rp {{ M_Quotation.project_value }}
+                            </span>
                         </b-col>
                     </b-row>
                     <b-row>
-                        <b-col md="4">
+                        <b-col md="2">
                             <span>
-                                <label>Valid Until</label>
+                                <font-awesome-icon
+                                    style="color: #333399;margin-right: 20px;"
+                                    icon="coins"
+                                    size="sm"
+                                /> &nbsp;
+                                <label>
+                                    Valid Until
+                                </label>
                             </span>
-                            <ACCDateTime
-                                @input="Onvalid_untilChange"
-                                :prop="PI_valid_until"
-                                v-model="M_Quotation.valid_until"
-                                ref="ref_valid_until"
-                            />
+                        </b-col>
+                        <b-col md="2">
+                            <span>
+                                : Rp {{ M_Quotation.valid_until }}
+                            </span>
                         </b-col>
                     </b-row>
-                    <b-row>
-                        <b-col md="4">
-                            <span>
-                                <label>Status</label>
-                            </span>
-                            <ACCDropDown
-                                @change="OnstatusChange"
-                                :prop="PI_status"
-                                v-model="M_Quotation.status"
-                                :label="M_Quotation.statusLabel"
-                                ref="ref_status"
-                            />
-                        </b-col>
-                    </b-row>
-                    <b-row style="margin-top: 10px;">
-                      <b-col md="6">
-                        <ABSButton
-                          :text="'Save'"
-                          classButton="btn btn--default"
-                          classIcon="icon-style-default"
-                          @click="doSave"
-                          styleButton="height: 40px;width: 100%;"
-                        />
-                      </b-col>
-                    </b-row>
+
                   </b-col>
                 </b-row>
               </b-form>
@@ -226,7 +193,6 @@ export default {
         return {
             M_Quotation: {
                 customer: "",
-                customerLabel: "",
                 fulladdress: "",
                 address: "",
                 phone_no: "",
@@ -236,162 +202,25 @@ export default {
                 pic_phone_no: "",
                 date: "",
                 type: "",
-                typeLabel: "",
                 quotation_no: "",
                 project_name: "",
                 descs: "",
                 project_value: "",
-                valid_until: "",
-                status: "",
-                statusLabel: ""
-            },
-            PI_customer: {
-                dataLookUp: {
-                    LookUpCd: "GetCMContact",
-                    ColumnDB: "contact_id",
-                    InitialWhere: "",
-                    ParamWhere: "",
-                    OrderBy: "",
-                    ParamView: "",
-                    SourceField: "",
-                    DisplayLookUp: "name,contact_person,time_edit"
-                },
-                cValidate: "required",
-                cName: "customer",
-                ckey: false,
-                cOrder: 1,
-                cProtect: false,
-                cParentForm: "MK_AddQuotation",
-                cStatic: false,
-                cOption: [],
-                cDisplayColumn: "name,contact_person,time_edit",
-                cInputStatus: this.inputStatus
-            },
-            PI_date: {
-                cValidate: "",
-                cName: "date",
-                cOrder: 2,
-                cKey: false,
-                cProtect: false,
-                cWithTime: true,
-                cFormat: "dd/MM/yyyy",
-                cParentForm: "MK_AddQuotation",
-                cInputStatus: this.inputStatus
-            },
-            PI_type: {
-                dataLookUp: null,
-                cValidate: "",
-                cName: "type",
-                ckey: false,
-                cOrder: 3,
-                cProtect: false,
-                cParentForm: "MK_AddQuotation",
-                cStatic: true,
-                cOption: [
-                    { id: "F", label: "FTL" },
-                    { id: "L", label: "LTL" },
-                    { id: "R", label: "Rental" },
-                    { id: "P", label: "Project Base" }
-                ],
-                cDisplayColumn: "type_type,descs",
-                cInputStatus: this.inputStatus
-            },
-            PI_quotation_no: {
-                cValidate: "",
-                cName: "quotation_no",
-                cOrder: 4,
-                cKey: false,
-                cType: "text",
-                cProtect: true,
-                cParentForm: "MK_AddQuotation",
-                cDecimal: 2,
-                cInputStatus: this.inputStatus
-            },
-            PI_project_name: {
-                cValidate: "",
-                cName: "project_name",
-                cOrder: 5,
-                cKey: false,
-                cType: "text",
-                cProtect: false,
-                cParentForm: "MK_AddQuotation",
-                cDecimal: 2,
-                cInputStatus: this.inputStatus
-            },
-            PI_descs: {
-                cValidate: "",
-                cName: "descs",
-                cOrder: 6,
-                cKey: false,
-                cProtect: false,
-                cResize: false,
-                cReadonly: false,
-                cRows: 3,
-                cMaxRows: 3,
-                cSize: "md",
-                cParentForm: "MK_AddQuotation",
-                cInputStatus: this.inputStatus
-            },
-            PI_project_value: {
-                cValidate: "",
-                cName: "project_value",
-                cOrder: 7,
-                cKey: false,
-                cType: "decimal",
-                cProtect: false,
-                cParentForm: "MK_AddQuotation",
-                cDecimal: 2,
-                cInputStatus: this.inputStatus
-            },
-            PI_valid_until: {
-                cValidate: "",
-                cName: "valid_until",
-                cOrder: 8,
-                cKey: false,
-                cProtect: false,
-                cWithTime: false,
-                cFormat: "dd/MM/yyyy",
-                cParentForm: "MK_AddQuotation",
-                cInputStatus: this.inputStatus
-            },
-            PI_status: {
-                dataLookUp: null,
-                cValidate: "",
-                cName: "status",
-                ckey: false,
-                cOrder: 9,
-                cProtect: false,
-                cParentForm: "MK_AddQuotation",
-                cStatic: true,
-                cOption: [
-                    { id: "N", label: "New" },
-                    { id: "C", label: "Close" },
-                    { id: "X", label: "Cancel" }
-                ],
-                cDisplayColumn: "status_cd,descs",
-                cInputStatus: this.inputStatus
-            },
+                valid_until: ""
+            }
         };
     },
     computed: {
         paramFromList() {
             var param = this.$route.params;
-            // if (param == null || param == undefined) {
-            //   this.doBack();
-            // } else {
-            //   if (Object.keys(param).length < 1) {
-            //     this.doBack();
-            //   } else {
-            return param;
-            //   }
-            // }
-        },
-        inputStatus() {
-            var param = this.$route.params;
-            if (param.isEdit && param.isEdit === true) {
-                return "edit";
+            if (param == null || param == undefined) {
+              this.doBack();
             } else {
-                return "new";
+              if (Object.keys(param).length < 1) {
+                this.doBack();
+              } else {
+                return param;
+              }
             }
         }
     },
@@ -399,102 +228,61 @@ export default {
         doBack() {
             this.$router.go(-1);
         },
-        OncustomerChange(data) {
-            this.$nextTick(() => {
-                this.M_Quotation.customer = data.row_id ;
-                this.M_Quotation.customerLabel = data.name ;
-                this.M_Quotation.fulladdress = data.address + ", " + data.district + ", " + data.city + ", " + data.province + " - " + data.country ;
-                this.M_Quotation.address = data.address ;
-                this.M_Quotation.phone_no = (data.phone_no && data.phone_no !== '' ? data.phone_no : '-') ;
-                this.M_Quotation.email = (data.email && data.email !== '' ? data.email : '-') ;
-                this.M_Quotation.website = (data.website && data.website !== '' ? data.website : '-') ;
-                this.M_Quotation.pic = (data.contact_person && data.contact_person !== '' ? data.contact_person : '-') ;
-                this.M_Quotation.pic_phone_no = (data.contact_phone_no && data.contact_phone_no !== '' ? data.contact_phone_no : '-') ;
-            });
-        },
-        OndateChange(data){},
-        OntypeChange(data){
-            this.$nextTick(() => {
-                this.M_Quotation.type = data.id;
-                this.M_Quotation.typeLabel = data.label;
-            });
-        },
-        Onvalid_untilChange(data){},
-        OnstatusChange(data){
-            this.$nextTick(() => {
-                this.M_Quotation.status = data.id;
-                this.M_Quotation.statusLabel = data.label;
-            });
+        doEdit() {
+            var param = this.paramFromList;
+            param.isEdit = true;
+            this.$router.push({ name: "MK_AddQuotation", params: param });
         },
         M_ClearForm() {
             this.M_Quotation = {
                 customer: "",
-                customerLabel: "",
                 fulladdress: "",
                 address: "",
                 phone_no: "",
                 email: "",
                 website: "",
                 pic: "",
-                pic_phone_no: "",
-                date: "",
-                type: "",
-                typeLabel: "",
-                quotation_no: "",
-                project_name: "",
-                descs: "",
-                project_value: "",
-                valid_until: "",
-                status: "",
-                statusLabel: ""
+                pic_phone_no: ""
             };
         },
-        doSave() {
-            this.$validator._base.validateAll("MK_AddQuotation").then(result => {
-                if (!result) return;
-                this.alertConfirmation("Are You Sure Want To Save This Data ?").then(
-                    ress => {
-                        if (ress.value) {
-                            this.$validator.errors.clear("MK_AddQuotation");
-                            if (this.inputStatus == "edit") {
-                                this.M_Update();
-                            } else {
-                                this.M_Save();
-                            }
-                        }
-                    }
-                );
-            });
-        },
-        M_Save() {
+        GetDataBy() {
             var param = {
                 option_url: "/MK/MK_Quotation",
                 line_no: 0,
-                ss_portfolio_id: this.getDataUser().portfolio_id,
-                ss_subportfolio_id: this.getDataUser().subportfolio_id,
-                cm_contact_id: this.M_Quotation.customer,
-                quotation_no: this.M_Quotation.quotation_no,
-                quotation_date: this.M_Quotation.date,
-                quotation_type: this.M_Quotation.type,
-                project_name: this.M_Quotation.project_name,
-                descs: this.M_Quotation.descs,
-                project_value: this.M_Quotation.project_value,
-                expired_date: this.M_Quotation.valid_until,
-                status: this.M_Quotation.status,
-                user_input: this.getDataUser().user_id
+                id: this.paramFromList.row_id,
+                lastupdatestamp: this.paramFromList.lastupdatestamp
             };
 
-            this.postJSON(this.getUrlCRUD(), param).then(response => {
-                // console.log(response)
+            this.getJSON(this.getUrlCRUD(), param).then(response => {
+                // response from API
+                console.log(response)
                 if (response == null) return;
-                    this.alertSuccess(response.Message).then(() => {
-                    this.doBack();
-                });
+
+                var data = response.Data[0];
+
+                this.M_Quotation = {
+                    customer: data.name,
+                    fulladdress: data.address + ", " + data.district + ", " + data.city + ", " + data.province + " - " + data.country,
+                    address: data.address,
+                    phone_no: (data.phone_no && data.phone_no !== '' ? data.phone_no : '-'),
+                    email: (data.email && data.email !== '' ? data.email : '-'),
+                    website: (data.website && data.website !== '' ? data.website : '-'),
+                    pic: (data.contact_person && data.contact_person !== '' ? data.contact_person : '-'),
+                    pic_phone_no: (data.contact_phone_no && data.contact_phone_no !== '' ? data.contact_phone_no : '-'),
+                    date: (data.quotation_date && data.quotation_date !== '' ? this.momentDateFormatting(new Date(data.quotation_date),"DD-MM-YYYY HH.mm") : '-'),
+                    type: (data.type && data.type !== '' ? data.type : '-'),
+                    quotation_no: (data.quotation_no && data.quotation_no !== '' ? data.quotation_no : '-'),
+                    project_name: (data.project_name && data.project_name !== '' ? data.project_name : '-'),
+                    descs: (data.descs && data.descs !== '' ? data.descs : '-'),
+                    project_value: (data.project_value && data.project_value !== '' ? this.isCurrency(data.project_value, this.decimal) : '-'),
+                    valid_until: (data.expired_date && data.expired_date !== '' ? this.momentDateFormatting(new Date(data.expired_date),"DD-MM-YYYY") : '-'),
+                }
             });
         }
     },
     mounted() {
         this.M_ClearForm();
+        this.GetDataBy();
     }
 };
 </script>
