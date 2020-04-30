@@ -242,33 +242,33 @@ export default {
             };
         },
         viewClicked(record,index) {},
-        GetDataBy() {
-            // var param = {
-            //     option_url: "/MK/MK_Quotation",
-            //     line_no: 0,
-            //     id: this.paramFromList.row_id,
-            //     lastupdatestamp: this.paramFromList.lastupdatestamp
-            // };
+        GetContactData() {
+            var param = {
+                option_function_cd: "GetDataCMContact",
+                module_cd: "CM",
+                row_id: this.paramFromList.cm_contact_id
+            };
 
-            // this.getJSON(this.getUrlCRUD(), param).then(response => {
-            //     // response from API
-            //     if (response == null) return;
+            this.CallFunction(param).then(response => {
+                // response from API
+                console.log(response)
+                if (response == null) return;
 
-            //     var data = response.Data[0];
+                var data = response.Data[0];
 
-            //     this.M_Quotation = {
-            //         customer: data.customer,
-            //         fulladdress: data.address + ", " + data.district + ", " + data.city + ", " + data.province + " - " + data.country,
-            //         address: data.address,
-            //         phone_no: (data.phone_no && data.phone_no !== '' ? data.phone_no : '-'),
-            //         email: (data.email && data.email !== '' ? data.email : '-'),
-            //         website: (data.website && data.website !== '' ? data.website : '-'),
-            //         pic: (data.contact_person && data.contact_person !== '' ? data.contact_person : '-'),
-            //         pic_phone_no: (data.contact_phone_no && data.contact_phone_no !== '' ? data.contact_phone_no : '-')
-            //     }
+                this.M_Quotation = {
+                    customer: data.name,
+                    fulladdress: data.address + ", " + data.district + ", " + data.city + ", " + data.province + " - " + data.country,
+                    address: data.address,
+                    phone_no: (data.phone_no && data.phone_no !== '' ? data.phone_no : '-'),
+                    email: (data.email && data.email !== '' ? data.email : '-'),
+                    website: (data.website && data.website !== '' ? data.website : '-'),
+                    pic: (data.contact_person && data.contact_person !== '' ? data.contact_person : '-'),
+                    pic_phone_no: (data.contact_phone_no && data.contact_phone_no !== '' ? data.contact_phone_no : '-')
+                }
 
                 this.doGetlist(this.search);
-            // });
+            });
         },
         doGetlist(search) {
             var param = {
@@ -482,7 +482,7 @@ export default {
     },
     mounted() {
         this.M_ClearForm();
-        this.GetDataBy();
+        this.GetContactData();
     }
 };
 </script>

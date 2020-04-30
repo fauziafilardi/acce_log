@@ -212,6 +212,8 @@ export default {
 
       segementSsModule: 'api/SsModule',
 
+      segmentDynamicFunction: 'api/DynamicFunction/GetData',
+
       queryString: require('querystring'),
       // content type
       urlEncoded: 'application/x-www-form-urlencoded',
@@ -1514,6 +1516,35 @@ export default {
           this.$store.commit('setStatusLoader', false)
           return null
         })
+    },
+    CallFunction(param) {
+      return axios
+      .post(
+          this.url + this.segmentDynamicFunction,
+          param, {
+              headers: {
+                  'Content-Type': this.json,
+                  Accept: this.json,
+                  Token: this.getSession().Session_Id
+              }
+          }
+      )
+      .then(response => {
+          let responses = response.data
+
+          let error = responses.Error
+          let message = responses.Message
+
+          if (error) {
+              this.alertError(message)
+              return null
+          }
+          return responses
+      })
+      .catch(err => {
+          this.checkResponseCode(err)
+          return null
+      })
     },
   }
 }
