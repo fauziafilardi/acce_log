@@ -16,6 +16,7 @@
             @refreshColumn="refreshColumn"
             ref="ref_NewQuotationList"
             urlAdd="MK_AddQuotation"
+            WithViewButton
             @buttonViewClicked="doViewClick"
           />
         </b-col>
@@ -41,7 +42,10 @@ export default {
   },
   methods: {
     rowClicked(record, index) {},
-    doViewClick(record, index) {},
+    doViewClick(record, index) {
+      var param = record;
+      this.$router.push({ name: "MK_ViewQuotationList", params: param });
+    },
     doDoubleClick(record, index) {
       var param = record;
       this.$router.push({ name: "MK_ViewQuotationList", params: param });

@@ -1447,7 +1447,7 @@ Dynamic Text Area End
   /* Stay in place */
   z-index: 1000;
   /* Sit on top */
-  padding-top: 100px;
+  padding-top: 50px;
   /* Location of the box */
   left: 0;
   top: 0;
@@ -1531,28 +1531,34 @@ Dynamic Text Area End
   &-sm {
     background-color: #fefefe;
     margin: auto;
-    padding: 20px;
+    padding: 10px 20px 20px 20px;
     border-top: 1px solid #e9ecef;
     border-bottom: 1px solid #e9ecef;
     width: 33%;
+    font-size: 12px;
+    border-radius: 0px 0px 5px 5px;
   }
 
   &-md {
     background-color: #fefefe;
     margin: auto;
-    padding: 20px;
+    padding: 10px 20px 20px 20px;
     border-top: 1px solid #e9ecef;
     border-bottom: 1px solid #e9ecef;
     width: 66%;
+    font-size: 12px;
+    border-radius: 0px 0px 5px 5px;
   }
 
   &-lg {
     background-color: #fefefe;
     margin: auto;
-    padding: 20px;
+    padding: 10px 20px 20px 20px;
     border-top: 1px solid #e9ecef;
     border-bottom: 1px solid #e9ecef;
     width: 90%;
+    font-size: 12px;
+    border-radius: 0px 0px 5px 5px;
   }
 }
 
