@@ -155,21 +155,21 @@
                     <hr />
                     <b-row>
                       <!-- <div> -->
-                      <b-col md="2" style="width: 36% !important">
+                      <b-col md="3" style="width: 36% !important">
                         <span>
                           <label style="color: #999999; margin-bottom: 0px !important;">Date</label>
                         </span>
                         <br />
                         <span>{{ M_Quotation.date }}</span>
                       </b-col>
-                      <b-col md="2" style="width: 26% !important">
+                      <b-col md="3" style="width: 26% !important">
                         <span>
                           <label style="color: #999999; margin-bottom: 0px !important;">Type</label>
                         </span>
                         <br />
                         <span>{{ M_Quotation.type }}</span>
                       </b-col>
-                      <b-col md="2" style="width: 38% !important">
+                      <b-col md="3" style="width: 38% !important">
                         <span>
                           <label
                             style="color: #999999; margin-bottom: 0px !important;"
