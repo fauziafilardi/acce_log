@@ -511,11 +511,23 @@ export default {
     // Reason
     doSaveReason() {
       var param = {
+        option_url: "/MK/MK_Quotation",
+        line_no: 1,
+        mk_quotation_id: this.paramFromList.row_id,
         reason_cd: this.M_Quotation.reason_cd,
-        reason_descs: this.M_Quotation.reason_descs
+        reason_descs: this.M_Quotation.reason_descs,
+        lastupdatestamp: this.paramFromList.lastupdatestamp,
+        user_edit: this.getDataUser().user_id
       };
 
-      console.log(param);
+      this.putJSON(this.getUrlCRUD(), param).then(response => {
+        // console.log(response)
+        if (response == null) return;
+        this.alertSuccess(response.Message).then(() => {
+          this.$refs.Modal_MK_Quotation._hide();
+          this.doBack();
+        });
+      });
     },
     OnReasonChange(data) {
       console.log(data);
