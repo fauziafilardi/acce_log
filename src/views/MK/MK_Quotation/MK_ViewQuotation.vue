@@ -231,15 +231,7 @@
       </b-row>
     </div>
     <!-- Modal Reason -->
-    <ABSModal
-      id="Modal_MK_Quotation"
-      ref="Modal_MK_Quotation"
-      size="sm"
-      :okCancel="isCanEdit"
-      :saveOnly="!isCanEdit"
-      @modalOkClicked="modalOk"
-      @modalCancelClicked="modalCancel"
-    >
+    <ABSModal id="Modal_MK_Quotation" ref="Modal_MK_Quotation" size="sm">
       <template slot="headerTitle">Cancel Quotation</template>
       <template slot="content">
         <b-row>
@@ -296,15 +288,7 @@
     </ABSModal>
 
     <!-- Modal Email -->
-    <ABSModal
-      id="Modal_Email"
-      ref="Modal_Email"
-      size="md"
-      :okCancel="isCanEdit"
-      :saveOnly="!isCanEdit"
-      @modalOkClicked="modalOk"
-      @modalCancelClicked="modalCancel"
-    >
+    <ABSModal id="Modal_Email" ref="Modal_Email" size="md">
       <template slot="headerTitle">Email</template>
       <template slot="content">
         <b-row>
@@ -425,7 +409,7 @@ export default {
       },
       PI_reason_descs: {
         cValidate: "",
-        cName: "descs",
+        cName: "reason_descs",
         cOrder: 2,
         cKey: false,
         cProtect: false,
@@ -482,7 +466,8 @@ export default {
         cMaxRows: 10,
         cSize: "md",
         cParentForm: "",
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
+        cStyle: "text-align: justify;"
       }
     };
   },
@@ -501,8 +486,37 @@ export default {
     }
   },
   methods: {
-    doSaveReason() {},
-    doSendEmail() {},
+    // Modal Start
+    // Email
+    doCancel() {
+      this.addStatus = true;
+      // this.M_ClearForm();
+      this.$refs.Modal_MK_Quotation._show();
+    },
+    doEmail() {
+      // this.addStatus = true;
+      // this.M_ClearForm();
+      this.$refs.Modal_Email._show();
+    },
+    doSendEmail() {
+      var param = {
+        to: this.M_Quotation.to,
+        cc: this.M_Quotation.cc,
+        subject: this.M_Quotation.subject,
+        body: this.M_Quotation.body
+      };
+
+      console.log(param);
+    },
+    // Reason
+    doSaveReason() {
+      var param = {
+        reason_cd: this.M_Quotation.reason_cd,
+        reason_descs: this.M_Quotation.reason_descs
+      };
+
+      console.log(param);
+    },
     OnReasonChange(data) {
       console.log(data);
       this.$nextTick(() => {
@@ -511,17 +525,8 @@ export default {
         this.M_Quotation.reason_descs = data.descs;
       });
     },
-    doCancel() {
-      this.addStatus = true;
-      this.M_ClearForm();
-      this.$refs.Modal_MK_Quotation._show();
-    },
-    doEmail() {
-      this.addStatus = true;
-      this.M_ClearForm();
-      this.$refs.Modal_Email._show();
-      this.M_Quotation.reason_descs = this.M_Quotation.descs;
-    },
+    // Modal End
+
     doBack() {
       this.$router.go(-1);
     },
@@ -610,6 +615,40 @@ export default {
                 )
               : "-"
         };
+        this.M_Quotation.body =
+          this.M_Quotation.customer +
+          "\n\n" +
+          this.M_Quotation.fulladdress +
+          "\n" +
+          "Phone : " +
+          this.M_Quotation.phone_no +
+          ", Email: " +
+          this.M_Quotation.email +
+          ", Website : " +
+          this.M_Quotation.website +
+          "\n" +
+          "PIC : " +
+          this.M_Quotation.pic +
+          ", PIC Phone : " +
+          this.M_Quotation.pic_phone_no +
+          "\n\n" +
+          "Date                                                  Type                            Quotation Number" +
+          "\n" +
+          this.M_Quotation.date +
+          "                              " +
+          this.M_Quotation.type +
+          "                              " +
+          this.M_Quotation.quotation_no +
+          "\n\n" +
+          this.M_Quotation.project_name +
+          "\n" +
+          this.M_Quotation.descs +
+          "\n\n" +
+          "Project Value : Rp. " +
+          this.M_Quotation.project_value +
+          "\n" +
+          "Valid Until      : " +
+          this.M_Quotation.valid_until;
       });
     }
   },
