@@ -90,7 +90,8 @@
                             size="sm"
                             style="font-size: 17px;
                                 margin-right: 10px;
-                                margin-left: 10px;"
+                                margin-left: 10px;
+                                cursor: pointer;"
                           />
                         </span>
                         <span>
@@ -100,7 +101,8 @@
                             size="sm"
                             style="font-size: 17px;
                                 margin-right: 10px;
-                                margin-left: 10px;"
+                                margin-left: 10px;
+                                cursor: pointer;"
                           />
                         </span>
                         <span>
@@ -122,7 +124,9 @@
                             size="sm"
                             style="font-size: 17px;
                                 margin-right: 10px;
-                                margin-left: 10px;"
+                                margin-left: 10px;
+                                cursor: pointer;"
+                            @click="doChat"
                           />
                         </span>
                         <span>
@@ -499,14 +503,62 @@ export default {
       this.$refs.Modal_Email._show();
     },
     doSendEmail() {
+      var bodyMessage =
+        this.M_Quotation.customer +
+        "\n\n" +
+        this.M_Quotation.fulladdress +
+        "\n" +
+        "Phone : " +
+        this.M_Quotation.phone_no +
+        ", Email: " +
+        this.M_Quotation.email +
+        ", Website : " +
+        this.M_Quotation.website +
+        "\n" +
+        "PIC : " +
+        this.M_Quotation.pic +
+        ", PIC Phone : " +
+        this.M_Quotation.pic_phone_no +
+        "\n\n" +
+        "Date &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Type &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Quotation Number" +
+        "\n" +
+        this.M_Quotation.date +
+        "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
+        this.M_Quotation.type +
+        "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
+        this.M_Quotation.quotation_no +
+        "\n\n" +
+        this.M_Quotation.project_name +
+        "\n" +
+        this.M_Quotation.descs +
+        "\n\n" +
+        "Project Value : Rp. " +
+        this.M_Quotation.project_value +
+        "\n" +
+        "Valid Until      : " +
+        this.M_Quotation.valid_until;
+
       var param = {
+        portfolio_id: this.getDataUser().portfolio_id,
+        subportfolio_id: this.getDataUser().subportfolio_id,
         to: this.M_Quotation.to,
         cc: this.M_Quotation.cc,
         subject: this.M_Quotation.subject,
-        body: this.M_Quotation.body
+        body: this.replaceAllString(bodyMessage, "\n", "<br>", "string"),
+        doc_type: "Q",
+        doc_no: this.M_Quotation.quotation_no,
+        user_id: this.getDataUser().user_id
       };
 
-      console.log(param);
+      this.postJSON(this.sendEmail(), param).then(response => {
+        console.log(response);
+        if (response == null) return;
+        this.alertSuccess(response.Message).then(() => {
+          // this.M_ClearForm_Email();
+          this.$refs.Modal_Email._hide();
+          // this.doBack();
+        });
+      });
     },
     // Reason
     doSaveReason() {
@@ -538,7 +590,17 @@ export default {
       });
     },
     // Modal End
-
+    doChat() {
+      var url = "MK_ChatQuotation";
+      if (!url || url == "" || url == undefined) return;
+      var param = {
+        // option_url: this.getOptionUrl(),
+        // title: this.title,
+        isEdit: false,
+        dataList: this.paramFromList
+      };
+      this.$router.push({ name: url, params: param });
+    },
     doBack() {
       this.$router.go(-1);
     },
@@ -559,7 +621,16 @@ export default {
         pic_phone_no: ""
       };
     },
+    M_ClearForm_Email() {
+      this.M_Quotation = {
+        to: "",
+        cc: "",
+        subject: "",
+        body: ""
+      };
+    },
     GetDataBy() {
+      console.log(this.paramFromList);
       var param = {
         option_url: "/MK/MK_Quotation",
         line_no: 0,
@@ -644,12 +715,12 @@ export default {
           ", PIC Phone : " +
           this.M_Quotation.pic_phone_no +
           "\n\n" +
-          "Date                                                  Type                            Quotation Number" +
+          "Date                            Type                    Quotation Number" +
           "\n" +
           this.M_Quotation.date +
-          "                              " +
+          "        " +
           this.M_Quotation.type +
-          "                              " +
+          "                      " +
           this.M_Quotation.quotation_no +
           "\n\n" +
           this.M_Quotation.project_name +

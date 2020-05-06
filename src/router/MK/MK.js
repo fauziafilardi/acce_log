@@ -41,6 +41,8 @@ import MK_Quotation from '@/views/MK/MK_Quotation/MK_Quotation'
 import MK_AddQuotation from '@/views/MK/MK_Quotation/MK_AddQuotation'
 import MK_ViewQuotationList from '@/views/MK/MK_Quotation/MK_ViewQuotationList'
 import MK_ViewQuotation from '@/views/MK/MK_Quotation/MK_ViewQuotation'
+import MK_ChatQuotation from '@/views/MK/MK_Quotation/MK_ChatQuotation'
+
 
 
 export const MKRender = {
@@ -312,6 +314,14 @@ export const MKRender = {
             path: '/MK/MK_Quotation/View',
             name: 'MK_ViewQuotation',
             component: MK_ViewQuotation,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/MK/MK_Quotation/Chat',
+            name: 'MK_ChatQuotation',
+            component: MK_ChatQuotation,
             meta: {
                 requiresAuth: true
             }

@@ -214,6 +214,8 @@ export default {
 
       segmentDynamicFunction: 'api/DynamicFunction/GetData',
 
+      segmentSendEmail: 'api/Email',
+
       queryString: require('querystring'),
       // content type
       urlEncoded: 'application/x-www-form-urlencoded',
@@ -226,6 +228,9 @@ export default {
     // alert('test')
   },
   methods: {
+    sendEmail() {
+      return this.url + this.segmentSendEmail
+    },
     getUrlV2(oldUrl) {
       return oldUrl.replace('api/DynamicAPI', 'api/DynamicAPIv2')
     },
@@ -1454,15 +1459,14 @@ export default {
     getJSON(url, param) {
       this.$store.commit('setStatusLoader', true)
       return axios
-        .get( url, {
-            params: param,
-            headers: {
-              'Content-Type': this.json,
-              Accept: this.json,
-              Token: this.getSession().Session_Id
-            }
+        .get(url, {
+          params: param,
+          headers: {
+            'Content-Type': this.json,
+            Accept: this.json,
+            Token: this.getSession().Session_Id
           }
-        )
+        })
         .then(response => {
           let responses = response.data
           // console.log(responses)
@@ -1487,15 +1491,14 @@ export default {
     deleteJSON(url, param) {
       this.$store.commit('setStatusLoader', true)
       return axios
-        .delete( url, {
-            params: param,
-            headers: {
-              'Content-Type': this.json,
-              Accept: this.json,
-              Token: this.getSession().Session_Id
-            }
+        .delete(url, {
+          params: param,
+          headers: {
+            'Content-Type': this.json,
+            Accept: this.json,
+            Token: this.getSession().Session_Id
           }
-        )
+        })
         .then(response => {
           let responses = response.data
           // console.log(responses)
@@ -1519,32 +1522,32 @@ export default {
     },
     CallFunction(param) {
       return axios
-      .post(
+        .post(
           this.url + this.segmentDynamicFunction,
           param, {
-              headers: {
-                  'Content-Type': this.json,
-                  Accept: this.json,
-                  Token: this.getSession().Session_Id
-              }
+            headers: {
+              'Content-Type': this.json,
+              Accept: this.json,
+              Token: this.getSession().Session_Id
+            }
           }
-      )
-      .then(response => {
+        )
+        .then(response => {
           let responses = response.data
 
           let error = responses.Error
           let message = responses.Message
 
           if (error) {
-              this.alertError(message)
-              return null
+            this.alertError(message)
+            return null
           }
           return responses
-      })
-      .catch(err => {
+        })
+        .catch(err => {
           this.checkResponseCode(err)
           return null
-      })
+        })
     },
   }
 }

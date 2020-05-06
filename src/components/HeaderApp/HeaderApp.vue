@@ -161,7 +161,7 @@
             v-click-outside="closeFavorite"
           >
             <i class="fa fa-star" style="color: #c8c4c4;"></i>
-          </a>          
+          </a>
         </div>-->
 
         <div class="container-notif">
@@ -290,7 +290,7 @@
       </div>
     </div>
 
-    <!-- <div class="dropdown-profile" style="right:18% !important;" v-if="dropdownMenuFavorite">
+    <div class="dropdown-profile" style="right:18% !important;" v-if="dropdownMenuFavorite">
       <div class="dropdown-profile__list-menu">
         <div v-for="(fm, index) in favoriteMenus" :key="index" @click="doCallMenu(fm)" class="list">
           <div class="title">
@@ -301,7 +301,7 @@
           </div>
         </div>
       </div>
-    </div>-->
+    </div>
 
     <!-- MODAL CHANGE SUB PORTFLIO -->
     <b-modal
