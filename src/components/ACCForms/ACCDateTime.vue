@@ -96,10 +96,10 @@
           placeholder="00"
         />
 
-        <!-- <span
+        <span
           v-show="errors.has(prop.cParentForm+'.'+prop.cName+'Hour')"
           class="error-span"
-        >{{ errors.first(prop.cParentForm+'.'+prop.cName+'Hour') }}</span>-->
+        >{{ errors.first(prop.cParentForm+'.'+prop.cName+'Hour') }}</span>
       </b-col>
 
       <b-col md="3" class="col-a-3" v-show="prop.cWithTime">
@@ -122,10 +122,10 @@
           placeholder="00"
         />
 
-        <!-- <span
+        <span
           v-show="errors.has(prop.cParentForm+'.'+prop.cName+'Time')"
           class="error-span"
-        >{{ errors.first(prop.cParentForm+'.'+prop.cName+'Time') }}</span>-->
+        >{{ errors.first(prop.cParentForm+'.'+prop.cName+'Time') }}</span>
       </b-col>
     </b-row>
     <!-- </b-col> -->
