@@ -357,6 +357,58 @@
         </b-row>
       </template>
     </ABSModal>
+
+    <!-- Modal Chat -->
+    <ABSModal id="Modal_Chat" ref="Modal_Chat" size="sm">
+      <template slot="headerTitle">Live Chat</template>
+      <template slot="content">
+        <b-row>
+          <b-col md="12">
+            <b-form
+              :data-vv-scope="'FormScope_' + 1 + '_' + 1"
+              :data-vv-value-path="'FormScope_' + 1 + '_' + 1"
+            >
+              <b-row>
+                <b-col md="12">
+                  <b-row>
+                    <b-col md="12">
+                      <span>
+                        <label>Document :</label>
+                      </span>
+                      <ACCTextBox
+                        :prop="PI_document"
+                        v-model="M_Quotation.document"
+                        ref="ref_document"
+                      />
+                    </b-col>
+                  </b-row>
+                  <b-row>
+                    <b-col md="12">
+                      <span>
+                        <label>Document No :</label>
+                      </span>
+                      <ACCTextBox :prop="PI_doc_no" v-model="M_Quotation.doc_no" ref="ref_doc_no" />
+                    </b-col>
+                  </b-row>
+
+                  <b-row style="margin-top: 10px;">
+                    <b-col md="12">
+                      <ABSButton
+                        :text="'Start Chat'"
+                        classButton="btn btn--default"
+                        classIcon="icon-style-1"
+                        @click="doStartChat"
+                        styleButton="height: 40px;width: 100%;"
+                      />
+                    </b-col>
+                  </b-row>
+                </b-col>
+              </b-row>
+            </b-form>
+          </b-col>
+        </b-row>
+      </template>
+    </ABSModal>
   </div>
 </template>
 
@@ -472,6 +524,28 @@ export default {
         cParentForm: "",
         cInputStatus: this.inputStatus,
         cStyle: "text-align: justify;"
+      },
+      PI_document: {
+        cValidate: "",
+        cName: "document",
+        cOrder: 12,
+        cKey: false,
+        cType: "text",
+        cProtect: false,
+        cParentForm: "",
+        cDecimal: 2,
+        cInputStatus: this.inputStatus
+      },
+      PI_doc_no: {
+        cValidate: "",
+        cName: "doc_no",
+        cOrder: 12,
+        cKey: false,
+        cType: "text",
+        cProtect: false,
+        cParentForm: "",
+        cDecimal: 2,
+        cInputStatus: this.inputStatus
       }
     };
   },
@@ -589,8 +663,7 @@ export default {
         this.M_Quotation.reason_descs = data.descs;
       });
     },
-    // Modal End
-    doChat() {
+    doStartChat() {
       var url = "MK_ChatQuotation";
       if (!url || url == "" || url == undefined) return;
       var param = {
@@ -600,6 +673,10 @@ export default {
         dataList: this.paramFromList
       };
       this.$router.push({ name: url, params: param });
+    },
+    // Modal End
+    doChat() {
+      this.$refs.Modal_Chat._show();
     },
     doBack() {
       this.$router.go(-1);
