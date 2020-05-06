@@ -63,11 +63,13 @@ import {
     faEnvelope,
     faGlobeAmericas,
     // faWhatsappSquare,
-    faCommentAlt
+    faCommentAlt,
+    faPaperPlane
 } from '@fortawesome/free-solid-svg-icons'
 
 
 
+library.add(faPaperPlane)
 library.add(faCommentAlt)
 // library.add(faWhatsappSquare)
 library.add(faSignOutAlt)
