@@ -350,7 +350,7 @@ p {
 
 /* New */
 .chat {
-  width: 620px;
+  /* width: 620px; */
 }
 
 .bubble-me {
