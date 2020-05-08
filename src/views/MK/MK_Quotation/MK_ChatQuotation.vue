@@ -64,49 +64,71 @@
                       </b-col>
                     </b-row>
                     <hr />
-                    <b-row>
+                    <!-- <b-row>
                       <div style="width: 100%;max-height: 290px;overflow: auto;">
                         <b-col md="12">
                           <div class="container">
-                            <!-- <img
+                            <img
                               :src="require('@/assets/avatar.png')"
                               alt="Avatar"
                               style="width:30px;"
-                            />-->
+                            />
                             <p>Hello. How are you today?</p>
                             <span class="time-right">11:00</span>
                           </div>
 
                           <div class="container darker">
-                            <!-- <img
+                            <img
                               :src="require('@/assets/avatar.png')"
                               alt="Avatar"
                               class="right"
                               style="width:30px;"
-                            />-->
+                            />
                             <p>Hey! I'm fine. Thanks for asking!</p>
                             <span class="time-left">11:01</span>
                           </div>
 
                           <div class="container">
-                            <!-- <img
+                            <img
                               :src="require('@/assets/avatar.png')"
                               alt="Avatar"
                               style="width:30px;"
-                            />-->
+                            />
                             <p>Sweet! So, what do you wanna do today?</p>
                             <span class="time-right">11:02</span>
                           </div>
 
                           <div class="container darker">
-                            <!-- <img                              
+                            <img                              
                             :src="require('@/assets/avatar.png')"
                               alt="Avatar"
                               class="right"
                               style="width:30px;"
-                            />-->
+                            />
                             <p>Nah, I dunno. Play soccer.. or learn more coding perhaps?</p>
                             <span class="time-left">11:05</span>
+                          </div>
+                        </b-col>
+                      </div>
+                    </b-row>-->
+                    <b-row>
+                      <div
+                        style="width: 100%;max-height: 290px;overflow: auto;margin-bottom: 10px;"
+                      >
+                        <b-col md="12">
+                          <div class="chat">
+                            <div class="bubble-you you">
+                              <p>Hello there!</p>
+                              <span class="time-left">First User</span>
+                            </div>
+                            <div class="bubble-me me">
+                              <p>Hi. I'm an expandeable chat box with box shadow. How are you? I expand horizontally and vertically, as you can see here.</p>
+                              <span class="time-right">Second User</span>
+                            </div>
+                            <div class="bubble-you you">
+                              <p>Awesome.</p>
+                              <span class="time-left">First User</span>
+                            </div>
                           </div>
                         </b-col>
                       </div>
@@ -276,18 +298,19 @@ export default {
 </script>
 
 <style scoped>
-.container {
+/* .container {
   border: 2px solid #dedede;
   background-color: #f1f1f1;
   border-radius: 5px;
-  /* padding: 10px; */
+  padding: 10px;
   padding: 5px 10px 5px 10px;
   margin: 10px 0;
 }
 
 .darker {
-  border-color: #ccc;
-  background-color: #ddd;
+  color: white;
+  border-color: #333399;
+  background-color: #333399;
 }
 
 .container::after {
@@ -317,11 +340,97 @@ export default {
 
 .time-left {
   float: left;
-  color: #999;
-}
+  color: #ccc;
+} */
 
 p {
   margin-top: 0px !important;
   margin-bottom: 0px !important;
+}
+
+/* New */
+.chat {
+  width: 620px;
+}
+
+.bubble-me {
+  background-color: #333399;
+  border-radius: 5px;
+  box-shadow: 0 0 6px #b2b2b2;
+  display: inline-block;
+  padding: 10px 18px;
+  position: relative;
+  vertical-align: top;
+}
+
+.bubble-me::before {
+  background-color: #333399;
+  content: "\00a0";
+  display: block;
+  height: 16px;
+  position: absolute;
+  top: 11px;
+  transform: rotate(29deg) skew(-35deg);
+  -moz-transform: rotate(29deg) skew(-35deg);
+  -ms-transform: rotate(29deg) skew(-35deg);
+  -o-transform: rotate(29deg) skew(-35deg);
+  -webkit-transform: rotate(29deg) skew(-35deg);
+  width: 20px;
+}
+
+.bubble-you {
+  background-color: #f2f2f2;
+  border-radius: 5px;
+  box-shadow: 0 0 6px #b2b2b2;
+  display: inline-block;
+  padding: 10px 18px;
+  position: relative;
+  vertical-align: top;
+}
+
+.bubble-you::before {
+  background-color: #f2f2f2;
+  content: "\00a0";
+  display: block;
+  height: 16px;
+  position: absolute;
+  top: 11px;
+  transform: rotate(29deg) skew(-35deg);
+  -moz-transform: rotate(29deg) skew(-35deg);
+  -ms-transform: rotate(29deg) skew(-35deg);
+  -o-transform: rotate(29deg) skew(-35deg);
+  -webkit-transform: rotate(29deg) skew(-35deg);
+  width: 20px;
+}
+
+.me {
+  float: right;
+  margin: 5px 20px 5px 45px;
+  color: white;
+}
+
+.me::before {
+  box-shadow: 2px -2px 2px 0 rgba(178, 178, 178, 0.4);
+  right: -9px;
+}
+
+.you {
+  float: left;
+  margin: 5px 45px 5px 20px;
+}
+
+.you::before {
+  box-shadow: -2px 2px 2px 0 rgba(178, 178, 178, 0.4);
+  left: -9px;
+}
+
+.time-right {
+  float: right;
+  color: white;
+}
+
+.time-left {
+  float: left;
+  color: black;
 }
 </style>
