@@ -326,7 +326,7 @@ export default {
         cResize: false,
         cReadonly: false,
         cRows: 3,
-        cMaxRows: 3,
+        cMaxRows: 10,
         cSize: "md",
         cParentForm: "MK_AddQuotation",
         cInputStatus: this.inputStatus

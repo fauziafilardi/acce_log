@@ -92,6 +92,7 @@
                                 margin-right: 10px;
                                 margin-left: 10px;
                                 cursor: pointer;"
+                            @click="doPrint"
                           />
                         </span>
                         <span>
@@ -234,6 +235,147 @@
         </b-col>
       </b-row>
     </div>
+
+    <div id="forPrint" style="display: none;">
+      <b-row>
+        <b-col md="6">
+          <b-row>
+            <b-col>
+              <span>{{ M_Quotation.customer }}</span>
+              <br />
+              <span>
+                <font-awesome-icon
+                  class="icon-style-default"
+                  icon="map-marker-alt"
+                  size="sm"
+                />
+                &nbsp;
+                {{ M_Quotation.fulladdress }}
+              </span>
+              <br />
+              <span>
+                <font-awesome-icon
+                  class="icon-style-default"
+                  icon="phone-square-alt"
+                  size="sm"
+                />
+                {{ M_Quotation.phone_no }}
+              </span> &nbsp;
+              <span>
+                <font-awesome-icon
+                  class="icon-style-default"
+                  icon="envelope"
+                  size="sm"
+                />
+                {{ M_Quotation.email }}
+              </span> &nbsp;
+              <span>
+                <font-awesome-icon
+                  class="icon-style-default"
+                  icon="globe-americas"
+                  size="sm"
+                />
+                {{ M_Quotation.website }}
+              </span>
+              <br />
+              <span>
+                <font-awesome-icon class="icon-style-default" icon="user" size="sm" />
+                {{ M_Quotation.pic }}
+              </span> &nbsp;
+              <span>
+                <font-awesome-icon
+                  class="icon-style-default"
+                  icon="phone-square-alt"
+                  size="sm"
+                />
+                {{ M_Quotation.pic_phone_no }}
+              </span>
+            </b-col>
+          </b-row>
+        </b-col>
+        <b-col style="text-align: right; margin-top: 10px;">
+          <span>
+            <font-awesome-icon
+              class="icon-style-default"
+              icon="user"
+              style="margin-top:10px;"
+              size="sm"
+            />&nbsp;&nbsp;User : User Account
+          </span> &nbsp;
+        </b-col>
+      </b-row>
+      <hr />
+      <b-row>
+        <!-- <div> -->
+        <b-col md="3" style="width: 36% !important">
+          <span>
+            <label style="color: #999999; margin-bottom: 0px !important;">Date</label>
+          </span>
+          <br />
+          <span>{{ M_Quotation.date }}</span>
+        </b-col>
+        <b-col md="3" style="width: 26% !important">
+          <span>
+            <label style="color: #999999; margin-bottom: 0px !important;">Type</label>
+          </span>
+          <br />
+          <span>{{ M_Quotation.type }}</span>
+        </b-col>
+        <b-col md="3" style="width: 38% !important">
+          <span>
+            <label
+              style="color: #999999; margin-bottom: 0px !important;"
+            >Quotation Number</label>
+          </span>
+          <br />
+          <span>{{ M_Quotation.quotation_no }}</span>
+        </b-col>
+        <!-- </div> -->
+      </b-row>
+      <b-row
+        style="margin-top: 10px !important; margin-bottom: 10px !important; font-size: 15px !important"
+      >
+        <b-col>
+          <span>{{ M_Quotation.project_name }}</span>
+        </b-col>
+      </b-row>
+      <b-row style="margin-bottom: 10px; !important">
+        <b-col style="text-align: justify;">
+          <span>{{ M_Quotation.descs }}</span>
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col style="max-width: 100px !important;">
+          <span>
+            <font-awesome-icon
+              style="color: #333399;font-size: 13px;"
+              icon="coins"
+              size="lg"
+            />&nbsp;
+            <label>Project Value</label>
+          </span>
+        </b-col>
+        <b-col>
+          <span>: Rp {{ M_Quotation.project_value }}</span>
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col style="max-width: 100px !important;">
+          <span>
+            <font-awesome-icon
+              style="color: #333399;font-size: 13px;"
+              icon="calendar-alt"
+              size="lg"
+            />&nbsp;
+            <label>Valid Until</label>
+          </span>
+        </b-col>
+        <b-col>
+          <span>: {{ M_Quotation.valid_until }}</span>
+        </b-col>
+      </b-row>
+    </div>
+
     <!-- Modal Reason -->
     <ABSModal id="Modal_MK_Quotation" ref="Modal_MK_Quotation" size="sm">
       <template slot="headerTitle">Cancel Quotation</template>
@@ -409,6 +551,8 @@
         </b-row>
       </template>
     </ABSModal>
+
+    <iframe name="print_frame" id="print_frame" width="0" height="0" frameborder="0" src="about:blank"></iframe>
   </div>
 </template>
 
@@ -570,6 +714,13 @@ export default {
       this.addStatus = true;
       // this.M_ClearForm();
       this.$refs.Modal_MK_Quotation._show();
+    },
+    doPrint() {
+      // $('#forPrint').printThis();
+      // $('#print_frame').printThis();
+      window.frames["print_frame"].document.body.innerHTML = document.getElementById("forPrint").innerHTML;
+      window.frames["print_frame"].window.focus();
+      window.frames["print_frame"].window.print();
     },
     doEmail() {
       // this.addStatus = true;
