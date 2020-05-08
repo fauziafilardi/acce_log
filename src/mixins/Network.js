@@ -1476,9 +1476,9 @@ export default {
     },
 
     getJSON(url, param) {
-      if(fullUrl === this.getUrlAPIChat()) {}
+      if(url === this.getUrlAPIChat()) {}
       else { this.$store.commit('setStatusLoader', true) }
-      
+
       return axios
         .get(url, {
           params: param,

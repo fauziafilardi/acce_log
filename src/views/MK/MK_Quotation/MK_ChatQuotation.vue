@@ -189,6 +189,7 @@ export default {
 
       this.postJSON(this.getUrlAPIChat(), param).then(response => {
         if (response == null) return;
+        this.M_Quotation.chat = ""
       });
     },
     doBack() {
@@ -206,6 +207,15 @@ export default {
         pic: "",
         pic_phone_no: ""
       };
+    },
+    setToBottom() {
+      // var divChat = document.getElementsByClassName("chat")[0];
+      // divChat.scrollTop = divChat.scrollHeight;
+      var divChat = this.$el.querySelector(".chat");
+      this.$nextTick(() => {
+        divChat.scrollTop = divChat.scrollHeight;
+      })
+      this.$forceUpdate()
     },
     GetDataBy() {
       var param = {
@@ -334,10 +344,12 @@ export default {
           });
         }
 
+        this.setToBottom();
         this.LoopChat();
       });
     },
     LoopChat() {
+      this.setToBottom();
       this.timeout = setTimeout(() => {
         this.GetNewChat();
       }, 15000);

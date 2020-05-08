@@ -170,7 +170,7 @@ export default {
         }
         else if (charCode == 13) {
           this.$emit('onEnterPress', this.value)
-          return true
+          evt.preventDefault()
         }
         else {
           return true
@@ -178,7 +178,7 @@ export default {
       }else{
           if (charCode == 13) {
             this.$emit('onEnterPress', this.value)
-            return true
+            evt.preventDefault()
           }
       }
     },
