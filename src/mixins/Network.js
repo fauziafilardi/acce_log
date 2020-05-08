@@ -216,6 +216,11 @@ export default {
 
       segmentSendEmail: 'api/Email',
 
+      //Chat
+      segmentCheckChat: 'api/Chat/Check',
+      segmentSaveHeaderChat: 'api/Chat/SaveHeader',
+      segmentAPIChat: 'api/Chat',
+
       queryString: require('querystring'),
       // content type
       urlEncoded: 'application/x-www-form-urlencoded',
@@ -642,6 +647,19 @@ export default {
 
     getUrlAlertGetList() {
       return this.url + this.segmentAlertGetList
+    },
+
+    //Chat
+    getUrlCheckChat() {
+      return this.url + this.segmentCheckChat
+    },
+
+    getUrlSaveHeaderChat() {
+      return this.url + this.segmentSaveHeaderChat
+    },
+
+    getUrlAPIChat() {
+      return this.url + this.segmentAPIChat
     },
 
     GenerateReportTemplate(OptionSeq, Param) {

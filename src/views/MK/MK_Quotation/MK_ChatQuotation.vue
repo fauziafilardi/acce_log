@@ -64,65 +64,27 @@
                       </b-col>
                     </b-row>
                     <hr />
-                    <!-- <b-row>
-                      <div style="width: 100%;max-height: 290px;overflow: auto;">
-                        <b-col md="12">
-                          <div class="container">
-                            <img
-                              :src="require('@/assets/avatar.png')"
-                              alt="Avatar"
-                              style="width:30px;"
-                            />
-                            <p>Hello. How are you today?</p>
-                            <span class="time-right">11:00</span>
-                          </div>
-
-                          <div class="container darker">
-                            <img
-                              :src="require('@/assets/avatar.png')"
-                              alt="Avatar"
-                              class="right"
-                              style="width:30px;"
-                            />
-                            <p>Hey! I'm fine. Thanks for asking!</p>
-                            <span class="time-left">11:01</span>
-                          </div>
-
-                          <div class="container">
-                            <img
-                              :src="require('@/assets/avatar.png')"
-                              alt="Avatar"
-                              style="width:30px;"
-                            />
-                            <p>Sweet! So, what do you wanna do today?</p>
-                            <span class="time-right">11:02</span>
-                          </div>
-
-                          <div class="container darker">
-                            <img                              
-                            :src="require('@/assets/avatar.png')"
-                              alt="Avatar"
-                              class="right"
-                              style="width:30px;"
-                            />
-                            <p>Nah, I dunno. Play soccer.. or learn more coding perhaps?</p>
-                            <span class="time-left">11:05</span>
-                          </div>
-                        </b-col>
-                      </div>
-                    </b-row>-->
                     <b-row>
                       <div
                         style="width: 100%;max-height: 290px;overflow: auto;margin-bottom: 10px;"
                       >
                         <b-col md="12">
                           <div class="chat">
+                            <template v-for="(data,index) in ChatFill">
+                              <div v-bind:key="index" :class="data.position == 'r' ? 'bubble-me me' : 'bubble-you you'">
+                                <p> {{data.chat_text}} </p>
+                                <span :class="data.position == 'r' ? 'time-right' : 'time-left'">
+                                  {{ data.user_name }}
+                                </span>
+                              </div>
+                            </template>
+                            
                             <div class="bubble-you you">
                               <p>Hello there!</p>
                               <span class="time-left">First User</span>
                             </div>
                             <div class="bubble-me me">
-                              <p>Hi. I'm an expandeable chat box with box shadow. How are you? I expand horizontally and vertically, as you can see here.</p>
+                              <p>Hi. I'm an expandeable Hi. I'm an expandeable Hi. I'm an expandeableHi. I'm an expandeableHi. I'm an expandeableHi. I'm an expandeableHi. I'm an expandeableHi. I'm an expandeable</p>
                               <span class="time-right">Second User</span>
                             </div>
                             <div class="bubble-you you">
@@ -183,7 +145,8 @@ export default {
         cParentForm: "",
         cDecimal: 2,
         cInputStatus: this.inputStatus
-      }
+      },
+      ChatFill: []
     };
   },
   computed: {
@@ -287,12 +250,37 @@ export default {
           //       )
           //     : "-"
         };
+
+        // this.GetChat()
       });
+    },
+    GetChat() {
+      // console.log(this.paramFromList)
+      this.$nextTick(() => {
+        var chatFill = this.paramFromList.chatFill && this.paramFromList.chatFill.length > 0 ? this.paramFromList.chatFill : []
+        this.ChatFill = []
+        var isUs = this.getDataUser().user_name
+        for (let i = 0; i < chatFill.length; i++) {
+          this.ChatFill.push({
+            position: chatFill[i].user_name == isUs ? 'r' : 'l',
+            chat_date: chatFill[i].chat_date,
+            chat_text: chatFill[i].chat_text,
+            user_id_from: chatFill[i].user_id_from,
+            user_name: chatFill[i].user_name,
+          })
+        }
+
+        console.log(this.ChatFill)
+      })
+      // this.$forceUpdate();
     }
   },
   mounted() {
-    this.M_ClearForm();
-    this.GetDataBy();
+    this.M_ClearForm()
+    this.GetDataBy()
+  },
+  created() {
+    this.GetChat()
   }
 };
 </script>
@@ -350,7 +338,7 @@ p {
 
 /* New */
 .chat {
-  width: 620px;
+  width: 100%;
 }
 
 .bubble-me {

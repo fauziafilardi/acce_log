@@ -532,6 +532,20 @@
                       <ACCTextBox :prop="PI_doc_no" v-model="M_Quotation.doc_no" ref="ref_doc_no" />
                     </b-col>
                   </b-row>
+                  <b-row>
+                    <b-col md="12">
+                      <span>
+                        <label>Chat To :</label>
+                      </span>
+                      <ACCLookUp
+                        @change="Onchat_toChange"
+                        :prop="PI_chat_to"
+                        v-model="M_Quotation.chat_to"
+                        :label="M_Quotation.chat_toLabel"
+                        ref="ref_chat_to"
+                      />
+                    </b-col>
+                  </b-row>
 
                   <b-row style="margin-top: 10px;">
                     <b-col md="12">
@@ -582,7 +596,9 @@ export default {
         to: "",
         cc: "",
         subject: "",
-        body: ""
+        body: "",
+        chat_to: "",
+        chat_toLabel: ""
       },
       PI_reason_cd: {
         dataLookUp: {
@@ -690,7 +706,29 @@ export default {
         cParentForm: "",
         cDecimal: 2,
         cInputStatus: this.inputStatus
-      }
+      },
+      PI_chat_to: {
+        dataLookUp: {
+          LookUpCd: "GetUser",
+          ColumnDB: "ss_user_id",
+          InitialWhere: "",
+          ParamWhere: "",
+          OrderBy: "",
+          ParamView: "",
+          SourceField: "",
+          DisplayLookUp: "user_id,user_name,time_edit"
+        },
+        cValidate: "required",
+        cName: "chat_to",
+        ckey: false,
+        cOrder: 1,
+        cProtect: false,
+        cParentForm: "MK_AddQuotation",
+        cStatic: false,
+        cOption: [],
+        cDisplayColumn: "user_id,user_name,time_edit",
+        cInputStatus: this.inputStatus
+      },
     };
   },
   computed: {
@@ -814,20 +852,67 @@ export default {
         this.M_Quotation.reason_descs = data.descs;
       });
     },
+    Onchat_toChange(data) {
+      this.$nextTick(() => {
+        this.M_Quotation.chat_to = data.user_id;
+        this.M_Quotation.chat_toLabel = data.label;
+      });
+    },
     doStartChat() {
-      var url = "MK_ChatQuotation";
-      if (!url || url == "" || url == undefined) return;
-      var param = {
-        // option_url: this.getOptionUrl(),
-        // title: this.title,
-        isEdit: false,
-        dataList: this.paramFromList
-      };
-      this.$router.push({ name: url, params: param });
+      //saveHeader
+      var paramSaveH = {
+        portfolio_id: this.getDataUser().portfolio_id,
+        subportfolio_id: this.getDataUser().subportfolio_id,
+        subject: "Quotation No. " + this.M_Quotation.quotation_no,
+        user_id: this.M_Quotation.chat_to,
+        doc_type: "quotation",
+        doc_no: this.M_Quotation.quotation_no,
+        user_input: this.getDataUser().user_id
+      }
+
+      this.postJSON(this.getUrlSaveHeaderChat(), param).then(response => {
+        // response from API
+        console.log(response);
+        if (response == null) return;
+        var url = "MK_ChatQuotation";
+        if (!url || url == "" || url == undefined) return;
+        var param = {
+          isEdit: false,
+          dataList: this.paramFromList,
+          chatFill: []
+        };
+        this.$router.push({ name: url, params: param });
+      })
     },
     // Modal End
     doChat() {
-      this.$refs.Modal_Chat._show();
+      var param = {
+        portfolio_id: this.getDataUser().portfolio_id,
+        subportfolio_id: this.getDataUser().subportfolio_id,
+        doc_type: "quotation",
+        doc_no: this.M_Quotation.quotation_no
+      };
+
+      this.postJSON(this.getUrlCheckChat(), param).then(response => {
+        // response from API
+        console.log(response);
+        if (response == null) return;
+
+        var data = response;
+        if (data.Data == null) {
+          this.$refs.Modal_Chat._show();
+        }
+        else {
+          var url = "MK_ChatQuotation";
+          if (!url || url == "" || url == undefined) return;
+          var param = {
+            isEdit: false,
+            dataList: this.paramFromList,
+            chatFill: data.Data
+          };
+          this.$router.push({ name: url, params: param });
+        }
+      })
     },
     doBack() {
       this.$router.go(-1);
