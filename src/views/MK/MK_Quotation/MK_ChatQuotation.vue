@@ -100,7 +100,7 @@
                     </b-row>
                     <b-row>
                       <b-col md="12">
-                        <ACCTextBox :prop="PI_chat" v-model="M_Quotation.chat" ref="ref_chat" />
+                        <ACCTextBox @onEnterPress="doSendChat" :prop="PI_chat" v-model="M_Quotation.chat" ref="ref_chat" />
                         <span style="top: 10px; position: absolute; right: 10px;">
                           <font-awesome-icon
                             class="icon-style-default"

@@ -801,7 +801,8 @@ export default {
       //   this.$store.commit('setParamInsertPopup', param)
       // }
 
-      this.$store.commit('setStatusLoader', true)
+      if(fullUrl === this.getUrlAPIChat()) {}
+      else { this.$store.commit('setStatusLoader', true) }
       return axios
         .post(
           fullUrl,
@@ -1475,7 +1476,9 @@ export default {
     },
 
     getJSON(url, param) {
-      this.$store.commit('setStatusLoader', true)
+      if(fullUrl === this.getUrlAPIChat()) {}
+      else { this.$store.commit('setStatusLoader', true) }
+      
       return axios
         .get(url, {
           params: param,
