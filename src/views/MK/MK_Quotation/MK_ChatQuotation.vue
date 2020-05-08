@@ -254,16 +254,24 @@ export default {
           //     : "-"
         };
 
-        // this.GetChat()
+        this.GetChat();
       });
     },
     GetChat() {
-      // console.log(this.paramFromList)
-      this.$nextTick(() => {
-        var chatFill =
-          this.paramFromList.chatFill && this.paramFromList.chatFill.length > 0
-            ? this.paramFromList.chatFill
-            : [];
+      var param = {
+        portfolio_id: this.getDataUser().portfolio_id,
+        subportfolio_id: this.getDataUser().subportfolio_id,
+        doc_type: "quotation",
+        doc_no: this.M_Quotation.quotation_no
+      };
+
+      this.postJSON(this.getUrlCheckChat(), param).then(response => {
+        // response from API
+        console.log(response);
+        if (response == null) return;
+
+        var data = response;
+        var chatFill = data.Data && data.Data.length > 0 ? data.Data : [];
         this.ChatFill = [];
         var isUs = this.getDataUser().user_name;
         for (let i = 0; i < chatFill.length; i++) {
@@ -276,17 +284,20 @@ export default {
           });
         }
 
-        console.log(this.ChatFill);
+        this.LoopChat();
       });
-      // this.$forceUpdate();
+    },
+    LoopChat() {
+      setTimeout(() => {
+        this.GetChat();
+      }, 15000);
     }
   },
   mounted() {
     this.M_ClearForm();
     this.GetDataBy();
-  },
-  created() {
-    this.GetChat();
+
+    // this.LoopChat()
   }
 };
 </script>
@@ -340,6 +351,7 @@ export default {
 p {
   margin-top: 0px !important;
   margin-bottom: 0px !important;
+  text-align: justify;
 }
 
 /* New */
