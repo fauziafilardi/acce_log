@@ -82,7 +82,7 @@
                               </div>
                             </template>
 
-                            <div class="bubble-you you">
+                            <!-- <div class="bubble-you you">
                               <p>Hello there!</p>
                               <span class="time-left">First User</span>
                             </div>
@@ -93,7 +93,7 @@
                             <div class="bubble-you you">
                               <p>Awesome.</p>
                               <span class="time-left">First User</span>
-                            </div>
+                            </div> -->
                           </div>
                         </b-col>
                       </div>
@@ -131,6 +131,7 @@ export default {
   data() {
     return {
       M_Quotation: {
+        chatid: "",
         date: "",
         type: "",
         quotation_no: "",
@@ -149,7 +150,8 @@ export default {
         cDecimal: 2,
         cInputStatus: this.inputStatus
       },
-      ChatFill: []
+      ChatFill: [],
+      timeout: null
     };
   },
   computed: {
@@ -168,13 +170,33 @@ export default {
   },
   methods: {
     doSendChat() {
-      alert("Chat Send");
+      this.ChatFill.push({
+        position: "r",
+        chat_date: new Date(),
+        chat_text: this.M_Quotation.chat,
+        user_id_from: this.getDataUser().user_id,
+        user_name: this.getDataUser().user_name
+      });
+
+      var param = {
+        ss_chat_h_id: this.M_Quotation.chatid,
+        chat_text: this.M_Quotation.chat,
+        chat_date: new Date(),
+        user_id_from: this.getDataUser().user_id,
+        // user_id_to: "OPI",
+        user_input: this.getDataUser().user_id
+      }
+
+      this.postJSON(this.getUrlAPIChat(), param).then(response => {
+        if (response == null) return;
+      });
     },
     doBack() {
       this.$router.go(-1);
     },
     M_ClearForm() {
       this.M_Quotation = {
+        chatid: "",
         customer: "",
         fulladdress: "",
         address: "",
@@ -271,7 +293,9 @@ export default {
         if (response == null) return;
 
         var data = response;
-        var chatFill = data.Data && data.Data.length > 0 ? data.Data : [];
+        var chatFill = data.Data.chat && data.Data.chat.length > 0 ? data.Data.chat : [];
+        this.M_Quotation.chatid = data.Data.row_id
+        // this.M_Quotation.chat_to
         this.ChatFill = [];
         var isUs = this.getDataUser().user_name;
         for (let i = 0; i < chatFill.length; i++) {
@@ -287,9 +311,35 @@ export default {
         this.LoopChat();
       });
     },
+    GetNewChat() {
+      var param = {
+        id: this.M_Quotation.chatid,
+        user_id: this.getDataUser().user_id
+      };
+
+      this.getJSON(this.getUrlAPIChat(), param).then(response => {
+        // response from API
+        console.log(response);
+        if (response == null) return;
+
+        var data = response;
+        var chatFill = data.Data && data.Data.length > 0 ? data.Data : [];
+        for (let i = 0; i < chatFill.length; i++) {
+          this.ChatFill.push({
+            position: "l",
+            chat_date: chatFill[i].chat_date,
+            chat_text: chatFill[i].chat_text,
+            user_id_from: chatFill[i].user_id_from,
+            user_name: chatFill[i].user_name
+          });
+        }
+
+        this.LoopChat();
+      });
+    },
     LoopChat() {
-      setTimeout(() => {
-        this.GetChat();
+      this.timeout = setTimeout(() => {
+        this.GetNewChat();
       }, 15000);
     }
   },
@@ -298,6 +348,9 @@ export default {
     this.GetDataBy();
 
     // this.LoopChat()
+  },
+  beforeDestroy() {
+    clearTimeout(this.timeout)
   }
 };
 </script>

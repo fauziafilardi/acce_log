@@ -899,7 +899,7 @@ export default {
         if (response == null) return;
 
         var data = response;
-        if (data.Data == null) {
+        if (data.Data.chat == null) {
           this.$refs.Modal_Chat._show();
         }
         else {
@@ -907,8 +907,7 @@ export default {
           if (!url || url == "" || url == undefined) return;
           var param = {
             isEdit: false,
-            dataList: this.paramFromList,
-            chatFill: data.Data
+            dataList: this.paramFromList
           };
           this.$router.push({ name: url, params: param });
         }
