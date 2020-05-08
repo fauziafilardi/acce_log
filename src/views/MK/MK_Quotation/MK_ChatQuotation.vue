@@ -71,14 +71,17 @@
                         <b-col md="12">
                           <div class="chat">
                             <template v-for="(data,index) in ChatFill">
-                              <div v-bind:key="index" :class="data.position == 'r' ? 'bubble-me me' : 'bubble-you you'">
-                                <p> {{data.chat_text}} </p>
-                                <span :class="data.position == 'r' ? 'time-right' : 'time-left'">
-                                  {{ data.user_name }}
-                                </span>
+                              <div
+                                v-bind:key="index"
+                                :class="data.position == 'r' ? 'bubble-me me' : 'bubble-you you'"
+                              >
+                                <p>{{data.chat_text}}</p>
+                                <span
+                                  :class="data.position == 'r' ? 'time-right' : 'time-left'"
+                                >{{ data.user_name }}</span>
                               </div>
                             </template>
-                            
+
                             <div class="bubble-you you">
                               <p>Hello there!</p>
                               <span class="time-left">First User</span>
@@ -257,30 +260,33 @@ export default {
     GetChat() {
       // console.log(this.paramFromList)
       this.$nextTick(() => {
-        var chatFill = this.paramFromList.chatFill && this.paramFromList.chatFill.length > 0 ? this.paramFromList.chatFill : []
-        this.ChatFill = []
-        var isUs = this.getDataUser().user_name
+        var chatFill =
+          this.paramFromList.chatFill && this.paramFromList.chatFill.length > 0
+            ? this.paramFromList.chatFill
+            : [];
+        this.ChatFill = [];
+        var isUs = this.getDataUser().user_name;
         for (let i = 0; i < chatFill.length; i++) {
           this.ChatFill.push({
-            position: chatFill[i].user_name == isUs ? 'r' : 'l',
+            position: chatFill[i].user_name == isUs ? "r" : "l",
             chat_date: chatFill[i].chat_date,
             chat_text: chatFill[i].chat_text,
             user_id_from: chatFill[i].user_id_from,
-            user_name: chatFill[i].user_name,
-          })
+            user_name: chatFill[i].user_name
+          });
         }
 
-        console.log(this.ChatFill)
-      })
+        console.log(this.ChatFill);
+      });
       // this.$forceUpdate();
     }
   },
   mounted() {
-    this.M_ClearForm()
-    this.GetDataBy()
+    this.M_ClearForm();
+    this.GetDataBy();
   },
   created() {
-    this.GetChat()
+    this.GetChat();
   }
 };
 </script>
@@ -349,6 +355,7 @@ p {
   padding: 10px 18px;
   position: relative;
   vertical-align: top;
+  width: 50%;
 }
 
 .bubble-me::before {
@@ -374,6 +381,7 @@ p {
   padding: 10px 18px;
   position: relative;
   vertical-align: top;
+  width: 50%;
 }
 
 .bubble-you::before {
