@@ -245,7 +245,7 @@
               <br />
               <span>
                 <font-awesome-icon
-                  class="icon-style-default"
+                  style="color: #333399;font-size: 0.875em;width: 0.75em;"
                   icon="map-marker-alt"
                   size="sm"
                 />
@@ -255,7 +255,7 @@
               <br />
               <span>
                 <font-awesome-icon
-                  class="icon-style-default"
+                  style="color: #333399;font-size: 0.875em;width: 0.75em;"
                   icon="phone-square-alt"
                   size="sm"
                 />
@@ -263,7 +263,7 @@
               </span> &nbsp;
               <span>
                 <font-awesome-icon
-                  class="icon-style-default"
+                  style="color: #333399;font-size: 0.875em;width: 0.75em;"
                   icon="envelope"
                   size="sm"
                 />
@@ -271,7 +271,7 @@
               </span> &nbsp;
               <span>
                 <font-awesome-icon
-                  class="icon-style-default"
+                  style="color: #333399;font-size: 0.875em;width: 0.75em;"
                   icon="globe-americas"
                   size="sm"
                 />
@@ -279,12 +279,12 @@
               </span>
               <br />
               <span>
-                <font-awesome-icon class="icon-style-default" icon="user" size="sm" />
+                <font-awesome-icon style="color: #333399;font-size: 0.875em;width: 0.75em;" icon="user" size="sm" />
                 {{ M_Quotation.pic }}
               </span> &nbsp;
               <span>
                 <font-awesome-icon
-                  class="icon-style-default"
+                  style="color: #333399;font-size: 0.875em;width: 0.75em;"
                   icon="phone-square-alt"
                   size="sm"
                 />
@@ -296,32 +296,31 @@
         <b-col style="text-align: right; margin-top: 10px;">
           <span>
             <font-awesome-icon
-              class="icon-style-default"
+              style="color: #333399;font-size: 0.875em;width: 0.75em;margin-top:10px;"
               icon="user"
-              style="margin-top:10px;"
               size="sm"
             />&nbsp;&nbsp;User : User Account
           </span> &nbsp;
         </b-col>
       </b-row>
       <hr />
-      <b-row>
+      <b-row style="display: flex; flex-wrap: wrap; margin-right: unset !important; margin-left: unset !important;">
         <!-- <div> -->
-        <b-col md="3" style="width: 36% !important">
+        <b-col md="3" style="-webkit-box-flex: 0; flex: 0 0 25%; max-width: 25%; position: relative; width: 100%">
           <span>
             <label style="color: #999999; margin-bottom: 0px !important;">Date</label>
           </span>
           <br />
           <span>{{ M_Quotation.date }}</span>
         </b-col>
-        <b-col md="3" style="width: 26% !important">
+        <b-col md="3" style="-webkit-box-flex: 0; flex: 0 0 25%; max-width: 25%; position: relative; width: 100%">
           <span>
             <label style="color: #999999; margin-bottom: 0px !important;">Type</label>
           </span>
           <br />
           <span>{{ M_Quotation.type }}</span>
         </b-col>
-        <b-col md="3" style="width: 38% !important">
+        <b-col md="3" style="-webkit-box-flex: 0; flex: 0 0 25%; max-width: 25%; position: relative; width: 100%">
           <span>
             <label
               style="color: #999999; margin-bottom: 0px !important;"
@@ -344,33 +343,33 @@
           <span>{{ M_Quotation.descs }}</span>
         </b-col>
       </b-row>
-      <b-row>
-        <b-col style="max-width: 100px !important;">
+      <b-row style="display: flex; flex-wrap: wrap; margin-right: unset !important; margin-left: unset !important;">
+        <b-col style="-webkit-box-flex: 0; flex: 0 0 20%; max-width: 20%; position: relative; width: 20%">
           <span>
             <font-awesome-icon
-              style="color: #333399;font-size: 13px;"
+              style="color: #333399;font-size: 0.875em;width: 0.75em;"
               icon="coins"
-              size="lg"
+              size="sm"
             />&nbsp;
             <label>Project Value</label>
           </span>
         </b-col>
-        <b-col>
+        <b-col style="-webkit-box-flex: 0; flex: 0 0 80%; max-width: 80%; position: relative; width: 80%">
           <span>: Rp {{ M_Quotation.project_value }}</span>
         </b-col>
       </b-row>
-      <b-row>
-        <b-col style="max-width: 100px !important;">
+      <b-row style="display: flex; flex-wrap: wrap; margin-right: unset !important; margin-left: unset !important;">
+        <b-col style="-webkit-box-flex: 0; flex: 0 0 20%; max-width: 20%; position: relative; width: 20%">
           <span>
             <font-awesome-icon
-              style="color: #333399;font-size: 13px;"
+              style="color: #333399;font-size: 0.875em;width: 0.75em;"
               icon="calendar-alt"
-              size="lg"
+              size="sm"
             />&nbsp;
             <label>Valid Until</label>
           </span>
         </b-col>
-        <b-col>
+        <b-col style="-webkit-box-flex: 0; flex: 0 0 80%; max-width: 80%; position: relative; width: 80%">
           <span>: {{ M_Quotation.valid_until }}</span>
         </b-col>
       </b-row>
