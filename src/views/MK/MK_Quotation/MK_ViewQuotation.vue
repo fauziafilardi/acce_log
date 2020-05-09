@@ -890,7 +890,8 @@ export default {
         portfolio_id: this.getDataUser().portfolio_id,
         subportfolio_id: this.getDataUser().subportfolio_id,
         doc_type: "quotation",
-        doc_no: this.M_Quotation.quotation_no
+        doc_no: this.M_Quotation.quotation_no,
+        current_page: 1
       };
 
       this.postJSON(this.getUrlCheckChat(), param).then(response => {

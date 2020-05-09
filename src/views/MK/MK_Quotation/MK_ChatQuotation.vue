@@ -183,7 +183,7 @@ export default {
         chat_text: this.M_Quotation.chat,
         chat_date: new Date(),
         user_id_from: this.getDataUser().user_id,
-        // user_id_to: "OPI",
+        user_id_to: this.M_Quotation.chatfrom == this.getDataUser().user_id ? this.M_Quotation.chatto : this.M_Quotation.chatfrom,
         user_input: this.getDataUser().user_id
       }
 
@@ -294,7 +294,8 @@ export default {
         portfolio_id: this.getDataUser().portfolio_id,
         subportfolio_id: this.getDataUser().subportfolio_id,
         doc_type: "quotation",
-        doc_no: this.M_Quotation.quotation_no
+        doc_no: this.M_Quotation.quotation_no,
+        current_page: 1
       };
 
       this.postJSON(this.getUrlCheckChat(), param).then(response => {
@@ -305,12 +306,14 @@ export default {
         var data = response;
         var chatFill = data.Data.chat && data.Data.chat.length > 0 ? data.Data.chat : [];
         this.M_Quotation.chatid = data.Data.row_id
+        this.M_Quotation.chatfrom = data.Data.user_from
+        this.M_Quotation.chatto = data.Data.user_to
         // this.M_Quotation.chat_to
         this.ChatFill = [];
         var isUs = this.getDataUser().user_name;
         for (let i = 0; i < chatFill.length; i++) {
           this.ChatFill.push({
-            position: chatFill[i].user_name == isUs ? "r" : "l",
+            position: chatFill[i].user_id_from == isUs ? "r" : "l",
             chat_date: chatFill[i].chat_date,
             chat_text: chatFill[i].chat_text,
             user_id_from: chatFill[i].user_id_from,
