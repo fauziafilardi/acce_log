@@ -64,6 +64,7 @@ import ReportGenerator from '@/views/Reports/ReportGenerator'
 import PageNotFound from '@/views/PageNotFound/PageNotFound'
 import Map from '@/views/Sample/Map'
 import Notification from '@/views/UserContent/Notification'
+import Chat from '@/views/UserContent/Chat'
 import ChangePassword from '@/views/UserContent/ChangePassword'
 import UserProfile from '@/views/UserContent/UserProfile'
 
@@ -121,6 +122,17 @@ export default new Router({
             requiresAuth: true,
             breadcrumbs: [{
               name: 'Notification'
+            }]
+          }
+        },
+        {
+          path: '/Chat',
+          name: 'Chat',
+          component: Chat,
+          meta: {
+            requiresAuth: true,
+            breadcrumbs: [{
+              name: 'Chat'
             }]
           }
         },

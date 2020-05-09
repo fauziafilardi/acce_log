@@ -1,11 +1,53 @@
 <template>
   <div>
+    <!-- <b-modal id="modallg" size="lg" title="Change SubPortFolio">
+      <b-container fluid>
+        <b-row class="mb-1 text-center">
+        </b-row>
+      </b-container>
+      <div slot="modal-footer" class="w-100">
+      </div>
+    </b-modal>-->
     <div
       class="header--top"
       id="header--top"
       :class="{ 'header--dark': classHeader }"
       :style="{ paddingLeft: paddingHeader }"
     >
+      <!-- <div
+      class="header--top"
+      id="header--top"
+      :class="{ 'header--dark': classHeader }"      
+      >-->
+      <!-- <div class="pull--left">
+        <router-link :to="'/'">
+          <div class="header--top__tagline">
+            <font-awesome-icon icon="bars"/>
+            PAMS APP
+          </div>
+        </router-link>
+      </div>-->
+
+      <!-- <div 
+        class="pull--left"
+        @click="offText"         
+        v-if="textMenu"
+      >        
+          <div class="header--top__tagline">
+            <font-awesome-icon icon="bars" />
+            PAMS APP
+          </div>        
+      </div>
+      <div 
+        class="pull--left"
+        @click="onText"         
+        v-else
+      >        
+          <div class="header--top__tagline">
+            <font-awesome-icon icon="bars"/>
+            PAMS APP
+          </div>        
+      </div>-->
       <span>
         <div class="pull--left" v-if="textMenu">
           <div class="header--top__tagline" @click="offText">
@@ -46,21 +88,81 @@
           </div>
         </div>
       </span>
+      <!-- <div class="logo"> -->
       <span>
         <img :src="require('@/assets/acce_logo.png')" alt style="width: 130px;" />
       </span>
+      <!-- </div> -->
 
       <div class="pull--right">
-        <div class="header--top__info-subportfolio notranslate">{{label}}</div>
-        <div class="container-notif">
-          <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#" @click="chat()">
-            <i class="fa fa-envelope" style="color: #999999;"></i>
-            <span
-              class="label label-primary notif"
-              style="background-color: #333399 !important; border-radius: 10px !important;"
-            >5</span>
-          </a>
+        <div class="header--top__info-subportfolio notranslate">
+          {{label}}
+          <!-- | {{language}} -->
         </div>
+        <!-- <div class="container-notif">
+          <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+            <i class="fa fa-envelope" style="color: #c8c4c4;"></i>  <span class="label label-warning notif">16</span>
+          </a>
+          <ul class="dropdown-menu dropdown-messages dropdown-menu-right">
+            <li>
+                <div class="dropdown-messages-box">
+                    <a class="dropdown-item float-left" href="#">
+                        <ABSAvatar :image="require('@/assets/avatar.png')"  size="45" />
+                    </a>
+                    <div class="media-body">
+                        <small class="float-right">46h ago</small>
+                        <strong>Mike Loreipsum</strong> started following <strong>Monica Smith</strong>. <br>
+                        <small class="text-muted">3 days ago at 7:58 pm - 10.06.2014</small>
+                    </div>
+                </div>
+            </li>
+            <li class="dropdown-divider"></li>
+            <li>
+                <div class="dropdown-messages-box">
+                    <a class="dropdown-item float-left" href="#">
+                        <ABSAvatar :image="require('@/assets/avatar.png')"  size="45" />
+                    </a>
+                    <div class="media-body ">
+                        <small class="float-right text-navy">5h ago</small>
+                        <strong>Chris Johnatan Overtunk</strong> started following <strong>Monica Smith</strong>. <br>
+                        <small class="text-muted">Yesterday 1:21 pm - 11.06.2014</small>
+                    </div>
+                </div>
+            </li>
+            <li class="dropdown-divider"></li>
+            <li>
+                <div class="dropdown-messages-box">
+                    <a class="dropdown-item float-left" href="#">
+                        <ABSAvatar :image="require('@/assets/avatar.png')"  size="45" />
+                    </a>
+                    <div class="media-body ">
+                        <small class="float-right">23h ago</small>
+                        <strong>Monica Smith</strong> love <strong>Kim Smith</strong>. <br>
+                        <small class="text-muted">2 days ago at 2:30 am - 11.06.2014</small>
+                    </div>
+                </div>
+            </li>
+            <li class="dropdown-divider"></li>
+            <li>
+                <div class="text-center link-block">
+                    <a href="mailbox.html" class="dropdown-item">
+                        <i class="fa fa-envelope"></i> <strong>Read All Messages</strong>
+                    </a>
+                </div>
+            </li>
+          </ul>
+        </div>-->
+        <!-- <div class="container-notif">
+          <a
+            class="dropdown-toggle count-info"
+            data-toggle="dropdown"
+            href="#"
+            @click="dropdownMenuFavorite = !dropdownMenuFavorite"
+            v-click-outside="closeFavorite"
+          >
+            <i class="fa fa-star" style="color: #c8c4c4;"></i>
+          </a>
+        </div>-->
 
         <div class="container-notif">
           <a
@@ -75,7 +177,62 @@
               style="background-color: #333399 !important; border-radius: 10px !important;"
             >8</span>
           </a>
+          <!-- <ul
+            class="dropdown-menu dropdown-menu-left dropdown-alerts"
+            style="right: -150% !important;"
+          >
+            <li>
+              <a href="#" class="dropdown-item">
+                <div>
+                  <i class="fa fa-envelope fa-fw"></i> You have 16 messages
+                  <span class="float-right text-muted small">4 minutes ago</span>
+                </div>
+              </a>
+            </li>
+            <li class="dropdown-divider"></li>
+            <li>
+              <a href="#" class="dropdown-item">
+                <div>
+                  <i class="fa fa-twitter fa-fw"></i> 3 New Followers
+                  <span class="float-right text-muted small">12 minutes ago</span>
+                </div>
+              </a>
+            </li>
+            <li class="dropdown-divider"></li>
+            <li>
+              <a href="#" class="dropdown-item">
+                <div>
+                  <i class="fa fa-upload fa-fw"></i> Server Rebooted
+                  <span class="float-right text-muted small">4 minutes ago</span>
+                </div>
+              </a>
+            </li>
+            <li class="dropdown-divider"></li>
+            <li>
+              <div class="text-center link-block">
+                <a href="#" class="dropdown-item">
+                  <strong>See All Alerts</strong>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+              </div>
+            </li>
+          </ul>-->
         </div>
+
+        <!-- <div
+          class="header--top__profile-menu"
+          @click="dropdownMenuHeaderTop = !dropdownMenuHeaderTop"
+          v-click-outside="closeHeader"
+        >
+          <div class="avatar">
+            <div class="image">              
+              <font-awesome-icon icon="sign-out-alt" style="color: #999999;" />
+            </div>
+          </div>
+          <div class="information">
+            <div class="username notranslate" title="EPRO">Logout</div>
+          </div>
+        </div>-->
         <div class="header--top__profile-menu" @click="signOut" v-click-outside="closeHeader">
           <div class="avatar">
             <div class="image">
@@ -331,9 +488,6 @@ export default {
   methods: {
     notification() {
       this.$router.push("/Notification");
-    },
-    chat() {
-      this.$router.push("/Chat");
     },
     onText() {
       this.$store.dispatch("handlePaddingHeader", "225px");
