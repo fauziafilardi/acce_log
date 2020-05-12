@@ -191,9 +191,9 @@
     </div>
     <ABSModal id="Modal_PIC" ref="Modal_PIC" size="sm">
       <template slot="headerTitle">PIC</template>
-      <template slot="headerClose">
+      <!-- <template slot="headerClose">
         <span @click="_hide" class="close-multiple">&times;</span>
-      </template>
+      </template>-->
       <template slot="content">
         <b-row>
           <b-col md="12">
