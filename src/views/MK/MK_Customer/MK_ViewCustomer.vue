@@ -255,12 +255,21 @@
                   </b-row>
 
                   <b-row style="margin-top: 10px;">
-                    <b-col md="12">
+                    <b-col>
                       <ABSButton
                         :text="'Save'"
                         classButton="btn btn--default"
                         classIcon="icon-style-1"
                         @click="M_Save"
+                        styleButton="height: 40px;width: 100%;"
+                      />
+                    </b-col>
+                    <b-col>
+                      <ABSButton
+                        :text="'Cancel'"
+                        classButton="btn btn--back"
+                        classIcon="icon-style-1"
+                        @click="doCancel"
                         styleButton="height: 40px;width: 100%;"
                       />
                     </b-col>
@@ -380,10 +389,10 @@ export default {
   },
   methods: {
     // Modal Start
-    // _hide() {
-    //   this.$refs.Modal_PIC._hide();
-    //   this.GetDataBy();
-    // },
+    doCancel() {
+      this.$refs.Modal_PIC._hide();
+      this.M_ClearPIC();
+    },
     M_ClearPIC() {
       this.M_Pic = {
         contact_person: "",
