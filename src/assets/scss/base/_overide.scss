@@ -861,3 +861,19 @@ ul.box-languages {
 .close {
   color: red !important;
 }
+
+.custom-control-input:not(:disabled):active~.custom-control-label::before {
+  color: #fff;
+  background-color: #333399 !important;
+  border-color: #333399 !important;
+}
+
+.custom-control-input:focus~.custom-control-label::before {
+  box-shadow: 0 0 0 0.2rem rgba(51, 51, 153, 0) !important;
+}
+
+.custom-control-input:checked~.custom-control-label::before {
+  color: #fff;
+  border-color: #333399 !important;
+  background-color: #333399 !important;
+}
