@@ -144,130 +144,89 @@
 <script>
 export default {
   data() {
-    // return {
-    //   dataPIC: [],
-    //   inputStatus: "",
-    //   M_BookingEntry: {},
-    //   M_GetDataBy: null
-    // };
+    return {
+      M_Order: {
+        customer: "",
+        pic: "",
+        ref_no: "",
+        category: "",
+        contract_no: "",
+        project_base: "",
+        total_base: "",
+        pickup_base: "",
+        rest_base: "",
+        pickup_from: "",
+        deliver_to: "",
+        pickup_date: "",
+        truck_type: "",
+        weight: "",
+        cubic: "",
+        extra_pickup: "",
+        extra_deliver: ""
+      },
+      FTL: []
+    };
   },
   computed: {
-    // paramFromList() {
-    //   var param = this.$route.params;
-    //   if (param == null || param == undefined) {
-    //     this.doBack();
-    //   } else {
-    //     if (Object.keys(param).length < 1) {
-    //       this.doBack();
-    //     } else {
-    //       return param;
-    //     }
-    //   }
-    // }
+    paramFromList() {
+      var param = this.$route.params;
+      if (param == null || param == undefined) {
+        this.doBack();
+      } else {
+        if (Object.keys(param).length < 1) {
+          this.doBack();
+        } else {
+          return param;
+        }
+      }
+    }
   },
   methods: {
-    // doBack() {
-    //   this.$router.go(-1);
-    // },
-    // doEdit() {
-    //   var param = this.paramFromList;
-    //   param.isEdit = true;
-    //   this.$router.push({ name: "MK_AddEditCustomer", params: param });
-    // },
-    // doGetList(search) {
-    //   var param = {
-    //     option_url: "/MK/MK_Customer",
-    //     line_no: 1,
-    //     user_id: this.getDataUser().user_id,
-    //     portfolio_id: this.getDataUser().portfolio_id,
-    //     subportfolio_id: this.getDataUser().subportfolio_id,
-    //     current_page: 1,
-    //     per_page: 10,
-    //     param_where: "",
-    //     initial_where: " cm_contact_id = " + this.paramFromList.cm_contact_id,
-    //     sort_field: "",
-    //     source_field: "",
-    //     param_view: ""
-    //   };
-    //   this.postJSON(this.getUrlList(), param).then(response => {
-    //     if (response == null) return;
-    //     console.log(response.Data);
-    //     this.dataPIC = response.Data;
-    //   });
-    // },
-    // onDataDblClick(index) {
-    //   this.inputStatus = "edit";
-    //   var param = {
-    //     option_url: "/MK/MK_Customer",
-    //     line_no: 1,
-    //     id: this.dataPIC[index].row_id,
-    //     lastupdatestamp: this.dataPIC[index].lastupdatestamp
-    //   };
-    //   this.getJSON(this.getUrlCRUD(), param).then(response => {
-    //     if (response == null) return;
-    //     var data = response.Data[0];
-    //     this.$refs.Modal_PIC._show();
-    //     var phone_no =
-    //       data.phone_no && data.phone_no !== "" ? data.phone_no.split("-") : "";
-    //     this.M_Customer = {
-    //       cm_contact_id: data.cm_contact_id,
-    //       cm_contact_person_id: data.cm_contact_person_id,
-    //       contact_person_modal: data.name,
-    //       contact_phone_no_1: phone_no !== "" ? phone_no[0] : phone_no,
-    //       contact_phone_no_2: phone_no !== "" ? phone_no[1] : phone_no,
-    //       contact_phone_no_3: phone_no !== "" ? phone_no[2] : phone_no,
-    //       email_modal: data.email,
-    //       lastupdatestamp: data.lastupdatestamp
-    //     };
-    //   });
-    // },
-    // GetDataBy() {
-    //   var param = {
-    //     option_url: "/MK/MK_Customer",
-    //     line_no: 0,
-    //     id: this.paramFromList.row_id,
-    //     lastupdatestamp: this.paramFromList.lastupdatestamp
-    //   };
-    //   this.getJSON(this.getUrlCRUD(), param).then(response => {
-    //     // response from API
-    //     if (response == null) return;
-    //     var data = response.Data[0];
-    //     this.M_GetDataBy = data;
-    //     this.M_Customer = {
-    //       customer_name: data.name,
-    //       contact_created: this.momentDateFormatting(
-    //         new Date(data.contact_created),
-    //         "DD-MM-YYYY HH.mm"
-    //       ),
-    //       address:
-    //         data.address +
-    //         ", " +
-    //         data.district +
-    //         ", " +
-    //         data.city +
-    //         ", " +
-    //         data.province +
-    //         ", " +
-    //         data.country,
-    //       phone_no: data.phone_no,
-    //       email: data.email,
-    //       website: data.website,
-    //       contact_person: data.contact_person,
-    //       contact_phone_no: data.contact_phone_no
-    //       // path_file: this.url + data.path_file
-    //     };
-    //     if (data.path_file == "" || data.path_file == null) {
-    //       this.M_Customer.path_file = require("@/assets/default_photo_.png");
-    //     } else {
-    //       this.M_Customer.path_file = this.url + data.path_file;
-    //     }
-    //     this.M_Customer.contact_phone_no_1 = "+62";
-    //   });
-    // }
+    doBack() {
+      this.$router.go(-1);
+    },
+    doEdit() {
+      var param = this.paramFromList;
+      param.isEdit = true;
+      this.$router.push({ name: "OP_AddBookingEntry", params: param });
+    },
+    GetDataBy() {
+      var param = {
+        option_url: "/OP/OP_BookingEntry",
+        line_no: 0,
+        id: this.paramFromList.row_id,
+        lastupdatestamp: this.paramFromList.lastupdatestamp
+      };
+      this.getJSON(this.getUrlCRUD(), param).then(response => {
+        // response from API
+        if (response == null) return;
+        var data = response.Data[0];
+        this.M_Order = {
+          customer: "",
+          pic: "",
+          ref_no: "",
+          category: "",
+          contract_no: "",
+          project_base: "",
+          total_base: "",
+          pickup_base: "",
+          rest_base: "",
+          pickup_from: "",
+          deliver_to: "",
+          pickup_date: "",
+          truck_type: "",
+          weight: "",
+          cubic: "",
+          extra_pickup: "",
+          extra_deliver: ""
+        }
+
+        this.FTL = []
+      });
+    }
   },
   mounted() {
     // this.GetDataBy();
-    // this.doGetList();
   },
   beforeMount() {}
 };

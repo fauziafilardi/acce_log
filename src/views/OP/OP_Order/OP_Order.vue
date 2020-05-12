@@ -3,7 +3,7 @@
     <div class="dashboard-page-chart__body">
       <b-row class="dashboardBody">
         <b-col md="12">
-          <ACCList
+          <ACCList2
             :prop="propList"
             :title="'Booking Entry'"
             @rowClicked="rowClicked"
@@ -44,7 +44,7 @@ export default {
     rowClicked(record, index) {},
     doViewClick(record, index) {
       var param = record;
-      this.$router.push({ name: "MK_ViewQuotationList", params: param });
+      this.$router.push({ name: "OP_ViewBookingEntry", params: param });
     },
     doDoubleClick(record, index) {
     //   var param = record;
