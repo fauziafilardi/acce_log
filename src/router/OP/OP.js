@@ -1,6 +1,6 @@
-import OP_Order from '@/views/OP/OP_Order/OP_Order'
-import OP_AddBookingEntry from '@/views/OP/OP_Order/OP_AddBookingEntry'
-import OP_ViewBookingEntry from '@/views/OP/OP_Order/OP_ViewBookingEntry'
+import OP_BookingEntry from '@/views/OP/OP_BookingEntry/OP_BookingEntry'
+import OP_AddBookingEntry from '@/views/OP/OP_BookingEntry/OP_AddBookingEntry'
+import OP_ViewBookingEntry from '@/views/OP/OP_BookingEntry/OP_ViewBookingEntry'
 
 export const OPRender = {
     path: '/OP',
@@ -12,7 +12,7 @@ export const OPRender = {
     children: [{
             path: '/OP/OP_BookingEntry',
             name: 'OP_BookingEntry',
-            component: OP_Order,
+            component: OP_BookingEntry,
             meta: {
                 requiresAuth: true
             }

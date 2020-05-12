@@ -650,7 +650,7 @@ export default {
           SourceField: "",
           DisplayLookUp: "location_cd,descs,time_edit"
         },
-        cValidate: "required",
+        cValidate: "",
         cName: "extra_pickup",
         ckey: false,
         cOrder: 19,
@@ -672,7 +672,7 @@ export default {
           SourceField: "",
           DisplayLookUp: "location_cd,descs,time_edit"
         },
-        cValidate: "required",
+        cValidate: "",
         cName: "extra_deliver",
         ckey: false,
         cOrder: 20,
@@ -903,27 +903,27 @@ export default {
     M_Save() {
         var paramH = {
             _Method_: "SAVE",
-            _LineNo: 0,
+            _LineNo_: 0,
             ss_portfolio_id: this.getDataUser().portfolio_id,
             ss_subportfolio_id: this.getDataUser().subportfolio_id,
             order_status: 'N',
             cm_contact_id: this.M_Order.customer,
             cm_contact_person_id: this.M_Order.pic,
-            ref_no: this.M_Order.ref_no,
+            ref_no: this.M_Order.order_ref_no,
             booking_category: this.M_Order.booking_category,
-            contact_no: this.M_Order.contract_no,
+            contract_no: this.M_Order.booking_category == 'P' ? this.M_Order.contract_no : "NULL",
             base_type: this.M_Order.with_base,
-            base_total: (this.M_Order.with_base == 'V' ? this.M_Order.v_volume : this.M_Order.t_volume),
-            base_pickup: (this.M_Order.with_base == 'V' ? this.M_Order.v_pickup : this.M_Order.t_pickup),
-            base_rest_of: (this.M_Order.with_base == 'V' ? this.M_Order.v_rest_of : this.M_Order.t_rest_of),
+            base_total: this.M_Order.booking_category == 'P' ? (this.M_Order.with_base == 'V' ? this.M_Order.v_volume : this.M_Order.t_volume) : "NULL",
+            base_pickup: this.M_Order.booking_category == 'P' ? (this.M_Order.with_base == 'V' ? this.M_Order.v_pickup : this.M_Order.t_pickup) : "NULL",
+            base_rest_of: this.M_Order.booking_category == 'P' ? (this.M_Order.with_base == 'V' ? this.M_Order.v_rest_of : this.M_Order.t_rest_of) : "NULL",
             pickup_from_id: this.M_Order.pickup_from,
             deliver_to_id: this.M_Order.deliver_to,
             pickup_date: this.M_Order.date,
             extra_pickup_id: this.M_Order.extra_pickup,
             extra_deliver_id: this.M_Order.extra_deliver,
             truck_type: this.M_Order.TL,
-            weight: this.M_Order.weight,
-            cubic: this.M_Order.cubic,
+            weight: this.M_Order.TL == 'L' ? (this.M_Order.weight && this.M_Order.weight !== '' ? this.M_Order.weight : 0) : "NULL",
+            cubic: this.M_Order.TL == 'L' ? (this.M_Order.cubic && this.M_Order.cubic !== '' ? this.M_Order.cubic : 0) : "NULL",
             user_input: this.getDataUser().user_id,
         };
 
@@ -932,12 +932,11 @@ export default {
             this.FTL.forEach((value) => {
                 paramD.push({
                     _Method_: "SAVE",
-                    _LineNo: 1,
+                    _LineNo_: 1,
                     op_order_h_id: "A_Insert.row_id_output",
                     descs: value.truck,
                     qty: value.qty,
-                    user_input: this.getDataUser().user_id,
-                    _Message_: ""
+                    user_input: this.getDataUser().user_id
                 })
             })
         }
@@ -951,7 +950,7 @@ export default {
             }]
         }
 
-        this.postJSONMulti(this.getUrlMultiV2(this.getUrlProsesDataPostMulti()), param).then(response => {
+        this.postJSONMulti(this.getUrlProsesDataPostMulti(), params).then(response => {
             // console.log(response)
             if (response == null) return;
                 this.alertSuccess(response.Message).then(() => {
