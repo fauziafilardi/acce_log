@@ -153,6 +153,7 @@ import ACCDropDown from './components/ACCForms/ACCDropDown.vue'
 import ACCTextArea from './components/ACCForms/ACCTextArea.vue'
 import ACCImageUpload from './components/ACCForms/ACCImageUpload.vue'
 import ACCDateTime from './components/ACCForms/ACCDateTime.vue'
+import ACCRadioButton from './components/ACCForms/ACCRadioButton.vue'
 
 import HeaderFormVuex from './components/HeaderForm/HeaderFormVuex.vue'
 import ABSMasterPageFormVuex from './components/Forms/ABSMasterPageFormVuex.vue'
@@ -283,6 +284,7 @@ Vue.component('ACCDropDown', ACCDropDown)
 Vue.component('ACCTextArea', ACCTextArea)
 Vue.component('ACCImageUpload', ACCImageUpload)
 Vue.component('ACCDateTime', ACCDateTime)
+Vue.component('ACCRadioButton', ACCRadioButton)
 
 // componen Vuex - By Fauzi
 Vue.component('HeaderFormVuex', HeaderFormVuex)

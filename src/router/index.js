@@ -41,6 +41,9 @@ import {
 import {
   SORender
 } from './SO/SO'
+import {
+  OPRender
+} from './OP/OP'
 
 
 // import { TNRender } from './TN/TN'
@@ -198,6 +201,7 @@ export default new Router({
 
         MKRender,
         SORender,
+        OPRender,
 
         // TNRender,
         // // WFRender,
