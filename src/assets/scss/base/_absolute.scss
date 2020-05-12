@@ -566,6 +566,24 @@ textarea.form-control {
   }
 }
 
+.table-style-3 {
+  font-size: 12px !important;
+  font-family: 'Segoe UI' !important;
+  font-weight: normal;
+  font-style: normal;
+  cursor: pointer;
+  min-height: 15px !important;
+
+  thead {
+    background-color: #333399;
+    color: white;
+  }
+
+  tbody {
+    color: #666666;
+  }
+}
+
 form,
 label {
   font-family: 'Segoe UI' !important;

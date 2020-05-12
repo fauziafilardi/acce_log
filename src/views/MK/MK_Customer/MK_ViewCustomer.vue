@@ -191,9 +191,9 @@
     </div>
     <ABSModal id="Modal_PIC" ref="Modal_PIC" size="sm">
       <template slot="headerTitle">PIC</template>
-      <template slot="headerClose">
+      <!-- <template slot="headerClose">
         <span @click="_hide" class="close-multiple">&times;</span>
-      </template>
+      </template>-->
       <template slot="content">
         <b-row>
           <b-col md="12">
@@ -207,7 +207,7 @@
                       </span>
                       <ACCTextBox
                         :prop="PI_contact_person"
-                        v-model="M_Customer.contact_person_modal"
+                        v-model="M_Pic.contact_person"
                         ref="ref_contact_person_modal"
                       />
                     </b-col>
@@ -219,7 +219,7 @@
                       </span>
                       <ACCTextBox
                         :prop="PI_contact_phone_no_1"
-                        v-model="M_Customer.contact_phone_no_1"
+                        v-model="M_Pic.contact_phone_no_1"
                         ref="ref_contact_phone_no_1"
                         style="width: 50px;"
                       />
@@ -230,7 +230,7 @@
                       </span>
                       <ACCTextBox
                         :prop="PI_contact_phone_no_2"
-                        v-model="M_Customer.contact_phone_no_2"
+                        v-model="M_Pic.contact_phone_no_2"
                         ref="ref_contact_phone_no_2"
                       />
                     </b-col>
@@ -240,7 +240,7 @@
                       </span>
                       <ACCTextBox
                         :prop="PI_contact_phone_no_3"
-                        v-model="M_Customer.contact_phone_no_3"
+                        v-model="M_Pic.contact_phone_no_3"
                         ref="ref_contact_phone_no_3"
                       />
                     </b-col>
@@ -250,21 +250,26 @@
                       <span>
                         <label>Email</label>
                       </span>
-                      <ACCTextBox
-                        :prop="PI_email"
-                        v-model="M_Customer.email_modal"
-                        ref="ref_email_modal"
-                      />
+                      <ACCTextBox :prop="PI_email" v-model="M_Pic.email" ref="ref_email_modal" />
                     </b-col>
                   </b-row>
 
                   <b-row style="margin-top: 10px;">
-                    <b-col md="12">
+                    <b-col>
                       <ABSButton
                         :text="'Save'"
                         classButton="btn btn--default"
                         classIcon="icon-style-1"
                         @click="M_Save"
+                        styleButton="height: 40px;width: 100%;"
+                      />
+                    </b-col>
+                    <b-col>
+                      <ABSButton
+                        :text="'Cancel'"
+                        classButton="btn btn--back"
+                        classIcon="icon-style-1"
+                        @click="doCancel"
                         styleButton="height: 40px;width: 100%;"
                       />
                     </b-col>
@@ -285,6 +290,21 @@ export default {
     return {
       dataPIC: [],
       inputStatus: "",
+      currentPage: 1,
+      perPage: 10,
+      sort: "time_edit DESC",
+      sourceField: "",
+      paramView: "",
+      M_Pic: {
+        email: "",
+        contact_person: "",
+        contact_phone_no_1: "+62",
+        contact_phone_no_2: "",
+        contact_phone_no_3: "",
+        cm_contact_id: "",
+        cm_contact_person_id: "",
+        lastupdatestamp: ""
+      },
       M_Customer: {
         customer_name: "",
         address: "",
@@ -293,20 +313,7 @@ export default {
         website: "",
         contact_person: "",
         contact_phone_no: "",
-        path_file: "",
-        currentPage: 1,
-        perPage: 10,
-        sort: "time_edit DESC",
-        sourceField: "",
-        paramView: "",
-        email_modal: "",
-        contact_person_modal: "",
-        contact_phone_no_1: "+62",
-        contact_phone_no_2: "",
-        contact_phone_no_3: "",
-        cm_contact_id: "",
-        cm_contact_person_id: "",
-        lastupdatestamp: ""
+        path_file: ""
       },
       PI_contact_person: {
         cValidate: "",
@@ -382,11 +389,21 @@ export default {
   },
   methods: {
     // Modal Start
-    _hide() {
+    doCancel() {
       this.$refs.Modal_PIC._hide();
-      this.GetDataBy();
+      this.M_ClearPIC();
+    },
+    M_ClearPIC() {
+      this.M_Pic = {
+        contact_person: "",
+        contact_phone_no_1: "+62",
+        contact_phone_no_2: "",
+        contact_phone_no_3: "",
+        email: ""
+      };
     },
     doAddPIC() {
+      this.M_ClearPIC();
       this.inputStatus = "new";
       this.$refs.Modal_PIC._show();
     },
@@ -434,17 +451,17 @@ export default {
       var param = {
         option_url: "/MK/MK_Customer",
         line_no: 1,
-        cm_contact_id: this.M_Customer.cm_contact_id,
-        cm_contact_person_id: this.M_Customer.cm_contact_person_id,
-        name: this.M_Customer.contact_person_modal,
+        cm_contact_id: this.M_Pic.cm_contact_id,
+        cm_contact_person_id: this.M_Pic.cm_contact_person_id,
+        name: this.M_Pic.contact_person,
         phone_no:
-          this.M_Customer.contact_phone_no_1 +
+          this.M_Pic.contact_phone_no_1 +
           "-" +
-          this.M_Customer.contact_phone_no_2 +
+          this.M_Pic.contact_phone_no_2 +
           "-" +
-          this.M_Customer.contact_phone_no_3,
-        email: this.M_Customer.email_modal,
-        lastupdatestamp: this.M_Customer.lastupdatestamp,
+          this.M_Pic.contact_phone_no_3,
+        email: this.M_Pic.email,
+        lastupdatestamp: this.M_Pic.lastupdatestamp,
         user_edit: this.getDataUser().user_id
       };
 
@@ -454,7 +471,7 @@ export default {
         this.alertSuccess(response.Message).then(() => {
           this.$refs.Modal_PIC._hide();
           this.doGetList();
-          this.GetDataBy();
+          // this.GetDataBy();
         });
       });
     },
@@ -464,14 +481,14 @@ export default {
         option_url: "/MK/MK_Customer",
         line_no: 1,
         cm_contact_id: this.paramFromList.cm_contact_id,
-        name: this.M_Customer.contact_person_modal,
+        name: this.M_Pic.contact_person,
         phone_no:
-          this.M_Customer.contact_phone_no_1 +
+          this.M_Pic.contact_phone_no_1 +
           "-" +
-          this.M_Customer.contact_phone_no_2 +
+          this.M_Pic.contact_phone_no_2 +
           "-" +
-          this.M_Customer.contact_phone_no_3,
-        email: this.M_Customer.email_modal,
+          this.M_Pic.contact_phone_no_3,
+        email: this.M_Pic.email,
         // lastupdatestamp: this.paramFromList.lastupdatestamp,
         user_input: this.getDataUser().user_id
       };
@@ -481,7 +498,7 @@ export default {
         this.alertSuccess(response.Message).then(() => {
           this.$refs.Modal_PIC._hide();
           this.doGetList();
-          this.GetDataBy();
+          // this.GetDataBy();
           // this.doBack();
         });
       });
@@ -539,14 +556,14 @@ export default {
         var phone_no =
           data.phone_no && data.phone_no !== "" ? data.phone_no.split("-") : "";
 
-        this.M_Customer = {
+        this.M_Pic = {
           cm_contact_id: data.cm_contact_id,
           cm_contact_person_id: data.cm_contact_person_id,
-          contact_person_modal: data.name,
+          contact_person: data.name,
           contact_phone_no_1: phone_no !== "" ? phone_no[0] : phone_no,
           contact_phone_no_2: phone_no !== "" ? phone_no[1] : phone_no,
           contact_phone_no_3: phone_no !== "" ? phone_no[2] : phone_no,
-          email_modal: data.email,
+          email: data.email,
           lastupdatestamp: data.lastupdatestamp
         };
       });
@@ -594,7 +611,7 @@ export default {
         } else {
           this.M_Customer.path_file = this.url + data.path_file;
         }
-        this.M_Customer.contact_phone_no_1 = "+62";
+        // this.M_Customer.contact_phone_no_1 = "+62";
       });
     }
   },

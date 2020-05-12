@@ -92,7 +92,7 @@
         <b-table
           :responsive="true"
           :striped="false"
-          :bordered="false"
+          :bordered="true"
           :outlined="false"
           :small="false"
           :hover="true"
@@ -104,7 +104,7 @@
           @head-clicked="headClicked"
           @row-clicked="rowClicked"
           @row-dblclicked="rowDblClicked"
-          class="table-sm table-style-2"
+          class="table-sm table-style-3"
         >
           <!-- <template slot="HEAD_chkBoxAction" slot-scope="data">
                                 <b-form-checkbox
@@ -1132,7 +1132,7 @@ export default {
             return val.key != str_array[i];
           });
 
-          var thClass = "HeaderACCList "
+          var thClass = "HeaderACCList ";
           if (str_array[i] !== "no") {
             thClass += defineSize[i];
           }
@@ -1215,7 +1215,7 @@ export default {
               {
                 key: "Row Id",
                 value: "View"
-              },
+              }
               // {
               //   key: "Pic",
               //   value: "PIC"

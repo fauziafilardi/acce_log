@@ -48,6 +48,9 @@ import MK_ViewCustomer from '@/views/MK/MK_Customer/MK_ViewCustomer'
 import MK_AddEditCustomer from '@/views/MK/MK_Customer/MK_AddEditCustomer'
 import MK_ToDoCustomer from '@/views/MK/MK_Customer/MK_ToDoCustomer'
 
+import MK_ListOrder from '@/views/MK/MK_Order/MK_ListOrder'
+import MK_ViewOrder from '@/views/MK/MK_Order/MK_ViewOrder'
+
 
 
 export const MKRender = {
@@ -363,6 +366,23 @@ export const MKRender = {
             meta: {
                 requiresAuth: true
             },
+        },
+
+        {
+            path: '/MK/MK_Order',
+            name: 'MK_ListOrder',
+            component: MK_ListOrder,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/MK/MK_Order/View',
+            name: 'MK_ViewOrder',
+            component: MK_ViewOrder,
+            meta: {
+                requiresAuth: true
+            }
         },
     ]
 }
