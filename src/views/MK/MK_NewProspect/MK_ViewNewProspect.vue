@@ -286,9 +286,14 @@ export default {
           email: data.email,
           website: data.website,
           contact_person: data.contact_person,
-          contact_phone_no: data.contact_phone_no,
-          path_file: this.url + data.path_file
+          contact_phone_no: data.contact_phone_no
+          // path_file: this.url + data.path_file
         };
+        if (data.path_file == "" || data.path_file == null) {
+          this.M_NewProspect.path_file = require("@/assets/default_photo_.png");
+        } else {
+          this.M_NewProspect.path_file = this.url + data.path_file;
+        }
       });
     }
   },
