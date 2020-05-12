@@ -310,7 +310,7 @@ export default {
         this.M_Quotation.chatto = data.Data.user_to
         // this.M_Quotation.chat_to
         this.ChatFill = [];
-        var isUs = this.getDataUser().user_name;
+        var isUs = this.getDataUser().user_id;
         for (let i = 0; i < chatFill.length; i++) {
           this.ChatFill.push({
             position: chatFill[i].user_id_from == isUs ? "r" : "l",
