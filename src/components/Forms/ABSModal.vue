@@ -7,7 +7,8 @@
         <h5 style="font-size: 16px;padding-top: 5px; color: #333399; font-weight: bold;">
           <slot name="headerTitle"></slot>
         </h5>
-        <span @click="_hide" class="close-multiple">&times;</span>
+        <slot name="headerClose"></slot>
+        <!-- <span @click="_hide" class="close-multiple">&times;</span> -->
       </div>
 
       <!-- </slot> -->
@@ -140,6 +141,9 @@ export default {
     },
     hasHeaderTitleSlot() {
       return !!this.$slots["headerTitle"];
+    },
+    hasHeaderCloseSlot() {
+      return !!this.$slots["headerClose"];
     },
     hasContentSlot() {
       return !!this.$slots["content"];
