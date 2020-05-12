@@ -317,8 +317,8 @@ export default {
     },
     viewClicked(record, index) {
       // MK_ViewQuotation
-      var param = record;
-      this.$router.push({ name: "MK_ViewQuotation", params: param });
+      //   var param = record;
+      //   this.$router.push({ name: "MK_ViewQuotation", params: param });
     },
     GetContactData() {
       var param = {
