@@ -120,7 +120,7 @@
                       </b-list-group-item>
                     </b-list-group>
                   </b-col>-->
-                  <b-col md="6" v-show="showFTL">
+                  <b-col md="6">
                     <span>
                       <label>Truck Information</label>
                     </span>
@@ -132,14 +132,92 @@
                         <b-row class="row-b">
                           <b-col>{{M_BookingEntry.type}}</b-col>
                         </b-row>
-                        <b-row class="row-h">
+
+                        <b-row class="row-h" v-show="showLTL">
+                          <b-col>Wight (Kg)</b-col>
+                          <b-col>Cubic</b-col>
+                        </b-row>
+                        <b-row class="row-b" v-show="showLTL">
+                          <b-col>{{M_BookingEntry.weight}}</b-col>
+                          <b-col>{{M_BookingEntry.cubic}}</b-col>
+                        </b-row>
+
+                        <!-- <b-row class="row-h" v-show="showFTL">
                           <b-col>Truck</b-col>
                           <b-col>Qty</b-col>
                         </b-row>
-                        <b-row v-for="(data, index) in dataDetail" v-bind:key="index">
+                        <b-row
+                          v-show="showFTL"
+                          v-for="(data, index) in dataDetail"
+                          v-bind:key="index"
+                        >
                           <b-col>{{data.ftl_truck}}</b-col>
                           <b-col>{{data.ftl_qty}}</b-col>
-                        </b-row>
+                        </b-row>-->
+                        <b-list-group v-show="showFTL">
+                          <b-list-group-item>
+                            <b-row>
+                              <b-col>
+                                <span>Truck</span>
+                              </b-col>
+                              <b-col>
+                                <span>Qty</span>
+                              </b-col>
+                            </b-row>
+                          </b-list-group-item>
+                          <b-list-group-item v-for="(data, index) in dataDetail" v-bind:key="index">
+                            <b-row>
+                              <b-col>
+                                <span>{{data.ftl_truck}}</span>
+                              </b-col>
+                              <b-col>
+                                <span>{{data.ftl_qty}}</span>
+                              </b-col>
+                            </b-row>
+                          </b-list-group-item>
+                        </b-list-group>
+                        <!-- <b-list-group>
+                          <b-list-group-item
+                            class="flex-column align-items-start"
+                            style="padding-top: 5px !important; padding-bottom: 5px !important;"
+                          >
+                            <b-row>
+                              <b-col>
+                                <span>Truck</span>
+                              </b-col>
+                              <b-col>
+                                <span>Qty</span>
+                              </b-col>
+                              <b-col>
+                                <span>&nbsp;</span>
+                              </b-col>
+                            </b-row>
+                          </b-list-group-item>
+                          <b-list-group-item
+                            @dblclick="onDataDblClick(index)"
+                            v-for="(data, index) in dataDetail"
+                            href="#"
+                            class="flex-column align-items-start"
+                            v-bind:key="index"
+                            style="padding-top: 5px !important; padding-bottom: 5px !important;"
+                          >
+                            <b-row>
+                              <b-col>
+                                <span>{{data.ftl_truck}}</span>
+                              </b-col>
+                              <b-col>
+                                <span>{{data.ftl_qty}}</span>
+                              </b-col>
+                              <b-col class="center-delete-list" style="max-width:100% !important;">
+                                <font-awesome-icon
+                                  icon="trash-alt"
+                                  class="icon-style-1__deleteMobile"
+                                  @click="M_Delete(index)"
+                                />
+                              </b-col>
+                            </b-row>
+                          </b-list-group-item>
+                        </b-list-group>-->
                       </b-list-group-item>
                       <b-list-group-item>
                         <b-row class="row-h">
@@ -228,7 +306,7 @@ export default {
     doEdit() {
       var param = this.paramFromList;
       param.isEdit = true;
-      this.$router.push({ name: "OP_AddBooking", params: param });
+      this.$router.push({ name: "OP_AddBookingEntry", params: param });
     },
     // doGetList(search) {
     //   var param = {
@@ -335,6 +413,9 @@ export default {
 </script>
 
 <style scoped>
+.list-group {
+  margin-bottom: 0px !important;
+}
 .list-group-item {
   padding: 5px !important;
 }
