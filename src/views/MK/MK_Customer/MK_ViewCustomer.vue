@@ -191,6 +191,9 @@
     </div>
     <ABSModal id="Modal_PIC" ref="Modal_PIC" size="sm">
       <template slot="headerTitle">PIC</template>
+      <template slot="headerClose">
+        <span @click="_hide" class="close-multiple">&times;</span>
+      </template>
       <template slot="content">
         <b-row>
           <b-col md="12">
@@ -379,6 +382,10 @@ export default {
   },
   methods: {
     // Modal Start
+    _hide() {
+      this.$refs.Modal_PIC._hide();
+      this.GetDataBy();
+    },
     doAddPIC() {
       this.inputStatus = "new";
       this.$refs.Modal_PIC._show();
