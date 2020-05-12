@@ -10,8 +10,8 @@ export const OPRender = {
         }
     },
     children: [{
-            path: '/OP/OP_Order',
-            name: 'OP_Order',
+            path: '/OP/OP_BookingEntry',
+            name: 'OP_BookingEntry',
             component: OP_Order,
             meta: {
                 requiresAuth: true

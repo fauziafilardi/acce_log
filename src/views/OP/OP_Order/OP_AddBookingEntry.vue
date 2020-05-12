@@ -302,7 +302,7 @@
                 <b-row style="margin-top: 10px;">
                     <b-col>
                         <ABSButton
-                            :text="'Save'"
+                            :text="this.inputStatus == 'edit' ? 'Edit Booking Entry' : 'Save Booking Entry'"
                             classButton="btn btn--default"
                             classIcon="icon-style-default"
                             @click="doSave"
@@ -324,12 +324,14 @@ export default {
   data() {
     return {
       M_Order: {
+        op_order_h_id: "",
         customer: "",
         customerLabel: "",
         pic: "",
         picLabel: "",
         order_ref_no: "",
         booking_category: "N",
+        contract_no: "",
         with_base: "V",
         v_volume: "",
         v_pickup: "",
@@ -520,14 +522,14 @@ export default {
       },
       PI_pickup_from: {
         dataLookUp: {
-          LookUpCd: "GetContactPerson",
-          ColumnDB: "contact_person_id",
+          LookUpCd: "GetOpLocation",
+          ColumnDB: "location_id",
           InitialWhere: "",
           ParamWhere: "",
           OrderBy: "",
           ParamView: "",
           SourceField: "",
-          DisplayLookUp: "name,phone_no,email,time_edit"
+          DisplayLookUp: "location_cd,descs,time_edit"
         },
         cValidate: "required",
         cName: "pickup_from",
@@ -537,19 +539,19 @@ export default {
         cParentForm: "MK_AddQuotation",
         cStatic: false,
         cOption: [],
-        cDisplayColumn: "name,phone_no,email,time_edit",
+        cDisplayColumn: "location_cd,descs,time_edit",
         cInputStatus: this.inputStatus
       },
       PI_deliver_to: {
         dataLookUp: {
-          LookUpCd: "GetContactPerson",
-          ColumnDB: "contact_person_id",
+          LookUpCd: "GetOpLocation",
+          ColumnDB: "location_id",
           InitialWhere: "",
           ParamWhere: "",
           OrderBy: "",
           ParamView: "",
           SourceField: "",
-          DisplayLookUp: "name,phone_no,email,time_edit"
+          DisplayLookUp: "location_cd,descs,time_edit"
         },
         cValidate: "required",
         cName: "deliver_to",
@@ -559,7 +561,7 @@ export default {
         cParentForm: "MK_AddQuotation",
         cStatic: false,
         cOption: [],
-        cDisplayColumn: "name,phone_no,email,time_edit",
+        cDisplayColumn: "location_cd,descs,time_edit",
         cInputStatus: this.inputStatus
       },
       PI_date: {
@@ -639,14 +641,14 @@ export default {
       ],
       PI_extra_pickup: {
         dataLookUp: {
-          LookUpCd: "GetContactPerson",
-          ColumnDB: "contact_person_id",
+          LookUpCd: "GetOpLocation",
+          ColumnDB: "location_id",
           InitialWhere: "",
           ParamWhere: "",
           OrderBy: "",
           ParamView: "",
           SourceField: "",
-          DisplayLookUp: "name,phone_no,email,time_edit"
+          DisplayLookUp: "location_cd,descs,time_edit"
         },
         cValidate: "required",
         cName: "extra_pickup",
@@ -656,19 +658,19 @@ export default {
         cParentForm: "MK_AddQuotation",
         cStatic: false,
         cOption: [],
-        cDisplayColumn: "name,phone_no,email,time_edit",
+        cDisplayColumn: "location_cd,descs,time_edit",
         cInputStatus: this.inputStatus
       },
       PI_extra_deliver: {
         dataLookUp: {
-          LookUpCd: "GetContactPerson",
-          ColumnDB: "contact_person_id",
+          LookUpCd: "GetOpLocation",
+          ColumnDB: "location_id",
           InitialWhere: "",
           ParamWhere: "",
           OrderBy: "",
           ParamView: "",
           SourceField: "",
-          DisplayLookUp: "name,phone_no,email,time_edit"
+          DisplayLookUp: "location_cd,descs,time_edit"
         },
         cValidate: "required",
         cName: "extra_deliver",
@@ -678,7 +680,7 @@ export default {
         cParentForm: "MK_AddQuotation",
         cStatic: false,
         cOption: [],
-        cDisplayColumn: "name,phone_no,email,time_edit",
+        cDisplayColumn: "location_cd,descs,time_edit",
         cInputStatus: this.inputStatus
       },
     };
@@ -727,18 +729,66 @@ export default {
     Onpickup_fromChange(data) {
         this.$nextTick(() => {
             this.M_Order.pickup_from = data.row_id;
-            this.M_Order.pickup_fromLabel = data.descs;
+            this.M_Order.pickup_fromLabel = data.descs2;
         });
     },
     Ondeliver_toChange(data) {
         this.$nextTick(() => {
             this.M_Order.deliver_to = data.row_id;
-            this.M_Order.deliver_toLabel = data.descs;
+            this.M_Order.deliver_toLabel = data.descs2;
         });
     },
     OndateChange(data) {},
     OnTLChange(data) {
         this.M_Order.TL = data
+        if(data == 'L') {
+            this.FTL = [
+                {
+                    PI_truck: {
+                        cValidate: "",
+                        cName: "truck",
+                        cOrder: 19,
+                        cKey: false,
+                        cType: "text",
+                        cProtect: false,
+                        cParentForm: "MK_AddQuotation",
+                        cDecimal: 2,
+                        cInputStatus: this.inputStatus
+                    },
+                    truck: "",
+                    PI_qty: {
+                        dataLookUp: null,
+                        cValidate: "",
+                        cName: "qty",
+                        ckey: false,
+                        cOrder: 20,
+                        cProtect: false,
+                        cParentForm: "MK_AddQuotation",
+                        cStatic: true,
+                        cOption: [
+                            { id: "1", label: "1" },
+                            { id: "2", label: "2" },
+                            { id: "3", label: "3" },
+                            { id: "4", label: "4" },
+                            { id: "5", label: "5" },
+                            { id: "6", label: "6" },
+                            { id: "7", label: "7" },
+                            { id: "8", label: "8" },
+                            { id: "9", label: "9" },
+                            { id: "10", label: "10" },
+                        ],
+                        cDisplayColumn: "qty_id,descs",
+                        cInputStatus: this.inputStatus
+                    },
+                    qty: "",
+                    qtyLabel: ""
+                }
+            ]
+        }
+        else {
+            this.M_Order.weight = ""
+            this.M_Order.cubic = ""
+        }
     },
     OnqtyChange(data, index) {
         // console.log(data, index)
@@ -750,23 +800,25 @@ export default {
     Onextra_pickupChange(data) {
         this.$nextTick(() => {
             this.M_Order.extra_pickup = data.row_id;
-            this.M_Order.extra_pickupLabel = data.descs;
+            this.M_Order.extra_pickupLabel = data.descs2;
         });
     },
     Onextra_deliverChange(data) {
         this.$nextTick(() => {
             this.M_Order.extra_deliver = data.row_id;
-            this.M_Order.extra_deliverLabel = data.descs;
+            this.M_Order.extra_deliverLabel = data.descs2;
         });
     },
     M_ClearForm() {
       this.M_Order = {
+          op_order_h_id: "",
         customer: "",
         customerLabel: "",
         pic: "",
         picLabel: "",
         order_ref_no: "",
         booking_category: "N",
+        contract_no: "",
         with_base: "V",
         v_volume: "",
         v_pickup: "",
@@ -832,8 +884,6 @@ export default {
         })
     },
     doSave() {
-        console.log(this.M_Order, this.FTL)
-        return
       this.$validator._base.validateAll("MK_AddQuotation").then(result => {
         if (!result) return;
         this.alertConfirmation("Are You Sure Want To Save This Data ?").then(
@@ -841,7 +891,7 @@ export default {
             if (ress.value) {
               this.$validator.errors.clear("MK_AddQuotation");
               if (this.inputStatus == "edit") {
-                // this.M_Update();
+                this.M_Update();
               } else {
                 this.M_Save();
               }
@@ -851,110 +901,167 @@ export default {
       });
     },
     M_Save() {
-      var param = {
-        option_url: "/OP/OP_Order",
-        line_no: 0,
-        // ss_portfolio_id: this.getDataUser().portfolio_id,
-        // ss_subportfolio_id: this.getDataUser().subportfolio_id,
-        // cm_contact_id: this.M_Order.customer,
-        // quotation_no: this.M_Order.quotation_no,
-        // quotation_date: this.M_Order.date,
-        // quotation_type: this.M_Order.type,
-        // project_name: this.M_Order.project_name,
-        // descs: this.M_Order.descs,
-        // project_value: this.M_Order.project_value,
-        // expired_date: this.M_Order.valid_until,
-        // status: this.M_Order.status,
-        // user_input: this.getDataUser().user_id
-      };
+        var paramH = {
+            _Method_: "SAVE",
+            _LineNo: 0,
+            ss_portfolio_id: this.getDataUser().portfolio_id,
+            ss_subportfolio_id: this.getDataUser().subportfolio_id,
+            order_status: 'N',
+            cm_contact_id: this.M_Order.customer,
+            cm_contact_person_id: this.M_Order.pic,
+            ref_no: this.M_Order.ref_no,
+            booking_category: this.M_Order.booking_category,
+            contact_no: this.M_Order.contract_no,
+            base_type: this.M_Order.with_base,
+            base_total: (this.M_Order.with_base == 'V' ? this.M_Order.v_volume : this.M_Order.t_volume),
+            base_pickup: (this.M_Order.with_base == 'V' ? this.M_Order.v_pickup : this.M_Order.t_pickup),
+            base_rest_of: (this.M_Order.with_base == 'V' ? this.M_Order.v_rest_of : this.M_Order.t_rest_of),
+            pickup_from_id: this.M_Order.pickup_from,
+            deliver_to_id: this.M_Order.deliver_to,
+            pickup_date: this.M_Order.date,
+            extra_pickup_id: this.M_Order.extra_pickup,
+            extra_deliver_id: this.M_Order.extra_deliver,
+            truck_type: this.M_Order.TL,
+            weight: this.M_Order.weight,
+            cubic: this.M_Order.cubic,
+            user_input: this.getDataUser().user_id,
+        };
 
-      this.postJSON(this.getUrlCRUD(), param).then(response => {
-        // console.log(response)
-        if (response == null) return;
-        this.alertSuccess(response.Message).then(() => {
-          this.doBack();
+        var paramD = []
+        if(this.M_Order.TL == 'F') {
+            this.FTL.forEach((value) => {
+                paramD.push({
+                    _Method_: "SAVE",
+                    _LineNo: 1,
+                    op_order_h_id: "A_Insert.row_id_output",
+                    descs: value.truck,
+                    qty: value.qty,
+                    user_input: this.getDataUser().user_id,
+                    _Message_: ""
+                })
+            })
+        }
+
+        var params = {
+            option_url: "/OP/OP_BookingEntry",
+            line_no: 0,
+            Data: [{
+                A_Insert: paramH,
+                B_Looping: paramD
+            }]
+        }
+
+        this.postJSONMulti(this.getUrlMultiV2(this.getUrlProsesDataPostMulti()), param).then(response => {
+            // console.log(response)
+            if (response == null) return;
+                this.alertSuccess(response.Message).then(() => {
+                this.doBack();
+            });
         });
-      });
     },
     M_Update() {
-      var param = {
-        option_url: "/MK/MK_Quotation",
-        line_no: 0,
-        mk_quotation_id: this.paramFromList.row_id,
-        ss_portfolio_id: this.getDataUser().portfolio_id,
-        ss_subportfolio_id: this.getDataUser().subportfolio_id,
-        cm_contact_id: this.M_Order.customer,
-        quotation_no: this.M_Order.quotation_no,
-        quotation_date: this.M_Order.date,
-        quotation_type: this.M_Order.type,
-        project_name: this.M_Order.project_name,
-        descs: this.M_Order.descs,
-        project_value: this.M_Order.project_value,
-        expired_date: this.M_Order.valid_until,
-        status: this.M_Order.status,
-        lastupdatestamp: this.paramFromList.lastupdatestamp,
-        user_edit: this.getDataUser().user_id
-      };
+        var paramH = {
+            _Method_: "UPDATE",
+            _LineNo: 0,
+            ss_portfolio_id: this.getDataUser().portfolio_id,
+            ss_subportfolio_id: this.getDataUser().subportfolio_id,
+            order_status: 'N',
+            cm_contact_id: this.M_Order.customer,
+            cm_contact_person_id: this.M_Order.pic,
+            ref_no: this.M_Order.ref_no,
+            booking_category: this.M_Order.booking_category,
+            contact_no: this.M_Order.contract_no,
+            base_type: this.M_Order.with_base,
+            base_total: (this.M_Order.with_base == 'V' ? this.M_Order.v_volume : this.M_Order.t_volume),
+            base_pickup: (this.M_Order.with_base == 'V' ? this.M_Order.v_pickup : this.M_Order.t_pickup),
+            base_rest_of: (this.M_Order.with_base == 'V' ? this.M_Order.v_rest_of : this.M_Order.t_rest_of),
+            pickup_from_id: this.M_Order.pickup_from,
+            deliver_to_id: this.M_Order.deliver_to,
+            pickup_date: this.M_Order.date,
+            extra_pickup_id: this.M_Order.extra_pickup,
+            extra_deliver_id: this.M_Order.extra_deliver,
+            truck_type: this.M_Order.TL,
+            weight: this.M_Order.weight,
+            cubic: this.M_Order.cubic,
+            user_edit: this.getDataUser().user_id,
+        };
 
-      this.putJSON(this.getUrlCRUD(), param).then(response => {
-        // console.log(response)
-        if (response == null) return;
-        this.alertSuccess(response.Message).then(() => {
-          this.doBack();
+        var paramD = []
+        if(this.M_Order.TL == 'F') {
+            this.FTL.forEach((value) => {
+                paramD.push({
+                    _Method_: "UPDATE",
+                    _LineNo: 1,
+                    op_order_h_id: this.M_Order.op_order_h_id,
+                    descs: value.truck,
+                    qty: value.qty,
+                    user_edit: this.getDataUser().user_id,
+                    _Message_: ""
+                })
+            })
+        }
+
+        var params = {
+            option_url: "/OP/OP_BookingEntry",
+            line_no: 0,
+            Data: [{
+                A_Insert: paramH,
+                B_Looping: paramD
+            }]
+        }
+
+        this.postJSONMulti(this.getUrlMultiV2(this.getUrlProsesDataPostMulti()), param).then(response => {
+            // console.log(response)
+            if (response == null) return;
+                this.alertSuccess(response.Message).then(() => {
+                this.doBack();
+            });
         });
-      });
     },
     GetDataBy() {
-      var param = {
-        option_url: "/MK/MK_Quotation",
-        line_no: 0,
-        id: this.paramFromList.row_id,
-        lastupdatestamp: this.paramFromList.lastupdatestamp
-      };
-
-      this.getJSON(this.getUrlCRUD(), param).then(response => {
-        // response from API
-        if (response == null) return;
-
-        var data = response.Data[0];
-
-        this.M_Order = {
-          customer: data.cm_contact_id,
-          customerLabel: data.name,
-          fulladdress:
-            data.address +
-            ", " +
-            data.district +
-            ", " +
-            data.city +
-            ", " +
-            data.province +
-            " - " +
-            data.country,
-          address: data.address,
-          phone_no: data.phone_no && data.phone_no !== "" ? data.phone_no : "-",
-          email: data.email && data.email !== "" ? data.email : "-",
-          website: data.website && data.website !== "" ? data.website : "-",
-          pic:
-            data.contact_person && data.contact_person !== ""
-              ? data.contact_person
-              : "-",
-          pic_phone_no:
-            data.contact_phone_no && data.contact_phone_no !== ""
-              ? data.contact_phone_no
-              : "-",
-          date: data.quotation_date,
-          type: data.quotation_type,
-          typeLabel: data.type,
-          quotation_no: data.quotation_no,
-          project_name: data.project_name,
-          descs: data.descs,
-          project_value: this.isCurrency(data.project_value, this.decimal),
-          valid_until: data.expired_date,
-          status: data.status,
-          statusLabel: data.status
+        var param = {
+            option_url: "/OP/OP_BookingEntry",
+            line_no: 0,
+            id: this.paramFromList.row_id,
+            lastupdatestamp: this.paramFromList.lastupdatestamp
         };
-      });
+
+        this.getJSON(this.getUrlCRUD(), param).then(response => {
+            // response from API
+            if (response == null) return;
+
+            var data = response.Data[0];
+
+            this.M_Order = {
+                op_order_h_id: "",
+                customer: "",
+                customerLabel: "",
+                pic: "",
+                picLabel: "",
+                order_ref_no: "",
+                booking_category: "N",
+                contract_no: "",
+                with_base: "V",
+                v_volume: "",
+                v_pickup: "",
+                v_rest_of: "",
+                t_volume: "",
+                t_pickup: "",
+                t_rest_of: "",
+                pickup_from: "",
+                pickup_fromLabel: "",
+                deliver_to: "",
+                deliver_toLabel: "",
+                date: "",
+                TL: "F",
+                weight: "",
+                cubic: "",
+                extra_pickup: "",
+                extra_pickupLabel: "",
+                extra_deliver: "",
+                extra_deliverLabel: "",
+            }
+        });
     }
   },
   mounted() {

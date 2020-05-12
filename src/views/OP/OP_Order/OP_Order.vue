@@ -3,7 +3,7 @@
     <div class="dashboard-page-chart__body">
       <b-row class="dashboardBody">
         <b-col md="12">
-          <ACCList
+          <ACCList2
             :prop="propList"
             :title="'Booking Entry'"
             @rowClicked="rowClicked"
