@@ -350,6 +350,24 @@ export default {
           this.showNonProject = true;
         }
 
+        // if (
+        //   data.location_extra_pickup == null ||
+        //   data.location_extra_pickup == ""
+        // ) {
+        //   this.M_BookingEntry.extra_pickup = "None";
+        // } else {
+        //   this.M_BookingEntry.extra_pickup = data.location_extra_pickup;
+        // }
+
+        // if (
+        //   data.location_extra_deliver == null ||
+        //   data.location_extra_deliver == ""
+        // ) {
+        //   this.M_BookingEntry.extra_deliver = "None";
+        // } else {
+        //   this.M_BookingEntry.extra_deliver = data.location_extra_deliver;
+        // }
+
         this.M_BookingEntry = {
           customer_name: data.contact_name,
           pic: data.contact_person_name,
@@ -369,8 +387,16 @@ export default {
           type: data.truck_type,
           weight: data.weight,
           cubic: data.cubic,
-          extra_pickup: data.location_extra_pickup,
-          extra_deliver: data.location_extra_deliver
+          extra_pickup:
+            data.location_extra_pickup == null ||
+            data.location_extra_pickup == ""
+              ? "None"
+              : data.location_extra_pickup,
+          extra_deliver:
+            data.location_extra_deliver == null ||
+            data.location_extra_deliver == ""
+              ? "None"
+              : data.location_extra_deliver
         };
       });
     }
