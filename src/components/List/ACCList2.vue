@@ -1020,18 +1020,6 @@ export default {
       // }
 
       var param = {
-        // OptionSeq: this.getOptionSeq().OptionSeq,
-        // LineNo: this.prop.LineNo,
-        // user_id: this.getDataUser().user_id,
-        // portfolio_cd: this.getDataUser().portfolio_cd,
-        // subportfolio_cd: this.getDataUser().subportfolio_cd,
-        // CurrentPage: this.currentPage,
-        // PerPage: this.perPage,
-        // ParamWhere: search,
-        // InitialWhere: temp,
-        // SortField: this.sort,
-        // SourceField: this.prop.SourceField,
-        // ParamView: this.prop.ParamView
         option_url: this.getOptionUrl(),
         line_no: this.prop.LineNo,
         user_id: this.getDataUser().user_id,
@@ -1046,8 +1034,24 @@ export default {
         param_view: this.prop.ParamView
       };
 
+      var url = this.getUrlList()
+
+      if(this.getOptionUrl() == "/ADM/ADM_UserManagement") {
+        // param = {
+        //   current_page: this.currentPage,
+        //   per_page: this.perPage,
+        //   param_where: search,
+        //   initial_where: temp,
+        //   sort_field: this.sort,
+        //   source_field: this.prop.SourceField,
+        //   param_view: this.prop.ParamView
+        // }
+
+        url = this.getUrlUserList()
+      }
+
       // this.loader = true;
-      this.postJSON(this.getUrlList(), param).then(response => {
+      this.postJSON(url, param).then(response => {
         // this.loader = false;
         if (response == null) return;
 

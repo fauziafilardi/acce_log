@@ -221,6 +221,11 @@ export default {
       segmentSaveHeaderChat: 'api/Chat/SaveHeader',
       segmentAPIChat: 'api/Chat',
 
+      //User
+      segmentAPIUser: 'api/SsUser',
+      segmentUserList: 'api/SsUser/GetList',
+
+
       queryString: require('querystring'),
       // content type
       urlEncoded: 'application/x-www-form-urlencoded',
@@ -660,6 +665,18 @@ export default {
 
     getUrlAPIChat() {
       return this.url + this.segmentAPIChat
+    },
+
+    getUrlAPIUser(id = null) {
+      url = this.url + this.segmentAPIUser
+      if (id && id !== '') {
+        url += ('/' + id)
+      }
+      return url
+    },
+
+    getUrlUserList() {
+      return this.url + this.segmentUserList
     },
 
     GenerateReportTemplate(OptionSeq, Param) {
