@@ -8,7 +8,7 @@
         </span>-->
         <span @click="showDatepicker(prop.cName)">
           <font-awesome-icon
-            style="color: #444; 
+            style="color: #333399; 
             font-size: 30px;
             position: absolute;
             right: 10px;

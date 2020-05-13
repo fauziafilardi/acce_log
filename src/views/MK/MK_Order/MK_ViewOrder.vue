@@ -27,7 +27,7 @@
                   </b-col>
                   <b-col md="10">
                     <b-row>
-                      <b-col md="10">
+                      <b-col md="12">
                         <b-row>
                           <b-col>
                             <span>{{ M_Quotation.customer }}</span>
@@ -95,7 +95,7 @@
                     </b-row>
                     <hr />
                     <b-row>
-                      <b-col md="10">
+                      <b-col md="12">
                         <b-row>
                           <b-col>
                             <span>
@@ -160,6 +160,18 @@
                               class="btn btn--default"
                             >View</b-button>
                             <span v-else>{{data.item.row_id}}</span>
+                          </template>
+
+                          <template v-slot:cell(status)="data">
+                            <span
+                              v-if="data.item.order_status == 'N'"
+                              style="color: #f90"
+                            >{{data.item.status}}</span>
+                            <span
+                              v-else-if="data.item.order_status == 'P'"
+                              style="color: #0c3"
+                            >{{data.item.status}}</span>
+                            <span v-else style="color: #c00">{{data.item.status}}</span>
                           </template>
                         </b-table>
                       </b-col>
@@ -305,8 +317,8 @@ export default {
     },
     viewClicked(record, index) {
       // MK_ViewQuotation
-      var param = record;
-      this.$router.push({ name: "MK_ViewQuotation", params: param });
+      //   var param = record;
+      //   this.$router.push({ name: "MK_ViewQuotation", params: param });
     },
     GetContactData() {
       var param = {
@@ -382,7 +394,7 @@ export default {
           this.responses.DefineColumn && this.responses.DefineColumn !== ""
             ? this.responses.DefineColumn.split(",")
             : this.responses.AllColumn.split(",");
-        var x = ",M,M,M,S";
+        var x = ",S,S,S,S,S,S";
 
         var defineSize = x.split(",");
         this.allColumn_bf = this.responses.AllColumn.split(",");
@@ -503,6 +515,10 @@ export default {
               {
                 key: "Pic",
                 value: "PIC"
+              },
+              {
+                key: "Fromto",
+                value: "From-To"
               }
             ];
 

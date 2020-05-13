@@ -46,19 +46,19 @@
                       <b-list-group-item>
                         <b-row class="row-h">
                           <b-col>Booking Category</b-col>
-                          <b-col>Contract No</b-col>
+                          <b-col v-show="showNonProject">Contract No</b-col>
                         </b-row>
                         <b-row class="row-b">
                           <b-col>{{M_BookingEntry.booking_category}}</b-col>
-                          <b-col>{{M_BookingEntry.contract_no}}</b-col>
+                          <b-col v-show="showNonProject">{{M_BookingEntry.contract_no}}</b-col>
                         </b-row>
-                        <b-row class="row-h">
+                        <b-row class="row-h" v-show="showNonProject">
                           <b-col>Project Base</b-col>
                           <b-col>Total</b-col>
                           <b-col>Have Been Pickup</b-col>
                           <b-col>Rest</b-col>
                         </b-row>
-                        <b-row class="row-b">
+                        <b-row class="row-b" v-show="showNonProject">
                           <b-col>{{M_BookingEntry.project_base}}</b-col>
                           <b-col>{{M_BookingEntry.total}}</b-col>
                           <b-col>{{M_BookingEntry.pickup}}</b-col>
@@ -83,43 +83,6 @@
                       </b-list-group-item>
                     </b-list-group>
                   </b-col>
-                  <!-- <b-col v-show="showLTL" md="6">
-                    <span>
-                      <label>Truck Information</label>
-                    </span>
-                    <b-list-group>
-                      <b-list-group-item>
-                        <b-row class="row-h">
-                          <b-col>Type</b-col>
-                        </b-row>
-                        <b-row class="row-b">
-                          <b-col>{{M_BookingEntry.type}}</b-col>
-                        </b-row>
-                        <b-row class="row-h">
-                          <b-col>Wight (Kg)</b-col>
-                          <b-col>Cubic</b-col>
-                        </b-row>
-                        <b-row class="row-b">
-                          <b-col>{{M_BookingEntry.weight}}</b-col>
-                          <b-col>{{M_BookingEntry.cubic}}</b-col>
-                        </b-row>
-                      </b-list-group-item>
-                      <b-list-group-item>
-                        <b-row class="row-h">
-                          <b-col>Extra Pickup</b-col>
-                        </b-row>
-                        <b-row class="row-b">
-                          <b-col>{{M_BookingEntry.extra_pickup}}</b-col>
-                        </b-row>
-                        <b-row class="row-h">
-                          <b-col>Extra Deliver</b-col>
-                        </b-row>
-                        <b-row class="row-b">
-                          <b-col>{{M_BookingEntry.extra_deliver}}</b-col>
-                        </b-row>
-                      </b-list-group-item>
-                    </b-list-group>
-                  </b-col>-->
                   <b-col md="6">
                     <span>
                       <label>Truck Information</label>
@@ -282,7 +245,9 @@ export default {
       M_GetDataBy: null,
       dataDetail: [],
       showLTL: false,
-      showFTL: false
+      showFTL: false,
+      showProject: false,
+      showNonProject: false
     };
   },
   computed: {
@@ -379,6 +344,30 @@ export default {
           this.showLTL = true;
         }
 
+        if (data.booking_category == "N") {
+          this.showNonProject = false;
+        } else {
+          this.showNonProject = true;
+        }
+
+        // if (
+        //   data.location_extra_pickup == null ||
+        //   data.location_extra_pickup == ""
+        // ) {
+        //   this.M_BookingEntry.extra_pickup = "None";
+        // } else {
+        //   this.M_BookingEntry.extra_pickup = data.location_extra_pickup;
+        // }
+
+        // if (
+        //   data.location_extra_deliver == null ||
+        //   data.location_extra_deliver == ""
+        // ) {
+        //   this.M_BookingEntry.extra_deliver = "None";
+        // } else {
+        //   this.M_BookingEntry.extra_deliver = data.location_extra_deliver;
+        // }
+
         this.M_BookingEntry = {
           customer_name: data.contact_name,
           pic: data.contact_person_name,
@@ -398,8 +387,16 @@ export default {
           type: data.truck_type,
           weight: data.weight,
           cubic: data.cubic,
-          extra_pickup: data.location_extra_pickup,
-          extra_deliver: data.location_extra_deliver
+          extra_pickup:
+            data.location_extra_pickup == null ||
+            data.location_extra_pickup == ""
+              ? "None"
+              : data.location_extra_pickup,
+          extra_deliver:
+            data.location_extra_deliver == null ||
+            data.location_extra_deliver == ""
+              ? "None"
+              : data.location_extra_deliver
         };
       });
     }
