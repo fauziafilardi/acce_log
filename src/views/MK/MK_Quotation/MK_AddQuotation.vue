@@ -233,7 +233,7 @@ export default {
         website: "",
         pic: "",
         pic_phone_no: "",
-        date: "",
+        date: this.momentDate(new Date()),
         type: "",
         typeLabel: "",
         quotation_no: "",
@@ -241,8 +241,8 @@ export default {
         descs: "",
         project_value: "",
         valid_until: "",
-        status: "",
-        statusLabel: ""
+        status: "N",
+        statusLabel: "New"
       },
       PI_customer: {
         dataLookUp: {
@@ -429,7 +429,9 @@ export default {
             : "-";
       });
     },
-    OndateChange(data) {},
+    OndateChange(data) {
+      this.PI_valid_until.cValidate = "min_date:" + this.momentDate(new Date(data))
+    },
     OntypeChange(data) {
       this.$nextTick(() => {
         this.M_Quotation.type = data.id;
@@ -454,7 +456,7 @@ export default {
         website: "",
         pic: "",
         pic_phone_no: "",
-        date: "",
+        date: this.getToday(),
         type: "",
         typeLabel: "",
         quotation_no: "",
@@ -462,9 +464,11 @@ export default {
         descs: "",
         project_value: "",
         valid_until: "",
-        status: "",
-        statusLabel: ""
+        status: "N",
+        statusLabel: "New"
       };
+
+      this.PI_valid_until.cValidate = "min_date:" + this.getToday()
     },
     doSave() {
       this.$validator._base.validateAll("MK_AddQuotation").then(result => {

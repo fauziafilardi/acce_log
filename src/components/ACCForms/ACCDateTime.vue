@@ -407,6 +407,7 @@ export default {
     }
   },
   created: function() {
+    var vm = this
     this.prop.cProtect = this.prop.cProtect ? this.prop.cProtect : false;
     this.prop.cWithTime = this.prop.cWithTime ? this.prop.cWithTime : false;
     this.prop.cFormat = this.prop.cFormat ? this.prop.cFormat : "dd/MM/yyyy";
@@ -540,6 +541,79 @@ export default {
         }
       }
     });
+
+    this.$validator.extend('min_date', {
+      getMessage(field, val) {
+        // return 'Must be after than Start Date'
+        return field + ' could not be less than ' + val
+      },
+      // validate(value, field) {
+      validate(value, field) {
+        var rr = false
+        if (vm.prop.cWithTime) {
+          rr = vm.momentDateFormatting(value, 'YYYY-MM-DD HH:mm') >= vm.momentDateFormatting(field[0], 'YYYY-MM-DD HH:mm')
+        }
+        else {
+          rr = vm.momentDateFormatting(value, 'YYYY-MM-DD') >= vm.momentDateFormatting(field[0], 'YYYY-MM-DD')
+        }
+        return rr
+      }
+    })
+
+    this.$validator.extend('max_date', {
+      getMessage(field, val) {
+        // return 'Must be after than Start Date'
+        return field + ' could not be more than ' + val
+      },
+      // validate(value, field) {
+      validate(value, field) {
+        // console.log(value, field);
+        var rr = false
+        if (vm.prop.cWithTime) {
+          rr = vm.momentDateFormatting(value, 'YYYY-MM-DD HH:mm') <= vm.momentDateFormatting(field[0], 'YYYY-MM-DD HH:mm')
+        }
+        else {
+          rr = vm.momentDateFormatting(value, 'YYYY-MM-DD') <= vm.momentDateFormatting(field[0], 'YYYY-MM-DD')
+        }
+        return rr
+      }
+    })
+
+    this.$validator.extend('today_is_min', {
+      getMessage(field, val) {
+        // return 'Must be after than Start Date'
+        return field + ' must be greater than today'
+      },
+      // validate(value, field) {
+      validate(value, field) {
+        var rr = false
+        if (vm.prop.cWithTime) {
+          rr = vm.momentDateFormatting(value, 'YYYY-MM-DD HH:mm') >= vm.getToday() //vm.momentDateFormatting(field[0], 'YYYY-MM-DD')
+        }
+        else {
+          rr = vm.momentDateFormatting(value, 'YYYY-MM-DD') >= vm.getToday() //vm.momentDateFormatting(field[0], 'YYYY-MM-DD')
+        }
+        return rr
+      }
+    })
+
+    this.$validator.extend('today_is_max', {
+      getMessage(field, val) {
+        // return 'Must be after than Start Date'
+        return field + ' must be lower than today'
+      },
+      // validate(value, field) {
+      validate(value, field) {
+        var rr = false
+        if (vm.prop.cWithTime) {
+          rr = vm.momentDateFormatting(value, 'YYYY-MM-DD HH:mm') <= vm.getToday() //vm.momentDateFormatting(field[0], 'YYYY-MM-DD')
+        }
+        else {
+          rr = vm.momentDateFormatting(value, 'YYYY-MM-DD') <= vm.getToday() //vm.momentDateFormatting(field[0], 'YYYY-MM-DD')
+        }
+        return rr
+      }
+    })
 
     if (
       this.prop.cValidate == undefined ||

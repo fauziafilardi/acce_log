@@ -198,17 +198,17 @@
                     <div>
                         <b-row>
                             <b-col>
-                                <div @click="OnTLChange('F')" :class="M_Order.TL == 'F' ? 'isOn' : 'isOff'">
+                                <div @click="OnTLChange('FTL')" :class="M_Order.TL == 'FTL' ? 'isOn' : 'isOff'">
                                     FTL
                                 </div>
                             </b-col>
                             <b-col>
-                                <div @click="OnTLChange('L')" :class="M_Order.TL == 'L' ? 'isOn' : 'isOff'">
+                                <div @click="OnTLChange('LTL')" :class="M_Order.TL == 'LTL' ? 'isOn' : 'isOff'">
                                     LTL
                                 </div>
                             </b-col>
                         </b-row>
-                        <b-row v-show="M_Order.TL == 'L'">
+                        <b-row v-show="M_Order.TL == 'LTL'">
                             <b-col>
                                 <span>
                                     <label>Weight (Kg)</label>
@@ -231,7 +231,7 @@
                             </b-col>
                         </b-row>
                         <!-- <template > -->
-                            <b-row v-for="(data,index) in FTL" v-bind:key="index" v-show="M_Order.TL == 'F'">
+                            <b-row v-for="(data,index) in FTL" v-bind:key="index" v-show="M_Order.TL == 'FTL'">
                                 <b-col>
                                     <span>
                                         <label>Truck</label>
@@ -344,13 +344,14 @@ export default {
         deliver_to: "",
         deliver_toLabel: "",
         date: "",
-        TL: "F",
+        TL: "FTL",
         weight: "",
         cubic: "",
         extra_pickup: "",
         extra_pickupLabel: "",
         extra_deliver: "",
         extra_deliverLabel: "",
+        lastupdatestamp: ""
       },
       PI_customer: {
         dataLookUp: {
@@ -447,7 +448,7 @@ export default {
         cName: "v_volume",
         cOrder: 7,
         cKey: false,
-        cType: "text",
+        cType: "numeric",
         cProtect: false,
         cParentForm: "MK_AddQuotation",
         cDecimal: 2,
@@ -492,7 +493,7 @@ export default {
         cName: "t_volume",
         cOrder: 11,
         cKey: false,
-        cType: "text",
+        cType: "numeric",
         cProtect: false,
         cParentForm: "MK_AddQuotation",
         cDecimal: 2,
@@ -580,7 +581,7 @@ export default {
         cName: "weight",
         cOrder: 17,
         cKey: false,
-        cType: "text",
+        cType: "numeric",
         cProtect: false,
         cParentForm: "MK_AddQuotation",
         cDecimal: 2,
@@ -591,7 +592,7 @@ export default {
         cName: "cubic",
         cOrder: 18,
         cKey: false,
-        cType: "text",
+        cType: "numeric",
         cProtect: false,
         cParentForm: "MK_AddQuotation",
         cDecimal: 2,
@@ -599,6 +600,7 @@ export default {
       },
       FTL : [
           {
+            op_order_d_id: "",
             PI_truck: {
                 cValidate: "",
                 cName: "truck",
@@ -636,7 +638,8 @@ export default {
                 cInputStatus: this.inputStatus
             },
             qty: "",
-            qtyLabel: ""
+            qtyLabel: "",
+            lastupdatestamp: ""
           }
       ],
       PI_extra_pickup: {
@@ -715,6 +718,7 @@ export default {
       this.$nextTick(() => {
         this.M_Order.customer = data.row_id;
         this.M_Order.customerLabel = data.name;
+        this.PI_pic.dataLookUp.InitialWhere = " cm_contact_id = " + data.row_id
       });
     },
     OnpicChange(data) {
@@ -811,7 +815,7 @@ export default {
     },
     M_ClearForm() {
       this.M_Order = {
-          op_order_h_id: "",
+        op_order_h_id: "",
         customer: "",
         customerLabel: "",
         pic: "",
@@ -831,18 +835,21 @@ export default {
         deliver_to: "",
         deliver_toLabel: "",
         date: "",
-        TL: "F",
+        TL: "FTL",
         weight: "",
         cubic: "",
         extra_pickup: "",
         extra_pickupLabel: "",
         extra_deliver: "",
         extra_deliverLabel: "",
+        lastupdatestamp: ""
       };
-    },
-    AddTruck() {
-        var rand = Math.floor(Math.random() * 100);
-        this.FTL.push({
+
+      var rand = Math.floor(Math.random() * 100);
+
+      this.FTL = [
+          {
+            op_order_d_id: "",
             PI_truck: {
                 cValidate: "",
                 cName: "truck_" + rand,
@@ -880,7 +887,54 @@ export default {
                 cInputStatus: this.inputStatus
             },
             qty: "",
-            qtyLabel: ""
+            qtyLabel: "",
+            lastupdatestamp: ""
+          }
+      ]
+    },
+    AddTruck() {
+        var rand = Math.floor(Math.random() * 100);
+        this.FTL.push({
+            op_order_d_id: "",
+            PI_truck: {
+                cValidate: "",
+                cName: "truck_" + rand,
+                cOrder: rand,
+                cKey: false,
+                cType: "text",
+                cProtect: false,
+                cParentForm: "MK_AddQuotation",
+                cDecimal: 2,
+                cInputStatus: this.inputStatus
+            },
+            truck: "",
+            PI_qty: {
+                dataLookUp: null,
+                cValidate: "",
+                cName: "qty_" + rand,
+                ckey: false,
+                cOrder: rand,
+                cProtect: false,
+                cParentForm: "MK_AddQuotation",
+                cStatic: true,
+                cOption: [
+                    { id: "1", label: "1" },
+                    { id: "2", label: "2" },
+                    { id: "3", label: "3" },
+                    { id: "4", label: "4" },
+                    { id: "5", label: "5" },
+                    { id: "6", label: "6" },
+                    { id: "7", label: "7" },
+                    { id: "8", label: "8" },
+                    { id: "9", label: "9" },
+                    { id: "10", label: "10" },
+                ],
+                cDisplayColumn: "qty_id,descs",
+                cInputStatus: this.inputStatus
+            },
+            qty: "",
+            qtyLabel: "",
+            lastupdatestamp: ""
         })
     },
     doSave() {
@@ -919,16 +973,16 @@ export default {
             pickup_from_id: this.M_Order.pickup_from,
             deliver_to_id: this.M_Order.deliver_to,
             pickup_date: this.M_Order.date,
-            extra_pickup_id: this.M_Order.extra_pickup,
-            extra_deliver_id: this.M_Order.extra_deliver,
+            extra_pickup_id: this.M_Order.extra_pickup && this.M_Order.extra_pickup !== '' ? this.M_Order.extra_pickup : "NULL",
+            extra_deliver_id: this.M_Order.extra_deliver && this.M_Order.extra_deliver !== '' ? this.M_Order.extra_deliver : "NULL",
             truck_type: this.M_Order.TL,
-            weight: this.M_Order.TL == 'L' ? (this.M_Order.weight && this.M_Order.weight !== '' ? this.M_Order.weight : 0) : "NULL",
-            cubic: this.M_Order.TL == 'L' ? (this.M_Order.cubic && this.M_Order.cubic !== '' ? this.M_Order.cubic : 0) : "NULL",
+            weight: this.M_Order.TL == 'LTL' ? (this.M_Order.weight && this.M_Order.weight !== '' ? this.M_Order.weight : 0) : "NULL",
+            cubic: this.M_Order.TL == 'LTL' ? (this.M_Order.cubic && this.M_Order.cubic !== '' ? this.M_Order.cubic : 0) : "NULL",
             user_input: this.getDataUser().user_id,
         };
 
         var paramD = []
-        if(this.M_Order.TL == 'F') {
+        if(this.M_Order.TL == 'FTL') {
             this.FTL.forEach((value) => {
                 paramD.push({
                     _Method_: "SAVE",
@@ -953,7 +1007,7 @@ export default {
         this.postJSONMulti(this.getUrlProsesDataPostMulti(), params).then(response => {
             // console.log(response)
             if (response == null) return;
-                this.alertSuccess(response.Message).then(() => {
+                this.alertSuccess("Save Data Has Been Successfully").then(() => {
                 this.doBack();
             });
         });
@@ -961,41 +1015,45 @@ export default {
     M_Update() {
         var paramH = {
             _Method_: "UPDATE",
-            _LineNo: 0,
+            _LineNo_: 0,
+            op_order_h_id: this.M_Order.op_order_h_id,
             ss_portfolio_id: this.getDataUser().portfolio_id,
             ss_subportfolio_id: this.getDataUser().subportfolio_id,
+            order_no: this.M_Order.order_no,
             order_status: 'N',
             cm_contact_id: this.M_Order.customer,
             cm_contact_person_id: this.M_Order.pic,
-            ref_no: this.M_Order.ref_no,
+            ref_no: this.M_Order.order_ref_no,
             booking_category: this.M_Order.booking_category,
-            contact_no: this.M_Order.contract_no,
+            contract_no: this.M_Order.booking_category == 'P' ? this.M_Order.contract_no : "NULL",
             base_type: this.M_Order.with_base,
-            base_total: (this.M_Order.with_base == 'V' ? this.M_Order.v_volume : this.M_Order.t_volume),
-            base_pickup: (this.M_Order.with_base == 'V' ? this.M_Order.v_pickup : this.M_Order.t_pickup),
-            base_rest_of: (this.M_Order.with_base == 'V' ? this.M_Order.v_rest_of : this.M_Order.t_rest_of),
+            base_total: this.M_Order.booking_category == 'P' ? (this.M_Order.with_base == 'V' ? this.M_Order.v_volume : this.M_Order.t_volume) : "NULL",
+            base_pickup: this.M_Order.booking_category == 'P' ? (this.M_Order.with_base == 'V' ? this.M_Order.v_pickup : this.M_Order.t_pickup) : "NULL",
+            base_rest_of: this.M_Order.booking_category == 'P' ? (this.M_Order.with_base == 'V' ? this.M_Order.v_rest_of : this.M_Order.t_rest_of) : "NULL",
             pickup_from_id: this.M_Order.pickup_from,
             deliver_to_id: this.M_Order.deliver_to,
             pickup_date: this.M_Order.date,
-            extra_pickup_id: this.M_Order.extra_pickup,
-            extra_deliver_id: this.M_Order.extra_deliver,
+            extra_pickup_id: this.M_Order.extra_pickup && this.M_Order.extra_pickup !== '' ? this.M_Order.extra_pickup : "NULL",
+            extra_deliver_id: this.M_Order.extra_deliver && this.M_Order.extra_deliver !== '' ? this.M_Order.extra_deliver : "NULL",
             truck_type: this.M_Order.TL,
-            weight: this.M_Order.weight,
-            cubic: this.M_Order.cubic,
+            weight: this.M_Order.TL == 'LTL' ? (this.M_Order.weight && this.M_Order.weight !== '' ? this.M_Order.weight : 0) : "NULL",
+            cubic: this.M_Order.TL == 'LTL' ? (this.M_Order.cubic && this.M_Order.cubic !== '' ? this.M_Order.cubic : 0) : "NULL",
+            lastupdatestamp: this.M_Order.lastupdatestamp,
             user_edit: this.getDataUser().user_id,
         };
 
         var paramD = []
-        if(this.M_Order.TL == 'F') {
+        if(this.M_Order.TL == 'FTL') {
             this.FTL.forEach((value) => {
                 paramD.push({
                     _Method_: "UPDATE",
-                    _LineNo: 1,
+                    _LineNo_: 1,
+                    op_order_d_id: value.op_order_d_id,
                     op_order_h_id: this.M_Order.op_order_h_id,
                     descs: value.truck,
                     qty: value.qty,
                     user_edit: this.getDataUser().user_id,
-                    _Message_: ""
+                    lastupdatestamp: value.lastupdatestamp
                 })
             })
         }
@@ -1004,15 +1062,15 @@ export default {
             option_url: "/OP/OP_BookingEntry",
             line_no: 0,
             Data: [{
-                A_Insert: paramH,
+                A_Update: paramH,
                 B_Looping: paramD
             }]
         }
 
-        this.postJSONMulti(this.getUrlMultiV2(this.getUrlProsesDataPostMulti()), param).then(response => {
+        this.postJSONMulti(this.getUrlProsesDataPostMulti(), params).then(response => {
             // console.log(response)
             if (response == null) return;
-                this.alertSuccess(response.Message).then(() => {
+                this.alertSuccess("Update Data Has Been Successfully").then(() => {
                 this.doBack();
             });
         });
@@ -1030,35 +1088,93 @@ export default {
             if (response == null) return;
 
             var data = response.Data[0];
+            
+            if (data.cm_contact_id && data.cm_contact_id !== '') {
+                this.PI_pic.dataLookUp.InitialWhere = " cm_contact_id = " + data.cm_contact_id
+            }
 
             this.M_Order = {
-                op_order_h_id: "",
-                customer: "",
-                customerLabel: "",
-                pic: "",
-                picLabel: "",
-                order_ref_no: "",
-                booking_category: "N",
-                contract_no: "",
-                with_base: "V",
-                v_volume: "",
-                v_pickup: "",
-                v_rest_of: "",
-                t_volume: "",
-                t_pickup: "",
-                t_rest_of: "",
-                pickup_from: "",
-                pickup_fromLabel: "",
-                deliver_to: "",
-                deliver_toLabel: "",
-                date: "",
-                TL: "F",
-                weight: "",
-                cubic: "",
-                extra_pickup: "",
-                extra_pickupLabel: "",
-                extra_deliver: "",
-                extra_deliverLabel: "",
+                op_order_h_id: data.op_order_h_id,
+                customer: data.cm_contact_id,
+                customerLabel: data.contact_name,
+                order_no: data.order_no,
+                pic: data.cm_contact_person_id,
+                picLabel: data.contact_person_name,
+                order_ref_no: data.ref_no,
+                booking_category: data.booking_category,
+                contract_no: data.contract_no,
+                with_base: data.base_type,
+                v_volume: data.base_type == "T" ? "NULL" : data.base_total,
+                v_pickup: data.base_type == "T" ? "NULL" : data.base_pickup,
+                v_rest_of: data.base_type == "T" ? "NULL" : data.base_rest_of,
+                t_volume: data.base_type == "V" ? "NULL" : data.base_total,
+                t_pickup: data.base_type == "V" ? "NULL" : data.base_pickup,
+                t_rest_of: data.base_type == "V" ? "NULL" : data.base_rest_of,
+                pickup_from: data.pickup_from_id,
+                pickup_fromLabel: data.location_pickup,
+                deliver_to: data.deliver_to_id,
+                deliver_toLabel: data.location_deliver,
+                date: data.pickup_date,
+                TL: data.truck_type,
+                weight: data.weight,
+                cubic: data.cubic,
+                extra_pickup: data.extra_pickup_id,
+                extra_pickupLabel: data.location_extra_pickup,
+                extra_deliver: data.extra_deliver_id,
+                extra_deliverLabel: data.location_extra_deliver,
+                lastupdatestamp: data.lastupdatestamp
+            }
+
+            if (data.truck_type == "FTL") {
+                this.FTL = []
+                response.Data.forEach((value) => {
+                    var rand = Math.floor(Math.random() * 100);
+                    this.$nextTick(() => {
+                        this.FTL.push({
+                            op_order_d_id: value.op_order_d_id,
+                            PI_truck: {
+                                cValidate: "",
+                                cName: "truck_" + rand,
+                                cOrder: rand,
+                                cKey: false,
+                                cType: "text",
+                                cProtect: false,
+                                cParentForm: "MK_AddQuotation",
+                                cDecimal: 2,
+                                cInputStatus: this.inputStatus
+                            },
+                            truck: value.ftl_truck,
+                            PI_qty: {
+                                dataLookUp: null,
+                                cValidate: "",
+                                cName: "qty_" + rand,
+                                ckey: false,
+                                cOrder: rand,
+                                cProtect: false,
+                                cParentForm: "MK_AddQuotation",
+                                cStatic: true,
+                                cOption: [
+                                    { id: "1", label: "1" },
+                                    { id: "2", label: "2" },
+                                    { id: "3", label: "3" },
+                                    { id: "4", label: "4" },
+                                    { id: "5", label: "5" },
+                                    { id: "6", label: "6" },
+                                    { id: "7", label: "7" },
+                                    { id: "8", label: "8" },
+                                    { id: "9", label: "9" },
+                                    { id: "10", label: "10" },
+                                ],
+                                cDisplayColumn: "qty_id,descs",
+                                cInputStatus: this.inputStatus
+                            },
+                            qty: value.ftl_qty.toString(),
+                            qtyLabel: value.ftl_qty.toString(),
+                            lastupdatestamp: value.lastupdatestamp_d
+                        })
+                    })
+                    this.$forceUpdate();
+                })
             }
         });
     }
