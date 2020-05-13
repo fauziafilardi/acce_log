@@ -854,7 +854,7 @@ export default {
     Onchat_toChange(data) {
       this.$nextTick(() => {
         this.M_Quotation.chat_to = data.user_id;
-        this.M_Quotation.chat_toLabel = data.label;
+        this.M_Quotation.chat_toLabel = data.user_name;
       });
     },
     doStartChat() {
@@ -862,14 +862,16 @@ export default {
       var paramSaveH = {
         portfolio_id: this.getDataUser().portfolio_id,
         subportfolio_id: this.getDataUser().subportfolio_id,
-        subject: "Quotation No. " + this.M_Quotation.quotation_no,
-        user_id: this.M_Quotation.chat_to,
+        subject: "Quotation No. " + this.M_Quotation.doc_no,
+        user_id_to: this.M_Quotation.chat_to,
+        user_id_from: this.getDataUser().user_id,
         doc_type: "quotation",
-        doc_no: this.M_Quotation.quotation_no,
+        doc_no: this.M_Quotation.doc_no,
+        current_page: 0,
         user_input: this.getDataUser().user_id
       }
 
-      this.postJSON(this.getUrlSaveHeaderChat(), param).then(response => {
+      this.postJSON(this.getUrlSaveHeaderChat(), paramSaveH).then(response => {
         // response from API
         console.log(response);
         if (response == null) return;
@@ -899,7 +901,11 @@ export default {
         if (response == null) return;
 
         var data = response;
-        if (data.Data.chat == null) {
+        if (data.Data == null) {
+          this.$nextTick(() => {
+            this.M_Quotation.doc_no = this.M_Quotation.quotation_no
+          })
+          this.$forceUpdate();
           this.$refs.Modal_Chat._show();
         }
         else {

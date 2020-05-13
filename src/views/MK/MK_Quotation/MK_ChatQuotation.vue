@@ -170,14 +170,6 @@ export default {
   },
   methods: {
     doSendChat() {
-      this.ChatFill.push({
-        position: "r",
-        chat_date: new Date(),
-        chat_text: this.M_Quotation.chat,
-        user_id_from: this.getDataUser().user_id,
-        user_name: this.getDataUser().user_name
-      });
-
       var param = {
         ss_chat_h_id: this.M_Quotation.chatid,
         chat_text: this.M_Quotation.chat,
@@ -189,6 +181,13 @@ export default {
 
       this.postJSON(this.getUrlAPIChat(), param).then(response => {
         if (response == null) return;
+        this.ChatFill.push({
+          position: "r",
+          chat_date: new Date(),
+          chat_text: this.M_Quotation.chat,
+          user_id_from: this.getDataUser().user_id,
+          user_name: this.getDataUser().user_name
+        });
         this.M_Quotation.chat = ""
       });
     },
