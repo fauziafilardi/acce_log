@@ -17,6 +17,7 @@
       :ref="prop.cName"
       :id="prop.cName"
       @paste.native="onPaste"
+      :placeholder="prop.cPlaceholder"
     />
 
     <span v-show="errors.has(prop.cParentForm+'.'+prop.cName)"
@@ -39,6 +40,7 @@ export default {
       cParentForm: String,
       cStyle: String,
       cDecimal: [String, Number],
+      cPlaceholder: String,
       cInputStatus: String
     },
     value: [String, Number]
@@ -243,6 +245,7 @@ export default {
     this.prop.cInputStatus = this.prop.cInputStatus ? this.prop.cInputStatus : "new"
     this.prop.cStyle = this.prop.cStyle ? this.prop.cStyle : ""
     // this.style += this.prop.cStyle
+    this.prop.cPlaceholder = this.prop.cPlaceholder && this.prop.cPlaceholder !== '' ? this.prop.cPlaceholder : ''
 
     if (this.prop.cType == 'email' || this.prop.cType == 'password') {
         this.type = this.prop.cType
