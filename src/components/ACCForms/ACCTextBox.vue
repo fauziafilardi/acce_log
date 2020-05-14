@@ -244,8 +244,8 @@ export default {
     this.prop.cStyle = this.prop.cStyle ? this.prop.cStyle : ""
     // this.style += this.prop.cStyle
 
-    if (this.prop.cType == 'email') {
-        this.type = "email"
+    if (this.prop.cType == 'email' || this.prop.cType == 'password') {
+        this.type = this.prop.cType
     }
     else {
         this.type = "text"

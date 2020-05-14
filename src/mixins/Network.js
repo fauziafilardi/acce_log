@@ -668,7 +668,7 @@ export default {
     },
 
     getUrlAPIUser(id = null) {
-      url = this.url + this.segmentAPIUser
+      var url = this.url + this.segmentAPIUser
       if (id && id !== '') {
         url += ('/' + id)
       }

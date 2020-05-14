@@ -1038,7 +1038,7 @@ export default {
             truck_type: this.M_Order.TL,
             weight: this.M_Order.TL == 'LTL' ? (this.M_Order.weight && this.M_Order.weight !== '' ? this.M_Order.weight : 0) : "NULL",
             cubic: this.M_Order.TL == 'LTL' ? (this.M_Order.cubic && this.M_Order.cubic !== '' ? this.M_Order.cubic : 0) : "NULL",
-            lastupdatestamp: this.M_Order.lastupdatestamp,
+            lastupdatestamp: this.paramFromList.lastupdatestamp,
             user_edit: this.getDataUser().user_id,
         };
 
