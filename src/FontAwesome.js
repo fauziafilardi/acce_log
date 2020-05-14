@@ -66,7 +66,10 @@ import {
     faCommentAlt,
     faPaperPlane,
     faDotCircle,
-    faStar
+    faStar,
+    faMapMarkedAlt,
+    faSlidersH,
+    faStickyNote
 } from '@fortawesome/free-solid-svg-icons'
 
 
@@ -132,5 +135,8 @@ library.add(faCube)
 library.add(faBalanceScale)
 library.add(faEnvelope)
 library.add(faGlobeAmericas)
+library.add(faMapMarkedAlt)
+library.add(faSlidersH)
+library.add(faStickyNote)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)

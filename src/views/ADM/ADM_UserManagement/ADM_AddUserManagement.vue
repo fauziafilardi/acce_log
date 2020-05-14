@@ -192,7 +192,7 @@ export default {
         cValidate: "",
         cName: "user_id",
         cOrder: 1,
-        cKey: false,
+        cKey: true,
         cType: "text",
         cProtect: false,
         cParentForm: "MK_AddNewProspect",
@@ -316,6 +316,7 @@ export default {
         role: "",
         roleLabel: "",
         notes: "",
+        user_level: "S",
         file_logo: "",
         file_show: require("@/assets/default_photo_.png"),
         file_logo_name: "",
@@ -364,6 +365,7 @@ export default {
         role: "",
         roleLabel: "",
         notes: "",
+        user_level: "S",
         file_logo: "",
         file_show: this.default_pic,
         file_logo_name: "",
@@ -401,12 +403,12 @@ export default {
         ss_portfolio_id: this.getDataUser().portfolio_id,
         ss_subportfolio_id: this.getDataUser().subportfolio_id,
         user_id: this.M_UserManagement.user_id,
-        ss_group_id: this.getDataUser().group_id,
+        ss_group_id: this.M_UserManagement.role,
         user_name: this.M_UserManagement.customer_name,
         address: this.M_UserManagement.address,
         password: this.M_UserManagement.password,
         email: this.M_UserManagement.email,
-        user_level: this.M_UserManagement.role,
+        user_level: this.M_UserManagement.user_level,
         hand_phone: this.M_UserManagement.phone_no,
         file_name: this.M_UserManagement.file_logo_name,
         path_file: this.M_UserManagement.file_logo_path,
@@ -424,8 +426,6 @@ export default {
     },
     GetDataBy() {
       var param = {
-        option_url: "/SS/SS_User",
-        line_no: 0,
         id: this.paramFromList.row_id,
         lastupdatestamp: this.paramFromList.lastupdatestamp
       };
@@ -434,49 +434,27 @@ export default {
         // response from API
         if (response == null) return;
 
-        var data = response.Data[0];
+        var data = response.Data;
 
-        // var phone_no =
-        //   data.phone_no && data.phone_no !== "" ? data.phone_no.split("-") : "";
-        // var contact_phone_no =
-        //   data.contact_phone_no && data.contact_phone_no !== ""
-        //     ? data.contact_phone_no.split("-")
-        //     : "";
+        this.PI_user_id.cProtect = true
 
         this.M_UserManagement = {
-        //   customer_name: data.name,
-        //   contact_created: this.momentDateFormatting(
-        //     new Date(data.contact_created),
-        //     "DD-MM-YYYY HH.mm"
-        //   ),
-        //   address: data.address,
-        //   district: data.ss_district_id,
-        //   districtLabel: data.district,
-        //   city: data.ss_city_id,
-        //   cityLabel: data.city,
-        //   province: data.ss_province_id,
-        //   provinceLabel: data.province,
-        //   country: data.ss_country_id,
-        //   countryLabel: data.country,
-        //   phone_no_1: phone_no !== "" ? phone_no[0] : phone_no,
-        //   phone_no_2: phone_no !== "" ? phone_no[1] : phone_no,
-        //   phone_no_3: phone_no !== "" ? phone_no[2] : phone_no,
-        //   email: data.email,
-        //   website: data.website,
-        //   contact_person: data.contact_person,
-        //   contact_phone_no_1:
-        //     contact_phone_no !== "" ? contact_phone_no[0] : contact_phone_no,
-        //   contact_phone_no_2:
-        //     contact_phone_no !== "" ? contact_phone_no[1] : contact_phone_no,
-        //   contact_phone_no_3:
-        //     contact_phone_no !== "" ? contact_phone_no[2] : contact_phone_no,
-        //   file_logo: data.file_name,
-        //   file_show:
-        //     data.path_file && data.path_file !== ""
-        //       ? this.url + data.path_file
-        //       : this.default_pic,
-        //   file_logo_name: data.file_name,
-        //   file_logo_path: data.path_file
+          user_name: this.getDataUser().user_name,
+          user_id: data.user_id,
+          customer_name: data.user_name,
+          phone_no: data.hand_phone,
+          address: data.address,
+          email: data.email,
+          password: "",
+          confirm_password: "",
+          role: data.ss_group_id,
+          roleLabel: data.group_descs,
+          notes: data.notes,
+          user_level: data.user_level,
+          file_logo: data.file_name,
+          file_show: data.file_name && data.file_name !== '' ? (this.url + data.file_name) : this.default_pic,
+          file_logo_name: data.file_name,
+          file_logo_path: data.file_name && data.file_name !== '' ? (this.url + data.file_name) : this.default_pic
         };
       });
     },
@@ -485,12 +463,12 @@ export default {
         ss_portfolio_id: this.getDataUser().portfolio_id,
         ss_subportfolio_id: this.getDataUser().subportfolio_id,
         user_id: this.M_UserManagement.user_id,
-        ss_group_id: this.getDataUser().group_id,
+        ss_group_id: this.M_UserManagement.role,
         user_name: this.M_UserManagement.customer_name,
         address: this.M_UserManagement.address,
         password: this.M_UserManagement.password,
         email: this.M_UserManagement.email,
-        user_level: this.M_UserManagement.role,
+        user_level: this.M_UserManagement.user_level,
         hand_phone: this.M_UserManagement.phone_no,
         file_name: this.M_UserManagement.file_logo_name,
         path_file: this.M_UserManagement.file_logo_path,

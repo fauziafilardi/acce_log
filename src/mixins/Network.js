@@ -1515,7 +1515,9 @@ export default {
 
           this.$store.commit('setStatusLoader', false)
           if (error) {
-            this.alertError(message)
+            if(url !== this.getUrlAPIChat()) {
+              this.alertError(message)
+            }
             return null
           }
           return responses
