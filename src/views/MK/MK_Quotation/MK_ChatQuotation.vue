@@ -335,7 +335,7 @@ export default {
         if (response == null) return;
 
         var data = response;
-        var chatFill = data.Data && data.Data.length > 0 ? data.Data : [];
+        var chatFill = data.Data && data.Data.chat.length > 0 ? data.Data.chat : [];
         for (let i = 0; i < chatFill.length; i++) {
           this.ChatFill.push({
             position: "l",
