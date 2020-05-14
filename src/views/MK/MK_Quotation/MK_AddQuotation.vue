@@ -468,10 +468,11 @@ export default {
         statusLabel: "New"
       };
 
-      this.PI_valid_until.cValidate = "min_date:" + this.getToday()
+      this.PI_valid_until.cValidate = "min_date:" + this.momentDate(this.getToday())
     },
     doSave() {
       this.$validator._base.validateAll("MK_AddQuotation").then(result => {
+        console.log(result)
         if (!result) return;
         this.alertConfirmation("Are You Sure Want To Save This Data ?").then(
           ress => {
@@ -493,14 +494,14 @@ export default {
         line_no: 0,
         ss_portfolio_id: this.getDataUser().portfolio_id,
         ss_subportfolio_id: this.getDataUser().subportfolio_id,
-        cm_contact_id: this.M_Quotation.customer,
+        cm_contact_id: this.M_Quotation.customer && this.M_Quotation.customer !== '' ? this.M_Quotation.customer : "NULL",
         // quotation_no: this.M_Quotation.quotation_no,
-        quotation_date: this.M_Quotation.date,
+        quotation_date: this.M_Quotation.date && this.M_Quotation.date !== '' ? this.M_Quotation.date : "NULL",
         quotation_type: this.M_Quotation.type,
         project_name: this.M_Quotation.project_name,
         descs: this.M_Quotation.descs,
-        project_value: this.M_Quotation.project_value,
-        expired_date: this.M_Quotation.valid_until,
+        project_value: this.M_Quotation.project_value && this.M_Quotation.project_value !== '' ? this.replaceAllString(this.M_Quotation.project_value, ',', '', 'number') : 0,
+        expired_date: this.M_Quotation.valid_until && this.M_Quotation.valid_until !== '' ? this.M_Quotation.valid_until : "NULL",
         status: this.M_Quotation.status,
         user_input: this.getDataUser().user_id
       };
@@ -520,14 +521,14 @@ export default {
         mk_quotation_id: this.paramFromList.row_id,
         ss_portfolio_id: this.getDataUser().portfolio_id,
         ss_subportfolio_id: this.getDataUser().subportfolio_id,
-        cm_contact_id: this.M_Quotation.customer,
+        cm_contact_id: this.M_Quotation.customer && this.M_Quotation.customer !== '' ? this.M_Quotation.customer : "NULL",
         quotation_no: this.M_Quotation.quotation_no,
-        quotation_date: this.M_Quotation.date,
+        quotation_date: this.M_Quotation.date && this.M_Quotation.date !== '' ? this.M_Quotation.date : "NULL",
         quotation_type: this.M_Quotation.type,
         project_name: this.M_Quotation.project_name,
         descs: this.M_Quotation.descs,
-        project_value: this.M_Quotation.project_value,
-        expired_date: this.M_Quotation.valid_until,
+        project_value: this.M_Quotation.project_value && this.M_Quotation.project_value !== '' ? this.replaceAllString(this.M_Quotation.project_value, ',', '', 'number') : 0,
+        expired_date: this.M_Quotation.valid_until && this.M_Quotation.valid_until !== '' ? this.M_Quotation.valid_until : "NULL",
         status: this.M_Quotation.status,
         lastupdatestamp: this.paramFromList.lastupdatestamp,
         user_edit: this.getDataUser().user_id
