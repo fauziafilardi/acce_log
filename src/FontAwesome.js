@@ -66,11 +66,15 @@ import {
     faCommentAlt,
     faPaperPlane,
     faDotCircle,
-    faStar
+    faStar,
+    faSlidersH,
+    faStickyNote
 } from '@fortawesome/free-solid-svg-icons'
 
 
 
+library.add(faStickyNote)
+library.add(faSlidersH)
 library.add(faStar)
 library.add(faDotCircle)
 library.add(faPaperPlane)

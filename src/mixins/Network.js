@@ -668,7 +668,7 @@ export default {
     },
 
     getUrlAPIUser(id = null) {
-      url = this.url + this.segmentAPIUser
+      var url = this.url + this.segmentAPIUser
       if (id && id !== '') {
         url += ('/' + id)
       }
@@ -818,8 +818,9 @@ export default {
       //   this.$store.commit('setParamInsertPopup', param)
       // }
 
-      if(fullUrl === this.getUrlAPIChat()) {}
-      else { this.$store.commit('setStatusLoader', true) }
+      if (fullUrl === this.getUrlAPIChat()) {} else {
+        this.$store.commit('setStatusLoader', true)
+      }
       return axios
         .post(
           fullUrl,
@@ -1493,8 +1494,9 @@ export default {
     },
 
     getJSON(url, param) {
-      if(url === this.getUrlAPIChat()) {}
-      else { this.$store.commit('setStatusLoader', true) }
+      if (url === this.getUrlAPIChat()) {} else {
+        this.$store.commit('setStatusLoader', true)
+      }
 
       return axios
         .get(url, {
