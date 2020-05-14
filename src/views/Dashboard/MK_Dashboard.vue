@@ -307,24 +307,40 @@
               </b-row>
             </div>
             <div class="card__body">
-              <b-row class="AppointmentData" v-for="(data, index) in ToDoList" v-bind:key="index">
+              <b-row
+                class="AppointmentData"
+                v-for="(data, index) in Appointment"
+                v-bind:key="index"
+              >
                 <b-col style="max-width:fit-content !important;">
                   <div style="width:50px;">
                     <div class="CalendarTagMonth">{{data.month}}</div>
-                    <div class="CalendarTagDate">{{data.date}}</div>
+                    <div class="CalendarTagDate">{{data.day}}</div>
                   </div>
                 </b-col>
                 <b-col style="margin: auto;">
                   <span class="AppointmentTitle">{{data.time}}</span>
                   <br />
-                  <span class="AppointmentDescs">{{data.name}}</span>
+                  <span class="AppointmentDescs">{{data.customer_name}}</span>
                 </b-col>
                 <b-col class="AppointmentIcon">
                   <span>
                     <font-awesome-icon
-                      v-if="data.action.icon"
+                      v-if="data.action_ == 'C'"
                       style="color: #333399;"
-                      :icon="data.action.icon"
+                      icon="phone-square-alt"
+                      size="lg"
+                    />
+                    <font-awesome-icon
+                      v-else-if="data.action_ == 'E'"
+                      style="color: #333399;"
+                      icon="utensils"
+                      size="lg"
+                    />
+                    <font-awesome-icon
+                      v-else-if="data.action_ == 'V'"
+                      style="color: #333399;"
+                      icon="hand-paper"
                       size="lg"
                     />
                   </span>
@@ -477,19 +493,19 @@
               >
                 <!-- class="table-sm table-style-1" -->
                 <template v-slot:cell(no)="data">{{data.index + 1}}</template>
-                <template v-slot:cell(status)="data">
+                <template v-slot:cell(customer_status)="data">
                   <b-badge
                     style="height: 12px !important; width: 12px !important; font-size: 10px !important; padding: 1px 3px !important;"
                     variant="warning"
-                  >{{data.item.status.pending}}</b-badge>&nbsp;
+                  >{{data.item.pending}}</b-badge>&nbsp;
                   <b-badge
                     style="height: 12px !important; width: 12px !important; font-size: 10px !important; padding: 1px 3px !important;"
                     variant="success"
-                  >{{data.item.status.progress}}</b-badge>&nbsp;
+                  >{{data.item.progress}}</b-badge>&nbsp;
                   <b-badge
                     style="height: 12px !important; width: 12px !important; font-size: 10px !important; padding: 1px 3px !important;"
                     variant="danger"
-                  >{{data.item.status.issue}}</b-badge>
+                  >{{data.item.issue}}</b-badge>
                 </template>
               </b-table>
               <!-- </div> -->
@@ -705,6 +721,7 @@
 export default {
   data() {
     return {
+      Appointment: [],
       ToDoList: [
         {
           status: "1",
@@ -778,7 +795,7 @@ export default {
             tdClass: "ContentTable"
           },
           {
-            key: "date",
+            key: "quotation_date",
             label: "Date",
             thClass: "HeaderTable",
             tdClass: "ContentTable__Center"
@@ -791,46 +808,46 @@ export default {
           }
         ],
         Data: [
-          {
-            name: "PT Abadi Sentosa",
-            date: "10/01/2020",
-            type: "Project Base"
-          },
-          {
-            name: "PT Gemini Perkasa Abadi",
-            date: "10/01/2020",
-            type: "FTL"
-          },
-          {
-            name: "PT Garuda Perkasa",
-            date: "10/01/2020",
-            type: "LTL"
-          },
-          {
-            name: "PT Indo Sejahtera",
-            date: "10/01/2020",
-            type: "Rental"
-          },
-          {
-            name: "PT Abadi Sentosa",
-            date: "10/01/2020",
-            type: "Project Base"
-          },
-          {
-            name: "PT Gemini Perkasa Abadi",
-            date: "10/01/2020",
-            type: "FTL"
-          },
-          {
-            name: "PT Garuda Perkasa",
-            date: "10/01/2020",
-            type: "LTL"
-          },
-          {
-            name: "PT Indo Sejahtera",
-            date: "10/01/2020",
-            type: "Rental"
-          }
+          // {
+          //   name: "PT Abadi Sentosa",
+          //   date: "10/01/2020",
+          //   type: "Project Base"
+          // },
+          // {
+          //   name: "PT Gemini Perkasa Abadi",
+          //   date: "10/01/2020",
+          //   type: "FTL"
+          // },
+          // {
+          //   name: "PT Garuda Perkasa",
+          //   date: "10/01/2020",
+          //   type: "LTL"
+          // },
+          // {
+          //   name: "PT Indo Sejahtera",
+          //   date: "10/01/2020",
+          //   type: "Rental"
+          // },
+          // {
+          //   name: "PT Abadi Sentosa",
+          //   date: "10/01/2020",
+          //   type: "Project Base"
+          // },
+          // {
+          //   name: "PT Gemini Perkasa Abadi",
+          //   date: "10/01/2020",
+          //   type: "FTL"
+          // },
+          // {
+          //   name: "PT Garuda Perkasa",
+          //   date: "10/01/2020",
+          //   type: "LTL"
+          // },
+          // {
+          //   name: "PT Indo Sejahtera",
+          //   date: "10/01/2020",
+          //   type: "Rental"
+          // }
         ]
       },
       Order: {
@@ -842,83 +859,83 @@ export default {
             tdClass: "ContentTable__Center"
           },
           {
-            key: "name",
+            key: "customer_name",
             label: "Customer",
             thClass: "HeaderTable",
             tdClass: "ContentTable"
           },
           {
-            key: "status",
+            key: "customer_status",
             label: "Status",
             thClass: "HeaderTable",
             tdClass: "ContentTable__Center"
           }
         ],
         Data: [
-          {
-            name: "PT Abadi Sentosa",
-            status: {
-              pending: 2,
-              progress: 4,
-              issue: 3
-            }
-          },
-          {
-            name: "PT Gemini Perkasa Abadi",
-            status: {
-              pending: 2,
-              progress: 4,
-              issue: 3
-            }
-          },
-          {
-            name: "PT Garuda Perkasa",
-            status: {
-              pending: 2,
-              progress: 4,
-              issue: 3
-            }
-          },
-          {
-            name: "PT Indo Sejahtera",
-            status: {
-              pending: 2,
-              progress: 4,
-              issue: 3
-            }
-          },
-          {
-            name: "PT Abadi Sentosa",
-            status: {
-              pending: 2,
-              progress: 4,
-              issue: 3
-            }
-          },
-          {
-            name: "PT Gemini Perkasa Abadi",
-            status: {
-              pending: 2,
-              progress: 4,
-              issue: 3
-            }
-          },
-          {
-            name: "PT Garuda Perkasa",
-            status: {
-              pending: 2,
-              progress: 4,
-              issue: 3
-            }
-          },
-          {
-            name: "PT Indo Sejahtera",
-            status: {
-              pending: 2,
-              progress: 4,
-              issue: 3
-            }
-          }
+          // {
+          //   name: "PT Abadi Sentosa",
+          //   status: {
+          //     pending: 2,
+          //     progress: 4,
+          //     issue: 3
+          //   }
+          // },
+          // {
+          //   name: "PT Gemini Perkasa Abadi",
+          //   status: {
+          //     pending: 2,
+          //     progress: 4,
+          //     issue: 3
+          //   }
+          // },
+          // {
+          //   name: "PT Garuda Perkasa",
+          //   status: {
+          //     pending: 2,
+          //     progress: 4,
+          //     issue: 3
+          //   }
+          // },
+          // {
+          //   name: "PT Indo Sejahtera",
+          //   status: {
+          //     pending: 2,
+          //     progress: 4,
+          //     issue: 3
+          //   }
+          // },
+          // {
+          //   name: "PT Abadi Sentosa",
+          //   status: {
+          //     pending: 2,
+          //     progress: 4,
+          //     issue: 3
+          //   }
+          // },
+          // {
+          //   name: "PT Gemini Perkasa Abadi",
+          //   status: {
+          //     pending: 2,
+          //     progress: 4,
+          //     issue: 3
+          //   }
+          // },
+          // {
+          //   name: "PT Garuda Perkasa",
+          //   status: {
+          //     pending: 2,
+          //     progress: 4,
+          //     issue: 3
+          //   }
+          // },
+          // {
+          //   name: "PT Indo Sejahtera",
+          //   status: {
+          //     pending: 2,
+          //     progress: 4,
+          //     issue: 3
+          //   }
+          // }
         ]
       },
       Outstanding: {
@@ -1115,6 +1132,69 @@ export default {
   },
   computed: {},
   methods: {
+    getListAppointment() {
+      var param = {
+        option_url: "/MK/MK_Appointment",
+        line_no: 0,
+        user_id: this.getDataUser().user_id,
+        portfolio_id: this.getDataUser().portfolio_id,
+        subportfolio_id: this.getDataUser().subportfolio_id,
+        current_page: 1,
+        per_page: 4,
+        param_where: "",
+        initial_where: "next_action is not null",
+        sort_field: "",
+        source_field: "",
+        param_view: ""
+      };
+
+      this.postJSON(this.getUrlList(), param).then(response => {
+        console.log(response);
+        this.Appointment = response.Data;
+        // console.log(this.Order.Data);
+      });
+    },
+    getListOrder() {
+      var param = {
+        option_url: "/MK/MK_Order",
+        line_no: 0,
+        user_id: this.getDataUser().user_id,
+        portfolio_id: this.getDataUser().portfolio_id,
+        subportfolio_id: this.getDataUser().subportfolio_id,
+        current_page: 1,
+        per_page: 8,
+        param_where: "",
+        initial_where: "",
+        sort_field: "",
+        source_field: "",
+        param_view: ""
+      };
+
+      this.postJSON(this.getUrlList(), param).then(response => {
+        this.Order.Data = response.Data;
+        // console.log(this.Order.Data);
+      });
+    },
+    getListQuotation() {
+      var param = {
+        option_url: "/MK/MK_Quotation",
+        line_no: 0,
+        user_id: this.getDataUser().user_id,
+        portfolio_id: this.getDataUser().portfolio_id,
+        subportfolio_id: this.getDataUser().subportfolio_id,
+        current_page: 1,
+        per_page: 8,
+        param_where: "",
+        initial_where: "",
+        sort_field: "",
+        source_field: "",
+        param_view: ""
+      };
+      this.postJSON(this.getUrlList(), param).then(response => {
+        this.Quotation.Data = response.Data;
+        console.log(this.Quotation.Data);
+      });
+    },
     renderChart() {
       var valuedata = [2478, 5267, 734, 784, 433];
       var valuedata2 = [
@@ -1304,6 +1384,9 @@ export default {
   mounted() {
     this.renderChart();
     this.getProspect();
+    this.getListOrder();
+    this.getListQuotation();
+    this.getListAppointment();
   }
 };
 </script>

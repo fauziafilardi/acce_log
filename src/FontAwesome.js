@@ -74,6 +74,8 @@ import {
 
 
 
+library.add(faStickyNote)
+library.add(faSlidersH)
 library.add(faStar)
 library.add(faDotCircle)
 library.add(faPaperPlane)
