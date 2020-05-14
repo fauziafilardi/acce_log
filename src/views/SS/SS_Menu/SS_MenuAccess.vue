@@ -611,8 +611,8 @@ export default {
           });
         });
         var param = {
-          OptionUrl: this.getOptionUrl(),
-          LineNo: 0,
+          option_url: this.getOptionUrl(),
+          line_no: 0,
           Data: dataLevel1ToSave
         };
         this.putJSONMulti(this.getUrlUpdateMulti(), param).then(response => {
@@ -635,6 +635,7 @@ export default {
             });
 
             param.Data = dataLevel2ToSave;
+            if (dataLevel2ToSave.length == 0) return;
             this.putJSONMulti(this.getUrlUpdateMulti(), param).then(
               response => {
                 console.log("response", response);
@@ -654,6 +655,7 @@ export default {
                 });
 
                 param.Data = dataLevel3ToSave;
+                if (dataLevel3ToSave.length == 0) return;
                 this.putJSONMulti(this.getUrlUpdateMulti(), param).then(
                   response => {
                     // console.log("response", response);
