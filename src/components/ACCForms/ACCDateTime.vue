@@ -78,7 +78,7 @@
       </b-col>-->
       <b-col md="3" class="col-a-2" v-show="prop.cWithTime">
         <b-form-input
-          v-validate="prop.cValidate + '|invalidHour'"
+          v-validate="'invalidHour'"
           :class="{'input': true, 'error-text-field': errors.has(prop.cParentForm+'.'+prop.cName+'Hour')}"
           :type="'text'"
           v-bind:data-vv-name="prop.cName+'Hour'"
@@ -104,7 +104,7 @@
 
       <b-col md="3" class="col-a-3" v-show="prop.cWithTime">
         <b-form-input
-          v-validate="prop.cValidate + '|invalidTime'"
+          v-validate="'invalidTime'"
           :class="{'input': true, 'error-text-field': errors.has(prop.cParentForm+'.'+prop.cName+'Time')}"
           :type="'text'"
           v-bind:data-vv-name="prop.cName+'Time'"
@@ -550,6 +550,8 @@ export default {
       // validate(value, field) {
       validate(value, field) {
         var rr = false
+        // console.log(vm.prop.cWithTime, field)
+        // console.log(value)
         if (vm.prop.cWithTime) {
           rr = vm.momentDateFormatting(value, 'YYYY-MM-DD HH:mm') >= vm.momentDateFormatting(field[0], 'YYYY-MM-DD HH:mm')
         }

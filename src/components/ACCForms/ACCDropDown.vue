@@ -214,7 +214,7 @@ export default {
         //     }
         // }
 
-        console.log(this.value, this.options)
+        // console.log(this.value, this.options)
 
         if (this.value == "" || this.value == null) {
           return null;
