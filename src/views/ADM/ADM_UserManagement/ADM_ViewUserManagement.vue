@@ -37,7 +37,7 @@
                         <b-row>
                           <b-col>
                             <span>
-                              <label>{{M_UserManagement.user_name}}</label>
+                              <label style="font-size: 15px; color: blue;">{{M_UserManagement.user_name}}</label>
                             </span>
                           </b-col>
                           <b-col style="text-align: right;">
@@ -65,7 +65,7 @@
                             <span>
                               <font-awesome-icon
                                 class="icon-style-default"
-                                icon="map-marker-alt"
+                                icon="map-marked-alt"
                                 size="sm"
                               />
                               {{ M_UserManagement.fulladdress }}
@@ -95,25 +95,17 @@
                                 icon="sticky-note"
                                 size="sm"
                               />
-                              {{ M_UserManagement.notes }}
+                              Notes
                             </span>
                           </b-col>
                         </b-row>
-                      </b-col>
-                      <!-- <b-col style="text-align: right; margin-top: 10px;">
-                        <span>
-                          <ABSButton
-                            :text="'Edit'"
-                            classButton="btn btn--default"
-                            classIcon="icon-style-1"
-                            @click="doEdit"
-                          />
-                        </span>
-                      </b-col>-->
-                    </b-row>
-                    <b-row style="margin-bottom: 10px; !important">
-                      <b-col style="text-align: justify;">
-                        <span>{{ M_UserManagement.descs }}</span>
+                        <b-row>
+                            <b-col>
+                                <span>
+                                    {{ M_UserManagement.notes }}
+                                </span>
+                            </b-col>
+                        </b-row>
                       </b-col>
                     </b-row>
                   </b-col>
@@ -138,8 +130,7 @@ export default {
         fulladdress: "",
         email: "",
         role: "",
-        notes: "",
-        descs: ""
+        notes: ""
       }
     };
   },
@@ -164,7 +155,7 @@ export default {
     doEdit() {
       var param = this.paramFromList;
       param.isEdit = true;
-      this.$router.push({ name: "MK_AddQuotation", params: param });
+      this.$router.push({ name: "ADM_AddUserManagement", params: param });
     },
     GetDataBy() {
       var param = {
@@ -180,14 +171,12 @@ export default {
 
           var data = response.Data;
 
-          console.log(data);
-
           this.M_UserManagement = {
             user_name: data.user_name,
             hand_phone: data.hand_phone,
             fulladdress: data.address,
             email: data.email,
-            role: data.user_level,
+            role: data.group_descs,
             notes: data.notes,
             path_file:
               data.path_file == null || data.path_file == ""

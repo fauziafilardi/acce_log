@@ -440,6 +440,7 @@ export default {
 
         this.M_UserManagement = {
           user_name: this.getDataUser().user_name,
+          ss_user_id: data.ss_user_id,
           user_id: data.user_id,
           customer_name: data.user_name,
           phone_no: data.hand_phone,
@@ -454,7 +455,7 @@ export default {
           file_logo: data.file_name,
           file_show: data.file_name && data.file_name !== '' ? (this.url + data.file_name) : this.default_pic,
           file_logo_name: data.file_name,
-          file_logo_path: data.file_name && data.file_name !== '' ? (this.url + data.file_name) : this.default_pic
+          file_logo_path: data.file_name && data.file_name !== '' ? (this.url + data.file_name) : ""
         };
       });
     },
@@ -462,6 +463,7 @@ export default {
       var param = {
         ss_portfolio_id: this.getDataUser().portfolio_id,
         ss_subportfolio_id: this.getDataUser().subportfolio_id,
+        ss_user_id: this.M_UserManagement.ss_user_id,
         user_id: this.M_UserManagement.user_id,
         ss_group_id: this.M_UserManagement.role,
         user_name: this.M_UserManagement.customer_name,
@@ -477,7 +479,7 @@ export default {
         user_edit: this.getDataUser().user_id
       };
 
-      this.putJSON(this.getUrlCRUD(), param).then(response => {
+      this.putJSON(this.getUrlAPIUser(), param).then(response => {
         // console.log(response)
         if (response == null) return;
         this.alertSuccess("Update Data Has Been Successfully").then(() => {

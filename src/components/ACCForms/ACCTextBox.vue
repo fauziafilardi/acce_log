@@ -19,7 +19,7 @@
       @paste.native="onPaste"
       :placeholder="prop.cPlaceholder"
     />
-    {{inputStatus}}
+    <!-- {{inputStatus}} -->
 
     <span v-show="errors.has(prop.cParentForm+'.'+prop.cName)"
       class="error-span">{{ errors.first(prop.cParentForm+'.'+prop.cName) }}
