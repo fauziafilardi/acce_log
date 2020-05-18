@@ -89,18 +89,20 @@
                   <span>
                     <ABSButton
                       :text="'Add New'"
-                      classButton="button button--new"
+                      classButton="button button--back2"
                       classIcon="icon-style-1"
-                      :disabled="true"
+                      :disabled="false"
+                      @click="doAddNewProspect"
                     />
                   </span>
 
                   <span>
                     <ABSButton
                       :text="'View All'"
-                      classButton="button button--new"
+                      classButton="button button--back2"
                       classIcon="icon-style-1"
-                      :disabled="true"
+                      :disabled="false"
+                      @click="doViewAllProspect"
                     />
                   </span>
                 </b-col>
@@ -362,9 +364,10 @@
                   <span>
                     <ABSButton
                       :text="'View All'"
-                      classButton="button button--new"
+                      classButton="button button--back2"
                       classIcon="icon-style-1"
-                      :disabled="true"
+                      :disabled="false"
+                      @click="doViewAllQuotation"
                     />
                   </span>
                 </b-col>
@@ -468,9 +471,10 @@
                   <span>
                     <ABSButton
                       :text="'View All'"
-                      classButton="button button--new"
+                      classButton="button button--back2"
                       classIcon="icon-style-1"
-                      :disabled="true"
+                      :disabled="false"
+                      @click="doViewAllOrder"
                     />
                   </span>
                 </b-col>
@@ -1132,6 +1136,46 @@ export default {
   },
   computed: {},
   methods: {
+    doAddNewProspect() {
+      var url = "MK_AddNewProspect";
+      if (!url || url == "" || url == undefined) return;
+      var param = {
+        // option_url: this.getOptionUrl(),
+        // title: this.title,
+        isEdit: false
+      };
+      this.$router.push({ name: url, params: param });
+    },
+    doViewAllProspect() {
+      var url = "MK_NewProspect";
+      if (!url || url == "" || url == undefined) return;
+      var param = {
+        // option_url: this.getOptionUrl(),
+        // title: this.title,
+        isEdit: false
+      };
+      this.$router.push({ name: url, params: param });
+    },
+    doViewAllQuotation() {
+      var url = "MK_Quotation";
+      if (!url || url == "" || url == undefined) return;
+      var param = {
+        // option_url: this.getOptionUrl(),
+        // title: this.title,
+        isEdit: false
+      };
+      this.$router.push({ name: url, params: param });
+    },
+    doViewAllOrder() {
+      var url = "MK_ListOrder";
+      if (!url || url == "" || url == undefined) return;
+      var param = {
+        // option_url: this.getOptionUrl(),
+        // title: this.title,
+        isEdit: false
+      };
+      this.$router.push({ name: url, params: param });
+    },
     getListAppointment() {
       var param = {
         option_url: "/MK/MK_Appointment",
