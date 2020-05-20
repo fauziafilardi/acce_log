@@ -225,6 +225,10 @@ export default {
       segmentAPIUser: 'api/SsUser',
       segmentUserList: 'api/SsUser/GetList',
 
+      //Group
+      segmentAPIGroup: 'api/SsGroup',
+      segmentGroupJSON: 'api/SsGroup/Json',
+
 
       queryString: require('querystring'),
       // content type
@@ -677,6 +681,14 @@ export default {
 
     getUrlUserList() {
       return this.url + this.segmentUserList
+    },
+
+    getUrlAPIGroup() {
+      return this.url + this.segmentAPIGroup
+    },
+
+    getUrlGroupJson() {
+      return this.url + this.segmentGroupJSON
     },
 
     GenerateReportTemplate(OptionSeq, Param) {

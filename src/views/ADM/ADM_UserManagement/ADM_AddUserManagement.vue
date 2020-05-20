@@ -7,7 +7,7 @@
             <div class="card__title">
               <b-row>
                 <b-col style="max-width:fit-content !important;">
-                  <span>Customer List</span>
+                  <span>User Management</span>
                 </b-col>
                 <b-col style="text-align: right;">
                   <ABSButton
@@ -21,8 +21,8 @@
             </div>
             <div class="card__body">
               <b-form
-                :data-vv-scope="'MK_AddNewProspect'"
-                :data-vv-value-path="'MK_AddNewProspect'"
+                :data-vv-scope="'ADM_AddUserManagement'"
+                :data-vv-value-path="'ADM_AddUserManagement'"
               >
                 <b-row>
                   <b-col md="2">
@@ -195,7 +195,7 @@ export default {
         cKey: true,
         cType: "text",
         cProtect: false,
-        cParentForm: "MK_AddNewProspect",
+        cParentForm: "ADM_AddUserManagement",
         cDecimal: 2,
         cInputStatus: this.inputStatus
       },
@@ -206,7 +206,7 @@ export default {
         cKey: false,
         cType: "text",
         cProtect: false,
-        cParentForm: "MK_AddNewProspect",
+        cParentForm: "ADM_AddUserManagement",
         cDecimal: 2,
         cInputStatus: this.inputStatus
       },
@@ -217,7 +217,7 @@ export default {
         cKey: false,
         cType: "tel",
         cProtect: false,
-        cParentForm: "MK_AddNewProspect",
+        cParentForm: "ADM_AddUserManagement",
         cDecimal: 2,
         cInputStatus: this.inputStatus
       },
@@ -232,7 +232,7 @@ export default {
         cRows: 1,
         cMaxRows: 2,
         cSize: "md",
-        cParentForm: "MK_AddNewProspect",
+        cParentForm: "ADM_AddUserManagement",
         cInputStatus: this.inputStatus
       },
       PI_email: {
@@ -242,7 +242,7 @@ export default {
         cKey: false,
         cType: "email",
         cProtect: false,
-        cParentForm: "MK_AddNewProspect",
+        cParentForm: "ADM_AddUserManagement",
         cDecimal: 2,
         cInputStatus: this.inputStatus
       },
@@ -253,7 +253,7 @@ export default {
         cKey: false,
         cType: "password",
         cProtect: false,
-        cParentForm: "MK_AddNewProspect",
+        cParentForm: "ADM_AddUserManagement",
         cDecimal: 2,
         cInputStatus: this.inputStatus
       },
@@ -264,7 +264,7 @@ export default {
         cKey: false,
         cType: "password",
         cProtect: false,
-        cParentForm: "MK_AddNewProspect",
+        cParentForm: "ADM_AddUserManagement",
         cDecimal: 2,
         cInputStatus: this.inputStatus
       },
@@ -284,7 +284,7 @@ export default {
         ckey: false,
         cOrder: 7,
         cProtect: false,
-        cParentForm: "MK_AddNewProspect",
+        cParentForm: "ADM_AddUserManagement",
         cStatic: false,
         cOption: [],
         cDisplayColumn: "descs,time_edit",
@@ -301,7 +301,7 @@ export default {
         cRows: 1,
         cMaxRows: 3,
         cSize: "md",
-        cParentForm: "MK_AddNewProspect",
+        cParentForm: "ADM_AddUserManagement",
         cInputStatus: this.inputStatus
       },
       M_UserManagement: {
@@ -349,6 +349,11 @@ export default {
     }
   },
   methods: {
+    onlogoChange(data) {
+      this.M_UserManagement.file_logo_name = data.name;
+      this.M_UserManagement.file_logo_path = data.path;
+      this.M_UserManagement.file_show = this.url + data.path;
+    },
     doBack() {
       this.$router.go(-1);
     },
@@ -382,12 +387,12 @@ export default {
       });
     },
     doSave() {
-      this.$validator._base.validateAll("MK_AddNewProspect").then(result => {
+      this.$validator._base.validateAll("ADM_AddUserManagement").then(result => {
         if (!result) return;
         this.alertConfirmation("Are You Sure Want To Save This Data ?").then(
           ress => {
             if (ress.value) {
-              this.$validator.errors.clear("MK_AddNewProspect");
+              this.$validator.errors.clear("ADM_AddUserManagement");
               if (this.inputStatus == "edit") {
                 this.M_Update();
               } else {
@@ -453,9 +458,9 @@ export default {
           notes: data.notes,
           user_level: data.user_level,
           file_logo: data.file_name,
-          file_show: data.file_name && data.file_name !== '' ? (this.url + data.file_name) : this.default_pic,
+          file_show: data.path_file && data.path_file !== '' ? (this.url + data.path_file) : this.default_pic,
           file_logo_name: data.file_name,
-          file_logo_path: data.file_name && data.file_name !== '' ? (this.url + data.file_name) : ""
+          file_logo_path: data.path_file
         };
       });
     },
