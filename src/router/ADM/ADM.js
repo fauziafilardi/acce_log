@@ -4,6 +4,7 @@ import ADM_AddUserManagement from '@/views/ADM/ADM_UserManagement/ADM_AddUserMan
 import ADM_GroupManagement from '@/views/ADM/ADM_GroupManagement/ADM_GroupManagement'
 import ADM_AddGroupManagement from '@/views/ADM/ADM_GroupManagement/ADM_AddGroupManagement'
 import ADM_FleetManagement from '@/views/ADM/ADM_FleetManagement/ADM_FleetManagement'
+import ADM_FleetType from '@/views/ADM/ADM_FleetType/ADM_FleetType'
 
 export const ADMRender = {
     path: '/ADM',
@@ -49,6 +50,15 @@ export const ADMRender = {
             path: '/ADM/ADM_GroupManagement/Form',
             name: 'ADM_AddGroupManagement',
             component: ADM_AddGroupManagement,
+            meta: {
+                requiresAuth: true
+            }
+        },
+
+        {
+            path: '/ADM/ADM_FleetType',
+            name: 'ADM_FleetType',
+            component: ADM_FleetType,
             meta: {
                 requiresAuth: true
             }
