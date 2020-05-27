@@ -45,7 +45,7 @@ export default {
     doViewClick(record, index) {
       var param = record;
       param.isEdit = true;
-      this.$router.push({ name: "ADM_AddFleetManagement", params: param });
+      this.$router.push({ name: "ADM_ViewFleetManagement", params: param });
     },
     doDoubleClick(record, index) {
       //   var param = record;

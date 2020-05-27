@@ -27,7 +27,13 @@
                 <b-row>
                   <b-col md="2">
                     <div>
-                      <img id="logo" :src="require('@/assets/boxKecil.png')" alt width="100%" />
+                        <div style="text-align: center;">
+                            <font-awesome-icon
+                                class="icon-style-default"
+                                icon="truck"
+                                size="10x"
+                            />
+                        </div>
                     </div>
                   </b-col>
                   <b-col md="10">
@@ -96,7 +102,7 @@
                         />
                       </b-col>
                     </b-row>
-                    <b-row>
+                    <!-- <b-row>
                         <b-col md="6">
                             <span>
                                 <label>Description</label>
@@ -107,7 +113,7 @@
                                 ref="ref_descs"
                             />
                         </b-col>
-                    </b-row>
+                    </b-row> -->
                     <b-row>
                         <b-col md="2">
                             <div style="cursor: pointer;" @click="OpenModal('B')" >
@@ -135,6 +141,25 @@
                                     readonly="true"
                                     v-model="data.no"
                                 />
+                            </b-col>
+                        </b-row>
+                        <b-row v-bind:key="index">
+                            <b-col md="3">
+                                <span>
+                                    <label> BPKB Expire </label>
+                                </span> <br>
+                                <b-form-input
+                                    class="text-field-form"
+                                    readonly="true"
+                                    :value="momentDate(new Date(data.exp))"
+                                />
+                            </b-col>
+                        </b-row>
+                        <b-row v-bind:key="index">
+                            <b-col md="3">
+                                <span>
+                                    <label style="color: blue; cursor: pointer;" @click="onPictClick(data)"> {{data.file_logo_name}} </label>
+                                </span>
                             </b-col>
                         </b-row>
                     </template>
@@ -175,8 +200,15 @@
                                 <b-form-input
                                     class="text-field-form"
                                     readonly="true"
-                                    :value="momentDate(data.exp)"
+                                    :value="momentDate(new Date(data.exp))"
                                 />
+                            </b-col>
+                        </b-row>
+                        <b-row v-bind:key="index">
+                            <b-col md="3">
+                                <span>
+                                    <label style="color: blue; cursor: pointer;" @click="onPictClick(data)"> {{data.file_logo_name}} </label>
+                                </span>
                             </b-col>
                         </b-row>
                     </template>
@@ -217,8 +249,15 @@
                                 <b-form-input
                                     class="text-field-form"
                                     readonly="true"
-                                    :value="momentDate(data.exp)"
+                                    :value="momentDate(new Date(data.exp))"
                                 />
+                            </b-col>
+                        </b-row>
+                        <b-row v-bind:key="index">
+                            <b-col md="3">
+                                <span>
+                                    <label style="color: blue; cursor: pointer;" @click="onPictClick(data)"> {{data.file_logo_name}} </label>
+                                </span>
                             </b-col>
                         </b-row>
                     </template>
@@ -274,7 +313,7 @@
                                     />
                                     </b-col>
                                 </b-row>
-                                <!-- <b-row>
+                                <b-row>
                                     <b-col md="12">
                                     <span>
                                         <label>BPKB Expire</label>
@@ -286,7 +325,7 @@
                                         ref="ref_bpkb_exp"
                                     />
                                     </b-col>
-                                </b-row> -->
+                                </b-row>
                                 <b-row>
                                     <b-col md="6">
                                         <img id="logo" :src="M_ModalDoc.file_show" alt style="width: 50px;" />
@@ -617,6 +656,16 @@ export default {
             cDecimal: 2,
             cInputStatus: this.inputStatus
         },
+        PI_bpkb_exp: {
+            cValidate: "",
+            cName: "bpkb_exp",
+            cOrder: 2,
+            cKey: false,
+            cProtect: false,
+            cWithTime: false,
+            cFormat: "dd/MM/yyyy",
+            cParentForm: "Parent_BPKB"
+        },
         PI_bpkb_logo: {
             cName: "BPKB",
             cAccept: ".jpg, .png, .gif",
@@ -716,6 +765,10 @@ export default {
     doBack() {
       this.$router.go(-1);
     },
+    onPictClick(data) {
+        // console.log(data)
+        window.open(data.file_show);
+    },
     OpenModal(from) {
         this.M_ClearModal();
         if (from == "B") {
@@ -740,14 +793,16 @@ export default {
         }
     },
     SaveModal(from) {
+        console.log(this.M_ModalDoc)
         if (from == "B") {
             this.M_BPKB.push({
                 no: this.M_ModalDoc.no,
-                exp: "",
+                exp: this.M_ModalDoc.exp,
                 file_logo: this.M_ModalDoc.file_logo,
                 file_logo_name: this.M_ModalDoc.file_logo_name,
                 file_logo_path: this.M_ModalDoc.file_logo_path,
                 file_show: this.M_ModalDoc.file_show,
+                type: "B",
                 status: "N"
             })
         }
@@ -759,6 +814,7 @@ export default {
                 file_logo_name: this.M_ModalDoc.file_logo_name,
                 file_logo_path: this.M_ModalDoc.file_logo_path,
                 file_show: this.M_ModalDoc.file_show,
+                type: "S",
                 status: "N"
             })
         }
@@ -770,6 +826,7 @@ export default {
                 file_logo_name: this.M_ModalDoc.file_logo_name,
                 file_logo_path: this.M_ModalDoc.file_logo_path,
                 file_show: this.M_ModalDoc.file_show,
+                type: "O",
                 status: "N"
             })
         }
@@ -900,48 +957,21 @@ export default {
             fm_fleet_type_id: this.M_FleetManagement.fleet_type,
             fm_driver_id: this.M_FleetManagement.driver1,
             fm_driver_id2: this.M_FleetManagement.driver2,
-            descs: this.M_FleetManagement.descs,
-            bpkb_no: "NULL",
-            stnk_no: "NULL",
-            stnk_expiry_date: "NULL",
-            // notes: this.M_FleetManagement.notes,
+            descs: this.M_FleetManagement.notes,
+            bpkb_no: this.M_BPKB[this.M_BPKB.length - 1].no,
+            stnk_no: this.M_STNK[this.M_STNK.length - 1].no,
+            stnk_expiry_date: this.M_STNK[this.M_STNK.length - 1].exp && this.M_STNK[this.M_STNK.length - 1].exp != "" ? this.M_STNK[this.M_STNK.length - 1].exp : "NULL",
             user_input: this.getDataUser().user_id
         }
 
-        this.M_BPKB.forEach((doc, index) => {
-            paramD.push({
-                _Method_: "SAVE",
-                _LineNo_: 1,
-                fm_fleet_mstr_id: "A_Insert.row_id_output",
-                doc_type: "B",
-                doc_no: doc.no,
-                doc_file_name: doc.file_logo_name,
-                doc_path_file: doc.file_logo_path,
-                expiry_date: doc.exp && doc.exp !== "" ? doc.exp : "NULL",
-                user_input: this.getDataUser().user_id
-            })
-        })
+        var doc = this.M_BPKB.concat(this.M_STNK.concat(this.M_Doc));
 
-        this.M_STNK.forEach((doc, index) => {
+        doc.forEach((doc, index) => {
             paramD.push({
                 _Method_: "SAVE",
                 _LineNo_: 1,
                 fm_fleet_mstr_id: "A_Insert.row_id_output",
-                doc_type: "S",
-                doc_no: doc.no,
-                doc_file_name: doc.file_logo_name,
-                doc_path_file: doc.file_logo_path,
-                expiry_date: doc.exp && doc.exp !== "" ? doc.exp : "NULL",
-                user_input: this.getDataUser().user_id
-            })
-        })
-
-        this.M_Doc.forEach((doc, index) => {
-            paramD.push({
-                _Method_: "SAVE",
-                _LineNo_: 1,
-                fm_fleet_mstr_id: "A_Insert.row_id_output",
-                doc_type: "O",
+                doc_type: doc.type,
                 doc_no: doc.no,
                 doc_file_name: doc.file_logo_name,
                 doc_path_file: doc.file_logo_path,
@@ -959,8 +989,7 @@ export default {
             }]
         };
 
-        this.postJSONMulti(this.getUrlProsesDataPostMulti(), params).then(response => {
-            // console.log(response)
+        this.postJSONMulti(this.getUrlProsesDataPostMulti(), param).then(response => {
             if (response == null) return;
                 this.alertSuccess("Save Data Has Been Successfully").then(() => {
                 this.doBack();
