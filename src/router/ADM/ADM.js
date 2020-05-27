@@ -76,7 +76,7 @@ export const ADMRender = {
         }
     },
     {
-        path: '/ADM/ADM_ViewDriverManagement',
+        path: '/ADM/ADM_DriverManagement/View',
         name: 'ADM_ViewDriverManagement',
         component: ADM_ViewDriverManagement,
         meta: {

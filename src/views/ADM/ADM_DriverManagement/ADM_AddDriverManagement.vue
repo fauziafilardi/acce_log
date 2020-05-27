@@ -58,7 +58,7 @@
                         </span>
                         <ACCTextBox
                           :prop="PI_phone"
-                          v-model="M_DriverManagement.name"
+                          v-model="M_DriverManagement.phone"
                           ref="ref_phone"
                         />
                       </b-col>
@@ -77,8 +77,8 @@
                     </b-row>
                     <b-row>
                       <b-col md="2">
-                        <div style="cursor: pointer;" @click="OpenModal('B')">
-                          <font-awesome-icon class="icon-style-default" icon="plus-circle" />Add SIM Document
+                        <div style="cursor: pointer;" @click="OpenModal('S')">
+                          <font-awesome-icon class="icon-style-default" icon="plus-circle" />Add SIM Document tes
                         </div>
                       </b-col>
                     </b-row>
@@ -93,13 +93,13 @@
                             class="icon-style-default"
                             style="cursor: pointer;"
                             icon="edit"
-                            @click="Edit('B', data, index)"
+                            @click="Edit('S', data, index)"
                           />&nbsp;
                           <font-awesome-icon
                             class="icon-style-default"
                             style="color: red !important; cursor: pointer;"
                             icon="times-circle"
-                            @click="Delete('B', data, index)"
+                            @click="Delete('S', data, index)"
                           />
                         </b-col>
                       </b-row>
@@ -108,10 +108,23 @@
                           <b-form-input class="text-field-form" readonly="true" v-model="data.no" />
                         </b-col>
                       </b-row>
+                      <b-row v-bind:key="index">
+                        <b-col md="3">
+                          <span>
+                            <label>SIM Expire</label>
+                          </span>
+                          <br />
+                          <b-form-input
+                            class="text-field-form"
+                            readonly="true"
+                            :value="momentDate(data.exp)"
+                          />
+                        </b-col>
+                      </b-row>
                     </template>
                     <b-row>
                       <b-col md="2">
-                        <div style="cursor: pointer;" @click="OpenModal('S')">
+                        <div style="cursor: pointer;" @click="OpenModal('K')">
                           <font-awesome-icon class="icon-style-default" icon="plus-circle" />Add KTP Document
                         </div>
                       </b-col>
@@ -127,13 +140,13 @@
                             class="icon-style-default"
                             style="cursor: pointer;"
                             icon="edit"
-                            @click="Edit('S', data, index)"
+                            @click="Edit('K', data, index)"
                           />&nbsp;
                           <font-awesome-icon
                             class="icon-style-default"
                             style="color: red !important; cursor: pointer;"
                             icon="times-circle"
-                            @click="Delete('S', data, index)"
+                            @click="Delete('K', data, index)"
                           />
                         </b-col>
                       </b-row>
@@ -252,19 +265,19 @@
                                 />
                               </b-col>
                             </b-row>
-                            <!-- <b-row>
-                                    <b-col md="12">
-                                    <span>
-                                        <label>SIM Expire</label>
-                                    </span>
-                                    <ACCDateTime
-                                        :prop="PI_sim_exp"
-                                        @input="OnexpChange"
-                                        v-model="M_ModalDoc.exp"
-                                        ref="ref_sim_exp"
-                                    />
-                                    </b-col>
-                            </b-row>-->
+                            <b-row>
+                              <b-col md="12">
+                                <span>
+                                  <label>SIM Expire</label>
+                                </span>
+                                <ACCDateTime
+                                  :prop="PI_sim_exp"
+                                  @input="OnexpChange"
+                                  v-model="M_ModalDoc.exp"
+                                  ref="ref_sim_exp"
+                                />
+                              </b-col>
+                            </b-row>
                             <b-row>
                               <b-col md="6">
                                 <img id="logo" :src="M_ModalDoc.file_show" alt style="width: 50px;" />
@@ -283,7 +296,7 @@
                                   :text="'Add'"
                                   classButton="btn btn--default"
                                   classIcon="icon-style-1"
-                                  @click="SaveModal('B')"
+                                  @click="SaveModal('S')"
                                   styleButton="height: 40px;width: 100%;"
                                 />
                               </b-col>
@@ -292,7 +305,7 @@
                                   :text="'Cancel'"
                                   classButton="btn btn--back"
                                   classIcon="icon-style-1"
-                                  @click="CancelModal('B')"
+                                  @click="CancelModal('S')"
                                   styleButton="height: 40px;width: 100%;"
                                 />
                               </b-col>
@@ -356,7 +369,7 @@
                                   :text="'Add'"
                                   classButton="btn btn--default"
                                   classIcon="icon-style-1"
-                                  @click="SaveModal('S')"
+                                  @click="SaveModal('K')"
                                   styleButton="height: 40px;width: 100%;"
                                 />
                               </b-col>
@@ -365,7 +378,7 @@
                                   :text="'Cancel'"
                                   classButton="btn btn--back"
                                   classIcon="icon-style-1"
-                                  @click="CancelModal('S')"
+                                  @click="CancelModal('K')"
                                   styleButton="height: 40px;width: 100%;"
                                 />
                               </b-col>
@@ -530,6 +543,16 @@ export default {
         cDecimal: 2,
         cInputStatus: this.inputStatus
       },
+      PI_sim_exp: {
+        cValidate: "",
+        cName: "sim_exp",
+        cOrder: 2,
+        cKey: false,
+        cProtect: false,
+        cWithTime: true,
+        cFormat: "dd/MM/yyyy",
+        cParentForm: "Parent_SIM"
+      },
       PI_sim_logo: {
         cName: "SIM",
         cAccept: ".jpg, .png, .gif",
@@ -631,33 +654,34 @@ export default {
     },
     OpenModal(from) {
       this.M_ClearModal();
-      if (from == "B") {
+      if (from == "S") {
         this.$refs.Modal_SIM._show();
-      } else if (from == "S") {
+      } else if (from == "K") {
         this.$refs.Modal_KTP._show();
       } else if (from == "O") {
         this.$refs.Modal_DOC._show();
       }
     },
     CancelModal(from) {
-      if (from == "B") {
+      if (from == "S") {
         this.$refs.Modal_SIM._hide();
-      } else if (from == "S") {
+      } else if (from == "K") {
         this.$refs.Modal_KTP._hide();
       } else if (from == "O") {
         this.$refs.Modal_DOC._hide();
       }
     },
     SaveModal(from) {
-      if (from == "B") {
+      if (from == "S") {
         this.M_SIM.push({
           no: this.M_ModalDoc.no,
+          exp: this.M_ModalDoc.exp,
           file_logo: this.M_ModalDoc.file_logo,
           file_logo_name: this.M_ModalDoc.file_logo_name,
           file_logo_path: this.M_ModalDoc.file_logo_path,
           file_show: this.M_ModalDoc.file_show
         });
-      } else if (from == "S") {
+      } else if (from == "K") {
         this.M_KTP.push({
           no: this.M_ModalDoc.no,
           exp: this.M_ModalDoc.exp,
@@ -680,9 +704,9 @@ export default {
       this.CancelModal(from);
     },
     Delete(from, data, index) {
-      if (from == "B") {
+      if (from == "S") {
         this.M_SIM.splice(index, 1);
-      } else if (from == "S") {
+      } else if (from == "K") {
         this.M_KTP.splice(index, 1);
       } else if (from == "O") {
         this.M_Doc.splice(index, 1);
@@ -690,17 +714,17 @@ export default {
     },
     Edit(from, data, index) {
       this.OpenModal(from);
-      if (from == "B") {
+      if (from == "S") {
         var dt = this.M_SIM[index];
         this.M_ModalDoc = {
           no: dt.no,
-          exp: "",
+          exp: dt.exp,
           file_logo: dt.file_logo,
           file_logo_name: dt.file_logo_name,
           file_logo_path: dt.file_logo_path,
           file_show: dt.file_show
         };
-      } else if (from == "S") {
+      } else if (from == "K") {
         var dt = this.M_KTP[index];
         this.M_ModalDoc = {
           no: dt.no,
@@ -725,12 +749,10 @@ export default {
     M_ClearForm() {
       this.M_DriverManagement = {
         user_name: this.getDataUser().user_name,
-        fleet_type: "",
-        fleet_typeLabel: "",
-        driver1: "",
-        driver1Label: "",
-        driver2: "",
-        driver2Label: "",
+        name: "",
+        phone: "",
+        address: "",
+        driver_status: "N",
         notes: "",
         lastupdatestamp: ""
       };
@@ -745,24 +767,7 @@ export default {
         file_show: require("@/assets/default_photo_.png")
       };
     },
-    Onfleet_typeChange(data) {
-      this.$nextTick(() => {
-        this.M_DriverManagement.fleet_type = data.fm_fleet_type_id;
-        this.M_DriverManagement.fleet_typeLabel = data.descs;
-      });
-    },
-    Ondriver1Change(data) {
-      this.$nextTick(() => {
-        this.M_DriverManagement.driver1 = data.fm_driver_id;
-        this.M_DriverManagement.driver1Label = data.driver_name;
-      });
-    },
-    Ondriver2Change(data) {
-      this.$nextTick(() => {
-        this.M_DriverManagement.driver2 = data.fm_driver_id;
-        this.M_DriverManagement.driver2Label = data.driver_name;
-      });
-    },
+
     OnexpChange(data) {
       // this.M_ModalDoc.exp = data
     },
@@ -791,30 +796,90 @@ export default {
         });
     },
     M_Save() {
-      var param = {
-        ss_portfolio_id: this.getDataUser().portfolio_id,
-        ss_subportfolio_id: this.getDataUser().subportfolio_id,
-        user_id: this.M_DriverManagement.user_id,
-        ss_group_id: this.M_DriverManagement.role,
-        user_name: this.M_DriverManagement.customer_name,
+      var paramH = {
+        _Method_: "SAVE",
+        _LineNo_: 0,
+        driver_name: this.M_DriverManagement.name,
+        handphone: this.M_DriverManagement.phone,
         address: this.M_DriverManagement.address,
-        password: this.M_DriverManagement.password,
-        email: this.M_DriverManagement.email,
-        user_level: this.M_DriverManagement.user_level,
-        hand_phone: this.M_DriverManagement.phone_no,
-        file_name: this.M_DriverManagement.file_logo_name,
-        path_file: this.M_DriverManagement.file_logo_path,
-        notes: this.M_DriverManagement.notes,
+        remarks: this.M_DriverManagement.notes,
         user_input: this.getDataUser().user_id
       };
 
-      this.postJSON(this.getUrlAPIUser(), param).then(response => {
-        // console.log(response)
-        if (response == null) return;
-        this.alertSuccess("Save Data Has Been Successfully").then(() => {
-          this.doBack();
+      var paramD = [];
+      this.M_SIM.forEach((doc, index) => {
+        paramD.push({
+          _Method_: "SAVE",
+          _LineNo_: 1,
+          fm_driver_id: "A_Insert.row_id_output",
+          doc_type: "S",
+          doc_no: doc.no,
+          doc_file_name: doc.file_logo_name,
+          doc_path_file: doc.file_logo_path,
+          expiry_date: doc.exp && doc.exp !== "" ? doc.exp : "NULL",
+          user_input: this.getDataUser().user_id,
+          driver_status: "A"
         });
       });
+
+      this.M_KTP.forEach((doc, index) => {
+        paramD.push({
+          _Method_: "SAVE",
+          _LineNo_: 1,
+          fm_driver_id: "A_Insert.row_id_output",
+          doc_type: "K",
+          doc_no: doc.no,
+          doc_file_name: doc.file_logo_name,
+          doc_path_file: doc.file_logo_path,
+          expiry_date: doc.exp && doc.exp !== "" ? doc.exp : "NULL",
+          user_input: this.getDataUser().user_id,
+          driver_status: "A"
+        });
+      });
+
+      this.M_Doc.forEach((doc, index) => {
+        paramD.push({
+          _Method_: "SAVE",
+          _LineNo_: 1,
+          fm_driver_id: "A_Insert.row_id_output",
+          doc_type: "O",
+          doc_no: doc.no,
+          doc_file_name: doc.file_logo_name,
+          doc_path_file: doc.file_logo_path,
+          expiry_date: doc.exp && doc.exp !== "" ? doc.exp : "NULL",
+          user_input: this.getDataUser().user_id,
+          driver_status: "A"
+        });
+      });
+
+      var param = {
+        option_url: "/ADM/ADM_DriverManagement",
+        line_no: 0,
+        Data: [
+          {
+            A_Insert: paramH,
+            B_Looping: paramD
+          }
+        ]
+      };
+
+      this.postJSONMulti(this.getUrlProsesDataPostMulti(), param).then(
+        response => {
+          // console.log(response)
+          if (response == null) return;
+          this.alertSuccess("Save Data Has Been Successfully").then(() => {
+            this.doBack();
+          });
+        }
+      );
+
+      //   this.postJSON(this.getUrlAPIUser(), param).then(response => {
+      //     // console.log(response)
+      //     if (response == null) return;
+      //     this.alertSuccess("Save Data Has Been Successfully").then(() => {
+      //       this.doBack();
+      //     });
+      //   });
     },
     GetDataBy() {
       var param = {

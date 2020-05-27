@@ -7,7 +7,7 @@
             <div class="card__title">
               <b-row>
                 <b-col style="max-width:fit-content !important;">
-                  <span>User Management</span>
+                  <span>Driver Management</span>
                 </b-col>
                 <b-col style="text-align: right;">
                   <ABSButton
