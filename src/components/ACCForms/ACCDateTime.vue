@@ -84,7 +84,6 @@
           v-bind:data-vv-name="prop.cName+'Hour'"
           v-model="vHour"
           class="text-field-form"
-          @input="handleInput2"
           :maxlength="2"
           :tabindex="prop.cOrder"
           :disabled="(inputStatus == 'edit' && prop.cKey) || prop.cProtect"
@@ -110,7 +109,6 @@
           v-bind:data-vv-name="prop.cName+'Time'"
           v-model="vTime"
           class="text-field-form"
-          @input="handleInput2"
           :maxlength="2"
           :tabindex="prop.cOrder"
           :disabled="(inputStatus == 'edit' && prop.cKey) || prop.cProtect"
@@ -238,7 +236,6 @@ export default {
     }
   },
   methods: {
-    handleInput2() {},
     formatNumber(evt) {
       evt = evt ? evt : window.event;
       var charCode = evt.which ? evt.which : evt.keyCode;
@@ -297,8 +294,11 @@ export default {
         this.showDatepicker(this.prop.cName + DateTime);
       });
     },
-    handleInput() {
-      var xx = this.valueMaskingTime != "" ? this.valueMaskingTime : "00:00";
+    handleInput(data) {
+      // console.log(data)
+      var hh = this.vHour != "" ? this.vHour : "00";
+      var tt = this.vTime != "" ? this.vTime : "00";
+      var xx = hh + ":" + tt
       var dxx = moment(this.value).format("YYYY-MM-DD") + " " + xx;
       this.value = this.momentDateFormatting(
         new Date(dxx),

@@ -43,6 +43,18 @@
                       </b-col>
                     </b-row>
                     <b-row>
+                        <b-col md="6">
+                            <span>
+                                <label>License Plate No.</label>
+                            </span>
+                            <ACCTextBox
+                                :prop="PI_plate_no"
+                                v-model="M_FleetManagement.plate_no"
+                                ref="ref_plate_no"
+                            />
+                        </b-col>
+                    </b-row>
+                    <b-row>
                       <b-col md="6">
                         <span>
                           <label>Fleet Type</label>
@@ -83,6 +95,18 @@
                           ref="ref_driver2"
                         />
                       </b-col>
+                    </b-row>
+                    <b-row>
+                        <b-col md="6">
+                            <span>
+                                <label>Description</label>
+                            </span>
+                            <ACCTextBox
+                                :prop="PI_descs"
+                                v-model="M_FleetManagement.descs"
+                                ref="ref_descs"
+                            />
+                        </b-col>
                     </b-row>
                     <b-row>
                         <b-col md="2">
@@ -466,38 +490,27 @@
 export default {
   data() {
     return {
-        PI_fleet_type: {
-            dataLookUp: {
-            LookUpCd: "GetFleetType",
-            ColumnDB: "fleet_type_id",
-            InitialWhere: "",
-            ParamWhere: "",
-            OrderBy: "",
-            ParamView: "",
-            SourceField: "",
-            DisplayLookUp: "descs,time_edit"
-            },
+        PI_plate_no: {
             cValidate: "",
-            cName: "role",
-            ckey: false,
+            cName: "plate_no",
             cOrder: 1,
+            cKey: false,
+            cType: "text",
             cProtect: false,
             cParentForm: "ADM_AddFleetManagement",
-            cStatic: false,
-            cOption: [],
-            cDisplayColumn: "descs,time_edit",
+            cDecimal: 2,
             cInputStatus: this.inputStatus
         },
-        PI_driver1: {
+        PI_fleet_type: {
             dataLookUp: {
-            LookUpCd: "GetDriver",
-            ColumnDB: "driver_id",
-            InitialWhere: "",
-            ParamWhere: "",
-            OrderBy: "",
-            ParamView: "",
-            SourceField: "",
-            DisplayLookUp: "driver_name,handphone"
+                LookUpCd: "GetFleetType",
+                ColumnDB: "fleet_type_id",
+                InitialWhere: "",
+                ParamWhere: "",
+                OrderBy: "",
+                ParamView: "",
+                SourceField: "",
+                DisplayLookUp: "descs,time_edit"
             },
             cValidate: "",
             cName: "role",
@@ -507,24 +520,57 @@ export default {
             cParentForm: "ADM_AddFleetManagement",
             cStatic: false,
             cOption: [],
+            cDisplayColumn: "descs,time_edit",
+            cInputStatus: this.inputStatus
+        },
+        PI_descs: {
+            cValidate: "",
+            cName: "descs",
+            cOrder: 3,
+            cKey: false,
+            cType: "text",
+            cProtect: false,
+            cParentForm: "ADM_AddFleetManagement",
+            cDecimal: 2,
+            cInputStatus: this.inputStatus
+        },
+        PI_driver1: {
+            dataLookUp: {
+                LookUpCd: "GetDriver",
+                ColumnDB: "driver_id",
+                InitialWhere: "",
+                ParamWhere: "",
+                OrderBy: "",
+                ParamView: "",
+                SourceField: "",
+                DisplayLookUp: "driver_name,handphone"
+            },
+            cValidate: "",
+            cName: "role",
+            ckey: false,
+            cOrder: 4,
+            cProtect: false,
+            cParentForm: "ADM_AddFleetManagement",
+            cStatic: false,
+            cOption: [],
             cDisplayColumn: "driver_name,handphone",
             cInputStatus: this.inputStatus
         },
         PI_driver2: {
             dataLookUp: {
-            LookUpCd: "GetDriver",
-            ColumnDB: "driver_id",
-            InitialWhere: "",
-            ParamWhere: "",
-            OrderBy: "",
-            ParamView: "",
-            SourceField: "",
-            DisplayLookUp: "driver_name,handphone"
+                LookUpCd: "GetDriver",
+                ColumnDB: "driver_id",
+                InitialWhere: "",
+                ParamWhere: "",
+                OrderBy: "",
+                ParamView: "",
+                SourceField: "",
+                DisplayLookUp: "driver_name,handphone"
             },
             cValidate: "",
             cName: "role",
             ckey: false,
-            cOrder: 3,
+            cOrder: 5,
             cProtect: false,
             cParentForm: "ADM_AddFleetManagement",
             cStatic: false,
@@ -535,7 +581,7 @@ export default {
       PI_notes: {
         cValidate: "",
         cName: "notes",
-        cOrder: 4,
+        cOrder: 6,
         cKey: false,
         cProtect: false,
         cResize: false,
@@ -548,8 +594,10 @@ export default {
       },
       M_FleetManagement: {
         user_name: this.getDataUser().user_name,
+        plate_no: "",
         fleet_type: "",
         fleet_typeLabel: "",
+        descs: "",
         driver1: "",
         driver1Label: "",
         driver2: "",
@@ -593,7 +641,7 @@ export default {
             cOrder: 2,
             cKey: false,
             cProtect: false,
-            cWithTime: true,
+            cWithTime: false,
             cFormat: "dd/MM/yyyy",
             cParentForm: "Parent_STNK"
         },
@@ -621,7 +669,7 @@ export default {
             cOrder: 2,
             cKey: false,
             cProtect: false,
-            cWithTime: true,
+            cWithTime: false,
             cFormat: "dd/MM/yyyy",
             cParentForm: "Parent_DOC"
         },
@@ -695,10 +743,12 @@ export default {
         if (from == "B") {
             this.M_BPKB.push({
                 no: this.M_ModalDoc.no,
+                exp: "",
                 file_logo: this.M_ModalDoc.file_logo,
                 file_logo_name: this.M_ModalDoc.file_logo_name,
                 file_logo_path: this.M_ModalDoc.file_logo_path,
-                file_show: this.M_ModalDoc.file_show
+                file_show: this.M_ModalDoc.file_show,
+                status: "N"
             })
         }
         else if (from == "S") {
@@ -708,7 +758,8 @@ export default {
                 file_logo: this.M_ModalDoc.file_logo,
                 file_logo_name: this.M_ModalDoc.file_logo_name,
                 file_logo_path: this.M_ModalDoc.file_logo_path,
-                file_show: this.M_ModalDoc.file_show
+                file_show: this.M_ModalDoc.file_show,
+                status: "N"
             })
         }
         else if (from == "O") {
@@ -718,7 +769,8 @@ export default {
                 file_logo: this.M_ModalDoc.file_logo,
                 file_logo_name: this.M_ModalDoc.file_logo_name,
                 file_logo_path: this.M_ModalDoc.file_logo_path,
-                file_show: this.M_ModalDoc.file_show
+                file_show: this.M_ModalDoc.file_show,
+                status: "N"
             })
         }
 
@@ -774,8 +826,10 @@ export default {
     M_ClearForm() {
       this.M_FleetManagement = {
         user_name: this.getDataUser().user_name,
+        plate_no: "",
         fleet_type: "",
         fleet_typeLabel: "",
+        descs: "",
         driver1: "",
         driver1Label: "",
         driver2: "",
@@ -838,30 +892,80 @@ export default {
       });
     },
     M_Save() {
-      var param = {
-        ss_portfolio_id: this.getDataUser().portfolio_id,
-        ss_subportfolio_id: this.getDataUser().subportfolio_id,
-        user_id: this.M_FleetManagement.user_id,
-        ss_group_id: this.M_FleetManagement.role,
-        user_name: this.M_FleetManagement.customer_name,
-        address: this.M_FleetManagement.address,
-        password: this.M_FleetManagement.password,
-        email: this.M_FleetManagement.email,
-        user_level: this.M_FleetManagement.user_level,
-        hand_phone: this.M_FleetManagement.phone_no,
-        file_name: this.M_FleetManagement.file_logo_name,
-        path_file: this.M_FleetManagement.file_logo_path,
-        notes: this.M_FleetManagement.notes,
-        user_input: this.getDataUser().user_id
-      };
+        var paramD = [];
+        var paramH = {
+            _Method_: "SAVE",
+            _LineNo_: 0,
+            license_plate_no: this.M_FleetManagement.plate_no,
+            fm_fleet_type_id: this.M_FleetManagement.fleet_type,
+            fm_driver_id: this.M_FleetManagement.driver1,
+            fm_driver_id2: this.M_FleetManagement.driver2,
+            descs: this.M_FleetManagement.descs,
+            bpkb_no: "NULL",
+            stnk_no: "NULL",
+            stnk_expiry_date: "NULL",
+            // notes: this.M_FleetManagement.notes,
+            user_input: this.getDataUser().user_id
+        }
 
-      this.postJSON(this.getUrlAPIUser(), param).then(response => {
-        // console.log(response)
-        if (response == null) return;
-        this.alertSuccess("Save Data Has Been Successfully").then(() => {
-          this.doBack();
+        this.M_BPKB.forEach((doc, index) => {
+            paramD.push({
+                _Method_: "SAVE",
+                _LineNo_: 1,
+                fm_fleet_mstr_id: "A_Insert.row_id_output",
+                doc_type: "B",
+                doc_no: doc.no,
+                doc_file_name: doc.file_logo_name,
+                doc_path_file: doc.file_logo_path,
+                expiry_date: doc.exp && doc.exp !== "" ? doc.exp : "NULL",
+                user_input: this.getDataUser().user_id
+            })
+        })
+
+        this.M_STNK.forEach((doc, index) => {
+            paramD.push({
+                _Method_: "SAVE",
+                _LineNo_: 1,
+                fm_fleet_mstr_id: "A_Insert.row_id_output",
+                doc_type: "S",
+                doc_no: doc.no,
+                doc_file_name: doc.file_logo_name,
+                doc_path_file: doc.file_logo_path,
+                expiry_date: doc.exp && doc.exp !== "" ? doc.exp : "NULL",
+                user_input: this.getDataUser().user_id
+            })
+        })
+
+        this.M_Doc.forEach((doc, index) => {
+            paramD.push({
+                _Method_: "SAVE",
+                _LineNo_: 1,
+                fm_fleet_mstr_id: "A_Insert.row_id_output",
+                doc_type: "O",
+                doc_no: doc.no,
+                doc_file_name: doc.file_logo_name,
+                doc_path_file: doc.file_logo_path,
+                expiry_date: doc.exp && doc.exp !== "" ? doc.exp : "NULL",
+                user_input: this.getDataUser().user_id
+            })
+        })
+
+        var param = {
+            option_url: "/ADM/ADM_FleetManagement",
+            line_no: 0,
+            Data: [{
+                A_Insert: paramH,
+                B_Looping: paramD
+            }]
+        };
+
+        this.postJSONMulti(this.getUrlProsesDataPostMulti(), params).then(response => {
+            // console.log(response)
+            if (response == null) return;
+                this.alertSuccess("Save Data Has Been Successfully").then(() => {
+                this.doBack();
+            });
         });
-      });
     },
     GetDataBy() {
       var param = {
