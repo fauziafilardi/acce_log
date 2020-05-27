@@ -358,6 +358,11 @@ export default {
     doBack() {
       this.$router.go(-1);
     },
+    doEdit() {
+        var param = this.paramFromList;
+        param.isEdit = true;
+        this.$router.push({ name: "ADM_AddFleetManagement", params: param });
+    },
     onPictClick(data) {
         // console.log(data)
         window.open(data.file_show);
@@ -403,7 +408,7 @@ export default {
                         file_logo: dtl.dt_doc_file_name,
                         file_logo_name: dtl.dt_doc_file_name,
                         file_logo_path: dtl.dt_doc_path_file,
-                        file_show: this.url + dtl.dt_doc_file_name,
+                        file_show: this.url + dtl.dt_doc_path_file,
                         type: dtl.dt_doc_type,
                         status: "E"
                     })
@@ -415,7 +420,7 @@ export default {
                         file_logo: dtl.dt_doc_file_name,
                         file_logo_name: dtl.dt_doc_file_name,
                         file_logo_path: dtl.dt_doc_path_file,
-                        file_show: this.url + dtl.dt_doc_file_name,
+                        file_show: this.url + dtl.dt_doc_path_file,
                         type: dtl.dt_doc_type,
                         status: "E"
                     })
@@ -427,7 +432,7 @@ export default {
                         file_logo: dtl.dt_doc_file_name,
                         file_logo_name: dtl.dt_doc_file_name,
                         file_logo_path: dtl.dt_doc_path_file,
-                        file_show: this.url + dtl.dt_doc_file_name,
+                        file_show: this.url + dtl.dt_doc_path_file,
                         type: dtl.dt_doc_type,
                         status: "E"
                     })

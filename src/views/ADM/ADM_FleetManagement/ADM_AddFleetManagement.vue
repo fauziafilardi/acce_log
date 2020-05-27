@@ -123,7 +123,7 @@
                         </b-col>
                     </b-row>
                     <template v-for="(data, index) in M_BPKB">
-                        <b-row v-bind:key="index">
+                        <b-row v-bind:key="'BPKB_A'+index">
                             <b-col md="3">
                                 <span>
                                     <label> BPKB No. </label>
@@ -134,28 +134,28 @@
                                 <font-awesome-icon class="icon-style-default" style="color: red !important; cursor: pointer;" icon="times-circle" @click="Delete('B', data, index)" />
                             </b-col>
                         </b-row>
-                        <b-row v-bind:key="index">
+                        <b-row v-bind:key="'BPKB_B'+index">
                             <b-col md="3">
                                 <b-form-input
                                     class="text-field-form"
-                                    readonly="true"
+                                    readonly
                                     v-model="data.no"
                                 />
                             </b-col>
                         </b-row>
-                        <b-row v-bind:key="index">
+                        <b-row v-bind:key="'BPKB_C'+index">
                             <b-col md="3">
                                 <span>
                                     <label> BPKB Expire </label>
                                 </span> <br>
                                 <b-form-input
                                     class="text-field-form"
-                                    readonly="true"
+                                    readonly
                                     :value="momentDate(new Date(data.exp))"
                                 />
                             </b-col>
                         </b-row>
-                        <b-row v-bind:key="index">
+                        <b-row v-bind:key="'BPKB_D'+index">
                             <b-col md="3">
                                 <span>
                                     <label style="color: blue; cursor: pointer;" @click="onPictClick(data)"> {{data.file_logo_name}} </label>
@@ -172,7 +172,7 @@
                         </b-col>
                     </b-row>
                     <template v-for="(data, index) in M_STNK">
-                        <b-row v-bind:key="index">
+                        <b-row v-bind:key="'STNK_A'+index">
                             <b-col md="3">
                                 <span>
                                     <label> STNK No. </label>
@@ -183,28 +183,28 @@
                                 <font-awesome-icon class="icon-style-default" style="color: red !important; cursor: pointer;" icon="times-circle" @click="Delete('S', data, index)" />
                             </b-col>
                         </b-row>
-                        <b-row v-bind:key="index">
+                        <b-row v-bind:key="'STNK_B'+index">
                             <b-col md="3">
                                 <b-form-input
                                     class="text-field-form"
-                                    readonly="true"
+                                    readonly
                                     v-model="data.no"
                                 />
                             </b-col>
                         </b-row>
-                        <b-row v-bind:key="index">
+                        <b-row v-bind:key="'STNK_C'+index">
                             <b-col md="3">
                                 <span>
                                     <label> STNK Expire </label>
                                 </span> <br>
                                 <b-form-input
                                     class="text-field-form"
-                                    readonly="true"
+                                    readonly
                                     :value="momentDate(new Date(data.exp))"
                                 />
                             </b-col>
                         </b-row>
-                        <b-row v-bind:key="index">
+                        <b-row v-bind:key="'STNK_D'+index">
                             <b-col md="3">
                                 <span>
                                     <label style="color: blue; cursor: pointer;" @click="onPictClick(data)"> {{data.file_logo_name}} </label>
@@ -221,7 +221,7 @@
                         </b-col>
                     </b-row>
                     <template v-for="(data, index) in M_Doc">
-                        <b-row v-bind:key="index">
+                        <b-row v-bind:key="'DOC_A'+index">
                             <b-col md="3">
                                 <span>
                                     <label> Other Document No. </label>
@@ -232,28 +232,28 @@
                                 <font-awesome-icon class="icon-style-default" style="color: red !important; cursor: pointer;" icon="times-circle" @click="Delete('O', data, index)" />
                             </b-col>
                         </b-row>
-                        <b-row v-bind:key="index">
+                        <b-row v-bind:key="'DOC_B'+index">
                             <b-col md="3">
                                 <b-form-input
                                     class="text-field-form"
-                                    readonly="true"
+                                    readonly
                                     v-model="data.no"
                                 />
                             </b-col>
                         </b-row>
-                        <b-row v-bind:key="index">
+                        <b-row v-bind:key="'DOC_C'+index">
                             <b-col md="3">
                                 <span>
                                     <label> Other Document Expire </label>
                                 </span> <br>
                                 <b-form-input
                                     class="text-field-form"
-                                    readonly="true"
+                                    readonly
                                     :value="momentDate(new Date(data.exp))"
                                 />
                             </b-col>
                         </b-row>
-                        <b-row v-bind:key="index">
+                        <b-row v-bind:key="'DOC_D'+index">
                             <b-col md="3">
                                 <span>
                                     <label style="color: blue; cursor: pointer;" @click="onPictClick(data)"> {{data.file_logo_name}} </label>
@@ -736,7 +736,8 @@ export default {
             file_logo_name: "",
             file_logo_path: "",
             file_show: require('@/assets/default_photo_.png')
-        }
+        },
+        ModalIndex: null
     };
   },
   computed: {
@@ -791,44 +792,85 @@ export default {
         else if (from == "O") {
             this.$refs.Modal_DOC._hide();
         }
+
+        this.ModalIndex = null
     },
     SaveModal(from) {
-        console.log(this.M_ModalDoc)
-        if (from == "B") {
-            this.M_BPKB.push({
-                no: this.M_ModalDoc.no,
-                exp: this.M_ModalDoc.exp,
-                file_logo: this.M_ModalDoc.file_logo,
-                file_logo_name: this.M_ModalDoc.file_logo_name,
-                file_logo_path: this.M_ModalDoc.file_logo_path,
-                file_show: this.M_ModalDoc.file_show,
-                type: "B",
-                status: "N"
-            })
+        if (this.ModalIndex !== null) {
+            if (from == "B") {
+                // this.M_BPKB[this.ModalIndex] = {
+                this.M_BPKB[this.ModalIndex].no = this.M_ModalDoc.no
+                this.M_BPKB[this.ModalIndex].exp = this.M_ModalDoc.exp
+                this.M_BPKB[this.ModalIndex].file_logo = this.M_ModalDoc.file_logo
+                this.M_BPKB[this.ModalIndex].file_logo_name = this.M_ModalDoc.file_logo_name
+                this.M_BPKB[this.ModalIndex].file_logo_path = this.M_ModalDoc.file_logo_path
+                this.M_BPKB[this.ModalIndex].file_show = this.M_ModalDoc.file_show
+                    // type: "B",
+                    // status: "N"
+                // }
+            }
+            else if (from == "S") {
+                // this.M_STNK[this.ModalIndex] = {
+                    this.M_STNK[this.ModalIndex].no = this.M_ModalDoc.no
+                    this.M_STNK[this.ModalIndex].exp = this.M_ModalDoc.exp
+                    this.M_STNK[this.ModalIndex].file_logo = this.M_ModalDoc.file_logo
+                    this.M_STNK[this.ModalIndex].file_logo_name = this.M_ModalDoc.file_logo_name
+                    this.M_STNK[this.ModalIndex].file_logo_path = this.M_ModalDoc.file_logo_path
+                    this.M_STNK[this.ModalIndex].file_show = this.M_ModalDoc.file_show
+                    // type: "S",
+                    // status: "N"
+                // }
+            }
+            else if (from == "O") {
+                // this.M_Doc[this.ModalIndex] = {
+                    this.M_Doc[this.ModalIndex].no = this.M_ModalDoc.no
+                    this.M_Doc[this.ModalIndex].exp = this.M_ModalDoc.exp
+                    this.M_Doc[this.ModalIndex].file_logo = this.M_ModalDoc.file_logo
+                    this.M_Doc[this.ModalIndex].file_logo_name = this.M_ModalDoc.file_logo_name
+                    this.M_Doc[this.ModalIndex].file_logo_path = this.M_ModalDoc.file_logo_path
+                    this.M_Doc[this.ModalIndex].file_show = this.M_ModalDoc.file_show
+                    // type: "O",
+                    // status: "N"
+                // }
+            }
         }
-        else if (from == "S") {
-            this.M_STNK.push({
-                no: this.M_ModalDoc.no,
-                exp: this.M_ModalDoc.exp,
-                file_logo: this.M_ModalDoc.file_logo,
-                file_logo_name: this.M_ModalDoc.file_logo_name,
-                file_logo_path: this.M_ModalDoc.file_logo_path,
-                file_show: this.M_ModalDoc.file_show,
-                type: "S",
-                status: "N"
-            })
-        }
-        else if (from == "O") {
-            this.M_Doc.push({
-                no: this.M_ModalDoc.no,
-                exp: this.M_ModalDoc.exp,
-                file_logo: this.M_ModalDoc.file_logo,
-                file_logo_name: this.M_ModalDoc.file_logo_name,
-                file_logo_path: this.M_ModalDoc.file_logo_path,
-                file_show: this.M_ModalDoc.file_show,
-                type: "O",
-                status: "N"
-            })
+        else {
+            if (from == "B") {
+                this.M_BPKB.push({
+                    no: this.M_ModalDoc.no,
+                    exp: this.M_ModalDoc.exp,
+                    file_logo: this.M_ModalDoc.file_logo,
+                    file_logo_name: this.M_ModalDoc.file_logo_name,
+                    file_logo_path: this.M_ModalDoc.file_logo_path,
+                    file_show: this.M_ModalDoc.file_show,
+                    type: "B",
+                    status: "N"
+                })
+            }
+            else if (from == "S") {
+                this.M_STNK.push({
+                    no: this.M_ModalDoc.no,
+                    exp: this.M_ModalDoc.exp,
+                    file_logo: this.M_ModalDoc.file_logo,
+                    file_logo_name: this.M_ModalDoc.file_logo_name,
+                    file_logo_path: this.M_ModalDoc.file_logo_path,
+                    file_show: this.M_ModalDoc.file_show,
+                    type: "S",
+                    status: "N"
+                })
+            }
+            else if (from == "O") {
+                this.M_Doc.push({
+                    no: this.M_ModalDoc.no,
+                    exp: this.M_ModalDoc.exp,
+                    file_logo: this.M_ModalDoc.file_logo,
+                    file_logo_name: this.M_ModalDoc.file_logo_name,
+                    file_logo_path: this.M_ModalDoc.file_logo_path,
+                    file_show: this.M_ModalDoc.file_show,
+                    type: "O",
+                    status: "N"
+                })
+            }
         }
 
         this.CancelModal(from)
@@ -845,12 +887,14 @@ export default {
         }
     },
     Edit(from, data, index) {
+        this.ModalIndex = index
+        console.log(index)
         this.OpenModal(from)
         if (from == "B") {
             var dt = this.M_BPKB[index]
             this.M_ModalDoc = {
                 no: dt.no,
-                exp: "",
+                exp: dt.exp,
                 file_logo: dt.file_logo,
                 file_logo_name: dt.file_logo_name,
                 file_logo_path: dt.file_logo_path,
@@ -998,66 +1042,131 @@ export default {
     },
     GetDataBy() {
       var param = {
+        option_url: "/ADM/ADM_FleetManagement",
+        line_no: 0,
         id: this.paramFromList.row_id,
         lastupdatestamp: this.paramFromList.lastupdatestamp
       };
 
-      this.getJSON(this.getUrlAPIUser(this.paramFromList.row_id), param).then(response => {
+      this.getJSON(this.getUrlCRUD(this.paramFromList.row_id), param).then(response => {
         // response from API
         if (response == null) return;
 
-        var data = response.Data;
-
-        this.PI_user_id.cProtect = true
+        var data = response.Data[0];
 
         this.M_FleetManagement = {
           user_name: this.getDataUser().user_name,
-          ss_user_id: data.ss_user_id,
-          user_id: data.user_id,
-          customer_name: data.user_name,
-          phone_no: data.hand_phone,
-          address: data.address,
-          email: data.email,
-          password: "",
-          confirm_password: "",
-          role: data.ss_group_id,
-          roleLabel: data.group_descs,
-          notes: data.notes,
-          user_level: data.user_level,
-          file_logo: data.file_name,
-          file_show: data.path_file && data.path_file !== '' ? (this.url + data.path_file) : this.default_pic,
-          file_logo_name: data.file_name,
-          file_logo_path: data.path_file
+          plate_no: data.license_plate_no,
+          fleet_type: data.fm_fleet_type_id,
+          fleet_typeLabel: data.fleet_type_descs,
+          driver1: data.fm_driver_id,
+          driver1Label: data.driver1,
+          driver2: data.fm_driver_id2,
+          driver2Label: data.driver2,
+          notes: data.descs
         };
+
+        this.M_BPKB = []
+        this.M_STNK = []
+        this.M_Doc = []
+
+        response.Data.forEach((dtl, index) => {
+            // console.log(dtl)
+            if (dtl.dt_doc_type == "B") {
+                this.M_BPKB.push({
+                    no: dtl.dt_doc_no,
+                    exp: dtl.dt_expiry_date,
+                    file_logo: dtl.dt_doc_file_name,
+                    file_logo_name: dtl.dt_doc_file_name,
+                    file_logo_path: dtl.dt_doc_path_file,
+                    file_show: this.url + dtl.dt_doc_path_file,
+                    type: dtl.dt_doc_type,
+                    status: "E"
+                })
+            }
+            else if (dtl.dt_doc_type == "S") {
+                this.M_STNK.push({
+                    no: dtl.dt_doc_no,
+                    exp: dtl.dt_expiry_date,
+                    file_logo: dtl.dt_doc_file_name,
+                    file_logo_name: dtl.dt_doc_file_name,
+                    file_logo_path: dtl.dt_doc_path_file,
+                    file_show: this.url + dtl.dt_doc_path_file,
+                    type: dtl.dt_doc_type,
+                    status: "E"
+                })
+            }
+            else if (dtl.dt_doc_type == "O") {
+                this.M_Doc.push({
+                    no: dtl.dt_doc_no,
+                    exp: dtl.dt_expiry_date,
+                    file_logo: dtl.dt_doc_file_name,
+                    file_logo_name: dtl.dt_doc_file_name,
+                    file_logo_path: dtl.dt_doc_path_file,
+                    file_show: this.url + dtl.dt_doc_path_file,
+                    type: dtl.dt_doc_type,
+                    status: "E"
+                })
+            }
+        });
       });
     },
     M_Update() {
-      var param = {
-        ss_portfolio_id: this.getDataUser().portfolio_id,
-        ss_subportfolio_id: this.getDataUser().subportfolio_id,
-        ss_user_id: this.M_FleetManagement.ss_user_id,
-        user_id: this.M_FleetManagement.user_id,
-        ss_group_id: this.M_FleetManagement.role,
-        user_name: this.M_FleetManagement.customer_name,
-        address: this.M_FleetManagement.address,
-        password: this.M_FleetManagement.password,
-        email: this.M_FleetManagement.email,
-        user_level: this.M_FleetManagement.user_level,
-        hand_phone: this.M_FleetManagement.phone_no,
-        file_name: this.M_FleetManagement.file_logo_name,
-        path_file: this.M_FleetManagement.file_logo_path,
-        notes: this.M_FleetManagement.notes,
-        lastupdatestamp: this.paramFromList.lastupdatestamp,
-        user_edit: this.getDataUser().user_id
-      };
+        var paramD = [];
+        var paramH = {
+            _Method_: "SAVE",
+            _LineNo_: 0,
+            fm_fleet_mstr_id: this.paramFromList.row_id,
+            license_plate_no: this.M_FleetManagement.plate_no,
+            fm_fleet_type_id: this.M_FleetManagement.fleet_type,
+            fm_driver_id: this.M_FleetManagement.driver1,
+            fm_driver_id2: this.M_FleetManagement.driver2,
+            descs: this.M_FleetManagement.notes,
+            bpkb_no: this.M_BPKB[this.M_BPKB.length - 1].no,
+            stnk_no: this.M_STNK[this.M_STNK.length - 1].no,
+            stnk_expiry_date: this.M_STNK[this.M_STNK.length - 1].exp && this.M_STNK[this.M_STNK.length - 1].exp != "" ? this.M_STNK[this.M_STNK.length - 1].exp : "NULL",
+            user_edit: this.getDataUser().user_id,
+            lastupdatestamp: this.paramFromList.lastupdatestamp
+        }
 
-      this.putJSON(this.getUrlAPIUser(), param).then(response => {
-        // console.log(response)
-        if (response == null) return;
-        this.alertSuccess("Update Data Has Been Successfully").then(() => {
-          this.doBack();
+        var paramDeleteDtl = {
+            _Method_: "DELETE",
+            _LineNo_: 2,
+            fm_fleet_mstr_id: this.paramFromList.row_id
+        }
+
+        var doc = this.M_BPKB.concat(this.M_STNK.concat(this.M_Doc));
+
+        doc.forEach((doc, index) => {
+            paramD.push({
+                _Method_: "SAVE",
+                _LineNo_: 1,
+                fm_fleet_mstr_id: "A_Insert.row_id_output",
+                doc_type: doc.type,
+                doc_no: doc.no,
+                doc_file_name: doc.file_logo_name,
+                doc_path_file: doc.file_logo_path,
+                expiry_date: doc.exp && doc.exp !== "" ? doc.exp : "NULL",
+                user_input: this.getDataUser().user_id
+            })
+        })
+
+        var param = {
+            option_url: "/ADM/ADM_FleetManagement",
+            line_no: 0,
+            Data: [{
+                A_Insert: paramH,
+                B_Delete: paramDeleteDtl,
+                C_Looping: paramD
+            }]
+        };
+
+        this.postJSONMulti(this.getUrlProsesDataPostMulti(), param).then(response => {
+            if (response == null) return;
+                this.alertSuccess("Save Data Has Been Successfully").then(() => {
+                this.doBack();
+            });
         });
-      });
     }
   },
   mounted() {
