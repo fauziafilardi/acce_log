@@ -9,6 +9,7 @@ import ADM_AddDriverManagement from '@/views/ADM/ADM_DriverManagement/ADM_AddDri
 import ADM_FleetType from '@/views/ADM/ADM_FleetType/ADM_FleetType'
 import ADM_FleetManagement from '@/views/ADM/ADM_FleetManagement/ADM_FleetManagement'
 import ADM_AddFleetManagement from '@/views/ADM/ADM_FleetManagement/ADM_AddFleetManagement'
+import ADM_ViewFleetManagement from '@/views/ADM/ADM_FleetManagement/ADM_ViewFleetManagement'
 
 export const ADMRender = {
     path: '/ADM',
@@ -103,6 +104,14 @@ export const ADMRender = {
         path: '/ADM/ADM_FleetManagement/Form',
         name: 'ADM_AddFleetManagement',
         component: ADM_AddFleetManagement,
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/ADM/ADM_FleetManagement/View',
+        name: 'ADM_ViewFleetManagement',
+        component: ADM_ViewFleetManagement,
         meta: {
             requiresAuth: true
         }

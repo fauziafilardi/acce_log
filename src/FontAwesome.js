@@ -69,7 +69,10 @@ import {
     faStar,
     faMapMarkedAlt,
     faSlidersH,
-    faStickyNote
+    faStickyNote,
+    faUserCircle,
+    faClipboard,
+    faTruck
 } from '@fortawesome/free-solid-svg-icons'
 
 
@@ -140,5 +143,8 @@ library.add(faMapMarkerAlt)
 library.add(faMapMarkedAlt)
 library.add(faSlidersH)
 library.add(faStickyNote)
+library.add(faUserCircle)
+library.add(faClipboard)
+library.add(faTruck)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
