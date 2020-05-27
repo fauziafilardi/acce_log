@@ -883,43 +883,24 @@ export default {
     },
     GetDataBy() {
       var param = {
+        option_url: "/ADM/ADM_DriverManagement",
+        line_no: 0,
         id: this.paramFromList.row_id,
         lastupdatestamp: this.paramFromList.lastupdatestamp
       };
 
-      this.getJSON(this.getUrlAPIUser(this.paramFromList.row_id), param).then(
-        response => {
-          // response from API
-          if (response == null) return;
+      this.getJSON(this.getUrlCRUD(), param).then(response => {
+        // response from API
+        if (response == null) return;
 
-          var data = response.Data;
-
-          this.PI_user_id.cProtect = true;
-
-          this.M_DriverManagement = {
-            user_name: this.getDataUser().user_name,
-            ss_user_id: data.ss_user_id,
-            user_id: data.user_id,
-            customer_name: data.user_name,
-            phone_no: data.hand_phone,
-            address: data.address,
-            email: data.email,
-            password: "",
-            confirm_password: "",
-            role: data.ss_group_id,
-            roleLabel: data.group_descs,
-            notes: data.notes,
-            user_level: data.user_level,
-            file_logo: data.file_name,
-            file_show:
-              data.path_file && data.path_file !== ""
-                ? this.url + data.path_file
-                : this.default_pic,
-            file_logo_name: data.file_name,
-            file_logo_path: data.path_file
-          };
-        }
-      );
+        var data = response.Data[0];
+        this.M_DriverManagement = {
+          user_name: data.driver_name,
+          hand_phone: data.handphone,
+          fulladdress: data.address,
+          notes: data.remarks
+        };
+      });
     },
     M_Update() {
       var param = {

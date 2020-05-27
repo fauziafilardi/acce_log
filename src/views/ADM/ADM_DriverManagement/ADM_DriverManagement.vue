@@ -42,14 +42,14 @@ export default {
   },
   methods: {
     rowClicked(record, index) {
+      // var param = record;
+      // param.isEdit = true;
+      // this.$router.push({ name: "ADM_ViewDriverManagement", params: param });
+    },
+    doViewClick(record, index) {
       var param = record;
       param.isEdit = true;
       this.$router.push({ name: "ADM_ViewDriverManagement", params: param });
-    },
-    doViewClick(record, index) {
-      // var param = record;
-      // param.isEdit = true;
-      // this.$router.push({ name: "ADM_AddDriverManagement", params: param });
     },
     doDoubleClick(record, index) {
       //   var param = record;

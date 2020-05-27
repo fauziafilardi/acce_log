@@ -23,24 +23,34 @@
               <b-form :data-vv-scope="'MK_AddQuotation'" :data-vv-value-path="'MK_AddQuotation'">
                 <b-row>
                   <b-col md="2" style="text-align: center;">
-                    <div>
-                      <img
-                        :src="M_UserManagement.path_file"
-                        alt
-                        style="width:100px; border-radius:50px"
-                      />
-                    </div>
+                    <img :src="require('@/assets/user.png')" alt style="width: 70px;" />
                   </b-col>
                   <b-col md="10">
                     <b-row>
                       <b-col md="12">
                         <b-row>
                           <b-col>
+                            <span>{{ M_DriverManagement.user_name }}</span>
+                            <br />
                             <span>
-                              <label
-                                style="font-size: 15px; color: blue;"
-                              >{{M_UserManagement.user_name}}</label>
+                              <font-awesome-icon
+                                class="icon-style-default"
+                                icon="phone-square-alt"
+                                size="sm"
+                              />
+                              &nbsp;
+                              {{ M_DriverManagement.hand_phone }}
                             </span>
+                            <br />
+                            <span>
+                              <font-awesome-icon
+                                class="icon-style-default"
+                                icon="map-marker-alt"
+                                size="sm"
+                              />
+                              {{ M_DriverManagement.fulladdress }}
+                            </span>
+                            &nbsp;
                           </b-col>
                           <b-col style="text-align: right;">
                             <span>
@@ -53,60 +63,19 @@
                             </span>
                           </b-col>
                         </b-row>
-                        <b-row>
-                          <b-col>
-                            <span>
-                              <font-awesome-icon
-                                class="icon-style-default"
-                                icon="phone-square-alt"
-                                size="sm"
-                              />
-                              {{ M_UserManagement.hand_phone }}
-                            </span> &nbsp;
-                            <br />
-                            <span>
-                              <font-awesome-icon
-                                class="icon-style-default"
-                                icon="map-marked-alt"
-                                size="sm"
-                              />
-                              {{ M_UserManagement.fulladdress }}
-                            </span>
-                            <br />
-                            <span>
-                              <font-awesome-icon
-                                class="icon-style-default"
-                                icon="envelope"
-                                size="sm"
-                              />
-                              {{ M_UserManagement.email }}
-                            </span>
-                            <br />
-                            <span>
-                              <font-awesome-icon
-                                class="icon-style-default"
-                                icon="sliders-h"
-                                size="sm"
-                              />
-                              {{ M_UserManagement.role }}
-                            </span>
-                            <br />
-                            <span>
-                              <font-awesome-icon
-                                class="icon-style-default"
-                                icon="sticky-note"
-                                size="sm"
-                              />Notes
-                            </span>
-                          </b-col>
-                        </b-row>
-                        <b-row>
-                          <b-col>
-                            <span>{{ M_UserManagement.notes }}</span>
-                          </b-col>
-                        </b-row>
                       </b-col>
+                      <!-- <b-col style="text-align: right;">
+                        <span>
+                          <ABSButton
+                            :text="'Add New'"
+                            classButton="btn btn--default"
+                            classIcon="icon-style-1"
+                            @click="doAdd"
+                          />
+                        </span>
+                      </b-col>-->
                     </b-row>
+                    <hr />
                   </b-col>
                 </b-row>
               </b-form>
@@ -122,7 +91,7 @@
 export default {
   data() {
     return {
-      M_UserManagement: {
+      M_DriverManagement: {
         path_file: "",
         user_name: "",
         hand_phone: "",
@@ -130,6 +99,11 @@ export default {
         email: "",
         role: "",
         notes: ""
+      },
+      M_User: {
+        name: "",
+        phone_no: "",
+        address: ""
       }
     };
   },
@@ -154,36 +128,45 @@ export default {
     doEdit() {
       var param = this.paramFromList;
       param.isEdit = true;
-      this.$router.push({ name: "ADM_AddUserManagement", params: param });
+      this.$router.push({ name: "ADM_AddDriverManagement", params: param });
+    },
+    GetUserData() {
+      var param = {
+        option_function_cd: "GetUserInfo",
+        module_cd: "SS",
+        user_id: this.getDataUser().user_id
+      };
+
+      this.CallFunction(param).then(response => {
+        // response from API
+        if (response == null) return;
+
+        var data = response.Data[0];
+        this.M_User.name = data.user_name;
+        this.M_User.phone_no = data.hand_phone;
+        this.M_User.address = data.address;
+      });
     },
     GetDataBy() {
       var param = {
-        // id: this.paramFromList.row_id,
+        option_url: "/ADM/ADM_DriverManagement",
+        line_no: 0,
+        id: this.paramFromList.row_id,
         lastupdatestamp: this.paramFromList.lastupdatestamp
       };
 
-      this.getJSON(this.getUrlAPIUser(this.paramFromList.row_id), param).then(
-        response => {
-          // response from API
+      this.getJSON(this.getUrlCRUD(), param).then(response => {
+        // response from API
+        if (response == null) return;
 
-          if (response == null) return;
-
-          var data = response.Data;
-
-          this.M_UserManagement = {
-            user_name: data.user_name,
-            hand_phone: data.hand_phone,
-            fulladdress: data.address,
-            email: data.email,
-            role: data.group_descs,
-            notes: data.notes,
-            path_file:
-              data.path_file == null || data.path_file == ""
-                ? require("@/assets/avatar.png")
-                : data.path_file
-          };
-        }
-      );
+        var data = response.Data[0];
+        this.M_DriverManagement = {
+          user_name: data.driver_name,
+          hand_phone: data.handphone,
+          fulladdress: data.address,
+          notes: data.remarks
+        };
+      });
     }
   },
   mounted() {
