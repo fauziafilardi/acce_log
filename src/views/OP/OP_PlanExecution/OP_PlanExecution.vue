@@ -114,6 +114,7 @@
                                 :foot-clone="false"
                                 :fields="PlanExTable.Header"
                                 :items="PlanExTable.Data"
+                                @row-dblclicked="rowDblClicked"
                                 thStyle="padding: 5px !important;"
                               >
                                 <!-- class="table-sm table-style-1" -->
@@ -212,6 +213,7 @@
                                 :foot-clone="false"
                                 :fields="PlanExTable.Header"
                                 :items="PlanExTable.Data"
+                                @row-dblclicked="rowDblClicked"
                                 thStyle="padding: 5px !important;"
                               >
                                 <!-- class="table-sm table-style-1" -->
@@ -503,6 +505,10 @@ export default {
   },
   computed: {},
   methods: {
+    rowDblClicked(record, index) {
+      var param = record;
+      this.$router.push({ name: "OP_ViewPlanExecution", params: param });
+    },
     renderPlan() {
       var statusD = [
         { label: "All", variant: "Primary" },

@@ -93,34 +93,34 @@
                           style="border-top: solid 1px #e7eaec;border-left: solid 1px #e7eaec;border-right: solid 1px #e7eaec; border-radius: 5px 5px 0px 0px;"
                         >
                           <b-col
-                            style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 107px !important;"
+                            style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span style="color: #ccc">Date</span>
                             <br />
                             <span>01/01/2020 12.00</span>
                           </b-col>
                           <b-col
-                            style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 107px !important;"
+                            style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span style="color: #ccc">Order Number</span>
                             <br />
                             <span>#ORD0000001</span>
                           </b-col>
                           <b-col
-                            style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 107px !important;"
+                            style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span style="color: #ccc">Type</span>
                             <br />
                             <span>FTL</span>
                           </b-col>
                           <b-col
-                            style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 107px !important;"
+                            style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span style="color: #ccc">From To</span>
                             <br />
                             <span>JKT - SMG</span>
                           </b-col>
-                          <b-col style="padding: 10px !important; max-width: 107px !important;">
+                          <b-col style="padding: 10px !important; max-width: 20% !important;">
                             <span style="color: #ccc">Vehicle Type</span>
                             <br />
                             <span>Fuso</span>
@@ -128,28 +128,28 @@
                         </b-row>
                         <b-row style="border: solid 1px #e7eaec;border-radius: 0px 0px 5px 5px;">
                           <b-col
-                            style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 107px !important;"
+                            style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span style="color: #ccc">Pick Up Date</span>
                             <br />
                             <span>01/01/2020 12.00</span>
                           </b-col>
                           <b-col
-                            style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 107px !important;"
+                            style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span style="color: #ccc">Contract Number</span>
                             <br />
                             <span>#CON0000001</span>
                           </b-col>
                           <b-col
-                            style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 107px !important;"
+                            style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span style="color: #ccc">Metric Volume</span>
                             <br />
                             <span>9.000 (10.000)</span>
                           </b-col>
                           <b-col
-                            style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 107px !important;"
+                            style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span style="color: #ccc">Vehicle Number</span>
                             <br />
