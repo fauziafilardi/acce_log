@@ -509,7 +509,7 @@ export default {
       totalRows: 0,
       currentPage: 1,
       lastPage: 1,
-      perPage: 5,
+      perPage: 10,
       limit: 2,
       pagingData: [
         { value: 5, text: "5" },
@@ -1008,7 +1008,7 @@ export default {
             this.sortedField.push({ field: "time_edit", sort: "DESC" });
             this.firstSort = true;
           }
-          this.perPage = 5;
+          this.perPage = 10;
           this.currentPage = 1;
         } else if (method == "pageSize" || method == "ONSEARCHENTER") {
           this.currentPage = 1;

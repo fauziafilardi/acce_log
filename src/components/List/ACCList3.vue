@@ -1072,10 +1072,10 @@ export default {
 
         this.items = this.responses.Data;
 
-        var str_array =
-          this.responses.DefineColumn && this.responses.DefineColumn !== ""
-            ? this.responses.DefineColumn.split(",")
-            : this.responses.AllColumn.split(",");
+        var str_array = ("no,user_name,hand_phone,date_added,role,row_id").split(',');
+        //   this.responses.DefineColumn && this.responses.DefineColumn !== ""
+        //     ? this.responses.DefineColumn.split(",")
+        //     : this.responses.AllColumn.split(",");
         var defineSize = this.responses.DefineSize.split(",");
         this.allColumn_bf = this.responses.AllColumn.split(",");
         var index = this.allColumn_bf.indexOf("lastupdatestamp");

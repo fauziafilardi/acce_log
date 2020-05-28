@@ -147,6 +147,7 @@ import ABSInputTextPeriodYear from './components/Input_Vuex/ABSInputTextPeriodYe
 // ACCELOG Component
 import ACCList from './components/List/ACCList.vue'
 import ACCList2 from './components/List/ACCList2.vue'
+import ACCList3 from './components/List/ACCList3.vue'
 import ACCTextBox from './components/ACCForms/ACCTextBox.vue'
 import ACCLookUp from './components/ACCForms/ACCLookUp.vue'
 import ACCLookUpDetail from './components/ACCForms/ACCLookUpDetail.vue'
@@ -279,6 +280,7 @@ Vue.component('ABSInputTextPeriodYear', ABSInputTextPeriodYear)
 //ACCELOG Component
 Vue.component('ACCList', ACCList)
 Vue.component('ACCList2', ACCList2)
+Vue.component('ACCList3', ACCList3)
 Vue.component('ACCTextBox', ACCTextBox)
 Vue.component('ACCLookUp', ACCLookUp)
 Vue.component('ACCLookUpDetail', ACCLookUpDetail)
