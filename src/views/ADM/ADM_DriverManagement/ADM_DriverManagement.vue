@@ -5,7 +5,7 @@
         <b-col md="12">
           <ACCList2
             :prop="propList"
-            :title="'Fleet Management'"
+            :title="'Driver Management'"
             @rowClicked="rowClicked"
             @rowDblClicked="doDoubleClick"
             @rowLinkClick="rowLink"
@@ -14,8 +14,8 @@
             @filter="M_Advance_Filter"
             @headTable="M_Head_Table"
             @refreshColumn="refreshColumn"
-            ref="ref_FleetManagement"
-            urlAdd="ADM_AddFleetManagement"
+            ref="ref_DriverManagement"
+            urlAdd="ADM_AddDriverManagement"
             WithViewButton
             @buttonViewClicked="doViewClick"
           />
@@ -41,11 +41,15 @@ export default {
     };
   },
   methods: {
-    rowClicked(record, index) {},
+    rowClicked(record, index) {
+      // var param = record;
+      // param.isEdit = true;
+      // this.$router.push({ name: "ADM_ViewDriverManagement", params: param });
+    },
     doViewClick(record, index) {
       var param = record;
       param.isEdit = true;
-      this.$router.push({ name: "ADM_ViewFleetManagement", params: param });
+      this.$router.push({ name: "ADM_ViewDriverManagement", params: param });
     },
     doDoubleClick(record, index) {
       //   var param = record;
@@ -59,7 +63,7 @@ export default {
     refreshColumn() {}
   },
   mounted() {
-    this.$refs.ref_FleetManagement.doGetList("");
+    this.$refs.ref_DriverManagement.doGetList("");
   }
 };
 </script>
