@@ -1527,7 +1527,15 @@ export default {
           let message = responses.message
           // this.error = true
 
-          this.$store.commit('setStatusLoader', false)
+          if (url == this.getUrlGroupJson()) {
+            setTimeout(() => {
+              this.$store.commit('setStatusLoader', false)
+            }, 3000);
+          }
+          else {
+            this.$store.commit('setStatusLoader', false)
+          }
+
           if (error) {
             if(url !== this.getUrlAPIChat()) {
               this.alertError(message)

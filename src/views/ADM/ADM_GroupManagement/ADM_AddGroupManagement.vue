@@ -7,7 +7,7 @@
             <div class="card__title">
               <b-row>
                 <b-col style="max-width:fit-content !important;">
-                  <span>Group Management</span>
+                  <span>Role Management</span>
                 </b-col>
                 <b-col style="text-align: right;">
                   <ABSButton
@@ -87,7 +87,7 @@
                 <b-row style="margin-top: 10px;">
                   <b-col md="6">
                     <ABSButton
-                      :text="'Save Customer'"
+                      :text="'Save Role'"
                       classButton="btn btn--default"
                       classIcon="icon-style-default"
                       @click="doSave"
@@ -381,6 +381,7 @@ export default {
       this.getJSON(this.getUrlCRUD(), param).then(response => {
         // response from API
         if (response == null) return;
+        this.$store.commit('setStatusLoader', true)
 
         var data = response.Data[0];
 
@@ -388,6 +389,10 @@ export default {
             short_descs: data.short_descs,
             descs: data.descs
         };
+
+        setTimeout(() => {
+          this.$store.commit('setStatusLoader', false)
+        }, 3000);
       });
     },
     M_Update() {

@@ -272,17 +272,26 @@ export default {
             "closedO_" + indexM + "_" + indexE
           ).style.display = "none";
         } else {
-          document.getElementById(
+          var o = document.getElementById(
             "openedO_" + indexM + "_" + indexE
-          ).style.display = "none";
+          )
+          if (o !== null) {
+            document.getElementById(
+              "openedO_" + indexM + "_" + indexE
+            ).style.display = "none";
+          }
 
           // document.getElementById(
           //   "openedO_" + indexM + "_" + indexE
           // ).style.backgroundColor = "inherit";
-
-          document.getElementById(
+          var q = document.getElementById(
             "closedO_" + indexM + "_" + indexE
-          ).style.display = "block";
+          )
+          if(q !== null) {
+            document.getElementById(
+              "closedO_" + indexM + "_" + indexE
+            ).style.display = "block";
+          }
         }
       }
     });
