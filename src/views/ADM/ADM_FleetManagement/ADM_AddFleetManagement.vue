@@ -1114,10 +1114,10 @@ export default {
     M_Update() {
         var paramD = [];
         var paramH = {
-            _Method_: "SAVE",
+            _Method_: "UPDATE",
             _LineNo_: 0,
             fm_fleet_mstr_id: this.paramFromList.row_id,
-            license_plate_no: this.M_FleetManagement.plate_no,
+            license_plate_no: this.M_FleetManagement.plate_no, 
             fm_fleet_type_id: this.M_FleetManagement.fleet_type,
             fm_driver_id: this.M_FleetManagement.driver1,
             fm_driver_id2: this.M_FleetManagement.driver2,
@@ -1141,7 +1141,7 @@ export default {
             paramD.push({
                 _Method_: "SAVE",
                 _LineNo_: 1,
-                fm_fleet_mstr_id: "A_Insert.row_id_output",
+                fm_fleet_mstr_id: this.paramFromList.row_id,
                 doc_type: doc.type,
                 doc_no: doc.no,
                 doc_file_name: doc.file_logo_name,
@@ -1163,7 +1163,7 @@ export default {
 
         this.postJSONMulti(this.getUrlProsesDataPostMulti(), param).then(response => {
             if (response == null) return;
-                this.alertSuccess("Save Data Has Been Successfully").then(() => {
+                this.alertSuccess("Update Data Has Been Successfully").then(() => {
                 this.doBack();
             });
         });
