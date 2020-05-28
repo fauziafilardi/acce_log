@@ -1430,7 +1430,7 @@ export default {
     this.getProspect();
     this.getListOrder();
     this.getListQuotation();
-    // this.getListAppointment();
+    this.getListAppointment();
   }
 };
 </script>

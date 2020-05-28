@@ -77,6 +77,7 @@ import {
 
 
 
+library.add(faTruck)
 library.add(faStickyNote)
 library.add(faSlidersH)
 library.add(faStar)
