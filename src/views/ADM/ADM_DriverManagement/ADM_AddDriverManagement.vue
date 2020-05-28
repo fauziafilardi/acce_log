@@ -58,7 +58,7 @@
                         </span>
                         <ACCTextBox
                           :prop="PI_phone"
-                          v-model="M_DriverManagement.phone"
+                          v-model="M_DriverManagement.hand_phone"
                           ref="ref_phone"
                         />
                       </b-col>
@@ -623,7 +623,8 @@ export default {
         file_logo_name: "",
         file_logo_path: "",
         file_show: require("@/assets/default_photo_.png")
-      }
+      },
+      ModalIndex: null
     };
   },
   computed: {
@@ -670,35 +671,91 @@ export default {
       } else if (from == "O") {
         this.$refs.Modal_DOC._hide();
       }
+      this.ModalIndex = null;
     },
     SaveModal(from) {
-      if (from == "S") {
-        this.M_SIM.push({
-          no: this.M_ModalDoc.no,
-          exp: this.M_ModalDoc.exp,
-          file_logo: this.M_ModalDoc.file_logo,
-          file_logo_name: this.M_ModalDoc.file_logo_name,
-          file_logo_path: this.M_ModalDoc.file_logo_path,
-          file_show: this.M_ModalDoc.file_show
-        });
-      } else if (from == "K") {
-        this.M_KTP.push({
-          no: this.M_ModalDoc.no,
-          exp: this.M_ModalDoc.exp,
-          file_logo: this.M_ModalDoc.file_logo,
-          file_logo_name: this.M_ModalDoc.file_logo_name,
-          file_logo_path: this.M_ModalDoc.file_logo_path,
-          file_show: this.M_ModalDoc.file_show
-        });
-      } else if (from == "O") {
-        this.M_Doc.push({
-          no: this.M_ModalDoc.no,
-          exp: this.M_ModalDoc.exp,
-          file_logo: this.M_ModalDoc.file_logo,
-          file_logo_name: this.M_ModalDoc.file_logo_name,
-          file_logo_path: this.M_ModalDoc.file_logo_path,
-          file_show: this.M_ModalDoc.file_show
-        });
+      if (this.ModalIndex !== null) {
+        if (from == "S") {
+          // this.M_BPKB[this.ModalIndex] = {
+          this.M_SIM[this.ModalIndex].no = this.M_ModalDoc.no;
+          this.M_SIM[this.ModalIndex].exp = this.M_ModalDoc.exp;
+          this.M_SIM[this.ModalIndex].file_logo = this.M_ModalDoc.file_logo;
+          this.M_SIM[
+            this.ModalIndex
+          ].file_logo_name = this.M_ModalDoc.file_logo_name;
+          this.M_SIM[
+            this.ModalIndex
+          ].file_logo_path = this.M_ModalDoc.file_logo_path;
+          this.M_SIM[this.ModalIndex].file_show = this.M_ModalDoc.file_show;
+          // type: "B",
+          // status: "N"
+          // }
+        } else if (from == "K") {
+          // this.M_STNK[this.ModalIndex] = {
+          this.M_KTP[this.ModalIndex].no = this.M_ModalDoc.no;
+          this.M_KTP[this.ModalIndex].exp = this.M_ModalDoc.exp;
+          this.M_KTP[this.ModalIndex].file_logo = this.M_ModalDoc.file_logo;
+          this.M_KTP[
+            this.ModalIndex
+          ].file_logo_name = this.M_ModalDoc.file_logo_name;
+          this.M_KTP[
+            this.ModalIndex
+          ].file_logo_path = this.M_ModalDoc.file_logo_path;
+          this.M_KTP[this.ModalIndex].file_show = this.M_ModalDoc.file_show;
+          // type: "S",
+          // status: "N"
+          // }
+        } else if (from == "O") {
+          // this.M_Doc[this.ModalIndex] = {
+          this.M_Doc[this.ModalIndex].no = this.M_ModalDoc.no;
+          this.M_Doc[this.ModalIndex].exp = this.M_ModalDoc.exp;
+          this.M_Doc[this.ModalIndex].file_logo = this.M_ModalDoc.file_logo;
+          this.M_Doc[
+            this.ModalIndex
+          ].file_logo_name = this.M_ModalDoc.file_logo_name;
+          this.M_Doc[
+            this.ModalIndex
+          ].file_logo_path = this.M_ModalDoc.file_logo_path;
+          this.M_Doc[this.ModalIndex].file_show = this.M_ModalDoc.file_show;
+          // type: "O",
+          // status: "N"
+          // }
+        }
+      } else {
+        if (from == "S") {
+          this.M_SIM.push({
+            no: this.M_ModalDoc.no,
+            exp: this.M_ModalDoc.exp,
+            file_logo: this.M_ModalDoc.file_logo,
+            file_logo_name: this.M_ModalDoc.file_logo_name,
+            file_logo_path: this.M_ModalDoc.file_logo_path,
+            file_show: this.M_ModalDoc.file_show,
+            type: "S",
+            driver_status: "N"
+          });
+        } else if (from == "K") {
+          this.M_KTP.push({
+            no: this.M_ModalDoc.no,
+            exp: this.M_ModalDoc.exp,
+            file_logo: this.M_ModalDoc.file_logo,
+            file_logo_name: this.M_ModalDoc.file_logo_name,
+            file_logo_path: this.M_ModalDoc.file_logo_path,
+            file_show: this.M_ModalDoc.file_show,
+            type: "K",
+            driver_status: "N"
+          });
+        } else if (from == "O") {
+          this.M_Doc.push({
+            no: this.M_ModalDoc.no,
+            exp: this.M_ModalDoc.exp,
+            file_logo: this.M_ModalDoc.file_logo,
+            file_logo_name: this.M_ModalDoc.file_logo_name,
+            file_logo_path: this.M_ModalDoc.file_logo_path,
+            file_show: this.M_ModalDoc.file_show,
+            type: "O",
+            driver_status: "N"
+          });
+        }
       }
 
       this.CancelModal(from);
@@ -713,6 +770,7 @@ export default {
       }
     },
     Edit(from, data, index) {
+      this.ModalIndex = index;
       this.OpenModal(from);
       if (from == "S") {
         var dt = this.M_SIM[index];
@@ -800,7 +858,7 @@ export default {
         _Method_: "SAVE",
         _LineNo_: 0,
         driver_name: this.M_DriverManagement.name,
-        handphone: this.M_DriverManagement.phone,
+        handphone: this.M_DriverManagement.hand_phone,
         address: this.M_DriverManagement.address,
         remarks: this.M_DriverManagement.notes,
         user_input: this.getDataUser().user_id
@@ -872,14 +930,6 @@ export default {
           });
         }
       );
-
-      //   this.postJSON(this.getUrlAPIUser(), param).then(response => {
-      //     // console.log(response)
-      //     if (response == null) return;
-      //     this.alertSuccess("Save Data Has Been Successfully").then(() => {
-      //       this.doBack();
-      //     });
-      //   });
     },
     GetDataBy() {
       var param = {
@@ -895,44 +945,153 @@ export default {
 
         var data = response.Data[0];
         this.M_DriverManagement = {
-          user_name: data.driver_name,
+          user_name: this.getDataUser().user_name,
+          name: data.driver_name,
           hand_phone: data.handphone,
-          fulladdress: data.address,
+          address: data.address,
           notes: data.remarks
         };
+        this.M_KTP = [];
+        this.M_SIM = [];
+        this.M_Doc = [];
+
+        // this.$nextTick(() => {
+        response.Data.forEach((dtl, index) => {
+          if (dtl.dt_doc_type == "K") {
+            this.M_KTP.push({
+              no: dtl.dt_doc_no,
+              exp: dtl.dt_expiry_date,
+              file_logo: dtl.dt_doc_file_name,
+              file_logo_name: dtl.dt_doc_file_name,
+              file_logo_path: dtl.dt_doc_path_file,
+              file_show: this.url + dtl.dt_doc_path_file,
+              type: dtl.dt_doc_type,
+              driver_status: "E"
+            });
+          } else if (dtl.dt_doc_type == "S") {
+            this.M_SIM.push({
+              no: dtl.dt_doc_no,
+              exp: dtl.dt_expiry_date,
+              file_logo: dtl.dt_doc_file_name,
+              file_logo_name: dtl.dt_doc_file_name,
+              file_logo_path: dtl.dt_doc_path_file,
+              file_show: this.url + dtl.dt_doc_path_file,
+              type: dtl.dt_doc_type,
+              driver_status: "E"
+            });
+          } else if (dtl.dt_doc_type == "O") {
+            this.M_Doc.push({
+              no: dtl.dt_doc_no,
+              exp: dtl.dt_expiry_date,
+              file_logo: dtl.dt_doc_file_name,
+              file_logo_name: dtl.dt_doc_file_name,
+              file_logo_path: dtl.dt_doc_path_file,
+              file_show: this.url + dtl.dt_doc_path_file,
+              type: dtl.dt_doc_type,
+              driver_status: "E"
+            });
+          }
+        });
+        var doc = this.M_SIM.concat(this.M_KTP.concat(this.M_Doc));
+        console.log(JSON.stringify(doc, null, 2));
       });
     },
     M_Update() {
-      var param = {
-        ss_portfolio_id: this.getDataUser().portfolio_id,
-        ss_subportfolio_id: this.getDataUser().subportfolio_id,
-        ss_user_id: this.M_DriverManagement.ss_user_id,
-        user_id: this.M_DriverManagement.user_id,
-        ss_group_id: this.M_DriverManagement.role,
-        user_name: this.M_DriverManagement.customer_name,
+      var paramH = {
+        _Method_: "UPDATE",
+        _LineNo_: 0,
+        fm_driver_id: this.paramFromList.row_id,
+        driver_name: this.M_DriverManagement.name,
+        handphone: this.M_DriverManagement.hand_phone,
         address: this.M_DriverManagement.address,
-        password: this.M_DriverManagement.password,
-        email: this.M_DriverManagement.email,
-        user_level: this.M_DriverManagement.user_level,
-        hand_phone: this.M_DriverManagement.phone_no,
-        file_name: this.M_DriverManagement.file_logo_name,
-        path_file: this.M_DriverManagement.file_logo_path,
-        notes: this.M_DriverManagement.notes,
+        driver_status: "E",
+        remarks: this.M_DriverManagement.notes,
         lastupdatestamp: this.paramFromList.lastupdatestamp,
         user_edit: this.getDataUser().user_id
       };
 
-      this.putJSON(this.getUrlAPIUser(), param).then(response => {
-        // console.log(response)
-        if (response == null) return;
-        this.alertSuccess("Update Data Has Been Successfully").then(() => {
-          this.doBack();
+      var paramDeleteDtl = {
+        _Method_: "DELETE",
+        _LineNo_: 2,
+        fm_driver_id: this.paramFromList.row_id
+      };
+
+      var paramD = [];
+      var doc = this.M_SIM.concat(this.M_KTP.concat(this.M_Doc));
+
+      doc.forEach((doc, index) => {
+        paramD.push({
+          _Method_: "SAVE",
+          _LineNo_: 1,
+          fm_driver_id: this.paramFromList.row_id,
+          doc_type: doc.type,
+          doc_no: doc.no,
+          doc_file_name: doc.file_logo_name,
+          doc_path_file: doc.file_logo_path,
+          expiry_date: doc.exp && doc.exp !== "" ? doc.exp : "NULL",
+          user_input: this.getDataUser().user_id,
+          driver_status: "E"
         });
       });
+      console.log(JSON.stringify(paramH, null, 2));
+      console.log(JSON.stringify(paramD, null, 2));
+      // this.M_KTP.forEach((doc, index) => {
+      //   paramD.push({
+      //     _Method_: "SAVE",
+      //     _LineNo_: 1,
+      //     fm_driver_id: "A_Insert.row_id_output",
+      //     doc_type: "K",
+      //     doc_no: doc.no,
+      //     doc_file_name: doc.file_logo_name,
+      //     doc_path_file: doc.file_logo_path,
+      //     expiry_date: doc.exp && doc.exp !== "" ? doc.exp : "NULL",
+      //     user_input: this.getDataUser().user_id,
+      //     driver_status: "A"
+      //   });
+      // });
+
+      // this.M_Doc.forEach((doc, index) => {
+      //   paramD.push({
+      //     _Method_: "SAVE",
+      //     _LineNo_: 1,
+      //     fm_driver_id: "A_Insert.row_id_output",
+      //     doc_type: "O",
+      //     doc_no: doc.no,
+      //     doc_file_name: doc.file_logo_name,
+      //     doc_path_file: doc.file_logo_path,
+      //     expiry_date: doc.exp && doc.exp !== "" ? doc.exp : "NULL",
+      //     user_input: this.getDataUser().user_id,
+      //     driver_status: "A"
+      //   });
+      // });
+
+      var param = {
+        option_url: "/ADM/ADM_DriverManagement",
+        line_no: 0,
+        Data: [
+          {
+            A_Update: paramH,
+            B_Delete: paramDeleteDtl,
+            C_Looping: paramD
+          }
+        ]
+      };
+
+      // return;
+      this.postJSONMulti(this.getUrlProsesDataPostMulti(), param).then(
+        response => {
+          // console.log(response)
+          if (response == null) return;
+          this.alertSuccess("Update Data Has Been Successfully").then(() => {
+            this.doBack();
+          });
+        }
+      );
     }
   },
   mounted() {
     this.M_ClearForm();
+
     if (this.inputStatus == "edit") {
       this.GetDataBy();
     }

@@ -20,37 +20,24 @@
               </b-row>
             </div>
             <div class="card__body">
-              <b-form :data-vv-scope="'MK_AddQuotation'" :data-vv-value-path="'MK_AddQuotation'">
+              <b-form
+                :data-vv-scope="'ADM_AddDriverManagement'"
+                :data-vv-value-path="'ADM_AddDriverManagement'"
+              >
                 <b-row>
                   <b-col md="2" style="text-align: center;">
-                    <img :src="require('@/assets/user.png')" alt style="width: 70px;" />
+                    <img :src="require('@/assets/user.png')" alt style="width: 90px;" />
                   </b-col>
                   <b-col md="10">
                     <b-row>
                       <b-col md="12">
                         <b-row>
                           <b-col>
-                            <span>{{ M_DriverManagement.user_name }}</span>
-                            <br />
                             <span>
-                              <font-awesome-icon
-                                class="icon-style-default"
-                                icon="phone-square-alt"
-                                size="sm"
-                              />
-                              &nbsp;
-                              {{ M_DriverManagement.hand_phone }}
+                              <label
+                                style="font-size: 15px; color: blue;"
+                              >{{M_DriverManagement.driver_name}}</label>
                             </span>
-                            <br />
-                            <span>
-                              <font-awesome-icon
-                                class="icon-style-default"
-                                icon="map-marker-alt"
-                                size="sm"
-                              />
-                              {{ M_DriverManagement.fulladdress }}
-                            </span>
-                            &nbsp;
                           </b-col>
                           <b-col style="text-align: right;">
                             <span>
@@ -64,18 +51,272 @@
                           </b-col>
                         </b-row>
                       </b-col>
-                      <!-- <b-col style="text-align: right;">
-                        <span>
-                          <ABSButton
-                            :text="'Add New'"
-                            classButton="btn btn--default"
-                            classIcon="icon-style-1"
-                            @click="doAdd"
-                          />
-                        </span>
-                      </b-col>-->
                     </b-row>
-                    <hr />
+                    <b-row class="row-view">
+                      <b-col>
+                        <span>
+                          <font-awesome-icon
+                            class="icon-style-default"
+                            icon="phone-square-alt"
+                            size="sm"
+                          />
+                          &nbsp; &nbsp;
+                          {{ M_DriverManagement.handphone }}
+                        </span>
+                        <br />
+                        <span>
+                          <font-awesome-icon
+                            class="icon-style-default"
+                            icon="map-marker-alt"
+                            size="sm"
+                          />
+                          &nbsp; &nbsp;
+                          {{ M_DriverManagement.address }}
+                        </span>
+                      </b-col>
+                    </b-row>
+
+                    <b-row>
+                      <b-col md="1">
+                        <span>
+                          <font-awesome-icon class="icon-style-default" icon="user" size="sm" />&nbsp; &nbsp;
+                          User
+                        </span>
+                      </b-col>
+                      <b-col>
+                        <span>
+                          : &nbsp; &nbsp;
+                          {{ M_DriverManagement.user_name }}
+                        </span>
+                      </b-col>
+                    </b-row>
+                    <b-row>
+                      <b-col md="1">
+                        <span>
+                          <font-awesome-icon
+                            class="icon-style-default"
+                            icon="calendar-alt"
+                            size="sm"
+                          />&nbsp; &nbsp;
+                          Date Added
+                        </span>
+                      </b-col>
+                      <b-col>
+                        <span>
+                          : &nbsp; &nbsp;
+                          {{ M_DriverManagement.date_add }}
+                        </span>
+                      </b-col>
+                    </b-row>
+                    <template v-for="(doc, index) in M_SIM">
+                      <b-row v-bind:key="index">
+                        <b-col md="1">
+                          <span>
+                            <font-awesome-icon
+                              class="icon-style-default"
+                              icon="clipboard"
+                              size="sm"
+                            />&nbsp; &nbsp;
+                            SIM No.
+                          </span>
+                        </b-col>
+                        <b-col>
+                          <span>
+                            : &nbsp; &nbsp;
+                            {{ doc.no }}
+                          </span>
+                        </b-col>
+                      </b-row>
+                      <b-row v-bind:key="index">
+                        <b-col md="1">
+                          <span>
+                            <font-awesome-icon
+                              class="icon-style-default"
+                              icon="calendar-alt"
+                              size="sm"
+                            />&nbsp; &nbsp;
+                            SIM Expire
+                          </span>
+                        </b-col>
+                        <b-col>
+                          <span>
+                            : &nbsp; &nbsp;
+                            {{ momentDate(new Date(doc.exp)) }}
+                          </span>
+                        </b-col>
+                      </b-row>
+                      <b-row
+                        v-bind:key="index"
+                        v-show="doc.file_logo_name && doc.file_logo_name !== ''"
+                      >
+                        <b-col md="1">
+                          <span>
+                            <font-awesome-icon
+                              class="icon-style-default"
+                              icon="paperclip"
+                              size="sm"
+                            />&nbsp; &nbsp;
+                            SIM
+                          </span>
+                        </b-col>
+                        <b-col>
+                          <span>
+                            : &nbsp; &nbsp;
+                            <span>
+                              <label
+                                style="color: blue; cursor: pointer;"
+                                @click="onPictClick(doc)"
+                              >{{doc.file_logo_name}}</label>
+                            </span>
+                          </span>
+                        </b-col>
+                      </b-row>
+                    </template>
+                    <template v-for="(doc, index) in M_KTP">
+                      <b-row v-bind:key="index">
+                        <b-col md="1">
+                          <span>
+                            <font-awesome-icon
+                              class="icon-style-default"
+                              icon="clipboard"
+                              size="sm"
+                            />&nbsp; &nbsp;
+                            KTP No.
+                          </span>
+                        </b-col>
+                        <b-col>
+                          <span>
+                            : &nbsp; &nbsp;
+                            {{ doc.no }}
+                          </span>
+                        </b-col>
+                      </b-row>
+                      <b-row v-bind:key="index">
+                        <b-col md="1">
+                          <span>
+                            <font-awesome-icon
+                              class="icon-style-default"
+                              icon="calendar-alt"
+                              size="sm"
+                            />&nbsp; &nbsp;
+                            KTP Expire
+                          </span>
+                        </b-col>
+                        <b-col>
+                          <span>
+                            : &nbsp; &nbsp;
+                            {{ momentDate(new Date(doc.exp)) }}
+                          </span>
+                        </b-col>
+                      </b-row>
+                      <b-row
+                        v-bind:key="index"
+                        v-show="doc.file_logo_name && doc.file_logo_name !== ''"
+                      >
+                        <b-col md="1">
+                          <span>
+                            <font-awesome-icon
+                              class="icon-style-default"
+                              icon="paperclip"
+                              size="sm"
+                            />&nbsp; &nbsp;
+                            KTP
+                          </span>
+                        </b-col>
+                        <b-col>
+                          <span>
+                            : &nbsp; &nbsp;
+                            <span>
+                              <label
+                                style="color: blue; cursor: pointer;"
+                                @click="onPictClick(doc)"
+                              >{{doc.file_logo_name}}</label>
+                            </span>
+                          </span>
+                        </b-col>
+                      </b-row>
+                    </template>
+                    <template v-for="(doc, index) in M_Doc">
+                      <b-row v-bind:key="index">
+                        <b-col md="1">
+                          <span>
+                            <font-awesome-icon
+                              class="icon-style-default"
+                              icon="clipboard"
+                              size="sm"
+                            />&nbsp; &nbsp;
+                            Other Document No.
+                          </span>
+                        </b-col>
+                        <b-col>
+                          <span>
+                            : &nbsp; &nbsp;
+                            {{ doc.no }}
+                          </span>
+                        </b-col>
+                      </b-row>
+                      <b-row v-bind:key="index">
+                        <b-col md="1">
+                          <span>
+                            <font-awesome-icon
+                              class="icon-style-default"
+                              icon="calendar-alt"
+                              size="sm"
+                            />&nbsp; &nbsp;
+                            Other Document Expire
+                          </span>
+                        </b-col>
+                        <b-col>
+                          <span>
+                            : &nbsp; &nbsp;
+                            {{ momentDate(new Date(doc.exp)) }}
+                          </span>
+                        </b-col>
+                      </b-row>
+                      <b-row
+                        v-bind:key="index"
+                        v-show="doc.file_logo_name && doc.file_logo_name !== ''"
+                      >
+                        <b-col md="1">
+                          <span>
+                            <font-awesome-icon
+                              class="icon-style-default"
+                              icon="paperclip"
+                              size="sm"
+                            />&nbsp; &nbsp;
+                            Other Document
+                          </span>
+                        </b-col>
+                        <b-col>
+                          <span>
+                            : &nbsp; &nbsp;
+                            <span>
+                              <label
+                                style="color: blue; cursor: pointer;"
+                                @click="onPictClick(doc)"
+                              >{{doc.file_logo_name}}</label>
+                            </span>
+                          </span>
+                        </b-col>
+                      </b-row>
+                    </template>
+                    <b-row>
+                      <b-col md="1">
+                        <span>
+                          <font-awesome-icon
+                            class="icon-style-default"
+                            icon="sticky-note"
+                            size="sm"
+                          />&nbsp; &nbsp;
+                          Notes
+                        </span>
+                      </b-col>
+                    </b-row>
+                    <b-row>
+                      <b-col>
+                        <span>{{ M_DriverManagement.notes }}</span>
+                      </b-col>
+                    </b-row>
                   </b-col>
                 </b-row>
               </b-form>
@@ -92,19 +333,23 @@ export default {
   data() {
     return {
       M_DriverManagement: {
-        path_file: "",
-        user_name: "",
-        hand_phone: "",
-        fulladdress: "",
-        email: "",
-        role: "",
-        notes: ""
+        user_name: this.getDataUser().user_name,
+        plate_no: "",
+        driver_name: "",
+        address: "",
+        driver_nameLabel: "",
+        descs: "",
+        driver1: "",
+        handphone: "",
+        driver2: "",
+        driver2Label: "",
+        notes: "",
+        lastupdatestamp: ""
       },
-      M_User: {
-        name: "",
-        phone_no: "",
-        address: ""
-      }
+      M_KTP: [],
+      M_SIM: [],
+      M_Doc: [],
+      default_pic: require("@/assets/default_photo_.png")
     };
   },
   computed: {
@@ -119,6 +364,14 @@ export default {
           return param;
         }
       }
+    },
+    inputStatus() {
+      var param = this.$route.params;
+      if (param.isEdit && param.isEdit === true) {
+        return "edit";
+      } else {
+        return "new";
+      }
     }
   },
   methods: {
@@ -130,22 +383,9 @@ export default {
       param.isEdit = true;
       this.$router.push({ name: "ADM_AddDriverManagement", params: param });
     },
-    GetUserData() {
-      var param = {
-        option_function_cd: "GetUserInfo",
-        module_cd: "SS",
-        user_id: this.getDataUser().user_id
-      };
-
-      this.CallFunction(param).then(response => {
-        // response from API
-        if (response == null) return;
-
-        var data = response.Data[0];
-        this.M_User.name = data.user_name;
-        this.M_User.phone_no = data.hand_phone;
-        this.M_User.address = data.address;
-      });
+    onPictClick(data) {
+      // console.log(data)
+      window.open(data.file_show);
     },
     GetDataBy() {
       var param = {
@@ -155,22 +395,80 @@ export default {
         lastupdatestamp: this.paramFromList.lastupdatestamp
       };
 
-      this.getJSON(this.getUrlCRUD(), param).then(response => {
-        // response from API
-        if (response == null) return;
+      this.getJSON(this.getUrlCRUD(this.paramFromList.row_id), param).then(
+        response => {
+          // response from API
+          if (response == null) return;
 
-        var data = response.Data[0];
-        this.M_DriverManagement = {
-          user_name: data.driver_name,
-          hand_phone: data.handphone,
-          fulladdress: data.address,
-          notes: data.remarks
-        };
-      });
+          var data = response.Data[0];
+
+          this.M_DriverManagement = {
+            user_name: this.getDataUser().user_name,
+            driver_name: data.driver_name,
+            handphone: data.handphone,
+            address: data.address,
+            notes: data.remarks,
+            date_add: this.momentDate(new Date(data.time_input))
+          };
+
+          this.M_KTP = [];
+          this.M_SIM = [];
+          this.M_Doc = [];
+
+          // this.$nextTick(() => {
+          response.Data.forEach((dtl, index) => {
+            console.log(dtl);
+            if (dtl.dt_doc_type == "K") {
+              this.M_KTP.push({
+                no: dtl.dt_doc_no,
+                exp: dtl.dt_expiry_date,
+                file_logo: dtl.dt_doc_file_name,
+                file_logo_name: dtl.dt_doc_file_name,
+                file_logo_path: dtl.dt_doc_path_file,
+                file_show: this.url + dtl.dt_doc_path_file,
+                type: dtl.dt_doc_type,
+                status: "E"
+              });
+            } else if (dtl.dt_doc_type == "S") {
+              this.M_SIM.push({
+                no: dtl.dt_doc_no,
+                exp: dtl.dt_expiry_date,
+                file_logo: dtl.dt_doc_file_name,
+                file_logo_name: dtl.dt_doc_file_name,
+                file_logo_path: dtl.dt_doc_path_file,
+                file_show: this.url + dtl.dt_doc_path_file,
+                type: dtl.dt_doc_type,
+                status: "E"
+              });
+            } else if (dtl.dt_doc_type == "O") {
+              this.M_Doc.push({
+                no: dtl.dt_doc_no,
+                exp: dtl.dt_expiry_date,
+                file_logo: dtl.dt_doc_file_name,
+                file_logo_name: dtl.dt_doc_file_name,
+                file_logo_path: dtl.dt_doc_path_file,
+                file_show: this.url + dtl.dt_doc_path_file,
+                type: dtl.dt_doc_type,
+                status: "E"
+              });
+            }
+          });
+          // })
+
+          // this.$forceUpdate();
+
+          // console.log(this.M_KTP)
+          // console.log(this.M_SIM)
+          // console.log(this.M_Doc)
+        }
+      );
     }
   },
   mounted() {
+    // this.M_ClearForm();
+    // if (this.inputStatus == "edit") {
     this.GetDataBy();
+    // }
   }
 };
 </script>
