@@ -1090,49 +1090,6 @@ Dynamic Text Area End
 */
 
 /*Component*/
-
-/*Tab*/
-.nav-tabs {
-  height: 34px !important;
-}
-
-.nav-tabs .nav-link.active,
-.nav-tabs .nav-item.show .nav-link {
-  height: 34px !important;
-  color: #007bff !important;
-  font-weight: 600;
-  border-color: '#ffffff00''#ffffff00'rgba(0, 123, 255, 0.25) !important;
-  border: 3px solid;
-}
-
-// a {
-//   color:grey !important;
-// }
-
-.nav-tabs .nav-link {
-  //   // border-color: #007bff !important;
-  // border: transparent !important;
-  height: 34px !important;
-  border-top: transparent !important;
-  border-left: transparent !important;
-  border-right: transparent !important;
-  border-top-left-radius: 0rem !important;
-  border-top-right-radius: 0rem !important;
-}
-
-.nav-link {
-  font-size: 13px !important;
-  font-family: 'Segoe UI';
-  font-weight: normal;
-  font-style: normal;
-  color: gray !important;
-
-  &:hover {
-    color: gray !important;
-    background-color: #d9efff !important;
-  }
-}
-
 .ABSTabs {
   // background: white !important;
   // margin-top: 8px !important;

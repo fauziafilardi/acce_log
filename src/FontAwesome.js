@@ -69,11 +69,13 @@ import {
     faStar,
     faMapMarkedAlt,
     faSlidersH,
-    faStickyNote
+    faStickyNote,
+    faTruck
 } from '@fortawesome/free-solid-svg-icons'
 
 
 
+library.add(faTruck)
 library.add(faStickyNote)
 library.add(faSlidersH)
 library.add(faStar)
