@@ -52,7 +52,7 @@
                         </b-row>
                       </b-col>
                     </b-row>
-                    <b-row class="row-view">
+                    <b-row class="row-view" style="padding-bottom: 10px;">
                       <b-col>
                         <span>
                           <font-awesome-icon
