@@ -73,6 +73,9 @@ import CM_SubModuleAccountPrefix_Master from '@/views/CM/CM_SubModuleAccountPref
 
 import CM_ExportLawanTransaksiToEFaktur from '@/views/CM/CM_ExportLawanTransaksiToEFaktur/CM_ExportLawanTransaksiToEFaktur'
 
+import CM_CustomerStatus from '@/views/CM/CM_CustomerStatus/CM_CustomerStatus'
+import CM_AddCustomerStatus from '@/views/CM/CM_CustomerStatus/CM_AddCustomerStatus'
+
 
 
 export const CMRender = {
@@ -773,6 +776,25 @@ export const CMRender = {
             path: '/CM/CM_SubModuleAccountPrefix',
             name: 'CM_SubModuleAccountPrefix',
             component: CM_SubModuleAccountPrefix_Master,
+            meta: {
+                requiresAuth: true
+            }
+        }
+
+        ,
+        {
+            path: '/CM/CM_CustomerStatus',
+            name: 'CM_CustomerStatus',
+            component: CM_CustomerStatus,
+            meta: {
+                requiresAuth: true
+            }
+        }
+        ,
+        {
+            path: '/CM/CM_CustomerStatus/Form',
+            name: 'CM_AddCustomerStatus',
+            component: CM_AddCustomerStatus,
             meta: {
                 requiresAuth: true
             }

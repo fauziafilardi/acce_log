@@ -5,7 +5,7 @@
         <b-col md="12">
           <ACCList2
             :prop="propList"
-            :title="'Fleet Management'"
+            :title="'Customer Status'"
             @rowClicked="rowClicked"
             @rowDblClicked="doDoubleClick"
             @rowLinkClick="rowLink"
@@ -14,8 +14,8 @@
             @filter="M_Advance_Filter"
             @headTable="M_Head_Table"
             @refreshColumn="refreshColumn"
-            ref="ref_FleetManagement"
-            urlAdd="ADM_AddFleetManagement"
+            ref="ref_CustomerStatus"
+            urlAdd="CM_AddCustomerStatus"
             WithViewButton
             @buttonViewClicked="doViewClick"
           />
@@ -42,12 +42,12 @@ export default {
   },
   methods: {
     rowClicked(record, index) {
-      this.doViewClick(record, index)
+        this.doViewClick(record, index)
     },
     doViewClick(record, index) {
       var param = record;
       param.isEdit = true;
-      this.$router.push({ name: "ADM_ViewFleetManagement", params: param });
+      this.$router.push({ name: "CM_AddCustomerStatus", params: param });
     },
     doDoubleClick(record, index) {},
     rowLink(url) {},
@@ -58,7 +58,7 @@ export default {
     refreshColumn() {}
   },
   mounted() {
-    this.$refs.ref_FleetManagement.doGetList("");
+    this.$refs.ref_CustomerStatus.doGetList("");
   }
 };
 </script>

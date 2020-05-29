@@ -41,14 +41,14 @@ export default {
     };
   },
   methods: {
-    rowClicked(record, index) {},
+    rowClicked(record, index) {
+      this.doViewClick(record, index)
+    },
     doViewClick(record, index) {
       var param = record;
       this.$router.push({ name: "OP_ViewBookingEntry", params: param });
     },
     doDoubleClick(record, index) {
-      //   var param = record;
-      //   this.$router.push({ name: "MK_ViewQuotationList", params: param });
     },
     rowLink(url) {},
     M_PageSize() {},

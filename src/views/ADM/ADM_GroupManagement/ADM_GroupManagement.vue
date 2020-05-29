@@ -41,16 +41,15 @@ export default {
     };
   },
   methods: {
-    rowClicked(record, index) {},
+    rowClicked(record, index) {
+      this.doViewClick(record, index)
+    },
     doViewClick(record, index) {
       var param = record;
       param.isEdit = true;
       this.$router.push({ name: "ADM_AddGroupManagement", params: param });
     },
-    doDoubleClick(record, index) {
-      //   var param = record;
-      //   this.$router.push({ name: "MK_ViewQuotationList", params: param });
-    },
+    doDoubleClick(record, index) {},
     rowLink(url) {},
     M_PageSize() {},
     M_Pagination() {},

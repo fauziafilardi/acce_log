@@ -1091,11 +1091,11 @@ export default {
         //     key: "chkBoxAction"
         // });
 
-        // HeaderACCList
-        // ContentACCList
+        // HeaderACCList2
+        // ContentACCList2
 
         this.allColumn_bf.forEach((val, idx) => {
-          var thClass = "HeaderACCList";
+          var thClass = "HeaderACCList2";
           var isSorted = this.sortedField.map(x => x.field).indexOf(val);
           if (isSorted > -1) {
             if (this.sortedField[isSorted].sort == "ASC") {
@@ -1109,7 +1109,7 @@ export default {
             value: idx + 1,
             key: val,
             thClass: thClass,
-            tdClass: "ContentACCList notranslate",
+            tdClass: "ContentACCList2 notranslate",
             text: val
           });
 
@@ -1117,7 +1117,7 @@ export default {
             value: idx + 1,
             key: val,
             thClass: thClass,
-            tdClass: "ContentACCList notranslate"
+            tdClass: "ContentACCList2 notranslate"
           });
         });
 
@@ -1136,13 +1136,13 @@ export default {
             return val.key != str_array[i];
           });
 
-          var thClass = "HeaderACCList ";
+          var thClass = "HeaderACCList2 ";
           if (str_array[i] !== "no") {
             thClass += defineSize[i];
           }
-          // var thClass = "HeaderACCList ";
+          // var thClass = "HeaderACCList2 ";
 
-          var tdClass = "ContentACCList notranslate";
+          var tdClass = "ContentACCList2 notranslate";
           if (
             str_array[i].toLowerCase().includes("amount") ||
             str_array[i].toLowerCase().includes("amt") ||
@@ -1397,86 +1397,8 @@ export default {
         }
       }
     },
-    doGetlist2() {
-      this.items = [
-        {
-          no: 1,
-          date: "10-01-2020 12.00",
-          customer_name: "PT Abadi Sentosa",
-          contact_person: "Basa Aritonang",
-          phone_no: "+62-818-889978788",
-          row_id: 1
-        },
-        {
-          no: 2,
-          date: "10-01-2020 12.00",
-          customer_name: "PT Gemini Perkasa Abadi",
-          contact_person: "Ivan Laksana",
-          phone_no: "+62-818-889978788",
-          row_id: 2
-        },
-        {
-          no: 3,
-          date: "10-01-2020 12.00",
-          customer_name: "PT Garuda Perkasa",
-          contact_person: "Steven Chai",
-          phone_no: "+62-818-889978788",
-          row_id: 3
-        },
-        {
-          no: 4,
-          date: "10-01-2020 12.00",
-          customer_name: "PT Indo Sejahtera",
-          contact_person: "Triyono",
-          phone_no: "+62-818-889978788",
-          row_id: 4
-        },
-        {
-          no: 5,
-          date: "10-01-2020 12.00",
-          customer_name: "PT Provost Utama Tama",
-          contact_person: "Fingky Endawan",
-          phone_no: "+62-818-889978788",
-          row_id: 5
-        }
-      ];
-
-      this.fieldHeader = [
-        {
-          key: "no",
-          label: "No",
-          thClass: "HeaderACCList",
-          tdClass: "ContentACCList"
-        },
-        {
-          key: "date",
-          label: "Date Added",
-          thClass: "HeaderACCList",
-          tdClass: "ContentACCList"
-        },
-        {
-          key: "customer_name",
-          label: "Customer Name",
-          thClass: "HeaderACCList",
-          tdClass: "ContentACCList"
-        },
-        {
-          key: "contact_person",
-          label: "Contact Person",
-          thClass: "HeaderACCList",
-          tdClass: "ContentACCList"
-        },
-        {
-          key: "phone_no",
-          label: "Phone No",
-          thClass: "HeaderACCList",
-          tdClass: "ContentACCList"
-        }
-      ];
-    }
   },
   mounted() {
-    // this.doGetlist2();
   },
   created() {
     // if (this.WithViewButton == undefined) {
