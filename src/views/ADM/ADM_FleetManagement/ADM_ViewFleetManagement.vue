@@ -70,7 +70,7 @@
                     </b-row>
 
                     <b-row>
-                        <b-col md="1">
+                        <b-col md="2">
                             <span>
                                 <font-awesome-icon
                                     class="icon-style-default"
@@ -88,7 +88,7 @@
                         </b-col>
                     </b-row>
                     <b-row>
-                        <b-col md="1">
+                        <b-col md="2">
                             <span>
                                 <font-awesome-icon
                                     class="icon-style-default"
@@ -107,7 +107,7 @@
                     </b-row>
                     <template v-for="(doc, index) in M_BPKB">
                         <b-row v-bind:key="index">
-                            <b-col md="1">
+                            <b-col md="2">
                                 <span>
                                     <font-awesome-icon
                                         class="icon-style-default"
@@ -125,7 +125,7 @@
                             </b-col>
                         </b-row>
                         <b-row v-bind:key="index">
-                            <b-col md="1">
+                            <b-col md="2">
                                 <span>
                                     <font-awesome-icon
                                         class="icon-style-default"
@@ -143,7 +143,7 @@
                             </b-col>
                         </b-row>
                         <b-row v-bind:key="index" v-show="doc.file_logo_name && doc.file_logo_name !== ''">
-                            <b-col md="1">
+                            <b-col md="2">
                                 <span>
                                     <font-awesome-icon
                                         class="icon-style-default"
@@ -157,7 +157,7 @@
                                 <span>
                                     : &nbsp; &nbsp;
                                     <span>
-                                        <label style="color: blue; cursor: pointer;" @click="onPictClick(doc)"> {{doc.file_logo_name}} </label>
+                                        <label style="color: blue; cursor: pointer; margin: unset !important;" @click="onPictClick(doc)"> {{doc.file_logo_name}} </label>
                                     </span>
                                 </span>
                             </b-col>
@@ -165,7 +165,7 @@
                     </template>
                     <template v-for="(doc, index) in M_STNK">
                         <b-row v-bind:key="index">
-                            <b-col md="1">
+                            <b-col md="2">
                                 <span>
                                     <font-awesome-icon
                                         class="icon-style-default"
@@ -183,7 +183,7 @@
                             </b-col>
                         </b-row>
                         <b-row v-bind:key="index">
-                            <b-col md="1">
+                            <b-col md="2">
                                 <span>
                                     <font-awesome-icon
                                         class="icon-style-default"
@@ -201,7 +201,7 @@
                             </b-col>
                         </b-row>
                         <b-row v-bind:key="index" v-show="doc.file_logo_name && doc.file_logo_name !== ''">
-                            <b-col md="1">
+                            <b-col md="2">
                                 <span>
                                     <font-awesome-icon
                                         class="icon-style-default"
@@ -215,7 +215,7 @@
                                 <span>
                                     : &nbsp; &nbsp;
                                     <span>
-                                        <label style="color: blue; cursor: pointer;" @click="onPictClick(doc)"> {{doc.file_logo_name}} </label>
+                                        <label style="color: blue; cursor: pointer; margin: unset !important;" @click="onPictClick(doc)"> {{doc.file_logo_name}} </label>
                                     </span>
                                 </span>
                             </b-col>
@@ -223,7 +223,7 @@
                     </template>
                     <template v-for="(doc, index) in M_Doc">
                         <b-row v-bind:key="index">
-                            <b-col md="1">
+                            <b-col md="2">
                                 <span>
                                     <font-awesome-icon
                                         class="icon-style-default"
@@ -241,7 +241,7 @@
                             </b-col>
                         </b-row>
                         <b-row v-bind:key="index">
-                            <b-col md="1">
+                            <b-col md="2">
                                 <span>
                                     <font-awesome-icon
                                         class="icon-style-default"
@@ -259,7 +259,7 @@
                             </b-col>
                         </b-row>
                         <b-row v-bind:key="index" v-show="doc.file_logo_name && doc.file_logo_name !== ''">
-                            <b-col md="1">
+                            <b-col md="2">
                                 <span>
                                     <font-awesome-icon
                                         class="icon-style-default"
@@ -273,14 +273,14 @@
                                 <span>
                                     : &nbsp; &nbsp;
                                     <span>
-                                        <label style="color: blue; cursor: pointer;" @click="onPictClick(doc)"> {{doc.file_logo_name}} </label>
+                                        <label style="color: blue; cursor: pointer; margin: unset !important;" @click="onPictClick(doc)"> {{doc.file_logo_name}} </label>
                                     </span>
                                 </span>
                             </b-col>
                         </b-row>
                     </template>
                     <b-row>
-                        <b-col md="1">
+                        <b-col md="2">
                             <span>
                                 <font-awesome-icon
                                     class="icon-style-default"
