@@ -78,12 +78,12 @@
                     <b-row>
                       <b-col md="2">
                         <div style="cursor: pointer;" @click="OpenModal('S')">
-                          <font-awesome-icon class="icon-style-default" icon="plus-circle" />Add SIM Document tes
+                          <font-awesome-icon class="icon-style-default" icon="plus-circle" />Add SIM Document
                         </div>
                       </b-col>
                     </b-row>
                     <template v-for="(data, index) in M_SIM">
-                      <b-row v-bind:key="index">
+                      <b-row v-bind:key="'SIM_A'+index">
                         <b-col md="3">
                           <span>
                             <label>SIM No.</label>
@@ -103,12 +103,12 @@
                           />
                         </b-col>
                       </b-row>
-                      <b-row v-bind:key="index">
+                      <b-row v-bind:key="'SIM_B'+index">
                         <b-col md="3">
                           <b-form-input class="text-field-form" readonly="true" v-model="data.no" />
                         </b-col>
                       </b-row>
-                      <b-row v-bind:key="index">
+                      <b-row v-bind:key="'SIM_C'+index">
                         <b-col md="3">
                           <span>
                             <label>SIM Expire</label>
@@ -121,6 +121,16 @@
                           />
                         </b-col>
                       </b-row>
+                      <b-row v-bind:key="'SIM_D'+index">
+                        <b-col md="3">
+                          <span>
+                            <label
+                              style="color: blue; cursor: pointer;"
+                              @click="onPictClick(data)"
+                            >{{data.file_logo_name}}</label>
+                          </span>
+                        </b-col>
+                      </b-row>
                     </template>
                     <b-row>
                       <b-col md="2">
@@ -130,7 +140,7 @@
                       </b-col>
                     </b-row>
                     <template v-for="(data, index) in M_KTP">
-                      <b-row v-bind:key="index">
+                      <b-row v-bind:key="'KTP_A'+index">
                         <b-col md="3">
                           <span>
                             <label>KTP No.</label>
@@ -150,12 +160,12 @@
                           />
                         </b-col>
                       </b-row>
-                      <b-row v-bind:key="index">
+                      <b-row v-bind:key="'KTP_B'+index">
                         <b-col md="3">
                           <b-form-input class="text-field-form" readonly="true" v-model="data.no" />
                         </b-col>
                       </b-row>
-                      <b-row v-bind:key="index">
+                      <b-row v-bind:key="'KTP_C'+index">
                         <b-col md="3">
                           <span>
                             <label>KTP Expire</label>
@@ -168,6 +178,16 @@
                           />
                         </b-col>
                       </b-row>
+                      <b-row v-bind:key="'KTP_D'+index">
+                        <b-col md="3">
+                          <span>
+                            <label
+                              style="color: blue; cursor: pointer;"
+                              @click="onPictClick(data)"
+                            >{{data.file_logo_name}}</label>
+                          </span>
+                        </b-col>
+                      </b-row>
                     </template>
                     <b-row>
                       <b-col md="2">
@@ -177,7 +197,7 @@
                       </b-col>
                     </b-row>
                     <template v-for="(data, index) in M_Doc">
-                      <b-row v-bind:key="index">
+                      <b-row v-bind:key="'DOC_A'+index">
                         <b-col md="3">
                           <span>
                             <label>Other Document No.</label>
@@ -197,12 +217,12 @@
                           />
                         </b-col>
                       </b-row>
-                      <b-row v-bind:key="index">
+                      <b-row v-bind:key="'DOC_B'+index">
                         <b-col md="3">
                           <b-form-input class="text-field-form" readonly="true" v-model="data.no" />
                         </b-col>
                       </b-row>
-                      <b-row v-bind:key="index">
+                      <b-row v-bind:key="'DOC_C'+index">
                         <b-col md="3">
                           <span>
                             <label>Other Document Expire</label>
@@ -213,6 +233,16 @@
                             readonly="true"
                             :value="momentDate(data.exp)"
                           />
+                        </b-col>
+                      </b-row>
+                      <b-row v-bind:key="'DOC_D'+index">
+                        <b-col md="3">
+                          <span>
+                            <label
+                              style="color: blue; cursor: pointer;"
+                              @click="onPictClick(data)"
+                            >{{data.file_logo_name}}</label>
+                          </span>
                         </b-col>
                       </b-row>
                     </template>
@@ -652,6 +682,10 @@ export default {
   methods: {
     doBack() {
       this.$router.go(-1);
+    },
+    onPictClick(data) {
+      // console.log(data)
+      window.open(data.file_show);
     },
     OpenModal(from) {
       this.M_ClearModal();
