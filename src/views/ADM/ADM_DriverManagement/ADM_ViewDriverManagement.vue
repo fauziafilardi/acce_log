@@ -52,7 +52,7 @@
                         </b-row>
                       </b-col>
                     </b-row>
-                    <b-row class="row-view">
+                    <b-row class="row-view" style="padding-bottom: 10px;">
                       <b-col>
                         <span>
                           <font-awesome-icon
@@ -77,7 +77,7 @@
                     </b-row>
 
                     <b-row>
-                      <b-col md="1">
+                      <b-col style="max-width: 160px !important">
                         <span>
                           <font-awesome-icon class="icon-style-default" icon="user" size="sm" />&nbsp; &nbsp;
                           User
@@ -91,7 +91,7 @@
                       </b-col>
                     </b-row>
                     <b-row>
-                      <b-col md="1">
+                      <b-col style="max-width: 160px !important">
                         <span>
                           <font-awesome-icon
                             class="icon-style-default"
@@ -110,7 +110,7 @@
                     </b-row>
                     <template v-for="(doc, index) in M_SIM">
                       <b-row v-bind:key="index">
-                        <b-col md="1">
+                        <b-col style="max-width: 160px !important">
                           <span>
                             <font-awesome-icon
                               class="icon-style-default"
@@ -128,7 +128,7 @@
                         </b-col>
                       </b-row>
                       <b-row v-bind:key="index">
-                        <b-col md="1">
+                        <b-col style="max-width: 160px !important">
                           <span>
                             <font-awesome-icon
                               class="icon-style-default"
@@ -149,7 +149,7 @@
                         v-bind:key="index"
                         v-show="doc.file_logo_name && doc.file_logo_name !== ''"
                       >
-                        <b-col md="1">
+                        <b-col style="max-width: 160px !important">
                           <span>
                             <font-awesome-icon
                               class="icon-style-default"
@@ -174,7 +174,7 @@
                     </template>
                     <template v-for="(doc, index) in M_KTP">
                       <b-row v-bind:key="index">
-                        <b-col md="1">
+                        <b-col style="max-width: 160px !important">
                           <span>
                             <font-awesome-icon
                               class="icon-style-default"
@@ -192,7 +192,7 @@
                         </b-col>
                       </b-row>
                       <b-row v-bind:key="index">
-                        <b-col md="1">
+                        <b-col style="max-width: 160px !important">
                           <span>
                             <font-awesome-icon
                               class="icon-style-default"
@@ -213,7 +213,7 @@
                         v-bind:key="index"
                         v-show="doc.file_logo_name && doc.file_logo_name !== ''"
                       >
-                        <b-col md="1">
+                        <b-col style="max-width: 160px !important">
                           <span>
                             <font-awesome-icon
                               class="icon-style-default"
@@ -238,7 +238,7 @@
                     </template>
                     <template v-for="(doc, index) in M_Doc">
                       <b-row v-bind:key="index">
-                        <b-col md="1">
+                        <b-col style="max-width: 160px !important">
                           <span>
                             <font-awesome-icon
                               class="icon-style-default"
@@ -256,7 +256,7 @@
                         </b-col>
                       </b-row>
                       <b-row v-bind:key="index">
-                        <b-col md="1">
+                        <b-col style="max-width: 160px !important">
                           <span>
                             <font-awesome-icon
                               class="icon-style-default"
@@ -277,7 +277,7 @@
                         v-bind:key="index"
                         v-show="doc.file_logo_name && doc.file_logo_name !== ''"
                       >
-                        <b-col md="1">
+                        <b-col style="max-width: 160px !important">
                           <span>
                             <font-awesome-icon
                               class="icon-style-default"
@@ -301,7 +301,7 @@
                       </b-row>
                     </template>
                     <b-row>
-                      <b-col md="1">
+                      <b-col style="max-width: 160px !important">
                         <span>
                           <font-awesome-icon
                             class="icon-style-default"
