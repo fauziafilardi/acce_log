@@ -121,7 +121,7 @@
                         </span>
                       </b-col>
                     </b-row>
-                    <b-row>
+                    <!-- <b-row>
                       <b-col>
                         <b-button
                           style="background-color: transparent; color: black; border: none;"
@@ -134,7 +134,7 @@
                           />Add PIC
                         </b-button>
                       </b-col>
-                    </b-row>
+                    </b-row> -->
                     <b-row style="margin-top: 10px;">
                       <b-col md="12">
                         <b-list-group>
@@ -157,7 +157,7 @@
                               </b-col>
                             </b-row>
                           </b-list-group-item>
-                          <b-list-group-item
+                          <!-- <b-list-group-item
                             @dblclick="onDataDblClick(index)"
                             v-for="(data, index) in dataPIC"
                             href="#"
@@ -165,11 +165,6 @@
                             v-bind:key="index"
                             style="padding-top: 5px !important; padding-bottom: 5px !important;"
                           >
-                            <!-- <font-awesome-icon
-                              icon="trash-alt"
-                              class="icon-style-1__deleteMobile"
-                              @click="doDelete(index)"
-                            />-->
                             <b-row>
                               <b-col>
                                 <span>{{data.name}}</span>
@@ -188,7 +183,7 @@
                                 />
                               </b-col>
                             </b-row>
-                          </b-list-group-item>
+                          </b-list-group-item> -->
                         </b-list-group>
                       </b-col>
                     </b-row>
