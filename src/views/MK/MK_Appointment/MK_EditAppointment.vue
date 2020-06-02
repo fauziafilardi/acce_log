@@ -810,20 +810,37 @@ export default {
       var param = {
         option_url: "/MK/MK_Appointment",
         line_no: 0,
+        // mk_appointment_id: this.paramFromList.row_id,
+        // cm_contact_id: this.paramFromList.cm_contact_id,
+        // ss_portfolio_id: this.getDataUser().portfolio_id,
+        // action_type: this.M_Appointment.action,
+        // pic: this.M_Appointment.contact_person,
+        // descs: this.M_Appointment.descs,
+        // next_action_type: this.M_Appointment.next_appointment,
+        // next_appointment_date: this.M_Appointment.appointment_date,
+        // next_meeting_address: this.M_Appointment.meeting_location,
+        // cm_customer_status_id: this.M_Appointment.contact_person,
+        // appointment_type: 'L',
+        // next_descs: this.M_Appointment.descs2,
+        // lastupdatestamp: this.paramFromList.lastupdatestamp,
+        // user_edit: this.getDataUser().user_id,
+
         mk_appointment_id: this.paramFromList.row_id,
-        cm_contact_id: this.paramFromList.cm_contact_id,
         ss_portfolio_id: this.getDataUser().portfolio_id,
+        cm_contact_id: this.paramFromList.cm_contact_id,
+        cm_contact_person_id: this.M_Appointment.contact_person,
         action_type: this.M_Appointment.action,
-        pic: this.M_Appointment.contact_person,
+        meeting_address: this.M_Dt_Appointment.addr,
         descs: this.M_Appointment.descs,
+        appointment_date: this.M_Appointment.appointment_date,
+        appointment_type: "A",
         next_action_type: this.M_Appointment.next_appointment,
         next_appointment_date: this.M_Appointment.appointment_date,
         next_meeting_address: this.M_Appointment.meeting_location,
-        cm_customer_status_id: this.M_Appointment.contact_person,
-        appointment_type: 'L',
         next_descs: this.M_Appointment.descs2,
+        status: "N",
+        user_input: this.getDataUser().user_id,
         lastupdatestamp: this.paramFromList.lastupdatestamp,
-        user_edit: this.getDataUser().user_id
       };
 
       this.putJSON(this.getUrlCRUD(), param).then(response => {
@@ -861,6 +878,7 @@ export default {
             data.province +
             " - " +
             data.country,
+          addr: data.address,
           country: data.country,
           province: data.province,
           city: data.city,
