@@ -108,7 +108,7 @@
                   </template>
 
                   <template v-slot:cell(customer_name)="data">
-                    <div v-if="data.item.customer_status == 'N'">
+                    <div v-if="data.item.status == 'N'">
                       <span>
                         <b-badge
                           style="width: 75px; padding: 6px !important; border-radius: 4px !important; font-weight: normal !important;"
@@ -118,7 +118,7 @@
                       <!-- <span class="badge-success badgeStatus">New</span> -->
                       {{data.item.customer_name}}
                     </div>
-                    <div v-if="data.item.customer_status == 'G'">
+                    <div v-if="data.item.status == 'G'">
                       <span>
                         <b-badge
                           style="width: 75px; padding: 6px !important; border-radius: 4px !important; font-weight: normal !important;"
@@ -128,7 +128,7 @@
                       <!-- <span class="badge-primary badgeStatus">Negotiation</span> -->
                       {{data.item.customer_name}}
                     </div>
-                    <div v-if="data.item.customer_status == 'M'">
+                    <div v-if="data.item.status == 'M'">
                       <span>
                         <b-badge
                           style="width: 75px; padding: 6px !important; border-radius: 4px !important; font-weight: normal !important;"
@@ -149,7 +149,7 @@
                       <span>
                         <b-badge
                           style="width: 15px; height: 15px; padding: 6px !important; border-radius: 15px !important;"
-                          :variant="data.item.action_ == '1' ? 'success' : 'primary'"
+                          :variant="data.item.action == '1' ? 'success' : 'primary'"
                         >&nbsp;</b-badge>
                       </span>
                       <span>
@@ -168,10 +168,10 @@
                         >
                           <font-awesome-icon
                             class="icon-style-default"
-                            :icon="data.item.action_=='C' ? 'phone-square-alt' : (data.item.action_=='V' ? 'hand-paper' : 'utensils')"
+                            :icon="data.item.action=='C' ? 'phone-square-alt' : (data.item.action=='V' ? 'hand-paper' : 'utensils')"
                             size="lg"
                           />
-                          {{ data.item.action_=='C' ? 'Call' : (data.item.action_=='V' ? 'Visit' : 'Entertainment') }}
+                          {{ data.item.action=='C' ? 'Call' : (data.item.action=='V' ? 'Visit' : 'Entertainment') }}
                         </b-badge>
                       </span>
                       <!-- <span
@@ -179,27 +179,27 @@
                       >
                         <font-awesome-icon
                           style="color: blue;"
-                          :icon="data.item.action_=='C' ? 'phone-square-alt' : (data.item.action_=='V' ? 'hand-paper' : 'utensils')"
+                          :icon="data.item.action=='C' ? 'phone-square-alt' : (data.item.action=='V' ? 'hand-paper' : 'utensils')"
                           size="lg"
                         />
-                        {{ data.item.action_=='C' ? 'Entertainment' : (data.item.action_=='V' ? 'Visit' : 'Entertainment') }}
+                        {{ data.item.action=='C' ? 'Entertainment' : (data.item.action=='V' ? 'Visit' : 'Entertainment') }}
                       </span>-->
                     </div>
 
                     <!-- <span>
                       <span
                         class="ChartLegend__Content"
-                        :style="'background-color: '+(data.item.action_ == '1' ? 'blue' : 'green')+'; width: 10px; height: 10px; padding: 10px; border-radius: 10px;'"
+                        :style="'background-color: '+(data.item.action == '1' ? 'blue' : 'green')+'; width: 10px; height: 10px; padding: 10px; border-radius: 10px;'"
                       ></span>
                     </span>
                     <span>
                       <div style="border-radius: 4px; border: solid 1px #d4d7d8; padding: 5px;">
                         <font-awesome-icon
                           style="color: blue;"
-                          :icon="data.item.action_=='C' ? 'phone-square-alt' : (data.item.action_=='V' ? 'hand-paper' : 'utensils')"
+                          :icon="data.item.action=='C' ? 'phone-square-alt' : (data.item.action=='V' ? 'hand-paper' : 'utensils')"
                           size="lg"
                         />
-                        {{ data.item.action_=='C' ? 'Call' : (data.item.action_=='V' ? 'Visit' : 'Entertainment') }}
+                        {{ data.item.action=='C' ? 'Call' : (data.item.action=='V' ? 'Visit' : 'Entertainment') }}
                       </div>
                     </span>-->
                   </template>
@@ -335,7 +335,7 @@ export default {
     },
 
     dofilterAction() {
-      var filter = " action_ = '" + this.filterAction + "'";
+      var filter = " action = '" + this.filterAction + "'";
       this.propList.initialWhere = filter;
       this.doGetList(this.search);
     },

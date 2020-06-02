@@ -240,7 +240,9 @@ export default {
     };
   },
   methods: {
-    rowClicked(record, index) {},
+    rowClicked(record, index) {
+      this.doViewClick(record, index)
+    },
     doDoubleClick(record, index) {},
     doViewClick(record, index) {
       var param = record;

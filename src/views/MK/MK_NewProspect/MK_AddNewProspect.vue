@@ -219,6 +219,20 @@
                         />
                       </b-col>
                     </b-row>
+                    <b-row>
+                      <b-col md="3">
+                        <span>
+                          <label>Customer Status</label>
+                        </span>
+                        <ACCLookUp
+                          @change="Oncustomer_statusChange"
+                          :prop="PI_customer_status"
+                          v-model="M_NewProspect.customer_status"
+                          :label="M_NewProspect.customer_statusLabel"
+                          ref="ref_customer_status"
+                        />
+                      </b-col>
+                    </b-row>
                     <b-row style="margin-top: 10px;">
                       <b-col md="6">
                         <ABSButton
@@ -469,6 +483,29 @@ export default {
         cDecimal: 2,
         cInputStatus: this.inputStatus
       },
+      PI_customer_status: {
+        dataLookUp: {
+          LookUpCd: "GetCustomerStatus",
+          ColumnDB: "customer_id",
+          InitialWhere: "",
+          ParamWhere: "",
+          OrderBy: "",
+          ParamView: "",
+          SourceField: "",
+          DisplayLookUp: "descs,time_edit"
+        },
+        cValidate: "",
+        cName: "customer_status",
+        ckey: false,
+        cOrder: 16,
+        // cDefault: '',
+        cProtect: false,
+        cParentForm: "MK_AddNewProspect",
+        cStatic: false,
+        cOption: [],
+        cDisplayColumn: "descs,time_edit",
+        cInputStatus: this.inputStatus
+      },
       M_NewProspect: {
         customer_name: "",
         contact_created: "",
@@ -490,6 +527,8 @@ export default {
         contact_phone_no_1: "+62",
         contact_phone_no_2: "",
         contact_phone_no_3: "",
+        customer_status: "",
+        customer_statusLabel: "",
         file_logo: "",
         file_show: require('@/assets/default_photo_.png'),
         file_logo_name: "",
@@ -549,6 +588,8 @@ export default {
         contact_phone_no_1: "+62",
         contact_phone_no_2: "",
         contact_phone_no_3: "",
+        customer_status: "",
+        customer_statusLabel: "",
         file_logo: "",
         file_show: this.default_pic,
         file_logo_name: "",
@@ -584,6 +625,12 @@ export default {
       this.$nextTick(() => {
         this.M_NewProspect.country = data.ss_country_id;
         this.M_NewProspect.countryLabel = data.country;
+      });
+    },
+    Oncustomer_statusChange(data) {
+      this.$nextTick(() => {
+        this.M_NewProspect.customer_status = data.cm_customer_status_id;
+        this.M_NewProspect.customer_statusLabel = data.descs;
       });
     },
     doSave() {
@@ -632,6 +679,7 @@ export default {
           this.M_NewProspect.contact_phone_no_2 +
           "-" +
           this.M_NewProspect.contact_phone_no_3,
+        cm_customer_status_id: this.M_NewProspect.customer_status,
         file_name: this.M_NewProspect.file_logo_name,
         path_file: this.M_NewProspect.file_logo_path,
         user_input: this.getDataUser().user_id
@@ -703,6 +751,8 @@ export default {
             contact_phone_no !== "" ? contact_phone_no[1] : contact_phone_no,
           contact_phone_no_3:
             contact_phone_no !== "" ? contact_phone_no[2] : contact_phone_no,
+          customer_status: data.cm_customer_status_id,
+          customer_statusLabel: data.customer_status,
           file_logo: data.file_name,
           file_show: data.path_file && data.path_file !== '' ? this.url + data.path_file : this.default_pic,
           file_logo_name: data.file_name,
@@ -737,6 +787,7 @@ export default {
           this.M_NewProspect.contact_phone_no_2 +
           "-" +
           this.M_NewProspect.contact_phone_no_3,
+        cm_customer_status_id: this.M_NewProspect.customer_status,
         file_name: this.M_NewProspect.file_logo_name,
         path_file: this.M_NewProspect.file_logo_path,
         lastupdatestamp: this.paramFromList.lastupdatestamp,

@@ -185,6 +185,17 @@
                         </span>
                       </b-col>
                     </b-row>
+                    <b-row class="row-view">
+                      <b-col>
+                        <span>
+                          <label>Customer Status</label>
+                        </span>
+                        <br />
+                        <span>
+                          <label>{{M_NewProspect.customer_status}}</label>
+                        </span>
+                      </b-col>
+                    </b-row>
                     <!-- <b-row>
                                             <b-col>
                                                 <ABSButton
@@ -286,7 +297,8 @@ export default {
           email: data.email,
           website: data.website,
           contact_person: data.contact_person,
-          contact_phone_no: data.contact_phone_no
+          contact_phone_no: data.contact_phone_no,
+          customer_status: data.customer_status
           // path_file: this.url + data.path_file
         };
         if (data.path_file == "" || data.path_file == null) {
