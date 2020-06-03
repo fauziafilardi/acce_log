@@ -530,7 +530,7 @@ export default {
     doContact() {
       var param = this.paramFromList;
       // param.isEdit = true;
-      this.$router.push({ name: "MK_ToDoList", params: param });
+      this.$router.push({ name: "MK_ToDoList_P", params: param });
     },
     doGetlist(search) {
       var param = {

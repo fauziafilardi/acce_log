@@ -17,6 +17,10 @@ export default {
       return moment(date, frm).format('YYYY-MM-DD')
     },
 
+    momentDateFormat2 (date, frm, frm2) {
+      return moment(moment(date, frm)).format(frm2)
+    },
+
     momentDateBetween (from, to) {
       const momentRange = extendMoment(moment)
       return momentRange(from).isSameOrBefore(to)

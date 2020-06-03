@@ -320,7 +320,7 @@ export default {
         dataLookUp: {
           LookUpCd: "GetContactPerson",
           ColumnDB: "contact_person_id",
-          InitialWhere: "",
+          InitialWhere: " cm_contact_id = '' ",
           ParamWhere: "",
           OrderBy: "",
           ParamView: "",
@@ -476,9 +476,14 @@ export default {
       this.$router.go(-1);
     },
     doAddPIC() {
-      this.M_ClearPIC();
-      this.inputStatus = "new";
-      this.$refs.Modal_PIC._show();
+      if (this.M_Appointment.customer && this.M_Appointment.customer !== "") {
+        this.M_ClearPIC();
+        this.inputStatus = "new";
+        this.$refs.Modal_PIC._show();
+      }
+      else {
+        this.alertError("Please Select Customer First !")
+      }
     },
     SaveModal() {
       this.$validator._base.validateAll("Parent_PIC").then(result => {
@@ -497,7 +502,7 @@ export default {
       var param = {
         option_url: "/MK/MK_Appointment",
         line_no: 2,
-        cm_contact_id: 0,
+        cm_contact_id: this.M_Appointment.customer,
         name: this.M_Pic.contact_person,
         phone_no:
           this.M_Pic.contact_phone_no_1 +
@@ -516,6 +521,8 @@ export default {
           var dtrow = response.Data[0].row_id
           this.M_Appointment.contact_person = dtrow
           this.M_Appointment.contact_personLabel = this.M_Pic.contact_person
+
+          this.CancelModal()
         });
       });
     },
@@ -523,7 +530,8 @@ export default {
       this.$nextTick(() => {
         this.M_Appointment.customer = data.row_id;
         this.M_Appointment.customerLabel = data.name;
-        this.M_Appointment.contact_person = data.contact_person;
+        // this.M_Appointment.contact_person = data.contact_person;
+        this.PI_contact_person.dataLookUp.InitialWhere = " cm_contact_id = '" + data.row_id + "' ";
       });
     },
     OnactionChange(data) {
@@ -587,10 +595,10 @@ export default {
         cm_contact_id: this.M_Appointment.customer,
         ss_portfolio_id: this.getDataUser().portfolio_id,
         action_type: this.M_Appointment.action,
-        pic: this.M_Appointment.contact_person,
+        // pic: this.M_Appointment.contact_person,
         appointment_date: this.M_Appointment.appointment_date,
         meeting_address: this.M_Appointment.meeting_location,
-        cm_customer_status_id: this.M_Appointment.contact_person,
+        cm_contact_person_id: this.M_Appointment.contact_person,
         appointment_type: 'A',
         descs: this.M_Appointment.descs,
         user_input: this.getDataUser().user_id

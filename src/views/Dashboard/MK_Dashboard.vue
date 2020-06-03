@@ -302,7 +302,8 @@
                       :text="'View All'"
                       classButton="button button--new"
                       classIcon="icon-style-1"
-                      :disabled="true"
+                      :disabled="false"
+                      @click="doViewAllAppointment"
                     />
                   </span>
                 </b-col>
@@ -316,31 +317,31 @@
               >
                 <b-col style="max-width:fit-content !important;">
                   <div style="width:50px;">
-                    <div class="CalendarTagMonth">{{data.month}}</div>
-                    <div class="CalendarTagDate">{{data.day}}</div>
+                    <div class="CalendarTagMonth">{{momentDateFormat2(data.next_action, 'YYYY-MM-DD HH:mm', 'MMM')}}</div>
+                    <div class="CalendarTagDate">{{momentDateFormat2(data.next_action, 'YYYY-MM-DD HH:mm', 'DD')}}</div>
                   </div>
                 </b-col>
                 <b-col style="margin: auto;">
-                  <span class="AppointmentTitle">{{data.time}}</span>
+                  <span class="AppointmentTitle">{{momentDateFormat2(data.next_action, 'YYYY-MM-DD HH:mm', 'HH:mm')}}</span>
                   <br />
                   <span class="AppointmentDescs">{{data.customer_name}}</span>
                 </b-col>
                 <b-col class="AppointmentIcon">
                   <span>
                     <font-awesome-icon
-                      v-if="data.action_ == 'C'"
+                      v-if="data.action == 'C'"
                       style="color: #333399;"
                       icon="phone-square-alt"
                       size="lg"
                     />
                     <font-awesome-icon
-                      v-else-if="data.action_ == 'E'"
+                      v-else-if="data.action == 'E'"
                       style="color: #333399;"
                       icon="utensils"
                       size="lg"
                     />
                     <font-awesome-icon
-                      v-else-if="data.action_ == 'V'"
+                      v-else-if="data.action == 'V'"
                       style="color: #333399;"
                       icon="hand-paper"
                       size="lg"
@@ -1175,6 +1176,9 @@ export default {
         isEdit: false
       };
       this.$router.push({ name: url, params: param });
+    },
+    doViewAllAppointment() {
+      this.$router.push({ name: "MK_Appointment" });
     },
     getListAppointment() {
       var param = {

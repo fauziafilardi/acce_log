@@ -247,7 +247,7 @@ export default {
   data() {
     return {
       propList: {
-        initialWhere: " action_type = 'A' ",
+        initialWhere: " action_type = 'T' ",
         LineNo: 0,
         PageLevel: 1,
         TabIndex: 1,
@@ -588,7 +588,7 @@ export default {
     doEdit(record) {
       var param = record;
       param.isEdit = true;
-      this.$router.push({ name: "MK_EditAppointment", params: param });
+      this.$router.push({ name: "MK_EditToDoList", params: param });
     }
   },
   mounted() {

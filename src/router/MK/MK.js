@@ -31,7 +31,7 @@ import MK_LogBook_New2 from '@/views/MK/MK_LogBook_Mobile/MK_LogBook_New2'
 import MK_NewProspect from '@/views/MK/MK_NewProspect/MK_NewProspect'
 import MK_AddNewProspect from '@/views/MK/MK_NewProspect/MK_AddNewProspect'
 import MK_ViewNewProspect from '@/views/MK/MK_NewProspect/MK_ViewNewProspect'
-import MK_ToDoList from '@/views/MK/MK_NewProspect/MK_ToDoList'
+import MK_ToDoList_P from '@/views/MK/MK_NewProspect/MK_ToDoList'
 
 import MK_Appointment from '@/views/MK/MK_Appointment/MK_Appointment'
 import MK_AddAppointment from '@/views/MK/MK_Appointment/MK_AddAppointment'
@@ -51,7 +51,8 @@ import MK_ToDoCustomer from '@/views/MK/MK_Customer/MK_ToDoCustomer'
 import MK_ListOrder from '@/views/MK/MK_Order/MK_ListOrder'
 import MK_ViewOrder from '@/views/MK/MK_Order/MK_ViewOrder'
 
-
+import MK_ToDoList from '@/views/MK/MK_ToDoList/MK_ToDoList'
+import MK_EditToDoList from '@/views/MK/MK_ToDoList/MK_EditToDoList'
 
 export const MKRender = {
     path: '/MK',
@@ -254,8 +255,8 @@ export const MKRender = {
         },
         {
             path: '/MK/MK_NewProspect/todo',
-            name: 'MK_ToDoList',
-            component: MK_ToDoList,
+            name: 'MK_ToDoList_P',
+            component: MK_ToDoList_P,
             meta: {
                 requiresAuth: true
             },
@@ -380,6 +381,23 @@ export const MKRender = {
             path: '/MK/MK_Order/View',
             name: 'MK_ViewOrder',
             component: MK_ViewOrder,
+            meta: {
+                requiresAuth: true
+            }
+        },
+
+        {
+            path: '/MK/MK_ToDoList',
+            name: 'MK_ToDoList',
+            component: MK_ToDoList,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/MK/MK_ToDoList/Edit',
+            name: 'MK_EditToDoList',
+            component: MK_EditToDoList,
             meta: {
                 requiresAuth: true
             }
