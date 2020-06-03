@@ -247,7 +247,7 @@ export default {
   data() {
     return {
       propList: {
-        initialWhere: " action_type = 'A' ",
+        initialWhere: " appointment_type = 'A' ",
         LineNo: 0,
         PageLevel: 1,
         TabIndex: 1,

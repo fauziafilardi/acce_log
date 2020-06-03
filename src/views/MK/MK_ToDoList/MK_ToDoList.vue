@@ -247,7 +247,7 @@ export default {
   data() {
     return {
       propList: {
-        initialWhere: " action_type = 'T' ",
+        initialWhere: " appointment_type = 'T' ",
         LineNo: 0,
         PageLevel: 1,
         TabIndex: 1,
@@ -339,7 +339,24 @@ export default {
       this.propList.initialWhere = filter;
       this.doGetList(this.search);
     },
-    doGetList(search) {
+    dogetget() {
+      this.doGetList(this.search);
+    },
+    GenDoList() {
+      var param = {
+        option_function_cd: "GenToDoList",
+        module_cd: "MK",
+        ss_portfolio_id: this.getDataUser().portfolio_id,
+        user_id: this.getDataUser().user_id
+      };
+
+      this.CallFunction(param).then(response => {
+        // response from API
+        if (response == null) return;
+        this.dogetget();
+      });
+    },
+    doGetList(search, a = null) {
       var param = {
         option_url: this.getOptionUrl(),
         line_no: 0,
@@ -592,7 +609,11 @@ export default {
     }
   },
   mounted() {
-    this.doGetList("");
+    // this.doGetList("");
+    // this.GenDoList();
+  },
+  created() {
+    this.GenDoList();
   }
 };
 </script>
