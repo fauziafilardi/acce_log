@@ -36,25 +36,15 @@
                 :items="FleetDocument.Data"
               >
                 <template v-slot:cell(no)="data">{{data.index + 1}}</template>
-                <template v-slot:cell(bpkb_expired)="data">
+                <template v-slot:cell(stnk_expiry)="data">
                   <span
-                    v-if="data.item.bpkb_expired.status == 'S'"
+                    v-if="(momentDateFormat(data.item.stnk_expiry, 'YYYY-MM-DD') > momentDate(new Date()))"
                     style="color:#333399;font-weight:700;"
-                  >{{data.item.bpkb_expired.date}}</span>
+                  >{{momentDateFormat(data.item.stnk_expiry, "YYYY-MM-DD")}}</span>
                   <span
                     v-else
                     style="color:#cc0000;font-weight:700;"
-                  >{{data.item.bpkb_expired.date}}</span>
-                </template>
-                <template v-slot:cell(stnk_expired)="data">
-                  <span
-                    v-if="data.item.stnk_expired.status == 'S'"
-                    style="color:#333399;font-weight:700;"
-                  >{{data.item.stnk_expired.date}}</span>
-                  <span
-                    v-else
-                    style="color:#cc0000;font-weight:700;"
-                  >{{data.item.stnk_expired.date}}</span>
+                  >{{momentDateFormat(data.item.stnk_expiry, "YYYY-MM-DD")}}</span>
                 </template>
               </b-table>
             </div>
@@ -142,12 +132,18 @@
                 :items="DriverDocument.Data"
               >
                 <template v-slot:cell(no)="data">{{data.index + 1}}</template>
-                <template v-slot:cell(sim_expired)="data">
+                <template v-slot:cell(date_added)="data">
+                  {{momentDateFormat(data.item.date_added, "YYYY-MM-DD")}}
+                </template>
+                <template v-slot:cell(sim_expiry)="data">
                   <span
-                    v-if="data.item.sim_expired.status == 'S'"
+                    v-if="(momentDateFormat(data.item.sim_expiry, 'YYYY-MM-DD') > momentDate(new Date()))"
                     style="color:#333399;font-weight:700;"
-                  >{{data.item.sim_expired.date}}</span>
-                  <span v-else style="color:#cc0000;font-weight:700;">{{data.item.sim_expired.date}}</span>
+                  >{{momentDateFormat(data.item.sim_expiry, "YYYY-MM-DD")}}</span>
+                  <span
+                    v-else
+                    style="color:#cc0000;font-weight:700;"
+                  >{{momentDateFormat(data.item.sim_expiry, "YYYY-MM-DD")}}</span>
                 </template>
               </b-table>
             </div>
@@ -236,6 +232,9 @@
                   :items="UserManagement.Data"
                 >
                   <template v-slot:cell(no)="data">{{data.index + 1}}</template>
+                  <template v-slot:cell(date_added)="data">
+                    {{momentDateFormat(data.item.date_added, "YYYY-MM-DD")}}
+                  </template>
                   <template v-slot:cell(role)="data">
                     <span style="color:#333399;font-weight:700;">{{data.item.role}}</span>
                   </template>
@@ -290,7 +289,7 @@ export default {
             tdClass: "ContentTable"
           },
           {
-            key: "type",
+            key: "fleet_type",
             label: "Type",
             thClass: "HeaderTable",
             tdClass: "ContentTable__Center"
@@ -302,98 +301,19 @@ export default {
             tdClass: "ContentTable__Center"
           },
           {
-            key: "bpkb_expired",
-            label: "BPKP Expired",
+            key: "bpkb_no",
+            label: "BPKP No",
             thClass: "HeaderTable",
             tdClass: "ContentTable__Center"
           },
           {
-            key: "stnk_expired",
+            key: "stnk_expiry",
             label: "STNK Expired",
             thClass: "HeaderTable",
             tdClass: "ContentTable__Center"
           }
         ],
-        Data: [
-          {
-            vehicle: "B 1234 AB",
-            type: "FUSO",
-            driver: "Budi",
-            bpkb_expired: {
-              date: "20/01/2020",
-              status: "O"
-            },
-            stnk_expired: {
-              date: "20/01/2020",
-              status: "O"
-            }
-          },
-          {
-            vehicle: "B 1234 AC",
-            type: "FUSO",
-            driver: "Jupri",
-            bpkb_expired: {
-              date: "19/01/2020",
-              status: "O"
-            },
-            stnk_expired: {
-              date: "19/01/2020",
-              status: "O"
-            }
-          },
-          {
-            vehicle: "B 1234 AD",
-            type: "FUSO",
-            driver: "Joko",
-            bpkb_expired: {
-              date: "20/01/2020",
-              status: "S"
-            },
-            stnk_expired: {
-              date: "20/01/2020",
-              status: "S"
-            }
-          },
-          {
-            vehicle: "B 1234 AE",
-            type: "FUSO",
-            driver: "Dadang",
-            bpkb_expired: {
-              date: "20/01/2020",
-              status: "S"
-            },
-            stnk_expired: {
-              date: "20/01/2020",
-              status: "S"
-            }
-          },
-          {
-            vehicle: "B 1234 AF",
-            type: "FUSO",
-            driver: "Galang",
-            bpkb_expired: {
-              date: "20/01/2020",
-              status: "S"
-            },
-            stnk_expired: {
-              date: "20/01/2020",
-              status: "S"
-            }
-          },
-          {
-            vehicle: "B 1234 AG",
-            type: "FUSO",
-            driver: "Santo",
-            bpkb_expired: {
-              date: "20/01/2020",
-              status: "S"
-            },
-            stnk_expired: {
-              date: "20/01/2020",
-              status: "S"
-            }
-          }
-        ]
+        Data: []
       },
       FleetDocumentStatus: [
         {
@@ -439,13 +359,13 @@ export default {
             tdClass: "ContentTable__Center"
           },
           {
-            key: "driver",
+            key: "driver_name",
             label: "Driver",
             thClass: "HeaderTable",
             tdClass: "ContentTable__Center"
           },
           {
-            key: "phone",
+            key: "handphone",
             label: "Phone",
             thClass: "HeaderTable",
             tdClass: "ContentTable__Center"
@@ -457,68 +377,13 @@ export default {
             tdClass: "ContentTable__Center"
           },
           {
-            key: "sim_expired",
+            key: "sim_expiry",
             label: "SIM Expired",
             thClass: "HeaderTable",
             tdClass: "ContentTable__Center"
           }
         ],
-        Data: [
-          {
-            driver: "Budi",
-            phone: "+62-898-9588-2938",
-            date_added: "23/01/2020",
-            sim_expired: {
-              date: "20/01/2020",
-              status: "O"
-            }
-          },
-          {
-            driver: "Jupri",
-            phone: "+62-898-9588-2938",
-            date_added: "23/01/2020",
-            sim_expired: {
-              date: "19/01/2020",
-              status: "O"
-            }
-          },
-          {
-            driver: "Joko",
-            phone: "+62-898-9588-2938",
-            date_added: "23/01/2020",
-            sim_expired: {
-              date: "20/01/2020",
-              status: "S"
-            }
-          },
-          {
-            driver: "Dadang",
-            phone: "+62-898-9588-2938",
-            date_added: "23/01/2020",
-            sim_expired: {
-              date: "20/01/2020",
-              status: "S"
-            }
-          },
-          {
-            driver: "Galang",
-            phone: "+62-898-9588-2938",
-            date_added: "23/01/2020",
-            sim_expired: {
-              date: "20/01/2020",
-              status: "S"
-            }
-          },
-          {
-            driver: "Santo",
-            phone: "+62-898-9588-2938",
-            date_added: "23/01/2020",
-            sim_expired: {
-              date: "20/01/2020",
-              status: "S"
-            }
-          }
-        ]
+        Data: []
       },
       DriverDocumentStatus: [
         {
@@ -564,13 +429,13 @@ export default {
             tdClass: "ContentTable__Center"
           },
           {
-            key: "user",
+            key: "user_name",
             label: "User",
             thClass: "HeaderTable",
             tdClass: "ContentTable__Center"
           },
           {
-            key: "phone",
+            key: "hand_phone",
             label: "Phone",
             thClass: "HeaderTable",
             tdClass: "ContentTable__Center"
@@ -588,44 +453,7 @@ export default {
             tdClass: "ContentTable__Center"
           }
         ],
-        Data: [
-          {
-            user: "Budi",
-            phone: "+62-898-9588-2938",
-            date_added: "23/01/2020",
-            role: "Marketing"
-          },
-          {
-            user: "Jupri",
-            phone: "+62-898-9588-2938",
-            date_added: "23/01/2020",
-            role: "Operation"
-          },
-          {
-            user: "Joko",
-            phone: "+62-898-9588-2938",
-            date_added: "23/01/2020",
-            role: "Settlement"
-          },
-          {
-            user: "Dadang",
-            phone: "+62-898-9588-2938",
-            date_added: "23/01/2020",
-            role: "Fleet Maintenance"
-          },
-          {
-            user: "Galang",
-            phone: "+62-898-9588-2938",
-            date_added: "23/01/2020",
-            role: "Management"
-          },
-          {
-            user: "Santo",
-            phone: "+62-898-9588-2938",
-            date_added: "23/01/2020",
-            role: "General Affair"
-          }
-        ]
+        Data: []
       }
     };
   },
@@ -739,52 +567,64 @@ export default {
       console.log(date);
       this.getVendorOrder(date);
     },
-    renderChart() {
+    renderChart(data) {
       var valuedata = [2478, 5267, 734, 784, 433];
+      var clr = [ "#333399","#00cc33","#ff9a03","#9a03ff","#ffcd03","#cd0303" ]
       var valuedata2 = [
-        {
-          label: "Marketing",
-          backgroundColor: "#333399",
-          borderColor: "#333399",
-          data: [20],
-          fill: true
-        },
-        {
-          label: "Operation",
-          backgroundColor: "#00cc33",
-          borderColor: "#00cc33",
-          data: [5],
-          fill: true
-        },
-        {
-          label: "Settlement",
-          backgroundColor: "#ff9a03",
-          borderColor: "#ff9a03",
-          data: [2],
-          fill: true
-        },
-        {
-          label: "Fleet Maintenance",
-          backgroundColor: "#9a03ff",
-          borderColor: "#9a03ff",
-          data: [5],
-          fill: true
-        },
-        {
-          label: "Management",
-          backgroundColor: "#ffcd03",
-          borderColor: "#ffcd03",
-          data: [5],
-          fill: true
-        },
-        {
-          label: "General Affair",
-          backgroundColor: "#cd0303",
-          borderColor: "#cd0303",
-          data: [2],
-          fill: true
-        }
+        // {
+        //   label: "Marketing",
+        //   backgroundColor: "#333399",
+        //   borderColor: "#333399",
+        //   data: [20],
+        //   fill: true
+        // },
+        // {
+        //   label: "Operation",
+        //   backgroundColor: "#00cc33",
+        //   borderColor: "#00cc33",
+        //   data: [5],
+        //   fill: true
+        // },
+        // {
+        //   label: "Settlement",
+        //   backgroundColor: "#ff9a03",
+        //   borderColor: "#ff9a03",
+        //   data: [2],
+        //   fill: true
+        // },
+        // {
+        //   label: "Fleet Maintenance",
+        //   backgroundColor: "#9a03ff",
+        //   borderColor: "#9a03ff",
+        //   data: [5],
+        //   fill: true
+        // },
+        // {
+        //   label: "Management",
+        //   backgroundColor: "#ffcd03",
+        //   borderColor: "#ffcd03",
+        //   data: [5],
+        //   fill: true
+        // },
+        // {
+        //   label: "General Affair",
+        //   backgroundColor: "#cd0303",
+        //   borderColor: "#cd0303",
+        //   data: [2],
+        //   fill: true
+        // }
       ];
+
+      data.forEach((dts,idx) => {
+        valuedata2.push({
+          label: dts.descs,
+          backgroundColor: clr[idx],
+          borderColor: clr[idx],
+          data: [dts.count],
+          fill: true
+        })
+      });
+
       var valuelabel = [
         ""
         // "A",
@@ -937,12 +777,29 @@ export default {
       });
 
       myUserChart.update();
+    },
+    GetData() {
+      var param = {
+        portfolio_id: this.getDataUser().portfolio_id,
+        user_id: this.getDataUser().user_id
+      }
+
+      this.getJSON(this.getUrlDashboardAdmin(), param).then(response => {
+        // response from API
+        if (response == null) return;
+        var data = response.Data;
+        this.FleetDocument.Data = data.data_fleet
+        this.DriverDocument.Data = data.data_driver_mgm
+        this.UserManagement.Data = data.data_user_mgm
+        this.renderChart(data.data_user_mgm_status);
+      });
     }
   },
   mounted() {
     this.getOrder();
     this.getVendorOrder();
-    this.renderChart();
+    // this.renderChart();
+    this.GetData();
   }
 };
 </script>

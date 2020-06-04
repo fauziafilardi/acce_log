@@ -276,6 +276,10 @@ export default {
       return this.url + this.segmentGetDBConnection
     },
 
+    getUrlDashboardAdmin() {
+      return this.url + "api/Dashboard/Admin"
+    },
+
     getUrlCRUD() {
       return this.url + this.segmentCRUD
     },
