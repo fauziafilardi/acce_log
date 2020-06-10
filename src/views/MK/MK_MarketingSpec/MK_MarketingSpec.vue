@@ -210,7 +210,7 @@
                     </div>
                   </b-col>
                   <b-col md="12">
-                    <b-row style="margin-top: 70%;">
+                    <b-row>
                       <b-col md="12">
                         <ABSButton
                           :text="'Save'"
