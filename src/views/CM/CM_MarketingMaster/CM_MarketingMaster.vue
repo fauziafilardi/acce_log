@@ -252,7 +252,9 @@ export default {
     onSearchEnter(data) {
       this.doGetList(this.search, "onSearchEnter");
     },
-    onTeamClick() {},
+    onTeamClick() {
+      this.$router.push({ name: "CM_MarketingMaster_Team" });
+    },
     onTargetClick() {
       this.$router.push({ name: "CM_MarketingMaster_Target" });
     },

@@ -89,7 +89,7 @@
               </b-row>
             </div>
             <div class="card__body">
-                <b-row>
+                <!-- <b-row>
                     <b-col md="2">
                         <b-row>
                             <b-col md="3">
@@ -124,7 +124,7 @@
                             </b-col>
                         </b-row>
                     </b-col>
-                </b-row>
+                </b-row> -->
 
               <div class="table--list" :id="'marketingmaster_target'">
                 <b-table
@@ -141,94 +141,11 @@
                   :items="items"
                   class="table-sm table-style-3"
                 >
-                  <template v-slot:cell(row_id)="data">
-                    <b-button
-                      v-if="WithViewButton == true"
-                      size="sm"
-                      @click.stop="viewClicked(data.item, data.index)"
-                      :disabled="false"
-                      class="btn btn--default"
-                    >Target</b-button>
-                    <span v-else>{{data.item.row_id}}</span>
-                  </template>
-
-                    <template v-slot:cell(ftl)="data">
-                        <ACCTextBox
-                          :prop="{
-                                cValidate: '',
-                                cName: 'ftl_' + data.index,
-                                cOrder: 1,
-                                cKey: false,
-                                cType: 'decimal',
-                                cProtect: false,
-                                cParentForm: 'MarketingMaster',
-                                cDecimal: 2,
-                                cInputStatus: 'new'
-                          }"
-                          v-model="data.item.ftl"
-                          :ref="'ref_ftl_' + data.index"
-                        />
-                    </template>
-
-                    <template v-slot:cell(ltl)="data">
-                        <ACCTextBox
-                          :prop="{
-                                cValidate: '',
-                                cName: 'ltl_' + data.index,
-                                cOrder: 2,
-                                cKey: false,
-                                cType: 'decimal',
-                                cProtect: false,
-                                cParentForm: 'MarketingMaster',
-                                cDecimal: 2,
-                                cInputStatus: 'new'
-                          }"
-                          v-model="data.item.ltl"
-                          :ref="'ref_ltl_' + data.index"
-                        />
-                    </template>
-
-                    <template v-slot:cell(project)="data">
-                        <ACCTextBox
-                          :prop="{
-                                cValidate: '',
-                                cName: 'project_' + data.index,
-                                cOrder: 3,
-                                cKey: false,
-                                cType: 'decimal',
-                                cProtect: false,
-                                cParentForm: 'MarketingMaster',
-                                cDecimal: 2,
-                                cInputStatus: 'new'
-                          }"
-                          v-model="data.item.project"
-                          :ref="'ref_project_' + data.index"
-                        />
-                    </template>
-                    
-                    <template v-slot:cell(rental)="data">
-                        <ACCTextBox
-                          :prop="{
-                                cValidate: '',
-                                cName: 'rental_' + data.index,
-                                cOrder: 4,
-                                cKey: false,
-                                cType: 'decimal',
-                                cProtect: false,
-                                cParentForm: 'MarketingMaster',
-                                cDecimal: 2,
-                                cInputStatus: 'new'
-                          }"
-                          v-model="data.item.rental"
-                          :ref="'ref_rental_' + data.index"
-                        />
-                    </template>
-
                 </b-table>
               </div>
             </div>
             <div class="card__footer" style="padding-bottom: 10px;">
-                <b-row>
+                <!-- <b-row>
                     <b-col md="12" style="text-align: center;">
                         <ABSButton
                             :text="'Save'"
@@ -238,8 +155,8 @@
                             styleButton="height: 40px;width: 75%;"
                         />
                     </b-col>
-                </b-row>
-              <!-- <b-form inline style="float: left; color: #333;">
+                </b-row> -->
+              <b-form inline style="float: left; color: #333;">
                 <label
                   class="font-lbl"
                   style="margin-bottom:0px !important; margin-right:0px !important;"
@@ -253,9 +170,9 @@
                   :disabled="isDisableTable"
                 ></b-form-select>
                 of {{ this.totalRows }} Records
-              </b-form> -->
+              </b-form>
 
-              <!-- <b-pagination
+              <b-pagination
                 align="right"
                 v-model="currentPage"
                 @input="doGetList(search, 'pagination')"
@@ -264,7 +181,7 @@
                 :limit="limit"
                 style="margin-bottom: 0px;"
                 :disabled="isDisableTable"
-              ></b-pagination> -->
+              ></b-pagination>
             </div>
             <iframe name="print_frame" width="0" height="0" frameborder="0" src="about:blank"></iframe>
           </div>
@@ -279,11 +196,11 @@ export default {
   data() {
     return {
       propList: {
-        initialWhere: "user_id_login='" + this.getDataUser().user_id + "'",
+        initialWhere: "",
         LineNo: 0,
         PageLevel: 1,
         TabIndex: 1,
-        OrderBy: " order_list ASC,marketing_id ASC ",
+        OrderBy: " time_edit DESCS ",
         SourceField: "",
         ParamView: ""
       },
@@ -305,7 +222,7 @@ export default {
       fieldHeader: [],
       items: [],
       firstSort: true,
-      sort: "order_list ASC,marketing_id ASC",
+      sort: "time_edit DESC",
 
       totalRows: 0,
       currentPage: 1,
@@ -334,14 +251,9 @@ export default {
       selectedColumnTemp: [],
       selectedColumnSelected: [],
 
-      sortedField: [{ field: "order_list", sort: "ASC" }, { field: "marketing_id", sort: "ASC" }],
+      sortedField: [{ field: "time_edit", sort: "DESCS" }],
       isDisableTable: false,
-      responses: [],
-
-      ParamTarget: {
-        marketing_id: '',
-        year: ''
-      }
+      responses: []
     };
   },
   computed: {
@@ -392,15 +304,15 @@ export default {
     dofilterAction() {
     //   var filter = " action = '" + this.filterAction + "'";
     //   this.propList.initialWhere = filter;
-      this.doGetList2();
+      this.doGetList();
     },
-    dofilterActionM() {
-        this.doGetList2();
-    },
-    doGetList(search, a = null) {
+    // dofilterActionM() {
+    //     this.doGetList2();
+    // },
+    doGetList(search) {
       var param = {
-        option_url: this.getOptionUrl(),
-        line_no: 0,
+        option_url: "/CM/CM_MarketingMaster",
+        line_no: 2,
         user_id: this.getDataUser().user_id,
         portfolio_id: this.getDataUser().portfolio_id,
         subportfolio_id: this.getDataUser().subportfolio_id,
@@ -645,191 +557,11 @@ export default {
         this.totalRows = this.responses.Total;
         this.lastPage = this.responses.Last_Page;
       });
-    },
-    doGetList2() {
-        this.$store.commit('setStatusLoader', true)
-        var param = {
-            option_function_cd: "GetMarketingTarget",
-            module_cd: "CM",
-            marketing_id: this.filterActionM,
-            year: this.filterAction
-        };
-
-        this.CallFunction(param).then(response => {
-            this.$store.commit('setStatusLoader', false)
-            if (response == null) return
-
-            for (let i = 0; i < this.items.length; i++) {
-                this.items[i].ftl = response.Data[i] !== undefined ? (response.Data[i].ftl_amt && response.Data[i].ftl_amt !== '' ? this.isCurrency(response.Data[i].ftl_amt, this.decimal) : this.isCurrency(0, this.decimal)) : this.isCurrency(0, this.decimal),
-                this.items[i].ltl = response.Data[i] !== undefined ? (response.Data[i].ltl_amt && response.Data[i].ltl_amt !== '' ? this.isCurrency(response.Data[i].ltl_amt, this.decimal) : this.isCurrency(0, this.decimal)) : this.isCurrency(0, this.decimal),
-                this.items[i].project = response.Data[i] !== undefined ? (response.Data[i].project_amt && response.Data[i].project_amt !== '' ? this.isCurrency(response.Data[i].project_amt, this.decimal) : this.isCurrency(0, this.decimal)) : this.isCurrency(0, this.decimal),
-                this.items[i].rental = response.Data[i] !== undefined ? (response.Data[i].rental_amt && response.Data[i].rental_amt !== '' ? this.isCurrency(response.Data[i].rental_amt, this.decimal) : this.isCurrency(0, this.decimal)) : this.isCurrency(0, this.decimal)
-            }
-        })
-    },
-    getYear() {
-        var param = {
-            option_function_cd: "GetYearMarketingTarget",
-            module_cd: "MK",
-            user_id: this.getDataUser().user_id
-        };
-        
-        this.CallFunction(param).then(response => {
-            if (response == null) return
-            var data = response.Data;
-
-            this.filterAction = this.paramFromList !== undefined ? this.paramFromList.year : data[0].years;
-
-            for (let i = 0; i < data.length; i++) {
-                this.cmbYear.push({value: data[i].years, text: data[i].years});
-            }
-
-            this.doGetList2();
-        })
-    },
-    getMarketing() {
-        var param = {
-            option_function_cd: "GetMarketingTeam",
-            module_cd: "MK",
-            user_id: this.getDataUser().user_id
-        };
-
-        this.fieldHeader = [
-            {
-                value: 1,
-                key: "no",
-                thClass: "HeaderACCList2",
-                tdClass: "ContentACCList2 notranslate",
-                label: "No"
-            },
-            {
-                value: 2,
-                key: "month",
-                thClass: "HeaderACCList2 M",
-                tdClass: "ContentACCList2 notranslate",
-                label: "Month"
-            },
-            {
-                value: 3,
-                key: "ftl",
-                thClass: "HeaderACCList2 M",
-                tdClass: "ContentACCList2 notranslate",
-                label: "FTL"
-            },
-            {
-                value: 4,
-                key: "ltl",
-                thClass: "HeaderACCList2 M",
-                tdClass: "ContentACCList2 notranslate",
-                label: "LTL"
-            },
-            {
-                value: 5,
-                key: "project",
-                thClass: "HeaderACCList2 M",
-                tdClass: "ContentACCList2 notranslate",
-                label: "Project"
-            },
-            {
-                value: 6,
-                key: "rental",
-                thClass: "HeaderACCList2 M",
-                tdClass: "ContentACCList2 notranslate",
-                label: "Rental"
-            },
-        ];
-
-        var arrDate = [
-            {'M': 'January', 'm': 'Jan'},
-            {'M': 'February', 'm': 'Feb'},
-            {'M': 'March', 'm': 'Mar'},
-            {'M': 'April', 'm': 'Apr'},
-            {'M': 'May', 'm': 'May'},
-            {'M': 'June', 'm': 'Jun'},
-            {'M': 'July', 'm': 'Jul'},
-            {'M': 'August', 'm': 'Aug'},
-            {'M': 'September', 'm': 'Sep'},
-            {'M': 'October', 'm': 'Oct'},
-            {'M': 'November', 'm': 'Nov'},
-            {'M': 'December', 'm': 'Dec'}
-        ];
-
-        for (let i = 0; i < 12; i++) {
-            this.items.push({
-                no: (i + 1),
-                month: arrDate[i].M,
-                ftl: this.isCurrency(0, this.decimal),
-                ltl: this.isCurrency(0, this.decimal),
-                project: this.isCurrency(0, this.decimal),
-                rental: this.isCurrency(0, this.decimal)
-            });
-        }
-
-        this.CallFunction(param).then(response => {
-            if (response == null) return
-            var data = response.Data;
-
-            this.filterActionM = this.paramFromList !== undefined ? this.paramFromList.marketing_id : data[0].marketing_id;
-
-            for (let i = 0; i < data.length; i++) {
-                this.cmbMarketing.push({value: data[i].marketing_id, text: data[i].marketing_name});
-            }
-
-            this.getYear();
-        })
-    },
-    doSave() {
-        this.alertConfirmation("Are You Sure Want To Save This Data ?").then(ress => {
-            if (ress.value) {
-                this.M_Save();
-            }
-        });
-    },
-    M_Save() {
-        var paramDelete = {
-            _Method_: 'DELETE',
-            _LineNo_: 1,
-            marketing_id: this.filterActionM,
-            years: this.filterAction
-        }
-
-        var paramInsert = [];
-
-        this.items.forEach((data, index) => {
-            paramInsert.push({
-                _Method_: "SAVE",
-                _LineNo_: 1,
-                marketing_id: this.filterActionM,
-                years: this.filterAction,
-                month: (index + 1),
-                ftl_amt: data.ftl && data.ftl !== "" ? this.replaceAllString(data.ftl, ',', '', 'number') : "NULL",
-                ltl_amt: data.ltl && data.ltl !== "" ? this.replaceAllString(data.ltl, ',', '', 'number') : "NULL",
-                project_amt: data.project && data.project !== "" ? this.replaceAllString(data.project, ',', '', 'number') : "NULL",
-                rental_amt: data.rental && data.rental !== "" ? this.replaceAllString(data.rental, ',', '', 'number') : "NULL",
-                user_input: this.getDataUser().user_id,
-            })
-        })
-
-        var param = {
-            option_url: "/CM/CM_MarketingMaster",
-            line_no: 1,
-            Data: [{
-                A_Delete: paramDelete,
-                B_Looping: paramInsert,
-            }]
-        };
-
-        this.postJSONMulti(this.getUrlProsesDataPostMulti(), param).then(response => {
-            if (response == null) return;
-                this.alertSuccess("Save Data Has Been Successfully").then(() => {
-                this.doBack();
-            });
-        });
     }
   },
   mounted() {
     //   if (this.paramFromList !== undefined) {
-        this.getMarketing();
+        this.doGetList("");
     //   }
   },
   created() {
