@@ -12,12 +12,12 @@
               </b-row>
             </div>
             <div class="card__body">
-                <div style="width: 100%; text-align: center;">
-                    <font-awesome-icon style="color: #333399;" icon="cog" size="6x" /> <br> <br>
-                    <span style="width: 75%">
-                        Setup Marketing Action and Working Days
-                    </span>
-                </div>
+              <div style="width: 100%; text-align: center;">
+                <font-awesome-icon style="color: #333399;" icon="cog" size="6x" />
+                <br />
+                <br />
+                <span style="width: 75%">Setup Marketing Action and Working Days</span>
+              </div>
             </div>
           </div>
         </b-col>
@@ -31,15 +31,16 @@
               </b-row>
             </div>
             <div class="card__body">
-                <div style="width: 100%; text-align: center;">
-                    <font-awesome-icon style="color: #333399;" icon="cog" size="6x" /> <br> <br>
-                    <span style="width: 75%">
-                        Manage Marketing Team and Customer List
-                    </span>
-                </div>
+              <div style="width: 100%; text-align: center;">
+                <font-awesome-icon style="color: #333399;" icon="cog" size="6x" />
+                <br />
+                <br />
+                <span style="width: 75%">Manage Marketing Team and Customer List</span>
+              </div>
             </div>
           </div>
-        </b-col><b-col md="4" @click="onCustomerStatusClick">
+        </b-col>
+        <b-col md="4" @click="onCustomerStatusClick">
           <div class="card">
             <div class="card__title">
               <b-row>
@@ -49,12 +50,12 @@
               </b-row>
             </div>
             <div class="card__body">
-                <div style="width: 100%; text-align: center;">
-                    <font-awesome-icon style="color: #333399;" icon="cog" size="6x" /> <br> <br>
-                    <span style="width: 75%">
-                        Manage Customer Status and Description
-                    </span>
-                </div>
+              <div style="width: 100%; text-align: center;">
+                <font-awesome-icon style="color: #333399;" icon="cog" size="6x" />
+                <br />
+                <br />
+                <span style="width: 75%">Manage Customer Status and Description</span>
+              </div>
             </div>
           </div>
         </b-col>
@@ -67,23 +68,20 @@
 // import ChartDataLabels from './../../dist/chartjs/chartjs-plugin-datalabels'
 export default {
   data() {
-    return {
-      
-    };
+    return {};
   },
   computed: {},
   methods: {
-      onMarketingSpecClick() {
-          this.$router.push({ name: "CM_MarketingSpec" });
-      },
-      onMarketingMasterClick() {
-          this.$router.push({ name: "MK_MarketingSpec" });
-      },
-      onCustomerStatusClick() {
-          this.$router.push({ name: "CM_CustomerStatus" });
-      },
+    onMarketingSpecClick() {
+      this.$router.push({ name: "MK_MarketingSpec" });
+    },
+    onMarketingMasterClick() {
+      this.$router.push({ name: "MK_MarketingSpec" });
+    },
+    onCustomerStatusClick() {
+      this.$router.push({ name: "CM_CustomerStatus" });
+    }
   },
-  mounted() {
-  }
+  mounted() {}
 };
 </script>
