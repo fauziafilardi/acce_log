@@ -9,18 +9,7 @@
                 <b-col style="max-width:fit-content !important;">
                   <span>Customer List</span>
                 </b-col>
-                <b-col style="text-align: right;">
-                  <b-badge variant="primary" @click="doProspect" style="cursor: pointer;">&nbsp;</b-badge>
-                  <span
-                    style="color: #7f8084; font-weight: normal; margin-left: 5px; cursor: pointer;"
-                    @click="doProspect"
-                  >Prospect</span> &nbsp;
-                  <b-badge variant="success" @click="doCustomer" style="cursor: pointer;">&nbsp;</b-badge>
-                  <span
-                    style="color: #7f8084; font-weight: normal; margin-left: 5px; cursor: pointer;"
-                    @click="doCustomer"
-                  >Customer</span> &nbsp;
-                </b-col>
+
                 <b-col md="3">
                   <b-form-input
                     id="txtSearch"
@@ -41,32 +30,22 @@
                       :text="'Search'"
                       classButton="button button--back2"
                       classIcon="icon-style-1"
-                      @click="onSearchEnter"
+                      @click="doSearch"
                     />
                   </span>
-
-                  <span>
-                    <ABSButton
-                      :text="'Add New'"
-                      classButton="button button--back2"
-                      classIcon="icon-style-1"
-                      @click="onAddNewClick"
-                    />
-                  </span>
-
                   <span>
                     <ABSButton
                       :text="'Back'"
                       classButton="button button--back2"
                       classIcon="icon-style-1"
-                      @click="$router.go(-1)"
+                      @click="doBack"
                     />
                   </span>
                 </b-col>
               </b-row>
             </div>
             <div class="card__body">
-              <div class="table--list" :id="'appointmentList'">
+              <div class="table--list" :id="'marketingmaster_target'">
                 <b-table
                   :responsive="true"
                   :striped="false"
@@ -79,32 +58,105 @@
                   :foot-clone="false"
                   :fields="fieldHeader"
                   :items="items"
-                  class="table-sm table-style-2"
+                  class="table-sm table-style-3"
                 >
                   <template v-slot:cell(row_id)="data">
                     <b-button
                       v-if="WithViewButton == true"
                       size="sm"
-                      @click.stop="doViewClick(data.item, data.index)"
+                      @click.stop="viewClicked(data.item, data.index)"
                       :disabled="false"
                       class="btn btn--default"
                     >View</b-button>
                     <span v-else>{{data.item.row_id}}</span>
                   </template>
 
-                  <template v-slot:cell(customer_name)="data">
-                    <span>
-                      <b-badge
-                        style="width: 15px; height: 15px; padding: 6px !important; border-radius: 15px !important;margin-right: 5px;"
-                        :variant="data.item.contact_type == 'C' ? 'success' : 'primary'"
-                      >&nbsp;</b-badge>
-                    </span>
-                    {{data.item.customer_name}}
+                  <!-- <template v-slot:cell(ftl)="data">
+                    <ACCTextBox
+                      :prop="{
+                                cValidate: '',
+                                cName: 'ftl_' + data.index,
+                                cOrder: 1,
+                                cKey: false,
+                                cType: 'decimal',
+                                cProtect: false,
+                                cParentForm: 'MarketingMaster',
+                                cDecimal: 2,
+                                cInputStatus: 'new'
+                          }"
+                      v-model="data.item.ftl"
+                      :ref="'ref_ftl_' + data.index"
+                    />
                   </template>
+
+                  <template v-slot:cell(ltl)="data">
+                    <ACCTextBox
+                      :prop="{
+                                cValidate: '',
+                                cName: 'ltl_' + data.index,
+                                cOrder: 2,
+                                cKey: false,
+                                cType: 'decimal',
+                                cProtect: false,
+                                cParentForm: 'MarketingMaster',
+                                cDecimal: 2,
+                                cInputStatus: 'new'
+                          }"
+                      v-model="data.item.ltl"
+                      :ref="'ref_ltl_' + data.index"
+                    />
+                  </template>
+
+                  <template v-slot:cell(project)="data">
+                    <ACCTextBox
+                      :prop="{
+                                cValidate: '',
+                                cName: 'project_' + data.index,
+                                cOrder: 3,
+                                cKey: false,
+                                cType: 'decimal',
+                                cProtect: false,
+                                cParentForm: 'MarketingMaster',
+                                cDecimal: 2,
+                                cInputStatus: 'new'
+                          }"
+                      v-model="data.item.project"
+                      :ref="'ref_project_' + data.index"
+                    />
+                  </template>
+
+                  <template v-slot:cell(rental)="data">
+                    <ACCTextBox
+                      :prop="{
+                                cValidate: '',
+                                cName: 'rental_' + data.index,
+                                cOrder: 4,
+                                cKey: false,
+                                cType: 'decimal',
+                                cProtect: false,
+                                cParentForm: 'MarketingMaster',
+                                cDecimal: 2,
+                                cInputStatus: 'new'
+                          }"
+                      v-model="data.item.rental"
+                      :ref="'ref_rental_' + data.index"
+                    />
+                  </template>-->
                 </b-table>
               </div>
             </div>
             <div class="card__footer">
+              <!-- <b-row> style="padding-bottom: 10px;"
+                <b-col md="12" style="text-align: center;">
+                  <ABSButton
+                    :text="'Save'"
+                    classButton="btn btn--default"
+                    classIcon="icon-style-1"
+                    @click="doSave"
+                    styleButton="height: 40px;width: 75%;"
+                  />
+                </b-col>
+              </b-row>-->
               <b-form inline style="float: left; color: #333;">
                 <label
                   class="font-lbl"
@@ -145,7 +197,7 @@ export default {
   data() {
     return {
       propList: {
-        initialWhere: "",
+        initialWhere: "marketing_id='Mar1'",
         LineNo: 0,
         PageLevel: 1,
         TabIndex: 1,
@@ -155,12 +207,15 @@ export default {
       },
 
       //For List
-      WithViewButton: true,
+      cmbMarketing: [],
+      cmbYear: [],
+      WithViewButton: false,
       isFirst: false,
       selected: false,
       rowSelected: [],
       dataSelected: [],
       rowSel: -1,
+      filterActionM: "",
       filterAction: "",
 
       search: "",
@@ -168,7 +223,7 @@ export default {
       fieldHeader: [],
       items: [],
       firstSort: true,
-      sort: "time_edit DESC",
+      sort: "",
 
       totalRows: 0,
       currentPage: 1,
@@ -197,27 +252,41 @@ export default {
       selectedColumnTemp: [],
       selectedColumnSelected: [],
 
-      sortedField: [{ field: "time_edit", sort: "DESC" }],
+      sortedField: [
+        { field: "order_list", sort: "ASC" },
+        { field: "marketing_id", sort: "ASC" }
+      ],
       isDisableTable: false,
-      responses: []
+      responses: [],
+
+      ParamTarget: {
+        marketing_id: "",
+        year: ""
+      }
     };
   },
+  computed: {
+    paramFromList() {
+      var param = this.$route.params;
+      // if (param == null || param == undefined) {
+      //     this.doBack();
+      // } else {
+      //     if (Object.keys(param).length < 1) {
+      //         this.doBack();
+      //     } else {
+      return param;
+      //     }
+      // }
+    }
+  },
   methods: {
-    rowClicked(record, index) {
-      this.doViewClick(record, index);
+    doBack() {
+      this.$router.go(-1);
     },
+    rowClicked(record, index) {},
     doDoubleClick(record, index) {},
     doViewClick(record, index) {
-      var param = record;
-      this.$router.push({ name: "MK_ViewCustomer", params: param });
-    },
-    onAddNewClick() {
-      var param = {
-        // option_url: this.getOptionUrl(),
-        // title: this.title,
-        isEdit: false
-      };
-      this.$router.push({ name: "MK_AddEditCustomer", params: param });
+      //target ntr
     },
     rowLink(url) {},
     M_PageSize() {},
@@ -226,27 +295,32 @@ export default {
     M_Head_Table() {},
     refreshColumn() {},
     onSearchEnter(data) {
-      this.doGetList(this.search, "onSearchEnter");
+      //   this.doGetList(this.search, "onSearchEnter");
     },
-    doProspect() {
-      var filter = " contact_type = 'P'";
-      this.propList.initialWhere = filter;
-      this.doGetList(this.search);
-    },
-    doCustomer() {
-      var filter = " contact_type = 'C'";
-      this.propList.initialWhere = filter;
-      this.doGetList(this.search);
-    },
+    onTeamClick() {},
+    onCustomerListClick() {},
+    // doProspect() {
+    //   var filter = " contact_type = 'P'";
+    //   this.propList.initialWhere = filter;
+    //   this.doGetList(this.search);
+    // },
+    // doCustomer() {
+    //   var filter = " contact_type = 'C'";
+    //   this.propList.initialWhere = filter;
+    //   this.doGetList(this.search);
+    // },
 
     dofilterAction() {
-      var filter = " action_ = '" + this.filterAction + "'";
-      this.propList.initialWhere = filter;
-      this.doGetList(this.search);
+      //   var filter = " action = '" + this.filterAction + "'";
+      //   this.propList.initialWhere = filter;
+      this.doGetList2();
     },
-    doGetList(search) {
+    dofilterActionM() {
+      this.doGetList2();
+    },
+    doGetList(search, a = null) {
       var param = {
-        option_url: this.getOptionUrl(),
+        option_url: "/MK/MK_Customer",
         line_no: 0,
         user_id: this.getDataUser().user_id,
         portfolio_id: this.getDataUser().portfolio_id,
@@ -283,7 +357,7 @@ export default {
           this.responses.DefineColumn && this.responses.DefineColumn !== ""
             ? this.responses.DefineColumn.split(",")
             : this.responses.AllColumn.split(",");
-        var x = ",S,L,L,S,S,S,S";
+        var x = ",L,S,S,L,S,S,S";
         // var defineSize = this.responses.DefineSize.split(",");
         var defineSize = x.split(",");
 
@@ -297,7 +371,7 @@ export default {
         var definedColumn = [];
 
         this.allColumn_bf.forEach((val, idx) => {
-          var thClass = "HeaderACCList";
+          var thClass = "HeaderACCList2";
           var isSorted = this.sortedField.map(x => x.field).indexOf(val);
           if (isSorted > -1) {
             if (this.sortedField[isSorted].sort == "ASC") {
@@ -311,7 +385,7 @@ export default {
             value: idx + 1,
             key: val,
             thClass: thClass,
-            tdClass: "ContentACCList notranslate",
+            tdClass: "ContentACCList2 notranslate",
             text: val
           });
 
@@ -319,7 +393,7 @@ export default {
             value: idx + 1,
             key: val,
             thClass: thClass,
-            tdClass: "ContentACCList notranslate"
+            tdClass: "ContentACCList2 notranslate"
           });
         });
 
@@ -338,10 +412,13 @@ export default {
             return val.key != str_array[i];
           });
 
-          var thClass = "HeaderACCList " + defineSize[i];
-          //   var thClass = "HeaderACCList L";
+          var thClass = "HeaderACCList2 ";
+          if (str_array[i] !== "no") {
+            thClass += defineSize[i];
+          }
+          //   var thClass = "HeaderACCList2 L";
 
-          var tdClass = "ContentACCList notranslate";
+          var tdClass = "ContentACCList2 notranslate";
           if (
             str_array[i].toLowerCase().includes("amount") ||
             str_array[i].toLowerCase().includes("amt") ||
@@ -350,9 +427,9 @@ export default {
           ) {
             tdClass = "ABStdClassList2 notranslate";
             thClass = "ABSthClassList2";
-          } else if (str_array[i].toLowerCase() == "action") {
+          } else if (str_array[i].toLowerCase() == "target") {
             thClass += " th-cus-center";
-            tdClass += " th-cus-center";
+            tdClass += " td-cus-center";
           }
 
           var isSorted = this.sortedField
@@ -420,7 +497,7 @@ export default {
               },
               {
                 key: "Row Id",
-                value: "View"
+                value: "Target"
               }
             ];
             var isGotIt = false;
@@ -489,15 +566,172 @@ export default {
         this.lastPage = this.responses.Last_Page;
       });
     },
-    doEdit(record) {
-      var param = record;
-      param.isEdit = true;
-      this.$router.push({ name: "MK_EditAppointment", params: param });
+    doGetList2() {
+      this.$store.commit("setStatusLoader", true);
+      var param = {
+        option_function_cd: "GetMarketingTarget",
+        module_cd: "CM",
+        marketing_id: this.filterActionM,
+        year: this.filterAction
+      };
+
+      this.CallFunction(param).then(response => {
+        this.$store.commit("setStatusLoader", false);
+        if (response == null) return;
+
+        for (let i = 0; i < this.items.length; i++) {
+          (this.items[i].ftl =
+            response.Data[i] !== undefined
+              ? response.Data[i].ftl_amt && response.Data[i].ftl_amt !== ""
+                ? this.isCurrency(response.Data[i].ftl_amt, this.decimal)
+                : this.isCurrency(0, this.decimal)
+              : this.isCurrency(0, this.decimal)),
+            (this.items[i].ltl =
+              response.Data[i] !== undefined
+                ? response.Data[i].ltl_amt && response.Data[i].ltl_amt !== ""
+                  ? this.isCurrency(response.Data[i].ltl_amt, this.decimal)
+                  : this.isCurrency(0, this.decimal)
+                : this.isCurrency(0, this.decimal)),
+            (this.items[i].project =
+              response.Data[i] !== undefined
+                ? response.Data[i].project_amt &&
+                  response.Data[i].project_amt !== ""
+                  ? this.isCurrency(response.Data[i].project_amt, this.decimal)
+                  : this.isCurrency(0, this.decimal)
+                : this.isCurrency(0, this.decimal)),
+            (this.items[i].rental =
+              response.Data[i] !== undefined
+                ? response.Data[i].rental_amt &&
+                  response.Data[i].rental_amt !== ""
+                  ? this.isCurrency(response.Data[i].rental_amt, this.decimal)
+                  : this.isCurrency(0, this.decimal)
+                : this.isCurrency(0, this.decimal));
+        }
+      });
+    },
+    // getYear() {
+    //   var param = {
+    //     option_function_cd: "GetYearMarketingTarget",
+    //     module_cd: "MK",
+    //     user_id: this.getDataUser().user_id
+    //   };
+
+    //   this.CallFunction(param).then(response => {
+    //     if (response == null) return;
+    //     var data = response.Data;
+
+    //     this.filterAction =
+    //       this.paramFromList !== undefined
+    //         ? this.paramFromList.year
+    //         : data[0].years;
+
+    //     for (let i = 0; i < data.length; i++) {
+    //       this.cmbYear.push({ value: data[i].years, text: data[i].years });
+    //     }
+
+    //     this.doGetList2();
+    //   });
+    // },
+    getMarketing() {
+      var param = {
+        option_function_cd: "GetMarketingTeam",
+        module_cd: "MK",
+        user_id: this.getDataUser().user_id
+      };
+
+      this.CallFunction(param).then(response => {
+        if (response == null) return;
+        var data = response.Data;
+
+        // this.filterActionM =
+        //   this.paramFromList !== undefined
+        //     ? this.paramFromList.marketing_id
+        //     : data[0].marketing_id;
+
+        for (let i = 0; i < data.length; i++) {
+          this.cmbMarketing.push({
+            value: data[i].marketing_id,
+            text: data[i].marketing_name
+          });
+        }
+
+        // this.getYear();
+      });
+    },
+    doSave() {
+      this.alertConfirmation("Are You Sure Want To Save This Data ?").then(
+        ress => {
+          if (ress.value) {
+            this.M_Save();
+          }
+        }
+      );
+    },
+    M_Save() {
+      var paramDelete = {
+        _Method_: "DELETE",
+        _LineNo_: 1,
+        marketing_id: this.filterActionM,
+        years: this.filterAction
+      };
+
+      var paramInsert = [];
+
+      this.items.forEach((data, index) => {
+        paramInsert.push({
+          _Method_: "SAVE",
+          _LineNo_: 1,
+          marketing_id: this.filterActionM,
+          years: this.filterAction,
+          month: index + 1,
+          ftl_amt:
+            data.ftl && data.ftl !== ""
+              ? this.replaceAllString(data.ftl, ",", "", "number")
+              : "NULL",
+          ltl_amt:
+            data.ltl && data.ltl !== ""
+              ? this.replaceAllString(data.ltl, ",", "", "number")
+              : "NULL",
+          project_amt:
+            data.project && data.project !== ""
+              ? this.replaceAllString(data.project, ",", "", "number")
+              : "NULL",
+          rental_amt:
+            data.rental && data.rental !== ""
+              ? this.replaceAllString(data.rental, ",", "", "number")
+              : "NULL",
+          user_input: this.getDataUser().user_id
+        });
+      });
+
+      var param = {
+        option_url: "/CM/CM_MarketingMaster",
+        line_no: 1,
+        Data: [
+          {
+            A_Delete: paramDelete,
+            B_Looping: paramInsert
+          }
+        ]
+      };
+
+      this.postJSONMulti(this.getUrlProsesDataPostMulti(), param).then(
+        response => {
+          if (response == null) return;
+          this.alertSuccess("Save Data Has Been Successfully").then(() => {
+            this.doBack();
+          });
+        }
+      );
     }
   },
   mounted() {
+    //   if (this.paramFromList !== undefined) {
+    this.getMarketing();
     this.doGetList("");
-  }
+    //   }
+  },
+  created() {}
 };
 </script>
 
