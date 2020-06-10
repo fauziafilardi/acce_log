@@ -7,7 +7,7 @@
             <div class="card__title" style="padding-bottom: 5px !important;">
               <b-row>
                 <b-col style="max-width:fit-content !important;">
-                  <span>Marketing Master - Target</span>
+                  <span>Marketing Master - Team Setup</span>
                 </b-col>
                 <!-- <b-col style="text-align: right;">
                   <b-badge variant="primary" @click="doProspect" style="cursor: pointer;">&nbsp;</b-badge>

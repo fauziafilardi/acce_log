@@ -6,6 +6,7 @@ import CM_MarketingMaster_Target from '@/views/CM/CM_MarketingMaster/CM_Marketin
 import CM_MarketingMaster_AddTarget from '@/views/CM/CM_MarketingMaster/CM_MarketingMaster_AddTarget'
 import CM_Dashboard from '@/views/Dashboard/CM_Dashboard'
 import CM_MarketingMaster_Team from '@/views/CM/CM_MarketingMaster/CM_MarketingMaster_Team'
+import CM_MarketingMaster_CustomerList from '@/views/CM/CM_MarketingMaster/CM_MarketingMaster_CustomerList'
 
 export const CMRender = {
     path: '/CM',
@@ -67,6 +68,14 @@ export const CMRender = {
             path: '/CM/CM_MarketingMaster/Team',
             name: 'CM_MarketingMaster_Team',
             component: CM_MarketingMaster_Team,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/CM/CM_MarketingMaster/CustomerList',
+            name: 'CM_MarketingMaster_CustomerList',
+            component: CM_MarketingMaster_CustomerList,
             meta: {
                 requiresAuth: true
             }

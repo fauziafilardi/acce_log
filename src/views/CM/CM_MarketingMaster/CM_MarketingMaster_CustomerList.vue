@@ -7,7 +7,7 @@
             <div class="card__title" style="padding-bottom: 5px !important;">
               <b-row>
                 <b-col style="max-width:fit-content !important;">
-                  <span>Marketing Master</span>
+                  <span>Marketing Master - Customer List</span>
                 </b-col>
                 <!-- <b-col style="text-align: right;">
                   <b-badge variant="primary" @click="doProspect" style="cursor: pointer;">&nbsp;</b-badge>
@@ -50,51 +50,6 @@
                   ></b-form-input>
                 </b-col> -->
                 <b-col class="col-right">
-                  <!-- <span>
-                    <ABSButton
-                      :text="'Search'"
-                      classButton="button button--back2"
-                      classIcon="icon-style-1"
-                      @click="onSearchEnter"
-                    />
-                  </span> -->
-
-                  <span>
-                    <ABSButton
-                        :text="'Team'"
-                        classButton="button button--back2"
-                        classIcon="icon-style-1"
-                        @click="onTeamClick"
-                    />
-                  </span>
-
-                  <span>
-                    <ABSButton
-                        :text="'Target'"
-                        classButton="button button--back2"
-                        classIcon="icon-style-1"
-                        @click="onTargetClick"
-                    />
-                  </span>
-
-                  <span>
-                    <ABSButton
-                        :text="'Add Target'"
-                        classButton="button button--back2"
-                        classIcon="icon-style-1"
-                        @click="onAddTargetClick"
-                    />
-                  </span>
-
-                  <span>
-                    <ABSButton
-                        :text="'Customer List'"
-                        classButton="button button--back2"
-                        classIcon="icon-style-1"
-                        @click="onCustomerListClick"
-                    />
-                  </span>
-
                   <span>
                     <ABSButton
                       :text="'Back'"
@@ -107,7 +62,7 @@
               </b-row>
             </div>
             <div class="card__body">
-              <div class="table--list" :id="'marketingmaster'">
+              <div class="table--list" :id="'marketingmaster_customerlist'">
                 <b-table
                   :responsive="true"
                   :striped="false"
@@ -122,21 +77,21 @@
                   :items="items"
                   class="table-sm table-style-3"
                 >
-                  <template v-slot:cell(row_id)="data">
+                  <template v-slot:cell(child_marketing_id)="data">
                     <b-button
                       v-if="WithViewButton == true"
                       size="sm"
                       @click.stop="viewClicked(data.item, data.index)"
                       :disabled="false"
                       class="btn btn--default"
-                    >Target</b-button>
-                    <span v-else>{{data.item.row_id}}</span>
+                    >Change Marketing</b-button>
+                    <span v-else>{{data.item.child_marketing_id}}</span>
                   </template>
                 </b-table>
               </div>
             </div>
             <div class="card__footer">
-              <b-form inline style="float: left; color: #333;">
+              <!-- <b-form inline style="float: left; color: #333;">
                 <label
                   class="font-lbl"
                   style="margin-bottom:0px !important; margin-right:0px !important;"
@@ -161,7 +116,7 @@
                 :limit="limit"
                 style="margin-bottom: 0px;"
                 :disabled="isDisableTable"
-              ></b-pagination>
+              ></b-pagination> -->
             </div>
             <iframe name="print_frame" width="0" height="0" frameborder="0" src="about:blank"></iframe>
           </div>
@@ -176,17 +131,17 @@ export default {
   data() {
     return {
       propList: {
-        initialWhere: "user_id_login='" + this.getDataUser().user_id + "'",
+        initialWhere: "",
         LineNo: 0,
         PageLevel: 1,
         TabIndex: 1,
-        OrderBy: " order_list ASC,marketing_id ASC ",
+        OrderBy: "",
         SourceField: "",
         ParamView: ""
       },
 
       //For List
-      WithViewButton: false,
+      WithViewButton: true,
       isFirst: false,
       selected: false,
       rowSelected: [],
@@ -199,7 +154,7 @@ export default {
       fieldHeader: [],
       items: [],
       firstSort: true,
-      sort: "order_list ASC,marketing_id ASC",
+      sort: "",
 
       totalRows: 0,
       currentPage: 1,
@@ -228,7 +183,7 @@ export default {
       selectedColumnTemp: [],
       selectedColumnSelected: [],
 
-      sortedField: [{ field: "order_list", sort: "ASC" }, { field: "marketing_id", sort: "ASC" }],
+      sortedField: [],
       isDisableTable: false,
       responses: []
     };
@@ -240,8 +195,6 @@ export default {
     rowClicked(record, index) {},
     doDoubleClick(record, index) {},
     viewClicked(record, index) {
-      var param = record;
-      this.$router.push({ name: "CM_MarketingMaster_Target", params: param });
     },
     rowLink(url) {},
     M_PageSize() {},
@@ -251,18 +204,6 @@ export default {
     refreshColumn() {},
     onSearchEnter(data) {
       this.doGetList(this.search, "onSearchEnter");
-    },
-    onTeamClick() {
-      this.$router.push({ name: "CM_MarketingMaster_Team" });
-    },
-    onTargetClick() {
-      this.$router.push({ name: "CM_MarketingMaster_Target" });
-    },
-    onAddTargetClick() {
-      this.$router.push({ name: "CM_MarketingMaster_AddTarget" });
-    },
-    onCustomerListClick() {
-      this.$router.push({ name: "CM_MarketingMaster_CustomerList" });
     },
     // doProspect() {
     //   var filter = " contact_type = 'P'";
@@ -282,8 +223,8 @@ export default {
     },
     doGetList(search, a = null) {
       var param = {
-        option_url: this.getOptionUrl(),
-        line_no: 0,
+        option_url: "/CM/CM_MarketingMaster",
+        line_no: 2,
         user_id: this.getDataUser().user_id,
         portfolio_id: this.getDataUser().portfolio_id,
         subportfolio_id: this.getDataUser().subportfolio_id,
@@ -459,8 +400,12 @@ export default {
                 value: "VO "
               },
               {
-                key: "Row Id",
-                value: "Target"
+                key: "Child Marketing Id",
+                value: "Change Marketing"
+              },
+              {
+                key: "Marketing Id",
+                value: "User Id"
               }
             ];
             var isGotIt = false;
@@ -493,8 +438,8 @@ export default {
                 );
               } else {
                 if (labelHeader.includes(data.key)) {
-                  if (labelHeader == "Row Id" && !this.WithViewButton) continue;
-                  // if (labelHeader == 'Row Id' && !this.WithViewButton) {
+                  if (labelHeader == "Child Marketing Id" && !this.WithViewButton) continue;
+                  // if (labelHeader == 'Child Marketing Id' && !this.WithViewButton) {
 
                   // }
                   // else {
@@ -508,7 +453,7 @@ export default {
               }
             }
 
-            if (labelHeader == "Row Id") continue;
+            if (labelHeader == "Child Marketing Id") continue;
 
             this.fieldHeader.push({
               value: i + 1,
