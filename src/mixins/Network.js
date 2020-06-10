@@ -280,6 +280,10 @@ export default {
       return this.url + "api/Dashboard/Admin"
     },
 
+    getUrlMarketingTeam() {
+      return this.url + "api/MarketingTeam"
+    },
+
     getUrlCRUD() {
       return this.url + this.segmentCRUD
     },

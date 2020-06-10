@@ -678,7 +678,7 @@ export default {
             if (response == null) return
             var data = response.Data;
 
-            this.filterAction = this.paramFromList !== undefined ? this.paramFromList.year : data[0].years;
+            this.filterAction = Object.keys(this.paramFromList).length > 0 ? this.paramFromList.year : data[0].years;
 
             for (let i = 0; i < data.length; i++) {
                 this.cmbYear.push({value: data[i].years, text: data[i].years});
@@ -768,8 +768,8 @@ export default {
         this.CallFunction(param).then(response => {
             if (response == null) return
             var data = response.Data;
-
-            this.filterActionM = this.paramFromList !== undefined ? this.paramFromList.marketing_id : data[0].marketing_id;
+            
+            this.filterActionM = Object.keys(this.paramFromList).length > 0 ? this.paramFromList.marketing_id : data[0].marketing_id;
 
             for (let i = 0; i < data.length; i++) {
                 this.cmbMarketing.push({value: data[i].marketing_id, text: data[i].marketing_name});
