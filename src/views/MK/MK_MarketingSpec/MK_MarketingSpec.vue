@@ -20,10 +20,7 @@
               </b-row>
             </div>
             <div class="card__body">
-              <b-form
-                :data-vv-scope="'MK_AddNewProspect'"
-                :data-vv-value-path="'MK_AddNewProspect'"
-              >
+              <b-form :data-vv-scope="'M_ScreenSpec'" :data-vv-value-path="'M_ScreenSpec'">
                 <!-- <b-row> -->
                 <b-row class="dashboardBody">
                   <b-col md="6">
@@ -34,16 +31,6 @@
                           <b-col style="max-width:fit-content !important;">
                             <span>Action</span>
                           </b-col>
-                          <!-- <b-col style="text-align: right;">
-                            <span>
-                              <ABSButton
-                                :text="'View All'"
-                                classButton="button button--new"
-                                classIcon="icon-style-1"
-                                :disabled="true"
-                              />
-                            </span>
-                          </b-col>-->
                         </b-row>
                       </div>
                       <div class="card__body">
@@ -80,9 +67,9 @@
                           </b-col>
                           <b-col md="2">
                             <ACCTextBox
-                              :prop="PI_action_call_point"
-                              v-model="M_Spec.action_call_point"
-                              ref="ref_action_call_point"
+                              :prop="PI_action_visit_point"
+                              v-model="M_Spec.action_visit_point"
+                              ref="ref_action_visit_point"
                             />
                           </b-col>
                         </b-row>
@@ -94,9 +81,9 @@
                           </b-col>
                           <b-col md="2">
                             <ACCTextBox
-                              :prop="PI_action_call_point"
-                              v-model="M_Spec.action_call_point"
-                              ref="ref_action_call_point"
+                              :prop="PI_action_entertain_point"
+                              v-model="M_Spec.action_entertain_point"
+                              ref="ref_action_entertain_point"
                             />
                           </b-col>
                         </b-row>
@@ -110,136 +97,133 @@
                           <b-col style="max-width:fit-content !important;">
                             <span>Working Days</span>
                           </b-col>
-                          <!-- <b-col style="text-align: right;">
-                            <span>
-                              <ABSButton
-                                :text="'View All'"
-                                classButton="button button--new"
-                                classIcon="icon-style-1"
-                                :disabled="true"
-                              />
-                            </span>
-                          </b-col>-->
                         </b-row>
                       </div>
                       <div class="card__body">
-                        <!-- <b-row class="CommisionData">
-                          <b-col class="CommisionIcon">
-                            <span>
-                              <font-awesome-icon
-                                style="color: #333399;margin-right: 20px;"
-                                icon="coins"
-                                size="4x"
-                              />
-                            </span>
-                          </b-col>
-                          <b-col style="margin: auto;">
-                            <span class="Commision__TitleBlue">Paid</span> &nbsp;
-                            <span class="CommisionTitle">(Last 12 Months)</span>
-                            <br />
-                            <span class="CommisionDescs">Rp 22.500.000</span>
-                          </b-col>
-                        </b-row>
-                        <b-row class="CommisionData">
-                          <b-col class="CommisionIcon">
-                            <span>
-                              <font-awesome-icon
-                                style="color: #cc0000;margin-right: 20px;"
-                                icon="exclamation-circle"
-                                size="4x"
-                              />
-                            </span>
-                          </b-col>
-                          <b-col style="margin: auto;">
-                            <span class="Commision__TitleRed">Overdue</span> &nbsp;
-                            <span class="CommisionTitle"></span>
-                            <br />
-                            <span class="CommisionDescs">Rp 13.250.000</span>
-                          </b-col>
-                        </b-row>
-                        <b-row class="CommisionData">
-                          <b-col class="CommisionIcon">
-                            <span>
-                              <font-awesome-icon
-                                style="color: #00cc33;margin-right: 20px;"
-                                icon="stopwatch"
-                                size="5x"
-                              />
-                            </span>
-                          </b-col>
-                          <b-col style="margin: auto;">
-                            <span class="Commision__TitleGreen">Pending</span> &nbsp;
-                            <span class="CommisionTitle"></span>
-                            <br />
-                            <span class="CommisionDescs">Rp 32.380.000</span>
-                          </b-col>
-                        </b-row>-->
                         <b-row class="row">
                           <b-col md="6">
-                            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" />
+                            <!-- <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" /> -->
+                            <input
+                              style="vertical-align:middle !important"
+                              type="checkbox"
+                              name="cb_module"
+                              id="M_Spec.working_days_monday"
+                              v-model="M_Spec.working_days_monday"
+                            />
                             &nbsp;
                             <span>
-                              <label>Monday</label>
+                              <label for="M_Spec.working_days_monday">Monday</label>
                             </span>
                             <!-- <label for="vehicle1">Monday</label> -->
                           </b-col>
                           <b-col md="6">
-                            <input type="checkbox" id="vehicle2" name="vehicle2" value="Car" />
-                            <label for="vehicle2">Tuesday</label>
+                            <input
+                              style="vertical-align:middle !important"
+                              type="checkbox"
+                              name="cb_module"
+                              id="M_Spec.working_days_tuesday"
+                              v-model="M_Spec.working_days_tuesday"
+                            />
+                            &nbsp;
+                            <label
+                              for="M_Spec.working_days_tuesday"
+                            >Tuesday</label>
                           </b-col>
                         </b-row>
                         <b-row class="row">
                           <b-col md="6">
-                            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" />
-                            <label for="vehicle1">Wednesday</label>
+                            <input
+                              style="vertical-align:middle !important"
+                              type="checkbox"
+                              name="cb_module"
+                              id="M_Spec.working_days_wednesday"
+                              v-model="M_Spec.working_days_wednesday"
+                            />
+                            &nbsp;
+                            <label
+                              for="M_Spec.working_days_wednesday"
+                            >Wednesday</label>
                           </b-col>
                           <b-col md="6">
-                            <input type="checkbox" id="vehicle2" name="vehicle2" value="Car" />
-                            <label for="vehicle2">Thursday</label>
+                            <input
+                              style="vertical-align:middle !important"
+                              type="checkbox"
+                              name="cb_module"
+                              id="M_Spec.working_days_thursday"
+                              v-model="M_Spec.working_days_thursday"
+                            />
+                            &nbsp;
+                            <label
+                              for="M_Spec.working_days_thursday"
+                            >Thursday</label>
                           </b-col>
                         </b-row>
                         <b-row class="row">
                           <b-col md="6">
-                            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" />
-                            <label for="vehicle1">Friday</label>
+                            <input
+                              style="vertical-align:middle !important"
+                              type="checkbox"
+                              name="cb_module"
+                              id="M_Spec.working_days_friday"
+                              v-model="M_Spec.working_days_friday"
+                            />
+                            &nbsp;
+                            <label
+                              for="M_Spec.working_days_friday"
+                            >Friday</label>
                           </b-col>
                           <b-col md="6">
-                            <input type="checkbox" id="vehicle2" name="vehicle2" value="Car" />
-                            <label for="vehicle2">Saturday</label>
+                            <input
+                              style="vertical-align:middle !important"
+                              type="checkbox"
+                              name="cb_module"
+                              id="M_Spec.working_days_saturday"
+                              v-model="M_Spec.working_days_saturday"
+                              @click="OnChecClick()"
+                            />
+                            &nbsp;
+                            <label
+                              for="M_Spec.working_days_saturday"
+                            >Saturday</label>
+                            {{M_Spec.working_days_saturday}}
                           </b-col>
                         </b-row>
                         <b-row class="row">
-                          <b-col md="12">
-                            <b-col>
-                              <input
-                                style="vertical-align:middle !important"
-                                type="checkbox"
-                                name="cb_module"
-                                id="M_Spec.working_days_sunday"
-                                v-model="M_Spec.working_days_sunday"
-                              />
-                            </b-col>
-                            <b-col>
-                              <span>Monday</span>
-                            </b-col>
+                          <b-col md="6">
+                            <input
+                              style="vertical-align:middle !important"
+                              type="checkbox"
+                              name="cb_module"
+                              id="M_Spec.working_days_sunday"
+                              v-model="M_Spec.working_days_sunday"
+                              @click="OnChecClick()"
+                            />
+                            &nbsp;
+                            <label
+                              for="M_Spec.working_days_sunday"
+                            >Sunday</label>
+                            {{M_Spec.working_days_sunday}}
                           </b-col>
                           <!-- <b-col md="6"></b-col> -->
                         </b-row>
                       </div>
                     </div>
                   </b-col>
-                </b-row>
-                <b-row style="margin-top: 70%;">
                   <b-col md="12">
-                    <ABSButton
-                      :text="'Save Customer'"
-                      classButton="btn btn--default"
-                      classIcon="icon-style-default"
-                      @click="doSave"
-                      styleButton="height: 40px;width: 100%;"
-                    />
+                    <b-row style="margin-top: 70%;">
+                      <b-col md="12">
+                        <ABSButton
+                          :text="'Save'"
+                          classButton="btn btn--default"
+                          classIcon="icon-style-default"
+                          @click="doSave"
+                          styleButton="height: 40px;width: 100%;"
+                        />
+                      </b-col>
+                    </b-row>
                   </b-col>
                 </b-row>
+
                 <!-- </b-row> -->
               </b-form>
             </div>
@@ -254,6 +238,7 @@
 export default {
   data() {
     return {
+      inputStatus: "",
       PI_action_call_point: {
         cValidate: "",
         cName: "action_call_point",
@@ -261,7 +246,29 @@ export default {
         cKey: false,
         cType: "text",
         cProtect: false,
-        cParentForm: "ADM_AddGroupManagement",
+        cParentForm: "",
+        cDecimal: 2,
+        cInputStatus: this.inputStatus
+      },
+      PI_action_visit_point: {
+        cValidate: "",
+        cName: "action_visit_point",
+        cOrder: 2,
+        cKey: false,
+        cType: "text",
+        cProtect: false,
+        cParentForm: "",
+        cDecimal: 2,
+        cInputStatus: this.inputStatus
+      },
+      PI_action_entertain_point: {
+        cValidate: "",
+        cName: "action_entertain_point",
+        cOrder: 3,
+        cKey: false,
+        cType: "text",
+        cProtect: false,
+        cParentForm: "",
         cDecimal: 2,
         cInputStatus: this.inputStatus
       },
@@ -293,15 +300,15 @@ export default {
       return param;
       //   }
       // }
-    },
-    inputStatus() {
-      var param = this.$route.params;
-      if (param.isEdit && param.isEdit === true) {
-        return "edit";
-      } else {
-        return "new";
-      }
     }
+    // inputStatus() {
+    //   var param = this.$route.params;
+    //   if (param.isEdit && param.isEdit === true) {
+    //     return "edit";
+    //   } else {
+    //     return "new";
+    //   }
+    // }
   },
   methods: {
     doBack() {
@@ -322,6 +329,7 @@ export default {
         new_cm_customer_status_id: 0
       };
     },
+    OnChecClick() {},
     Onworking_days_mondayChange(data) {},
     Onworking_days_tuesdayChange(data) {
       this.$nextTick(() => {});
@@ -336,12 +344,12 @@ export default {
       this.$nextTick(() => {});
     },
     doSave() {
-      this.$validator._base.validateAll("MK_AddNewProspect").then(result => {
+      this.$validator._base.validateAll("M_ScreenSpec").then(result => {
         if (!result) return;
         this.alertConfirmation("Are You Sure Want To Save This Data ?").then(
           ress => {
             if (ress.value) {
-              this.$validator.errors.clear("MK_AddNewProspect");
+              this.$validator.errors.clear("M_ScreenSpec");
               if (this.inputStatus == "edit") {
                 this.M_Update();
               } else {
@@ -354,16 +362,20 @@ export default {
     },
     M_Save() {
       var param = {
-        option_url: "/MK/MK_NewProspect",
+        option_url: "/MK/MK_MarketingSpec",
         line_no: 0,
         ss_portfolio_id: this.getDataUser().portfolio_id,
-        name: this.M_Spec.action_call_point,
+        action_call_point: this.M_Spec.action_call_point,
+        action_visit_point: this.M_Spec.action_visit_point,
         action_entertain_point: this.M_Spec.action_entertain_point,
-        ss_working_days_thursday_id: this.M_Spec.working_days_thursday,
-        ss_working_days_wednesday_id: this.M_Spec.working_days_wednesday,
-        ss_working_days_tuesday_id: this.M_Spec.working_days_tuesday,
-        ss_working_days_monday_id: this.M_Spec.working_days_monday,
-        new_cm_customer_status_id: this.M_Spec.new_cm_customer_status_id,
+        working_days_monday: this.M_Spec.working_days_monday ? "Y" : "N",
+        working_days_tuesday: this.M_Spec.working_days_tuesday ? "Y" : "N",
+        working_days_wednesday: this.M_Spec.working_days_wednesday ? "Y" : "N",
+        working_days_thursday: this.M_Spec.working_days_thursday ? "Y" : "N",
+        working_days_friday: this.M_Spec.working_days_friday ? "Y" : "N",
+        working_days_saturday: this.M_Spec.working_days_saturday ? "Y" : "N",
+        working_days_sunday: this.M_Spec.working_days_sunday ? "Y" : "N",
+        new_cm_customer_status_id: 0,
         user_input: this.getDataUser().user_id
       };
 
@@ -371,55 +383,26 @@ export default {
         // console.log(response)
         if (response == null) return;
         this.alertSuccess(response.Message).then(() => {
-          this.doBack();
+          this.inputStatus = "edit";
         });
-      });
-    },
-    GetDataBy() {
-      var param = {
-        option_url: "/MK/MK_NewProspect",
-        line_no: 0,
-        id: this.paramFromList.row_id,
-        lastupdatestamp: this.paramFromList.lastupdatestamp
-      };
-
-      this.getJSON(this.getUrlCRUD(), param).then(response => {
-        // response from API
-        if (response == null) return;
-
-        var data = response.Data[0];
-
-        this.M_Spec = {
-          action_entertain_point: data.action_entertain_point,
-          working_days_monday: data.ss_working_days_monday_id,
-          // : data.working_days_monday,
-          working_days_tuesday: data.ss_working_days_tuesday_id,
-          // working_days_tuesdayLabel: data.working_days_tuesday,
-          working_days_wednesday: data.ss_working_days_wednesday_id,
-          // working_days_wednesdayLabel: data.working_days_wednesday,
-          working_days_thursday: data.ss_working_days_thursday_id,
-          //working_days_thursdayLabel: data.working_days_thursday,
-          working_days_friday: phone_no !== "" ? phone_no[0] : phone_no,
-          working_days_saturday: phone_no !== "" ? phone_no[1] : phone_no,
-          working_days_sunday: phone_no !== "" ? phone_no[2] : phone_no,
-          new_cm_customer_status_id: data.new_cm_customer_status_id
-        };
       });
     },
     M_Update() {
       var param = {
-        option_url: "/MK/MK_NewProspect",
+        option_url: "/MK/MK_MarketingSpec",
         line_no: 0,
-        cm_contact_id: this.paramFromList.row_id,
         ss_portfolio_id: this.getDataUser().portfolio_id,
-        name: this.M_Spec.action_call_point,
+        action_call_point: this.M_Spec.action_call_point,
+        action_visit_point: this.M_Spec.action_visit_point,
         action_entertain_point: this.M_Spec.action_entertain_point,
-        ss_working_days_thursday_id: this.M_Spec.working_days_thursday,
-        ss_working_days_wednesday_id: this.M_Spec.working_days_wednesday,
-        ss_working_days_tuesday_id: this.M_Spec.working_days_tuesday,
-        ss_working_days_monday_id: this.M_Spec.working_days_monday,
-        new_cm_customer_status_id: this.M_Spec.new_cm_customer_status_id,
-        lastupdatestamp: this.paramFromList.lastupdatestamp,
+        working_days_monday: this.M_Spec.working_days_monday ? "Y" : "N",
+        working_days_tuesday: this.M_Spec.working_days_tuesday ? "Y" : "N",
+        working_days_wednesday: this.M_Spec.working_days_wednesday ? "Y" : "N",
+        working_days_thursday: this.M_Spec.working_days_thursday ? "Y" : "N",
+        working_days_friday: this.M_Spec.working_days_friday ? "Y" : "N",
+        working_days_saturday: this.M_Spec.working_days_saturday ? "Y" : "N",
+        working_days_sunday: this.M_Spec.working_days_sunday ? "Y" : "N",
+        new_cm_customer_status_id: 0,
         user_edit: this.getDataUser().user_id
       };
 
@@ -427,16 +410,51 @@ export default {
         // console.log(response)
         if (response == null) return;
         this.alertSuccess(response.Message).then(() => {
-          this.doBack();
+          this.inputStatus = "edit";
         });
+      });
+    },
+    GetMKSpecData() {
+      var param = {
+        option_function_cd: "GetMkSpec",
+        module_cd: "MK",
+        portfolio_id: this.getDataUser().portfolio_id
+      };
+
+      this.CallFunction(param).then(response => {
+        // response from API
+        if (response == null) return;
+        console.log(response.Data.length);
+        if (response.Data.length > 0) {
+          this.inputStatus = "edit";
+        } else {
+          this.inputStatus = "new";
+          return;
+        }
+        var data = response.Data[0];
+
+        this.M_Spec = {
+          action_call_point: data.action_call_point,
+          action_visit_point: data.action_entertain_point,
+          action_entertain_point: data.action_entertain_point,
+          working_days_monday: data.working_days_monday == "Y" ? true : false,
+          working_days_tuesday: data.working_days_tuesday == "Y" ? true : false,
+          working_days_thursday:
+            data.working_days_thursday == "Y" ? true : false,
+          working_days_wednesday:
+            data.working_days_wednesday == "Y" ? true : false,
+          working_days_friday: data.working_days_friday == "Y" ? true : false,
+          working_days_saturday:
+            data.working_days_saturday == "Y" ? true : false,
+          working_days_sunday: data.working_days_sunday == "Y" ? true : false
+        };
       });
     }
   },
   mounted() {
-    this.M_ClearForm();
-    if (this.inputStatus == "edit") {
-      this.GetDataBy();
-    }
+    // this.M_ClearForm();
+
+    this.GetMKSpecData();
   }
 };
 </script>
