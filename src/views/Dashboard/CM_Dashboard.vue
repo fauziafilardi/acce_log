@@ -77,7 +77,7 @@ export default {
           this.$router.push({ name: "CM_MarketingSpec" });
       },
       onMarketingMasterClick() {
-          this.$router.push({ name: "CM_MarketingMaster" });
+          this.$router.push({ name: "MK_MarketingSpec" });
       },
       onCustomerStatusClick() {
           this.$router.push({ name: "CM_CustomerStatus" });
