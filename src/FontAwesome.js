@@ -149,5 +149,6 @@ library.add(faUserCircle)
 library.add(faClipboard)
 library.add(faTruck)
 library.add(faPlusSquare)
+library.add(faCog)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)

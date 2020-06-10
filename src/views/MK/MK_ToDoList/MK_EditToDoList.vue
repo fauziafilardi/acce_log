@@ -688,6 +688,15 @@ export default {
       this.$refs.Modal_PIC._hide();
       this.M_ClearPIC();
     },
+    M_ClearPIC() {
+      this.M_Pic = {
+        contact_person: "",
+        contact_phone_no_1: "+62",
+        contact_phone_no_2: "",
+        contact_phone_no_3: "",
+        email: ""
+      };
+    },
     doBack() {
       this.$router.go(-1);
     },
@@ -732,6 +741,7 @@ export default {
           var dtrow = response.Data[0].row_id
           this.M_Appointment.contact_person = dtrow
           this.M_Appointment.contact_personLabel = this.M_Pic.contact_person
+          this.CancelModal()
         });
       });
     },
