@@ -14,7 +14,8 @@
               v-model="value"
               @input="handleInput"
               :tabindex="prop.cOrder"
-              :ref="prop.cName">
+              :ref="prop.cName"
+              :stacked="prop.cGroup">
             </b-form-radio-group>
 
             <span v-show="errors.has(prop.cParentForm+'.'+prop.cName)"
@@ -27,6 +28,46 @@
             <span v-show="inputStatus!='view' && prop.cShowClearButton" class="forClear" @click="clearSelected">Clear</span>
           </b-col>
       </b-row>
+      <!-- <b-row v-else>
+        <b-col :offset="prop.cLabelSize">
+          <b-form-group>
+            <template v-for="(opt, index) in prop.cRadioOptions">
+              <b-form-radio
+                v-bind:key="index"
+                v-model="value"
+                :class="{'input': true, 'error-text-field': errors.has(prop.cParentForm+'.'+prop.cName)}"
+                v-show="inputStatus!=='view'"
+                :id="prop.cName"
+                :name="prop.cName"
+                :value="opt.value"
+              >
+                {{opt.text}}
+              </b-form-radio>
+            </template>
+            <b-form-radio v-model="selected" name="some-radios" value="A">Option A</b-form-radio>
+            <b-form-radio v-model="selected" name="some-radios" value="B">Option B</b-form-radio>
+          </b-form-group>
+            <b-form-radio-group 
+              v-validate="prop.cValidate"
+              :class="{'input': true, 'error-text-field': errors.has(prop.cParentForm+'.'+prop.cName)}"
+              v-show="inputStatus!=='view'"
+              :id="prop.cName"
+              :name="prop.cName"
+              :options="prop.cRadioOptions"
+              :disabled="inputStatus=='edit' && prop.cKey || prop.cProtect"
+              v-model="value"
+              @input="handleInput"
+              :tabindex="prop.cOrder"
+              :ref="prop.cName">
+            </b-form-radio-group>
+
+            <span v-show="errors.has(prop.cParentForm+'.'+prop.cName)"
+              class="error-span">{{ errors.first(prop.cParentForm+'.'+prop.cName) }}
+            </span>
+
+            <label class="lbl-value-view-form notranslate" v-show="inputStatus=='view'">{{ (value && value!=='') ? (prop.cRadioOptions.map(function(e) { return e.value }).indexOf(value) > -1 ? (prop.cRadioOptions[prop.cRadioOptions.map(function(e) { return e.value }).indexOf(value)].text) : '') : '' }}</label>
+          </b-col>
+      </b-row> -->
     </template>
   </span>
 </template>
@@ -46,7 +87,8 @@ export default {
       cParentForm: String,
       cProtect: Boolean,
       cShowClearButton: Boolean,
-      cInputStatus: String
+      cInputStatus: String,
+      cGroup: Boolean
     },
     value : [String, Number]
   },
@@ -96,6 +138,8 @@ export default {
     this.prop.cInputStatus = this.prop.cInputStatus
       ? this.prop.cInputStatus
       : "new";
+
+    this.prop.cGroup = this.prop.cGroup === undefined || this.prop.cGroup === null ? true : this.prop.cGroup
 
     // get max, for maxlength
     if(this.prop.cValidate !== undefined && this.prop.cValidate !== null && this.prop.cValidate !== ''){

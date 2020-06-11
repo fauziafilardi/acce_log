@@ -8,6 +8,8 @@ import CM_Dashboard from '@/views/Dashboard/CM_Dashboard'
 import CM_MarketingMaster_Team from '@/views/CM/CM_MarketingMaster/CM_MarketingMaster_Team'
 import CM_MarketingMaster_CustomerList from '@/views/CM/CM_MarketingMaster/CM_MarketingMaster_CustomerList'
 
+import CM_MarketingCustomerStatus from '@/views/CM/CM_MarketingCustomerStatus/CM_MarketingCustomerStatus'
+
 export const CMRender = {
     path: '/CM',
     component: {
@@ -76,6 +78,15 @@ export const CMRender = {
             path: '/CM/CM_MarketingMaster/CustomerList',
             name: 'CM_MarketingMaster_CustomerList',
             component: CM_MarketingMaster_CustomerList,
+            meta: {
+                requiresAuth: true
+            }
+        },
+
+        {
+            path: '/CM/CM_MarketingCustomerStatus',
+            name: 'CM_MarketingCustomerStatus',
+            component: CM_MarketingCustomerStatus,
             meta: {
                 requiresAuth: true
             }

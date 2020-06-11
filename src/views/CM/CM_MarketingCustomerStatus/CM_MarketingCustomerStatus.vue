@@ -7,62 +7,60 @@
             <div class="card__title" style="padding-bottom: 5px !important;">
               <b-row>
                 <b-col style="max-width:fit-content !important;">
-                  <span>Marketing Master - Customer List</span>
+                  <span>Customer Status</span>
                 </b-col>
-                <!-- <b-col style="text-align: right;">
-                  <b-badge variant="primary" @click="doProspect" style="cursor: pointer;">&nbsp;</b-badge>
-                  <span
-                    style="color: #7f8084; font-weight: normal; margin-left: 5px; cursor: pointer;"
-                    @click="doProspect"
-                  >Prospect</span> &nbsp;
-                  <b-badge variant="success" @click="doCustomer" style="cursor: pointer;">&nbsp;</b-badge>
-                  <span
-                    style="color: #7f8084; font-weight: normal; margin-left: 5px; cursor: pointer;"
-                    @click="doCustomer"
-                  >Customer</span> &nbsp;
-                </b-col> -->
-                <!-- <b-col md="2">
-                  <b-form-select
-                    id="cmbFilter"
-                    v-model="filterAction"
-                    @input="dofilterAction"
-                    :options="[
-                                            {value: 'C', text: 'Call'},
-                                            {value: 'V', text: 'Visit'},
-                                            {value: 'E', text: 'Entertainment'}
-                                        ]"
-                    :disabled="isDisableTable"
-                    style="height: 22px !important; width: 100% !important; margin-bottom: 5px;"
-                  ></b-form-select>
-                </b-col> -->
-                <!-- <b-col md="3">
-                  <b-form-input
-                    id="txtSearch"
-                    v-model="search"
-                    type="text"
-                    placeholder="Search...."
-                    v-shortkey.focus="['f1']"
-                    class="text-field-search"
-                    @keyup.enter.native="onSearchEnter"
-                    autocomplete="off"
-                    :disabled="isSearchDisable"
-                    style="width: 100% !important;"
-                  ></b-form-input>
-                </b-col> -->
-                <b-col class="col-right">
+                <b-col style="text-align: right;">
+                  <b-row>
+                    <b-col>
+                      <span>
+                        <b-form-input
+                          id="txtSearch"
+                          v-model="search"
+                          type="text"
+                          placeholder="Search...."
+                          v-shortkey.focus="['f1']"
+                          class="text-field-search"
+                          @keyup.enter.native="onSearchEnter"
+                          autocomplete="off"
+                          :disabled="isSearchDisable"
+                        ></b-form-input>
+                      </span>
+                    </b-col>
+                  </b-row>
+                </b-col>
+                <b-col md="3" class="col-right">
+                  <span>
+                    <ABSButton
+                      :text="'Search'"
+                      classButton="button button--back2"
+                      classIcon="icon-style-1"
+                      @click="onSearchEnter"
+                    />
+                  </span>
+
+                  <span>
+                    <ABSButton
+                      :text="'Add New'"
+                      classButton="button button--back2"
+                      classIcon="icon-style-1"
+                      :disabled="!isCanAdd"
+                      @click="onAddNewClick"
+                    />
+                  </span>
+
                   <span>
                     <ABSButton
                       :text="'Back'"
                       classButton="button button--back2"
                       classIcon="icon-style-1"
-                      @click="doBack"
+                      @click="$router.go(-1)"
                     />
                   </span>
                 </b-col>
               </b-row>
             </div>
             <div class="card__body">
-              <div class="table--list" :id="'marketingmaster_customerlist'">
+              <div class="table--list" :id="'marketingmaster_customerstatus'">
                 <b-table
                   :responsive="true"
                   :striped="false"
@@ -77,21 +75,14 @@
                   :items="items"
                   class="table-sm table-style-3"
                 >
-                  <template v-slot:cell(child_marketing_id)="data">
-                    <b-button
-                      v-if="WithViewButton == true"
-                      size="sm"
-                      @click.stop="viewClicked(data.item, data.index)"
-                      :disabled="false"
-                      class="btn btn--default"
-                    >Change Marketing</b-button>
-                    <span v-else>{{data.item.child_marketing_id}}</span>
+                  <template v-slot:cell(customer_status_colour)="data">
+                    <div :style="'width:20px; height:20px;background-color:' + data.item.customer_status_colour + '; margin:auto;'"></div>
                   </template>
                 </b-table>
               </div>
             </div>
             <div class="card__footer">
-              <!-- <b-form inline style="float: left; color: #333;">
+              <b-form inline style="float: left; color: #333;">
                 <label
                   class="font-lbl"
                   style="margin-bottom:0px !important; margin-right:0px !important;"
@@ -116,59 +107,10 @@
                 :limit="limit"
                 style="margin-bottom: 0px;"
                 :disabled="isDisableTable"
-              ></b-pagination> -->
+              ></b-pagination>
             </div>
             <iframe name="print_frame" width="0" height="0" frameborder="0" src="about:blank"></iframe>
           </div>
-          <ABSModal id="Modal_Mkt" ref="Modal_Mkt" size="sm">
-            <template slot="headerTitle">Change Marketing</template>
-            <template slot="content">
-                <b-row>
-                <b-col md="12">
-                    <b-form :data-vv-scope="'M_Mkt'" :data-vv-value-path="'M_Mkt'">
-                    <b-row>
-                        <b-col md="12">
-                            <b-row>
-                                <b-col style="text-align:center;">
-                                    Please Select Marketing
-                                </b-col>
-                            </b-row>
-                            <b-row>
-                                <b-col offset="3" md="6">
-                                    <ACCRadioButton
-                                        :prop="PI_marketing_id"
-                                        v-model="M_Mkt.marketing_id"
-                                        ref="ref_marketing_id"
-                                    />
-                                </b-col>
-                            </b-row>
-                            <b-row style="margin-top: 10px;">
-                                <b-col md="12" style="text-align:center;">
-                                    <ABSButton
-                                        :text="'Save'"
-                                        classButton="btn btn--default"
-                                        classIcon="icon-style-1"
-                                        @click="SaveModal"
-                                        styleButton="height: 40px;width: 75%;"
-                                    />
-                                </b-col>
-                                <!-- <b-col md="6">
-                                <ABSButton
-                                    :text="'Cancel'"
-                                    classButton="btn btn--back"
-                                    classIcon="icon-style-1"
-                                    @click="CancelModal"
-                                    styleButton="height: 40px;width: 100%;"
-                                />
-                                </b-col> -->
-                            </b-row>
-                        </b-col>
-                    </b-row>
-                    </b-form>
-                </b-col>
-                </b-row>
-            </template>
-            </ABSModal>
         </b-col>
       </b-row>
     </div>
@@ -234,24 +176,6 @@ export default {
 
       sortedField: [],
       isDisableTable: false,
-      responses: [],
-        PI_marketing_id: {
-            cValidate :'',
-            cName: 'marketing_id',
-            cId: 'rdbmarketing_id',
-            cRadioOptions: [],
-            cRadioDefaultOption: '',
-            cOrder: 1,
-            cProtect: false,
-            cVisible:  true,
-            cParentForm: 'MK_AddQuotation',
-            cInputStatus: 'new',
-            cGroup: true
-        },
-        M_Mkt: {
-            marketing_id: ''
-        },
-        isChange: {}
     };
   },
   methods: {
@@ -261,9 +185,6 @@ export default {
     rowClicked(record, index) {},
     doDoubleClick(record, index) {},
     viewClicked(record, index) {
-        this.isChange = record
-        this.M_Mkt.marketing_id = record.marketing_id
-        this.OpenModal();
     },
     rowLink(url) {},
     M_PageSize() {},
@@ -274,51 +195,9 @@ export default {
     onSearchEnter(data) {
       this.doGetList(this.search, "onSearchEnter");
     },
-    OpenModal() {
-      this.$refs.Modal_Mkt._show();
-    },
-    CancelModal() {
-      this.$refs.Modal_Mkt._hide();
-    },
-    SaveModal() {
-        var param = {
-            option_url: "/CM/CM_MarketingMaster",
-            line_no: 2,
-            row_id: this.isChange.row_id,
-            ss_portfolio_id: this.isChange.ss_portfolio_id,
-            marketing_id: this.M_Mkt.marketing_id,
-            lastupdatestamp: this.isChange.lastupdatestamp,
-            user_edit: this.getDataUser().user_id
-        }
-
-        this.putJSON(this.getUrlCRUD(), param).then(response => {
-            // console.log(response)
-            if (response == null) return;
-            this.alertSuccess(response.Message).then(() => {
-                this.CancelModal();
-                this.doGetList("");
-            });
-        });
-    },
-    // doProspect() {
-    //   var filter = " contact_type = 'P'";
-    //   this.propList.initialWhere = filter;
-    //   this.doGetList(this.search);
-    // },
-    // doCustomer() {
-    //   var filter = " contact_type = 'C'";
-    //   this.propList.initialWhere = filter;
-    //   this.doGetList(this.search);
-    // },
-
-    dofilterAction() {
-      var filter = " action = '" + this.filterAction + "'";
-      this.propList.initialWhere = filter;
-      this.doGetList(this.search);
-    },
     doGetList(search, a = null) {
       var param = {
-        option_url: "/CM/CM_MarketingMaster",
+        option_url: "/CM/CM_CustomerStatus",
         line_no: 2,
         user_id: this.getDataUser().user_id,
         portfolio_id: this.getDataUser().portfolio_id,
@@ -495,13 +374,9 @@ export default {
                 value: "VO "
               },
               {
-                key: "Child Marketing Id",
-                value: "Change Marketing"
+                key: "Customer Status Colour",
+                value: " "
               },
-              {
-                key: "Marketing Id",
-                value: "User Id"
-              }
             ];
             var isGotIt = false;
             var labelHeader = undefined;
@@ -533,8 +408,8 @@ export default {
                 );
               } else {
                 if (labelHeader.includes(data.key)) {
-                  if (labelHeader == "Child Marketing Id" && !this.WithViewButton) continue;
-                  // if (labelHeader == 'Child Marketing Id' && !this.WithViewButton) {
+                  if (labelHeader == "Row Id" && !this.WithViewButton) continue;
+                  // if (labelHeader == 'Row Id' && !this.WithViewButton) {
 
                   // }
                   // else {
@@ -548,7 +423,7 @@ export default {
               }
             }
 
-            if (labelHeader == "Child Marketing Id") continue;
+            if (labelHeader == "Row Id") continue;
 
             this.fieldHeader.push({
               value: i + 1,
@@ -568,33 +443,10 @@ export default {
         this.totalRows = this.responses.Total;
         this.lastPage = this.responses.Last_Page;
       });
-    },
-    getMarketing() {
-        var param = {
-            option_function_cd: "GetMarketingTeam",
-            module_cd: "MK",
-            user_id: this.getDataUser().user_id
-        };
-
-        this.CallFunction(param).then(response => {
-            if (response == null) return
-            var data = response.Data;
-            var opt = []
-
-            for (let i = 0; i < data.length; i++) {
-                opt.push({
-                    text: data[i].marketing_name,
-                    value: data[i].marketing_id
-                })
-            }
-
-            this.PI_marketing_id.cRadioOptions = opt;
-        })
-    },
+    }
   },
   mounted() {
     this.doGetList("");
-    this.getMarketing();
   },
   created() {
   }
