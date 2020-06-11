@@ -170,7 +170,7 @@ import Treeselect from '@riophae/vue-treeselect'
 import '@riophae/vue-treeselect/dist/vue-treeselect.css'
 import Simplert from 'vue2-simplert'
 
-import { Chrome } from 'vue-color'
+import { Chrome, Swatches } from 'vue-color'
 
 Vue.use(VueGoogleMaps, {
   load: {
@@ -335,6 +335,7 @@ Vue.component('ABSColorPicker', ABSColorPicker)
 Vue.component('Treeselect', Treeselect)
 Vue.component('Simplert', Simplert)
 Vue.component('chrome-picker', Chrome)
+Vue.component('swatches-picker', Swatches)
 
 // Vue.component('vue-editor', VueEditor)
 

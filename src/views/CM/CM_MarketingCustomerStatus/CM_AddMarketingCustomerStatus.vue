@@ -147,8 +147,9 @@
                     <b-row>
                       <b-col md="6">
                         <span>
-                          <label>Select Colour</label>
+                          <label>Select Color</label>
                         </span>
+                        <swatches-picker v-model="M_MarketingCustomerStatus.customer_status_colour" />
                       </b-col>
                     </b-row>
                     <b-row style="margin-top: 10px;">
@@ -268,22 +269,22 @@ export default {
         cInputStatus: this.inputStatus
       },
 
-      PI_customer_status_colour: {
-        cValidate: "",
-        cName: "address",
-        cOrder: 3,
-        cKey: false,
-        cType: "text",
-        cProtect: false,
-        cParentForm: "CM_MarketingCustomerStatus",
-        cDecimal: 2,
-        cInputStatus: this.inputStatus
-      },
+      // PI_customer_status_colour: {
+      //   cValidate: "",
+      //   cName: "address",
+      //   cOrder: 3,
+      //   cKey: false,
+      //   cType: "text",
+      //   cProtect: false,
+      //   cParentForm: "CM_MarketingCustomerStatus",
+      //   cDecimal: 2,
+      //   cInputStatus: this.inputStatus
+      // },
 
       M_MarketingCustomerStatus: {
         descs: "",
         customer_status_cd: "",
-        customer_status_colour: "",
+        customer_status_colour: { hex: '#1A237E' },
         call_qty: "",
         call_month: "",
         visit_qty: 0,
@@ -323,17 +324,20 @@ export default {
 
     M_ClearForm() {
       this.M_MarketingCustomerStatus = {
-        user_name: this.getDataUser().user_name,
-        name: "",
-        phone: "",
-        address: "",
-        driver_status: "N",
-        notes: "",
-        lastupdatestamp: ""
+        descs: "",
+        customer_status_cd: "",
+        customer_status_colour: { hex: '#1A237E' },
+        call_qty: "",
+        call_month: "",
+        visit_qty: 0,
+        visit_month: 0,
+        entertain_qty: 0,
+        entertain_month: 0
       };
     },
 
     doSave() {
+      console.log(this.M_MarketingCustomerStatus);
       this.$validator._base
         .validateAll("CM_MarketingCustomerStatus")
         .then(result => {
@@ -360,9 +364,9 @@ export default {
         descs: this.M_MarketingCustomerStatus.descs,
         customer_status_cd: this.M_MarketingCustomerStatus.customer_status_cd,
         customer_status_colour:
-          this.M_MarketingCustomerStatus.customer_status_colour == null
+          this.M_MarketingCustomerStatus.customer_status_colour.hex == null
             ? "black"
-            : "blue",
+            : this.M_MarketingCustomerStatus.customer_status_colour.hex,
         call_qty: this.M_MarketingCustomerStatus.call_qty,
         call_month: this.M_MarketingCustomerStatus.call_month,
         visit_qty: this.M_MarketingCustomerStatus.visit_qty,
@@ -395,7 +399,7 @@ export default {
         this.M_MarketingCustomerStatus = {
           descs: data.descs,
           customer_status_cd: data.customer_status_cd,
-          customer_status_colour: data.customer_status_colour,
+          customer_status_colour: { hex: data.customer_status_colour },
           call_qty: data.call_qty,
           call_month: data.call_month,
           visit_month: data.visit_month,
@@ -414,9 +418,9 @@ export default {
         descs: this.M_MarketingCustomerStatus.descs,
         customer_status_cd: this.M_MarketingCustomerStatus.customer_status_cd,
         customer_status_colour:
-          this.M_MarketingCustomerStatus.customer_status_colour == null
+          this.M_MarketingCustomerStatus.customer_status_colour.hex == null
             ? "black"
-            : "blue",
+            : this.M_MarketingCustomerStatus.customer_status_colour.hex,
         call_qty: this.M_MarketingCustomerStatus.call_qty,
         call_month: this.M_MarketingCustomerStatus.call_month,
         visit_qty: this.M_MarketingCustomerStatus.visit_qty,
