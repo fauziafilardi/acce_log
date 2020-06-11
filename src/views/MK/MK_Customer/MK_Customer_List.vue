@@ -44,109 +44,59 @@
                 </b-col>
               </b-row>
             </div>
-            <div class="card__body">
-              <div class="table--list" :id="'marketingmaster_target'">
-                <b-table
-                  :responsive="true"
-                  :striped="false"
-                  :bordered="false"
-                  :outlined="false"
-                  :small="false"
-                  :hover="true"
-                  :dark="false"
-                  :fixed="false"
-                  :foot-clone="false"
-                  :fields="fieldHeader"
-                  :items="items"
-                  class="table-sm table-style-3"
-                >
-                  <template v-slot:cell(row_id)="data">
-                    <b-button
-                      v-if="WithViewButton == true"
-                      size="sm"
-                      @click.stop="viewClicked(data.item, data.index)"
-                      :disabled="false"
-                      class="btn btn--default"
-                    >View</b-button>
-                    <span v-else>{{data.item.row_id}}</span>
-                  </template>
-
-                  <!-- <template v-slot:cell(ftl)="data">
-                    <ACCTextBox
-                      :prop="{
-                                cValidate: '',
-                                cName: 'ftl_' + data.index,
-                                cOrder: 1,
-                                cKey: false,
-                                cType: 'decimal',
-                                cProtect: false,
-                                cParentForm: 'MarketingMaster',
-                                cDecimal: 2,
-                                cInputStatus: 'new'
-                          }"
-                      v-model="data.item.ftl"
-                      :ref="'ref_ftl_' + data.index"
-                    />
-                  </template>
-
-                  <template v-slot:cell(ltl)="data">
-                    <ACCTextBox
-                      :prop="{
-                                cValidate: '',
-                                cName: 'ltl_' + data.index,
-                                cOrder: 2,
-                                cKey: false,
-                                cType: 'decimal',
-                                cProtect: false,
-                                cParentForm: 'MarketingMaster',
-                                cDecimal: 2,
-                                cInputStatus: 'new'
-                          }"
-                      v-model="data.item.ltl"
-                      :ref="'ref_ltl_' + data.index"
-                    />
-                  </template>
-
-                  <template v-slot:cell(project)="data">
-                    <ACCTextBox
-                      :prop="{
-                                cValidate: '',
-                                cName: 'project_' + data.index,
-                                cOrder: 3,
-                                cKey: false,
-                                cType: 'decimal',
-                                cProtect: false,
-                                cParentForm: 'MarketingMaster',
-                                cDecimal: 2,
-                                cInputStatus: 'new'
-                          }"
-                      v-model="data.item.project"
-                      :ref="'ref_project_' + data.index"
-                    />
-                  </template>
-
-                  <template v-slot:cell(rental)="data">
-                    <ACCTextBox
-                      :prop="{
-                                cValidate: '',
-                                cName: 'rental_' + data.index,
-                                cOrder: 4,
-                                cKey: false,
-                                cType: 'decimal',
-                                cProtect: false,
-                                cParentForm: 'MarketingMaster',
-                                cDecimal: 2,
-                                cInputStatus: 'new'
-                          }"
-                      v-model="data.item.rental"
-                      :ref="'ref_rental_' + data.index"
-                    />
-                  </template>-->
-                </b-table>
+          </div>
+        </b-col>
+        <div v-for="(data,indexs) in cmbMarketing" v-bind:key="indexs">
+          {{data}}
+          <b-col md="12">
+            <div class="card">
+              <div class="card__title" style="padding-bottom: 5px !important;">
+                <b-row>
+                  <b-col style="max-width:fit-content !important;">
+                    <span>{{data.text}}</span>
+                  </b-col>
+                </b-row>
               </div>
-            </div>
-            <div class="card__footer">
-              <!-- <b-row> style="padding-bottom: 10px;"
+              <div class="card__body">
+                <div class="table--list" :id="'customer_list_'+indexs">
+                  <b-table
+                    :responsive="true"
+                    :striped="false"
+                    :bordered="false"
+                    :outlined="false"
+                    :small="false"
+                    :hover="true"
+                    :dark="false"
+                    :fixed="false"
+                    :foot-clone="false"
+                    :fields="fieldHeader"
+                    :items="items"
+                    class="table-sm table-style-3"
+                  >
+                    <template v-slot:cell(row_id)="data">
+                      <b-button
+                        v-if="WithViewButton == true"
+                        size="sm"
+                        @click.stop="viewClicked(data.item, data.index)"
+                        :disabled="false"
+                        class="btn btn--default"
+                      >View</b-button>
+                      <span v-else>{{data.item.row_id}}</span>
+                    </template>
+
+                    <template v-slot:cell(status)="data">
+                      <!-- <span>
+                      <p style="background-color:tomato;">{{data.item.status}}</p>
+                      </span>-->
+                      <span
+                        :style="`color:white;background-color:`+data.item.customer_status_colour+`;`"
+                      >{{data.item.status}}</span>
+                    </template>
+                  </b-table>
+                </div>
+              </div>
+              <div class="card__footer" :id="`customer_list_footer_`+indexs">
+                <!-- <b-row> style="padding-bottom: 10px;"
                 <b-col md="12" style="text-align: center;">
                   <ABSButton
                     :text="'Save'"
@@ -156,37 +106,45 @@
                     styleButton="height: 40px;width: 75%;"
                   />
                 </b-col>
-              </b-row>-->
-              <b-form inline style="float: left; color: #333;">
-                <label
-                  class="font-lbl"
-                  style="margin-bottom:0px !important; margin-right:0px !important;"
-                >Page Size</label>
-                <b-form-select
-                  id="cmbPerPage"
-                  v-model="perPage"
-                  v-on:input="doGetList(search, 'pageSize')"
-                  :options="pagingData"
-                  class="sm-3 mgn-left-10 font-lbl page-size-left"
-                  :disabled="isDisableTable"
-                ></b-form-select>
-                of {{ this.totalRows }} Records
-              </b-form>
+                </b-row>-->
+                <b-form inline style="float: left; color: #333;">
+                  <label
+                    class="font-lbl"
+                    style="margin-bottom:0px !important; margin-right:0px !important;"
+                  >Page Size</label>
+                  <b-form-select
+                    id="cmbPerPage"
+                    v-model="perPage"
+                    v-on:input="doGetList(search, 'pageSize')"
+                    :options="pagingData"
+                    class="sm-3 mgn-left-10 font-lbl page-size-left"
+                    :disabled="isDisableTable"
+                  ></b-form-select>
+                  of {{ this.totalRows }} Records
+                </b-form>
 
-              <b-pagination
-                align="right"
-                v-model="currentPage"
-                @input="doGetList(search, 'pagination')"
-                :total-rows="totalRows"
-                :per-page="perPage"
-                :limit="limit"
-                style="margin-bottom: 0px;"
-                :disabled="isDisableTable"
-              ></b-pagination>
+                <b-pagination
+                  align="right"
+                  v-model="currentPage"
+                  @input="doGetList(search, 'pagination')"
+                  :total-rows="totalRows"
+                  :per-page="perPage"
+                  :limit="limit"
+                  style="margin-bottom: 0px;"
+                  :disabled="isDisableTable"
+                ></b-pagination>
+              </div>
+              <iframe
+                :name="`print_frame_`+indexs"
+                :id="`print_frame_`+indexs"
+                width="0"
+                height="0"
+                frameborder="0"
+                src="about:blank"
+              ></iframe>
             </div>
-            <iframe name="print_frame" width="0" height="0" frameborder="0" src="about:blank"></iframe>
-          </div>
-        </b-col>
+          </b-col>
+        </div>
       </b-row>
     </div>
   </div>
@@ -209,7 +167,7 @@ export default {
       //For List
       cmbMarketing: [],
       cmbYear: [],
-      WithViewButton: false,
+      WithViewButton: true,
       isFirst: false,
       selected: false,
       rowSelected: [],
@@ -497,7 +455,7 @@ export default {
               },
               {
                 key: "Row Id",
-                value: "Target"
+                value: "View"
               }
             ];
             var isGotIt = false;
