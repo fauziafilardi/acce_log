@@ -43,7 +43,7 @@
                       :text="'Add New'"
                       classButton="button button--back2"
                       classIcon="icon-style-1"
-                      :disabled="!isCanAdd"
+                      :disabled="false"
                       @click="onAddNewClick"
                     />
                   </span>
@@ -76,7 +76,9 @@
                   class="table-sm table-style-3"
                 >
                   <template v-slot:cell(customer_status_colour)="data">
-                    <div :style="'width:20px; height:20px;background-color:' + data.item.customer_status_colour + '; margin:auto;'"></div>
+                    <div
+                      :style="'width:20px; height:20px;background-color:' + data.item.customer_status_colour + '; margin:auto;'"
+                    ></div>
                   </template>
                 </b-table>
               </div>
@@ -175,17 +177,16 @@ export default {
       selectedColumnSelected: [],
 
       sortedField: [],
-      isDisableTable: false,
+      isDisableTable: false
     };
   },
   methods: {
-      doBack() {
-        this.$router.go(-1);
-      },
+    doBack() {
+      this.$router.go(-1);
+    },
     rowClicked(record, index) {},
     doDoubleClick(record, index) {},
-    viewClicked(record, index) {
-    },
+    viewClicked(record, index) {},
     rowLink(url) {},
     M_PageSize() {},
     M_Pagination() {},
@@ -304,10 +305,9 @@ export default {
           ) {
             tdClass = "ABStdClassList2 notranslate";
             thClass = "ABSthClassList2";
-          }
-          else if (str_array[i].toLowerCase() == "target") {
-              thClass += " th-cus-center"
-              tdClass += " td-cus-center";
+          } else if (str_array[i].toLowerCase() == "target") {
+            thClass += " th-cus-center";
+            tdClass += " td-cus-center";
           }
 
           var isSorted = this.sortedField
@@ -376,7 +376,7 @@ export default {
               {
                 key: "Customer Status Colour",
                 value: " "
-              },
+              }
             ];
             var isGotIt = false;
             var labelHeader = undefined;
@@ -448,8 +448,7 @@ export default {
   mounted() {
     this.doGetList("");
   },
-  created() {
-  }
+  created() {}
 };
 </script>
 
