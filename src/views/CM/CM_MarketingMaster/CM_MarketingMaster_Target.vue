@@ -675,7 +675,7 @@ export default {
         };
         
         this.CallFunction(param).then(response => {
-            if (response == null) return
+          if (response == null) return
             var data = response.Data;
 
             this.filterAction = Object.keys(this.paramFromList).length > 0 ? this.paramFromList.year : data[0].years;
@@ -768,7 +768,7 @@ export default {
         this.CallFunction(param).then(response => {
             if (response == null) return
             var data = response.Data;
-            
+
             this.filterActionM = Object.keys(this.paramFromList).length > 0 ? this.paramFromList.marketing_id : data[0].marketing_id;
 
             for (let i = 0; i < data.length; i++) {
