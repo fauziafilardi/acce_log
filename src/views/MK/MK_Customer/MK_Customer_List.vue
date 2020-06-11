@@ -46,9 +46,9 @@
             </div>
           </div>
         </b-col>
-        <div v-for="(dataList,indexs) in cmbMarketing" v-bind:key="indexs">
+        <!-- <div> -->
           <!-- {{dataList}} -->
-          <b-col md="12">
+          <b-col md="12" v-for="(dataList,indexs) in cmbMarketing" v-bind:key="indexs">
             <div class="card">
               <div class="card__title" style="padding-bottom: 5px !important;">
                 <b-row>
@@ -88,9 +88,10 @@
                       <!-- <span>
                       <p style="background-color:tomato;">{{data.item.status}}</p>
                       </span>-->
-                      <span
+                      <!-- <span
                         :style="`color:white;background-color:`+data.item.customer_status_colour+`;`"
-                      >{{data.item.status}}</span>
+                      >{{data.item.status}}</span> -->
+                      <div class="badge-primary badgeStatus" :style="`background-color:`+data.item.customer_status_colour+` !important;`" >{{data.item.status}}</div>
                     </template>
                   </b-table>
                 </div>
@@ -115,7 +116,7 @@
                   <b-form-select
                     id="cmbPerPage"
                     v-model="dataList.perPage"
-                    v-on:input="doGetList(search, 'pageSize')"
+                    v-on:change="doGetList2(indexs)"
                     :options="pagingData"
                     class="sm-3 mgn-left-10 font-lbl page-size-left"
                     :disabled="isDisableTable"
@@ -126,10 +127,10 @@
                 <b-pagination
                   align="right"
                   v-model="dataList.currentPage"
-                  @input="doGetList(search, 'pagination')"
+                  @change="doGetList2(indexs)"
                   :total-rows="dataList.totalRows"
                   :per-page="dataList.perPage"
-                  :limit="limit"
+                  :limit="dataList.limit"
                   style="margin-bottom: 0px;"
                   :disabled="isDisableTable"
                 ></b-pagination>
@@ -144,7 +145,7 @@
               ></iframe>
             </div>
           </b-col>
-        </div>
+        <!-- </div> -->
       </b-row>
     </div>
   </div>
@@ -244,7 +245,6 @@ export default {
     rowClicked(record, index) {},
     doDoubleClick(record, index) {},
     doViewClick(record, index) {
-      //target ntr
     },
     rowLink(url) {},
     M_PageSize() {},
@@ -253,29 +253,24 @@ export default {
     M_Head_Table() {},
     refreshColumn() {},
     onSearchEnter(data) {
-      //   this.doGetList(this.search, "onSearchEnter");
+        // this.doGetList(this.search, "onSearchEnter");
+      for (let i = 0; i < this.cmbMarketing.length; i++) {
+        // this.cmbMarketing.push({
+        //   marketing_id: data[i].marketing_id,
+        //   marketing_name: data[i].marketing_name,
+        //   items: [],
+        //   currentPage: 1,
+        //   lastPage = 1,
+        //   totalRows: 0,
+        //   perPage: 5,
+        //   limit = 2
+        // });
+
+        this.doGetList2(i);
+      }
     },
     onTeamClick() {},
     onCustomerListClick() {},
-    // doProspect() {
-    //   var filter = " contact_type = 'P'";
-    //   this.propList.initialWhere = filter;
-    //   this.doGetList(this.search);
-    // },
-    // doCustomer() {
-    //   var filter = " contact_type = 'C'";
-    //   this.propList.initialWhere = filter;
-    //   this.doGetList(this.search);
-    // },
-
-    dofilterAction() {
-      //   var filter = " action = '" + this.filterAction + "'";
-      //   this.propList.initialWhere = filter;
-      this.doGetList2();
-    },
-    dofilterActionM() {
-      this.doGetList2();
-    },
     doGetList(search, a = null) {
       var param = {
         option_url: "/MK/MK_Customer",
@@ -303,7 +298,7 @@ export default {
         this.responses = response;
 
         this.ExportToken = this.responses.ExportToken;
-        console.log(this.cmbMarketing.length);
+        console.log(JSON.stringify(response.Data));
         for (let x = 0; x < this.cmbMarketing.length; x++) {
           console.log(this.cmbMarketing[x].marketing_id);
           var item = response.Data.filter(dt => {
@@ -534,72 +529,256 @@ export default {
         this.lastPage = this.responses.Last_Page;
       });
     },
-    doGetList2() {
-      this.$store.commit("setStatusLoader", true);
-      var param = {
-        option_function_cd: "GetMarketingTarget",
-        module_cd: "CM",
-        marketing_id: this.filterActionM,
-        year: this.filterAction
+    doGetList2(ix = null) {
+      if (ix == null || ix == undefined || ix < 0) return
+      if (this.cmbMarketing[ix] == undefined) return
+      // console.log(this.cmbMarketing, ix)
+
+      var list = [
+        {"no":1,"cm_contact_id":10,"contact_created":"17/05/2020","date":"17/05/2020","name":"PT. Accelog","customer_name":"PT. Accelog","contact_person":"Ucok","phone_no":"+62-817-100785","address":"Jalan Raya Panjang Banget","country":"Indonesia","province":"DKI Jakarta","city":"Jakarta","district":"Kelapa Gading","contact_phone_no":"+62-811-11111","contact_type":"P","marketing_id":"Mar5","status":"New","customer_status_colour":"green","time_edit":"10/06/2020","lastupdatestamp":69333,"row_id":10},
+        {"no":2,"cm_contact_id":9,"contact_created":"15/05/2020","date":"15/05/2020","name":"PT. Accelog Digital Indonesia","customer_name":"PT. Accelog Digital Indonesia","contact_person":"Ujang","phone_no":"+62-888-8888","address":"Cohive 1010","country":"Indonesia","province":"DKI Jakarta","city":"Jakarta","district":"Tanjung Priok","contact_phone_no":"+62-817-100785","contact_type":"P","marketing_id":"Mar7","status":"New","customer_status_colour":"green","time_edit":"15/05/2020","lastupdatestamp":69041,"row_id":9},{"no":3,"cm_contact_id":7,"contact_created":"10/05/2020","date":"10/05/2020","name":"TEST 1","customer_name":"TEST 1","contact_person":"CP Test 1","phone_no":"+62-893-99999999","address":"TEST 123","country":"Indonesia","province":"DKI Jakarta","city":"Jakarta","district":null,"contact_phone_no":"+62-897-67687676","contact_type":"P","marketing_id":"Mar6","status":"New","customer_status_colour":"green","time_edit":"13/05/2020","lastupdatestamp":69040,"row_id":7},{"no":4,"cm_contact_id":8,"contact_created":"12/05/2020","date":"12/05/2020","name":"Dedy Suyanto","customer_name":"Dedy Suyanto","contact_person":"contact","phone_no":"+62-088-12214324","address":"Jl. Sunter Hijau I","country":"Indonesia","province":"DKI Jakarta","city":"Jakarta","district":"Kelapa Gading","contact_phone_no":"+62-21-121212","contact_type":"P","marketing_id":"Mar5","status":"New","customer_status_colour":"green","time_edit":"12/05/2020","lastupdatestamp":69039,"row_id":8},{"no":5,"cm_contact_id":6,"contact_created":"10/05/2020","date":"10/05/2020","name":"Customer 1","customer_name":"Customer 1","contact_person":"CP Customer 1","phone_no":"+62-897-98987657","address":"Jakarta","country":"Indonesia","province":"DKI Jakarta","city":null,"district":null,"contact_phone_no":"+62-897-09096637","contact_type":"P","marketing_id":"Mar4","status":"New","customer_status_colour":"green","time_edit":"10/05/2020","lastupdatestamp":69038,"row_id":6}],
+
+      totalRows = this.cmbMarketing[ix].totalRows,
+      currentPage = this.cmbMarketing[ix].currentPage,
+      lastPage = this.cmbMarketing[ix].lastPage,
+      perPage = this.cmbMarketing[ix].perPage,
+      limit = this.cmbMarketing[ix].limit,
+      where = " marketing_id = '" + this.cmbMarketing[ix].marketing_id + "' ",
+      // marketing_id
+      param = {
+        option_url: "/MK/MK_Customer",
+        line_no: 0,
+        user_id: this.getDataUser().user_id,
+        portfolio_id: this.getDataUser().portfolio_id,
+        subportfolio_id: this.getDataUser().subportfolio_id,
+        current_page: currentPage,
+        per_page: perPage,
+        param_where: this.search,
+        initial_where: where,
+        sort_field: '',
+        source_field: '',
+        param_view: ''
       };
 
-      this.CallFunction(param).then(response => {
-        this.$store.commit("setStatusLoader", false);
+      this.postJSON(this.getUrlList(), param).then(response => {
         if (response == null) return;
+        this.responses = response;
+        console.log(this.cmbMarketing, ix)
+        this.cmbMarketing[ix].items = [];
+        this.fieldHeader = [];
+        this.cmbMarketing[ix].items = this.responses.Data;
 
-        for (let i = 0; i < this.items.length; i++) {
-          (this.items[i].ftl =
-            response.Data[i] !== undefined
-              ? response.Data[i].ftl_amt && response.Data[i].ftl_amt !== ""
-                ? this.isCurrency(response.Data[i].ftl_amt, this.decimal)
-                : this.isCurrency(0, this.decimal)
-              : this.isCurrency(0, this.decimal)),
-            (this.items[i].ltl =
-              response.Data[i] !== undefined
-                ? response.Data[i].ltl_amt && response.Data[i].ltl_amt !== ""
-                  ? this.isCurrency(response.Data[i].ltl_amt, this.decimal)
-                  : this.isCurrency(0, this.decimal)
-                : this.isCurrency(0, this.decimal)),
-            (this.items[i].project =
-              response.Data[i] !== undefined
-                ? response.Data[i].project_amt &&
-                  response.Data[i].project_amt !== ""
-                  ? this.isCurrency(response.Data[i].project_amt, this.decimal)
-                  : this.isCurrency(0, this.decimal)
-                : this.isCurrency(0, this.decimal)),
-            (this.items[i].rental =
-              response.Data[i] !== undefined
-                ? response.Data[i].rental_amt &&
-                  response.Data[i].rental_amt !== ""
-                  ? this.isCurrency(response.Data[i].rental_amt, this.decimal)
-                  : this.isCurrency(0, this.decimal)
-                : this.isCurrency(0, this.decimal));
+        var str_array =
+          this.responses.DefineColumn && this.responses.DefineColumn !== ""
+            ? this.responses.DefineColumn.split(",")
+            : this.responses.AllColumn.split(",");
+        var x = ",L,S,S,L,S,S,S";
+        // var defineSize = this.responses.DefineSize.split(",");
+        var defineSize = x.split(",");
+
+        this.allColumn_bf = this.responses.AllColumn.split(",");
+        var index = this.allColumn_bf.indexOf("lastupdatestamp");
+        if (index > -1) {
+          this.allColumn_bf.splice(index, 1);
         }
+        var allColumn = [];
+        var filteredColumn = [];
+        var definedColumn = [];
+
+        this.allColumn_bf.forEach((val, idx) => {
+          var thClass = "HeaderACCList2";
+          var isSorted = this.sortedField.map(x => x.field).indexOf(val);
+          if (isSorted > -1) {
+            if (this.sortedField[isSorted].sort == "ASC") {
+              thClass = thClass + " AscSorted";
+            } else {
+              thClass = thClass + " DescSorted";
+            }
+          }
+
+          allColumn.push({
+            value: idx + 1,
+            key: val,
+            thClass: thClass,
+            tdClass: "ContentACCList2 notranslate",
+            text: val
+          });
+
+          filteredColumn.push({
+            value: idx + 1,
+            key: val,
+            thClass: thClass,
+            tdClass: "ContentACCList2 notranslate"
+          });
+        });
+
+        for (var i = 0; i < str_array.length; i++) {
+          filteredColumn = filteredColumn.filter(val => {
+            if (val.key == str_array[i]) {
+              definedColumn.push({
+                value: val.value,
+                key: val.key,
+                thClass: val.thClass,
+                tdClass: val.tdClass,
+                text: val.key
+              });
+            }
+
+            return val.key != str_array[i];
+          });
+
+          var thClass = "HeaderACCList2 ";
+          if (str_array[i] !== "no") {
+            thClass += defineSize[i];
+          }
+
+          var tdClass = "ContentACCList2 notranslate";
+          if (
+            str_array[i].toLowerCase().includes("amount") ||
+            str_array[i].toLowerCase().includes("amt") ||
+            str_array[i].toLowerCase().includes("rate") ||
+            str_array[i].toLowerCase().includes("price")
+          ) {
+            tdClass = "ABStdClassList2 notranslate";
+            thClass = "ABSthClassList2";
+          } else if (str_array[i].toLowerCase() == "target") {
+            thClass += " th-cus-center";
+            tdClass += " td-cus-center";
+          }
+
+          var isSorted = this.sortedField
+            .map(x => x.field)
+            .indexOf(str_array[i]);
+          if (isSorted > -1) {
+            if (this.sortedField[isSorted].sort == "ASC") {
+              thClass = thClass + " AscSorted";
+            } else {
+              thClass = thClass + " DescSorted";
+            }
+          }
+
+          if (this.languageStatus) {
+            this.fieldHeader.push({
+              value: i + 1,
+              key: str_array[i],
+              thClass: thClass,
+              tdClass: tdClass,
+              label: this.$t(str_array[i])
+            });
+          } else {
+            if (str_array[i] == "lastupdatestamp") continue;
+
+            var listReplace = [
+              {
+                key: "_",
+                value: " "
+              },
+              {
+                key: "Amt",
+                value: " Amount"
+              },
+              {
+                key: "Cd",
+                value: " Code"
+              },
+              {
+                key: "Descs",
+                value: " Description"
+              },
+              {
+                key: "Time Edit",
+                value: "Last Update"
+              },
+              {
+                key: "Batch Status",
+                value: "Status"
+              },
+              {
+                key: "garing",
+                value: "/"
+              },
+              {
+                key: "titik",
+                value: "."
+              },
+              {
+                key: "SnP",
+                value: "SnP "
+              },
+              {
+                key: "VO",
+                value: "VO "
+              },
+              {
+                key: "Row Id",
+                value: "View"
+              }
+            ];
+            var isGotIt = false;
+            var labelHeader = undefined;
+
+            if (str_array[i].includes("_")) {
+              labelHeader = str_array[i]
+                .toLowerCase()
+                .split("_")
+                .map(s => {
+                  return s.charAt(0).toUpperCase() + s.substring(1);
+                })
+                .join(" ");
+            } else {
+              // if (str_array[i] !== 'lastupdatestamp') {
+              labelHeader =
+                str_array[i].charAt(0).toUpperCase() +
+                str_array[i].substring(1);
+              // }
+            }
+
+            for (var data of listReplace) {
+              if (labelHeader == undefined) {
+                labelHeader = this.replaceAllString(
+                  str_array[i],
+                  data.key,
+                  data.value
+                );
+              } else {
+                if (labelHeader.includes(data.key)) {
+                  if (labelHeader == "Row Id" && !this.WithViewButton) continue;
+                  // if (labelHeader == 'Row Id' && !this.WithViewButton) {
+
+                  // }
+                  // else {
+                  labelHeader = this.replaceAllString(
+                    labelHeader,
+                    data.key,
+                    data.value
+                  );
+                  // }
+                }
+              }
+            }
+
+            if (labelHeader == "Row Id") continue;
+
+            this.fieldHeader.push({
+              value: i + 1,
+              key: str_array[i],
+              thClass: thClass,
+              tdClass: tdClass,
+              label: labelHeader
+            });
+          }
+        }
+
+        // this.availableColumn = filteredColumn;
+        // this.selectedColumn = definedColumn;
+
+        // this.availableColumnTemp = filteredColumn;
+        // this.selectedColumnTemp = definedColumn;
+        // this.totalRows = this.responses.Total;
+        this.cmbMarketing[ix].totalRows = this.responses.Total;
+        this.cmbMarketing[ix].lastPage = this.responses.Last_Page;
       });
     },
-    // getYear() {
-    //   var param = {
-    //     option_function_cd: "GetYearMarketingTarget",
-    //     module_cd: "MK",
-    //     user_id: this.getDataUser().user_id
-    //   };
-
-    //   this.CallFunction(param).then(response => {
-    //     if (response == null) return;
-    //     var data = response.Data;
-
-    //     this.filterAction =
-    //       this.paramFromList !== undefined
-    //         ? this.paramFromList.year
-    //         : data[0].years;
-
-    //     for (let i = 0; i < data.length; i++) {
-    //       this.cmbYear.push({ value: data[i].years, text: data[i].years });
-    //     }
-
-    //     this.doGetList2();
-    //   });
-    // },
     getMarketing() {
       var param = {
         option_function_cd: "GetMarketingTeam",
@@ -610,24 +789,22 @@ export default {
       this.CallFunction(param).then(response => {
         if (response == null) return;
         var data = response.Data;
-
-        // this.filterActionM =
-        //   this.paramFromList !== undefined
-        //     ? this.paramFromList.marketing_id
-        //     : data[0].marketing_id;
-
         for (let i = 0; i < data.length; i++) {
           this.cmbMarketing.push({
             marketing_id: data[i].marketing_id,
             marketing_name: data[i].marketing_name,
             items: [],
+            currentPage: 1,
+            lastPage: 1,
             totalRows: 0,
-            perPage: 5
+            perPage: 5,
+            limit: 2
           });
+
+          this.doGetList2(i);
         }
-        console.log(this.cmbMarketing);
-        this.doGetList("");
-        // this.getYear();
+        
+        // this.getList();
       });
     },
     doSave() {
@@ -698,10 +875,7 @@ export default {
     }
   },
   mounted() {
-    //   if (this.paramFromList !== undefined) {
-    this.getMarketing();
-    // this.doGetList("");
-    //   }
+    this.getMarketing()
   },
   created() {}
 };
