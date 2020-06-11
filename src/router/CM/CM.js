@@ -9,6 +9,7 @@ import CM_MarketingMaster_Team from '@/views/CM/CM_MarketingMaster/CM_MarketingM
 import CM_MarketingMaster_CustomerList from '@/views/CM/CM_MarketingMaster/CM_MarketingMaster_CustomerList'
 
 import CM_MarketingCustomerStatus from '@/views/CM/CM_MarketingCustomerStatus/CM_MarketingCustomerStatus'
+import CM_MarketingCustomerStatus_add from '@/views/CM/CM_MarketingCustomerStatus/CM_AddMarketingCustomerStatus'
 
 export const CMRender = {
     path: '/CM',
@@ -87,6 +88,14 @@ export const CMRender = {
             path: '/CM/CM_MarketingCustomerStatus',
             name: 'CM_MarketingCustomerStatus',
             component: CM_MarketingCustomerStatus,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/CM/CM_MarketingCustomerStatus/Add',
+            name: 'CM_MarketingCustomerStatus_Add',
+            component: CM_MarketingCustomerStatus_add,
             meta: {
                 requiresAuth: true
             }

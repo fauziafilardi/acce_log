@@ -181,10 +181,21 @@ export default {
     };
   },
   methods: {
+    onAddNewClick() {
+      // alert("asdf");
+      this.$router.push({ name: "CM_MarketingCustomerStatus_Add" });
+    },
     doBack() {
       this.$router.go(-1);
     },
-    rowClicked(record, index) {},
+    rowClicked(record, index) {
+      var param = record;
+
+      this.$router.push({
+        name: "CM_MarketingCustomerStatus_Add",
+        params: param
+      });
+    },
     doDoubleClick(record, index) {},
     viewClicked(record, index) {},
     rowLink(url) {},
