@@ -46,9 +46,9 @@
             </div>
           </div>
         </b-col>
-        <div v-for="(dataList,indexs) in cmbMarketing" v-bind:key="indexs">
+        <!-- <div> -->
           <!-- {{dataList}} -->
-          <b-col md="12">
+          <b-col md="12" v-for="(dataList,indexs) in cmbMarketing" v-bind:key="indexs">
             <div class="card">
               <div class="card__title" style="padding-bottom: 5px !important;">
                 <b-row>
@@ -88,9 +88,10 @@
                       <!-- <span>
                       <p style="background-color:tomato;">{{data.item.status}}</p>
                       </span>-->
-                      <span
+                      <!-- <span
                         :style="`color:white;background-color:`+data.item.customer_status_colour+`;`"
-                      >{{data.item.status}}</span>
+                      >{{data.item.status}}</span> -->
+                      <div class="badge-primary badgeStatus" :style="`background-color:`+data.item.customer_status_colour+` !important;`" >{{data.item.status}}</div>
                     </template>
                   </b-table>
                 </div>
@@ -144,7 +145,7 @@
               ></iframe>
             </div>
           </b-col>
-        </div>
+        <!-- </div> -->
       </b-row>
     </div>
   </div>
