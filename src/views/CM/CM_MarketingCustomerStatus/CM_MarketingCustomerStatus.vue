@@ -62,6 +62,7 @@
             <div class="card__body">
               <div class="table--list" :id="'marketingmaster_customerstatus'">
                 <b-table
+                  @rowClicked="rowClicked"
                   :responsive="true"
                   :striped="false"
                   :bordered="false"
