@@ -179,8 +179,11 @@
                     </template>
                     <template v-slot:cell(is_my_team)="data">
                         <b-form-checkbox
+                            :id="'cbTeam_'+data.index"
+                            :name="'cbTeam_'+data.index"
                             v-model="data.item.is_my_team"
-                            :value="data.item.is_my_team"
+                            :value="true"
+                            :unchecked-value="false"
                             style="min-height:15px !important;padding-top:0px !important;"
                         />
                     </template>
@@ -686,7 +689,7 @@ export default {
                         join_date: this.momentDateFormat(response.Data[i].join_date, 'YYYY-MM-DD'),
                         monthly_point: 0,
                         monthly_new_prospect: 0,
-                        is_my_team: response.Data[i].is_my_team
+                        is_my_team: false
                     })
                 }
             })
@@ -701,6 +704,7 @@ export default {
             for (let i = 0; i < this.items.length; i++) {
                 this.items[i].monthly_point = this.responses[i] !== undefined ? (this.responses[i].monthly_point && this.responses[i].monthly_point !== '' ? this.responses[i].monthly_point : 0) : 0
                 this.items[i].monthly_new_prospect = this.responses[i] !== undefined ? (this.responses[i].monthly_new_prospect && this.responses[i].monthly_new_prospect !== '' ? this.responses[i].monthly_new_prospect : 0) : 0
+                this.items[i].is_my_team = this.responses[i].is_my_team
             }
         })
 
