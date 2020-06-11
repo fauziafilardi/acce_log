@@ -46,14 +46,14 @@
             </div>
           </div>
         </b-col>
-        <div v-for="(data,indexs) in cmbMarketing" v-bind:key="indexs">
-          {{data}}
+        <div v-for="(dataList,indexs) in cmbMarketing" v-bind:key="indexs">
+          <!-- {{dataList}} -->
           <b-col md="12">
             <div class="card">
               <div class="card__title" style="padding-bottom: 5px !important;">
                 <b-row>
                   <b-col style="max-width:fit-content !important;">
-                    <span>{{data.text}}</span>
+                    <span>{{dataList.marketing_name}}</span>
                   </b-col>
                 </b-row>
               </div>
@@ -70,7 +70,7 @@
                     :fixed="false"
                     :foot-clone="false"
                     :fields="fieldHeader"
-                    :items="items"
+                    :items="dataList.items"
                     class="table-sm table-style-3"
                   >
                     <template v-slot:cell(row_id)="data">
@@ -114,21 +114,21 @@
                   >Page Size</label>
                   <b-form-select
                     id="cmbPerPage"
-                    v-model="perPage"
+                    v-model="dataList.perPage"
                     v-on:input="doGetList(search, 'pageSize')"
                     :options="pagingData"
                     class="sm-3 mgn-left-10 font-lbl page-size-left"
                     :disabled="isDisableTable"
                   ></b-form-select>
-                  of {{ this.totalRows }} Records
+                  of {{ dataList.totalRows }} Records
                 </b-form>
 
                 <b-pagination
                   align="right"
-                  v-model="currentPage"
+                  v-model="dataList.currentPage"
                   @input="doGetList(search, 'pagination')"
-                  :total-rows="totalRows"
-                  :per-page="perPage"
+                  :total-rows="dataList.totalRows"
+                  :per-page="dataList.perPage"
                   :limit="limit"
                   style="margin-bottom: 0px;"
                   :disabled="isDisableTable"
@@ -155,7 +155,7 @@ export default {
   data() {
     return {
       propList: {
-        initialWhere: "marketing_id='Mar1'",
+        initialWhere: "",
         LineNo: 0,
         PageLevel: 1,
         TabIndex: 1,
@@ -303,6 +303,16 @@ export default {
         this.responses = response;
 
         this.ExportToken = this.responses.ExportToken;
+        console.log(this.cmbMarketing.length);
+        for (let x = 0; x < this.cmbMarketing.length; x++) {
+          console.log(this.cmbMarketing[x].marketing_id);
+          var item = response.Data.filter(dt => {
+            return dt.marketing_id == this.cmbMarketing[x].marketing_id;
+          });
+          console.log(item);
+          this.cmbMarketing[x].items = item;
+          this.cmbMarketing[x].totalRows = item.length;
+        }
 
         if (this.responses.Data.length > 0) {
         }
@@ -608,11 +618,15 @@ export default {
 
         for (let i = 0; i < data.length; i++) {
           this.cmbMarketing.push({
-            value: data[i].marketing_id,
-            text: data[i].marketing_name
+            marketing_id: data[i].marketing_id,
+            marketing_name: data[i].marketing_name,
+            items: [],
+            totalRows: 0,
+            perPage: 5
           });
         }
-
+        console.log(this.cmbMarketing);
+        this.doGetList("");
         // this.getYear();
       });
     },
@@ -686,7 +700,7 @@ export default {
   mounted() {
     //   if (this.paramFromList !== undefined) {
     this.getMarketing();
-    this.doGetList("");
+    // this.doGetList("");
     //   }
   },
   created() {}
