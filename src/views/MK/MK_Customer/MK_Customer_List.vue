@@ -120,7 +120,7 @@
                     class="sm-3 mgn-left-10 font-lbl page-size-left"
                     :disabled="isDisableTable"
                   ></b-form-select>
-                  of {{ totalRows }} Records
+                  of {{ dataList.totalRows }} Records
                 </b-form>
 
                 <b-pagination
