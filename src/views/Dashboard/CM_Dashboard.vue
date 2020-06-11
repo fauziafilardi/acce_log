@@ -79,7 +79,7 @@ export default {
       this.$router.push({ name: "CM_MarketingMaster" });
     },
     onCustomerStatusClick() {
-      this.$router.push({ name: "CM_CustomerStatus" });
+      this.$router.push({ name: "CM_MarketingCustomerStatus" });
     }
   },
   mounted() {}
