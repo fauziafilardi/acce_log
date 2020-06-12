@@ -55,6 +55,8 @@ import MK_ViewOrder from '@/views/MK/MK_Order/MK_ViewOrder'
 import MK_ToDoList from '@/views/MK/MK_ToDoList/MK_ToDoList'
 import MK_EditToDoList from '@/views/MK/MK_ToDoList/MK_EditToDoList'
 
+import MK_DashboardTarget from '@/views/MK/MK_Dashboard/MK_DashboardTarget'
+
 export const MKRender = {
     path: '/MK',
     component: {
@@ -407,6 +409,15 @@ export const MKRender = {
         path: '/MK/MK_ToDoList/Edit',
         name: 'MK_EditToDoList',
         component: MK_EditToDoList,
+        meta: {
+            requiresAuth: true
+        }
+    },
+
+    {
+        path: '/MK/MK_DashboardTarget',
+        name: 'MK_DashboardTarget',
+        component: MK_DashboardTarget,
         meta: {
             requiresAuth: true
         }
