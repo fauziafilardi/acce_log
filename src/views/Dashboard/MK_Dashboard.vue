@@ -129,18 +129,18 @@
               <b-row class="row-dash-new-prospect-top">
                 <b-col>
                   <div class="buleth__blue">
-                    <span>{{ DataProspect.target && DataProspect.target !== '' ? DataProspect.target : 0 }}</span>
+                    <span>{{ DataProspect.target}}</span>
                   </div>
                   <div class="buleth-text" style="margin-top: 0px !important;">Target</div>
                 </b-col>
                 <b-col>
                   <div class="buleth__green">
-                    <span>{{ DataProspect.achievement && DataProspect.achievement !== '' ? DataProspect.achievement : 0 }}</span>
+                    <span>{{ DataProspect.achievement }}</span>
                   </div>
                   <div class="buleth-text" style="margin-top: 0px !important;">Achievement</div>
                 </b-col>
               </b-row>
-              <!-- <br /> -->
+
               <b-row class="row-dash-new-prospect-bottom">
                 <b-col>
                   <div class="prospect">
@@ -151,9 +151,7 @@
                           <span class="prospect__content">Target</span>
                         </b-col>
                         <b-col>
-                          <span
-                            class="prospect__content"
-                          >: {{ DataProspect.targetPoint && DataProspect.targetPoint !== '' ? DataProspect.targetPoint : 0 }} Point</span>
+                          <span class="prospect__content">: {{ DataProspect.targetPoint}} Point</span>
                         </b-col>
                       </b-row>
                       <b-row>
@@ -161,9 +159,7 @@
                           <span class="prospect__content">Achievement Point</span>
                         </b-col>
                         <b-col>
-                          <span
-                            class="prospect__content"
-                          >: {{ DataProspect.achievementPoint && DataProspect.achievementPoint !== '' ? DataProspect.achievementPoint : 0 }} Point</span>
+                          <span class="prospect__content">: {{ DataProspect.achievementPoint}} Point</span>
                         </b-col>
                       </b-row>
                     </div>
@@ -317,12 +313,18 @@
               >
                 <b-col style="max-width:fit-content !important;">
                   <div style="width:50px;">
-                    <div class="CalendarTagMonth">{{momentDateFormat2(data.next_action, 'YYYY-MM-DD HH:mm', 'MMM')}}</div>
-                    <div class="CalendarTagDate">{{momentDateFormat2(data.next_action, 'YYYY-MM-DD HH:mm', 'DD')}}</div>
+                    <div
+                      class="CalendarTagMonth"
+                    >{{momentDateFormat2(data.next_action, 'YYYY-MM-DD HH:mm', 'MMM')}}</div>
+                    <div
+                      class="CalendarTagDate"
+                    >{{momentDateFormat2(data.next_action, 'YYYY-MM-DD HH:mm', 'DD')}}</div>
                   </div>
                 </b-col>
                 <b-col style="margin: auto;">
-                  <span class="AppointmentTitle">{{momentDateFormat2(data.next_action, 'YYYY-MM-DD HH:mm', 'HH:mm')}}</span>
+                  <span
+                    class="AppointmentTitle"
+                  >{{momentDateFormat2(data.next_action, 'YYYY-MM-DD HH:mm', 'HH:mm')}}</span>
                   <br />
                   <span class="AppointmentDescs">{{data.customer_name}}</span>
                 </b-col>
@@ -1097,41 +1099,14 @@ export default {
           }
         ]
       },
-      Prospect: [
-        {
-          month: "2",
-          year: "2020",
-          target: 10,
-          achievement: 3,
-          targetPoint: 800,
-          achievementPoint: 577
-        },
-        {
-          month: "3",
-          year: "2020",
-          target: 10,
-          achievement: 7,
-          targetPoint: 1056,
-          achievementPoint: 788
-        },
-        {
-          month: "4",
-          year: "2020",
-          target: 10,
-          achievement: 9,
-          targetPoint: 2010,
-          achievementPoint: 900
-        }
-      ],
-
       DataProspect: {
         month: "",
         monthName: "",
         year: "",
-        target: "",
-        achievement: "",
-        targetPoint: "",
-        achievementPoint: ""
+        target: 0,
+        achievement: 0,
+        targetPoint: 0,
+        achievementPoint: 0
       }
     };
   },
@@ -1380,25 +1355,56 @@ export default {
       var now = date ? new Date(date) : new Date();
       var month = now.getMonth();
       var year = now.getFullYear();
-      var datas = this.Prospect.filter(x => {
-        return (
-          x.month.toString() === (month + 1).toString() &&
-          x.year.toString() === year.toString()
-        );
-      });
-      console.log(datas);
 
       this.DataProspect = {
         month: month + 1,
         monthName: this.getMonthName(now),
         year: year,
-        target: datas.length > 0 ? datas[0].target : 0,
-        achievement: datas.length > 0 ? datas[0].achievement : 0,
-        targetPoint: datas.length > 0 ? datas[0].targetPoint : 0,
-        achievementPoint: datas.length > 0 ? datas[0].achievementPoint : 0
+        target: 0,
+        achievement: 0,
+        targetPoint: 0,
+        achievementPoint: 0
       };
 
-      console.log(this.DataProspect);
+      var param = {
+        option_function_cd: "GetNewProspectDash",
+        module_cd: "MK",
+        ss_portfolio_id: this.getDataUser().portfolio_id,
+        user_id: this.getDataUser().user_id,
+        years: year,
+        months: month + 1
+      };
+      this.CallFunction(param).then(ress => {
+        if (ress == null) return;
+
+        if (ress.Data.length > 0) {
+          var data = ress.Data[0];
+
+          this.DataProspect = {
+            month: month + 1,
+            monthName: this.getMonthName(now),
+            year: year,
+            target: data.target_prospect,
+            achievement: data.achievement_prospect,
+            targetPoint: data.monthly_point_target,
+            achievementPoint: data.monthly_point_achievement
+          };
+        } else {
+          this.DataProspect = {
+            month: month + 1,
+            monthName: this.getMonthName(now),
+            year: year,
+            target: 0,
+            achievement: 0,
+            targetPoint: 0,
+            achievementPoint: 0
+          };
+        }
+      });
+
+      // console.log(datas);
+
+      // console.log(this.DataProspect);
     },
     changeProspect(act) {
       var date = new Date();

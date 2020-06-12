@@ -184,6 +184,7 @@ export default {
   methods: {
     onAddNewClick() {
       // alert("asdf");
+
       this.$router.push({ name: "CM_MarketingCustomerStatus_Add" });
     },
     doBack() {
@@ -191,7 +192,7 @@ export default {
     },
     rowClicked(record, index) {
       var param = record;
-
+      param.isEdit = true;
       this.$router.push({
         name: "CM_MarketingCustomerStatus_Add",
         params: param
@@ -388,6 +389,10 @@ export default {
               {
                 key: "Customer Status Colour",
                 value: " "
+              },
+              {
+                key: "Customer Status Cd",
+                value: "Status Code"
               }
             ];
             var isGotIt = false;

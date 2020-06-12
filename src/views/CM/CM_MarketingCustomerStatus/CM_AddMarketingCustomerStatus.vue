@@ -149,7 +149,9 @@
                         <span>
                           <label>Select Color</label>
                         </span>
-                        <swatches-picker v-model="M_MarketingCustomerStatus.customer_status_colour" />
+                        <swatches-picker
+                          v-model="M_MarketingCustomerStatus.customer_status_colour"
+                        />
                       </b-col>
                     </b-row>
                     <b-row style="margin-top: 10px;">
@@ -284,7 +286,7 @@ export default {
       M_MarketingCustomerStatus: {
         descs: "",
         customer_status_cd: "",
-        customer_status_colour: { hex: '#1A237E' },
+        customer_status_colour: { hex: "#1A237E" },
         call_qty: "",
         call_month: "",
         visit_qty: 0,
@@ -326,7 +328,7 @@ export default {
       this.M_MarketingCustomerStatus = {
         descs: "",
         customer_status_cd: "",
-        customer_status_colour: { hex: '#1A237E' },
+        customer_status_colour: { hex: "#1A237E" },
         call_qty: "",
         call_month: "",
         visit_qty: 0,
@@ -400,12 +402,12 @@ export default {
           descs: data.descs,
           customer_status_cd: data.customer_status_cd,
           customer_status_colour: { hex: data.customer_status_colour },
-          call_qty: data.call_qty,
-          call_month: data.call_month,
-          visit_month: data.visit_month,
-          visit_qty: data.visit_qty,
-          entertain_month: data.entertain_month,
-          entertain_qty: data.entertain_qty
+          call_qty: data.freq_call,
+          call_month: data.month_call,
+          visit_month: data.month_visit,
+          visit_qty: data.freq_visit,
+          entertain_month: data.month_entertain,
+          entertain_qty: data.freq_entertain
         };
         // this.$nextTick(() => {
       });
@@ -416,6 +418,7 @@ export default {
         line_no: 0,
         ss_portfolio_id: this.getDataUser().portfolio_id,
         descs: this.M_MarketingCustomerStatus.descs,
+        cm_customer_status_id: this.paramFromList.cm_customer_status_id,
         customer_status_cd: this.M_MarketingCustomerStatus.customer_status_cd,
         customer_status_colour:
           this.M_MarketingCustomerStatus.customer_status_colour.hex == null
