@@ -67,7 +67,9 @@
                             class="ChartLegend-Content"
                             style="max-width:fit-content !important;"
                           >
-                            <span style="color: #666666;">{{ M_Target.target + " " + M_Target.satuan }}</span>
+                            <span
+                              style="color: #666666;"
+                            >{{ M_Target.target + " " + M_Target.satuan }}</span>
                           </b-col>
                         </b-row>
                         <b-row>
@@ -81,12 +83,16 @@
                             class="ChartLegend-Content"
                             style="max-width:fit-content !important;"
                           >
-                            <span style="color: #666666;">{{ M_Target.achievement + " " + M_Target.satuan }}</span>
+                            <span
+                              style="color: #666666;"
+                            >{{ M_Target.achievement + " " + M_Target.satuan }}</span>
                           </b-col>
                         </b-row>
                       </b-col>
                       <b-col md="8" style="max-width:fit-content !important;">
-                        <span style="font-size: 25px; font-weight: bold; color: #666666;">({{ M_Target.avg }} %)</span>
+                        <span
+                          style="font-size: 25px; font-weight: bold; color: #666666;"
+                        >({{ M_Target.avg }} %)</span>
                       </b-col>
                     </b-row>
                   </span>
@@ -1125,13 +1131,13 @@ export default {
         targetPoint: 0,
         achievementPoint: 0
       },
-      
+
       M_Target: {
         target: 0,
         achievement: 0,
         avg: 0,
-        satuan: 'M'
-      },
+        satuan: "M"
+      }
     };
   },
   computed: {},
@@ -1150,7 +1156,7 @@ export default {
       this.$router.push({ name: url, params: param });
     },
     doViewAllProspect() {
-      var url = "MK_NewProspect";
+      var url = "MK_DashboardProspect";
       if (!url || url == "" || url == undefined) return;
       var param = {
         // option_url: this.getOptionUrl(),
@@ -1252,27 +1258,27 @@ export default {
       this.CallFunction(param).then(response => {
         if (response == null) return;
         var data = response.Data,
-        tg = [],
-        ac = [];
+          tg = [],
+          ac = [];
 
         for (let i = 0; i < data.length; i++) {
-          tg.push(Math.round(data[i].display_target_amt))
-          ac.push(Math.round(data[i].display_achievement_amt))
+          tg.push(Math.round(data[i].display_target_amt));
+          ac.push(Math.round(data[i].display_achievement_amt));
         }
 
         var max = Math.max.apply(null, tg),
-        sumtg = tg.reduce(function(a, b){
-          return a + b;
-        }, 0),
-        sumac = ac.reduce(function(a, b){
-          return a + b;
-        }, 0);
+          sumtg = tg.reduce(function(a, b) {
+            return a + b;
+          }, 0),
+          sumac = ac.reduce(function(a, b) {
+            return a + b;
+          }, 0);
 
-        this.M_Target.satuan = data[0].display_satuan
-        this.M_Target.target = Math.round(sumtg)
-        this.M_Target.achievement = Math.round(sumac)
-        this.M_Target.avg = Math.round((sumac/sumtg) * 100)
-        
+        this.M_Target.satuan = data[0].display_satuan;
+        this.M_Target.target = Math.round(sumtg);
+        this.M_Target.achievement = Math.round(sumac);
+        this.M_Target.avg = Math.round((sumac / sumtg) * 100);
+
         var valuedata2 = [
           {
             label: "Target",
@@ -1351,8 +1357,8 @@ export default {
                   ticks: {
                     display: true,
                     min: 0,
-                    stepSize: Math.round((max+20)/4),
-                    max: (max+20),
+                    stepSize: Math.round((max + 20) / 4),
+                    max: max + 20,
                     callback: function(value, index, values) {
                       return value + data[0].display_satuan;
                     }
