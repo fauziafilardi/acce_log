@@ -9,7 +9,7 @@
                 <b-col style="max-width:fit-content !important;">
                   <span>Target</span>
                 </b-col>
-                <b-col md="3" class="col-right">
+                <b-col class="col-right">
                   <span>
                     <ABSButton
                       :text="'Back'"
@@ -146,13 +146,20 @@ export default {
                     marketing_name: data[i].marketing_name
                 });
 
-                this.renderChart(i);
+                this.M_Target.push({
+                    satuan: '',
+                    target: '',
+                    achievement: '',
+                    avg: ''
+                });
             }
+
+            this.renderChart();
         });
     },
-    renderChart(ix) {
+    renderChart() {
         var param = {
-            option_function_cd: "GetMarketingTargetDash",
+            option_function_cd: "GetMarketingTargetDashDt",
             module_cd: "MK",
             user_id: this.getDataUser().user_id,
             ss_portfolio_id: this.getDataUser().portfolio_id
@@ -160,164 +167,176 @@ export default {
 
         this.CallFunction(param).then(response => {
             if (response == null) return;
-            var data = response.Data,
-            tg = [],
-            ac = [];
 
-            for (let i = 0; i < data.length; i++) {
-                tg.push(Math.round(data[i].display_target_amt))
-                ac.push(Math.round(data[i].display_achievement_amt))
-            }
+            for (let i = 0; i < this.M_Marketing.length; i++) {
+                var dt = response.Data, is = this,
+                data = dt.filter(x => {
+                    return x.marketing_id == is.M_Marketing[i].marketing_id
+                }),
+                isMonth = (new Date()).getMonth(),
+                tg = [],
+                tg2 = [],
+                ac = [],
+                ac2 = [];
 
-            var max = Math.max.apply(null, tg),
-                sumtg = tg.reduce(function(a, b){
-                return a + b;
-            }, 0),
-                sumac = ac.reduce(function(a, b){
-                return a + b;
-            }, 0);
-
-            this.M_Target.push({
-                satuan: data[0].display_satuan,
-                target: Math.round(sumtg),
-                achievement: Math.round(sumac),
-                avg: Math.round((sumac/sumtg) * 100),
-            })
-            
-            var valuedata2 = [
-            {
-                label: "Target",
-                backgroundColor: "#333399",
-                data: tg
-            },
-            {
-                label: "Achievement",
-                backgroundColor: "#00cc33",
-                data: ac
-            }
-            ];
-
-            var valuelabel = [
-            "Jan",
-            "Feb",
-            "Mar",
-            "Apr",
-            "May",
-            "Jun",
-            "Jul",
-            "Aug",
-            "Sep",
-            "Oct",
-            "Nov",
-            "Dec"
-            ];
-
-            var ctx = document.getElementById("bar-chart"+ix).getContext("2d");
-
-            // Chart.plugins.unregister(ChartDataLabels)
-            Chart.helpers.merge(Chart.defaults.global.plugins.datalabels, {
-            color: "black"
-            });
-
-            var myBarChart = new Chart(ctx, {
-            type: "bar",
-            data: {
-                labels: valuelabel,
-                // datasets: [
-                //   {
-                //     label: "Population (millions)",
-                //     backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
-                //     data: valuedata
-                //   }
-                // ]
-                datasets: valuedata2
-            },
-            options: {
-                // barValueSpacing: 20,
-                maintainAspectRatio: false,
-                legend: { display: false },
-                title: {
-                display: false,
-                text: "Predicted world population (millions) in 2050"
-                },
-                scales: {
-                xAxes: [
-                    {
-                    gridLines: {
-                        // display:false
-                        // offsetGridLines : true
+                for (let i = 0; i < data.length; i++) {
+                    if (i <= isMonth) {
+                        tg2.push(Math.round(data[i].display_target_amt))
+                        ac2.push(Math.round(data[i].display_achievement_amt))
                     }
-                    }
-                ],
-                yAxes: [
+                    tg.push(Math.round(data[i].display_target_amt))
+                    ac.push(Math.round(data[i].display_achievement_amt))
+                }
+
+                var max = Math.max.apply(null, tg),
+                    sumtg = tg2.reduce(function(a, b){
+                    return a + b;
+                }, 0),
+                    sumac = ac2.reduce(function(a, b){
+                    return a + b;
+                }, 0);
+
+                this.M_Target[i].satuan = data[0].display_satuan;
+                this.M_Target[i].target = Math.round(sumtg).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                this.M_Target[i].achievement = Math.round(sumac).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                this.M_Target[i].avg = Math.round((sumac/sumtg) * 100);
+                
+                var valuedata2 = [
                     {
-                    scaleLabel: {
-                        // display: true,
-                        // labelString: 'cek'
+                        label: "Target",
+                        backgroundColor: "#333399",
+                        data: tg
                     },
-                    gridLines: {
-                        // display:false,
-                        // drawBorder: false
+                    {
+                        label: "Achievement",
+                        backgroundColor: "#00cc33",
+                        data: ac
+                    }
+                ];
+
+                var valuelabel = [
+                    "Jan",
+                    "Feb",
+                    "Mar",
+                    "Apr",
+                    "May",
+                    "Jun",
+                    "Jul",
+                    "Aug",
+                    "Sep",
+                    "Oct",
+                    "Nov",
+                    "Dec"
+                ];
+
+                var ctx = document.getElementById("bar-chart"+i).getContext("2d");
+
+                // Chart.plugins.unregister(ChartDataLabels)
+                Chart.helpers.merge(Chart.defaults.global.plugins.datalabels, {
+                    color: "black"
+                });
+
+                var myBarChart = new Chart(ctx, {
+                    type: "bar",
+                    data: {
+                        labels: valuelabel,
+                        // datasets: [
+                        //   {
+                        //     label: "Population (millions)",
+                        //     backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+                        //     data: valuedata
+                        //   }
+                        // ]
+                        datasets: valuedata2
                     },
-                    ticks: {
-                        display: true,
-                        min: 0,
-                        stepSize: Math.round((max+20)/4),
-                        max: (max+20),
-                        callback: function(value, index, values) {
-                        return value + data[0].display_satuan;
+                    options: {
+                        // barValueSpacing: 20,
+                        maintainAspectRatio: false,
+                        legend: { display: false },
+                        title: {
+                            display: false,
+                            text: "Predicted world population (millions) in 2050"
+                        },
+                        scales: {
+                            xAxes: [
+                                {
+                                    gridLines: {
+                                        // display:false
+                                        // offsetGridLines : true
+                                    }
+                                }
+                            ],
+                            yAxes: [
+                                {
+                                    scaleLabel: {
+                                        // display: true,
+                                        // labelString: 'cek'
+                                    },
+                                    gridLines: {
+                                        // display:false,
+                                        // drawBorder: false
+                                    },
+                                    ticks: {
+                                        display: true,
+                                        min: 0,
+                                        stepSize: Math.round((max+20)/4),
+                                        max: (max+20),
+                                        callback: function(value, index, values) {
+                                            return value + data[0].display_satuan;
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        animation: {
+                            duration: 1,
+                            onProgress: function(x) {
+                                // console.log(x)
+                                var chartInstance = x.chartInstance;
+                                var ctx = chartInstance.ctx;
+                                var dete = chartInstance.data;
+
+                                ctx.font = Chart.helpers.fontString(
+                                    Chart.defaults.global.defaultFontSize,
+                                    Chart.defaults.global.defaultFontStyle,
+                                    Chart.defaults.global.defaultFontFamily
+                                );
+                                ctx.textAlign = "center";
+                                ctx.textBaseline = "bottom";
+
+                                dete.datasets.forEach(function(dataset, i) {
+                                    var meta = chartInstance.controller.getDatasetMeta(i);
+                                    meta.data.forEach(function(bar, index) {
+                                        var data = dataset.data[index];
+                                        ctx.fillText(data, bar._model.x, bar._model.y - 5);
+                                    });
+                                });
+                            }
+                        },
+                        plugins: {
+                            datalabels: {
+                                color: "black"
+                                // display: function(context) {
+                                //   console.log("Algo: "+context);
+                                //   return context.dataset.data[context.dataIndex] > 15;
+                                // },
+                                // font: {
+                                //   weight: 'bold'
+                                // },
+                                // formatter: function(value, context) {
+                                //   return context.dataIndex + ': ' + Math.round(value*100) + '%';
+                                // }
+                            }
                         }
                     }
-                    }
-                ]
-                },
-                animation: {
-                duration: 1,
-                onProgress: function(x) {
-                    // console.log(x)
-                    var chartInstance = x.chartInstance;
-                    var ctx = chartInstance.ctx;
-                    var dete = chartInstance.data;
+                });
 
-                    ctx.font = Chart.helpers.fontString(
-                    Chart.defaults.global.defaultFontSize,
-                    Chart.defaults.global.defaultFontStyle,
-                    Chart.defaults.global.defaultFontFamily
-                    );
-                    ctx.textAlign = "center";
-                    ctx.textBaseline = "bottom";
-
-                    dete.datasets.forEach(function(dataset, i) {
-                    var meta = chartInstance.controller.getDatasetMeta(i);
-                    meta.data.forEach(function(bar, index) {
-                        var data = dataset.data[index];
-                        ctx.fillText(data, bar._model.x, bar._model.y - 5);
-                    });
-                    });
-                }
-                },
-                plugins: {
-                datalabels: {
-                    color: "black"
-                    // display: function(context) {
-                    //   console.log("Algo: "+context);
-                    //   return context.dataset.data[context.dataIndex] > 15;
-                    // },
-                    // font: {
-                    //   weight: 'bold'
-                    // },
-                    // formatter: function(value, context) {
-                    //   return context.dataIndex + ': ' + Math.round(value*100) + '%';
-                    // }
-                }
-                }
+                myBarChart.update();
+                this.$forceUpdate();
             }
-            });
-
-            myBarChart.update();
-            this.$forceUpdate();
+            
         });
-        },
+    },
   },
   mounted() {
     this.getMarketing();
