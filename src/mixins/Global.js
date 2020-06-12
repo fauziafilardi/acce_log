@@ -26,7 +26,7 @@ export default {
       // if (from === 'a') console.log('before1', num)
       if (num === null || num === undefined || !num || num === '') {
         num = 0
-        return parseFloat(num).toFixed(decimal)
+        return parseFloat(num.toFixed(decimal))
       }
       if (decimal === null || decimal === undefined || !decimal || decimal === '') {
         decimal = this.decimal
@@ -34,7 +34,7 @@ export default {
       var num1 = this.replaceAllString(num.toString(), ',', '', 'number')
       var numSplit = null
       if (num1.toString().indexOf('.') > -1) {
-        num1 = parseFloat(num1).toFixed(decimal)
+        num1 = parseFloat(num1.toFixed(decimal))
         numSplit = num1.toString().split('.')
         // if (from === 'a') console.log('isnum', num1)
         
