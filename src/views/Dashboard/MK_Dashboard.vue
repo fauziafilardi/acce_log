@@ -4,7 +4,24 @@
       <b-row class="dashboardBody">
         <b-col md="7">
           <div class="card">
-            <div class="card__title">Target</div>
+            <div class="card__title">
+              <b-row>
+                <b-col style="max-width:fit-content !important;">
+                  <span>Target</span>
+                </b-col>
+                <b-col style="text-align: right;">
+                  <span>
+                    <ABSButton
+                      :text="'View All'"
+                      classButton="button button--back2"
+                      classIcon="icon-style-1"
+                      :disabled="false"
+                      @click="doViewAllTarget"
+                    />
+                  </span>
+                </b-col>
+              </b-row>
+            </div>
             <div class="card__body">
               <b-row>
                 <b-col>
@@ -39,7 +56,7 @@
                         </b-row>
                       </b-col>
                       <b-col style="max-width: fit-content !important;">
-                        <b-row style="width: 74px">
+                        <b-row>
                           <b-col style="max-width:fit-content !important;">
                             <div
                               class="ChartLegend-Content"
@@ -50,10 +67,10 @@
                             class="ChartLegend-Content"
                             style="max-width:fit-content !important;"
                           >
-                            <span style="color: #666666;">53.4 M</span>
+                            <span style="color: #666666;">{{ M_Target.target + " " + M_Target.satuan }}</span>
                           </b-col>
                         </b-row>
-                        <b-row style="width: 74px">
+                        <b-row>
                           <b-col style="max-width:fit-content !important;">
                             <div
                               class="ChartLegend-Content"
@@ -64,12 +81,12 @@
                             class="ChartLegend-Content"
                             style="max-width:fit-content !important;"
                           >
-                            <span style="color: #666666;">47.5 M</span>
+                            <span style="color: #666666;">{{ M_Target.achievement + " " + M_Target.satuan }}</span>
                           </b-col>
                         </b-row>
                       </b-col>
                       <b-col md="8" style="max-width:fit-content !important;">
-                        <span style="font-size: 25px; font-weight: bold; color: #666666;">(98.5 %)</span>
+                        <span style="font-size: 25px; font-weight: bold; color: #666666;">({{ M_Target.avg }} %)</span>
                       </b-col>
                     </b-row>
                   </span>
@@ -1107,11 +1124,21 @@ export default {
         achievement: 0,
         targetPoint: 0,
         achievementPoint: 0
-      }
+      },
+      
+      M_Target: {
+        target: 0,
+        achievement: 0,
+        avg: 0,
+        satuan: 'M'
+      },
     };
   },
   computed: {},
   methods: {
+    doViewAllTarget() {
+      this.$router.push({ name: "MK_DashboardTarget" });
+    },
     doAddNewProspect() {
       var url = "MK_AddNewProspect";
       if (!url || url == "" || url == undefined) return;
@@ -1172,9 +1199,7 @@ export default {
       };
 
       this.postJSON(this.getUrlList(), param).then(response => {
-        console.log(response);
         this.Appointment = response.Data;
-        // console.log(this.Order.Data);
       });
     },
     getListOrder() {
@@ -1195,7 +1220,6 @@ export default {
 
       this.postJSON(this.getUrlList(), param).then(response => {
         this.Order.Data = response.Data;
-        // console.log(this.Order.Data);
       });
     },
     getListQuotation() {
@@ -1215,141 +1239,171 @@ export default {
       };
       this.postJSON(this.getUrlList(), param).then(response => {
         this.Quotation.Data = response.Data;
-        console.log(this.Quotation.Data);
       });
     },
     renderChart() {
-      var valuedata = [2478, 5267, 734, 784, 433];
-      var valuedata2 = [
-        {
-          label: "Target",
-          backgroundColor: "#333399",
-          data: [3.7, 3.7, 3.7, 4.2, 4.2, 4.2, 4.7, 4.7, 4.7, 5.2, 5.2, 5.2]
-        },
-        {
-          label: "Achievement",
-          backgroundColor: "#00cc33",
-          data: [2.9, 3.9, 3.2, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      var param = {
+        option_function_cd: "GetMarketingTargetDash",
+        module_cd: "MK",
+        user_id: this.getDataUser().user_id,
+        ss_portfolio_id: this.getDataUser().portfolio_id
+      };
+
+      this.CallFunction(param).then(response => {
+        if (response == null) return;
+        var data = response.Data,
+        tg = [],
+        ac = [];
+
+        for (let i = 0; i < data.length; i++) {
+          tg.push(Math.round(data[i].display_target_amt))
+          ac.push(Math.round(data[i].display_achievement_amt))
         }
-      ];
-      var valuelabel = [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec"
-      ];
 
-      var ctx = document.getElementById("bar-chart").getContext("2d");
+        var max = Math.max.apply(null, tg),
+        sumtg = tg.reduce(function(a, b){
+          return a + b;
+        }, 0),
+        sumac = ac.reduce(function(a, b){
+          return a + b;
+        }, 0);
 
-      // Chart.plugins.unregister(ChartDataLabels)
-      Chart.helpers.merge(Chart.defaults.global.plugins.datalabels, {
-        color: "black"
-      });
-
-      var myBarChart = new Chart(ctx, {
-        type: "bar",
-        data: {
-          labels: valuelabel,
-          // datasets: [
-          //   {
-          //     label: "Population (millions)",
-          //     backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
-          //     data: valuedata
-          //   }
-          // ]
-          datasets: valuedata2
-        },
-        options: {
-          // barValueSpacing: 20,
-          maintainAspectRatio: false,
-          legend: { display: false },
-          title: {
-            display: false,
-            text: "Predicted world population (millions) in 2050"
+        this.M_Target.satuan = data[0].display_satuan
+        this.M_Target.target = Math.round(sumtg)
+        this.M_Target.achievement = Math.round(sumac)
+        this.M_Target.avg = Math.round((sumac/sumtg) * 100)
+        
+        var valuedata2 = [
+          {
+            label: "Target",
+            backgroundColor: "#333399",
+            data: tg
           },
-          scales: {
-            xAxes: [
-              {
-                gridLines: {
-                  // display:false
-                  // offsetGridLines : true
-                }
-              }
-            ],
-            yAxes: [
-              {
-                scaleLabel: {
-                  // display: true,
-                  // labelString: 'cek'
-                },
-                gridLines: {
-                  // display:false,
-                  // drawBorder: false
-                },
-                ticks: {
-                  display: true,
-                  min: 0,
-                  stepSize: 1.25,
-                  max: 6,
-                  callback: function(value, index, values) {
-                    return value + " M";
+          {
+            label: "Achievement",
+            backgroundColor: "#00cc33",
+            data: ac
+          }
+        ];
+
+        var valuelabel = [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec"
+        ];
+
+        var ctx = document.getElementById("bar-chart").getContext("2d");
+
+        // Chart.plugins.unregister(ChartDataLabels)
+        Chart.helpers.merge(Chart.defaults.global.plugins.datalabels, {
+          color: "black"
+        });
+
+        var myBarChart = new Chart(ctx, {
+          type: "bar",
+          data: {
+            labels: valuelabel,
+            // datasets: [
+            //   {
+            //     label: "Population (millions)",
+            //     backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+            //     data: valuedata
+            //   }
+            // ]
+            datasets: valuedata2
+          },
+          options: {
+            // barValueSpacing: 20,
+            maintainAspectRatio: false,
+            legend: { display: false },
+            title: {
+              display: false,
+              text: "Predicted world population (millions) in 2050"
+            },
+            scales: {
+              xAxes: [
+                {
+                  gridLines: {
+                    // display:false
+                    // offsetGridLines : true
                   }
                 }
-              }
-            ]
-          },
-          animation: {
-            duration: 1,
-            onProgress: function(x) {
-              // console.log(x)
-              var chartInstance = x.chartInstance;
-              var ctx = chartInstance.ctx;
-              var dete = chartInstance.data;
+              ],
+              yAxes: [
+                {
+                  scaleLabel: {
+                    // display: true,
+                    // labelString: 'cek'
+                  },
+                  gridLines: {
+                    // display:false,
+                    // drawBorder: false
+                  },
+                  ticks: {
+                    display: true,
+                    min: 0,
+                    stepSize: Math.round((max+20)/4),
+                    max: (max+20),
+                    callback: function(value, index, values) {
+                      return value + data[0].display_satuan;
+                    }
+                  }
+                }
+              ]
+            },
+            animation: {
+              duration: 1,
+              onProgress: function(x) {
+                var chartInstance = x.chartInstance;
+                var ctx = chartInstance.ctx;
+                var dete = chartInstance.data;
 
-              ctx.font = Chart.helpers.fontString(
-                Chart.defaults.global.defaultFontSize,
-                Chart.defaults.global.defaultFontStyle,
-                Chart.defaults.global.defaultFontFamily
-              );
-              ctx.textAlign = "center";
-              ctx.textBaseline = "bottom";
+                ctx.font = Chart.helpers.fontString(
+                  Chart.defaults.global.defaultFontSize,
+                  Chart.defaults.global.defaultFontStyle,
+                  Chart.defaults.global.defaultFontFamily
+                );
+                ctx.textAlign = "center";
+                ctx.textBaseline = "bottom";
 
-              dete.datasets.forEach(function(dataset, i) {
-                var meta = chartInstance.controller.getDatasetMeta(i);
-                meta.data.forEach(function(bar, index) {
-                  var data = dataset.data[index];
-                  ctx.fillText(data, bar._model.x, bar._model.y - 5);
+                dete.datasets.forEach(function(dataset, i) {
+                  var meta = chartInstance.controller.getDatasetMeta(i);
+                  meta.data.forEach(function(bar, index) {
+                    var data = dataset.data[index];
+                    ctx.fillText(data, bar._model.x, bar._model.y - 5);
+                  });
                 });
-              });
-            }
-          },
-          plugins: {
-            datalabels: {
-              color: "black"
-              // display: function(context) {
-              //   console.log("Algo: "+context);
-              //   return context.dataset.data[context.dataIndex] > 15;
-              // },
-              // font: {
-              //   weight: 'bold'
-              // },
-              // formatter: function(value, context) {
-              //   return context.dataIndex + ': ' + Math.round(value*100) + '%';
-              // }
+              }
+            },
+            plugins: {
+              datalabels: {
+                color: "black"
+                // display: function(context) {
+                //   return context.dataset.data[context.dataIndex] > 15;
+                // },
+                // font: {
+                //   weight: 'bold'
+                // },
+                // formatter: function(value, context) {
+                //   return context.dataIndex + ': ' + Math.round(value*100) + '%';
+                // }
+              }
             }
           }
-        }
-      });
+        });
 
-      myBarChart.update();
+        myBarChart.update();
+        this.$forceUpdate();
+      });
     },
     getProspect(date = null) {
       var now = date ? new Date(date) : new Date();
@@ -1401,10 +1455,6 @@ export default {
           };
         }
       });
-
-      // console.log(datas);
-
-      // console.log(this.DataProspect);
     },
     changeProspect(act) {
       var date = new Date();
@@ -1431,7 +1481,6 @@ export default {
         // date = this.momentDateFormatting(date, frm)
       }
 
-      console.log(date);
       this.getProspect(date);
     }
   },
