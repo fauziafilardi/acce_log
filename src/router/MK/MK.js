@@ -56,6 +56,7 @@ import MK_ToDoList from '@/views/MK/MK_ToDoList/MK_ToDoList'
 import MK_EditToDoList from '@/views/MK/MK_ToDoList/MK_EditToDoList'
 
 import MK_DashboardTarget from '@/views/MK/MK_Dashboard/MK_DashboardTarget'
+import MK_DashboardProspect from '@/views/MK/MK_Dashboard/MK_DashboardProspect'
 
 export const MKRender = {
     path: '/MK',
@@ -422,5 +423,13 @@ export const MKRender = {
             requiresAuth: true
         }
     },
+    {
+        path: '/MK/MK_DashboardProspect',
+        name: 'MK_DashboardProspect',
+        component: MK_DashboardProspect,
+        meta: {
+            requiresAuth: true
+        }
+    },//
     ]
 }
