@@ -7,7 +7,7 @@
             <div class="card__title" style="padding-bottom: 5px !important;">
               <b-row>
                 <b-col style="max-width:fit-content !important;">
-                  <span>To Do List</span>
+                  <span>To Do List new</span>
                 </b-col>
                 <b-col style="text-align: right;">
                   <b-badge variant="primary" @click="doProspect" style="cursor: pointer;">&nbsp;</b-badge>
@@ -86,7 +86,7 @@
                   :responsive="true"
                   :striped="false"
                   :bordered="true"
-                  :outlined="false"
+                  :outlined="true"
                   :small="false"
                   :hover="true"
                   :dark="false"
@@ -108,41 +108,34 @@
                   </template>
 
                   <template v-slot:cell(customer_name)="data">
-                    <div v-if="data.item.status == 'N'">
-                      <span>
-                        <b-badge
-                          style="width: 75px; padding: 6px !important; border-radius: 4px !important; font-weight: normal !important;"
-                          variant="success"
-                        >New</b-badge>
-                      </span>
-                      <!-- <span class="badge-success badgeStatus">New</span> -->
-                      {{data.item.customer_name}}
-                    </div>
-                    <div v-if="data.item.status == 'G'">
-                      <span>
-                        <b-badge
-                          style="width: 75px; padding: 6px !important; border-radius: 4px !important; font-weight: normal !important;"
-                          variant="primary"
-                        >Negotiation</b-badge>
-                      </span>
-                      <!-- <span class="badge-primary badgeStatus">Negotiation</span> -->
-                      {{data.item.customer_name}}
-                    </div>
-                    <div v-if="data.item.status == 'M'">
-                      <span>
-                        <b-badge
-                          style="width: 75px; padding: 6px !important; border-radius: 4px !important; font-weight: normal !important;"
-                          variant="danger"
-                        >Maintain</b-badge>
-                      </span>
-                      <span class="badge-danger badgeStatus">Maintain</span>
-                      {{data.item.customer_name}}
-                    </div>
+                    <span>
+                      <b-badge
+                        :style="`background-color:`+data.item.customer_status_colour+`; width: 75px; padding: 6px !important; border-radius: 4px !important; font-weight: normal !important;`"
+                      >{{data.item.status}}</b-badge>
+                    </span>
+                    <!-- <div
+                      class="badge-primary badgeStatus"
+                      :style="`background-color:`+data.item.customer_status_colour+` !important;`"
+                    >{{data.item.status}}</div>-->
+                    <!-- <span class="badge-danger badgeStatus">Maintain</span> -->
+                    {{data.item.customer_name}}
                   </template>
 
                   <template
                     v-slot:cell(last_action)="data"
                   >{{data.item.last_action && data.item.last_action !== '' ? data.item.last_action : '-'}}</template>
+
+                  <template v-slot:cell(next_action)="data">
+                    <span>
+                      <font-awesome-icon
+                        v-if="IsWarning(data.item.next_action)"
+                        style="color: red;"
+                        icon="exclamation-triangle"
+                        size="sm"
+                      />
+                      {{data.item.next_action}}
+                    </span>
+                  </template>
 
                   <template v-slot:cell(action)="data">
                     <div v-if="data.item.row_id && data.item.lastupdatestamp">
@@ -462,10 +455,9 @@ export default {
           ) {
             tdClass = "ABStdClassList2 notranslate";
             thClass = "ABSthClassList2";
-          }
-          else if (str_array[i].toLowerCase() == "action") {
-              thClass += " th-cus-center"
-              tdClass += " th-cus-center";
+          } else if (str_array[i].toLowerCase() == "action") {
+            thClass += " th-cus-center";
+            tdClass += " th-cus-center";
           }
 
           var isSorted = this.sortedField
@@ -606,6 +598,18 @@ export default {
       var param = record;
       param.isEdit = true;
       this.$router.push({ name: "MK_EditToDoList", params: param });
+    },
+    IsWarning(date) {
+      var arrDate = date.split("/");
+      date = arrDate[1] + "/" + arrDate[0] + "/" + arrDate[2];
+
+      var next_action = new Date(date);
+      var now = new Date();
+
+      if (next_action < now) {
+        return true;
+      }
+      return false;
     }
   },
   mounted() {

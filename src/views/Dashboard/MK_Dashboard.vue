@@ -229,7 +229,8 @@
                       :text="'View All'"
                       classButton="button button--new"
                       classIcon="icon-style-1"
-                      :disabled="true"
+                      :disabled="false"
+                      @click="doViewAllToDoList"
                     />
                   </span>
                 </b-col>
@@ -1165,6 +1166,16 @@ export default {
       };
       this.$router.push({ name: url, params: param });
     },
+    doViewAllToDoList() {
+      var url = "MK_ToDoList";
+      if (!url || url == "" || url == undefined) return;
+      var param = {
+        // option_url: this.getOptionUrl(),
+        // title: this.title,
+        isEdit: false
+      };
+      this.$router.push({ name: url, params: param });
+    },
     doViewAllQuotation() {
       var url = "MK_Quotation";
       if (!url || url == "" || url == undefined) return;
@@ -1258,34 +1269,38 @@ export default {
       this.CallFunction(param).then(response => {
         if (response == null) return;
         var data = response.Data,
-        isMonth = (new Date()).getMonth(),
-        tg = [],
-        tg2 = [],
-        ac = [],
-        ac2 = [];
+          isMonth = new Date().getMonth(),
+          tg = [],
+          tg2 = [],
+          ac = [],
+          ac2 = [];
 
         for (let i = 0; i < data.length; i++) {
           if (i <= isMonth) {
-            tg2.push(Math.round(data[i].display_target_amt))
-            ac2.push(Math.round(data[i].display_achievement_amt))
+            tg2.push(Math.round(data[i].display_target_amt));
+            ac2.push(Math.round(data[i].display_achievement_amt));
           }
-          tg.push(Math.round(data[i].display_target_amt))
-          ac.push(Math.round(data[i].display_achievement_amt))
+          tg.push(Math.round(data[i].display_target_amt));
+          ac.push(Math.round(data[i].display_achievement_amt));
         }
 
         var max = Math.max.apply(null, tg),
-        sumtg = tg2.reduce(function(a, b){
-          return a + b;
-        }, 0),
-        sumac = ac2.reduce(function(a, b){
-          return a + b;
-        }, 0);
+          sumtg = tg2.reduce(function(a, b) {
+            return a + b;
+          }, 0),
+          sumac = ac2.reduce(function(a, b) {
+            return a + b;
+          }, 0);
 
-        this.M_Target.satuan = data[0].display_satuan
-        this.M_Target.target = Math.round(sumtg).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-        this.M_Target.achievement = Math.round(sumac).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-        this.M_Target.avg = Math.round((sumac/sumtg) * 100)
-        
+        this.M_Target.satuan = data[0].display_satuan;
+        this.M_Target.target = Math.round(sumtg)
+          .toString()
+          .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        this.M_Target.achievement = Math.round(sumac)
+          .toString()
+          .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        this.M_Target.avg = Math.round((sumac / sumtg) * 100);
+
         var valuedata2 = [
           {
             label: "Target",
