@@ -138,7 +138,7 @@
                           <b-col sm="2">
                             <b-button
                               style="background-color: transparent; color: black; border: none;"
-                              @click="doAddPIC"
+                              @click="doAddPIC(1)"
                             >
                               <font-awesome-icon
                                 icon="plus-square"
@@ -198,7 +198,7 @@
                     <b-row>
                       <b-col md="6">
                         <span>
-                          <label>Date coy</label>
+                          <label>Date</label>
                         </span>
                         <ACCDateTime
                           @input="Onappointment_dateChange"
@@ -226,7 +226,7 @@
                           <b-col sm="2">
                             <b-button
                               style="background-color: transparent; color: black; border: none;"
-                              @click="doAddPIC"
+                              @click="doAddPIC(2)"
                             >
                               <font-awesome-icon
                                 icon="plus-square"
@@ -266,7 +266,7 @@
                       <b-table
                         :responsive="true"
                         :striped="false"
-                        :bordered="false"
+                        :bordered="true"
                         :outlined="false"
                         :small="false"
                         :hover="true"
@@ -275,8 +275,18 @@
                         :foot-clone="false"
                         :fields="fieldHeader"
                         :items="items"
-                        class="table-sm table-style-2"
+                        class="table-sm table-style-3"
                       >
+                        <template v-slot:cell(date)="data">
+                          <!-- <div v-if="data.item.customer_status == 'N'"> -->
+                          <span>{{ data.item.logbook_date }}</span>
+                          <!-- </div> -->
+                        </template>
+                        <template v-slot:cell(pic)="data">
+                          <!-- <div v-if="data.item.customer_status == 'N'"> -->
+                          <span>{{ data.item.contact_person_name }}</span>
+                          <!-- </div> -->
+                        </template>
                         <template v-slot:cell(action)="data">
                           <!-- <div v-if="data.item.customer_status == 'N'"> -->
                           <span>
@@ -290,32 +300,6 @@
                           <!-- </div> -->
                         </template>
                       </b-table>
-                      <!-- <b-form inline style="float: left; color: #333;">
-                        <label
-                          class="font-lbl"
-                          style="margin-bottom:0px !important; margin-right:0px !important;"
-                        >Page Size</label>
-                        <b-form-select
-                          id="cmbPerPage"
-                          v-model="perPage"
-                          v-on:input="doGetList(search, 'pageSize')"
-                          :options="pagingData"
-                          class="sm-3 mgn-left-10 font-lbl page-size-left"
-                          :disabled="isDisableTable"
-                        ></b-form-select>
-                        of {{ this.totalRows }} Records
-                      </b-form>
-
-                      <b-pagination
-                        align="right"
-                        v-model="currentPage"
-                        @input="doGetList(search, 'pagination')"
-                        :total-rows="totalRows"
-                        :per-page="perPage"
-                        :limit="limit"
-                        style="margin-bottom: 0px;"
-                        :disabled="isDisableTable"
-                      ></b-pagination>-->
                     </b-row>
                     <hr />
                     <b-row>
@@ -494,7 +478,7 @@ export default {
 
       //For List
       WithViewButton: false,
-
+      addPic: 0,
       search: "",
       fieldHeader: [],
       items: [],
@@ -545,7 +529,7 @@ export default {
         contact_person: "",
         contact_personLabel: "",
         contact_person_Label2: "",
-        appointment_date: this.momentDate(new Date()),
+        appointment_date: "",
         nappointment_date: this.momentDate(new Date()),
         meeting_location: "",
         descs: "",
@@ -618,7 +602,7 @@ export default {
         cInputStatus: this.inputStatus
       },
       PI_descs2: {
-        cValidate: "required",
+        cValidate: "",
         cName: "descs2",
         cOrder: 3,
         cKey: false,
@@ -778,7 +762,7 @@ export default {
         },
         PI_pic_descs: {
           cValidate: "",
-          cName: "pic_descs",
+          cName: "descs",
           cOrder: 6,
           cKey: false,
           cType: "email",
@@ -837,13 +821,15 @@ export default {
         contact_phone_no_1: "+62",
         contact_phone_no_2: "",
         contact_phone_no_3: "",
-        email: ""
+        email: "",
+        descs: ""
       };
     },
     doBack() {
       this.$router.go(-1);
     },
-    doAddPIC() {
+    doAddPIC(data) {
+      this.addPic = data;
       this.M_ClearPIC();
       this.inputStatus = "new";
       this.$refs.Modal_PIC._show();
@@ -884,14 +870,21 @@ export default {
         if (response == null) return;
         this.alertSuccess(response.Message).then(() => {
           var dtrow = response.Data[0].row_id;
-          this.M_Appointment.contact_person = dtrow;
-          this.M_Appointment.contact_personLabel = this.M_Pic.contact_person;
-          this.M_Appointment.contact_person_Label2 =
-            param.phone_no +
-            "  " +
-            this.M_Pic.email +
-            "  " +
-            this.M_Pic.position;
+
+          if (this.addPic == 1) {
+            this.M_Appointment.contact_person = dtrow;
+            this.M_Appointment.contact_personLabel = this.M_Pic.contact_person;
+            this.M_Appointment.contact_person_Label2 =
+              param.phone_no +
+              "  " +
+              this.M_Pic.email +
+              "  " +
+              this.M_Pic.position;
+          } else {
+            this.M_Appointment.next_contact_person = dtrow;
+            this.M_Appointment.next_contact_personLabel = this.M_Pic.contact_person;
+          }
+
           this.CancelModal();
         });
       });
@@ -936,9 +929,9 @@ export default {
     },
     Onappointment_dateChange(data) {
       this.$nextTick(() => {
-        alert("date");
-        this.M_Appointment.nappointment_date = data;
-        console.log(this.M_Appointment.nappointment_date);
+        // alert("date");
+        // this.M_Appointment.nappointment_date = data;
+        // console.log(this.M_Appointment.nappointment_date);
       });
     },
     M_ClearForm() {
@@ -975,6 +968,7 @@ export default {
       };
     },
     doSave() {
+      this.PI_descs2.cValidate = "required";
       this.$validator._base.validateAll("MK_EditAppointment").then(result => {
         if (!result) return;
         this.alertConfirmation("Are You Sure Want To Save This Data ?").then(
@@ -988,37 +982,32 @@ export default {
       });
     },
     M_Save() {
+      if (this.M_Appointment.descs2 == "") {
+        this.alertError("The descs2 field is required ");
+        return;
+      }
       var param = {
         option_url: "/MK/MK_Appointment",
         line_no: 0,
-        // mk_appointment_id: this.paramFromList.row_id,
-        // cm_contact_id: this.paramFromList.cm_contact_id,
-        // ss_portfolio_id: this.getDataUser().portfolio_id,
-        // action_type: this.M_Appointment.action,
-        // pic: this.M_Appointment.contact_person,
-        // descs: this.M_Appointment.descs,
-        // next_action_type: this.M_Appointment.next_appointment,
-        // next_appointment_date: this.M_Appointment.appointment_date,
-        // next_meeting_address: this.M_Appointment.meeting_location,
-        // cm_customer_status_id: this.M_Appointment.contact_person,
-        // appointment_type: 'L',
-        // next_descs: this.M_Appointment.descs2,
-        // lastupdatestamp: this.paramFromList.lastupdatestamp,
-        // user_edit: this.getDataUser().user_id,
 
         mk_appointment_id: this.paramFromList.row_id,
         ss_portfolio_id: this.getDataUser().portfolio_id,
         cm_contact_id: this.paramFromList.cm_contact_id,
         cm_contact_person_id: this.M_Appointment.contact_person,
         action_type: this.M_Appointment.action,
-        meeting_address: this.M_Dt_Appointment.addr,
+        meeting_address: "", //this.M_Dt_Appointment.addr,
         descs: this.M_Appointment.descs,
         appointment_date: this.M_Appointment.appointment_date,
         appointment_type: "A",
         next_action_type: this.M_Appointment.next_appointment,
         next_appointment_date: this.M_Appointment.nappointment_date,
-        next_meeting_address: this.M_Appointment.meeting_location,
+        next_meeting_address: "", //this.M_Appointment.meeting_location,
         next_descs: this.M_Appointment.descs2,
+        next_cm_contact_person_id:
+          this.M_Appointment.next_contact_person == null ||
+          this.M_Appointment.next_contact_person == ""
+            ? null
+            : this.M_Appointment.next_contact_person,
         status: "N",
         user_input: this.getDataUser().user_id,
         lastupdatestamp: this.paramFromList.lastupdatestamp
@@ -1084,14 +1073,17 @@ export default {
             data.contact_email +
             "  " +
             (data.contact_position == null ? "" : data.contact_position),
-          appointment_date: data.next_appointment_date,
+          appointment_date: data.appointment_date,
           meeting_location: data.next_meeting_address,
           descs2: data.descs,
           descs: "", //data.next_descs,
           next_appointment: data.next_action_type,
           next_appointmentLabel: data.next_action_type,
           last_action_date:
-            data.last_action_date == null ? "" : data.last_action_date
+            data.last_action_date == null
+              ? ""
+              : this.momentDate(data.last_action_date),
+          nappointment_date: this.momentDate(new Date())
         };
         console.log(this.M_Appointment);
         this.doGetlist(this.search);
