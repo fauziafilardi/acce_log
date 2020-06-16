@@ -85,7 +85,7 @@
                 <b-table
                   :responsive="true"
                   :striped="false"
-                  :bordered="false"
+                  :bordered="true"
                   :outlined="false"
                   :small="false"
                   :hover="true"
@@ -94,7 +94,7 @@
                   :foot-clone="false"
                   :fields="fieldHeader"
                   :items="items"
-                  class="table-sm table-style-2"
+                  class="table-sm table-style-3"
                 >
                   <template v-slot:cell(row_id)="data">
                     <b-button

@@ -28,7 +28,7 @@
                     </b-col>
                   </b-row>
                 </b-col>
-                <b-col md="3" class="col-right">
+                <b-col md="2" class="col-right">
                   <span>
                     <ABSButton
                       :text="'Search'"
