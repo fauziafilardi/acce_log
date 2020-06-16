@@ -88,7 +88,7 @@
                         <br />
                       </b-col>
                     </b-row>
-                    <b-row>
+                    <b-row style="margin-top: 5px;">
                       <b-col md="6">
                         <span>
                           <label>Action</label>
@@ -101,6 +101,11 @@
                           ref="ref_action"
                         />
                       </b-col>
+                      <b-col sm="1">
+                        <span>
+                          <label>Last Action Date :</label>
+                        </span>
+                      </b-col>
                     </b-row>
                     <b-row style="margin-top: 5px;">
                       <b-col md="6">
@@ -111,7 +116,7 @@
                           :prop="PI_contact_person"
                           v-model="M_Appointment.contact_person"
                           ref="ref_contact_person"
-                        /> -->
+                        />-->
                         <ACCLookUp
                           @change="Oncontact_personChange"
                           :prop="PI_contact_person"
@@ -119,6 +124,12 @@
                           :label="M_Appointment.contact_personLabel"
                           ref="ref_contact_person"
                         />
+                        <ACCTextBox
+                          @input="fn_kosong"
+                          :prop="PI_contact_person_label"
+                          v-model="M_Appointment.contact_person_label2"
+                          ref="mref_contact_person_label2"
+                        />asdfsdf
                       </b-col>
                       <b-col md="1">
                         <b-button
@@ -162,12 +173,12 @@
                       </b-col>
                       <b-col md="6">
                         <span>
-                          <label>Meeting Location</label>
+                          <label>Description</label>
                         </span>
                         <ACCTextArea
-                          :prop="PI_meeting_location"
-                          v-model="M_Appointment.meeting_location"
-                          ref="ref_meeting_location"
+                          :prop="PI_descs"
+                          v-model="M_Appointment.descs"
+                          ref="ref_descs"
                         />
                       </b-col>
                     </b-row>
@@ -183,15 +194,32 @@
                           ref="ref_appointment_date"
                         />
                       </b-col>
+                    </b-row>
+                    <b-row style="margin-top: 5px;">
                       <b-col md="6">
                         <span>
-                          <label>Description</label>
+                          <label>PIC</label>
                         </span>
-                        <ACCTextArea
-                          :prop="PI_descs"
-                          v-model="M_Appointment.descs"
-                          ref="ref_descs"
+                        <ACCLookUp
+                          @change="Oncontact_personChange2"
+                          :prop="PI_contact_person"
+                          v-model="M_Appointment.contact_person"
+                          :label="M_Appointment.contact_personLabel"
+                          ref="ref_contact_person"
                         />
+                      </b-col>
+                      <b-col md="1">
+                        <b-button
+                          style="background-color: transparent; color: black; border: none;"
+                          @click="doAddPIC"
+                        >
+                          <font-awesome-icon
+                            icon="plus-square"
+                            class="icon-style-default"
+                            style="margin-right: 5px;margin-top: 70%;"
+                            size="3x"
+                          />
+                        </b-button>
                       </b-col>
                     </b-row>
                     <b-row style="margin-top: 10px;">
@@ -301,18 +329,20 @@
                 </b-row>
               </b-form>
               <ABSModal id="Modal_PIC" ref="Modal_PIC" size="sm">
-                <template slot="headerTitle">PIC</template>
+                <template slot="headerTitle">Add PIC</template>
                 <template slot="content">
                   <b-row>
-                    <b-col md="12">
+                    <b-col sm="12">
                       <b-form :data-vv-scope="'Parent_PIC'" :data-vv-value-path="'Parent_PIC'">
                         <b-row>
-                          <b-col md="12">
-                            <b-row>
-                              <b-col md="12">
+                          <b-col sm="12">
+                            <b-row class="my-1">
+                              <b-col sm="2">
                                 <span>
-                                  <label>Contact Person</label>
+                                  <label>Name</label>
                                 </span>
+                              </b-col>
+                              <b-col sm="10">
                                 <ACCTextBox
                                   :prop="MForm.PI_contact_person"
                                   v-model="M_Pic.contact_person"
@@ -320,19 +350,34 @@
                                 />
                               </b-col>
                             </b-row>
-                            <b-row>
-                              <b-col md="3" class="col-p-1">
+                            <b-row class="my-1">
+                              <b-col sm="2">
+                                <span>
+                                  <label>Position</label>
+                                </span>
+                              </b-col>
+                              <b-col sm="10">
+                                <ACCTextBox
+                                  :prop="MForm.PI_position"
+                                  v-model="M_Pic.position"
+                                  ref="mref_position_modal"
+                                />
+                              </b-col>
+                            </b-row>
+                            <b-row class="my-1">
+                              <b-col sm="2" class="col-p-1">
                                 <span>
                                   <label style="width: 100px;">Contact Phone No.</label>
                                 </span>
+                              </b-col>
+                              <b-col sm="10">
                                 <ACCTextBox
                                   :prop="MForm.PI_contact_phone_no_1"
                                   v-model="M_Pic.contact_phone_no_1"
                                   ref="mref_contact_phone_no_1"
                                   style="width: 50px;"
                                 />
-                              </b-col>
-                              <b-col md="3" class="col-p-2">
+                                <!-- <b-col md="3" class="col-p-2"> -->
                                 <span>
                                   <label>&nbsp;</label>
                                 </span>
@@ -341,16 +386,17 @@
                                   v-model="M_Pic.contact_phone_no_2"
                                   ref="mref_contact_phone_no_2"
                                 />
-                              </b-col>
-                              <b-col md="6" class="col-p-3">
-                                <span>
+                                <!-- </b-col> -->
+                                <!-- <b-col md="6" class="col-p-3"> -->
+                                <!-- <span>
                                   <label>&nbsp;</label>
                                 </span>
                                 <ACCTextBox
                                   :prop="MForm.PI_contact_phone_no_3"
                                   v-model="M_Pic.contact_phone_no_3"
                                   ref="mref_contact_phone_no_3"
-                                />
+                                />-->
+                                <!-- </b-col> -->
                               </b-col>
                             </b-row>
                             <b-row>
@@ -358,7 +404,23 @@
                                 <span>
                                   <label>Email</label>
                                 </span>
-                                <ACCTextBox :prop="MForm.PI_email" v-model="M_Pic.email" ref="mref_email_modal" />
+                                <ACCTextBox
+                                  :prop="MForm.PI_email"
+                                  v-model="M_Pic.email"
+                                  ref="mref_email_modal"
+                                />
+                              </b-col>
+                            </b-row>
+                            <b-row>
+                              <b-col md="12">
+                                <span>
+                                  <label>Description</label>
+                                </span>
+                                <ACCTextArea
+                                  :prop="MForm.PI_pic_descs"
+                                  v-model="M_Pic.descs"
+                                  ref="mref_descs_modal"
+                                />
                               </b-col>
                             </b-row>
                             <b-row style="margin-top: 10px;">
@@ -463,6 +525,7 @@ export default {
         actionLabel: "",
         contact_person: "",
         contact_personLabel: "",
+        contact_person_Label2: "",
         appointment_date: "",
         nappointment_date: "",
         meeting_location: "",
@@ -499,6 +562,17 @@ export default {
       //   cDecimal: 2,
       //   cInputStatus: this.inputStatus
       // },
+      PI_contact_person_label: {
+        cValidate: "",
+        cName: "contact_person_Label2",
+        cOrder: 1,
+        cKey: false,
+        cType: "text",
+        cProtect: true,
+        cParentForm: "MK_EditAppointment",
+        cDecimal: 2,
+        cInputStatus: this.inputStatus
+      },
       PI_contact_person: {
         dataLookUp: {
           LookUpCd: "GetContactPerson",
@@ -518,11 +592,11 @@ export default {
         cParentForm: "MK_AddAppointment",
         cStatic: false,
         cOption: [],
-        cDisplayColumn: "name,phone_no,email,time_edit",
+        cDisplayColumn: "name",
         cInputStatus: this.inputStatus
       },
       PI_descs2: {
-        cValidate: "",
+        cValidate: "required",
         cName: "descs2",
         cOrder: 3,
         cKey: false,
@@ -590,7 +664,7 @@ export default {
         cParentForm: "MK_EditAppointment",
         cInputStatus: this.inputStatus
       },
-      
+
       MForm: {
         PI_contact_person: {
           cValidate: "",
@@ -603,10 +677,21 @@ export default {
           cDecimal: 2,
           cInputStatus: this.inputStatus
         },
+        PI_position: {
+          cValidate: "",
+          cName: "position",
+          cOrder: 2,
+          cKey: false,
+          cType: "text",
+          cProtect: false,
+          cParentForm: "Parent_PIC",
+          cDecimal: 2,
+          cInputStatus: this.inputStatus
+        },
         PI_contact_phone_no_1: {
           cValidate: "max:3",
           cName: "contact_phone_no_1",
-          cOrder: 2,
+          cOrder: 3,
           cKey: false,
           cType: "tel",
           cProtect: false,
@@ -617,7 +702,7 @@ export default {
         PI_contact_phone_no_2: {
           cValidate: "max:3",
           cName: "contact_phone_no_2",
-          cOrder: 3,
+          cOrder: 4,
           cKey: false,
           cType: "numeric",
           cProtect: false,
@@ -628,7 +713,7 @@ export default {
         PI_contact_phone_no_3: {
           cValidate: "max:8",
           cName: "contact_phone_no_3",
-          cOrder: 4,
+          cOrder: 5,
           cKey: false,
           cType: "numeric",
           cProtect: false,
@@ -639,7 +724,18 @@ export default {
         PI_email: {
           cValidate: "",
           cName: "email",
-          cOrder: 5,
+          cOrder: 6,
+          cKey: false,
+          cType: "email",
+          cProtect: false,
+          cParentForm: "Parent_PIC",
+          cDecimal: 2,
+          cInputStatus: this.inputStatus
+        },
+        PI_pic_descs: {
+          cValidate: "",
+          cName: "pic_descs",
+          cOrder: 6,
           cKey: false,
           cType: "email",
           cProtect: false,
@@ -656,8 +752,10 @@ export default {
         contact_phone_no_3: "",
         cm_contact_id: "",
         cm_contact_person_id: "",
+        position: "",
+        descs: "",
         lastupdatestamp: ""
-      },
+      }
     };
   },
   computed: {
@@ -684,6 +782,7 @@ export default {
     }
   },
   methods: {
+    fn_kosong() {},
     CancelModal() {
       this.$refs.Modal_PIC._hide();
       this.M_ClearPIC();
@@ -731,6 +830,8 @@ export default {
           "-" +
           this.M_Pic.contact_phone_no_3,
         email: this.M_Pic.email,
+        position: this.M_Pic.position,
+        descs: this.M_Pic.descs,
         user_input: this.getDataUser().user_id
       };
 
@@ -738,10 +839,16 @@ export default {
         // console.log(response); return;
         if (response == null) return;
         this.alertSuccess(response.Message).then(() => {
-          var dtrow = response.Data[0].row_id
-          this.M_Appointment.contact_person = dtrow
-          this.M_Appointment.contact_personLabel = this.M_Pic.contact_person
-          this.CancelModal()
+          var dtrow = response.Data[0].row_id;
+          this.M_Appointment.contact_person = dtrow;
+          this.M_Appointment.contact_personLabel = this.M_Pic.contact_person;
+          this.M_Appointment.contact_person_Label2 =
+            param.phone_no +
+            "  " +
+            this.M_Pic.email +
+            "  " +
+            this.M_Pic.position;
+          this.CancelModal();
         });
       });
     },
@@ -759,9 +866,28 @@ export default {
       });
     },
     Oncontact_personChange(data) {
+      console.log(data);
       this.$nextTick(() => {
         this.M_Appointment.contact_person = data.id;
         this.M_Appointment.contact_personLabel = data.label;
+        this.M_Appointment.contact_person_label2 =
+          data.phone_no +
+          "  " +
+          data.email +
+          "  " +
+          (data.position == null ? "" : data.position); // data.position;
+      });
+    },
+    Oncontact_personChange2(data) {
+      this.$nextTick(() => {
+        this.M_Appointment.contact_person = data.id;
+        this.M_Appointment.contact_personLabel = data.label;
+        this.M_Appointment.contact_person_label2 =
+          data.phone_no +
+          "  " +
+          data.email +
+          "  " +
+          (data.position == null ? "" : data.position); // data.position;
       });
     },
     Onnext_appointmentChange(data) {
@@ -787,7 +913,8 @@ export default {
         descs: "",
         descs2: "",
         next_appointment: "",
-        next_appointmentLabel: ""
+        next_appointmentLabel: "",
+        contact_person_Label2: ""
       };
 
       this.M_Dt_Appointment = {
@@ -852,7 +979,7 @@ export default {
         next_descs: this.M_Appointment.descs2,
         status: "N",
         user_input: this.getDataUser().user_id,
-        lastupdatestamp: this.paramFromList.lastupdatestamp,
+        lastupdatestamp: this.paramFromList.lastupdatestamp
       };
 
       this.putJSON(this.getUrlCRUD(), param).then(response => {
@@ -907,14 +1034,20 @@ export default {
           actionLabel: data.action_type,
           contact_person: data.cm_contact_person_id,
           contact_personLabel: data.contact_person_name,
+          contact_person_Label2:
+            data.contact_phone_no +
+            "  " +
+            data.contact_email +
+            "  " +
+            (data.contact_position == null ? "" : data.contact_position),
           appointment_date: data.next_appointment_date,
           meeting_location: data.next_meeting_address,
           descs2: data.descs,
-          descs: '', //data.next_descs,
+          descs: "", //data.next_descs,
           next_appointment: data.next_action_type,
           next_appointmentLabel: data.next_action_type
         };
-
+        console.log(this.M_Appointment);
         this.doGetlist(this.search);
       });
     },
