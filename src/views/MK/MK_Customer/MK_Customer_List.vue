@@ -10,21 +10,24 @@
                   <span>Customer List</span>
                 </b-col>
 
-                <b-col md="3">
-                  <b-form-input
-                    id="txtSearch"
-                    v-model="search"
-                    type="text"
-                    placeholder="Search...."
-                    v-shortkey.focus="['f1']"
-                    class="text-field-search"
-                    @keyup.enter.native="onSearchEnter"
-                    autocomplete="off"
-                    :disabled="isSearchDisable"
-                    style="width: 100% !important;"
-                  ></b-form-input>
+                <b-col style="text-align: right;">
+                  <b-row>
+                    <b-col>
+                      <b-form-input
+                        id="txtSearch"
+                        v-model="search"
+                        type="text"
+                        placeholder="Search...."
+                        v-shortkey.focus="['f1']"
+                        class="text-field-search"
+                        @keyup.enter.native="onSearchEnter"
+                        autocomplete="off"
+                        :disabled="isSearchDisable"
+                      ></b-form-input>
+                    </b-col>
+                  </b-row>
                 </b-col>
-                <b-col md="3" class="col-right">
+                <b-col md="1" class="col-right">
                   <span>
                     <ABSButton
                       :text="'Search'"
@@ -62,10 +65,10 @@
                   <b-table
                     :responsive="true"
                     :striped="false"
-                    :bordered="false"
+                    :bordered="true"
                     :outlined="false"
                     :small="false"
-                    :hover="true"
+                    :hover="false"
                     :dark="false"
                     :fixed="false"
                     :foot-clone="false"
@@ -91,7 +94,7 @@
                       <!-- <span
                         :style="`color:white;background-color:`+data.item.customer_status_colour+`;`"
                       >{{data.item.status}}</span> -->
-                      <div class="badge-primary badgeStatus" :style="`background-color:`+data.item.customer_status_colour+` !important;`" >{{data.item.status}}</div>
+                      <div class="badge-primary badgeStatus" :style="`background-color:`+data.item.customer_status_colour+` !important;width: 60%;margin: auto;`" >{{data.item.status}}</div>
                     </template>
                   </b-table>
                 </div>
@@ -320,7 +323,7 @@ export default {
           this.responses.DefineColumn && this.responses.DefineColumn !== ""
             ? this.responses.DefineColumn.split(",")
             : this.responses.AllColumn.split(",");
-        var x = ",L,S,S,L,S,S,S";
+        var x = "";
         // var defineSize = this.responses.DefineSize.split(",");
         var defineSize = x.split(",");
 
@@ -563,7 +566,7 @@ export default {
       this.postJSON(this.getUrlList(), param).then(response => {
         if (response == null) return;
         this.responses = response;
-        console.log(this.cmbMarketing, ix)
+        // console.log(this.cmbMarketing, ix)
         this.cmbMarketing[ix].items = [];
         this.fieldHeader = [];
         this.cmbMarketing[ix].items = this.responses.Data;
@@ -572,7 +575,7 @@ export default {
           this.responses.DefineColumn && this.responses.DefineColumn !== ""
             ? this.responses.DefineColumn.split(",")
             : this.responses.AllColumn.split(",");
-        var x = ",L,S,S,L,S,S,S";
+        var x = "S,S,L,S,S,S,S";
         // var defineSize = this.responses.DefineSize.split(",");
         var defineSize = x.split(",");
 
