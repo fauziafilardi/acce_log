@@ -255,24 +255,17 @@
                 >
                   <b-row style="flex-wrap: unset !important">
                     <b-col class="ContentFillBadge" style="text-align: center;" md="2">
-                      <div v-if="data.status == '1'" class="badge-success badgeStatus">New</div>
-                      <div v-if="data.status == '2'" class="badge-primary badgeStatus">Negotiation</div>
-                      <div v-if="data.status == '3'" class="badge-danger badgeStatus">Maintain</div>
-                      <!-- <b-badge v-if="data.status == '1'" variant="success">
-                      <h4>New</h4>
-                    </b-badge>
-                    <b-badge v-if="data.status == '2'" variant="primary">
-                      <h4>Negotiation</h4>
-                    </b-badge>
-                    <b-badge v-if="data.status == '3'" variant="danger">
-                      <h4>Maintain</h4>
-                      </b-badge>-->
+                      <span>
+                        <b-badge
+                          :style="`background-color:`+data.status_colour+`; width: 75px; padding: 6px !important; border-radius: 4px !important; font-weight: normal !important;`"
+                        >{{data.status}}</b-badge>
+                      </span>
                     </b-col>
                     <b-col class="contentFill" md="3">
                       <span>{{data.name}}</span>
                     </b-col>
                     <b-col class="contentFill" style="text-align: center;" md="2">
-                      <span>{{data.lastaction}}</span>
+                      <span>{{data.last_action && data.last_action !== '' ? data.last_action : '-'}}</span>
                     </b-col>
                     <b-col class="contentFill__nextaction" md="3">
                       <span>
@@ -282,24 +275,35 @@
                           icon="exclamation-triangle"
                           size="sm"
                         />
-                        {{data.nextaction}}
+                        {{ momentDateFormatting(data.next_action,'DD/MM/YYYY HH:mm')}}
                       </span>
                     </b-col>
                     <b-col class="contentFill" md="2">
                       <b-row>
                         <b-col style="padding-left: 20% !important; padding-top: 2px;">
-                          <div
-                            class="ChartLegend-Content"
-                            :style="'background-color: '+(data.action.status == '1' ? '#333399' : '#00cc33')+'; width: 10px; height: 10px; padding: 10px; border-radius: 10px;'"
-                          ></div>
+                          <span>
+                            <b-badge
+                              style="width: 15px; height: 15px; padding: 6px !important; border-radius: 15px !important;"
+                              :variant="data.status == 'New' ? 'primary' : 'success'"
+                            >&nbsp;</b-badge>
+                          </span>
                         </b-col>
                         <b-col style="padding-left: 20% !important; padding-top: 2px;">
-                          <font-awesome-icon
+                          <!-- <font-awesome-icon
                             v-if="data.action.icon"
                             style="color: #333399;"
                             :icon="data.action.icon"
                             size="lg"
-                          />
+                          />-->
+                          <!-- <b-badge @click="doEdit(data)"> -->
+                          <span @click="ToDoListEdit(data)">
+                            <font-awesome-icon
+                              class="icon-style-default"
+                              :icon="data.action=='C' ? 'phone-square-alt' : (data.action=='V' ? 'hand-paper' : 'utensils')"
+                              size="lg"
+                            />
+                          </span>
+                          <!-- </b-badge> -->
                         </b-col>
                       </b-row>
                     </b-col>
@@ -335,11 +339,12 @@
                 v-for="(data, index) in Appointment"
                 v-bind:key="index"
               >
+                {{data.next_action}}
                 <b-col style="max-width:fit-content !important;">
                   <div style="width:50px;">
                     <div
                       class="CalendarTagMonth"
-                    >{{momentDateFormat2(data.next_action, 'YYYY-MM-DD HH:mm', 'MMM')}}</div>
+                    >{{momentDateFormat2(data.next_action, 'YYYY-MM-DD HH:mm', 'MMM')}} New</div>
                     <div
                       class="CalendarTagDate"
                     >{{momentDateFormat2(data.next_action, 'YYYY-MM-DD HH:mm', 'DD')}}</div>
@@ -753,64 +758,7 @@ export default {
   data() {
     return {
       Appointment: [],
-      ToDoList: [
-        {
-          status: "1",
-          name: "PT Abadi Sentosa",
-          lastaction: "01/01/2010 12.00",
-          warning: true,
-          nextaction: "10/01/2010 12.00",
-          action: {
-            status: "1",
-            icon: "phone-square-alt"
-          },
-          date: "10",
-          month: "Jan",
-          time: "12.00"
-        },
-        {
-          status: "1",
-          name: "PT Gemini Perkasa Abadi",
-          lastaction: "01/01/2010 12.00",
-          warning: false,
-          nextaction: "10/01/2010 12.00",
-          action: {
-            status: "1",
-            icon: "phone-square-alt"
-          },
-          date: "09",
-          month: "Jan",
-          time: "12.00"
-        },
-        {
-          status: "2",
-          name: "PT Garuda Perkasa",
-          lastaction: "01/01/2010 12.00",
-          warning: false,
-          nextaction: "10/01/2010 12.00",
-          action: {
-            status: "2",
-            icon: "hand-paper"
-          },
-          date: "07",
-          month: "Jan",
-          time: "11.00"
-        },
-        {
-          status: "3",
-          name: "PT Indo Sejahtera",
-          lastaction: "01/01/2010 12.00",
-          warning: false,
-          nextaction: "10/01/2010 12.00",
-          action: {
-            status: "2",
-            icon: "utensils"
-          },
-          date: "02",
-          month: "Jan",
-          time: "10.00"
-        }
-      ],
+      ToDoList: [],
       Quotation: {
         Header: [
           {
@@ -1143,6 +1091,12 @@ export default {
   },
   computed: {},
   methods: {
+    ToDoListEdit(data) {
+      var param = data;
+      param.isEdit = true;
+      console.log(param);
+      this.$router.push({ name: "MK_EditToDoList", params: param });
+    },
     doViewAllTarget() {
       this.$router.push({ name: "MK_DashboardTarget" });
     },
@@ -1217,6 +1171,36 @@ export default {
 
       this.postJSON(this.getUrlList(), param).then(response => {
         this.Appointment = response.Data;
+      });
+    },
+    getDataToDoList() {
+      var param = {
+        option_function_cd: "GenToDoListDash",
+        module_cd: "MK",
+        ss_portfolio_id: this.getDataUser().portfolio_id,
+        user_id: this.getDataUser().user_id
+      };
+      this.CallFunction(param).then(ress => {
+        if (ress == null) return;
+        this.ToDoList = [];
+        var now = new Date();
+        for (let i = 0; i < ress.Data.length; i++) {
+          var next_action = new Date(ress.Data[i].next_action);
+          console.log(next_action);
+          this.ToDoList.push({
+            cm_contact_id: ress.Data[i].cm_contact_id,
+            name: ress.Data[i].customer_name,
+            status: ress.Data[i].status,
+            status_colour: ress.Data[i].customer_status_colour,
+            warning: next_action < now ? true : false,
+            next_action: ress.Data[i].next_action,
+            last_action: ress.Data[i].last_action,
+            action: ress.Data[i].action,
+            appointment_type: ress.Data[i].appointment_type,
+            row_id: ress.Data[i].row_id,
+            lastupdatestamp: ress.Data[i].lastupdatestamp
+          });
+        }
       });
     },
     getListOrder() {
@@ -1518,6 +1502,7 @@ export default {
     this.getListOrder();
     this.getListQuotation();
     this.getListAppointment();
+    this.getDataToDoList();
   }
 };
 </script>
