@@ -85,8 +85,8 @@
                 <b-table
                   :responsive="true"
                   :striped="false"
-                  :bordered="false"
-                  :outlined="false"
+                  :bordered="true"
+                  :outlined="true"
                   :small="false"
                   :hover="true"
                   :dark="false"
@@ -94,7 +94,7 @@
                   :foot-clone="false"
                   :fields="fieldHeader"
                   :items="items"
-                  class="table-sm table-style-2"
+                  class="table-sm table-style-3"
                 >
                   <template v-slot:cell(row_id)="data">
                     <b-button
@@ -108,41 +108,34 @@
                   </template>
 
                   <template v-slot:cell(customer_name)="data">
-                    <div v-if="data.item.status == 'N'">
-                      <span>
-                        <b-badge
-                          style="width: 75px; padding: 6px !important; border-radius: 4px !important; font-weight: normal !important;"
-                          variant="success"
-                        >New</b-badge>
-                      </span>
-                      <!-- <span class="badge-success badgeStatus">New</span> -->
-                      {{data.item.customer_name}}
-                    </div>
-                    <div v-if="data.item.status == 'G'">
-                      <span>
-                        <b-badge
-                          style="width: 75px; padding: 6px !important; border-radius: 4px !important; font-weight: normal !important;"
-                          variant="primary"
-                        >Negotiation</b-badge>
-                      </span>
-                      <!-- <span class="badge-primary badgeStatus">Negotiation</span> -->
-                      {{data.item.customer_name}}
-                    </div>
-                    <div v-if="data.item.status == 'M'">
-                      <span>
-                        <b-badge
-                          style="width: 75px; padding: 6px !important; border-radius: 4px !important; font-weight: normal !important;"
-                          variant="danger"
-                        >Maintain</b-badge>
-                      </span>
-                      <span class="badge-danger badgeStatus">Maintain</span>
-                      {{data.item.customer_name}}
-                    </div>
+                    <span>
+                      <b-badge
+                        :style="`background-color:`+data.item.customer_status_colour+`; width: 75px; padding: 6px !important; border-radius: 4px !important; font-weight: normal !important;`"
+                      >{{data.item.status}}</b-badge>
+                    </span>
+                    <!-- <div
+                      class="badge-primary badgeStatus"
+                      :style="`background-color:`+data.item.customer_status_colour+` !important;`"
+                    >{{data.item.status}}</div>-->
+                    <!-- <span class="badge-danger badgeStatus">Maintain</span> -->
+                    {{data.item.customer_name}}
                   </template>
 
                   <template
                     v-slot:cell(last_action)="data"
                   >{{data.item.last_action && data.item.last_action !== '' ? data.item.last_action : '-'}}</template>
+
+                  <template v-slot:cell(next_action)="data">
+                    <span>
+                      <font-awesome-icon
+                        v-if="IsWarning(data.item.next_action)"
+                        style="color: red;"
+                        icon="exclamation-triangle"
+                        size="sm"
+                      />
+                      {{data.item.next_action}}
+                    </span>
+                  </template>
 
                   <template v-slot:cell(action)="data">
                     <div v-if="data.item.row_id && data.item.lastupdatestamp">
@@ -339,7 +332,24 @@ export default {
       this.propList.initialWhere = filter;
       this.doGetList(this.search);
     },
-    doGetList(search) {
+    dogetget() {
+      this.doGetList(this.search);
+    },
+    // GenDoList() {
+    //   var param = {
+    //     option_function_cd: "GenToDoList",
+    //     module_cd: "MK",
+    //     ss_portfolio_id: this.getDataUser().portfolio_id,
+    //     user_id: this.getDataUser().user_id
+    //   };
+
+    //   this.CallFunction(param).then(response => {
+    //     // response from API
+    //     if (response == null) return;
+    //     this.dogetget();
+    //   });
+    // },
+    doGetList(search, a = null) {
       var param = {
         option_url: this.getOptionUrl(),
         line_no: 0,
@@ -445,10 +455,9 @@ export default {
           ) {
             tdClass = "ABStdClassList2 notranslate";
             thClass = "ABSthClassList2";
-          }
-          else if (str_array[i].toLowerCase() == "action") {
-              thClass += " th-cus-center"
-              tdClass += " th-cus-center";
+          } else if (str_array[i].toLowerCase() == "action") {
+            thClass += " th-cus-center";
+            tdClass += " th-cus-center";
           }
 
           var isSorted = this.sortedField
@@ -589,10 +598,26 @@ export default {
       var param = record;
       param.isEdit = true;
       this.$router.push({ name: "MK_EditAppointment", params: param });
+    },
+    IsWarning(date) {
+      var arrDate = date.split("/");
+      date = arrDate[1] + "/" + arrDate[0] + "/" + arrDate[2];
+
+      var next_action = new Date(date);
+      var now = new Date();
+
+      if (next_action < now) {
+        return true;
+      }
+      return false;
     }
   },
   mounted() {
     this.doGetList("");
+    // this.GenDoList();
+  },
+  created() {
+    // this.GenDoList();
   }
 };
 </script>

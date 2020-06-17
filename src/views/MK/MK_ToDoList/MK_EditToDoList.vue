@@ -37,7 +37,7 @@
                           <font-awesome-icon
                             class="icon-style-default"
                             icon="map-marker-alt"
-                            size="sm"
+                            size="sm" 
                           />
                           &nbsp;
                           {{ M_Dt_Appointment.address }}
@@ -88,8 +88,8 @@
                         <br />
                       </b-col>
                     </b-row>
-                    <b-row style="margin-top: 5px;">
-                      <b-col md="6">
+                    <b-row class="my-1" style="margin-top: 5px;">
+                      <b-col sm="6">
                         <span>
                           <label>Action</label>
                         </span>
@@ -101,9 +101,11 @@
                           ref="ref_action"
                         />
                       </b-col>
-                      <b-col sm="1">
+                      <b-col sm="6">
+                        <br />
+                        <br />
                         <span>
-                          <label>Last Action Date :</label>
+                          <label>Last Action Date : {{M_Appointment.last_action_date}}</label>
                         </span>
                       </b-col>
                     </b-row>
@@ -127,22 +129,32 @@
                         <ACCTextBox
                           :prop="PI_contact_person_label"
                           v-model="M_Appointment.contact_person_Label2"
-                          ref="ref_contact_person_Label2"
+                          ref="mref_contact_person_label2"
                         />
-                        {{M_Appointment.contact_person_Label2}}
                       </b-col>
-                      <b-col md="1">
-                        <b-button
-                          style="background-color: transparent; color: black; border: none;"
-                          @click="doAddPIC"
-                        >
-                          <font-awesome-icon
-                            icon="plus-square"
-                            class="icon-style-default"
-                            style="margin-right: 5px;margin-top: 70%;"
-                            size="3x"
-                          />
-                        </b-button>
+                      <b-col md="6">
+                        <b-row>
+                          <b-col sm="2">
+                            <b-button
+                              style="background-color: transparent; color: black; border: none;"
+                              @click="doAddPIC(1)"
+                            >
+                              <font-awesome-icon
+                                icon="plus-square"
+                                class="icon-style-default"
+                                style="margin-right: 5px;margin-top: 70%;"
+                                size="3x"
+                              />
+                            </b-button>
+                          </b-col>
+                          <b-col sm="2">
+                            <br />
+                            <br />
+                            <span>
+                              <label>Add PIC</label>
+                            </span>
+                          </b-col>
+                        </b-row>
                       </b-col>
                     </b-row>
                     <b-row>
@@ -202,24 +214,35 @@
                         </span>
                         <ACCLookUp
                           @change="Oncontact_personChange2"
-                          :prop="PI_contact_person"
-                          v-model="M_Appointment.contact_person"
-                          :label="M_Appointment.contact_personLabel"
-                          ref="ref_contact_person"
+                          :prop="PI_next_contact_person"
+                          v-model="M_Appointment.next_contact_person"
+                          :label="M_Appointment.next_contact_personLabel"
+                          ref="ref_next_contact_person"
                         />
                       </b-col>
-                      <b-col md="1">
-                        <b-button
-                          style="background-color: transparent; color: black; border: none;"
-                          @click="doAddPIC"
-                        >
-                          <font-awesome-icon
-                            icon="plus-square"
-                            class="icon-style-default"
-                            style="margin-right: 5px;margin-top: 70%;"
-                            size="3x"
-                          />
-                        </b-button>
+                      <b-col md="6">
+                        <b-row>
+                          <b-col sm="2">
+                            <b-button
+                              style="background-color: transparent; color: black; border: none;"
+                              @click="doAddPIC(2)"
+                            >
+                              <font-awesome-icon
+                                icon="plus-square"
+                                class="icon-style-default"
+                                style="margin-right: 5px;margin-top: 70%;"
+                                size="3x"
+                              />
+                            </b-button>
+                          </b-col>
+                          <b-col sm="2">
+                            <br />
+                            <br />
+                            <span>
+                              <label>Add PIC</label>
+                            </span>
+                          </b-col>
+                        </b-row>
                       </b-col>
                     </b-row>
                     <b-row style="margin-top: 10px;">
@@ -242,7 +265,7 @@
                       <b-table
                         :responsive="true"
                         :striped="false"
-                        :bordered="false"
+                        :bordered="true"
                         :outlined="false"
                         :small="false"
                         :hover="true"
@@ -251,8 +274,18 @@
                         :foot-clone="false"
                         :fields="fieldHeader"
                         :items="items"
-                        class="table-sm table-style-2"
+                        class="table-sm table-style-3"
                       >
+                        <template v-slot:cell(date)="data">
+                          <!-- <div v-if="data.item.customer_status == 'N'"> -->
+                          <span>{{ data.item.logbook_date }}</span>
+                          <!-- </div> -->
+                        </template>
+                        <template v-slot:cell(pic)="data">
+                          <!-- <div v-if="data.item.customer_status == 'N'"> -->
+                          <span>{{ data.item.contact_person_name }}</span>
+                          <!-- </div> -->
+                        </template>
                         <template v-slot:cell(action)="data">
                           <!-- <div v-if="data.item.customer_status == 'N'"> -->
                           <span>
@@ -266,32 +299,6 @@
                           <!-- </div> -->
                         </template>
                       </b-table>
-                      <!-- <b-form inline style="float: left; color: #333;">
-                        <label
-                          class="font-lbl"
-                          style="margin-bottom:0px !important; margin-right:0px !important;"
-                        >Page Size</label>
-                        <b-form-select
-                          id="cmbPerPage"
-                          v-model="perPage"
-                          v-on:input="doGetList(search, 'pageSize')"
-                          :options="pagingData"
-                          class="sm-3 mgn-left-10 font-lbl page-size-left"
-                          :disabled="isDisableTable"
-                        ></b-form-select>
-                        of {{ this.totalRows }} Records
-                      </b-form>
-
-                      <b-pagination
-                        align="right"
-                        v-model="currentPage"
-                        @input="doGetList(search, 'pagination')"
-                        :total-rows="totalRows"
-                        :per-page="perPage"
-                        :limit="limit"
-                        style="margin-bottom: 0px;"
-                        :disabled="isDisableTable"
-                      ></b-pagination>-->
                     </b-row>
                     <hr />
                     <b-row>
@@ -328,7 +335,7 @@
                   </b-col>
                 </b-row>
               </b-form>
-              <ABSModal id="Modal_PIC" ref="Modal_PIC" size="sm">
+              <ABSModal id="Modal_PIC" ref="Modal_PIC" size="md">
                 <template slot="headerTitle">Add PIC</template>
                 <template slot="content">
                   <b-row>
@@ -365,45 +372,12 @@
                               </b-col>
                             </b-row>
                             <b-row class="my-1">
-                              <b-col sm="2" class="col-p-1">
-                                <span>
-                                  <label style="width: 100px;">Contact Phone No.</label>
-                                </span>
-                              </b-col>
-                              <b-col sm="10">
-                                <ACCTextBox
-                                  :prop="MForm.PI_contact_phone_no_1"
-                                  v-model="M_Pic.contact_phone_no_1"
-                                  ref="mref_contact_phone_no_1"
-                                  style="width: 50px;"
-                                />
-                                <!-- <b-col md="3" class="col-p-2"> -->
-                                <span>
-                                  <label>&nbsp;</label>
-                                </span>
-                                <ACCTextBox
-                                  :prop="MForm.PI_contact_phone_no_2"
-                                  v-model="M_Pic.contact_phone_no_2"
-                                  ref="mref_contact_phone_no_2"
-                                />
-                                <!-- </b-col> -->
-                                <!-- <b-col md="6" class="col-p-3"> -->
-                                <!-- <span>
-                                  <label>&nbsp;</label>
-                                </span>
-                                <ACCTextBox
-                                  :prop="MForm.PI_contact_phone_no_3"
-                                  v-model="M_Pic.contact_phone_no_3"
-                                  ref="mref_contact_phone_no_3"
-                                />-->
-                                <!-- </b-col> -->
-                              </b-col>
-                            </b-row>
-                            <b-row>
-                              <b-col md="12">
+                              <b-col sm="2">
                                 <span>
                                   <label>Email</label>
                                 </span>
+                              </b-col>
+                              <b-col sm="10">
                                 <ACCTextBox
                                   :prop="MForm.PI_email"
                                   v-model="M_Pic.email"
@@ -411,11 +385,39 @@
                                 />
                               </b-col>
                             </b-row>
-                            <b-row>
-                              <b-col md="12">
+                            <b-row class="my-1">
+                              <b-col sm="2" class="col-p-1">
+                                <span>
+                                  <label style="width: 100px;">Telp</label>
+                                </span>
+                              </b-col>
+                              <b-col sm="10">
+                                <b-row>
+                                  <b-col sm="2">
+                                    <ACCTextBox
+                                      :prop="MForm.PI_contact_phone_no_1"
+                                      v-model="M_Pic.contact_phone_no_1"
+                                      ref="mref_contact_phone_no_1"
+                                      style="width: 50px;"
+                                    />
+                                  </b-col>
+                                  <b-col sm="10">
+                                    <ACCTextBox
+                                      :prop="MForm.PI_contact_phone_no_2"
+                                      v-model="M_Pic.contact_phone_no_2"
+                                      ref="mref_contact_phone_no_2"
+                                    />
+                                  </b-col>
+                                </b-row>
+                              </b-col>
+                            </b-row>
+                            <b-row class="my-1">
+                              <b-col sm="2">
                                 <span>
                                   <label>Description</label>
                                 </span>
+                              </b-col>
+                              <b-col sm="10">
                                 <ACCTextArea
                                   :prop="MForm.PI_pic_descs"
                                   v-model="M_Pic.descs"
@@ -424,16 +426,16 @@
                               </b-col>
                             </b-row>
                             <b-row style="margin-top: 10px;">
-                              <b-col md="6">
+                              <b-col sm="12">
                                 <ABSButton
-                                  :text="'Add'"
+                                  :text="'Save'"
                                   classButton="btn btn--default"
                                   classIcon="icon-style-1"
                                   @click="SaveModal"
                                   styleButton="height: 40px;width: 100%;"
                                 />
                               </b-col>
-                              <b-col md="6">
+                              <!-- <b-col md="6">
                                 <ABSButton
                                   :text="'Cancel'"
                                   classButton="btn btn--back"
@@ -441,7 +443,7 @@
                                   @click="CancelModal"
                                   styleButton="height: 40px;width: 100%;"
                                 />
-                              </b-col>
+                              </b-col>-->
                             </b-row>
                           </b-col>
                         </b-row>
@@ -475,7 +477,7 @@ export default {
 
       //For List
       WithViewButton: false,
-
+      addPic: 0,
       search: "",
       fieldHeader: [],
       items: [],
@@ -527,12 +529,15 @@ export default {
         contact_personLabel: "",
         contact_person_Label2: "",
         appointment_date: "",
-        nappointment_date: "",
+        nappointment_date: this.momentDate(new Date()),
         meeting_location: "",
         descs: "",
         descs2: "",
         next_appointment: "",
-        next_appointmentLabel: ""
+        next_appointmentLabel: "",
+        next_contact_person: "",
+        next_contact_personLabel: "",
+        last_action_date: null
       },
       PI_action: {
         dataLookUp: null,
@@ -596,7 +601,7 @@ export default {
         cInputStatus: this.inputStatus
       },
       PI_descs2: {
-        cValidate: "required",
+        cValidate: "",
         cName: "descs2",
         cOrder: 3,
         cKey: false,
@@ -628,32 +633,32 @@ export default {
       },
       PI_appointment_date: {
         cValidate: "",
-        cName: "appointment_date",
-        cOrder: 6,
+        cName: "nappointment_date",
+        cOrder: 5,
         cKey: false,
         cProtect: false,
         cWithTime: true,
         cFormat: "dd/MM/yyyy",
         cParentForm: "MK_EditAppointment"
       },
-      PI_meeting_location: {
-        cValidate: "",
-        cName: "meeting_location",
-        cOrder: 5,
-        cKey: false,
-        cProtect: false,
-        cResize: false,
-        cReadonly: false,
-        cRows: 1,
-        cMaxRows: 2,
-        cSize: "md",
-        cParentForm: "MK_EditAppointment",
-        cInputStatus: this.inputStatus
-      },
+      // PI_meeting_location: {
+      //   cValidate: "",
+      //   cName: "meeting_location",
+      //   cOrder: 5,
+      //   cKey: false,
+      //   cProtect: false,
+      //   cResize: false,
+      //   cReadonly: false,
+      //   cRows: 1,
+      //   cMaxRows: 2,
+      //   cSize: "md",
+      //   cParentForm: "MK_EditAppointment",
+      //   cInputStatus: this.inputStatus
+      // },
       PI_descs: {
         cValidate: "",
         cName: "descs",
-        cOrder: 7,
+        cOrder: 6,
         cKey: false,
         cProtect: false,
         cResize: false,
@@ -662,6 +667,28 @@ export default {
         cMaxRows: 3,
         cSize: "md",
         cParentForm: "MK_EditAppointment",
+        cInputStatus: this.inputStatus
+      },
+      PI_next_contact_person: {
+        dataLookUp: {
+          LookUpCd: "GetContactPerson",
+          ColumnDB: "contact_person_id",
+          InitialWhere: "",
+          ParamWhere: "",
+          OrderBy: "",
+          ParamView: "",
+          SourceField: "",
+          DisplayLookUp: "name,phone_no,email,time_edit"
+        },
+        cValidate: "required",
+        cName: "next_contact_person",
+        ckey: false,
+        cOrder: 7,
+        cProtect: false,
+        cParentForm: "MK_AddAppointment",
+        cStatic: false,
+        cOption: [],
+        cDisplayColumn: "name",
         cInputStatus: this.inputStatus
       },
 
@@ -734,7 +761,7 @@ export default {
         },
         PI_pic_descs: {
           cValidate: "",
-          cName: "pic_descs",
+          cName: "descs",
           cOrder: 6,
           cKey: false,
           cType: "email",
@@ -791,13 +818,15 @@ export default {
         contact_phone_no_1: "+62",
         contact_phone_no_2: "",
         contact_phone_no_3: "",
-        email: ""
+        email: "",
+        descs: ""
       };
     },
     doBack() {
       this.$router.go(-1);
     },
-    doAddPIC() {
+    doAddPIC(data) {
+      this.addPic = data;
       this.M_ClearPIC();
       this.inputStatus = "new";
       this.$refs.Modal_PIC._show();
@@ -838,14 +867,21 @@ export default {
         if (response == null) return;
         this.alertSuccess(response.Message).then(() => {
           var dtrow = response.Data[0].row_id;
-          this.M_Appointment.contact_person = dtrow;
-          this.M_Appointment.contact_personLabel = this.M_Pic.contact_person;
-          this.M_Appointment.contact_person_Label2 =
-            param.phone_no +
-            "  " +
-            this.M_Pic.email +
-            "  " +
-            this.M_Pic.position;
+
+          if (this.addPic == 1) {
+            this.M_Appointment.contact_person = dtrow;
+            this.M_Appointment.contact_personLabel = this.M_Pic.contact_person;
+            this.M_Appointment.contact_person_Label2 =
+              param.phone_no +
+              "  " +
+              this.M_Pic.email +
+              "  " +
+              this.M_Pic.position;
+          } else {
+            this.M_Appointment.next_contact_person = dtrow;
+            this.M_Appointment.next_contact_personLabel = this.M_Pic.contact_person;
+          }
+
           this.CancelModal();
         });
       });
@@ -880,14 +916,8 @@ export default {
     },
     Oncontact_personChange2(data) {
       this.$nextTick(() => {
-        this.M_Appointment.contact_person = data.id;
-        this.M_Appointment.contact_personLabel = data.label;
-        this.M_Appointment.contact_person_Label2 =
-          data.phone_no +
-          "  " +
-          data.email +
-          "  " +
-          (data.position == null ? "" : data.position); // data.position;
+        this.M_Appointment.next_contact_person = data.id;
+        this.M_Appointment.next_contact_personLabel = data.label;
       });
       this.$forceUpdate();
     },
@@ -898,7 +928,11 @@ export default {
       });
     },
     Onappointment_dateChange(data) {
-      // this.M_Appointment.appointment_date = data
+      this.$nextTick(() => {
+        // alert("date");
+        // this.M_Appointment.nappointment_date = data;
+        // console.log(this.M_Appointment.nappointment_date);
+      });
     },
     M_ClearForm() {
       this.M_Appointment = {
@@ -909,7 +943,7 @@ export default {
         contact_person: "",
         contact_personLabel: "",
         appointment_date: "",
-        nappointment_date: "",
+        nappointment_date: this.momentDate(new Date()),
         meeting_location: "",
         descs: "",
         descs2: "",
@@ -934,6 +968,7 @@ export default {
       };
     },
     doSave() {
+      this.PI_descs2.cValidate = "required";
       this.$validator._base.validateAll("MK_EditAppointment").then(result => {
         if (!result) return;
         this.alertConfirmation("Are You Sure Want To Save This Data ?").then(
@@ -947,37 +982,32 @@ export default {
       });
     },
     M_Save() {
+      if (this.M_Appointment.descs2 == "") {
+        this.alertError("The descs2 field is required ");
+        return;
+      }
       var param = {
         option_url: "/MK/MK_Appointment",
         line_no: 0,
-        // mk_appointment_id: this.paramFromList.row_id,
-        // cm_contact_id: this.paramFromList.cm_contact_id,
-        // ss_portfolio_id: this.getDataUser().portfolio_id,
-        // action_type: this.M_Appointment.action,
-        // pic: this.M_Appointment.contact_person,
-        // descs: this.M_Appointment.descs,
-        // next_action_type: this.M_Appointment.next_appointment,
-        // next_appointment_date: this.M_Appointment.appointment_date,
-        // next_meeting_address: this.M_Appointment.meeting_location,
-        // cm_customer_status_id: this.M_Appointment.contact_person,
-        // appointment_type: 'L',
-        // next_descs: this.M_Appointment.descs2,
-        // lastupdatestamp: this.paramFromList.lastupdatestamp,
-        // user_edit: this.getDataUser().user_id,
 
         mk_appointment_id: this.paramFromList.row_id,
         ss_portfolio_id: this.getDataUser().portfolio_id,
         cm_contact_id: this.paramFromList.cm_contact_id,
         cm_contact_person_id: this.M_Appointment.contact_person,
         action_type: this.M_Appointment.action,
-        meeting_address: this.M_Dt_Appointment.addr,
+        meeting_address: "", //this.M_Dt_Appointment.addr,
         descs: this.M_Appointment.descs,
         appointment_date: this.M_Appointment.appointment_date,
         appointment_type: "A",
         next_action_type: this.M_Appointment.next_appointment,
         next_appointment_date: this.M_Appointment.nappointment_date,
-        next_meeting_address: this.M_Appointment.meeting_location,
+        next_meeting_address: "", //this.M_Appointment.meeting_location,
         next_descs: this.M_Appointment.descs2,
+        next_cm_contact_person_id:
+          this.M_Appointment.next_contact_person == null ||
+          this.M_Appointment.next_contact_person == ""
+            ? null
+            : this.M_Appointment.next_contact_person,
         status: "N",
         user_input: this.getDataUser().user_id,
         lastupdatestamp: this.paramFromList.lastupdatestamp
@@ -1031,24 +1061,34 @@ export default {
             pic_phone_no: data.contact_phone_no
           };
 
-          this.M_Appointment = {
-            action: data.action_type,
-            actionLabel: data.action_type,
-            contact_person: data.cm_contact_person_id,
-            contact_personLabel: data.contact_person_name,
-            contact_person_Label2: data.contact_phone_no + "  " + data.contact_email + "  " + (data.contact_position ? data.contact_position : ""),
-            appointment_date: data.next_appointment_date,
-            meeting_location: data.next_meeting_address,
-            descs2: data.descs,
-            descs: "", //data.next_descs,
-            next_appointment: data.next_action_type,
-            next_appointmentLabel: data.next_action_type
-          };
-        })
-
-        this.$forceUpdate();
-        console.log(this.M_Appointment);
+        this.M_Appointment = {
+          action: data.action_type,
+          actionLabel: data.action_type,
+          contact_person: data.cm_contact_person_id,
+          contact_personLabel: data.contact_person_name,
+          next_contact_person: data.cm_contact_person_id,
+          next_contact_personLabel: data.contact_person_name,
+          contact_person_Label2:
+            data.contact_phone_no +
+            "  " +
+            data.contact_email +
+            "  " +
+            (data.contact_position == null ? "" : data.contact_position),
+          appointment_date: data.appointment_date,
+          meeting_location: data.next_meeting_address,
+          descs2: data.descs,
+          descs: "", //data.next_descs,
+          next_appointment: data.next_action_type,
+          next_appointmentLabel: data.next_action_type,
+          last_action_date:
+            data.last_action_date == null
+              ? ""
+              : this.momentDate(data.last_action_date),
+          nappointment_date: this.momentDate(new Date())
+        };
+        // console.log(this.M_Appointment);
         this.doGetlist(this.search);
+        })
       });
     },
     doGetlist(search) {

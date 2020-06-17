@@ -7,7 +7,7 @@
             <div class="card__title" style="padding-bottom: 5px !important;">
               <b-row>
                 <b-col style="max-width:fit-content !important;">
-                  <span>To Do List new</span>
+                  <span>To Do List</span>
                 </b-col>
                 <b-col style="text-align: right;">
                   <b-badge variant="primary" @click="doProspect" style="cursor: pointer;">&nbsp;</b-badge>
@@ -142,7 +142,7 @@
                       <span>
                         <b-badge
                           style="width: 15px; height: 15px; padding: 6px !important; border-radius: 15px !important;"
-                          :variant="data.item.action == '1' ? 'success' : 'primary'"
+                          :variant="data.item.status == 'New' ? 'primary' : 'success'"
                         >&nbsp;</b-badge>
                       </span>
                       <span>
@@ -597,6 +597,7 @@ export default {
     doEdit(record) {
       var param = record;
       param.isEdit = true;
+      console.log(param);
       this.$router.push({ name: "MK_EditToDoList", params: param });
     },
     IsWarning(date) {
