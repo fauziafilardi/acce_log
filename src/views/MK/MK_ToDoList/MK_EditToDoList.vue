@@ -125,11 +125,11 @@
                           ref="ref_contact_person"
                         />
                         <ACCTextBox
-                          @input="fn_kosong"
                           :prop="PI_contact_person_label"
-                          v-model="M_Appointment.contact_person_label2"
-                          ref="mref_contact_person_label2"
-                        />asdfsdf
+                          v-model="M_Appointment.contact_person_Label2"
+                          ref="ref_contact_person_Label2"
+                        />
+                        {{M_Appointment.contact_person_Label2}}
                       </b-col>
                       <b-col md="1">
                         <b-button
@@ -565,7 +565,7 @@ export default {
       PI_contact_person_label: {
         cValidate: "",
         cName: "contact_person_Label2",
-        cOrder: 1,
+        cOrder: 2,
         cKey: false,
         cType: "text",
         cProtect: true,
@@ -767,7 +767,6 @@ export default {
         if (Object.keys(param).length < 1) {
           this.doBack();
         } else {
-          console.log(param);
           return param;
         }
       }
@@ -782,7 +781,6 @@ export default {
     }
   },
   methods: {
-    fn_kosong() {},
     CancelModal() {
       this.$refs.Modal_PIC._hide();
       this.M_ClearPIC();
@@ -870,25 +868,28 @@ export default {
       this.$nextTick(() => {
         this.M_Appointment.contact_person = data.id;
         this.M_Appointment.contact_personLabel = data.label;
-        this.M_Appointment.contact_person_label2 =
+        this.M_Appointment.contact_person_Label2 =
           data.phone_no +
           "  " +
           data.email +
           "  " +
           (data.position == null ? "" : data.position); // data.position;
       });
+
+      this.$forceUpdate();
     },
     Oncontact_personChange2(data) {
       this.$nextTick(() => {
         this.M_Appointment.contact_person = data.id;
         this.M_Appointment.contact_personLabel = data.label;
-        this.M_Appointment.contact_person_label2 =
+        this.M_Appointment.contact_person_Label2 =
           data.phone_no +
           "  " +
           data.email +
           "  " +
           (data.position == null ? "" : data.position); // data.position;
       });
+      this.$forceUpdate();
     },
     Onnext_appointmentChange(data) {
       this.$nextTick(() => {
@@ -1004,49 +1005,48 @@ export default {
 
         var data = response.Data[0];
 
-        this.M_Dt_Appointment = {
-          mk_appointment_id: data.mk_appointment_id,
-          name: data.name,
-          address:
-            data.address +
-            ", " +
-            data.district +
-            ", " +
-            data.city +
-            ", " +
-            data.province +
-            " - " +
-            data.country,
-          addr: data.address,
-          country: data.country,
-          province: data.province,
-          city: data.city,
-          district: data.district,
-          email: data.email,
-          website: data.website,
-          phone_no: data.phone_no,
-          pic: data.pic,
-          pic_phone_no: data.contact_phone_no
-        };
+        this.$nextTick(() => {
+          this.M_Dt_Appointment = {
+            mk_appointment_id: data.mk_appointment_id,
+            name: data.name,
+            address:
+              data.address +
+              ", " +
+              data.district +
+              ", " +
+              data.city +
+              ", " +
+              data.province +
+              " - " +
+              data.country,
+            addr: data.address,
+            country: data.country,
+            province: data.province,
+            city: data.city,
+            district: data.district,
+            email: data.email,
+            website: data.website,
+            phone_no: data.phone_no,
+            pic: data.pic,
+            pic_phone_no: data.contact_phone_no
+          };
 
-        this.M_Appointment = {
-          action: data.action_type,
-          actionLabel: data.action_type,
-          contact_person: data.cm_contact_person_id,
-          contact_personLabel: data.contact_person_name,
-          contact_person_Label2:
-            data.contact_phone_no +
-            "  " +
-            data.contact_email +
-            "  " +
-            (data.contact_position == null ? "" : data.contact_position),
-          appointment_date: data.next_appointment_date,
-          meeting_location: data.next_meeting_address,
-          descs2: data.descs,
-          descs: "", //data.next_descs,
-          next_appointment: data.next_action_type,
-          next_appointmentLabel: data.next_action_type
-        };
+          this.M_Appointment = {
+            action: data.action_type,
+            actionLabel: data.action_type,
+            contact_person: data.cm_contact_person_id,
+            contact_personLabel: data.contact_person_name,
+            contact_person_Label2: data.contact_phone_no + "  " + data.contact_email + "  " + (data.contact_position ? data.contact_position : ""),
+            appointment_date: data.next_appointment_date,
+            meeting_location: data.next_meeting_address,
+            descs2: data.descs,
+            descs: "", //data.next_descs,
+            next_appointment: data.next_action_type,
+            next_appointmentLabel: data.next_action_type
+          };
+        })
+
+        this.$forceUpdate();
         console.log(this.M_Appointment);
         this.doGetlist(this.search);
       });
@@ -1282,7 +1282,6 @@ export default {
     }
   },
   mounted() {
-    this.M_ClearForm();
     this.GetDataBy();
   }
 };

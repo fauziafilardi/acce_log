@@ -101,6 +101,7 @@ export default {
       }
     },
     handleInput () {
+      console.log(this.value)
       if (this.prop.cType == 'text') {
         if (this.value) {
           this.value = this.value.toString()

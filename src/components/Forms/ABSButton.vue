@@ -1,7 +1,7 @@
 <template>
   <span>
     <b-button v-show="!disabled"
-              size="sm"
+              :size="size"
               @click.stop="clicked"
               :disabled="disabled"
               v-shortkey="shortKey"
@@ -13,7 +13,7 @@
     </b-button>
     
     <b-button v-show="disabled"
-              size="sm"
+              :size="size"
               @click.stop="clicked"
               :disabled="disabled"
               class="btnList__btnDisabled"
@@ -36,7 +36,8 @@ export default {
       classButton: String,
       shortKey: {type: Array, default: null},
       styleButton: [Object, String, Array],
-      styleIcon: [Object, String, Array]
+      styleIcon: [Object, String, Array],
+      size: String
     // }
   },
   data() {
@@ -51,5 +52,8 @@ export default {
         this.$emit('shortKey')
       }
   },
+  mounted() {
+    this.size = this.size && this.size != '' ? this.size : 'sm';
+  }
 }
 </script>

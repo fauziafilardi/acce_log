@@ -227,6 +227,54 @@
                         <span>: {{ M_Quotation.valid_until }}</span>
                       </b-col>
                     </b-row>
+                    <b-row>
+                      <b-col>
+                        <ABSButton
+                          :text="'Confirm Quotation'"
+                          classButton="btn btn--default"
+                          classIcon="icon-style-1"
+                          size="6x"
+                          @click="doConfirm"
+                        />
+                      </b-col>
+                    </b-row>
+                    <b-row style="margin-top: 10px">
+                      <b-col style="max-width: fit-content !important;">
+                        <span style="font-size: 13px;font-weight: bold;color: #35359a;">
+                          Log Book
+                        </span>
+                      </b-col>
+                      <b-col>
+                        <div style="max-width: fit-content !important;cursor: pointer;" @click="newLogBook">
+                          <font-awesome-icon
+                            style="color: #333399;font-size: 12px;"
+                            icon="map-marker-alt"
+                            size="lg"
+                          /> Add New
+                        </div>
+                      </b-col>
+                    </b-row>
+                    <b-row>
+                      <b-col>
+                        <div class="table--list" id="logbook_tb">
+                          <b-table
+                            :responsive="true"
+                            :striped="false"
+                            :bordered="false"
+                            :outlined="false"
+                            :small="false"
+                            :hover="true"
+                            :dark="false"
+                            :fixed="false"
+                            :foot-clone="false"
+                            :fields="LogBookHeader"
+                            :items="LogBookItems"
+                            class="table-sm table-style-2"
+                          >
+                          </b-table>
+                        </div>
+                      </b-col>
+                    </b-row>
                   </b-col>
                 </b-row>
               </b-form>
@@ -565,6 +613,50 @@
       </template>
     </ABSModal>
 
+    <!-- Modal LogBook -->
+    <ABSModal id="Modal_LogBook" ref="Modal_LogBook" size="sm">
+      <template slot="headerTitle">Add New Log Book</template>
+      <template slot="content">
+        <b-row>
+          <b-col md="12">
+            <b-form
+              :data-vv-scope="'Frm_Logbook'"
+              :data-vv-value-path="'Frm_Logbook'"
+            >
+              <b-row>
+                <b-col md="12">
+                  <b-row>
+                    <b-col md="12">
+                      <span>
+                        <label>Description</label>
+                      </span>
+                      <ACCTextArea
+                        :prop="PI_logbook_descs"
+                        v-model="M_LogBook.descs"
+                        ref="ref_logbook_descs"
+                      />
+                    </b-col>
+                  </b-row>
+
+                  <b-row style="margin-top: 10px;">
+                    <b-col md="12">
+                      <ABSButton
+                        :text="'Save'"
+                        classButton="btn btn--default"
+                        classIcon="icon-style-1"
+                        @click="saveLogBook"
+                        styleButton="height: 40px;width: 100%;"
+                      />
+                    </b-col>
+                  </b-row>
+                </b-col>
+              </b-row>
+            </b-form>
+          </b-col>
+        </b-row>
+      </template>
+    </ABSModal>
+
     <iframe name="print_frame" id="print_frame" width="0" height="0" frameborder="0" src="about:blank"></iframe>
   </div>
 </template>
@@ -728,6 +820,42 @@ export default {
         cDisplayColumn: "user_id,user_name,time_edit",
         cInputStatus: this.inputStatus
       },
+      PI_logbook_descs: {
+        cValidate: "",
+        cName: "logbook_descs",
+        cOrder: 1,
+        cKey: false,
+        cProtect: false,
+        cResize: false,
+        cReadonly: false,
+        cRows: 1,
+        cMaxRows: 2,
+        cSize: "md",
+        cParentForm: "Frm_Logbook",
+        cInputStatus: 'new'
+      },
+      M_LogBook: {
+        descs: ''
+      },
+      AllData: {},
+      responses: {},
+      LogBookHeader: [
+        // {
+        //   value: 1,
+        //   key: "logbook_date",
+        //   thClass: thClass,
+        //   tdClass: tdClass,
+        //   label: "Date"
+        // },
+        // {
+        //   value: 2,
+        //   key: "descs",
+        //   thClass: thClass,
+        //   tdClass: tdClass,
+        //   label: "Description"
+        // }
+      ],
+      LogBookItems: []
     };
   },
   computed: {
@@ -813,7 +941,6 @@ export default {
       };
 
       this.postJSON(this.sendEmail(), param).then(response => {
-        console.log(response);
         if (response == null) return;
         this.alertSuccess(response.Message).then(() => {
           // this.M_ClearForm_Email();
@@ -835,7 +962,6 @@ export default {
       };
 
       this.putJSON(this.getUrlCRUD(), param).then(response => {
-        // console.log(response)
         if (response == null) return;
         this.alertSuccess(response.Message).then(() => {
           this.$refs.Modal_MK_Quotation._hide();
@@ -844,7 +970,6 @@ export default {
       });
     },
     OnReasonChange(data) {
-      console.log(data);
       this.$nextTick(() => {
         this.M_Quotation.reason_cd = data.reason_cd;
         this.M_Quotation.reasonCdLabel = data.label;
@@ -873,7 +998,6 @@ export default {
 
       this.postJSON(this.getUrlSaveHeaderChat(), paramSaveH).then(response => {
         // response from API
-        console.log(response);
         if (response == null) return;
         var url = "MK_ChatQuotation";
         if (!url || url == "" || url == undefined) return;
@@ -897,7 +1021,6 @@ export default {
 
       this.postJSON(this.getUrlCheckChat(), param).then(response => {
         // response from API
-        console.log(response);
         if (response == null) return;
 
         var data = response;
@@ -921,6 +1044,52 @@ export default {
     },
     doBack() {
       this.$router.go(-1);
+    },
+    doConfirm() {
+      var param = {
+        option_url: "/MK/MK_Quotation",
+        line_no: 1,
+        mk_quotation_id: this.paramFromList.row_id,
+        lastupdatestamp: this.paramFromList.lastupdatestamp,
+        user_edit: this.getDataUser().user_id
+      };
+
+      this.postJSON(this.getUrlCRUD(), param).then(response => {
+        // response from API
+        if (response == null) return;
+        this.alertSuccess("Confirmation Success").then(() => {
+          this.doBack();
+        });
+      })
+    },
+    newLogBook() {
+      this.$refs.Modal_LogBook._show();
+    },
+    saveLogBook() {
+      var param = {
+        option_url: "/MK/MK_Quotation",
+        line_no: 2,
+        ss_portfolio_id: this.AllData.ss_portfolio_id,
+        logbook_type: this.AllData.quotation_type,
+        referance_no: this.AllData.quotation_no,
+        logbook_date: this.momentDateFormatting(new Date(), 'YYYY-MM-DD HH:mm'),
+        descs: this.M_LogBook.descs,
+        cm_contact_id: this.AllData.cm_contact_id,
+        cm_contact_person_id: "NULL",
+        action_type: "",
+        meeting_address: "",
+        user_input: this.getDataUser().user_id
+      };
+
+      this.postJSON(this.getUrlCRUD(), param).then(response => {
+        // response from API
+        if (response == null) return;
+        this.alertSuccess(response.Message).then(() => {
+          this.M_LogBook.descs = "";
+          this.$refs.Modal_LogBook._hide();
+          this.GetLogBookList();
+        });
+      })
     },
     doEdit() {
       var param = this.paramFromList;
@@ -948,7 +1117,6 @@ export default {
       };
     },
     GetDataBy() {
-      console.log(this.paramFromList);
       var param = {
         option_url: "/MK/MK_Quotation",
         line_no: 0,
@@ -958,10 +1126,11 @@ export default {
 
       this.getJSON(this.getUrlCRUD(), param).then(response => {
         // response from API
-        console.log(response);
         if (response == null) return;
 
         var data = response.Data[0];
+
+        this.AllData = data;
 
         this.M_Quotation = {
           customer: data.name,
@@ -1050,6 +1219,238 @@ export default {
           "\n" +
           "Valid Until      : " +
           this.M_Quotation.valid_until;
+
+          this.GetLogBookList()
+      });
+    },
+    GetLogBookList() {
+      var param = {
+        option_url: "/MK/MK_Quotation",
+        line_no: 2,
+        user_id: this.getDataUser().user_id,
+        portfolio_id: this.getDataUser().portfolio_id,
+        subportfolio_id: this.getDataUser().subportfolio_id,
+        current_page: 1,
+        per_page: 5,
+        param_where: "",
+        initial_where: "",
+        sort_field: '',
+        source_field: '',
+        param_view: ''
+      };
+
+      this.postJSON(this.getUrlList(), param).then(response => {
+        if (response == null) return;
+        this.responses = response;
+        // console.log(this.cmbMarketing, ix)
+        this.LogBookItems = [];
+        this.LogBookHeader = [];
+        this.LogBookItems = this.responses.Data;
+
+        var str_array =
+          this.responses.DefineColumn && this.responses.DefineColumn !== ""
+            ? this.responses.DefineColumn.split(",")
+            : this.responses.AllColumn.split(",");
+        var x = "S,L";
+        // var defineSize = this.responses.DefineSize.split(",");
+        var defineSize = x.split(",");
+
+        // this.allColumn_bf = this.responses.AllColumn.split(",");
+        // var index = this.allColumn_bf.indexOf("lastupdatestamp");
+        // if (index > -1) {
+        //   this.allColumn_bf.splice(index, 1);
+        // }
+        var allColumn = [];
+        var filteredColumn = [];
+        var definedColumn = [];
+
+        // this.allColumn_bf.forEach((val, idx) => {
+        //   var thClass = "HeaderACCList2";
+        //   var isSorted = this.sortedField.map(x => x.field).indexOf(val);
+        //   if (isSorted > -1) {
+        //     if (this.sortedField[isSorted].sort == "ASC") {
+        //       thClass = thClass + " AscSorted";
+        //     } else {
+        //       thClass = thClass + " DescSorted";
+        //     }
+        //   }
+
+        //   allColumn.push({
+        //     value: idx + 1,
+        //     key: val,
+        //     thClass: thClass,
+        //     tdClass: "ContentACCList2 notranslate",
+        //     text: val
+        //   });
+
+        //   filteredColumn.push({
+        //     value: idx + 1,
+        //     key: val,
+        //     thClass: thClass,
+        //     tdClass: "ContentACCList2 notranslate"
+        //   });
+        // });
+
+        for (var i = 0; i < str_array.length; i++) {
+          filteredColumn = filteredColumn.filter(val => {
+            if (val.key == str_array[i]) {
+              definedColumn.push({
+                value: val.value,
+                key: val.key,
+                thClass: val.thClass,
+                tdClass: val.tdClass,
+                text: val.key
+              });
+            }
+
+            return val.key != str_array[i];
+          });
+
+          var thClass = "HeaderACCList2 ";
+          if (str_array[i] !== "no") {
+            thClass += defineSize[i];
+          }
+
+          var tdClass = "ContentACCList2 notranslate";
+          if (
+            str_array[i].toLowerCase().includes("amount") ||
+            str_array[i].toLowerCase().includes("amt") ||
+            str_array[i].toLowerCase().includes("rate") ||
+            str_array[i].toLowerCase().includes("price")
+          ) {
+            tdClass = "ABStdClassList2 notranslate";
+            thClass = "ABSthClassList2";
+          } else if (str_array[i].toLowerCase() == "target") {
+            thClass += " th-cus-center";
+            tdClass += " td-cus-center";
+          }
+
+          // var isSorted = this.sortedField
+          //   .map(x => x.field)
+          //   .indexOf(str_array[i]);
+          // if (isSorted > -1) {
+          //   if (this.sortedField[isSorted].sort == "ASC") {
+          //     thClass = thClass + " AscSorted";
+          //   } else {
+          //     thClass = thClass + " DescSorted";
+          //   }
+          // }
+
+          if (this.languageStatus) {
+            this.LogBookHeader.push({
+              value: i + 1,
+              key: str_array[i],
+              thClass: thClass,
+              tdClass: tdClass,
+              label: this.$t(str_array[i])
+            });
+          } else {
+            if (str_array[i] == "lastupdatestamp") continue;
+
+            var listReplace = [
+              {
+                key: "_",
+                value: " "
+              },
+              {
+                key: "Amt",
+                value: " Amount"
+              },
+              {
+                key: "Cd",
+                value: " Code"
+              },
+              {
+                key: "Descs",
+                value: " Description"
+              },
+              {
+                key: "Time Edit",
+                value: "Last Update"
+              },
+              {
+                key: "Batch Status",
+                value: "Status"
+              },
+              {
+                key: "garing",
+                value: "/"
+              },
+              {
+                key: "titik",
+                value: "."
+              },
+              {
+                key: "SnP",
+                value: "SnP "
+              },
+              {
+                key: "VO",
+                value: "VO "
+              },
+              {
+                key: "Quotation Date",
+                value: "Date"
+              },
+              {
+                key: "Row Id",
+                value: "View"
+              }
+            ];
+            var isGotIt = false;
+            var labelHeader = undefined;
+
+            if (str_array[i].includes("_")) {
+              labelHeader = str_array[i]
+                .toLowerCase()
+                .split("_")
+                .map(s => {
+                  return s.charAt(0).toUpperCase() + s.substring(1);
+                })
+                .join(" ");
+            } else {
+              // if (str_array[i] !== 'lastupdatestamp') {
+              labelHeader =
+                str_array[i].charAt(0).toUpperCase() +
+                str_array[i].substring(1);
+              // }
+            }
+
+            for (var data of listReplace) {
+              if (labelHeader == undefined) {
+                labelHeader = this.replaceAllString(
+                  str_array[i],
+                  data.key,
+                  data.value
+                );
+              } else {
+                if (labelHeader.includes(data.key)) {
+                  if (labelHeader == "Row Id" && !this.WithViewButton) continue;
+                  // if (labelHeader == 'Row Id' && !this.WithViewButton) {
+
+                  // }
+                  // else {
+                  labelHeader = this.replaceAllString(
+                    labelHeader,
+                    data.key,
+                    data.value
+                  );
+                  // }
+                }
+              }
+            }
+
+            if (labelHeader == "Row Id") continue;
+
+            this.LogBookHeader.push({
+              value: i + 1,
+              key: str_array[i],
+              thClass: thClass,
+              tdClass: tdClass,
+              label: labelHeader
+            });
+          }
+        }
       });
     }
   },
