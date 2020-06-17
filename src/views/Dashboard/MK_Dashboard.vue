@@ -339,21 +339,20 @@
                 v-for="(data, index) in Appointment"
                 v-bind:key="index"
               >
-                {{data.next_action}}
                 <b-col style="max-width:fit-content !important;">
                   <div style="width:50px;">
                     <div
                       class="CalendarTagMonth"
-                    >{{momentDateFormat2(data.next_action, 'YYYY-MM-DD HH:mm', 'MMM')}} New</div>
+                    >{{momentDateFormat2(data.next_action, 'DD-MM-YYYY HH:mm', 'MMM')}}</div>
                     <div
                       class="CalendarTagDate"
-                    >{{momentDateFormat2(data.next_action, 'YYYY-MM-DD HH:mm', 'DD')}}</div>
+                    >{{momentDateFormat2(data.next_action, 'DD-MM-YYYY HH:mm', 'DD')}}</div>
                   </div>
                 </b-col>
                 <b-col style="margin: auto;">
                   <span
                     class="AppointmentTitle"
-                  >{{momentDateFormat2(data.next_action, 'YYYY-MM-DD HH:mm', 'HH:mm')}}</span>
+                  >{{momentDateFormat2(data.next_action, 'DD-MM-YYYY HH:mm', 'HH:mm')}}</span>
                   <br />
                   <span class="AppointmentDescs">{{data.customer_name}}</span>
                 </b-col>
@@ -1186,7 +1185,7 @@ export default {
         var now = new Date();
         for (let i = 0; i < ress.Data.length; i++) {
           var next_action = new Date(ress.Data[i].next_action);
-          console.log(next_action);
+          // console.log(next_action);
           this.ToDoList.push({
             cm_contact_id: ress.Data[i].cm_contact_id,
             name: ress.Data[i].customer_name,
