@@ -16,8 +16,15 @@
         <i class="icon-arrow-right"></i>
       </div>-->
 
+      <!-- <div
+                    class="sidebar-app__hide-text-labels"
+        style="background-color: rgb(51, 51, 153);
+                align-items: center;               
+                text-align: center;                
+                justify-content: center;
+                padding: 15px !important;"
+      >-->
       <div
-        class="sidebar-app__hide-text-labels"
         style="background-color: rgb(51, 51, 153);
                 align-items: center;               
                 text-align: center;                
@@ -26,16 +33,17 @@
       >
         <!-- <i class="icon-arrow-right"></i> -->
         <div class="profile">
-          <div @click="fn_profile" class="image">
+          <div @click="fn_profile" class="image" style="cursor:pointer;">
             <img :src="PathFile" alt style="width: 70px; border-radius: 50px;" />
           </div>
           <div class="title" style="color: #cccccc;">Welcome Back</div>
-          <div
+          <!-- <div
             class="title"
             @click="dropdownMenuHeaderTop = !dropdownMenuHeaderTop"
             v-click-outside="closeHeader"
             style="color:#FFFFFF !important; font-weight:700;"
-          >
+          >-->
+          <div class="title" style="color:#FFFFFF !important; font-weight:700;">
             <!-- <router-link
               :to="'/'"
               class="back-to-dashboard"

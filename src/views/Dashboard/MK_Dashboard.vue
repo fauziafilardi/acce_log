@@ -296,7 +296,7 @@
                             size="lg"
                           />-->
                           <!-- <b-badge @click="doEdit(data)"> -->
-                          <span @click="ToDoListEdit(data)">
+                          <span @click="ToDoListEdit(data)" style="cursor:pointer;">
                             <font-awesome-icon
                               class="icon-style-default"
                               :icon="data.action=='C' ? 'phone-square-alt' : (data.action=='V' ? 'hand-paper' : 'utensils')"
