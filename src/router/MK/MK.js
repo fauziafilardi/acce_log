@@ -57,6 +57,8 @@ import MK_EditToDoList from '@/views/MK/MK_ToDoList/MK_EditToDoList'
 
 import MK_DashboardTarget from '@/views/MK/MK_Dashboard/MK_DashboardTarget'
 import MK_DashboardProspect from '@/views/MK/MK_Dashboard/MK_DashboardProspect'
+import MK_DashboardOutstandingPayment from '@/views/MK/MK_Dashboard/MK_DashboardOutstandingPayment'
+import MK_DashboardCommision from '@/views/MK/MK_Dashboard/MK_DashboardCommision'
 
 export const MKRender = {
     path: '/MK',
@@ -430,6 +432,24 @@ export const MKRender = {
         meta: {
             requiresAuth: true
         }
-    },//
+    },
+    {
+        path: '/MK/MK_DashboardOutstandingPayment',
+        name: 'MK_DashboardOutstandingPayment',
+        component: MK_DashboardOutstandingPayment,
+        meta: {
+            requiresAuth: true
+        }
+
+    },
+    {
+        path: '/MK/MK_DashboardCommision',
+        name: 'MK_DashboardCommision',
+        component: MK_DashboardCommision,
+        meta: {
+            requiresAuth: true
+        }
+
+    },
     ]
 }

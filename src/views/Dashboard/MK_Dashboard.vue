@@ -608,7 +608,8 @@
                       :text="'View All'"
                       classButton="button button--new"
                       classIcon="icon-style-1"
-                      :disabled="true"
+                      :disabled="false"
+                      @click="doViewAllCommision"
                     />
                   </span>
                 </b-col>
@@ -666,45 +667,6 @@
                   <span class="CommisionDescs">{{`Rp `+isCurrency(DataComission.pending, decimal)}}</span>
                 </b-col>
               </b-row>
-              <!--<div class="Commision__Wrapper">
-                <div class="Commision__Icon">
-                  <font-awesome-icon style="color: blue;" icon="coins" size="3x" />
-                </div>
-                <div class="Commision__Text">
-                  <span>
-                    <span class="Commision__TitleBlue">Paid</span> &nbsp;
-                    <span class="Commision__Title">(Last 12 Months)</span>
-                    <br />
-                    <span class="Commision__Descs">Rp 22.500.000</span>
-                  </span>
-                </div>
-              </div>
-               <div class="Commision__Wrapper">
-                <div class="Commision__Icon">
-                  <font-awesome-icon style="color: #dc3545;" icon="exclamation-circle" size="6x" />
-                </div>
-                <div class="Commision__Text">
-                  <span>
-                    <span class="Commision__TitleRed">Overdue</span> &nbsp;
-                    <span class="Commision__Title"></span>
-                    <br />
-                    <span class="Commision__Descs">Rp 13.250.000</span>
-                  </span>
-                </div>
-              </div>
-              <div class="Commision__Wrapper">
-                <div class="Commision__Icon">
-                  <font-awesome-icon style="color: #28a745;" icon="stopwatch" size="6x" />
-                </div>
-                <div class="Commision__Text">
-                  <span>
-                    <span class="Commision__TitleGreen">Pending</span> &nbsp;
-                    <span class="Commision__Title"></span>
-                    <br />
-                    <span class="Commision__Descs">Rp 32.380.000</span>
-                  </span>
-                </div>
-              </div>-->
             </div>
           </div>
         </b-col>
@@ -1110,7 +1072,10 @@ export default {
       this.$router.push({ name: "MK_DashboardTarget" });
     },
     doViewAllOutstandingPayment() {
-      this.$router.push({ name: "MK_DashboardTarget" });
+      this.$router.push({ name: "MK_DashboardOutstandingPayment" });
+    },
+    doViewAllCommision() {
+      this.$router.push({ name: "MK_DashboardCommision" });
     },
     doAddNewProspect() {
       var url = "MK_AddNewProspect";
