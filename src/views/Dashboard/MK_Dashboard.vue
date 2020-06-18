@@ -238,36 +238,39 @@
             </div>
             <div class="card__body">
               <div class="bedge-container" style>
-                <div class="badgeHeader" style="min-width: 640px !important;">
-                  <b-row style="flex-wrap: unset !important">
-                    <b-col style="text-align: center;" md="2">Status</b-col>
-                    <b-col style="text-align: center;" md="3">Customer Name</b-col>
-                    <b-col style="text-align: center;" md="2">Last Action</b-col>
-                    <b-col style="text-align: center;" md="3">Next Action</b-col>
-                    <b-col style="text-align: center;" md="2">Action</b-col>
+                <!-- <div class="badgeHeader" style="min-width: 640px !important;"> -->
+                  <b-row style="flex-wrap: unset !important" class="badgeHeader">
+                    <b-col style="text-align: center;padding-top: 9px;" class="bordered" md="2">Status</b-col>
+                    <b-col style="text-align: center;padding-top: 9px;" class="bordered" md="3">Customer Name</b-col>
+                    <b-col style="text-align: center;padding-top: 9px;" class="bordered" md="2">Last Action</b-col>
+                    <b-col style="text-align: center;padding-top: 9px;" class="bordered" md="3">Next Action</b-col>
+                    <b-col style="text-align: center;padding-top: 9px;" class="bordered" md="2">Action</b-col>
                   </b-row>
-                </div>
-                <div
+                <!-- </div> -->
+                <!-- <div
                   class="badgeContent"
                   style="min-width: 640px !important;"
                   v-for="(data, index) in ToDoList"
                   v-bind:key="index"
-                >
-                  <b-row style="flex-wrap: unset !important">
-                    <b-col class="ContentFillBadge" style="text-align: center;" md="2">
+                > -->
+                  <b-row class="badgeContent"
+                  style="min-width: 640px !important; flex-wrap: unset !important;"
+                  v-for="(data, index) in ToDoList"
+                  v-bind:key="index">
+                    <b-col class="ContentFillBadge bordered" style="text-align: center;" md="2">
                       <span>
                         <b-badge
                           :style="`background-color:`+data.status_colour+`; width: 75px; padding: 6px !important; border-radius: 4px !important; font-weight: normal !important;`"
                         >{{data.status}}</b-badge>
                       </span>
                     </b-col>
-                    <b-col class="contentFill" md="3">
+                    <b-col class="contentFill bordered" md="3">
                       <span>{{data.name}}</span>
                     </b-col>
-                    <b-col class="contentFill" style="text-align: center;" md="2">
+                    <b-col class="contentFill bordered" style="text-align: center;" md="2">
                       <span>{{data.last_action && data.last_action !== '' ? data.last_action : '-'}}</span>
                     </b-col>
-                    <b-col class="contentFill__nextaction" md="3">
+                    <b-col class="contentFill__nextaction bordered" md="3">
                       <span>
                         <font-awesome-icon
                           v-if="data.warning"
@@ -278,7 +281,7 @@
                         {{ momentDateFormatting(data.next_action,'DD/MM/YYYY HH:mm')}}
                       </span>
                     </b-col>
-                    <b-col class="contentFill" md="2">
+                    <b-col class="contentFill bordered" md="2">
                       <b-row>
                         <b-col style="padding-left: 20% !important; padding-top: 2px;">
                           <span>
@@ -308,7 +311,7 @@
                       </b-row>
                     </b-col>
                   </b-row>
-                </div>
+                <!-- </div> -->
               </div>
             </div>
           </div>
