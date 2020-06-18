@@ -585,6 +585,10 @@
               >
                 <!-- class="table-sm table-style-1" -->
                 <template v-slot:cell(no)="data">{{data.index + 1}}</template>
+
+                <template
+                  v-slot:cell(outstanding_amt)="data"
+                >{{isCurrency(data.item.outstanding_amt, decimal)}}</template>
               </b-table>
               <!-- </div> -->
             </div>
@@ -925,51 +929,51 @@ export default {
             tdClass: "ContentTable__Center"
           },
           {
-            key: "name",
+            key: "customer_name",
             label: "Customer",
             thClass: "HeaderTable",
             tdClass: "ContentTable"
           },
           {
-            key: "outstanding",
+            key: "outstanding_amt",
             label: "Total Outstanding Payment",
             thClass: "HeaderTable",
             tdClass: "ContentTable__Center"
           }
         ],
         Data: [
-          {
-            name: "PT Abadi Sentosa",
-            outstanding: "150.000.000"
-          },
-          {
-            name: "PT Gemini Perkasa Abadi",
-            outstanding: "175.000.000"
-          },
-          {
-            name: "PT Garuda Perkasa",
-            outstanding: "225.000.000"
-          },
-          {
-            name: "PT Indo Sejahtera",
-            outstanding: "455.000.000"
-          },
-          {
-            name: "PT Abadi Sentosa",
-            outstanding: "144.500.000"
-          },
-          {
-            name: "PT Gemini Perkasa Abadi",
-            outstanding: "255.000.000"
-          },
-          {
-            name: "PT Garuda Perkasa",
-            outstanding: "125.000.000"
-          },
-          {
-            name: "PT Indo Sejahtera",
-            outstanding: "334.000.000"
-          }
+          // {
+          //   name: "PT Abadi Sentosa",
+          //   outstanding: "150.000.000"
+          // },
+          // {
+          //   name: "PT Gemini Perkasa Abadi",
+          //   outstanding: "175.000.000"
+          // },
+          // {
+          //   name: "PT Garuda Perkasa",
+          //   outstanding: "225.000.000"
+          // },
+          // {
+          //   name: "PT Indo Sejahtera",
+          //   outstanding: "455.000.000"
+          // },
+          // {
+          //   name: "PT Abadi Sentosa",
+          //   outstanding: "144.500.000"
+          // },
+          // {
+          //   name: "PT Gemini Perkasa Abadi",
+          //   outstanding: "255.000.000"
+          // },
+          // {
+          //   name: "PT Garuda Perkasa",
+          //   outstanding: "125.000.000"
+          // },
+          // {
+          //   name: "PT Indo Sejahtera",
+          //   outstanding: "334.000.000"
+          // }
         ]
       },
       Bidding: {
@@ -1241,6 +1245,25 @@ export default {
         this.Quotation.Data = response.Data;
       });
     },
+    getListOutstandingPayment() {
+      var param = {
+        option_url: "/MK/MK_OutstandingPayment",
+        line_no: 0,
+        user_id: this.getDataUser().user_id,
+        portfolio_id: this.getDataUser().portfolio_id,
+        subportfolio_id: this.getDataUser().subportfolio_id,
+        current_page: 1,
+        per_page: 8,
+        param_where: "",
+        initial_where: "user_id='" + this.getDataUser().user_id + "'",
+        sort_field: "",
+        source_field: "",
+        param_view: ""
+      };
+      this.postJSON(this.getUrlList(), param).then(response => {
+        this.Outstanding.Data = response.Data;
+      });
+    },
     renderChart() {
       var param = {
         option_function_cd: "GetMarketingTargetDash",
@@ -1502,6 +1525,7 @@ export default {
     this.getListQuotation();
     this.getListAppointment();
     this.getDataToDoList();
+    this.getListOutstandingPayment();
   }
 };
 </script>
