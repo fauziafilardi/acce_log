@@ -278,7 +278,7 @@
                           icon="exclamation-triangle"
                           size="sm"
                         />
-                        {{ momentDateFormatting(data.next_action,'DD/MM/YYYY HH:mm')}}
+                        {{ momentDateFormatting(data.next_action,'DD/MM/YYYY')}}
                       </span>
                     </b-col>
                     <b-col class="contentFill bordered" md="2">
@@ -469,7 +469,7 @@
                   <span>Order</span>
                 </b-col>
                 <b-col style="text-align: right;">
-                  <span style="padding-right:5px">
+                  <!-- <span style="padding-right:5px">
                     <font-awesome-icon
                       style="font-size: medium; color: #ff9900;"
                       icon="circle"
@@ -500,7 +500,14 @@
                   </span>
                   <span
                     style="padding-right:5px; font-size: 12px !important; font-weight: normal !important; color: #666666;"
-                  >Issue</span>
+                  >Issue</span> -->
+
+                  <b-badge variant="warning" style="cursor: pointer;">{{Order.pending}}</b-badge>
+                  <span style="color: #7f8084; font-weight: normal; margin-left: 5px; cursor: pointer;">Pending</span> &nbsp;
+                  <b-badge variant="success" style="cursor: pointer;">{{Order.progress}}</b-badge>
+                  <span style="color: #7f8084; font-weight: normal; margin-left: 5px; cursor: pointer;">On Progress</span> &nbsp;
+                  <b-badge variant="danger" style="cursor: pointer;">{{Order.issue}}</b-badge>
+                  <span style="color: #7f8084; font-weight: normal; margin-left: 5px; cursor: pointer;">Issue</span> &nbsp;
 
                   <span>
                     <ABSButton
@@ -917,7 +924,10 @@ export default {
           //     issue: 3
           //   }
           // }
-        ]
+        ],
+        pending: 0,
+        progress: 0,
+        issue: 0
       },
       Outstanding: {
         Header: [
@@ -1015,62 +1025,62 @@ export default {
           }
         ],
         Data: [
-          {
-            date: "10/01/2020",
-            name: "PT Abadi Sentosa",
-            fromto: "JKT - SMG",
-            value: "120.000.000",
-            type: "Project Base"
-          },
-          {
-            date: "10/01/2020",
-            name: "PT Gemini Perkasa Abadi",
-            fromto: "JKT - BDG",
-            value: "75.000.000",
-            type: "FTL"
-          },
-          {
-            date: "10/01/2020",
-            name: "PT Garuda Perkasa",
-            fromto: "JKT - BDR",
-            value: "55.000.000",
-            type: "LTL"
-          },
-          {
-            date: "10/01/2020",
-            name: "PT Indo Sejahtera",
-            fromto: "JKT - SBY",
-            value: "105.000.000",
-            type: "Rental"
-          },
-          {
-            date: "10/01/2020",
-            name: "PT Abadi Sentosa",
-            fromto: "JKT - SMG",
-            value: "230.000.000",
-            type: "Project Base"
-          },
-          {
-            date: "10/01/2020",
-            name: "PT Gemini Perkasa Abadi",
-            fromto: "JKT - BDG",
-            value: "75.000.000",
-            type: "FTL"
-          },
-          {
-            date: "10/01/2020",
-            name: "PT Garuda Perkasa",
-            fromto: "JKT - BDR",
-            value: "55.000.000",
-            type: "LTL"
-          },
-          {
-            date: "10/01/2020",
-            name: "PT Indo Sejahtera",
-            fromto: "JKT - SBY",
-            value: "105.000.000",
-            type: "Rental"
-          }
+          // {
+          //   date: "10/01/2020",
+          //   name: "PT Abadi Sentosa",
+          //   fromto: "JKT - SMG",
+          //   value: "120.000.000",
+          //   type: "Project Base"
+          // },
+          // {
+          //   date: "10/01/2020",
+          //   name: "PT Gemini Perkasa Abadi",
+          //   fromto: "JKT - BDG",
+          //   value: "75.000.000",
+          //   type: "FTL"
+          // },
+          // {
+          //   date: "10/01/2020",
+          //   name: "PT Garuda Perkasa",
+          //   fromto: "JKT - BDR",
+          //   value: "55.000.000",
+          //   type: "LTL"
+          // },
+          // {
+          //   date: "10/01/2020",
+          //   name: "PT Indo Sejahtera",
+          //   fromto: "JKT - SBY",
+          //   value: "105.000.000",
+          //   type: "Rental"
+          // },
+          // {
+          //   date: "10/01/2020",
+          //   name: "PT Abadi Sentosa",
+          //   fromto: "JKT - SMG",
+          //   value: "230.000.000",
+          //   type: "Project Base"
+          // },
+          // {
+          //   date: "10/01/2020",
+          //   name: "PT Gemini Perkasa Abadi",
+          //   fromto: "JKT - BDG",
+          //   value: "75.000.000",
+          //   type: "FTL"
+          // },
+          // {
+          //   date: "10/01/2020",
+          //   name: "PT Garuda Perkasa",
+          //   fromto: "JKT - BDR",
+          //   value: "55.000.000",
+          //   type: "LTL"
+          // },
+          // {
+          //   date: "10/01/2020",
+          //   name: "PT Indo Sejahtera",
+          //   fromto: "JKT - SBY",
+          //   value: "105.000.000",
+          //   type: "Rental"
+          // }
         ]
       },
       DataProspect: {
@@ -1096,7 +1106,6 @@ export default {
     ToDoListEdit(data) {
       var param = data;
       param.isEdit = true;
-      console.log(param);
       this.$router.push({ name: "MK_EditToDoList", params: param });
     },
     doViewAllTarget() {
@@ -1223,6 +1232,17 @@ export default {
 
       this.postJSON(this.getUrlList(), param).then(response => {
         this.Order.Data = response.Data;
+        this.Order.pending = response.Data.map(z => z.pending).reduce(function(a, b) {
+          return a + b;
+        }, 0);
+
+        this.Order.progress = response.Data.map(z => z.progress).reduce(function(a, b) {
+          return a + b;
+        }, 0);
+
+        this.Order.issue = response.Data.map(z => z.issue).reduce(function(a, b) {
+          return a + b;
+        }, 0);
       });
     },
     getListQuotation() {
@@ -1496,7 +1516,27 @@ export default {
       }
 
       this.getProspect(date);
-    }
+    },
+    getListBiding() {
+      var param = {
+        option_url: "/MK/MK_OpenOrder",
+        line_no: 0,
+        user_id: this.getDataUser().user_id,
+        portfolio_id: this.getDataUser().portfolio_id,
+        subportfolio_id: this.getDataUser().subportfolio_id,
+        current_page: 1,
+        per_page: 8,
+        param_where: "",
+        initial_where: "",
+        sort_field: "",
+        source_field: "",
+        param_view: ""
+      };
+
+      this.postJSON(this.getUrlList(), param).then(response => {
+        this.Bidding.Data = response.Data;
+      });
+    },
   },
   mounted() {
     this.renderChart();
@@ -1505,6 +1545,7 @@ export default {
     this.getListQuotation();
     this.getListAppointment();
     this.getDataToDoList();
+    this.getListBiding();
   }
 };
 </script>
