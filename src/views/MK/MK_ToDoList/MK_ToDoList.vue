@@ -49,7 +49,7 @@
                     style="width: 100% !important;"
                   ></b-form-input>
                 </b-col>
-                <b-col md="3" class="col-right">
+                <b-col style="max-width: fit-content !important;" class="col-right">
                   <span>
                     <ABSButton
                       :text="'Search'"
@@ -107,7 +107,7 @@
                     <span v-else>{{data.item.row_id}}</span>
                   </template>
 
-                  <template v-slot:cell(customer_name)="data">
+                  <template v-slot:cell(status)="data">
                     <span>
                       <b-badge
                         :style="`background-color:`+data.item.customer_status_colour+`; width: 75px; padding: 6px !important; border-radius: 4px !important; font-weight: normal !important;`"
@@ -118,7 +118,7 @@
                       :style="`background-color:`+data.item.customer_status_colour+` !important;`"
                     >{{data.item.status}}</div>-->
                     <!-- <span class="badge-danger badgeStatus">Maintain</span> -->
-                    {{data.item.customer_name}}
+                    <!-- {{data.item.customer_name}} -->
                   </template>
 
                   <template
@@ -133,7 +133,7 @@
                         icon="exclamation-triangle"
                         size="sm"
                       />
-                      {{data.item.next_action}}
+                      {{momentDateFormat2(data.item.next_action,'DD/MM/YYYY HH:mm', 'DD/MM/YYYY')}}
                     </span>
                   </template>
 
@@ -388,7 +388,7 @@ export default {
           this.responses.DefineColumn && this.responses.DefineColumn !== ""
             ? this.responses.DefineColumn.split(",")
             : this.responses.AllColumn.split(",");
-        var x = ",L,S,S,L,S,S,S";
+        var x = "S,S,L,S,S,S";
         // var defineSize = this.responses.DefineSize.split(",");
         var defineSize = x.split(",");
 
@@ -402,7 +402,7 @@ export default {
         var definedColumn = [];
 
         this.allColumn_bf.forEach((val, idx) => {
-          var thClass = "HeaderACCList";
+          var thClass = "HeaderACCList2";
           var isSorted = this.sortedField.map(x => x.field).indexOf(val);
           if (isSorted > -1) {
             if (this.sortedField[isSorted].sort == "ASC") {
@@ -416,7 +416,7 @@ export default {
             value: idx + 1,
             key: val,
             thClass: thClass,
-            tdClass: "ContentACCList notranslate",
+            tdClass: "ContentACCList2 notranslate",
             text: val
           });
 
@@ -424,7 +424,7 @@ export default {
             value: idx + 1,
             key: val,
             thClass: thClass,
-            tdClass: "ContentACCList notranslate"
+            tdClass: "ContentACCList2 notranslate"
           });
         });
 
@@ -443,10 +443,13 @@ export default {
             return val.key != str_array[i];
           });
 
-          var thClass = "HeaderACCList " + defineSize[i];
-          //   var thClass = "HeaderACCList L";
+          var thClass = "HeaderACCList2 ";
+          //   var thClass = "HeaderACCList2 L";
+          if (str_array[i] !== "no") {
+            thClass += defineSize[i];
+          }
 
-          var tdClass = "ContentACCList notranslate";
+          var tdClass = "ContentACCList2 notranslate";
           if (
             str_array[i].toLowerCase().includes("amount") ||
             str_array[i].toLowerCase().includes("amt") ||
