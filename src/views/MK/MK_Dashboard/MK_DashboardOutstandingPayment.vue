@@ -7,7 +7,7 @@
             <div class="card__title" style="padding-bottom: 5px !important;">
               <b-row>
                 <b-col style="max-width:fit-content !important;">
-                  <span>Outstanding Payment</span>
+                  <span style="font-size: 100%; ">Order</span>
                 </b-col>
 
                 <b-col style="text-align: right;">
@@ -33,7 +33,7 @@
                       :text="'Search'"
                       classButton="button button--back2"
                       classIcon="icon-style-1"
-                      @click="doSearch"
+                      @click="onSearchEnter"
                     />
                   </span>
                   <span>
@@ -76,29 +76,9 @@
                   :items="dataList.items"
                   class="table-sm table-style-3"
                 >
-                  <template v-slot:cell(row_id)="data">
-                    <b-button
-                      v-if="WithViewButton == true"
-                      size="sm"
-                      @click.stop="viewClicked(data.item, data.index)"
-                      :disabled="false"
-                      class="btn btn--default"
-                    >View</b-button>
-                    <span v-else>{{data.item.row_id}}</span>
-                  </template>
-
-                  <template v-slot:cell(status)="data">
-                    <!-- <span>
-                      <p style="background-color:tomato;">{{data.item.status}}</p>
-                    </span>-->
-                    <!-- <span
-                        :style="`color:white;background-color:`+data.item.customer_status_colour+`;`"
-                    >{{data.item.status}}</span>-->
-                    <div
-                      class="badge-primary badgeStatus"
-                      :style="`background-color:`+data.item.customer_status_colour+` !important;width: 60%;margin: auto;`"
-                    >{{data.item.status}}</div>
-                  </template>
+                  <template
+                    v-slot:cell(outstanding_amt)="data"
+                  >{{isCurrency(data.item.outstanding_amt, decimal)}}</template>
                 </b-table>
               </div>
             </div>
@@ -185,7 +165,26 @@ export default {
 
       search: "",
       isSearchDisable: false,
-      fieldHeader: [],
+      fieldHeader: [
+        {
+          key: "no",
+          label: "No",
+          thClass: "HeaderTable",
+          tdClass: "ContentTable__Center"
+        },
+        {
+          key: "customer_name",
+          label: "Customer",
+          thClass: "HeaderTable",
+          tdClass: "ContentTable"
+        },
+        {
+          key: "outstanding_amt",
+          label: "Total Outstanding Payment",
+          thClass: "HeaderTable",
+          tdClass: "ContentTable__Center"
+        }
+      ],
       items: [],
       firstSort: true,
       sort: "",
@@ -282,124 +281,7 @@ export default {
       if (this.cmbMarketing[ix] == undefined) return;
       // console.log(this.cmbMarketing, ix)
 
-      var list = [
-          {
-            no: 1,
-            cm_contact_id: 10,
-            contact_created: "17/05/2020",
-            date: "17/05/2020",
-            name: "PT. Accelog",
-            customer_name: "PT. Accelog",
-            contact_person: "Ucok",
-            phone_no: "+62-817-100785",
-            address: "Jalan Raya Panjang Banget",
-            country: "Indonesia",
-            province: "DKI Jakarta",
-            city: "Jakarta",
-            district: "Kelapa Gading",
-            contact_phone_no: "+62-811-11111",
-            contact_type: "P",
-            marketing_id: "Mar5",
-            status: "New",
-            customer_status_colour: "green",
-            time_edit: "10/06/2020",
-            lastupdatestamp: 69333,
-            row_id: 10
-          },
-          {
-            no: 2,
-            cm_contact_id: 9,
-            contact_created: "15/05/2020",
-            date: "15/05/2020",
-            name: "PT. Accelog Digital Indonesia",
-            customer_name: "PT. Accelog Digital Indonesia",
-            contact_person: "Ujang",
-            phone_no: "+62-888-8888",
-            address: "Cohive 1010",
-            country: "Indonesia",
-            province: "DKI Jakarta",
-            city: "Jakarta",
-            district: "Tanjung Priok",
-            contact_phone_no: "+62-817-100785",
-            contact_type: "P",
-            marketing_id: "Mar7",
-            status: "New",
-            customer_status_colour: "green",
-            time_edit: "15/05/2020",
-            lastupdatestamp: 69041,
-            row_id: 9
-          },
-          {
-            no: 3,
-            cm_contact_id: 7,
-            contact_created: "10/05/2020",
-            date: "10/05/2020",
-            name: "TEST 1",
-            customer_name: "TEST 1",
-            contact_person: "CP Test 1",
-            phone_no: "+62-893-99999999",
-            address: "TEST 123",
-            country: "Indonesia",
-            province: "DKI Jakarta",
-            city: "Jakarta",
-            district: null,
-            contact_phone_no: "+62-897-67687676",
-            contact_type: "P",
-            marketing_id: "Mar6",
-            status: "New",
-            customer_status_colour: "green",
-            time_edit: "13/05/2020",
-            lastupdatestamp: 69040,
-            row_id: 7
-          },
-          {
-            no: 4,
-            cm_contact_id: 8,
-            contact_created: "12/05/2020",
-            date: "12/05/2020",
-            name: "Dedy Suyanto",
-            customer_name: "Dedy Suyanto",
-            contact_person: "contact",
-            phone_no: "+62-088-12214324",
-            address: "Jl. Sunter Hijau I",
-            country: "Indonesia",
-            province: "DKI Jakarta",
-            city: "Jakarta",
-            district: "Kelapa Gading",
-            contact_phone_no: "+62-21-121212",
-            contact_type: "P",
-            marketing_id: "Mar5",
-            status: "New",
-            customer_status_colour: "green",
-            time_edit: "12/05/2020",
-            lastupdatestamp: 69039,
-            row_id: 8
-          },
-          {
-            no: 5,
-            cm_contact_id: 6,
-            contact_created: "10/05/2020",
-            date: "10/05/2020",
-            name: "Customer 1",
-            customer_name: "Customer 1",
-            contact_person: "CP Customer 1",
-            phone_no: "+62-897-98987657",
-            address: "Jakarta",
-            country: "Indonesia",
-            province: "DKI Jakarta",
-            city: null,
-            district: null,
-            contact_phone_no: "+62-897-09096637",
-            contact_type: "P",
-            marketing_id: "Mar4",
-            status: "New",
-            customer_status_colour: "green",
-            time_edit: "10/05/2020",
-            lastupdatestamp: 69038,
-            row_id: 6
-          }
-        ],
-        totalRows = this.cmbMarketing[ix].totalRows,
+      var totalRows = this.cmbMarketing[ix].totalRows,
         currentPage = this.cmbMarketing[ix].currentPage,
         lastPage = this.cmbMarketing[ix].lastPage,
         perPage = this.cmbMarketing[ix].perPage,
@@ -407,7 +289,7 @@ export default {
         where = " marketing_id = '" + this.cmbMarketing[ix].marketing_id + "' ",
         // marketing_id
         param = {
-          option_url: "/MK/MK_Customer",
+          option_url: "/MK/MK_OutstandingPayment",
           line_no: 0,
           user_id: this.getDataUser().user_id,
           portfolio_id: this.getDataUser().portfolio_id,
@@ -426,7 +308,7 @@ export default {
         this.responses = response;
         // console.log(this.cmbMarketing, ix)
         this.cmbMarketing[ix].items = [];
-        this.fieldHeader = [];
+        // this.fieldHeader = [];
         this.cmbMarketing[ix].items = this.responses.Data;
 
         var str_array =
@@ -519,13 +401,13 @@ export default {
           }
 
           if (this.languageStatus) {
-            this.fieldHeader.push({
-              value: i + 1,
-              key: str_array[i],
-              thClass: thClass,
-              tdClass: tdClass,
-              label: this.$t(str_array[i])
-            });
+            // this.fieldHeader.push({
+            //   value: i + 1,
+            //   key: str_array[i],
+            //   thClass: thClass,
+            //   tdClass: tdClass,
+            //   label: this.$t(str_array[i])
+            // });
           } else {
             if (str_array[i] == "lastupdatestamp") continue;
 
@@ -620,22 +502,16 @@ export default {
 
             if (labelHeader == "Row Id") continue;
 
-            this.fieldHeader.push({
-              value: i + 1,
-              key: str_array[i],
-              thClass: thClass,
-              tdClass: tdClass,
-              label: labelHeader
-            });
+            // this.fieldHeader.push({
+            //   value: i + 1,
+            //   key: str_array[i],
+            //   thClass: thClass,
+            //   tdClass: tdClass,
+            //   label: labelHeader
+            // });
           }
         }
 
-        // this.availableColumn = filteredColumn;
-        // this.selectedColumn = definedColumn;
-
-        // this.availableColumnTemp = filteredColumn;
-        // this.selectedColumnTemp = definedColumn;
-        // this.totalRows = this.responses.Total;
         this.cmbMarketing[ix].totalRows = this.responses.Total;
         this.cmbMarketing[ix].lastPage = this.responses.Last_Page;
       });
@@ -667,73 +543,16 @@ export default {
 
         // this.getList();
       });
-    },
-    doSave() {
-      this.alertConfirmation("Are You Sure Want To Save This Data ?").then(
-        ress => {
-          if (ress.value) {
-            this.M_Save();
-          }
-        }
-      );
-    },
-    M_Save() {
-      var paramDelete = {
-        _Method_: "DELETE",
-        _LineNo_: 1,
-        marketing_id: this.filterActionM,
-        years: this.filterAction
-      };
-
-      var paramInsert = [];
-
-      this.items.forEach((data, index) => {
-        paramInsert.push({
-          _Method_: "SAVE",
-          _LineNo_: 1,
-          marketing_id: this.filterActionM,
-          years: this.filterAction,
-          month: index + 1,
-          ftl_amt:
-            data.ftl && data.ftl !== ""
-              ? this.replaceAllString(data.ftl, ",", "", "number")
-              : "NULL",
-          ltl_amt:
-            data.ltl && data.ltl !== ""
-              ? this.replaceAllString(data.ltl, ",", "", "number")
-              : "NULL",
-          project_amt:
-            data.project && data.project !== ""
-              ? this.replaceAllString(data.project, ",", "", "number")
-              : "NULL",
-          rental_amt:
-            data.rental && data.rental !== ""
-              ? this.replaceAllString(data.rental, ",", "", "number")
-              : "NULL",
-          user_input: this.getDataUser().user_id
-        });
-      });
-
-      var param = {
-        option_url: "/CM/CM_MarketingMaster",
-        line_no: 1,
-        Data: [
-          {
-            A_Delete: paramDelete,
-            B_Looping: paramInsert
-          }
-        ]
-      };
-
-      this.postJSONMulti(this.getUrlProsesDataPostMulti(), param).then(
-        response => {
-          if (response == null) return;
-          this.alertSuccess("Save Data Has Been Successfully").then(() => {
-            this.doBack();
-          });
-        }
-      );
     }
+    // doSave() {
+    //   this.alertConfirmation("Are You Sure Want To Save This Data ?").then(
+    //     ress => {
+    //       if (ress.value) {
+    //         this.M_Save();
+    //       }
+    //     }
+    //   );
+    // }
   },
   mounted() {
     this.getMarketing();
