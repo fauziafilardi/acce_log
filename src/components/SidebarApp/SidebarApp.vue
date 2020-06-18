@@ -16,8 +16,15 @@
         <i class="icon-arrow-right"></i>
       </div>-->
 
+      <!-- <div
+                    class="sidebar-app__hide-text-labels"
+        style="background-color: rgb(51, 51, 153);
+                align-items: center;               
+                text-align: center;                
+                justify-content: center;
+                padding: 15px !important;"
+      >-->
       <div
-        class="sidebar-app__hide-text-labels"
         style="background-color: rgb(51, 51, 153);
                 align-items: center;               
                 text-align: center;                
@@ -26,20 +33,17 @@
       >
         <!-- <i class="icon-arrow-right"></i> -->
         <div class="profile">
-          <div class="image">
-            <img
-              :src="require('@/assets/avatar.png')"
-              alt
-              style="width: 70px; border-radius: 50px;"
-            />
+          <div @click="fn_profile" class="image" style="cursor:pointer;">
+            <img :src="PathFile" alt style="width: 70px; border-radius: 50px;" />
           </div>
           <div class="title" style="color: #cccccc;">Welcome Back</div>
-          <div
+          <!-- <div
             class="title"
             @click="dropdownMenuHeaderTop = !dropdownMenuHeaderTop"
             v-click-outside="closeHeader"
             style="color:#FFFFFF !important; font-weight:700;"
-          >
+          >-->
+          <div class="title" style="color:#FFFFFF !important; font-weight:700;">
             <!-- <router-link
               :to="'/'"
               class="back-to-dashboard"
@@ -169,6 +173,7 @@ export default {
   data() {
     return {
       Username: "",
+      PathFile: "",
       dropdownMenuHeaderTop: false
     };
   },
@@ -190,6 +195,15 @@ export default {
     }
   },
   mounted() {
+    console.log(this.getDataUser());
+    if (
+      this.getDataUser().path_file == "" ||
+      this.getDataUser().path_file == null
+    ) {
+      this.PathFile = require("@/assets/avatar.png");
+    } else {
+      this.PathFile = this.url + this.getDataUser().path_file;
+    }
     // this.$store.dispatch("handlePaddingHeader", "225px");
     // this.$store.dispatch("handlePaddingLeftContent", "230px");
     // this.$store.dispatch("handleWidthSidebar", "230px");
@@ -198,6 +212,12 @@ export default {
     this.Username = this.getDataUser().user_name;
   },
   methods: {
+    fn_profile() {
+      // var param = data;
+      // param.isEdit = true;
+      // console.log(param);
+      this.$router.push({ name: "SS_UserProfile" });
+    },
     closeHeader() {
       // alert('woi')
       this.dropdownMenuHeaderTop = false;

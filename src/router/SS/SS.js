@@ -32,7 +32,7 @@ import SS_LookupEntry_Master from '@/views/SS/SS_LookupEntry/SS_LookupEntry_Mast
 import SS_MenuAccess from '@/views/SS/SS_Menu/SS_MenuAccess'
 import SS_Page_Master from '@/views/SS/SS_PageMasterFile/SS_PageMasterFile_Master'
 import SS_Group_Master from '@/views/SS/SS_Group/SS_Group_Master'
-import SS_UserProfile_Master from '@/views/SS/SS_UserProfile/SS_UserProfile_Master'
+import SS_UserProfile from '@/views/SS/SS_UserProfile/SS_UserProfile'
 
 import SS_UserPrivilegeReport_Master from '@/views/SS/SS_UserPrivilegeReport/PageLevel_1/SS_UserPrivilegeReport'
 
@@ -80,7 +80,7 @@ export const SSRender = {
         {
             path: '/SS/SS_UserProfile',
             name: 'SS_UserProfile',
-            component: SS_UserProfile_Master,
+            component: SS_UserProfile,
             meta: {
                 requiresAuth: true
             }
