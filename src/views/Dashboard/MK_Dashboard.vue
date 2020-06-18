@@ -572,7 +572,8 @@
                       :text="'View All'"
                       classButton="button button--new"
                       classIcon="icon-style-1"
-                      :disabled="true"
+                      :disabled="false"
+                      @click="doViewAllOutstandingPayment"
                     />
                   </span>
                 </b-col>
@@ -595,6 +596,10 @@
               >
                 <!-- class="table-sm table-style-1" -->
                 <template v-slot:cell(no)="data">{{data.index + 1}}</template>
+
+                <template
+                  v-slot:cell(outstanding_amt)="data"
+                >{{isCurrency(data.item.outstanding_amt, decimal)}}</template>
               </b-table>
               <!-- </div> -->
             </div>
@@ -634,7 +639,7 @@
                   <span class="Commision__TitleBlue">Paid</span> &nbsp;
                   <span class="CommisionTitle">(Last 12 Months)</span>
                   <br />
-                  <span class="CommisionDescs">Rp 22.500.000</span>
+                  <span class="CommisionDescs">{{`Rp `+isCurrency(DataComission.paid, decimal)}}</span>
                 </b-col>
               </b-row>
               <b-row class="CommisionData">
@@ -651,7 +656,7 @@
                   <span class="Commision__TitleRed">Overdue</span> &nbsp;
                   <span class="CommisionTitle"></span>
                   <br />
-                  <span class="CommisionDescs">Rp 13.250.000</span>
+                  <span class="CommisionDescs">{{`Rp `+isCurrency(DataComission.overdue, decimal)}}</span>
                 </b-col>
               </b-row>
               <b-row class="CommisionData">
@@ -668,7 +673,7 @@
                   <span class="Commision__TitleGreen">Pending</span> &nbsp;
                   <span class="CommisionTitle"></span>
                   <br />
-                  <span class="CommisionDescs">Rp 32.380.000</span>
+                  <span class="CommisionDescs">{{`Rp `+isCurrency(DataComission.pending, decimal)}}</span>
                 </b-col>
               </b-row>
               <!--<div class="Commision__Wrapper">
@@ -938,51 +943,51 @@ export default {
             tdClass: "ContentTable__Center"
           },
           {
-            key: "name",
+            key: "customer_name",
             label: "Customer",
             thClass: "HeaderTable",
             tdClass: "ContentTable"
           },
           {
-            key: "outstanding",
+            key: "outstanding_amt",
             label: "Total Outstanding Payment",
             thClass: "HeaderTable",
             tdClass: "ContentTable__Center"
           }
         ],
         Data: [
-          {
-            name: "PT Abadi Sentosa",
-            outstanding: "150.000.000"
-          },
-          {
-            name: "PT Gemini Perkasa Abadi",
-            outstanding: "175.000.000"
-          },
-          {
-            name: "PT Garuda Perkasa",
-            outstanding: "225.000.000"
-          },
-          {
-            name: "PT Indo Sejahtera",
-            outstanding: "455.000.000"
-          },
-          {
-            name: "PT Abadi Sentosa",
-            outstanding: "144.500.000"
-          },
-          {
-            name: "PT Gemini Perkasa Abadi",
-            outstanding: "255.000.000"
-          },
-          {
-            name: "PT Garuda Perkasa",
-            outstanding: "125.000.000"
-          },
-          {
-            name: "PT Indo Sejahtera",
-            outstanding: "334.000.000"
-          }
+          // {
+          //   name: "PT Abadi Sentosa",
+          //   outstanding: "150.000.000"
+          // },
+          // {
+          //   name: "PT Gemini Perkasa Abadi",
+          //   outstanding: "175.000.000"
+          // },
+          // {
+          //   name: "PT Garuda Perkasa",
+          //   outstanding: "225.000.000"
+          // },
+          // {
+          //   name: "PT Indo Sejahtera",
+          //   outstanding: "455.000.000"
+          // },
+          // {
+          //   name: "PT Abadi Sentosa",
+          //   outstanding: "144.500.000"
+          // },
+          // {
+          //   name: "PT Gemini Perkasa Abadi",
+          //   outstanding: "255.000.000"
+          // },
+          // {
+          //   name: "PT Garuda Perkasa",
+          //   outstanding: "125.000.000"
+          // },
+          // {
+          //   name: "PT Indo Sejahtera",
+          //   outstanding: "334.000.000"
+          // }
         ]
       },
       Bidding: {
@@ -1083,6 +1088,11 @@ export default {
           // }
         ]
       },
+      DataComission: {
+        paid: 0,
+        overdue: 0,
+        pending: 0
+      },
       DataProspect: {
         month: "",
         monthName: "",
@@ -1109,6 +1119,9 @@ export default {
       this.$router.push({ name: "MK_EditToDoList", params: param });
     },
     doViewAllTarget() {
+      this.$router.push({ name: "MK_DashboardTarget" });
+    },
+    doViewAllOutstandingPayment() {
       this.$router.push({ name: "MK_DashboardTarget" });
     },
     doAddNewProspect() {
@@ -1262,6 +1275,25 @@ export default {
       };
       this.postJSON(this.getUrlList(), param).then(response => {
         this.Quotation.Data = response.Data;
+      });
+    },
+    getListOutstandingPayment() {
+      var param = {
+        option_url: "/MK/MK_OutstandingPayment",
+        line_no: 0,
+        user_id: this.getDataUser().user_id,
+        portfolio_id: this.getDataUser().portfolio_id,
+        subportfolio_id: this.getDataUser().subportfolio_id,
+        current_page: 1,
+        per_page: 8,
+        param_where: "",
+        initial_where: "user_id='" + this.getDataUser().user_id + "'",
+        sort_field: "",
+        source_field: "",
+        param_view: ""
+      };
+      this.postJSON(this.getUrlList(), param).then(response => {
+        this.Outstanding.Data = response.Data;
       });
     },
     renderChart() {
@@ -1490,6 +1522,27 @@ export default {
         }
       });
     },
+    getCommision() {
+      var param = {
+        option_function_cd: "GetMkCommisionDash",
+        module_cd: "MK",
+        ss_portfolio_id: this.getDataUser().portfolio_id,
+        user_id: this.getDataUser().user_id
+      };
+      this.CallFunction(param).then(ress => {
+        if (ress == null) return;
+
+        if (ress.Data.length > 0) {
+          var data = ress.Data[0];
+
+          this.DataComission = {
+            paid: data.paid_amt,
+            overdue: data.overdue_amt,
+            pending: data.pending_amt
+          };
+        }
+      });
+    },
     changeProspect(act) {
       var date = new Date();
       if (act === "min") {
@@ -1546,6 +1599,8 @@ export default {
     this.getListAppointment();
     this.getDataToDoList();
     this.getListBiding();
+    this.getListOutstandingPayment();
+    this.getCommision();
   }
 };
 </script>
