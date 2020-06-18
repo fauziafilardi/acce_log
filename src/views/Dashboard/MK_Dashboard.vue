@@ -562,7 +562,8 @@
                       :text="'View All'"
                       classButton="button button--new"
                       classIcon="icon-style-1"
-                      :disabled="true"
+                      :disabled="false"
+                      @click="doViewAllOutstandingPayment"
                     />
                   </span>
                 </b-col>
@@ -628,7 +629,7 @@
                   <span class="Commision__TitleBlue">Paid</span> &nbsp;
                   <span class="CommisionTitle">(Last 12 Months)</span>
                   <br />
-                  <span class="CommisionDescs">Rp 22.500.000</span>
+                  <span class="CommisionDescs">{{`Rp `+isCurrency(DataComission.paid, decimal)}}</span>
                 </b-col>
               </b-row>
               <b-row class="CommisionData">
@@ -645,7 +646,7 @@
                   <span class="Commision__TitleRed">Overdue</span> &nbsp;
                   <span class="CommisionTitle"></span>
                   <br />
-                  <span class="CommisionDescs">Rp 13.250.000</span>
+                  <span class="CommisionDescs">{{`Rp `+isCurrency(DataComission.overdue, decimal)}}</span>
                 </b-col>
               </b-row>
               <b-row class="CommisionData">
@@ -662,7 +663,7 @@
                   <span class="Commision__TitleGreen">Pending</span> &nbsp;
                   <span class="CommisionTitle"></span>
                   <br />
-                  <span class="CommisionDescs">Rp 32.380.000</span>
+                  <span class="CommisionDescs">{{`Rp `+isCurrency(DataComission.pending, decimal)}}</span>
                 </b-col>
               </b-row>
               <!--<div class="Commision__Wrapper">
@@ -1074,6 +1075,11 @@ export default {
           }
         ]
       },
+      DataComission: {
+        paid: 0,
+        overdue: 0,
+        pending: 0
+      },
       DataProspect: {
         month: "",
         monthName: "",
@@ -1101,6 +1107,9 @@ export default {
       this.$router.push({ name: "MK_EditToDoList", params: param });
     },
     doViewAllTarget() {
+      this.$router.push({ name: "MK_DashboardTarget" });
+    },
+    doViewAllOutstandingPayment() {
       this.$router.push({ name: "MK_DashboardTarget" });
     },
     doAddNewProspect() {
@@ -1490,6 +1499,27 @@ export default {
         }
       });
     },
+    getCommision() {
+      var param = {
+        option_function_cd: "GetMkCommisionDash",
+        module_cd: "MK",
+        ss_portfolio_id: this.getDataUser().portfolio_id,
+        user_id: this.getDataUser().user_id
+      };
+      this.CallFunction(param).then(ress => {
+        if (ress == null) return;
+
+        if (ress.Data.length > 0) {
+          var data = ress.Data[0];
+
+          this.DataComission = {
+            paid: data.paid_amt,
+            overdue: data.overdue_amt,
+            pending: data.pending_amt
+          };
+        }
+      });
+    },
     changeProspect(act) {
       var date = new Date();
       if (act === "min") {
@@ -1526,6 +1556,7 @@ export default {
     this.getListAppointment();
     this.getDataToDoList();
     this.getListOutstandingPayment();
+    this.getCommision();
   }
 };
 </script>
