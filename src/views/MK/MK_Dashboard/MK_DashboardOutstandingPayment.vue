@@ -7,27 +7,23 @@
             <div class="card__title" style="padding-bottom: 5px !important;">
               <b-row>
                 <b-col style="max-width:fit-content !important;">
-                  <span style="font-size: 100%; ">Order</span>
+                  <span>Order</span>
                 </b-col>
-
-                <b-col style="text-align: right;">
-                  <b-row>
-                    <b-col>
-                      <b-form-input
-                        id="txtSearch"
-                        v-model="search"
-                        type="text"
-                        placeholder="Search...."
-                        v-shortkey.focus="['f1']"
-                        class="text-field-search"
-                        @keyup.enter.native="onSearchEnter"
-                        autocomplete="off"
-                        :disabled="isSearchDisable"
-                      ></b-form-input>
-                    </b-col>
-                  </b-row>
+                <b-col style="text-align: center;">
+                  <b-form-input
+                    id="txtSearch"
+                    v-model="search"
+                    type="text"
+                    placeholder="Search...."
+                    v-shortkey.focus="['f1']"
+                    class="text-field-search"
+                    @keyup.enter.native="onSearchEnter"
+                    autocomplete="off"
+                    :disabled="isSearchDisable"
+                    style="width: 100% !important;"
+                  ></b-form-input>
                 </b-col>
-                <b-col md="1" class="col-right">
+                <b-col style="max-width:fit-content !important;" class="col-right">
                   <span>
                     <ABSButton
                       :text="'Search'"
@@ -36,12 +32,13 @@
                       @click="onSearchEnter"
                     />
                   </span>
+
                   <span>
                     <ABSButton
                       :text="'Back'"
                       classButton="button button--back2"
                       classIcon="icon-style-1"
-                      @click="doBack"
+                      @click="$router.go(-1)"
                     />
                   </span>
                 </b-col>
@@ -49,8 +46,6 @@
             </div>
           </div>
         </b-col>
-        <!-- <div> -->
-        <!-- {{dataList}} -->
         <b-col md="12" v-for="(dataList,indexs) in cmbMarketing" v-bind:key="indexs">
           <div class="card">
             <div class="card__title" style="padding-bottom: 5px !important;">
@@ -58,10 +53,27 @@
                 <b-col style="max-width:fit-content !important;">
                   <span>{{dataList.marketing_name}}</span>
                 </b-col>
+                <!-- <b-col style="text-align: right;">
+                    <b-badge variant="warning" @click="doPending" style="cursor: pointer;">{{dataList.pending}}</b-badge>
+                    <span
+                      style="color: #7f8084; font-weight: normal; margin-left: 5px; cursor: pointer;"
+                      @click="doPending"
+                    >Pending</span> &nbsp;
+                    <b-badge variant="success" @click="doProgress" style="cursor: pointer;">{{dataList.progress}}</b-badge>
+                    <span
+                      style="color: #7f8084; font-weight: normal; margin-left: 5px; cursor: pointer;"
+                      @click="doProgress"
+                    >On Progress</span> &nbsp;
+                    <b-badge variant="danger" @click="doIssue" style="cursor: pointer;">{{dataList.issue}}</b-badge>
+                    <span
+                      style="color: #7f8084; font-weight: normal; margin-left: 5px; cursor: pointer;"
+                      @click="doIssue"
+                    >Issue</span> &nbsp;
+                </b-col>-->
               </b-row>
             </div>
             <div class="card__body">
-              <div class="table--list" :id="'customer_list_'+indexs">
+              <div class="table--list" :id="'appointmentList'+indexs">
                 <b-table
                   :responsive="true"
                   :striped="false"
@@ -76,24 +88,24 @@
                   :items="dataList.items"
                   class="table-sm table-style-3"
                 >
-                  <template
-                    v-slot:cell(outstanding_amt)="data"
-                  >{{isCurrency(data.item.outstanding_amt, decimal)}}</template>
+                  <template v-slot:cell(row_id)="data">
+                    <b-button
+                      v-if="WithViewButton == true"
+                      size="sm"
+                      @click.stop="doViewClick(data.item, data.index)"
+                      :disabled="false"
+                      class="btn btn--default"
+                    >View</b-button>
+                    <span v-else>{{data.item.row_id}}</span>
+                  </template>
+
+                  <template v-slot:cell(outstanding_amt)="data">
+                    <span>{{isCurrency(data.item.outstanding_amt, decimal)}}</span>
+                  </template>
                 </b-table>
               </div>
             </div>
             <div class="card__footer" :id="`customer_list_footer_`+indexs">
-              <!-- <b-row> style="padding-bottom: 10px;"
-                <b-col md="12" style="text-align: center;">
-                  <ABSButton
-                    :text="'Save'"
-                    classButton="btn btn--default"
-                    classIcon="icon-style-1"
-                    @click="doSave"
-                    styleButton="height: 40px;width: 75%;"
-                  />
-                </b-col>
-              </b-row>-->
               <b-form inline style="float: left; color: #333;">
                 <label
                   class="font-lbl"
@@ -131,7 +143,6 @@
             ></iframe>
           </div>
         </b-col>
-        <!-- </div> -->
       </b-row>
     </div>
   </div>
@@ -153,41 +164,20 @@ export default {
 
       //For List
       cmbMarketing: [],
-      cmbYear: [],
-      WithViewButton: true,
+      WithViewButton: false,
       isFirst: false,
       selected: false,
       rowSelected: [],
       dataSelected: [],
       rowSel: -1,
-      filterActionM: "",
       filterAction: "",
 
       search: "",
       isSearchDisable: false,
-      fieldHeader: [
-        {
-          key: "no",
-          label: "No",
-          thClass: "HeaderTable",
-          tdClass: "ContentTable__Center"
-        },
-        {
-          key: "customer_name",
-          label: "Customer",
-          thClass: "HeaderTable",
-          tdClass: "ContentTable"
-        },
-        {
-          key: "outstanding_amt",
-          label: "Total Outstanding Payment",
-          thClass: "HeaderTable",
-          tdClass: "ContentTable__Center"
-        }
-      ],
+      fieldHeader: [],
       items: [],
       firstSort: true,
-      sort: "",
+      sort: "time_edit DESC",
 
       totalRows: 0,
       currentPage: 1,
@@ -216,40 +206,26 @@ export default {
       selectedColumnTemp: [],
       selectedColumnSelected: [],
 
-      sortedField: [
-        { field: "order_list", sort: "ASC" },
-        { field: "marketing_id", sort: "ASC" }
-      ],
+      sortedField: [{ field: "time_edit", sort: "DESC" }],
       isDisableTable: false,
-      responses: [],
-
-      ParamTarget: {
-        marketing_id: "",
-        year: ""
-      }
+      responses: []
     };
   },
-  computed: {
-    paramFromList() {
-      var param = this.$route.params;
-      // if (param == null || param == undefined) {
-      //     this.doBack();
-      // } else {
-      //     if (Object.keys(param).length < 1) {
-      //         this.doBack();
-      //     } else {
-      return param;
-      //     }
-      // }
-    }
-  },
   methods: {
-    doBack() {
-      this.$router.go(-1);
-    },
     rowClicked(record, index) {},
     doDoubleClick(record, index) {},
-    doViewClick(record, index) {},
+    doViewClick(record, index) {
+      var param = record;
+      this.$router.push({ name: "MK_ViewOrder", params: param });
+    },
+    onAddNewClick() {
+      var param = {
+        // option_url: this.getOptionUrl(),
+        // title: this.title,
+        isEdit: false
+      };
+      this.$router.push({ name: "MK_AddEditCustomer", params: param });
+    },
     rowLink(url) {},
     M_PageSize() {},
     M_Pagination() {},
@@ -257,7 +233,7 @@ export default {
     M_Head_Table() {},
     refreshColumn() {},
     onSearchEnter(data) {
-      // this.doGetList(this.search, "onSearchEnter");
+      //   this.doGetList(this.search, "onSearchEnter");
       for (let i = 0; i < this.cmbMarketing.length; i++) {
         // this.cmbMarketing.push({
         //   marketing_id: data[i].marketing_id,
@@ -273,9 +249,54 @@ export default {
         this.doGetList2(i);
       }
     },
-    onTeamClick() {},
-    onCustomerListClick() {},
+    doPending() {
+      //   var filter = " contact_type = 'P'";
+      //   this.propList.initialWhere = filter;
+      //   this.doGetList(this.search);
+    },
+    doProgress() {
+      //   var filter = " contact_type = 'C'";
+      //   this.propList.initialWhere = filter;
+      //   this.doGetList(this.search);
+    },
+    doIssue() {},
 
+    doEdit(record) {
+      var param = record;
+      param.isEdit = true;
+      this.$router.push({ name: "MK_EditAppointment", params: param });
+    },
+    getMarketing() {
+      var param = {
+        option_function_cd: "GetMarketingTeam",
+        module_cd: "MK",
+        user_id: this.getDataUser().user_id
+      };
+
+      this.CallFunction(param).then(response => {
+        if (response == null) return;
+        var data = response.Data;
+        for (let i = 0; i < data.length; i++) {
+          this.cmbMarketing.push({
+            marketing_id: data[i].marketing_id,
+            marketing_name: data[i].marketing_name,
+            pending: 0,
+            progress: 0,
+            issue: 0,
+            items: [],
+            currentPage: 1,
+            lastPage: 1,
+            totalRows: 0,
+            perPage: 5,
+            limit: 2
+          });
+
+          this.doGetList2(i);
+        }
+
+        // this.getList();
+      });
+    },
     doGetList2(ix = null) {
       if (ix == null || ix == undefined || ix < 0) return;
       if (this.cmbMarketing[ix] == undefined) return;
@@ -301,21 +322,42 @@ export default {
           sort_field: "",
           source_field: "",
           param_view: ""
-        };
+        },
+        pending = 0,
+        progress = 0,
+        issue = 0;
 
       this.postJSON(this.getUrlList(), param).then(response => {
         if (response == null) return;
         this.responses = response;
         // console.log(this.cmbMarketing, ix)
         this.cmbMarketing[ix].items = [];
-        // this.fieldHeader = [];
+        this.fieldHeader = [];
         this.cmbMarketing[ix].items = this.responses.Data;
+
+        this.cmbMarketing[ix].pending = this.responses.Data.map(
+          z => z.pending
+        ).reduce(function(a, b) {
+          return a + b;
+        }, 0);
+
+        this.cmbMarketing[ix].progress = this.responses.Data.map(
+          z => z.progress
+        ).reduce(function(a, b) {
+          return a + b;
+        }, 0);
+
+        this.cmbMarketing[ix].issue = this.responses.Data.map(
+          z => z.issue
+        ).reduce(function(a, b) {
+          return a + b;
+        }, 0);
 
         var str_array =
           this.responses.DefineColumn && this.responses.DefineColumn !== ""
             ? this.responses.DefineColumn.split(",")
             : this.responses.AllColumn.split(",");
-        var x = "S,S,L,S,S,S,S";
+        var x = "S,L,S";
         // var defineSize = this.responses.DefineSize.split(",");
         var defineSize = x.split(",");
 
@@ -355,6 +397,7 @@ export default {
           });
         });
 
+        console.log("str_array", str_array);
         for (var i = 0; i < str_array.length; i++) {
           filteredColumn = filteredColumn.filter(val => {
             if (val.key == str_array[i]) {
@@ -401,13 +444,13 @@ export default {
           }
 
           if (this.languageStatus) {
-            // this.fieldHeader.push({
-            //   value: i + 1,
-            //   key: str_array[i],
-            //   thClass: thClass,
-            //   tdClass: tdClass,
-            //   label: this.$t(str_array[i])
-            // });
+            this.fieldHeader.push({
+              value: i + 1,
+              key: str_array[i],
+              thClass: thClass,
+              tdClass: tdClass,
+              label: this.$t(str_array[i])
+            });
           } else {
             if (str_array[i] == "lastupdatestamp") continue;
 
@@ -455,6 +498,14 @@ export default {
               {
                 key: "Row Id",
                 value: "View"
+              },
+              {
+                key: "Customer Name",
+                value: "Customer"
+              },
+              {
+                key: "Outstanding  Amount",
+                value: "Total Outstanding Amount"
               }
             ];
             var isGotIt = false;
@@ -475,7 +526,7 @@ export default {
                 str_array[i].substring(1);
               // }
             }
-
+            console.log("str_array[i],", str_array[i]);
             for (var data of listReplace) {
               if (labelHeader == undefined) {
                 labelHeader = this.replaceAllString(
@@ -501,63 +552,32 @@ export default {
             }
 
             if (labelHeader == "Row Id") continue;
-
-            // this.fieldHeader.push({
-            //   value: i + 1,
-            //   key: str_array[i],
-            //   thClass: thClass,
-            //   tdClass: tdClass,
-            //   label: labelHeader
-            // });
+            console.log("str_array[2],", str_array[i]);
+            this.fieldHeader.push({
+              value: i + 1,
+              key: str_array[i],
+              thClass: thClass,
+              tdClass: tdClass,
+              label: labelHeader
+            });
+            console.log("fieldHeader", this.fieldHeader);
           }
         }
 
+        // this.availableColumn = filteredColumn;
+        // this.selectedColumn = definedColumn;
+
+        // this.availableColumnTemp = filteredColumn;
+        // this.selectedColumnTemp = definedColumn;
+        // this.totalRows = this.responses.Total;
         this.cmbMarketing[ix].totalRows = this.responses.Total;
         this.cmbMarketing[ix].lastPage = this.responses.Last_Page;
       });
-    },
-    getMarketing() {
-      var param = {
-        option_function_cd: "GetMarketingTeam",
-        module_cd: "MK",
-        user_id: this.getDataUser().user_id
-      };
-
-      this.CallFunction(param).then(response => {
-        if (response == null) return;
-        var data = response.Data;
-        for (let i = 0; i < data.length; i++) {
-          this.cmbMarketing.push({
-            marketing_id: data[i].marketing_id,
-            marketing_name: data[i].marketing_name,
-            items: [],
-            currentPage: 1,
-            lastPage: 1,
-            totalRows: 0,
-            perPage: 5,
-            limit: 2
-          });
-
-          this.doGetList2(i);
-        }
-
-        // this.getList();
-      });
     }
-    // doSave() {
-    //   this.alertConfirmation("Are You Sure Want To Save This Data ?").then(
-    //     ress => {
-    //       if (ress.value) {
-    //         this.M_Save();
-    //       }
-    //     }
-    //   );
-    // }
   },
   mounted() {
     this.getMarketing();
-  },
-  created() {}
+  }
 };
 </script>
 
