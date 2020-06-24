@@ -44,6 +44,7 @@ import MK_ViewQuotation from '@/views/MK/MK_Quotation/MK_ViewQuotation'
 import MK_ChatQuotation from '@/views/MK/MK_Quotation/MK_ChatQuotation'
 
 import MK_CustomerList from '@/views/MK/MK_Customer/MK_Customer_List'
+import MK_Customer2 from '@/views/MK/MK_Customer2/MK_Customer2List'
 import MK_ListCustomer from '@/views/MK/MK_Customer/MK_ListCustomer'
 import MK_ViewCustomer from '@/views/MK/MK_Customer/MK_ViewCustomer'
 import MK_AddEditCustomer from '@/views/MK/MK_Customer/MK_AddEditCustomer'
@@ -358,6 +359,14 @@ export const MKRender = {
             requiresAuth: true
         }
     },
+    {
+        path: '/MK/MK_Customer2',
+        name: 'MK_Customer2',
+        component: MK_Customer2,
+        meta: {
+            requiresAuth: true
+        }
+    },//
     {
         path: '/MK/MK_Customer/View',
         name: 'MK_ViewCustomer',
