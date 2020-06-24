@@ -12,43 +12,6 @@
           </template>
         </b-row>
       </template>
-      <!-- <b-row class="dashboardBody">
-        <b-col md="7">
-          <component ref="ref_Target" :is="M_Target"/>
-        </b-col>
-        <b-col md="5">
-          <component ref="ref_NewProspect" :is="M_NewProspect"/>
-        </b-col>
-      </b-row>
-      <b-row class="dashboardBody">
-        <b-col md="7">
-          <component ref="ref_ToDoList" :is="M_ToDoList"/>
-        </b-col>
-        <b-col md="5">
-          <component ref="ref_Appointment" :is="M_Appointment"/>
-        </b-col>
-      </b-row>
-      <b-row class="dashboardBody">
-        <b-col md="6">
-          <component ref="ref_Quotation" :is="M_Quotation"/>
-        </b-col>
-        <b-col md="6">
-          <component ref="ref_Order" :is="M_Order"/>
-        </b-col>
-      </b-row>
-      <b-row class="dashboardBody">
-        <b-col md="6">
-          <component ref="ref_Outstanding" :is="M_Outstanding"/>
-        </b-col>
-        <b-col md="6">
-          <component ref="ref_Commision" :is="M_Commision"/>
-        </b-col>
-      </b-row>
-      <b-row class="dashboardBody">
-        <b-col md="12">
-          <component ref="ref_Bidding" :is="M_Bidding"/>
-        </b-col>
-      </b-row> -->
     </div>
   </div>
 </template>
@@ -166,15 +129,6 @@ export default {
   },
   mounted() {
     this.renderDash();
-    // this.M_Target = () => import("./MK/Dashboard_Target.vue")
-    // this.M_NewProspect = () => import("./MK/Dashboard_NewProspect.vue")
-    // this.M_ToDoList = () => import("./MK/Dashboard_ToDoList.vue")
-    // this.M_Appointment = () => import("./MK/Dashboard_Appointment.vue")
-    // this.M_Quotation = () => import("./MK/Dashboard_Quotation.vue")
-    // this.M_Order = () => import("./MK/Dashboard_Order.vue")
-    // this.M_Outstanding = () => import("./MK/Dashboard_Outstanding.vue")
-    // this.M_Commision = () => import("./MK/Dashboard_Commision.vue")
-    // this.M_Bidding = () => import("./MK/Dashboard_Bidding.vue")
   }
 };
 </script>

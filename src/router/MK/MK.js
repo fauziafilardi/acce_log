@@ -44,6 +44,7 @@ import MK_ViewQuotation from '@/views/MK/MK_Quotation/MK_ViewQuotation'
 import MK_ChatQuotation from '@/views/MK/MK_Quotation/MK_ChatQuotation'
 
 import MK_CustomerList from '@/views/MK/MK_Customer/MK_Customer_List'
+import MK_Customer2 from '@/views/MK/MK_Customer2/MK_Customer2List'
 import MK_ListCustomer from '@/views/MK/MK_Customer/MK_ListCustomer'
 import MK_ViewCustomer from '@/views/MK/MK_Customer/MK_ViewCustomer'
 import MK_AddEditCustomer from '@/views/MK/MK_Customer/MK_AddEditCustomer'
@@ -57,6 +58,8 @@ import MK_EditToDoList from '@/views/MK/MK_ToDoList/MK_EditToDoList'
 
 import MK_DashboardTarget from '@/views/MK/MK_Dashboard/MK_DashboardTarget'
 import MK_DashboardProspect from '@/views/MK/MK_Dashboard/MK_DashboardProspect'
+import MK_DashboardOutstandingPayment from '@/views/MK/MK_Dashboard/MK_DashboardOutstandingPayment'
+import MK_DashboardCommision from '@/views/MK/MK_Dashboard/MK_DashboardCommision'
 
 export const MKRender = {
     path: '/MK',
@@ -357,6 +360,14 @@ export const MKRender = {
         }
     },
     {
+        path: '/MK/MK_Customer2',
+        name: 'MK_Customer2',
+        component: MK_Customer2,
+        meta: {
+            requiresAuth: true
+        }
+    },//
+    {
         path: '/MK/MK_Customer/View',
         name: 'MK_ViewCustomer',
         component: MK_ViewCustomer,
@@ -430,6 +441,24 @@ export const MKRender = {
         meta: {
             requiresAuth: true
         }
-    },//
+    },
+    {
+        path: '/MK/MK_DashboardOutstandingPayment',
+        name: 'MK_DashboardOutstandingPayment',
+        component: MK_DashboardOutstandingPayment,
+        meta: {
+            requiresAuth: true
+        }
+
+    },
+    {
+        path: '/MK/MK_DashboardCommision',
+        name: 'MK_DashboardCommision',
+        component: MK_DashboardCommision,
+        meta: {
+            requiresAuth: true
+        }
+
+    },
     ]
 }
