@@ -36,7 +36,7 @@ export default {
   },
   computed: {},
   methods: {
-    renderDash() {
+    renderDash2() {
       var Dash = [
         {
           id: 1,
@@ -125,6 +125,35 @@ export default {
       }
 
       this.$forceUpdate();
+    },
+    renderDash() {
+      var param = {
+        option_function_cd: "GetUserMenuDashboard",
+        module_cd: "MK",
+        ss_portfolio_id: this.getDataUser().portfolio_id,
+        user_id: this.getDataUser().user_id,
+        menu_url: "/MK_Dashboard"
+      };
+      
+      this.CallFunction(param).then(response => {
+        if (response == null) return
+        
+        var Dash = response.Data;
+        this.M_Row = [...new Set(Dash.map(x => x.row))]
+        for (let i = 0; i < Dash.length; i++) {
+          var cmp = () => import("."+Dash[i].component+".vue")
+          this.M_Dash.push({
+            id: Dash[i].id,
+            component: cmp,
+            name: Dash[i].name,
+            row: Dash[i].row,
+            col: Dash[i].col,
+            size: Dash[i].size
+          })
+        }
+
+        this.$forceUpdate();
+      })
     }
   },
   mounted() {

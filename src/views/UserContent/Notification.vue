@@ -23,153 +23,89 @@
               </b-row>
             </div>
             <div class="card__body" style="padding-top:0px !important;">
-              <b-row class="notification">
-                <b-col style="margin: auto;">
-                  <b-row>
-                    <b-col md="8">
-                      <span
-                        class="notification__descs"
-                      >New Prospect Added PT Gemini Gemilang Perkasa</span>
-                    </b-col>
-                    <b-col md="4">
-                      <span class="notification__time">5 Minutes Ago</span>
-                    </b-col>
-                  </b-row>
-                </b-col>
-                <b-col class="notification__icon">
-                  <span>
-                    <font-awesome-icon style="color: hsl(0, 100%, 40%);" icon="trash" size="lg" />
-                  </span>
-                </b-col>
-              </b-row>
-              <b-row class="notification">
-                <b-col style="margin: auto;">
-                  <b-row>
-                    <b-col md="8">
-                      <span
-                        class="notification__descs"
-                      >Outstanding Payment on oder PT. Gajah Bumi Tunggal</span>
-                    </b-col>
-                    <b-col md="4">
-                      <span class="notification__time">12 Hours Ago</span>
-                    </b-col>
-                  </b-row>
-                </b-col>
-                <b-col class="notification__icon">
-                  <span>
-                    <font-awesome-icon style="color: hsl(0, 100%, 40%);" icon="trash" size="lg" />
-                  </span>
-                </b-col>
-              </b-row>
-              <b-row class="notification">
-                <b-col style="margin: auto;">
-                  <b-row>
-                    <b-col md="8">
-                      <span class="notification__descs">There is Problem on order no #344343</span>
-                    </b-col>
-                    <b-col md="4">
-                      <span class="notification__time">2 Days Ago</span>
-                    </b-col>
-                  </b-row>
-                </b-col>
-                <b-col class="notification__icon">
-                  <span>
-                    <font-awesome-icon style="color: hsl(0, 100%, 40%);" icon="trash" size="lg" />
-                  </span>
-                </b-col>
-              </b-row>
-              <b-row class="notification">
-                <b-col style="margin: auto;">
-                  <b-row>
-                    <b-col md="8">
-                      <span
-                        class="notification__descs-disabled"
-                      >Outstanding Payment on oder PT. Gajah Bumi Tunggal</span>
-                    </b-col>
-                    <b-col md="4">
-                      <span class="notification__time">2 Days Ago</span>
-                    </b-col>
-                  </b-row>
-                </b-col>
-                <b-col class="notification__icon">
-                  <span>
-                    <font-awesome-icon style="color: hsl(0, 100%, 40%);" icon="trash" size="lg" />
-                  </span>
-                </b-col>
-              </b-row>
-              <b-row class="notification">
-                <b-col style="margin: auto;">
-                  <b-row>
-                    <b-col md="8">
-                      <span
-                        class="notification__descs-disabled"
-                      >Outstanding Payment on oder PT. Gajah Bumi Tunggal</span>
-                    </b-col>
-                    <b-col md="4">
-                      <span class="notification__time">2 Days Ago</span>
-                    </b-col>
-                  </b-row>
-                </b-col>
-                <b-col class="notification__icon">
-                  <span>
-                    <font-awesome-icon style="color: hsl(0, 100%, 40%);" icon="trash" size="lg" />
-                  </span>
-                </b-col>
-              </b-row>
+              <template v-for="(data, index) in M_Notif">
+                <b-row class="notification" v-bind:key="index">
+                  <b-col style="margin: auto;">
+                    <b-row>
+                      <b-col md="8">
+                        <span @click="onNotifClick(data)"
+                          :class="'notification__descs' + (data.notification_status == 'R' ? '-disabled' : '')"
+                        >{{data.descs}}</span>
+                      </b-col>
+                      <b-col md="4">
+                        <span class="notification__time">{{data.timestamp}}</span>
+                      </b-col>
+                    </b-row>
+                  </b-col>
+                  <b-col class="notification__icon">
+                    <span @click="onDeleteNotif(data)">
+                      <font-awesome-icon style="color: hsl(0, 100%, 40%);" icon="trash" size="lg" />
+                    </span>
+                  </b-col>
+                </b-row>
+              </template>
             </div>
           </div>
         </b-col>
       </b-row>
     </div>
   </div>
-  <!-- <div>
-    <div class="header--content">
-      <div class="header--content__title">
-        <b-row class="header-toolbar">
-          <b-col sm="12">
-            Notification
-            <div class="container-refresh">
-              <ABSButton
-                text="Back"
-                icon="check-circle"
-                classButton="button-cancel button--cancelnew"
-                classIcon="icon-style-1"
-                @click="doBack"
-                :styleButton="{color: 'black'}"
-              />
-            </div>
-          </b-col>
-        </b-row>
-      </div>
-    </div>
-    <div class="content-app-form__body">
-      <div class="block-scope-mobile">
-        <b-list-group>
-          <b-row>
-            <b-col md="12">
-              <b-row>
-                <b-col md="8">
-                  <div class="notification">New Prospect Added PT Gemini Gemilang Perkasa</div>
-                </b-col>
-                <b-col md="3">
-                  <div class="time">5 Minutes Ago</div>
-                </b-col>
-                <b-col md="1">
-                  <div class="icon">
-                    <font-awesome-icon icon="trash" class="icon-style-1" />
-                  </div>
-                </b-col>
-              </b-row>
-            </b-col>
-          </b-row>
-        </b-list-group>
-      </div>
-    </div>
-  </div>-->
 </template>
   
-  <script>
-export default {};
+<script>
+  export default {
+    data() {
+      return {
+        M_Notif: []
+      }
+    },
+    methods: {
+      getNotification() {
+        var param = {
+          option_function_cd: "GetUserNotification",
+          module_cd: "SS",
+          ss_portfolio_id: this.getDataUser().portfolio_id,
+          user_id: this.getDataUser().user_id
+        };
+        
+        this.CallFunction(param).then(response => {
+          if (response == null) return
+          
+          var data = response.Data;
+          for (let i = 0; i < data.length; i++) {
+            var dr = Math.abs(new Date() - new Date(data[i].notification_date))
+            var days = Math.ceil(dr / (1000 * 60 * 60 * 24))
+            var hours = Math.ceil(dr / (1000 * 60 * 60))
+            var mins = Math.ceil(dr / (1000 * 60))
+            var dates = this.momentDateFormatting(data[i].notification_date, "YYYY-MM-DD")
+            var x = data[i]
+            x.timestamp = days && days > 0 ? (days + (days < 1 ? ' Day Ago' : ' Days Ago')) : (hours && hours > 0 && hours <= 24 ? (hours + (hours < 1 ? ' Hour Ago' : ' Hours Ago')) : (mins && mins > 0 && mins <= 60 ? (mins + (mins < 1 ? ' Minute Ago' : ' Minutes Ago')) : dates))
+            this.M_Notif.push(x)
+          }
+          // this.M_Notif = data.sort((a,b) => a.notification_status > b.notification_status)
+          // console.log(this.M_Notif)
+          // this.M_Notif = response.Data;
+        })
+      },
+      onDeleteNotif(data) {
+        var param = {
+          option_function_cd: "DelUserNotification",
+          module_cd: "SS",
+          row_id: data.row_id,
+          lastupdatestamp: data.lastupdatestamp
+        };
+        
+        this.CallFunction(param).then(response => {
+          if (response == null) return
+          this.getNotification();
+        })
+      },
+      onNotifClick(data) {}
+    },
+    mounted() {
+      this.getNotification();
+    }
+  };
 </script>
   
   <style>

@@ -46,6 +46,11 @@ export default {
     getFullYear (date, frm) {
       if (!date) return null
       return moment(moment(date, frm)).format('YYYY')
+    },
+
+    momentRange(from, to) {
+      if (!from && !to) return null
+      return moment().range(from, to)
     }
 
   }
