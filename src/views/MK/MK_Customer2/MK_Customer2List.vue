@@ -3,7 +3,7 @@
     <div class="dashboard-page-chart__body">
       <b-row class="dashboardBody">
         <b-col md="12">
-          <ACCList3
+          <ACCList2
             :prop="propList"
             :title="'Customer2'"
             @rowClicked="rowClicked"
@@ -15,7 +15,7 @@
             @headTable="M_Head_Table"
             @refreshColumn="refreshColumn"
             ref="ref_CmContact"
-            urlAdd="MK_AddCustomer2"
+            urlAdd="MK_Customer2Form"
             WithViewButton
             @buttonViewClicked="doViewClick"
           />
@@ -46,7 +46,7 @@ export default {
     },
     doViewClick(record, index) {
       var param = record;
-      this.$router.push({ name: "MK_ViewCustomer2", params: param });
+      this.$router.push({ name: "MK_Customer2View", params: param });
     },
     doDoubleClick(record, index) {},
     rowLink(url) {},
