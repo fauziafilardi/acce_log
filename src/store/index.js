@@ -9,6 +9,7 @@ import Toolbar from './modules/Toolbar'
 import MasterPage from './modules/MasterPage'
 import ABSInput from './modules/ABSInput'
 // import ABSList from './modules/ABSList'
+import ButtonStatus from './modules/ButtonStatus'
 
 Vue.use(Vuex)
 
@@ -20,6 +21,7 @@ export default new Vuex.Store({
     Toolbar,
     MasterPage,
     ABSInput,
-    // ABSList
+    // ABSList,
+    ButtonStatus
   }
 })
