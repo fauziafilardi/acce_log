@@ -71,6 +71,58 @@
                     <div class="prospect__title">Monthly Point</div>
                     <div class="prospect__body">
                       <b-row>
+                        <b-col md="4">
+                          <div class="card">
+                            <div class="container">
+                              <b-col style="text-align: center">
+                                <b-col>
+                                  <span class="buleth-text isGrey">Target</span>
+                                </b-col>
+                                <b-col>
+                                  <h4 class="isGrey">
+                                    <b>{{ data.monthly_point_target }}</b>
+                                  </h4>
+                                </b-col>
+                              </b-col>
+                            </div>
+                          </div>
+                        </b-col>
+
+                        <b-col md="4">
+                          <div class="card">
+                            <div class="container">
+                              <b-col style="text-align: center">
+                                <b-col>
+                                  <span class="buleth-text isGrey">Achievement</span>
+                                </b-col>
+                                <b-col>
+                                  <h4 class="isGrey">
+                                    <b>{{ data.monthly_point_achievement}}</b>
+                                  </h4>
+                                </b-col>
+                              </b-col>
+                            </div>
+                          </div>
+                        </b-col>
+
+                        <b-col md="4">
+                          <div class="card">
+                            <div class="container">
+                              <b-col style="text-align: center">
+                                <b-col>
+                                  <span class="buleth-text isGrey">Pending</span>
+                                </b-col>
+                                <b-col>
+                                  <h4 class="isGrey">
+                                    <b>{{ data.monthly_point_pending}}</b>
+                                  </h4>
+                                </b-col>
+                              </b-col>
+                            </div>
+                          </div>
+                        </b-col>
+                      </b-row>
+                      <!-- <b-row>
                         <b-col>
                           <span class="prospect__content">Target</span>
                         </b-col>
@@ -87,7 +139,7 @@
                             class="prospect__content"
                           >: {{ data.monthly_point_achievement}} Point</span>
                         </b-col>
-                      </b-row>
+                      </b-row>-->
                     </div>
                   </div>
                 </b-col>
@@ -113,7 +165,8 @@ export default {
         target: 0,
         achievement: 0,
         targetPoint: 0,
-        achievementPoint: 0
+        achievementPoint: 0,
+        pendingPoint: 0
       }
     };
   },
@@ -151,10 +204,11 @@ export default {
             target_prospect: data[i].target_prospect,
             achievement_prospect: data[i].achievement_prospect,
             monthly_point_target: data[i].monthly_point_target,
-            monthly_point_achievement: data[i].monthly_point_achievement
+            monthly_point_achievement: data[i].monthly_point_achievement,
+            monthly_point_pending: data[i].monthly_point_pending
           });
         }
-        console.log(this.M_Marketing);
+        // console.log(this.M_Marketing);
       });
     },
     changeProspect(act) {
