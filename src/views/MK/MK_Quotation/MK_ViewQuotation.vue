@@ -144,6 +144,7 @@
                             classButton="btn btn--default"
                             classIcon="icon-style-1"
                             @click="doEdit"
+                            :disabled="!ButtonStatus.btnEdit"
                           />
                         </span>
                         <br />
@@ -870,6 +871,9 @@ export default {
           return param;
         }
       }
+    },
+    ButtonStatus() {
+      return this.$store.getters.getButtonStatus;
     }
   },
   methods: {

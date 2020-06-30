@@ -9,7 +9,6 @@
                 <b-col style="max-width:fit-content !important;">
                   <span>Quotation</span>
                 </b-col>
-
                 <b-col style="text-align: right;">
                   <b-row>
                     <b-col>
@@ -27,13 +26,22 @@
                     </b-col>
                   </b-row>
                 </b-col>
-                <b-col md="1" class="col-right">
+                <b-col md="2" class="col-right">
                   <span>
                     <ABSButton
                       :text="'Search'"
                       classButton="button button--back2"
                       classIcon="icon-style-1"
                       @click="doSearch"
+                    />
+                  </span>
+                  <span>
+                    <ABSButton
+                      :text="'Add'"
+                      classButton="button button--back2"
+                      classIcon="icon-style-1"
+                      @click="doAdd"
+                      :disabled="!ButtonStatus.btnAdd"
                     />
                   </span>
                   <span>
@@ -229,9 +237,15 @@ export default {
       return param;
       //     }
       // }
+    },
+    ButtonStatus() {
+      return this.$store.getters.getButtonStatus;
     }
   },
   methods: {
+    doAdd() {
+      this.$router.push({ name: "MK_AddQuotation"});
+    },
     doBack() {
       this.$router.go(-1);
     },
@@ -596,6 +610,15 @@ export default {
   },
   mounted() {
     this.getMarketing()
+    this.GetButtonStatus(this.getDataUser().portfolio_id, this.getDataUser().group_id, this.getDataUser().user_id, "/MK/MK_Quotation")
+    .then(ress => {
+      var x = {}
+      for (let i = 0; i < ress.length; i++) {
+          x[ress[i].button_id] = ress[i].button_status
+      }
+
+      this.$store.commit("setButtonStatus", x);
+    })
   },
   created() {}
 };
