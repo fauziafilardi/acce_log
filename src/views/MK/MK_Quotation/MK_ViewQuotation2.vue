@@ -11,42 +11,6 @@
                 </b-col>
                 <b-col style="text-align: right;">
                   <ABSButton
-                    :text="'FTL'"
-                    classButton="button button--back"
-                    classIcon="icon-style-1"
-                    @click="doFTL"
-                  />
-                  <ABSButton
-                    :text="'LTL'"
-                    classButton="button button--back"
-                    classIcon="icon-style-1"
-                    @click="doLTL"
-                  />
-                  <ABSButton
-                    :text="'Rental'"
-                    classButton="button button--back"
-                    classIcon="icon-style-1"
-                    @click="doRental"
-                  />
-                  <ABSButton
-                    :text="'Project'"
-                    classButton="button button--back"
-                    classIcon="icon-style-1"
-                    @click="doProject"
-                  />
-                  <ABSButton
-                    :text="'Required Doc'"
-                    classButton="button button--back"
-                    classIcon="icon-style-1"
-                    @click="doRequiredDoc"
-                  />
-                  <ABSButton
-                    :text="'Log Book'"
-                    classButton="button button--back"
-                    classIcon="icon-style-1"
-                    @click="doLogBook"
-                  />
-                  <ABSButton
                     :text="'Back'"
                     classButton="button button--back"
                     classIcon="icon-style-1"
@@ -89,6 +53,14 @@
                             <span>
                               <font-awesome-icon
                                 class="icon-style-default"
+                                icon="envelope"
+                                size="sm"
+                              />
+                              {{ M_Quotation.email }}
+                            </span> &nbsp;
+                            <span>
+                              <font-awesome-icon
+                                class="icon-style-default"
                                 icon="globe-americas"
                                 size="sm"
                               />
@@ -106,15 +78,7 @@
                                 size="sm"
                               />
                               {{ M_Quotation.pic_phone_no }}
-                            </span> &nbsp;
-                            <span>
-                              <font-awesome-icon
-                                class="icon-style-default"
-                                icon="envelope"
-                                size="sm"
-                              />
-                              {{ M_Quotation.email }}
-                            </span> &nbsp;
+                            </span>
                           </b-col>
                         </b-row>
                       </b-col>
@@ -168,10 +132,10 @@
                         </span>
                         <span>
                           <ABSButton
-                            :text="'Delete'"
+                            :text="'Cancel'"
                             classButton="btn btn--default"
                             classIcon="icon-style-1"
-                            @click="doDelete"
+                            @click="doCancel"
                           />
                         </span>
                         <span>
@@ -196,81 +160,99 @@
                     </b-row>
                     <hr />
                     <b-row>
-                      <b-col style="max-width: fit-content !important; margin-right: 20px; border-bottom: solid 2px rgb(153, 153, 153);">
+                      <!-- <div> -->
+                      <b-col md="3" style="width: 36% !important">
+                        <span>
+                          <label style="color: #999999; margin-bottom: 0px !important;">Date</label>
+                        </span>
+                        <br />
+                        <span>{{ M_Quotation.date }}</span>
+                      </b-col>
+                      <b-col md="3" style="width: 26% !important">
+                        <span>
+                          <label style="color: #999999; margin-bottom: 0px !important;">Type</label>
+                        </span>
+                        <br />
+                        <span>{{ M_Quotation.type }}</span>
+                      </b-col>
+                      <b-col md="3" style="width: 38% !important">
                         <span>
                           <label
-                            style="margin-bottom: 0px !important;"
+                            style="color: #999999; margin-bottom: 0px !important;"
                           >Quotation Number</label>
                         </span>
                         <br />
-                        <span style="color: #999999;">{{ M_Quotation.quotation_no }}</span>
+                        <span>{{ M_Quotation.quotation_no }}</span>
                       </b-col>
-                      <b-col style="max-width: fit-content !important; margin-right: 20px; border-bottom: solid 2px rgb(153, 153, 153);">
-                        <span>
-                          <label style="margin-bottom: 0px !important;">Valid Thru</label>
-                        </span>
-                        <br />
-                        <span style="color: #999999;">{{ M_Quotation.date + ' - ' + M_Quotation.date2}}</span>
+                      <!-- </div> -->
+                    </b-row>
+                    <b-row
+                      style="margin-top: 10px !important; margin-bottom: 10px !important; font-size: 15px !important"
+                    >
+                      <b-col>
+                        <span>{{ M_Quotation.project_name }}</span>
                       </b-col>
-                      <b-col style="max-width: fit-content !important; margin-right: 20px; border-bottom: solid 2px rgb(153, 153, 153);">
-                        <span>
-                          <label style="margin-bottom: 0px !important;">Status</label>
-                        </span>
-                        <br />
-                        <span style="color: #999999;">{{ M_Quotation.status }}</span>
+                    </b-row>
+                    <b-row style="margin-bottom: 10px; !important">
+                      <b-col style="text-align: justify;">
+                        <span>{{ M_Quotation.descs }}</span>
                       </b-col>
                     </b-row>
                     <b-row>
-                      <b-col style="max-width: fit-content !important; margin-right: 20px; border-bottom: solid 2px rgb(153, 153, 153);">
+                      <b-col style="max-width: 100px !important;">
                         <span>
-                          <label
-                            style="margin-bottom: 0px !important;"
-                          >Project Name</label>
+                          <font-awesome-icon
+                            style="color: #333399;font-size: 13px;"
+                            icon="coins"
+                            size="lg"
+                          />&nbsp;
+                          <label>Project Value</label>
                         </span>
-                        <br />
-                        <span style="color: #999999;">{{ M_Quotation.project_name }}</span>
+                      </b-col>
+                      <b-col>
+                        <span>: Rp {{ M_Quotation.project_value }}</span>
                       </b-col>
                     </b-row>
                     <b-row>
-                      <b-col style="max-width: fit-content !important; margin-right: 20px; border-bottom: solid 2px rgb(153, 153, 153);">
+                      <b-col style="max-width: 100px !important;">
                         <span>
-                          <label
-                            style="margin-bottom: 0px !important;"
-                          >Description</label>
+                          <font-awesome-icon
+                            style="color: #333399;font-size: 13px;"
+                            icon="calendar-alt"
+                            size="lg"
+                          />&nbsp;
+                          <label>Valid Until</label>
                         </span>
-                        <br />
-                        <span style="color: #999999;">{{ M_Quotation.descs }}</span>
                       </b-col>
-                    </b-row>
-                    <b-row>
-                      <b-col style="max-width: fit-content !important; margin-right: 20px; border-bottom: solid 2px rgb(153, 153, 153);">
-                        <span>
-                          <label
-                            style="margin-bottom: 0px !important;"
-                          >Extra Pick/Drop Charges</label>
-                        </span>
-                        <br />
-                        <span style="color: #999999;">{{ M_Quotation.extra_charge }}</span>
-                      </b-col>
-                      <b-col style="max-width: fit-content !important; margin-right: 20px; border-bottom: solid 2px rgb(153, 153, 153);">
-                        <span>
-                          <label
-                            style="margin-bottom: 0px !important;"
-                          >Over Night Charges</label>
-                        </span>
-                        <br />
-                        <span style="color: #999999;">{{ M_Quotation.overnight_charge }}</span>
+                      <b-col>
+                        <span>: {{ M_Quotation.valid_until }}</span>
                       </b-col>
                     </b-row>
                     <b-row>
                       <b-col>
                         <ABSButton
-                          :text="'Proposed'"
+                          :text="'Confirm Quotation'"
                           classButton="btn btn--default"
                           classIcon="icon-style-1"
                           size="6x"
                           @click="doConfirm"
                         />
+                      </b-col>
+                    </b-row>
+                    <b-row style="margin-top: 10px">
+                      <b-col style="max-width: fit-content !important;">
+                        <span style="font-size: 13px;font-weight: bold;color: #35359a;">
+                          Log Book
+                        </span>
+                      </b-col>
+                      <b-col>
+                        <div style="max-width: fit-content !important;cursor: pointer;" @click="newLogBook">
+                          <font-awesome-icon
+                            style="color: #333399;font-size: 12px;"
+                            icon="map-marker-alt"
+                            size="lg"
+                          /> Add New
+                        </div>
                       </b-col>
                     </b-row>
                     <b-row>
@@ -279,16 +261,16 @@
                           <b-table
                             :responsive="true"
                             :striped="false"
-                            :bordered="true"
+                            :bordered="false"
                             :outlined="false"
                             :small="false"
-                            :hover="false"
+                            :hover="true"
                             :dark="false"
                             :fixed="false"
                             :foot-clone="false"
                             :fields="LogBookHeader"
                             :items="LogBookItems"
-                            class="table-sm table-style-3"
+                            class="table-sm table-style-2"
                           >
                           </b-table>
                         </div>
@@ -897,7 +879,7 @@ export default {
   methods: {
     // Modal Start
     // Email
-    doDelete() {
+    doCancel() {
       this.addStatus = true;
       // this.M_ClearForm();
       this.$refs.Modal_MK_Quotation._show();
@@ -1064,40 +1046,9 @@ export default {
         }
       })
     },
-    doFTL() {
-      var param = this.paramFromList
-      param.isEdit = true;
-      this.$router.push({ name: "MK_AddQuotation", params: param });
-    },
-    doLTL() {
-      var param = this.paramFromList
-      param.isEdit = true;
-      this.$router.push({ name: "MK_AddQuotation", params: param });
-    },
-    doRental() {
-      var param = this.paramFromList
-      param.isEdit = true;
-      this.$router.push({ name: "MK_AddQuotation", params: param });
-    },
-    doProject() {
-      var param = this.paramFromList
-      param.isEdit = true;
-      this.$router.push({ name: "MK_AddQuotation", params: param });
-    },
-    doRequiredDoc() {
-      var param = this.paramFromList
-      param.isEdit = true;
-      this.$router.push({ name: "MK_AddQuotation", params: param });
-    },
-    doLogBook() {
-      var param = this.paramFromList
-      param.isEdit = true;
-      this.$router.push({ name: "MK_AddQuotation", params: param });
-    },
     doBack() {
       this.$router.go(-1);
     },
-    
     doConfirm() {
       var param = {
         option_url: "/MK/MK_Quotation",
@@ -1189,10 +1140,14 @@ export default {
           customer: data.name,
           fulladdress:
             data.address +
-            data.district && data.district !== '' ? ", " + data.district : '' +
-            data.city && data.city !== '' ? ", " + data.city : '' +
-            data.province && data.province !== '' ? ", " + data.province : '' +
-            data.country && data.country !== '' ? ", " + data.country : '',
+            ", " +
+            data.district +
+            ", " +
+            data.city +
+            ", " +
+            data.province +
+            " - " +
+            data.country,
           address: data.address,
           phone_no: data.phone_no && data.phone_no !== "" ? data.phone_no : "-",
           email: data.email && data.email !== "" ? data.email : "-",

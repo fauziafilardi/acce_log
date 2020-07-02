@@ -7,7 +7,7 @@
             <div class="card__title">
               <b-row>
                 <b-col style="max-width:fit-content !important;">
-                  <span>Quotation</span>
+                  <span>Add Quotation</span>
                 </b-col>
                 <b-col style="text-align: right;">
                   <ABSButton
@@ -30,7 +30,7 @@
                       <b-col md="8">
                         <span>
                           <label v-if="inputStatus == 'new'">
-                            Customer
+                            Company
                             <span style="color:red;">*</span>
                           </label>
                           <template v-if="inputStatus == 'edit'">{{ M_Quotation.customerLabel }}</template>
@@ -45,7 +45,7 @@
                         />
                       </b-col>
                     </b-row>
-                    <b-row>
+                    <b-row v-if="inputStatus == 'edit'">
                       <b-col md="8">
                         <b-row>
                           <b-col>
@@ -100,29 +100,18 @@
                         </b-row>
                       </b-col>
                     </b-row>
-                    <hr />
+                    <hr v-if="inputStatus == 'edit'" />
                     <b-row>
-                      <b-col md="4">
+                      <b-col md="8">
                         <span>
-                          <label>Date</label>
+                          <label>Select PIC</label>
                         </span>
-                        <ACCDateTime
-                          @input="OndateChange"
-                          :prop="PI_date"
-                          v-model="M_Quotation.date"
-                          ref="ref_date"
-                        />
-                      </b-col>
-                      <b-col md="4">
-                        <span>
-                          <label>Type</label>
-                        </span>
-                        <ACCDropDown
-                          @change="OntypeChange"
-                          :prop="PI_type"
-                          v-model="M_Quotation.type"
-                          :label="M_Quotation.typeLabel"
-                          ref="ref_type"
+                        <ACCLookUp
+                          @change="OnpicChange"
+                          :prop="PI_pic"
+                          v-model="M_Quotation.pic"
+                          :label="M_Quotation.picLabel"
+                          ref="ref_pic"
                         />
                       </b-col>
                     </b-row>
@@ -135,6 +124,30 @@
                           :prop="PI_quotation_no"
                           v-model="M_Quotation.quotation_no"
                           ref="ref_quotation_no"
+                        />
+                      </b-col>
+                    </b-row>
+                    <b-row>
+                      <b-col md="4">
+                        <span>
+                          <label>Valid Thru</label>
+                        </span>
+                        <ACCDateTime
+                          @input="OndateChange"
+                          :prop="PI_date"
+                          v-model="M_Quotation.date"
+                          ref="ref_date"
+                        />
+                      </b-col>
+                      <b-col md="4">
+                        <span>
+                          <label>&nbsp;</label>
+                        </span>
+                        <ACCDateTime
+                          @input="Ondate2Change"
+                          :prop="PI_date2"
+                          v-model="M_Quotation.date2"
+                          ref="ref_date2"
                         />
                       </b-col>
                     </b-row>
@@ -159,41 +172,24 @@
                       </b-col>
                     </b-row>
                     <b-row>
-                      <b-col md="6">
+                      <b-col md="4">
                         <span>
-                          <label>Project Value</label>
+                          <label>Extra Pick/Drop Charges</label>
                         </span>
                         <ACCTextBox
-                          :prop="PI_project_value"
-                          v-model="M_Quotation.project_value"
-                          ref="ref_project_value"
+                          :prop="PI_extra_charge"
+                          v-model="M_Quotation.extra_charge"
+                          ref="ref_extra_charge"
                         />
                       </b-col>
-                    </b-row>
-                    <b-row>
                       <b-col md="4">
                         <span>
-                          <label>Valid Until</label>
+                          <label>Over Night Charges</label>
                         </span>
-                        <ACCDateTime
-                          @input="Onvalid_untilChange"
-                          :prop="PI_valid_until"
-                          v-model="M_Quotation.valid_until"
-                          ref="ref_valid_until"
-                        />
-                      </b-col>
-                    </b-row>
-                    <b-row>
-                      <b-col md="4">
-                        <span>
-                          <label>Status</label>
-                        </span>
-                        <ACCDropDown
-                          @change="OnstatusChange"
-                          :prop="PI_status"
-                          v-model="M_Quotation.status"
-                          :label="M_Quotation.statusLabel"
-                          ref="ref_status"
+                        <ACCTextBox
+                          :prop="PI_overnight_charge"
+                          v-model="M_Quotation.overnight_charge"
+                          ref="ref_overnight_charge"
                         />
                       </b-col>
                     </b-row>
@@ -232,17 +228,15 @@ export default {
         email: "",
         website: "",
         pic: "",
+        picLabel: "",
         pic_phone_no: "",
         date: this.momentDate(new Date()),
-        type: "",
-        typeLabel: "",
+        date2: this.momentDate(new Date()),
         quotation_no: "",
         project_name: "",
         descs: "",
-        project_value: "",
-        valid_until: "",
-        status: "N",
-        statusLabel: "New"
+        extra_charge: "",
+        overnight_charge: ""
       },
       PI_customer: {
         dataLookUp: {
@@ -266,39 +260,32 @@ export default {
         cDisplayColumn: "name,contact_person,time_edit",
         cInputStatus: this.inputStatus
       },
-      PI_date: {
-        cValidate: "",
-        cName: "date",
-        cOrder: 2,
-        cKey: false,
-        cProtect: false,
-        cWithTime: true,
-        cFormat: "dd/MM/yyyy",
-        cParentForm: "MK_AddQuotation",
-        cInputStatus: this.inputStatus
-      },
-      PI_type: {
-        dataLookUp: null,
-        cValidate: "",
-        cName: "type",
+      PI_pic: {
+        dataLookUp: {
+          LookUpCd: "GetContactPerson",
+          ColumnDB: "contact_person_id",
+          InitialWhere: "",
+          ParamWhere: "",
+          OrderBy: "",
+          ParamView: "",
+          SourceField: "",
+          DisplayLookUp: "name,phone_no,email,time_edit"
+        },
+        cValidate: "required",
+        cName: "pic",
         ckey: false,
-        cOrder: 3,
+        cOrder: 2,
         cProtect: false,
         cParentForm: "MK_AddQuotation",
-        cStatic: true,
-        cOption: [
-          { id: "F", label: "FTL" },
-          { id: "L", label: "LTL" },
-          { id: "R", label: "Rental" },
-          { id: "P", label: "Project Base" }
-        ],
-        cDisplayColumn: "type_type,descs",
+        cStatic: false,
+        cOption: [],
+        cDisplayColumn: "name,phone_no,email,time_edit",
         cInputStatus: this.inputStatus
       },
       PI_quotation_no: {
         cValidate: "",
         cName: "quotation_no",
-        cOrder: 4,
+        cOrder: 3,
         cKey: false,
         cType: "text",
         cProtect: true,
@@ -306,10 +293,32 @@ export default {
         cDecimal: 2,
         cInputStatus: this.inputStatus
       },
+      PI_date: {
+        cValidate: "",
+        cName: "date",
+        cOrder: 4,
+        cKey: false,
+        cProtect: false,
+        cWithTime: false,
+        cFormat: "dd/MM/yyyy",
+        cParentForm: "MK_AddQuotation",
+        cInputStatus: this.inputStatus
+      },
+      PI_date2: {
+        cValidate: "",
+        cName: "date2",
+        cOrder: 5,
+        cKey: false,
+        cProtect: false,
+        cWithTime: false,
+        cFormat: "dd/MM/yyyy",
+        cParentForm: "MK_AddQuotation",
+        cInputStatus: this.inputStatus
+      },
       PI_project_name: {
         cValidate: "",
         cName: "project_name",
-        cOrder: 5,
+        cOrder: 6,
         cKey: false,
         cType: "text",
         cProtect: false,
@@ -320,7 +329,7 @@ export default {
       PI_descs: {
         cValidate: "",
         cName: "descs",
-        cOrder: 6,
+        cOrder: 7,
         cKey: false,
         cProtect: false,
         cResize: false,
@@ -331,45 +340,28 @@ export default {
         cParentForm: "MK_AddQuotation",
         cInputStatus: this.inputStatus
       },
-      PI_project_value: {
+      PI_extra_charge: {
         cValidate: "",
-        cName: "project_value",
-        cOrder: 7,
+        cName: "extra_charge",
+        cOrder: 8,
         cKey: false,
-        cType: "decimal",
+        cType: "text",
         cProtect: false,
         cParentForm: "MK_AddQuotation",
         cDecimal: 2,
         cInputStatus: this.inputStatus
       },
-      PI_valid_until: {
+      PI_overnight_charge: {
         cValidate: "",
-        cName: "valid_until",
-        cOrder: 8,
+        cName: "overnight_charge",
+        cOrder: 9,
         cKey: false,
+        cType: "text",
         cProtect: false,
-        cWithTime: false,
-        cFormat: "dd/MM/yyyy",
         cParentForm: "MK_AddQuotation",
+        cDecimal: 2,
         cInputStatus: this.inputStatus
       },
-      PI_status: {
-        dataLookUp: null,
-        cValidate: "",
-        cName: "status",
-        ckey: false,
-        cOrder: 9,
-        cProtect: false,
-        cParentForm: "MK_AddQuotation",
-        cStatic: true,
-        cOption: [
-          { id: "N", label: "New" },
-          { id: "C", label: "Close" },
-          { id: "X", label: "Cancel" }
-        ],
-        cDisplayColumn: "status_cd,descs",
-        cInputStatus: this.inputStatus
-      }
     };
   },
   computed: {
@@ -402,32 +394,36 @@ export default {
       this.$nextTick(() => {
         this.M_Quotation.customer = data.row_id;
         this.M_Quotation.customerLabel = data.name;
-        this.M_Quotation.fulladdress =
-          data.address +
-          ", " +
-          data.district +
-          ", " +
-          data.city +
-          ", " +
-          data.province +
-          " - " +
-          data.country;
-        this.M_Quotation.address = data.address;
-        this.M_Quotation.phone_no =
-          data.phone_no && data.phone_no !== "" ? data.phone_no : "-";
-        this.M_Quotation.email =
-          data.email && data.email !== "" ? data.email : "-";
-        this.M_Quotation.website =
-          data.website && data.website !== "" ? data.website : "-";
-        this.M_Quotation.pic =
-          data.contact_person && data.contact_person !== ""
-            ? data.contact_person
-            : "-";
-        this.M_Quotation.pic_phone_no =
-          data.contact_phone_no && data.contact_phone_no !== ""
-            ? data.contact_phone_no
-            : "-";
+        // this.M_Quotation.fulladdress =
+        //   data.address +
+        //   ", " +
+        //   data.district +
+        //   ", " +
+        //   data.city +
+        //   ", " +
+        //   data.province +
+        //   " - " +
+        //   data.country;
+        // this.M_Quotation.address = data.address;
+        // this.M_Quotation.phone_no =
+        //   data.phone_no && data.phone_no !== "" ? data.phone_no : "-";
+        // this.M_Quotation.email =
+        //   data.email && data.email !== "" ? data.email : "-";
+        // this.M_Quotation.website =
+        //   data.website && data.website !== "" ? data.website : "-";
+        // this.M_Quotation.pic =
+        //   data.contact_person && data.contact_person !== ""
+        //     ? data.contact_person
+        //     : "-";
+        // this.M_Quotation.pic_phone_no =
+        //   data.contact_phone_no && data.contact_phone_no !== ""
+        //     ? data.contact_phone_no
+        //     : "-";
       });
+    },
+    OnpicChange(data) {
+      this.M_Quotation.pic = data.id;
+      this.M_Quotation.picLabel = data.label;
     },
     OndateChange(data) {
       this.PI_valid_until.cValidate = "min_date:" + this.momentDate(new Date(data))
@@ -455,20 +451,16 @@ export default {
         email: "",
         website: "",
         pic: "",
+        picLabel: "",
         pic_phone_no: "",
-        date: this.momentDateFormatting(new Date(), 'YYYY-MM-DD HH:mm'),
-        type: "",
-        typeLabel: "",
+        date: this.momentDate(new Date()),
+        date2: this.momentDate(new Date()),
         quotation_no: "",
         project_name: "",
         descs: "",
-        project_value: "",
-        valid_until: "",
-        status: "N",
-        statusLabel: "New"
+        extra_charge: "",
+        overnight_charge: ""
       };
-
-      this.PI_valid_until.cValidate = "min_date:" + this.momentDate(this.getToday())
     },
     doSave() {
       this.$validator._base.validateAll("MK_AddQuotation").then(result => {
@@ -481,14 +473,14 @@ export default {
               if (this.inputStatus == "edit") {
                 this.M_Update();
               } else {
-                this.M_Save();
+                this.M_Insert();
               }
             }
           }
         );
       });
     },
-    M_Save() {
+    M_Insert() {
       var param = {
         option_url: "/MK/MK_Quotation",
         line_no: 0,
@@ -502,7 +494,7 @@ export default {
         descs: this.M_Quotation.descs,
         project_value: this.M_Quotation.project_value && this.M_Quotation.project_value !== '' ? this.replaceAllString(this.M_Quotation.project_value, ',', '', 'number') : 0,
         expired_date: this.M_Quotation.valid_until && this.M_Quotation.valid_until !== '' ? this.M_Quotation.valid_until : "NULL",
-        status: this.M_Quotation.status,
+        status: "N",
         user_input: this.getDataUser().user_id
       };
 
