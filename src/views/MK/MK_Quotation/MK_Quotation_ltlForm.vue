@@ -230,7 +230,7 @@ export default {
         ckey: false,
         cOrder: 1,
         cProtect: false,
-        cParentForm: "MStatus",
+        cParentForm: "MK_FormMkQuotationLtl",
         cStatic: false,
         cOption: [
           // { id: "C", label: "Call" },
@@ -298,8 +298,8 @@ export default {
     },
     Oncm_commodity_idChange(data) {
       this.$nextTick(() => {
-        this.M_MkQuotationLtl.cm_commodity_id = data.row_id;
-        this.M_MkQuotationLtl.commodity_descsLabel = data.descs;
+        this.M_MkQuotationLtl.cm_commodity_id = data.id;
+        this.M_MkQuotationLtl.commodity_descsLabel = data.label;
       });
     },
 

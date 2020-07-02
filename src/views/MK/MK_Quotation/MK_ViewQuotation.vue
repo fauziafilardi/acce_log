@@ -1125,7 +1125,7 @@ export default {
       this.$router.push({ name: "MK_Quotation_documentForm", params: param });
     },
     doLogBook() {
-      var param = this.paramFromList;
+      var param = this.AllData;
       param.isEdit = false;
       this.$router.push({ name: "MK_Quotation_logbookForm", params: param });
     },

@@ -50,7 +50,7 @@
                           @change="Onto_cm_contact_delivery_address_idChange"
                           :prop="PI_to_cm_contact_delivery_address_id"
                           v-model="M_MkQuotationProject.to_cm_contact_delivery_address_id"
-                          :label="M_MkQuotationProject.to_cm_contact_delivery_address_id"
+                          :label="M_MkQuotationProject.to_addressLabel"
                           ref="ref_to_cm_contact_delivery_address_id"
                         />
                       </b-col>
@@ -120,11 +120,12 @@ export default {
         mk_quotation_project_id: 0,
         mk_quotation_id: 0,
         cm_contact_id: 0,
-        fr_cm_contact_delivery_address_id: 0,
+        fr_cm_contact_delivery_address_id: null,
         from_addressLabel: "",
-        to_cm_contact_delivery_address_id: 0,
+        to_cm_contact_delivery_address_id: null,
         to_addressLabel: "",
         charge_by: "",
+        charge_byLabel: "",
         price_amt: "",
         old_price_amt: "",
         user_input: "",
@@ -136,8 +137,8 @@ export default {
       },
       PI_fr_cm_contact_delivery_address_id: {
         dataLookUp: {
-          LookUpCd: "",
-          ColumnDB: "",
+          LookUpCd: "GetContactDeliveryAddress",
+          ColumnDB: "cm_contact_delivery_address_id",
           InitialWhere: "",
           ParamWhere: "",
           OrderBy: "",
@@ -153,13 +154,13 @@ export default {
         cProtect: false,
         cParentForm: "MK_FormMkQuotationProject",
         cOption: [],
-        cDisplayColumn: "",
+        cDisplayColumn: "title,address",
         cInputStatus: this.inputStatus
       },
       PI_to_cm_contact_delivery_address_id: {
         dataLookUp: {
-          LookUpCd: "",
-          ColumnDB: "",
+          LookUpCd: "GetContactDeliveryAddress",
+          ColumnDB: "cm_contact_delivery_address_id",
           InitialWhere: "",
           ParamWhere: "",
           OrderBy: "",
@@ -175,18 +176,25 @@ export default {
         cProtect: false,
         cParentForm: "MK_FormMkQuotationProject",
         cOption: [],
-        cDisplayColumn: "",
+        cDisplayColumn: "title,address",
         cInputStatus: this.inputStatus
       },
+
       PI_charge_by: {
-        cValidate: "",
+        dataLookUp: null,
+        cValidate: "required",
         cName: "charge_by",
+        ckey: false,
         cOrder: 3,
-        cKey: false,
-        cType: "text",
         cProtect: false,
         cParentForm: "MK_FormMkQuotationProject",
-        cDecimal: 2,
+        cStatic: true,
+        cOption: [
+          { id: "CBM", label: "CBM" },
+          { id: "KGS", label: "KGS" }
+          // { id: "E", label: "Entertaintment" }
+        ],
+        cDisplayColumn: "action_type,descs",
         cInputStatus: this.inputStatus
       },
       PI_price_amt: {
@@ -194,7 +202,7 @@ export default {
         cName: "price_amt",
         cOrder: 4,
         cKey: false,
-        cType: "text",
+        cType: "decimal",
         cProtect: false,
         cParentForm: "MK_FormMkQuotationProject",
         cDecimal: 2,
@@ -218,26 +226,28 @@ export default {
   },
   methods: {
     doBack() {
-      this.$router.go(-1);
+      // this.$router.go(-1);
+      this.$router.push({ name: "MK_Quotation" });
     },
+
     Onfr_cm_contact_delivery_address_idChange(data) {
       this.$nextTick(() => {
-        this.M_MkQuotationProject.fr_cm_contact_delivery_address_id = data.id;
         this.M_MkQuotationProject.fr_cm_contact_delivery_address_id =
-          data.descs;
-      });
-    },
-    Onfr_cm_contact_delivery_address_idChange(data) {
-      this.$nextTick(() => {
-        this.M_MkQuotationProject.fr_cm_contact_delivery_address_id = data.id;
-        this.M_MkQuotationProject.from_addressLabel = data.descs;
+          data.row_id;
+        this.M_MkQuotationProject.from_addressLabel = data.title;
       });
     },
     Onto_cm_contact_delivery_address_idChange(data) {
       this.$nextTick(() => {
-        this.M_MkQuotationProject.to_cm_contact_delivery_address_id = data.id;
         this.M_MkQuotationProject.to_cm_contact_delivery_address_id =
-          data.descs;
+          data.row_id;
+        this.M_MkQuotationProject.to_addressLabel = data.title;
+      });
+    },
+    Oncharge_byChange(data) {
+      this.$nextTick(() => {
+        this.M_MkQuotationProject.charge_by = data.id;
+        this.M_MkQuotationProject.charge_byLabel = data.label;
       });
     },
 
@@ -246,11 +256,12 @@ export default {
         mk_quotation_project_id: 0,
         mk_quotation_id: 0,
         cm_contact_id: 0,
-        fr_cm_contact_delivery_address_id: 0,
+        fr_cm_contact_delivery_address_id: null,
         from_addressLabel: "",
-        to_cm_contact_delivery_address_id: 0,
+        to_cm_contact_delivery_address_id: null,
         to_addressLabel: "",
         charge_by: "",
+        charge_byLabel: "",
         price_amt: "",
         old_price_amt: "",
         user_input: "",
@@ -285,14 +296,14 @@ export default {
       var param = {
         option_url: "/MK/MK_Quotation",
         line_no: 6,
-        mk_quotation_id: this.M_MkQuotationProject.mk_quotation_id,
+        mk_quotation_id: this.paramFromList.row_id,
         fr_cm_contact_delivery_address_id: this.M_MkQuotationProject
           .fr_cm_contact_delivery_address_id,
         to_cm_contact_delivery_address_id: this.M_MkQuotationProject
           .to_cm_contact_delivery_address_id,
         charge_by: this.M_MkQuotationProject.charge_by,
         price_amt: this.M_MkQuotationProject.price_amt,
-        old_price_amt: this.M_MkQuotationProject.old_price_amt,
+        old_price_amt: this.M_MkQuotationProject.price_amt,
         user_input: this.getDataUser().user_id
       };
 
@@ -309,14 +320,14 @@ export default {
         line_no: 6,
         mk_quotation_project_id: this.M_MkQuotationProject
           .mk_quotation_project_id,
-        mk_quotation_id: this.M_MkQuotationProject.mk_quotation_id,
+        mk_quotation_id: this.paramFromList.row_id,
         fr_cm_contact_delivery_address_id: this.M_MkQuotationProject
           .fr_cm_contact_delivery_address_id,
         to_cm_contact_delivery_address_id: this.M_MkQuotationProject
           .to_cm_contact_delivery_address_id,
         charge_by: this.M_MkQuotationProject.charge_by,
         price_amt: this.M_MkQuotationProject.price_amt,
-        old_price_amt: this.M_MkQuotationProject.old_price_amt,
+        old_price_amt: this.M_MkQuotationProject.price_amt,
         lastupdatestamp: this.paramFromList.lastupdatestamp,
         user_edit: this.getDataUser().user_id
       };
