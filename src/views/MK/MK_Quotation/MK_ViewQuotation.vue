@@ -196,23 +196,29 @@
                     </b-row>
                     <hr />
                     <b-row>
-                      <b-col style="max-width: fit-content !important; margin-right: 20px; border-bottom: solid 2px rgb(153, 153, 153);">
+                      <b-col
+                        style="max-width: fit-content !important; margin-right: 20px; border-bottom: solid 2px rgb(153, 153, 153);"
+                      >
                         <span>
-                          <label
-                            style="margin-bottom: 0px !important;"
-                          >Quotation Number</label>
+                          <label style="margin-bottom: 0px !important;">Quotation Number</label>
                         </span>
                         <br />
                         <span style="color: #999999;">{{ M_Quotation.quotation_no }}</span>
                       </b-col>
-                      <b-col style="max-width: fit-content !important; margin-right: 20px; border-bottom: solid 2px rgb(153, 153, 153);">
+                      <b-col
+                        style="max-width: fit-content !important; margin-right: 20px; border-bottom: solid 2px rgb(153, 153, 153);"
+                      >
                         <span>
                           <label style="margin-bottom: 0px !important;">Valid Thru</label>
                         </span>
                         <br />
-                        <span style="color: #999999;">{{ M_Quotation.date + ' - ' + M_Quotation.date2}}</span>
+                        <span
+                          style="color: #999999;"
+                        >{{ M_Quotation.date + ' - ' + M_Quotation.date2}}</span>
                       </b-col>
-                      <b-col style="max-width: fit-content !important; margin-right: 20px; border-bottom: solid 2px rgb(153, 153, 153);">
+                      <b-col
+                        style="max-width: fit-content !important; margin-right: 20px; border-bottom: solid 2px rgb(153, 153, 153);"
+                      >
                         <span>
                           <label style="margin-bottom: 0px !important;">Status</label>
                         </span>
@@ -221,42 +227,42 @@
                       </b-col>
                     </b-row>
                     <b-row>
-                      <b-col style="max-width: fit-content !important; margin-right: 20px; border-bottom: solid 2px rgb(153, 153, 153);">
+                      <b-col
+                        style="max-width: fit-content !important; margin-right: 20px; border-bottom: solid 2px rgb(153, 153, 153);"
+                      >
                         <span>
-                          <label
-                            style="margin-bottom: 0px !important;"
-                          >Project Name</label>
+                          <label style="margin-bottom: 0px !important;">Project Name</label>
                         </span>
                         <br />
                         <span style="color: #999999;">{{ M_Quotation.project_name }}</span>
                       </b-col>
                     </b-row>
                     <b-row>
-                      <b-col style="max-width: fit-content !important; margin-right: 20px; border-bottom: solid 2px rgb(153, 153, 153);">
+                      <b-col
+                        style="max-width: fit-content !important; margin-right: 20px; border-bottom: solid 2px rgb(153, 153, 153);"
+                      >
                         <span>
-                          <label
-                            style="margin-bottom: 0px !important;"
-                          >Description</label>
+                          <label style="margin-bottom: 0px !important;">Description</label>
                         </span>
                         <br />
                         <span style="color: #999999;">{{ M_Quotation.descs }}</span>
                       </b-col>
                     </b-row>
                     <b-row>
-                      <b-col style="max-width: fit-content !important; margin-right: 20px; border-bottom: solid 2px rgb(153, 153, 153);">
+                      <b-col
+                        style="max-width: fit-content !important; margin-right: 20px; border-bottom: solid 2px rgb(153, 153, 153);"
+                      >
                         <span>
-                          <label
-                            style="margin-bottom: 0px !important;"
-                          >Extra Pick/Drop Charges</label>
+                          <label style="margin-bottom: 0px !important;">Extra Pick/Drop Charges</label>
                         </span>
                         <br />
                         <span style="color: #999999;">{{ M_Quotation.extra_charge }}</span>
                       </b-col>
-                      <b-col style="max-width: fit-content !important; margin-right: 20px; border-bottom: solid 2px rgb(153, 153, 153);">
+                      <b-col
+                        style="max-width: fit-content !important; margin-right: 20px; border-bottom: solid 2px rgb(153, 153, 153);"
+                      >
                         <span>
-                          <label
-                            style="margin-bottom: 0px !important;"
-                          >Over Night Charges</label>
+                          <label style="margin-bottom: 0px !important;">Over Night Charges</label>
                         </span>
                         <br />
                         <span style="color: #999999;">{{ M_Quotation.overnight_charge }}</span>
@@ -289,8 +295,7 @@
                             :fields="LogBookHeader"
                             :items="LogBookItems"
                             class="table-sm table-style-3"
-                          >
-                          </b-table>
+                          ></b-table>
                         </div>
                       </b-col>
                     </b-row>
@@ -346,7 +351,11 @@
               </span>
               <br />
               <span>
-                <font-awesome-icon style="color: #333399;font-size: 0.875em;width: 0.75em;" icon="user" size="sm" />
+                <font-awesome-icon
+                  style="color: #333399;font-size: 0.875em;width: 0.75em;"
+                  icon="user"
+                  size="sm"
+                />
                 {{ M_Quotation.pic }}
               </span> &nbsp;
               <span>
@@ -371,27 +380,36 @@
         </b-col>
       </b-row>
       <hr />
-      <b-row style="display: flex; flex-wrap: wrap; margin-right: unset !important; margin-left: unset !important;">
+      <b-row
+        style="display: flex; flex-wrap: wrap; margin-right: unset !important; margin-left: unset !important;"
+      >
         <!-- <div> -->
-        <b-col md="3" style="-webkit-box-flex: 0; flex: 0 0 25%; max-width: 25%; position: relative; width: 100%">
+        <b-col
+          md="3"
+          style="-webkit-box-flex: 0; flex: 0 0 25%; max-width: 25%; position: relative; width: 100%"
+        >
           <span>
             <label style="color: #999999; margin-bottom: 0px !important;">Date</label>
           </span>
           <br />
           <span>{{ M_Quotation.date }}</span>
         </b-col>
-        <b-col md="3" style="-webkit-box-flex: 0; flex: 0 0 25%; max-width: 25%; position: relative; width: 100%">
+        <b-col
+          md="3"
+          style="-webkit-box-flex: 0; flex: 0 0 25%; max-width: 25%; position: relative; width: 100%"
+        >
           <span>
             <label style="color: #999999; margin-bottom: 0px !important;">Type</label>
           </span>
           <br />
           <span>{{ M_Quotation.type }}</span>
         </b-col>
-        <b-col md="3" style="-webkit-box-flex: 0; flex: 0 0 25%; max-width: 25%; position: relative; width: 100%">
+        <b-col
+          md="3"
+          style="-webkit-box-flex: 0; flex: 0 0 25%; max-width: 25%; position: relative; width: 100%"
+        >
           <span>
-            <label
-              style="color: #999999; margin-bottom: 0px !important;"
-            >Quotation Number</label>
+            <label style="color: #999999; margin-bottom: 0px !important;">Quotation Number</label>
           </span>
           <br />
           <span>{{ M_Quotation.quotation_no }}</span>
@@ -410,8 +428,12 @@
           <span>{{ M_Quotation.descs }}</span>
         </b-col>
       </b-row>
-      <b-row style="display: flex; flex-wrap: wrap; margin-right: unset !important; margin-left: unset !important;">
-        <b-col style="-webkit-box-flex: 0; flex: 0 0 20%; max-width: 20%; position: relative; width: 20%">
+      <b-row
+        style="display: flex; flex-wrap: wrap; margin-right: unset !important; margin-left: unset !important;"
+      >
+        <b-col
+          style="-webkit-box-flex: 0; flex: 0 0 20%; max-width: 20%; position: relative; width: 20%"
+        >
           <span>
             <font-awesome-icon
               style="color: #333399;font-size: 0.875em;width: 0.75em;"
@@ -421,12 +443,18 @@
             <label>Project Value</label>
           </span>
         </b-col>
-        <b-col style="-webkit-box-flex: 0; flex: 0 0 80%; max-width: 80%; position: relative; width: 80%">
+        <b-col
+          style="-webkit-box-flex: 0; flex: 0 0 80%; max-width: 80%; position: relative; width: 80%"
+        >
           <span>: Rp {{ M_Quotation.project_value }}</span>
         </b-col>
       </b-row>
-      <b-row style="display: flex; flex-wrap: wrap; margin-right: unset !important; margin-left: unset !important;">
-        <b-col style="-webkit-box-flex: 0; flex: 0 0 20%; max-width: 20%; position: relative; width: 20%">
+      <b-row
+        style="display: flex; flex-wrap: wrap; margin-right: unset !important; margin-left: unset !important;"
+      >
+        <b-col
+          style="-webkit-box-flex: 0; flex: 0 0 20%; max-width: 20%; position: relative; width: 20%"
+        >
           <span>
             <font-awesome-icon
               style="color: #333399;font-size: 0.875em;width: 0.75em;"
@@ -436,7 +464,9 @@
             <label>Valid Until</label>
           </span>
         </b-col>
-        <b-col style="-webkit-box-flex: 0; flex: 0 0 80%; max-width: 80%; position: relative; width: 80%">
+        <b-col
+          style="-webkit-box-flex: 0; flex: 0 0 80%; max-width: 80%; position: relative; width: 80%"
+        >
           <span>: {{ M_Quotation.valid_until }}</span>
         </b-col>
       </b-row>
@@ -638,10 +668,7 @@
       <template slot="content">
         <b-row>
           <b-col md="12">
-            <b-form
-              :data-vv-scope="'Frm_Logbook'"
-              :data-vv-value-path="'Frm_Logbook'"
-            >
+            <b-form :data-vv-scope="'Frm_Logbook'" :data-vv-value-path="'Frm_Logbook'">
               <b-row>
                 <b-col md="12">
                   <b-row>
@@ -676,7 +703,14 @@
       </template>
     </ABSModal>
 
-    <iframe name="print_frame" id="print_frame" width="0" height="0" frameborder="0" src="about:blank"></iframe>
+    <iframe
+      name="print_frame"
+      id="print_frame"
+      width="0"
+      height="0"
+      frameborder="0"
+      src="about:blank"
+    ></iframe>
   </div>
 </template>
 
@@ -851,10 +885,10 @@ export default {
         cMaxRows: 2,
         cSize: "md",
         cParentForm: "Frm_Logbook",
-        cInputStatus: 'new'
+        cInputStatus: "new"
       },
       M_LogBook: {
-        descs: ''
+        descs: ""
       },
       AllData: {},
       responses: {},
@@ -905,7 +939,9 @@ export default {
     doPrint() {
       // $('#forPrint').printThis();
       // $('#print_frame').printThis();
-      window.frames["print_frame"].document.body.innerHTML = document.getElementById("forPrint").innerHTML;
+      window.frames[
+        "print_frame"
+      ].document.body.innerHTML = document.getElementById("forPrint").innerHTML;
       window.frames["print_frame"].window.focus();
       window.frames["print_frame"].window.print();
     },
@@ -1016,7 +1052,7 @@ export default {
         doc_no: this.M_Quotation.doc_no,
         current_page: 0,
         user_input: this.getDataUser().user_id
-      }
+      };
 
       this.postJSON(this.getUrlSaveHeaderChat(), paramSaveH).then(response => {
         // response from API
@@ -1029,7 +1065,7 @@ export default {
           chatFill: []
         };
         this.$router.push({ name: url, params: param });
-      })
+      });
     },
     // Modal End
     doChat() {
@@ -1048,12 +1084,11 @@ export default {
         var data = response;
         if (data.Data == null) {
           this.$nextTick(() => {
-            this.M_Quotation.doc_no = this.M_Quotation.quotation_no
-          })
+            this.M_Quotation.doc_no = this.M_Quotation.quotation_no;
+          });
           this.$forceUpdate();
           this.$refs.Modal_Chat._show();
-        }
-        else {
+        } else {
           var url = "MK_ChatQuotation";
           if (!url || url == "" || url == undefined) return;
           var param = {
@@ -1062,42 +1097,42 @@ export default {
           };
           this.$router.push({ name: url, params: param });
         }
-      })
+      });
     },
     doFTL() {
-      var param = this.paramFromList
+      var param = this.paramFromList;
       param.isEdit = true;
-      this.$router.push({ name: "MK_AddQuotation", params: param });
+      this.$router.push({ name: "MK_Quotation_ftlForm", params: param });
     },
     doLTL() {
-      var param = this.paramFromList
+      var param = this.paramFromList;
       param.isEdit = true;
-      this.$router.push({ name: "MK_AddQuotation", params: param }); 
+      this.$router.push({ name: "MK_Quotation_ltlForm", params: param });
     },
     doRental() {
-      var param = this.paramFromList
+      var param = this.paramFromList;
       param.isEdit = true;
-      this.$router.push({ name: "MK_AddQuotation", params: param });
+      this.$router.push({ name: "MK_Quotation_rentalForm", params: param });
     },
     doProject() {
-      var param = this.paramFromList
+      var param = this.paramFromList;
       param.isEdit = true;
-      this.$router.push({ name: "MK_AddQuotation", params: param });
+      this.$router.push({ name: "MK_Quotation_projectForm", params: param });
     },
     doRequiredDoc() {
-      var param = this.paramFromList
+      var param = this.paramFromList;
       param.isEdit = true;
-      this.$router.push({ name: "MK_AddQuotation", params: param });
+      this.$router.push({ name: "MK_Quotation_documentForm", params: param });
     },
     doLogBook() {
-      var param = this.paramFromList
+      var param = this.paramFromList;
       param.isEdit = true;
-      this.$router.push({ name: "MK_AddQuotation", params: param });
+      this.$router.push({ name: "MK_Quotation_logbookForm", params: param });
     },
     doBack() {
       this.$router.go(-1);
     },
-    
+
     doConfirm() {
       var param = {
         option_url: "/MK/MK_Quotation",
@@ -1113,7 +1148,7 @@ export default {
         this.alertSuccess("Confirmation Success").then(() => {
           this.doBack();
         });
-      })
+      });
     },
     newLogBook() {
       this.$refs.Modal_LogBook._show();
@@ -1125,7 +1160,7 @@ export default {
         ss_portfolio_id: this.AllData.ss_portfolio_id,
         logbook_type: this.AllData.quotation_type,
         referance_no: this.AllData.quotation_no,
-        logbook_date: this.momentDateFormatting(new Date(), 'YYYY-MM-DD HH:mm'),
+        logbook_date: this.momentDateFormatting(new Date(), "YYYY-MM-DD HH:mm"),
         descs: this.M_LogBook.descs,
         cm_contact_id: this.AllData.cm_contact_id,
         cm_contact_person_id: "NULL",
@@ -1142,7 +1177,7 @@ export default {
           this.$refs.Modal_LogBook._hide();
           this.GetLogBookList();
         });
-      })
+      });
     },
     doEdit() {
       var param = this.paramFromList;
@@ -1188,11 +1223,15 @@ export default {
         this.M_Quotation = {
           customer: data.name,
           fulladdress:
-            data.address +
-            data.district && data.district !== '' ? ", " + data.district : '' +
-            data.city && data.city !== '' ? ", " + data.city : '' +
-            data.province && data.province !== '' ? ", " + data.province : '' +
-            data.country && data.country !== '' ? ", " + data.country : '',
+            data.address + data.district && data.district !== ""
+              ? ", " + data.district
+              : "" + data.city && data.city !== ""
+              ? ", " + data.city
+              : "" + data.province && data.province !== ""
+              ? ", " + data.province
+              : "" + data.country && data.country !== ""
+              ? ", " + data.country
+              : "",
           address: data.address,
           phone_no: data.phone_no && data.phone_no !== "" ? data.phone_no : "-",
           email: data.email && data.email !== "" ? data.email : "-",
@@ -1269,7 +1308,7 @@ export default {
           "Valid Until      : " +
           this.M_Quotation.valid_until;
 
-          this.GetLogBookList()
+        this.GetLogBookList();
       });
     },
     GetLogBookList() {
@@ -1283,9 +1322,9 @@ export default {
         per_page: 5,
         param_where: "",
         initial_where: "",
-        sort_field: '',
-        source_field: '',
-        param_view: ''
+        sort_field: "",
+        source_field: "",
+        param_view: ""
       };
 
       this.postJSON(this.getUrlList(), param).then(response => {
