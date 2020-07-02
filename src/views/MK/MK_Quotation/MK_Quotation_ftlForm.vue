@@ -203,7 +203,7 @@ export default {
         cName: "price_amt",
         cOrder: 4,
         cKey: false,
-        cType: "text",
+        cType: "decimal",
         cProtect: false,
         cParentForm: "MK_FormMkQuotationFtl",
         cDecimal: 2,
@@ -227,7 +227,8 @@ export default {
   },
   methods: {
     doBack() {
-      this.$router.go(-1);
+      // this.$router.go(-1);
+      this.$router.push({ name: "MK_Quotation" });
     },
     Onfr_cm_contact_delivery_address_idChange(data) {
       this.$nextTick(() => {
@@ -293,14 +294,14 @@ export default {
       var param = {
         option_url: "/MK/MK_Quotation",
         line_no: 3,
-        mk_quotation_id: this.M_MkQuotationFtl.mk_quotation_id,
+        mk_quotation_id: this.paramFromList.row_id,
         fr_cm_contact_delivery_address_id: this.M_MkQuotationFtl
           .fr_cm_contact_delivery_address_id,
         to_cm_contact_delivery_address_id: this.M_MkQuotationFtl
           .to_cm_contact_delivery_address_id,
         fm_fleet_type_id: this.M_MkQuotationFtl.fm_fleet_type_id,
         price_amt: this.M_MkQuotationFtl.price_amt,
-        old_price_amt: this.M_MkQuotationFtl.old_price_amt,
+        old_price_amt: this.M_MkQuotationFtl.price_amt,
         user_input: this.getDataUser().user_id
       };
 
@@ -316,14 +317,14 @@ export default {
         option_url: "/MK/MK_Quotation",
         line_no: 3,
         mk_quotation_ftl_id: this.M_MkQuotationFtl.mk_quotation_ftl_id,
-        mk_quotation_id: this.M_MkQuotationFtl.mk_quotation_id,
+        mk_quotation_id: this.paramFromList.row_id,
         fr_cm_contact_delivery_address_id: this.M_MkQuotationFtl
           .fr_cm_contact_delivery_address_id,
         to_cm_contact_delivery_address_id: this.M_MkQuotationFtl
           .to_cm_contact_delivery_address_id,
         fm_fleet_type_id: this.M_MkQuotationFtl.fm_fleet_type_id,
         price_amt: this.M_MkQuotationFtl.price_amt,
-        old_price_amt: this.M_MkQuotationFtl.old_price_amt,
+        old_price_amt: this.M_MkQuotationFtl.price_amt,
         lastupdatestamp: this.paramFromList.lastupdatestamp,
         user_edit: this.getDataUser().user_id
       };

@@ -23,43 +23,43 @@
           </label>
         </template>
       </b-col>
-      <b-col> -->
-        <v-select
-          v-show="inputStatus!=='view'"
-          label="label"
-          :filterable="true"
-          :options="options"
-          @input="UpdateValue"
-          v-model="selected"
-          :class="{'abs-custom-select-async': true,'input': true, 'error-text-field': errors.has(prop.cParentForm+'.'+prop.cName)}"
-          v-validate="prop.cValidate"
-          :style="'font-size:11px !important;' + prop.cStyle"
-          v-bind:name="prop.cName"
-          :tabindex="prop.cOrder"
-          :disabled="inputStatus=='edit' && prop.cKey || prop.cProtect"
-          :searchable="prop.cFilter"
-          :ref="prop.cName"
-          :id="prop.cName"
-          @search:focus="onFocus"
-          @search="onSearch"
-          @clear="onClear"
-        >
-          <!-- @search:focus="getData()" -->
-          <template slot="no-options">
-            <span v-show="prop.cAsync && options.length>0">type at least 3 characters to search...</span>
-            <span v-show="options.length<1">no data</span>
-            <span v-show="!prop.cAsync && options.length>0">type to search...</span>
-          </template>
-        </v-select>
-        <span
-          v-show="errors.has(prop.cParentForm+'.'+prop.cName)"
-          class="error-span"
-        >{{ errors.first(prop.cParentForm+'.'+prop.cName) }}</span>
-        <label
-          class="lbl-value-view-form notranslate"
-          v-show="inputStatus=='view'"
-        >{{selected?selected.label:''}}</label>
-      <!-- </b-col>
+    <b-col>-->
+    <v-select
+      v-show="inputStatus!=='view'"
+      label="label"
+      :filterable="true"
+      :options="options"
+      @input="UpdateValue"
+      v-model="selected"
+      :class="{'abs-custom-select-async': true,'input': true, 'error-text-field': errors.has(prop.cParentForm+'.'+prop.cName)}"
+      v-validate="prop.cValidate"
+      :style="'font-size:11px !important;' + prop.cStyle"
+      v-bind:name="prop.cName"
+      :tabindex="prop.cOrder"
+      :disabled="inputStatus=='edit' && prop.cKey || prop.cProtect"
+      :searchable="prop.cFilter"
+      :ref="prop.cName"
+      :id="prop.cName"
+      @search:focus="onFocus"
+      @search="onSearch"
+      @clear="onClear"
+    >
+      <!-- @search:focus="getData()" -->
+      <template slot="no-options">
+        <span v-show="prop.cAsync && options.length>0">type at least 3 characters to search...</span>
+        <span v-show="options.length<1">no data</span>
+        <span v-show="!prop.cAsync && options.length>0">type to search...</span>
+      </template>
+    </v-select>
+    <span
+      v-show="errors.has(prop.cParentForm+'.'+prop.cName)"
+      class="error-span"
+    >{{ errors.first(prop.cParentForm+'.'+prop.cName) }}</span>
+    <label
+      class="lbl-value-view-form notranslate"
+      v-show="inputStatus=='view'"
+    >{{selected?selected.label:''}}</label>
+    <!-- </b-col>
       <b-col md="1">
         <div
           class="add-icon--plus"
@@ -79,7 +79,7 @@
           v-model="passingHiddenData"
         />
       </b-col>
-    </b-row> -->
+    </b-row>-->
   </span>
 </template>
 
@@ -159,19 +159,19 @@ export default {
       });
       // return this.$store.getters.getStatus
 
-    //   if (
-    //     this.$store.getters.getLevel == this.prop.cPageLevel &&
-    //     this.$store.getters.getTab == this.prop.cTabIndex
-    //   ) {
-        if (this.prop.cInputStatus.toLowerCase() == "new") {
-          if (!this.prop.cStatic) {
-            this.options = [];
-          }
+      //   if (
+      //     this.$store.getters.getLevel == this.prop.cPageLevel &&
+      //     this.$store.getters.getTab == this.prop.cTabIndex
+      //   ) {
+      if (this.prop.cInputStatus.toLowerCase() == "new") {
+        if (!this.prop.cStatic) {
+          this.options = [];
         }
-        return this.prop.cInputStatus.toLowerCase()
-    //   } else {
-    //     return "view";
-    //   }
+      }
+      return this.prop.cInputStatus.toLowerCase();
+      //   } else {
+      //     return "view";
+      //   }
     },
     languageStatus() {
       return this.$store.getters.languageStatus;
@@ -377,7 +377,7 @@ export default {
         SubPortfolioCd: this.getDataUser().subportfolio_cd
       };
       // alert(JSON.stringify(param,null,2))
-      this.postEncode(this.getUrlLookup(), param).then(response => {
+      this.postJSON(this.getUrlLookup(), param).then(response => {
         if (loading) loading(false);
         if (response == null) return;
 
@@ -436,9 +436,12 @@ export default {
     this.prop.cProtect = this.prop.cProtect ? this.prop.cProtect : false;
     this.prop.cAsync = this.prop.cAsync ? this.prop.cAsync : false;
     this.prop.cFilter = this.prop.cFilter ? this.prop.cFilter : true;
-    this.prop.cInputStatus = this.prop.cInputStatus ? this.prop.cInputStatus : "new"
-    this.prop.cVisible = this.prop.cVisible === undefined ? true : this.prop.cVisible;
-    this.prop.cStyle = this.prop.cStyle ? this.prop.cStyle : ""
+    this.prop.cInputStatus = this.prop.cInputStatus
+      ? this.prop.cInputStatus
+      : "new";
+    this.prop.cVisible =
+      this.prop.cVisible === undefined ? true : this.prop.cVisible;
+    this.prop.cStyle = this.prop.cStyle ? this.prop.cStyle : "";
 
     // get max, for maxlength
     if (

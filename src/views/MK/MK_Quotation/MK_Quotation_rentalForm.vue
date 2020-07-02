@@ -122,8 +122,8 @@ export default {
       },
       PI_fm_fleet_type_id: {
         dataLookUp: {
-          LookUpCd: "",
-          ColumnDB: "",
+          LookUpCd: "GetFleetType",
+          ColumnDB: "fleet_type_id",
           InitialWhere: "",
           ParamWhere: "",
           OrderBy: "",
@@ -139,7 +139,7 @@ export default {
         cProtect: false,
         cParentForm: "MK_FormMkQuotationRental",
         cOption: [],
-        cDisplayColumn: "",
+        cDisplayColumn: "descs,time_edit",
         cInputStatus: this.inputStatus
       },
       PI_include_driver_status: {
@@ -158,7 +158,7 @@ export default {
         cName: "price_amt",
         cOrder: 3,
         cKey: false,
-        cType: "text",
+        cType: "decimal",
         cProtect: false,
         cParentForm: "MK_FormMkQuotationRental",
         cDecimal: 2,
@@ -186,13 +186,7 @@ export default {
     },
     Onfm_fleet_type_idChange(data) {
       this.$nextTick(() => {
-        this.M_MkQuotationRental.fm_fleet_type_id = data.id;
-        this.M_MkQuotationRental.fm_fleet_type_id = data.descs;
-      });
-    },
-    Onfm_fleet_type_idChange(data) {
-      this.$nextTick(() => {
-        this.M_MkQuotationRental.fm_fleet_type_id = data.id;
+        this.M_MkQuotationRental.fm_fleet_type_id = data.row_id;
         this.M_MkQuotationRental.fleet_type_descsLabel = data.descs;
       });
     },
@@ -238,11 +232,13 @@ export default {
       var param = {
         option_url: "/MK/MK_Quotation",
         line_no: 5,
-        mk_quotation_id: this.M_MkQuotationRental.mk_quotation_id,
+        mk_quotation_id: this.paramFromList.row_id,
         fm_fleet_type_id: this.M_MkQuotationRental.fm_fleet_type_id,
-        include_driver_status: this.M_MkQuotationRental.include_driver_status,
+        include_driver_status: this.M_MkQuotationRental.include_driver_status
+          ? "Y"
+          : "N",
         price_amt: this.M_MkQuotationRental.price_amt,
-        old_price_amt: this.M_MkQuotationRental.old_price_amt,
+        old_price_amt: this.M_MkQuotationRental.price_amt,
         user_input: this.getDataUser().user_id
       };
 
@@ -258,11 +254,13 @@ export default {
         option_url: "/MK/MK_Quotation",
         line_no: 5,
         mk_quotation_rental_id: this.M_MkQuotationRental.mk_quotation_rental_id,
-        mk_quotation_id: this.M_MkQuotationRental.mk_quotation_id,
+        mk_quotation_id: this.paramFromList.row_id,
         fm_fleet_type_id: this.M_MkQuotationRental.fm_fleet_type_id,
-        include_driver_status: this.M_MkQuotationRental.include_driver_status,
+        include_driver_status: this.M_MkQuotationRental.include_driver_status
+          ? "Y"
+          : "N",
         price_amt: this.M_MkQuotationRental.price_amt,
-        old_price_amt: this.M_MkQuotationRental.old_price_amt,
+        old_price_amt: this.M_MkQuotationRental.price_amt,
         lastupdatestamp: this.paramFromList.lastupdatestamp,
         user_edit: this.getDataUser().user_id
       };
@@ -293,7 +291,8 @@ export default {
           mk_quotation_id: data.mk_quotation_id,
           fm_fleet_type_id: data.fm_fleet_type_id__lo_1,
           fleet_type_descsLabel: data.fleet_type_descs__lbl__lo_1,
-          include_driver_status: data.include_driver_status__tb_2,
+          include_driver_status:
+            data.include_driver_status__tb_2 == "Y" ? true : false,
           price_amt: data.price_amt__tb_3,
           old_price_amt: data.old_price_amt,
           user_input: data.user_input,

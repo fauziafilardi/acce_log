@@ -50,7 +50,7 @@
                           @change="Onto_cm_contact_delivery_address_idChange"
                           :prop="PI_to_cm_contact_delivery_address_id"
                           v-model="M_MkQuotationLtl.to_cm_contact_delivery_address_id"
-                          :label="M_MkQuotationLtl.commodity_descsLabel"
+                          :label="M_MkQuotationLtl.to_addressLabel"
                           ref="ref_to_cm_contact_delivery_address_id"
                         />
                       </b-col>
@@ -60,12 +60,19 @@
                         <span>
                           <label>Commodity</label>
                         </span>
-                        <ACCLookUp
+                        <!-- <ACCLookUp
                           @change="Oncm_commodity_idChange"
                           :prop="PI_cm_commodity_id"
                           v-model="M_MkQuotationLtl.cm_commodity_id"
-                          :label="M_MkQuotationLtl.cm_commodity_id"
+                          :label="M_MkQuotationLtl.commodity_descsLabel"
                           ref="ref_cm_commodity_id"
+                        />-->
+                        <ACCDropDown
+                          @change="Oncm_commodity_idChange"
+                          :prop="PI_cm_commodity_id"
+                          v-model="M_MkQuotationLtl.cm_commodity_id"
+                          :label="M_MkQuotationLtl.commodity_descsLabel"
+                          ref="ref_action"
                         />
                       </b-col>
                     </b-row>
@@ -128,7 +135,7 @@ export default {
         from_addressLabel: "",
         to_cm_contact_delivery_address_id: 0,
         to_addressLabel: "",
-        cm_commodity_id: 0,
+        cm_commodity_id: null,
         commodity_descsLabel: "",
         kgs_price_amt: "",
         old_kgs_price_amt: "",
@@ -143,8 +150,8 @@ export default {
       },
       PI_fr_cm_contact_delivery_address_id: {
         dataLookUp: {
-          LookUpCd: "",
-          ColumnDB: "",
+          LookUpCd: "GetContactDeliveryAddress",
+          ColumnDB: "cm_contact_delivery_address_id",
           InitialWhere: "",
           ParamWhere: "",
           OrderBy: "",
@@ -160,13 +167,13 @@ export default {
         cProtect: false,
         cParentForm: "MK_FormMkQuotationLtl",
         cOption: [],
-        cDisplayColumn: "",
+        cDisplayColumn: "title,address",
         cInputStatus: this.inputStatus
       },
       PI_to_cm_contact_delivery_address_id: {
         dataLookUp: {
-          LookUpCd: "",
-          ColumnDB: "",
+          LookUpCd: "GetContactDeliveryAddress",
+          ColumnDB: "cm_contact_delivery_address_id",
           InitialWhere: "",
           ParamWhere: "",
           OrderBy: "",
@@ -182,13 +189,35 @@ export default {
         cProtect: false,
         cParentForm: "MK_FormMkQuotationLtl",
         cOption: [],
-        cDisplayColumn: "",
+        cDisplayColumn: "title,address",
         cInputStatus: this.inputStatus
       },
+      // PI_cm_commodity_id: {
+      //   dataLookUp: {
+      //     LookUpCd: "GetCommodity",
+      //     ColumnDB: "cm_commodity_id",
+      //     InitialWhere: "",
+      //     ParamWhere: "",
+      //     OrderBy: "",
+      //     ParamView: "",
+      //     SourceField: "",
+      //     DisplayLookUp: ""
+      //   },
+      //   cValidate: "",
+      //   cName: "cm_commodity_id",
+      //   cOrder: 3,
+      //   cKey: false,
+      //   cStatic: false,
+      //   cProtect: false,
+      //   cParentForm: "MK_FormMkQuotationLtl",
+      //   cOption: [],
+      //   cDisplayColumn: "",
+      //   cInputStatus: this.inputStatus
+      // },
       PI_cm_commodity_id: {
         dataLookUp: {
-          LookUpCd: "",
-          ColumnDB: "",
+          LookUpCd: "GetCommodity",
+          ColumnDB: "cm_commodity_id",
           InitialWhere: "",
           ParamWhere: "",
           OrderBy: "",
@@ -196,15 +225,19 @@ export default {
           SourceField: "",
           DisplayLookUp: ""
         },
-        cValidate: "",
-        cName: "cm_commodity_id",
-        cOrder: 3,
-        cKey: false,
-        cStatic: false,
+        cValidate: "required",
+        cName: "action",
+        ckey: false,
+        cOrder: 1,
         cProtect: false,
-        cParentForm: "MK_FormMkQuotationLtl",
-        cOption: [],
-        cDisplayColumn: "",
+        cParentForm: "MStatus",
+        cStatic: false,
+        cOption: [
+          // { id: "C", label: "Call" },
+          // { id: "V", label: "Visit" },
+          // { id: "E", label: "Entertaintment" }
+        ],
+        cDisplayColumn: "action_type,descs",
         cInputStatus: this.inputStatus
       },
       PI_kgs_price_amt: {
@@ -212,7 +245,7 @@ export default {
         cName: "kgs_price_amt",
         cOrder: 4,
         cKey: false,
-        cType: "text",
+        cType: "decimal",
         cProtect: false,
         cParentForm: "MK_FormMkQuotationLtl",
         cDecimal: 2,
@@ -223,7 +256,7 @@ export default {
         cName: "cbm_price_amt",
         cOrder: 5,
         cKey: false,
-        cType: "text",
+        cType: "decimal",
         cProtect: false,
         cParentForm: "MK_FormMkQuotationLtl",
         cDecimal: 2,
@@ -247,25 +280,26 @@ export default {
   },
   methods: {
     doBack() {
-      this.$router.go(-1);
+      // this.$router.go(-1);
+      this.$router.push({ name: "MK_Quotation" });
     },
 
     Onfr_cm_contact_delivery_address_idChange(data) {
       this.$nextTick(() => {
-        this.M_MkQuotationLtl.fr_cm_contact_delivery_address_id = data.id;
-        this.M_MkQuotationLtl.from_addressLabel = data.descs;
+        this.M_MkQuotationLtl.fr_cm_contact_delivery_address_id = data.row_id;
+        this.M_MkQuotationLtl.from_addressLabel = data.title;
       });
     },
     Onto_cm_contact_delivery_address_idChange(data) {
       this.$nextTick(() => {
-        this.M_MkQuotationLtl.to_cm_contact_delivery_address_id = data.id;
-        this.M_MkQuotationLtl.to_addressLabel = data.descs;
+        this.M_MkQuotationLtl.to_cm_contact_delivery_address_id = data.row_id;
+        this.M_MkQuotationLtl.to_addressLabel = data.title;
       });
     },
     Oncm_commodity_idChange(data) {
       this.$nextTick(() => {
-        this.M_MkQuotationLtl.cm_commodity_id = data.id;
-        this.M_MkQuotationLtl.cm_commodity_id = data.descs;
+        this.M_MkQuotationLtl.cm_commodity_id = data.row_id;
+        this.M_MkQuotationLtl.commodity_descsLabel = data.descs;
       });
     },
 
@@ -278,7 +312,7 @@ export default {
         from_addressLabel: "",
         to_cm_contact_delivery_address_id: 0,
         to_addressLabel: "",
-        cm_commodity_id: 0,
+        cm_commodity_id: null,
         commodity_descsLabel: "",
         kgs_price_amt: "",
         old_kgs_price_amt: "",
@@ -315,7 +349,16 @@ export default {
     M_Save() {
       var param = {
         option_url: "/MK/MK_Quotation",
-        line_no: 4
+        line_no: 4,
+        mk_quotation_id: this.paramFromList.row_id,
+        fr_cm_contact_delivery_address_id: this.M_MkQuotationLtl
+          .fr_cm_contact_delivery_address_id,
+        to_cm_contact_delivery_address_id: this.M_MkQuotationLtl
+          .to_cm_contact_delivery_address_id,
+        cm_commodity_id: this.M_MkQuotationLtl.cm_commodity_id,
+        kgs_price_amt: this.M_MkQuotationLtl.kgs_price_amt,
+        cbm_price_amt: this.M_MkQuotationLtl.cbm_price_amt,
+        user_input: this.getDataUser().user_id
       };
 
       this.postJSON(this.getUrlCRUD(), param).then(response => {
@@ -330,7 +373,7 @@ export default {
         option_url: "/MK/MK_Quotation",
         line_no: 4,
         mk_quotation_ltl_id: this.M_MkQuotationLtl.mk_quotation_ltl_id,
-        mk_quotation_id: this.M_MkQuotationLtl.mk_quotation_id,
+        mk_quotation_id: this.paramFromList.row_id,
         fr_cm_contact_delivery_address_id: this.M_MkQuotationLtl
           .fr_cm_contact_delivery_address_id,
         to_cm_contact_delivery_address_id: this.M_MkQuotationLtl
