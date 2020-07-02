@@ -1072,7 +1072,7 @@ export default {
     doLTL() {
       var param = this.paramFromList
       param.isEdit = true;
-      this.$router.push({ name: "MK_AddQuotation", params: param });
+      this.$router.push({ name: "MK_AddQuotation", params: param }); 
     },
     doRental() {
       var param = this.paramFromList
