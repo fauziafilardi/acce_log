@@ -51,6 +51,7 @@ import MK_ToDoCustomer from '@/views/MK/MK_Customer/MK_ToDoCustomer'
 
 import MK_Customer2 from '@/views/MK/MK_Customer2/MK_Customer2List'
 import MK_Customer2View from '@/views/MK/MK_Customer2/MK_Customer2View'
+import MK_Customer2Form from '@/views/MK/MK_Customer2/MK_Customer2Form'
 
 import MK_ListOrder from '@/views/MK/MK_Order/MK_ListOrder'
 import MK_ViewOrder from '@/views/MK/MK_Order/MK_ViewOrder'
@@ -381,6 +382,14 @@ export const MKRender = {
         path: '/MK/MK_Customer2/View',
         name: 'MK_Customer2View',
         component: MK_Customer2View,
+        meta: {
+            requiresAuth: true
+        },
+    },
+    {
+        path: '/MK/MK_Customer2/Form',
+        name: 'MK_Customer2Form',
+        component: MK_Customer2Form,
         meta: {
             requiresAuth: true
         },
