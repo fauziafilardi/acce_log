@@ -43,6 +43,13 @@ import MK_ViewQuotationList from '@/views/MK/MK_Quotation/MK_ViewQuotationList'
 import MK_ViewQuotation from '@/views/MK/MK_Quotation/MK_ViewQuotation'
 import MK_ChatQuotation from '@/views/MK/MK_Quotation/MK_ChatQuotation'
 
+import MK_Quotation_ftlForm from '@/views/MK/MK_Quotation/MK_Quotation_ftlForm'
+import MK_Quotation_ltlForm from '@/views/MK/MK_Quotation/MK_Quotation_ltlForm'
+import MK_Quotation_rentalForm from '@/views/MK/MK_Quotation/MK_Quotation_rentalForm'
+import MK_Quotation_projectForm from '@/views/MK/MK_Quotation/MK_Quotation_projectForm'
+import MK_Quotation_documentForm from '@/views/MK/MK_Quotation/MK_Quotation_documentForm'
+import MK_Quotation_logbookForm from '@/views/MK/MK_Quotation/MK_Quotation_logbookForm'
+
 import MK_CustomerList from '@/views/MK/MK_Customer/MK_Customer_List'
 import MK_ListCustomer from '@/views/MK/MK_Customer/MK_ListCustomer'
 import MK_ViewCustomer from '@/views/MK/MK_Customer/MK_ViewCustomer'
@@ -345,7 +352,55 @@ export const MKRender = {
             requiresAuth: true
         }
     },
-
+    {
+        path: '/MK/MK_Quotation/Ftl',
+        name: 'MK_Quotation_ftlForm',
+        component: MK_Quotation_ftlForm,
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/MK/MK_Quotation/Ltl',
+        name: 'MK_Quotation_ltlForm',
+        component: MK_Quotation_ltlForm,
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/MK/MK_Quotation/Rental',
+        name: 'MK_Quotation_rentalForm',
+        component: MK_Quotation_rentalForm,
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/MK/MK_Quotation/Project',
+        name: 'MK_Quotation_projectForm',
+        component: MK_Quotation_projectForm,
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/MK/MK_Quotation/Document',
+        name: 'MK_Quotation_documentForm',
+        component: MK_Quotation_documentForm,
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/MK/MK_Quotation/Logbook',
+        name: 'MK_Quotation_logbookForm',
+        component: MK_Quotation_logbookForm,
+        meta: {
+            requiresAuth: true
+        }
+    },
+    //
     {
         path: '/MK/MK_Customer',
         name: 'MK_ListCustomer',
