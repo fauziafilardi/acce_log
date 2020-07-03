@@ -235,7 +235,7 @@
                           <label style="margin-bottom: 0px !important;">Description</label>
                         </span>
                         <br />
-                        <span style="color: #999999;">{{ M_Quotation.descs }}</span>
+                        <span style="color: #999999; text-align: justify;">{{ M_Quotation.descs }}</span>
                       </b-col>
                     </b-row>
                     <b-row>
@@ -267,8 +267,10 @@
                         />
                       </b-col>
                     </b-row>
+                    <br />
                     <b-row>
                       <b-col>
+                        <span style="color: #333399; font-size: 15px; font-weight: bold;"> FTL </span>
                         <div class="table--list" id="ftl_tb">
                           <b-table
                             :responsive="true"
@@ -283,10 +285,221 @@
                             :fields="FTLHeader"
                             :items="FTLItems"
                             class="table-sm table-style-3"
-                          ></b-table>
+                            @row-clicked="doFTL"
+                          >
+                            <template v-slot:cell(no)="data">
+                              {{data.index + 1}}
+                            </template>
+
+                            <template v-slot:cell(price_amt)="data">
+                              <b-row>
+                                <b-col md="1" >
+                                  <font-awesome-icon v-if="data.item.old_price_amt > data.item.price_amt" class="icon-style-default" icon="arrow-down" style="color: red" />
+                                  <font-awesome-icon v-if="data.item.old_price_amt < data.item.price_amt" class="icon-style-default" icon="arrow-up" style="color: blue" />
+                                </b-col>
+                                <b-col style="max-width: fit-content !important;">
+                                  <span :style="data.item.old_price_amt > data.item.price_amt ? 'color: red' : 'color: blue'">
+                                    {{data.item.price_amt}}
+                                  </span>
+                                </b-col>
+                              </b-row>
+                            </template>
+                          </b-table>
                         </div>
                       </b-col>
                     </b-row>
+                    <b-row>
+                      <b-col>
+                        <span style="color: #333399; font-size: 15px; font-weight: bold;"> LTL </span>
+                        <div class="table--list" id="ltl_tb">
+                          <b-table
+                            :responsive="true"
+                            :striped="false"
+                            :bordered="true"
+                            :outlined="false"
+                            :small="false"
+                            :hover="false"
+                            :dark="false"
+                            :fixed="false"
+                            :foot-clone="false"
+                            :fields="LTLHeader"
+                            :items="LTLItems"
+                            class="table-sm table-style-3"
+                            @row-clicked="doLTL"
+                          >
+                            <template v-slot:cell(no)="data">
+                              {{data.index + 1}}
+                            </template>
+
+                            <template v-slot:cell(kgs_price_amt)="data">
+                              <b-row>
+                                <b-col md="1" >
+                                  <font-awesome-icon v-if="data.item.old_kgs_price_amt > data.item.kgs_price_amt" class="icon-style-default" icon="arrow-down" style="color: red" />
+                                  <font-awesome-icon v-if="data.item.old_kgs_price_amt < data.item.kgs_price_amt" class="icon-style-default" icon="arrow-up" style="color: blue" />
+                                </b-col>
+                                <b-col style="max-width: fit-content !important;">
+                                  <span :style="data.item.old_kgs_price_amt > data.item.kgs_price_amt ? 'color: red' : 'color: blue'">
+                                    {{data.item.kgs_price_amt}}
+                                  </span>
+                                </b-col>
+                              </b-row>
+                            </template>
+                            <template v-slot:cell(cbm_price_amt)="data">
+                              <b-row>
+                                <b-col md="1" >
+                                  <font-awesome-icon v-if="data.item.cbm_price_amt > data.item.cbm_price_amt" class="icon-style-default" icon="arrow-down" style="color: red" />
+                                  <font-awesome-icon v-if="data.item.cbm_price_amt < data.item.cbm_price_amt" class="icon-style-default" icon="arrow-up" style="color: blue" />
+                                </b-col>
+                                <b-col style="max-width: fit-content !important;">
+                                  <span :style="data.item.cbm_price_amt > data.item.cbm_price_amt ? 'color: red' : 'color: blue'">
+                                    {{data.item.cbm_price_amt}}
+                                  </span>
+                                </b-col>
+                              </b-row>
+                            </template>
+                          </b-table>
+                        </div>
+                      </b-col>
+                    </b-row>
+                    <b-row>
+                      <b-col>
+                        <span style="color: #333399; font-size: 15px; font-weight: bold;"> Rental </span>
+                        <div class="table--list" id="rental_tb">
+                          <b-table
+                            :responsive="true"
+                            :striped="false"
+                            :bordered="true"
+                            :outlined="false"
+                            :small="false"
+                            :hover="false"
+                            :dark="false"
+                            :fixed="false"
+                            :foot-clone="false"
+                            :fields="RentalHeader"
+                            :items="RentalItems"
+                            class="table-sm table-style-3"
+                            @row-clicked="doRental"
+                          >
+                            <template v-slot:cell(no)="data">
+                              {{data.index + 1}}
+                            </template>
+
+                            <template v-slot:cell(price_amt)="data">
+                              <b-row>
+                                <b-col md="1" >
+                                  <font-awesome-icon v-if="data.item.old_price_amt > data.item.price_amt" class="icon-style-default" icon="arrow-down" style="color: red" />
+                                  <font-awesome-icon v-if="data.item.old_price_amt < data.item.price_amt" class="icon-style-default" icon="arrow-up" style="color: blue" />
+                                </b-col>
+                                <b-col style="max-width: fit-content !important;">
+                                  <span :style="data.item.old_price_amt > data.item.price_amt ? 'color: red' : 'color: blue'">
+                                    {{data.item.price_amt}}
+                                  </span>
+                                </b-col>
+                              </b-row>
+                            </template>
+                            <template v-slot:cell(include_driver_status)="data">
+                              <span>{{data.item.include_driver_status == "Y" ? "Yes" : "No"}}</span>
+                            </template>
+                          </b-table>
+                        </div>
+                      </b-col>
+                    </b-row>
+                    <b-row>
+                      <b-col>
+                        <span style="color: #333399; font-size: 15px; font-weight: bold;"> Project </span>
+                        <div class="table--list" id="project_tb">
+                          <b-table
+                            :responsive="true"
+                            :striped="false"
+                            :bordered="true"
+                            :outlined="false"
+                            :small="false"
+                            :hover="false"
+                            :dark="false"
+                            :fixed="false"
+                            :foot-clone="false"
+                            :fields="ProjectHeader"
+                            :items="ProjectItems"
+                            class="table-sm table-style-3"
+                            @row-clicked="doProject"
+                          >
+                            <template v-slot:cell(no)="data">
+                              {{data.index + 1}}
+                            </template>
+
+                            <template v-slot:cell(price_amt)="data">
+                              <b-row>
+                                <b-col md="1" >
+                                  <font-awesome-icon v-if="data.item.old_price_amt > data.item.price_amt" class="icon-style-default" icon="arrow-down" style="color: red" />
+                                  <font-awesome-icon v-if="data.item.old_price_amt < data.item.price_amt" class="icon-style-default" icon="arrow-up" style="color: blue" />
+                                </b-col>
+                                <b-col style="max-width: fit-content !important;">
+                                  <span :style="data.item.old_price_amt > data.item.price_amt ? 'color: red' : 'color: blue'">
+                                    {{data.item.price_amt}}
+                                  </span>
+                                </b-col>
+                              </b-row>
+                            </template>
+                          </b-table>
+                        </div>
+                      </b-col>
+                    </b-row>
+                    <b-row>
+                      <b-col>
+                        <span style="color: #333399; font-size: 15px; font-weight: bold;"> Document Type </span>
+                        <div class="table--list" id="document_tb">
+                          <b-table
+                            :responsive="true"
+                            :striped="false"
+                            :bordered="true"
+                            :outlined="false"
+                            :small="false"
+                            :hover="false"
+                            :dark="false"
+                            :fixed="false"
+                            :foot-clone="false"
+                            :fields="DocHeader"
+                            :items="DocItems"
+                            class="table-sm table-style-3"
+                            @row-clicked="doRequiredDoc"
+                          >
+                            <template v-slot:cell(no)="data">
+                              {{data.index + 1}}
+                            </template>
+                          </b-table>
+                        </div>
+                      </b-col>
+                    </b-row>
+                    <b-row>
+                      <b-col>
+                        <span style="color: #333399; font-size: 15px; font-weight: bold;"> LogBook </span>
+                        <div class="table--list" id="logbook_tb">
+                          <b-table
+                            :responsive="true"
+                            :striped="false"
+                            :bordered="true"
+                            :outlined="false"
+                            :small="false"
+                            :hover="false"
+                            :dark="false"
+                            :fixed="false"
+                            :foot-clone="false"
+                            :fields="LogBookHeader"
+                            :items="LogBookItems"
+                            class="table-sm table-style-3"
+                            @row-clicked="doLogBook"
+                          >
+                            <template v-slot:cell(no)="data">
+                              {{data.index + 1}}
+                            </template>
+                            <template v-slot:cell(logbook_date)="data">
+                              {{momentDateFormat(data.item.logbook_date, "DD-MM-YYYY HH:mm")}}
+                            </template>
+                          </b-table>
+                        </div>
+                      </b-col>
+                    </b-row>
+
                   </b-col>
                 </b-row>
               </b-form>
@@ -324,14 +537,6 @@
               <span>
                 <font-awesome-icon
                   style="color: #333399;font-size: 0.875em;width: 0.75em;"
-                  icon="envelope"
-                  size="sm"
-                />
-                {{ M_Quotation.email }}
-              </span> &nbsp;
-              <span>
-                <font-awesome-icon
-                  style="color: #333399;font-size: 0.875em;width: 0.75em;"
                   icon="globe-americas"
                   size="sm"
                 />
@@ -353,6 +558,14 @@
                   size="sm"
                 />
                 {{ M_Quotation.pic_phone_no }}
+              </span> &nbsp;
+              <span>
+                <font-awesome-icon
+                  style="color: #333399;font-size: 0.875em;width: 0.75em;"
+                  icon="envelope"
+                  size="sm"
+                />
+                {{ M_Quotation.email }}
               </span>
             </b-col>
           </b-row>
@@ -371,96 +584,127 @@
       <b-row
         style="display: flex; flex-wrap: wrap; margin-right: unset !important; margin-left: unset !important;"
       >
-        <!-- <div> -->
         <b-col
-          md="3"
-          style="-webkit-box-flex: 0; flex: 0 0 25%; max-width: 25%; position: relative; width: 100%"
+          style="max-width: fit-content !important; margin-right: 20px; position: relative; width: 100%; border-bottom: solid 2px rgb(153, 153, 153); padding-bottom: 5px"
         >
           <span>
-            <label style="color: #999999; margin-bottom: 0px !important;">Date</label>
+            <label style="margin-bottom: 0px !important;">Quotation Number</label>
           </span>
           <br />
-          <span>{{ M_Quotation.date }}</span>
+          <span style="color: #999999;">{{ M_Quotation.quotation_no }}</span>
         </b-col>
         <b-col
-          md="3"
-          style="-webkit-box-flex: 0; flex: 0 0 25%; max-width: 25%; position: relative; width: 100%"
+          style="max-width: fit-content !important; margin-right: 20px; position: relative; width: 100%; border-bottom: solid 2px rgb(153, 153, 153); padding-bottom: 5px"
         >
           <span>
-            <label style="color: #999999; margin-bottom: 0px !important;">Type</label>
+            <label style="color: #999999; margin-bottom: 0px !important;">Valid Thru</label>
           </span>
           <br />
-          <span>{{ M_Quotation.type }}</span>
+          <span>{{ M_Quotation.date + ' - ' + M_Quotation.date2 }}</span>
         </b-col>
         <b-col
-          md="3"
-          style="-webkit-box-flex: 0; flex: 0 0 25%; max-width: 25%; position: relative; width: 100%"
+          style="max-width: fit-content !important; margin-right: 20px; position: relative; width: 100%; border-bottom: solid 2px rgb(153, 153, 153); padding-bottom: 5px"
         >
           <span>
-            <label style="color: #999999; margin-bottom: 0px !important;">Quotation Number</label>
+            <label style="margin-bottom: 0px !important;">Status</label>
           </span>
           <br />
-          <span>{{ M_Quotation.quotation_no }}</span>
+          <span style="color: #999999;">{{ M_Quotation.status }}</span>
         </b-col>
-        <!-- </div> -->
       </b-row>
       <b-row
         style="margin-top: 10px !important; margin-bottom: 10px !important; font-size: 15px !important"
       >
-        <b-col>
-          <span>{{ M_Quotation.project_name }}</span>
+        <b-col
+          style="max-width: fit-content !important; margin-right: 20px; position: relative; width: 100%; border-bottom: solid 2px rgb(153, 153, 153); padding-bottom: 5px"
+        >
+          <span>
+            <label style="margin-bottom: 0px !important;">Project Name</label>
+          </span>
+          <br />
+          <span style="color: #999999;">{{ M_Quotation.project_name }}</span>
         </b-col>
       </b-row>
       <b-row style="margin-bottom: 10px; !important">
-        <b-col style="text-align: justify;">
-          <span>{{ M_Quotation.descs }}</span>
+        <b-col
+          style="max-width: fit-content !important; margin-right: 20px; position: relative; width: 100%; border-bottom: solid 2px rgb(153, 153, 153); padding-bottom: 5px"
+        >
+          <span>
+            <label style="margin-bottom: 0px !important;">Description</label>
+          </span>
+          <br />
+          <span style="color: #999999; text-align: justify;">{{ M_Quotation.descs }}</span>
         </b-col>
       </b-row>
       <b-row
         style="display: flex; flex-wrap: wrap; margin-right: unset !important; margin-left: unset !important;"
       >
         <b-col
-          style="-webkit-box-flex: 0; flex: 0 0 20%; max-width: 20%; position: relative; width: 20%"
+          style="max-width: fit-content !important; margin-right: 20px; position: relative; width: 100%; border-bottom: solid 2px rgb(153, 153, 153); padding-bottom: 5px"
         >
           <span>
-            <font-awesome-icon
-              style="color: #333399;font-size: 0.875em;width: 0.75em;"
-              icon="coins"
-              size="sm"
-            />&nbsp;
-            <label>Project Value</label>
+            <label style="margin-bottom: 0px !important;">Extra Pick/Drop Charges</label>
           </span>
+          <br />
+          <span style="color: #999999;">{{ M_Quotation.extra_charge }}</span>
         </b-col>
         <b-col
-          style="-webkit-box-flex: 0; flex: 0 0 80%; max-width: 80%; position: relative; width: 80%"
+          style="max-width: fit-content !important; margin-right: 20px; position: relative; width: 100%; border-bottom: solid 2px rgb(153, 153, 153); padding-bottom: 5px"
         >
-          <span>: Rp {{ M_Quotation.project_value }}</span>
+          <span>
+            <label style="margin-bottom: 0px !important;">Over Night Charges</label>
+          </span>
+          <br />
+          <span style="color: #999999;">{{ M_Quotation.overnight_charge }}</span>
         </b-col>
       </b-row>
       <b-row
         style="display: flex; flex-wrap: wrap; margin-right: unset !important; margin-left: unset !important;"
       >
-        <b-col
-          style="-webkit-box-flex: 0; flex: 0 0 20%; max-width: 20%; position: relative; width: 20%"
-        >
-          <span>
-            <font-awesome-icon
-              style="color: #333399;font-size: 0.875em;width: 0.75em;"
-              icon="calendar-alt"
-              size="sm"
-            />&nbsp;
-            <label>Valid Until</label>
-          </span>
-        </b-col>
-        <b-col style="-webkit-box-flex: 0; flex: 0 0 80%; max-width: 80%; position: relative; width: 80%">
-          <span>: {{ M_Quotation.date2 }}</span>
-        </b-col>
+      <b-col style="position: relative; width: 100%;">
+        <span style="color: #333399; font-size: 15px; font-weight: bold;"> FTL </span>
+        <div class="table--list" id="ftl_tb">
+          <b-table
+            :responsive="true"
+            :striped="false"
+            :bordered="true"
+            :outlined="false"
+            :small="false"
+            :hover="false"
+            :dark="false"
+            :fixed="false"
+            :foot-clone="false"
+            :fields="FTLHeader"
+            :items="FTLItems"
+            class="table-sm table-style-3"
+            @row-clicked="doFTL"
+          >
+            <template v-slot:cell(no)="data">
+              {{data.index + 1}}
+            </template>
+
+            <template v-slot:cell(price_amt)="data">
+              <b-row>
+                <b-col md="1" >
+                  <font-awesome-icon v-if="data.item.old_price_amt > data.item.price_amt" class="icon-style-default" icon="arrow-down" style="color: red" />
+                  <font-awesome-icon v-if="data.item.old_price_amt < data.item.price_amt" class="icon-style-default" icon="arrow-up" style="color: blue" />
+                </b-col>
+                <b-col style="max-width: fit-content !important;">
+                  <span :style="data.item.old_price_amt > data.item.price_amt ? 'color: red' : 'color: blue'">
+                    {{data.item.price_amt}}
+                  </span>
+                </b-col>
+              </b-row>
+            </template>
+          </b-table>
+        </div>
+      </b-col>
       </b-row>
     </div>
 
     <!-- Modal Reason -->
     <ABSModal id="Modal_MK_Quotation" ref="Modal_MK_Quotation" size="sm">
-      <template slot="headerTitle">Cancel Quotation</template>
+      <template slot="headerTitle">Delete</template>
       <template slot="content">
         <b-row>
           <b-col md="12">
@@ -471,38 +715,28 @@
               <b-row>
                 <b-col md="12">
                   <b-row>
-                    <b-col md="12">
+                    <b-col md="12" style="text-align: center;">
                       <span>
-                        <label>Reason</label>
+                        Are You Sure Want To Delete ?
                       </span>
-                      <ACCLookUp
-                        @change="OnReasonChange"
-                        :prop="PI_reason_cd"
-                        v-model="M_Quotation.reason_cd"
-                        :label="M_Quotation.reasonCdLabel"
-                        ref="ref_reason_cd"
-                      />
-                    </b-col>
-                  </b-row>
-                  <b-row>
-                    <b-col md="12">
-                      <span>
-                        <label>Description</label>
-                      </span>
-                      <ACCTextArea
-                        :prop="PI_reason_descs"
-                        v-model="M_Quotation.reason_descs"
-                        ref="ref_reason_descs"
-                      />
                     </b-col>
                   </b-row>
                   <b-row style="margin-top: 10px;">
-                    <b-col md="12">
+                    <b-col md="6" style="text-align: center;">
                       <ABSButton
-                        :text="'Save'"
+                        :text="'No'"
                         classButton="btn btn--default"
                         classIcon="icon-style-1"
-                        @click="doSaveReason"
+                        @click="NoDelete"
+                        styleButton="height: 40px;width: 100%;"
+                      />
+                    </b-col>
+                    <b-col md="6" style="text-align: center;">
+                      <ABSButton
+                        :text="'Yes'"
+                        classButton="btn btn--default"
+                        classIcon="icon-style-1"
+                        @click="YesDelete"
                         styleButton="height: 40px;width: 100%;"
                       />
                     </b-col>
@@ -636,47 +870,6 @@
                         classButton="btn btn--default"
                         classIcon="icon-style-1"
                         @click="doStartChat"
-                        styleButton="height: 40px;width: 100%;"
-                      />
-                    </b-col>
-                  </b-row>
-                </b-col>
-              </b-row>
-            </b-form>
-          </b-col>
-        </b-row>
-      </template>
-    </ABSModal>
-
-    <!-- Modal LogBook -->
-    <ABSModal id="Modal_LogBook" ref="Modal_LogBook" size="sm">
-      <template slot="headerTitle">Add New Log Book</template>
-      <template slot="content">
-        <b-row>
-          <b-col md="12">
-            <b-form :data-vv-scope="'Frm_Logbook'" :data-vv-value-path="'Frm_Logbook'">
-              <b-row>
-                <b-col md="12">
-                  <b-row>
-                    <b-col md="12">
-                      <span>
-                        <label>Description</label>
-                      </span>
-                      <ACCTextArea
-                        :prop="PI_logbook_descs"
-                        v-model="M_LogBook.descs"
-                        ref="ref_logbook_descs"
-                      />
-                    </b-col>
-                  </b-row>
-
-                  <b-row style="margin-top: 10px;">
-                    <b-col md="12">
-                      <ABSButton
-                        :text="'Save'"
-                        classButton="btn btn--default"
-                        classIcon="icon-style-1"
-                        @click="saveLogBook"
                         styleButton="height: 40px;width: 100%;"
                       />
                     </b-col>
@@ -882,127 +1075,169 @@ export default {
       responses: {},
       FTLHeader: [
         {
-          key: "from",
+          key: "no",
+          label: "No",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 th-cus-center"
+        },
+        {
+          key: "from_address",
           label: "From",
-          tdClass: "ABStdClassList2 notranslate th-cus-center",
-          thClass: "ABStdClassList2 th-cus-center"
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center"
         },
         {
-          key: "to",
+          key: "to_address",
           label: "To",
-          tdClass: "ABStdClassList2 notranslate th-cus-center",
-          thClass: "ABStdClassList2 th-cus-center"
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center"
         },
         {
-          key: "vehicle_type",
+          key: "fleet_type_descs",
           label: "Vehicle Type",
-          tdClass: "ABStdClassList2 notranslate th-cus-center",
-          thClass: "ABStdClassList2 th-cus-center"
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center"
         },
         {
-          key: "price",
+          key: "price_amt",
           label: "Price",
-          tdClass: "ABStdClassList2 notranslate th-cus-center",
-          thClass: "ABStdClassList2 th-cus-center"
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center"
         }
       ],
       FTLItems: [],
       LTLHeader: [
         {
-          key: "from",
+          key: "no",
+          label: "No",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 th-cus-center"
+        },
+        {
+          key: "from_address",
           label: "From",
-          tdClass: "ABStdClassList2 notranslate th-cus-center",
-          thClass: "ABStdClassList2 th-cus-center"
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center"
         },
         {
-          key: "to",
+          key: "to_address",
           label: "To",
-          tdClass: "ABStdClassList2 notranslate th-cus-center",
-          thClass: "ABStdClassList2 th-cus-center"
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center"
         },
         {
-          key: "price",
-          label: "Price",
-          tdClass: "ABStdClassList2 notranslate th-cus-center",
-          thClass: "ABStdClassList2 th-cus-center"
+          key: "kgs_price_amt",
+          label: "KGS Price",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center"
+        },
+        {
+          key: "cbm_price_amt",
+          label: "CBM Price",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center"
         }
       ],
       LTLItems: [],
       RentalHeader: [
         {
-          key: "vehicle_type",
+          key: "no",
+          label: "No",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 th-cus-center"
+        },
+        {
+          key: "fleet_type_descs",
           label: "Vehicle Type",
-          tdClass: "ABStdClassList2 notranslate th-cus-center",
-          thClass: "ABStdClassList2 th-cus-center"
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center"
         },
         {
-          key: "include_driver",
+          key: "include_driver_status",
           label: "Include Driver",
-          tdClass: "ABStdClassList2 notranslate th-cus-center",
-          thClass: "ABStdClassList2 th-cus-center"
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center"
         },
         {
-          key: "price",
+          key: "price_amt",
           label: "Price",
-          tdClass: "ABStdClassList2 notranslate th-cus-center",
-          thClass: "ABStdClassList2 th-cus-center"
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center"
         }
       ],
       RentalItems: [],
       ProjectHeader: [
         {
-          key: "from",
+          key: "no",
+          label: "No",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 th-cus-center"
+        },
+        {
+          key: "from_address",
           label: "From",
-          tdClass: "ABStdClassList2 notranslate th-cus-center",
-          thClass: "ABStdClassList2 th-cus-center"
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center"
         },
         {
-          key: "to",
+          key: "to_address",
           label: "To",
-          tdClass: "ABStdClassList2 notranslate th-cus-center",
-          thClass: "ABStdClassList2 th-cus-center"
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center"
         },
         {
-          key: "change_by",
-          label: "Change By",
-          tdClass: "ABStdClassList2 notranslate th-cus-center",
-          thClass: "ABStdClassList2 th-cus-center"
+          key: "charge_by",
+          label: "Charge By",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center"
         },
         {
-          key: "price",
+          key: "price_amt",
           label: "Price",
-          tdClass: "ABStdClassList2 notranslate th-cus-center",
-          thClass: "ABStdClassList2 th-cus-center"
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center"
         }
       ],
       ProjectItems: [],
       DocHeader: [
         {
-          key: "type",
+          key: "no",
+          label: "No",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 th-cus-center"
+        },
+        {
+          key: "dokument_type",
           label: "Type",
-          tdClass: "ABStdClassList2 notranslate th-cus-center",
-          thClass: "ABStdClassList2 th-cus-center"
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center"
         },
         {
           key: "descs",
           label: "Description",
-          tdClass: "ABStdClassList2 notranslate th-cus-center",
-          thClass: "ABStdClassList2 th-cus-center"
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 M th-cus-center"
         }
       ],
       DocItems: [],
       LogBookHeader: [
         {
-          key: "date",
+          key: "no",
+          label: "No",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 th-cus-center"
+        },
+        {
+          key: "logbook_date",
           label: "Date",
-          tdClass: "ABStdClassList2 notranslate th-cus-center",
-          thClass: "ABStdClassList2 th-cus-center"
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center"
         },
         {
           key: "descs",
           label: "Description",
-          tdClass: "ABStdClassList2 notranslate th-cus-center",
-          thClass: "ABStdClassList2 th-cus-center"
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 M th-cus-center"
         }
       ],
       LogBookItems: []
@@ -1026,16 +1261,11 @@ export default {
     }
   },
   methods: {
-    // Modal Start
-    // Email
     doDelete() {
       this.addStatus = true;
-      // this.M_ClearForm();
       this.$refs.Modal_MK_Quotation._show();
     },
     doPrint() {
-      // $('#forPrint').printThis();
-      // $('#print_frame').printThis();
       window.frames[
         "print_frame"
       ].document.body.innerHTML = document.getElementById("forPrint").innerHTML;
@@ -1043,8 +1273,6 @@ export default {
       window.frames["print_frame"].window.print();
     },
     doEmail() {
-      // this.addStatus = true;
-      // this.M_ClearForm();
       this.$refs.Modal_Email._show();
     },
     doSendEmail() {
@@ -1104,19 +1332,19 @@ export default {
         });
       });
     },
-    // Reason
-    doSaveReason() {
+    // Delete
+    NoDelete() {
+      this.$refs.Modal_MK_Quotation._hide();
+    },
+    YesDelete() {
       var param = {
         option_url: "/MK/MK_Quotation",
-        line_no: 1,
+        line_no: 0,
         mk_quotation_id: this.paramFromList.row_id,
-        reason_cd: this.M_Quotation.reason_cd,
-        reason_descs: this.M_Quotation.reason_descs,
-        lastupdatestamp: this.paramFromList.lastupdatestamp,
-        user_edit: this.getDataUser().user_id
+        lastupdatestamp: this.paramFromList.lastupdatestamp
       };
 
-      this.putJSON(this.getUrlCRUD(), param).then(response => {
+      this.deleteJSON(this.getUrlCRUD(), param).then(response => {
         if (response == null) return;
         this.alertSuccess(response.Message).then(() => {
           this.$refs.Modal_MK_Quotation._hide();
@@ -1196,34 +1424,40 @@ export default {
         }
       });
     },
-    doFTL() {
+    doFTL(record = null) {
       var param = this.paramFromList;
-      param.isEdit = false;
+      param.isEdit = record == null ? false : true;
+      param.DetailList = record;
       this.$router.push({ name: "MK_Quotation_ftlForm", params: param });
     },
-    doLTL() {
+    doLTL(record) {
       var param = this.paramFromList;
-      param.isEdit = false;
+      param.isEdit = record == null ? false : true;
+      param.DetailList = record;
       this.$router.push({ name: "MK_Quotation_ltlForm", params: param });
     },
-    doRental() {
+    doRental(record) {
       var param = this.paramFromList;
-      param.isEdit = false;
+      param.isEdit = record == null ? false : true;
+      param.DetailList = record;
       this.$router.push({ name: "MK_Quotation_rentalForm", params: param });
     },
-    doProject() {
+    doProject(record) {
       var param = this.paramFromList;
-      param.isEdit = false;
+      param.isEdit = record == null ? false : true;
+      param.DetailList = record;
       this.$router.push({ name: "MK_Quotation_projectForm", params: param });
     },
-    doRequiredDoc() {
+    doRequiredDoc(record) {
       var param = this.paramFromList;
-      param.isEdit = false;
+      param.isEdit = record == null ? false : true;
+      param.DetailList = record;
       this.$router.push({ name: "MK_Quotation_documentForm", params: param });
     },
-    doLogBook() {
+    doLogBook(record) {
       var param = this.AllData;
-      param.isEdit = false;
+      param.isEdit = record == null ? false : true;
+      param.DetailList = record;
       this.$router.push({ name: "MK_Quotation_logbookForm", params: param });
     },
     doBack() {
@@ -1244,35 +1478,6 @@ export default {
         if (response == null) return;
         this.alertSuccess("Confirmation Success").then(() => {
           this.doBack();
-        });
-      });
-    },
-    newLogBook() {
-      this.$refs.Modal_LogBook._show();
-    },
-    saveLogBook() {
-      var param = {
-        option_url: "/MK/MK_Quotation",
-        line_no: 2,
-        ss_portfolio_id: this.AllData.ss_portfolio_id,
-        logbook_type: this.AllData.quotation_type,
-        referance_no: this.AllData.quotation_no,
-        logbook_date: this.momentDateFormatting(new Date(), "YYYY-MM-DD HH:mm"),
-        descs: this.M_LogBook.descs,
-        cm_contact_id: this.AllData.cm_contact_id,
-        cm_contact_person_id: "NULL",
-        action_type: "",
-        meeting_address: "",
-        user_input: this.getDataUser().user_id
-      };
-
-      this.postJSON(this.getUrlCRUD(), param).then(response => {
-        // response from API
-        if (response == null) return;
-        this.alertSuccess(response.Message).then(() => {
-          this.M_LogBook.descs = "";
-          this.$refs.Modal_LogBook._hide();
-          this.GetLogBookList();
         });
       });
     },
@@ -1393,8 +1598,83 @@ export default {
           "Valid Until      : " +
           this.M_Quotation.date2;
 
-          // this.GetLogBookList()
+          this.GetFTLList()
+          this.GetLTLList()
+          this.GetRentalList()
+          this.GetProjectList()
+          this.GetDocList()
+          this.GetLogBookList()
       });
+    },
+    GetFTLList() {
+      var param = {
+        option_function_cd: "GetListMkQuotFTL",
+        module_cd: "MK",
+        row_id: this.paramFromList.row_id
+      };
+      
+      this.CallFunction(param).then(response => {
+        if (response == null) return
+        var data = response.Data;
+
+        this.FTLItems = data;
+      })
+    },
+    GetLTLList() {
+      var param = {
+        option_function_cd: "GetListMkQuotLTL",
+        module_cd: "MK",
+        row_id: this.paramFromList.row_id
+      };
+      
+      this.CallFunction(param).then(response => {
+        if (response == null) return
+        var data = response.Data;
+
+        this.LTLItems = data;
+      })
+    },
+    GetRentalList() {
+      var param = {
+        option_function_cd: "GetListMkQuotRental",
+        module_cd: "MK",
+        row_id: this.paramFromList.row_id
+      };
+      
+      this.CallFunction(param).then(response => {
+        if (response == null) return
+        var data = response.Data;
+
+        this.RentalItems = data;
+      })
+    },
+    GetProjectList() {
+      var param = {
+        option_function_cd: "GetListMkQuotProject",
+        module_cd: "MK",
+        row_id: this.paramFromList.row_id
+      };
+      
+      this.CallFunction(param).then(response => {
+        if (response == null) return
+        var data = response.Data;
+
+        this.ProjectItems = data;
+      })
+    },
+    GetDocList() {
+      var param = {
+        option_function_cd: "GetListMkQuotDocument",
+        module_cd: "MK",
+        row_id: this.paramFromList.row_id
+      };
+      
+      this.CallFunction(param).then(response => {
+        if (response == null) return
+        var data = response.Data;
+
+        this.DocItems = data;
+      })
     },
     GetLogBookList() {
       var param = {
@@ -1404,7 +1684,7 @@ export default {
         portfolio_id: this.getDataUser().portfolio_id,
         subportfolio_id: this.getDataUser().subportfolio_id,
         current_page: 1,
-        per_page: 5,
+        per_page: 1000,
         param_where: "",
         initial_where: "",
         sort_field: "",
@@ -1416,216 +1696,11 @@ export default {
         if (response == null) return;
         this.responses = response;
         // console.log(this.cmbMarketing, ix)
-        this.LogBookItems = [];
-        this.LogBookHeader = [];
+        // this.LogBookItems = [];
+        // this.LogBookHeader = [];
         this.LogBookItems = this.responses.Data;
-
-        var str_array =
-          this.responses.DefineColumn && this.responses.DefineColumn !== ""
-            ? this.responses.DefineColumn.split(",")
-            : this.responses.AllColumn.split(",");
-        var x = "S,L";
-        // var defineSize = this.responses.DefineSize.split(",");
-        var defineSize = x.split(",");
-
-        // this.allColumn_bf = this.responses.AllColumn.split(",");
-        // var index = this.allColumn_bf.indexOf("lastupdatestamp");
-        // if (index > -1) {
-        //   this.allColumn_bf.splice(index, 1);
-        // }
-        var allColumn = [];
-        var filteredColumn = [];
-        var definedColumn = [];
-
-        // this.allColumn_bf.forEach((val, idx) => {
-        //   var thClass = "HeaderACCList2";
-        //   var isSorted = this.sortedField.map(x => x.field).indexOf(val);
-        //   if (isSorted > -1) {
-        //     if (this.sortedField[isSorted].sort == "ASC") {
-        //       thClass = thClass + " AscSorted";
-        //     } else {
-        //       thClass = thClass + " DescSorted";
-        //     }
-        //   }
-
-        //   allColumn.push({
-        //     value: idx + 1,
-        //     key: val,
-        //     thClass: thClass,
-        //     tdClass: "ContentACCList2 notranslate",
-        //     text: val
-        //   });
-
-        //   filteredColumn.push({
-        //     value: idx + 1,
-        //     key: val,
-        //     thClass: thClass,
-        //     tdClass: "ContentACCList2 notranslate"
-        //   });
-        // });
-
-        for (var i = 0; i < str_array.length; i++) {
-          filteredColumn = filteredColumn.filter(val => {
-            if (val.key == str_array[i]) {
-              definedColumn.push({
-                value: val.value,
-                key: val.key,
-                thClass: val.thClass,
-                tdClass: val.tdClass,
-                text: val.key
-              });
-            }
-
-            return val.key != str_array[i];
-          });
-
-          var thClass = "HeaderACCList2 ";
-          if (str_array[i] !== "no") {
-            thClass += defineSize[i];
-          }
-
-          var tdClass = "ContentACCList2 notranslate";
-          if (
-            str_array[i].toLowerCase().includes("amount") ||
-            str_array[i].toLowerCase().includes("amt") ||
-            str_array[i].toLowerCase().includes("rate") ||
-            str_array[i].toLowerCase().includes("price")
-          ) {
-            tdClass = "ABStdClassList2 notranslate";
-            thClass = "ABSthClassList2";
-          } else if (str_array[i].toLowerCase() == "target") {
-            thClass += " th-cus-center";
-            tdClass += " td-cus-center";
-          }
-
-          // var isSorted = this.sortedField
-          //   .map(x => x.field)
-          //   .indexOf(str_array[i]);
-          // if (isSorted > -1) {
-          //   if (this.sortedField[isSorted].sort == "ASC") {
-          //     thClass = thClass + " AscSorted";
-          //   } else {
-          //     thClass = thClass + " DescSorted";
-          //   }
-          // }
-
-          if (this.languageStatus) {
-            this.LogBookHeader.push({
-              value: i + 1,
-              key: str_array[i],
-              thClass: thClass,
-              tdClass: tdClass,
-              label: this.$t(str_array[i])
-            });
-          } else {
-            if (str_array[i] == "lastupdatestamp") continue;
-
-            var listReplace = [
-              {
-                key: "_",
-                value: " "
-              },
-              {
-                key: "Amt",
-                value: " Amount"
-              },
-              {
-                key: "Cd",
-                value: " Code"
-              },
-              {
-                key: "Descs",
-                value: " Description"
-              },
-              {
-                key: "Time Edit",
-                value: "Last Update"
-              },
-              {
-                key: "Batch Status",
-                value: "Status"
-              },
-              {
-                key: "garing",
-                value: "/"
-              },
-              {
-                key: "titik",
-                value: "."
-              },
-              {
-                key: "SnP",
-                value: "SnP "
-              },
-              {
-                key: "VO",
-                value: "VO "
-              },
-              {
-                key: "Quotation Date",
-                value: "Date"
-              },
-              {
-                key: "Row Id",
-                value: "View"
-              }
-            ];
-            var isGotIt = false;
-            var labelHeader = undefined;
-
-            if (str_array[i].includes("_")) {
-              labelHeader = str_array[i]
-                .toLowerCase()
-                .split("_")
-                .map(s => {
-                  return s.charAt(0).toUpperCase() + s.substring(1);
-                })
-                .join(" ");
-            } else {
-              // if (str_array[i] !== 'lastupdatestamp') {
-              labelHeader =
-                str_array[i].charAt(0).toUpperCase() +
-                str_array[i].substring(1);
-              // }
-            }
-
-            for (var data of listReplace) {
-              if (labelHeader == undefined) {
-                labelHeader = this.replaceAllString(
-                  str_array[i],
-                  data.key,
-                  data.value
-                );
-              } else {
-                if (labelHeader.includes(data.key)) {
-                  if (labelHeader == "Row Id" && !this.WithViewButton) continue;
-                  // if (labelHeader == 'Row Id' && !this.WithViewButton) {
-
-                  // }
-                  // else {
-                  labelHeader = this.replaceAllString(
-                    labelHeader,
-                    data.key,
-                    data.value
-                  );
-                  // }
-                }
-              }
-            }
-
-            if (labelHeader == "Row Id") continue;
-
-            this.LogBookHeader.push({
-              value: i + 1,
-              key: str_array[i],
-              thClass: thClass,
-              tdClass: tdClass,
-              label: labelHeader
-            });
-          }
-        }
       });
-    }
+    },
   },
   mounted() {
     this.M_ClearForm();

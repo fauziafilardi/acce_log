@@ -86,7 +86,7 @@
                             <br />
                             <span>
                               <font-awesome-icon class="icon-style-default" icon="user" size="sm" />
-                              {{ M_Quotation.pic }}
+                              {{ M_Quotation.picLabel }}
                             </span> &nbsp;
                             <span>
                               <font-awesome-icon
@@ -490,7 +490,7 @@ export default {
         ss_subportfolio_id: this.getDataUser().subportfolio_id,
         cm_contact_id: this.M_Quotation.customer && this.M_Quotation.customer !== '' ? this.M_Quotation.customer : "NULL",
         cm_contact_person_id: this.M_Quotation.pic && this.M_Quotation.pic !== '' ? this.M_Quotation.pic : "NULL",
-        quotation_date: this.M_Quotation.date && this.M_Quotation.date !== '' ? this.M_Quotation.date : "NULL",
+        quotation_date: this.momentDate(new Date()),
         quotation_type: this.M_Quotation.type,
         project_name: this.M_Quotation.project_name,
         descs: this.M_Quotation.descs,
@@ -519,12 +519,15 @@ export default {
         ss_portfolio_id: this.getDataUser().portfolio_id,
         ss_subportfolio_id: this.getDataUser().subportfolio_id,
         cm_contact_id: this.M_Quotation.customer && this.M_Quotation.customer !== '' ? this.M_Quotation.customer : "NULL",
+        cm_contact_person_id: this.M_Quotation.pic && this.M_Quotation.pic !== '' ? this.M_Quotation.pic : "NULL",
         quotation_no: this.M_Quotation.quotation_no,
-        quotation_date: this.M_Quotation.date && this.M_Quotation.date !== '' ? this.M_Quotation.date : "NULL",
-        quotation_type: this.M_Quotation.type,
+        quotation_date: this.M_Quotation.quotation_date && this.M_Quotation.quotation_date !== '' ? this.M_Quotation.quotation_date : "NULL",
+        start_date: this.M_Quotation.date && this.M_Quotation.date !== '' ? this.M_Quotation.date : "NULL",
+        expired_date: this.M_Quotation.date2 && this.M_Quotation.date2 !== '' ? this.M_Quotation.date2 : "NULL",
         project_name: this.M_Quotation.project_name,
         descs: this.M_Quotation.descs,
-        project_value: this.M_Quotation.project_value && this.M_Quotation.project_value !== '' ? this.replaceAllString(this.M_Quotation.project_value, ',', '', 'number') : 0,
+        extra_pick_drop_charges: this.M_Quotation.extra_charge && this.M_Quotation.extra_charge !== '' ? this.replaceAllString(this.M_Quotation.extra_charge, ',', '', 'number') : 0,
+        over_night_charges: this.M_Quotation.overnight_charge && this.M_Quotation.overnight_charge !== '' ? this.replaceAllString(this.M_Quotation.overnight_charge, ',', '', 'number') : 0,
         expired_date: this.M_Quotation.valid_until && this.M_Quotation.valid_until !== '' ? this.M_Quotation.valid_until : "NULL",
         status: this.M_Quotation.status,
         lastupdatestamp: this.paramFromList.lastupdatestamp,
@@ -557,37 +560,29 @@ export default {
           customer: data.cm_contact_id,
           customerLabel: data.name,
           fulladdress:
-            data.address +
-            ", " +
-            data.district +
-            ", " +
-            data.city +
-            ", " +
-            data.province +
-            " - " +
-            data.country,
+            data.address,
           address: data.address,
           phone_no: data.phone_no && data.phone_no !== "" ? data.phone_no : "-",
           email: data.email && data.email !== "" ? data.email : "-",
           website: data.website && data.website !== "" ? data.website : "-",
-          pic:
-            data.contact_person && data.contact_person !== ""
-              ? data.contact_person
-              : "-",
           pic_phone_no:
             data.contact_phone_no && data.contact_phone_no !== ""
               ? data.contact_phone_no
               : "-",
-          date: data.quotation_date,
+          date: data.start_date,
+          date2: data.expired_date,
           type: data.quotation_type,
           typeLabel: data.type,
           quotation_no: data.quotation_no,
+          quotation_date: data.quotation_date,
           project_name: data.project_name,
           descs: data.descs,
-          project_value: this.isCurrency(data.project_value, this.decimal),
+          extra_charge: this.isCurrency(data.extra_pick_drop_charges, this.decimal),
+          overnight_charge: this.isCurrency(data.over_night_charges, this.decimal),
           valid_until: data.expired_date,
           status: data.status,
-          statusLabel: data.status
+          pic: data.cm_contact_person_id,
+          picLabel: data.contact_person_name
         };
       });
     }
