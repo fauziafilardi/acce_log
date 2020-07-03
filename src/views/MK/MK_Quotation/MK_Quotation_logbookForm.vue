@@ -20,7 +20,7 @@
               </b-row>
             </div>
             <div class="card__body">
-              <b-form :data-vv-scope="'{FormName}'" :data-vv-value-path="'{FormName}'">
+              <b-form :data-vv-scope="'Frm_Logbook'" :data-vv-value-path="'Frm_Logbook'">
                 <b-row>
                   <b-col md="2">
                     <div>
@@ -105,7 +105,8 @@ export default {
   },
   methods: {
     doBack() {
-      this.$router.go(-1);
+      // this.$router.go(-1);
+      this.$router.push({ name: "MK_Quotation" });
     },
 
     M_ClearForm() {
@@ -115,33 +116,35 @@ export default {
     },
 
     doSave() {
-      this.$validator._base
-        .validateAll("MK_FormMkQuotationRental")
-        .then(result => {
-          if (!result) return;
-          this.alertConfirmation("Are You Sure Want To Save This Data ?").then(
-            ress => {
-              if (ress.value) {
-                this.$validator.errors.clear("MK_FormMkQuotationRental");
-                if (this.inputStatus == "edit") {
-                  this.M_Update();
-                } else {
-                  this.M_Save();
-                }
+      this.$validator._base.validateAll("Frm_Logbook").then(result => {
+        if (!result) return;
+        this.alertConfirmation("Are You Sure Want To Save This Data ?").then(
+          ress => {
+            if (ress.value) {
+              this.$validator.errors.clear("Frm_Logbook");
+              if (this.inputStatus == "edit") {
+                this.M_Update();
+              } else {
+                this.M_Save();
               }
             }
-          );
-        });
+          }
+        );
+      });
     },
     M_Save() {
       var param = {
         option_url: "/MK/MK_Quotation",
-        line_no: 5,
-        mk_quotation_id: this.M_MkQuotationRental.mk_quotation_id,
-        fm_fleet_type_id: this.M_MkQuotationRental.fm_fleet_type_id,
-        include_driver_status: this.M_MkQuotationRental.include_driver_status,
-        price_amt: this.M_MkQuotationRental.price_amt,
-        old_price_amt: this.M_MkQuotationRental.old_price_amt,
+        line_no: 2,
+        ss_portfolio_id: this.getDataUser().portfolio_id,
+        logbook_type: "F", //this.paramFromList.quotation_type,
+        referance_no: this.paramFromList.quotation_no,
+        logbook_date: this.momentDateFormatting(new Date(), "YYYY-MM-DD HH:mm"),
+        descs: this.M_LogBook.descs,
+        cm_contact_id: this.paramFromList.cm_contact_id,
+        cm_contact_person_id: "NULL",
+        action_type: "",
+        meeting_address: "",
         user_input: this.getDataUser().user_id
       };
 

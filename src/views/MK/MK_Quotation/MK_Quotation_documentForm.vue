@@ -48,7 +48,7 @@
                         <span>
                           <label>Descs</label>
                         </span>
-                        <ACCTextBox
+                        <ACCTextArea
                           :prop="PI_descs"
                           v-model="M_MkQuotationDocument.descs"
                           ref="ref_descs"
@@ -99,14 +99,14 @@ export default {
       },
       PI_mk_dokument_type_id: {
         dataLookUp: {
-          LookUpCd: "",
-          ColumnDB: "",
+          LookUpCd: "GetMkDocumentType",
+          ColumnDB: "mk_dokument_type_id",
           InitialWhere: "",
           ParamWhere: "",
           OrderBy: "",
           ParamView: "",
           SourceField: "",
-          DisplayLookUp: ""
+          DisplayLookUp: "dokument_type,descs"
         },
         cValidate: "",
         cName: "mk_dokument_type_id",
@@ -124,10 +124,13 @@ export default {
         cName: "descs",
         cOrder: 2,
         cKey: false,
-        cType: "text",
         cProtect: false,
+        cResize: false,
+        cReadonly: false,
+        cRows: 3,
+        cMaxRows: 3,
+        cSize: "md",
         cParentForm: "MK_FormMkQuotationDocument",
-        cDecimal: 2,
         cInputStatus: this.inputStatus
       }
     };
@@ -148,11 +151,12 @@ export default {
   },
   methods: {
     doBack() {
-      this.$router.go(-1);
+      // this.$router.go(-1);
+      this.$router.push({ name: "MK_Quotation" });
     },
     Onmk_dokument_type_idChange(data) {
       this.$nextTick(() => {
-        this.M_MkQuotationDocument.mk_dokument_type_id = data.id;
+        this.M_MkQuotationDocument.mk_dokument_type_id = data.row_id;
         this.M_MkQuotationDocument.dokument_typeLabel = data.descs;
       });
     },
@@ -196,7 +200,7 @@ export default {
       var param = {
         option_url: "/MK/MK_Quotation",
         line_no: 7,
-        mk_quotation_id: this.M_MkQuotationDocument.mk_quotation_id,
+        mk_quotation_id: this.paramFromList.row_id,
         mk_dokument_type_id: this.M_MkQuotationDocument.mk_dokument_type_id,
         descs: this.M_MkQuotationDocument.descs,
         user_input: this.getDataUser().user_id
@@ -215,10 +219,10 @@ export default {
         line_no: 7,
         mk_quotation_document_id: this.M_MkQuotationDocument
           .mk_quotation_document_id,
-        mk_quotation_id: this.M_MkQuotationDocument.mk_quotation_id,
+        mk_quotation_id: this.paramFromList.row_id,
         mk_dokument_type_id: this.M_MkQuotationDocument.mk_dokument_type_id,
         descs: this.M_MkQuotationDocument.descs,
-        lastupdatestamp: this.paramFromList.lastupdatestamp,
+        lastupdatestamp: this.M_MkQuotationDocument.lastupdatestamp,
         user_edit: this.getDataUser().user_id
       };
 
