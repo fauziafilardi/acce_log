@@ -1463,7 +1463,6 @@ export default {
     doBack() {
       this.$router.go(-1);
     },
-
     doConfirm() {
       var param = {
         option_url: "/MK/MK_Quotation",

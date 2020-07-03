@@ -325,7 +325,7 @@ export default {
         fm_fleet_type_id: this.M_MkQuotationFtl.fm_fleet_type_id,
         price_amt: this.M_MkQuotationFtl.price_amt,
         old_price_amt: this.M_MkQuotationFtl.price_amt,
-        lastupdatestamp: this.paramFromList.lastupdatestamp,
+        lastupdatestamp: this.paramFromList.DetailList.lastupdatestamp,
         user_edit: this.getDataUser().user_id
       };
 
@@ -339,9 +339,9 @@ export default {
     GetDataBy() {
       var param = {
         option_url: "/MK/MK_Quotation",
-        line_no: 0,
-        id: this.paramFromList.row_id,
-        lastupdatestamp: this.paramFromList.lastupdatestamp
+        line_no: 3,
+        id: this.paramFromList.DetailList.row_id,
+        lastupdatestamp: this.paramFromList.DetailList.lastupdatestamp
       };
 
       this.getJSON(this.getUrlCRUD(), param).then(response => {
