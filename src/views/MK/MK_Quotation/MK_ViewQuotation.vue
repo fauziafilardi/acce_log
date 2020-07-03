@@ -196,7 +196,7 @@
                     </b-row>
                     <hr />
                     <b-row>
-                      <b-col style="max-width: fit-content !important; margin-right: 20px; border-bottom: solid 2px rgb(153, 153, 153);">
+                      <b-col style="max-width: fit-content !important; margin-right: 20px; border-bottom: solid 2px rgb(153, 153, 153); padding-bottom: 5px">
                         <span>
                           <label
                             style="margin-bottom: 0px !important;"
@@ -205,14 +205,14 @@
                         <br />
                         <span style="color: #999999;">{{ M_Quotation.quotation_no }}</span>
                       </b-col>
-                      <b-col style="max-width: fit-content !important; margin-right: 20px; border-bottom: solid 2px rgb(153, 153, 153);">
+                      <b-col style="max-width: fit-content !important; margin-right: 20px; border-bottom: solid 2px rgb(153, 153, 153); padding-bottom: 5px">
                         <span>
                           <label style="margin-bottom: 0px !important;">Valid Thru</label>
                         </span>
                         <br />
                         <span style="color: #999999;">{{ M_Quotation.date + ' - ' + M_Quotation.date2}}</span>
                       </b-col>
-                      <b-col style="max-width: fit-content !important; margin-right: 20px; border-bottom: solid 2px rgb(153, 153, 153);">
+                      <b-col style="max-width: fit-content !important; margin-right: 20px; border-bottom: solid 2px rgb(153, 153, 153); padding-bottom: 5px">
                         <span>
                           <label style="margin-bottom: 0px !important;">Status</label>
                         </span>
@@ -221,7 +221,7 @@
                       </b-col>
                     </b-row>
                     <b-row>
-                      <b-col style="max-width: fit-content !important; margin-right: 20px; border-bottom: solid 2px rgb(153, 153, 153);">
+                      <b-col style="max-width: fit-content !important; margin-right: 20px; border-bottom: solid 2px rgb(153, 153, 153); padding-bottom: 5px">
                         <span>
                           <label
                             style="margin-bottom: 0px !important;"
@@ -232,7 +232,7 @@
                       </b-col>
                     </b-row>
                     <b-row>
-                      <b-col style="max-width: fit-content !important; margin-right: 20px; border-bottom: solid 2px rgb(153, 153, 153);">
+                      <b-col style="max-width: fit-content !important; margin-right: 20px; border-bottom: solid 2px rgb(153, 153, 153); padding-bottom: 5px">
                         <span>
                           <label
                             style="margin-bottom: 0px !important;"
@@ -243,7 +243,7 @@
                       </b-col>
                     </b-row>
                     <b-row>
-                      <b-col style="max-width: fit-content !important; margin-right: 20px; border-bottom: solid 2px rgb(153, 153, 153);">
+                      <b-col style="max-width: fit-content !important; margin-right: 20px; border-bottom: solid 2px rgb(153, 153, 153); padding-bottom: 5px">
                         <span>
                           <label
                             style="margin-bottom: 0px !important;"
@@ -252,7 +252,7 @@
                         <br />
                         <span style="color: #999999;">{{ M_Quotation.extra_charge }}</span>
                       </b-col>
-                      <b-col style="max-width: fit-content !important; margin-right: 20px; border-bottom: solid 2px rgb(153, 153, 153);">
+                      <b-col style="max-width: fit-content !important; margin-right: 20px; border-bottom: solid 2px rgb(153, 153, 153); padding-bottom: 5px">
                         <span>
                           <label
                             style="margin-bottom: 0px !important;"
@@ -262,6 +262,7 @@
                         <span style="color: #999999;">{{ M_Quotation.overnight_charge }}</span>
                       </b-col>
                     </b-row>
+                    <br />
                     <b-row>
                       <b-col>
                         <ABSButton
@@ -270,12 +271,13 @@
                           classIcon="icon-style-1"
                           size="6x"
                           @click="doConfirm"
+                          styleButton="width: 20%; height: 150%;"
                         />
                       </b-col>
                     </b-row>
                     <b-row>
                       <b-col>
-                        <div class="table--list" id="logbook_tb">
+                        <div class="table--list" id="ftl_tb">
                           <b-table
                             :responsive="true"
                             :striped="false"
@@ -286,8 +288,8 @@
                             :dark="false"
                             :fixed="false"
                             :foot-clone="false"
-                            :fields="LogBookHeader"
-                            :items="LogBookItems"
+                            :fields="FTLHeader"
+                            :items="FTLItems"
                             class="table-sm table-style-3"
                           >
                           </b-table>
@@ -437,7 +439,7 @@
           </span>
         </b-col>
         <b-col style="-webkit-box-flex: 0; flex: 0 0 80%; max-width: 80%; position: relative; width: 80%">
-          <span>: {{ M_Quotation.valid_until }}</span>
+          <span>: {{ M_Quotation.date2 }}</span>
         </b-col>
       </b-row>
     </div>
@@ -699,7 +701,10 @@ export default {
         project_name: "",
         descs: "",
         project_value: "",
-        valid_until: "",
+        date: "",
+        date2: "",
+        extra_charge: "",
+        overnight_charge: "",
         reason_cd: "",
         reasonCdLabel: "",
         reason_descs: "",
@@ -725,7 +730,6 @@ export default {
         cName: "reason_cd",
         ckey: false,
         cOrder: 3,
-        // cDefault: '',
         cProtect: false,
         cParentForm: "",
         cStatic: false,
@@ -858,21 +862,130 @@ export default {
       },
       AllData: {},
       responses: {},
+      FTLHeader: [
+        {
+          key: "from",
+          label: "From",
+          tdClass: "ABStdClassList2 notranslate th-cus-center",
+          thClass: "ABStdClassList2 th-cus-center"
+        },
+        {
+          key: "to",
+          label: "To",
+          tdClass: "ABStdClassList2 notranslate th-cus-center",
+          thClass: "ABStdClassList2 th-cus-center"
+        },
+        {
+          key: "vehicle_type",
+          label: "Vehicle Type",
+          tdClass: "ABStdClassList2 notranslate th-cus-center",
+          thClass: "ABStdClassList2 th-cus-center"
+        },
+        {
+          key: "price",
+          label: "Price",
+          tdClass: "ABStdClassList2 notranslate th-cus-center",
+          thClass: "ABStdClassList2 th-cus-center"
+        }
+      ],
+      FTLItems: [],
+      LTLHeader: [
+        {
+          key: "from",
+          label: "From",
+          tdClass: "ABStdClassList2 notranslate th-cus-center",
+          thClass: "ABStdClassList2 th-cus-center"
+        },
+        {
+          key: "to",
+          label: "To",
+          tdClass: "ABStdClassList2 notranslate th-cus-center",
+          thClass: "ABStdClassList2 th-cus-center"
+        },
+        {
+          key: "price",
+          label: "Price",
+          tdClass: "ABStdClassList2 notranslate th-cus-center",
+          thClass: "ABStdClassList2 th-cus-center"
+        }
+      ],
+      LTLItems: [],
+      RentalHeader: [
+        {
+          key: "vehicle_type",
+          label: "Vehicle Type",
+          tdClass: "ABStdClassList2 notranslate th-cus-center",
+          thClass: "ABStdClassList2 th-cus-center"
+        },
+        {
+          key: "include_driver",
+          label: "Include Driver",
+          tdClass: "ABStdClassList2 notranslate th-cus-center",
+          thClass: "ABStdClassList2 th-cus-center"
+        },
+        {
+          key: "price",
+          label: "Price",
+          tdClass: "ABStdClassList2 notranslate th-cus-center",
+          thClass: "ABStdClassList2 th-cus-center"
+        }
+      ],
+      RentalItems: [],
+      ProjectHeader: [
+        {
+          key: "from",
+          label: "From",
+          tdClass: "ABStdClassList2 notranslate th-cus-center",
+          thClass: "ABStdClassList2 th-cus-center"
+        },
+        {
+          key: "to",
+          label: "To",
+          tdClass: "ABStdClassList2 notranslate th-cus-center",
+          thClass: "ABStdClassList2 th-cus-center"
+        },
+        {
+          key: "change_by",
+          label: "Change By",
+          tdClass: "ABStdClassList2 notranslate th-cus-center",
+          thClass: "ABStdClassList2 th-cus-center"
+        },
+        {
+          key: "price",
+          label: "Price",
+          tdClass: "ABStdClassList2 notranslate th-cus-center",
+          thClass: "ABStdClassList2 th-cus-center"
+        }
+      ],
+      ProjectItems: [],
+      DocHeader: [
+        {
+          key: "type",
+          label: "Type",
+          tdClass: "ABStdClassList2 notranslate th-cus-center",
+          thClass: "ABStdClassList2 th-cus-center"
+        },
+        {
+          key: "descs",
+          label: "Description",
+          tdClass: "ABStdClassList2 notranslate th-cus-center",
+          thClass: "ABStdClassList2 th-cus-center"
+        }
+      ],
+      DocItems: [],
       LogBookHeader: [
-        // {
-        //   value: 1,
-        //   key: "logbook_date",
-        //   thClass: thClass,
-        //   tdClass: tdClass,
-        //   label: "Date"
-        // },
-        // {
-        //   value: 2,
-        //   key: "descs",
-        //   thClass: thClass,
-        //   tdClass: tdClass,
-        //   label: "Description"
-        // }
+        {
+          key: "date",
+          label: "Date",
+          tdClass: "ABStdClassList2 notranslate th-cus-center",
+          thClass: "ABStdClassList2 th-cus-center"
+        },
+        {
+          key: "descs",
+          label: "Description",
+          tdClass: "ABStdClassList2 notranslate th-cus-center",
+          thClass: "ABStdClassList2 th-cus-center"
+        }
       ],
       LogBookItems: []
     };
@@ -948,7 +1061,7 @@ export default {
         this.M_Quotation.project_value +
         "\n" +
         "Valid Until      : " +
-        this.M_Quotation.valid_until;
+        this.M_Quotation.date2;
 
       var param = {
         portfolio_id: this.getDataUser().portfolio_id,
@@ -1161,14 +1274,6 @@ export default {
         pic_phone_no: ""
       };
     },
-    M_ClearForm_Email() {
-      this.M_Quotation = {
-        to: "",
-        cc: "",
-        subject: "",
-        body: ""
-      };
-    },
     GetDataBy() {
       var param = {
         option_url: "/MK/MK_Quotation",
@@ -1188,11 +1293,7 @@ export default {
         this.M_Quotation = {
           customer: data.name,
           fulladdress:
-            data.address +
-            data.district && data.district !== '' ? ", " + data.district : '' +
-            data.city && data.city !== '' ? ", " + data.city : '' +
-            data.province && data.province !== '' ? ", " + data.province : '' +
-            data.country && data.country !== '' ? ", " + data.country : '',
+            data.address,
           address: data.address,
           phone_no: data.phone_no && data.phone_no !== "" ? data.phone_no : "-",
           email: data.email && data.email !== "" ? data.email : "-",
@@ -1204,13 +1305,6 @@ export default {
           pic_phone_no:
             data.contact_phone_no && data.contact_phone_no !== ""
               ? data.contact_phone_no
-              : "-",
-          date:
-            data.quotation_date && data.quotation_date !== ""
-              ? this.momentDateFormatting(
-                  new Date(data.quotation_date),
-                  "DD-MM-YYYY HH.mm"
-                )
               : "-",
           type: data.type && data.type !== "" ? data.type : "-",
           quotation_no:
@@ -1226,14 +1320,25 @@ export default {
             data.project_value && data.project_value !== ""
               ? this.isCurrency(data.project_value, this.decimal)
               : "-",
-          valid_until:
+          date:
+            data.start_date && data.start_date !== ""
+              ? this.momentDateFormatting(
+                  new Date(data.start_date),
+                  "DD-MMM-YYYY"
+                )
+              : "-",
+          date2:
             data.expired_date && data.expired_date !== ""
               ? this.momentDateFormatting(
                   new Date(data.expired_date),
-                  "DD-MM-YYYY"
+                  "DD-MMM-YYYY"
                 )
-              : "-"
+              : "-",
+          status: data.status == "P" ? "Proposed" : "Pending",
+          extra_charge: this.isCurrency(data.extra_pick_drop_charges, this.decimal),
+          overnight_charge: this.isCurrency(data.over_night_charges, this.decimal)
         };
+
         this.M_Quotation.body =
           this.M_Quotation.customer +
           "\n\n" +
@@ -1267,9 +1372,9 @@ export default {
           this.M_Quotation.project_value +
           "\n" +
           "Valid Until      : " +
-          this.M_Quotation.valid_until;
+          this.M_Quotation.date2;
 
-          this.GetLogBookList()
+          // this.GetLogBookList()
       });
     },
     GetLogBookList() {

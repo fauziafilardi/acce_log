@@ -426,7 +426,9 @@ export default {
       this.M_Quotation.picLabel = data.label;
     },
     OndateChange(data) {
-      this.PI_valid_until.cValidate = "min_date:" + this.momentDate(new Date(data))
+      this.PI_date2.cValidate = "min_date:" + this.momentDate(new Date(data))
+    },
+    Ondate2Change(data) {
     },
     OntypeChange(data) {
       this.$nextTick(() => {
@@ -487,13 +489,16 @@ export default {
         ss_portfolio_id: this.getDataUser().portfolio_id,
         ss_subportfolio_id: this.getDataUser().subportfolio_id,
         cm_contact_id: this.M_Quotation.customer && this.M_Quotation.customer !== '' ? this.M_Quotation.customer : "NULL",
-        // quotation_no: this.M_Quotation.quotation_no,
+        cm_contact_person_id: this.M_Quotation.pic && this.M_Quotation.pic !== '' ? this.M_Quotation.pic : "NULL",
         quotation_date: this.M_Quotation.date && this.M_Quotation.date !== '' ? this.M_Quotation.date : "NULL",
         quotation_type: this.M_Quotation.type,
         project_name: this.M_Quotation.project_name,
         descs: this.M_Quotation.descs,
         project_value: this.M_Quotation.project_value && this.M_Quotation.project_value !== '' ? this.replaceAllString(this.M_Quotation.project_value, ',', '', 'number') : 0,
-        expired_date: this.M_Quotation.valid_until && this.M_Quotation.valid_until !== '' ? this.M_Quotation.valid_until : "NULL",
+        start_date: this.M_Quotation.date && this.M_Quotation.date !== '' ? this.M_Quotation.date : "NULL",
+        expired_date: this.M_Quotation.date2 && this.M_Quotation.date2 !== '' ? this.M_Quotation.date2 : "NULL",
+        extra_pick_drop_charges: this.replaceAllString(this.M_Quotation.extra_charge, ',', '', 'number'),
+        over_night_charges: this.replaceAllString(this.M_Quotation.overnight_charge, ',', '', 'number'),
         status: "N",
         user_input: this.getDataUser().user_id
       };
