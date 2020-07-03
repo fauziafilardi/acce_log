@@ -71,6 +71,9 @@ export default {
       title: "",
 
       M_LogBook: {
+        mk_trx_logbook_id: 0,
+        logbook_date: null,
+        logbook_type: "",
         descs: ""
       },
       PI_logbook_descs: {
@@ -111,6 +114,9 @@ export default {
 
     M_ClearForm() {
       this.M_LogBook = {
+        mk_trx_logbook_id: 0,
+        logbook_date: null,
+        logbook_type: "",
         descs: ""
       };
     },
@@ -158,14 +164,18 @@ export default {
     M_Update() {
       var param = {
         option_url: "/MK/MK_Quotation",
-        line_no: 5,
-        mk_quotation_rental_id: this.M_MkQuotationRental.mk_quotation_rental_id,
-        mk_quotation_id: this.M_MkQuotationRental.mk_quotation_id,
-        fm_fleet_type_id: this.M_MkQuotationRental.fm_fleet_type_id,
-        include_driver_status: this.M_MkQuotationRental.include_driver_status,
-        price_amt: this.M_MkQuotationRental.price_amt,
-        old_price_amt: this.M_MkQuotationRental.old_price_amt,
-        lastupdatestamp: this.paramFromList.lastupdatestamp,
+        line_no: 2,
+        mk_trx_logbook_id: this.M_LogBook.mk_trx_logbook_id,
+        ss_portfolio_id: this.getDataUser().portfolio_id,
+        logbook_type: this.M_LogBook.logbook_type, //this.paramFromList.quotation_type,
+        referance_no: this.paramFromList.quotation_no,
+        logbook_date: this.M_LogBook.logbook_date, //this.momentDateFormatting(new Date(), "YYYY-MM-DD HH:mm"),
+        descs: this.M_LogBook.descs,
+        cm_contact_id: this.paramFromList.cm_contact_id,
+        cm_contact_person_id: "NULL",
+        action_type: "",
+        meeting_address: "",
+        lastupdatestamp: this.paramFromList.DetailList.lastupdatestamp,
         user_edit: this.getDataUser().user_id
       };
 
@@ -179,9 +189,9 @@ export default {
     GetDataBy() {
       var param = {
         option_url: "/MK/MK_Quotation",
-        line_no: 0,
-        id: this.paramFromList.row_id,
-        lastupdatestamp: this.paramFromList.lastupdatestamp
+        line_no: 2,
+        id: this.paramFromList.DetailList.row_id,
+        lastupdatestamp: this.paramFromList.DetailList.lastupdatestamp
       };
 
       this.getJSON(this.getUrlCRUD(), param).then(response => {
@@ -190,18 +200,11 @@ export default {
 
         var data = response.Data[0];
 
-        this.M_MkQuotationRental = {
-          mk_quotation_rental_id: data.mk_quotation_rental_id,
-          mk_quotation_id: data.mk_quotation_id,
-          fm_fleet_type_id: data.fm_fleet_type_id__lo_1,
-          fleet_type_descsLabel: data.fleet_type_descs__lbl__lo_1,
-          include_driver_status: data.include_driver_status__tb_2,
-          price_amt: data.price_amt__tb_3,
-          old_price_amt: data.old_price_amt,
-          user_input: data.user_input,
-          user_edit: data.user_edit,
-          time_input: data.time_input,
-          time_edit: data.time_edit,
+        this.M_LogBook = {
+          mk_trx_logbook_id: data.mk_trx_logbook_id,
+          descs: data.descs,
+          logbook_date: data.logbook_date,
+          logbook_type: data.logbook_type,
           row_id: data.row_id,
           lastupdatestamp: data.lastupdatestamp
         };

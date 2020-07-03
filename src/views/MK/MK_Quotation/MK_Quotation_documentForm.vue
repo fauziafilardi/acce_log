@@ -222,7 +222,7 @@ export default {
         mk_quotation_id: this.paramFromList.row_id,
         mk_dokument_type_id: this.M_MkQuotationDocument.mk_dokument_type_id,
         descs: this.M_MkQuotationDocument.descs,
-        lastupdatestamp: this.M_MkQuotationDocument.lastupdatestamp,
+        lastupdatestamp: this.paramFromList.DetailList.lastupdatestamp,
         user_edit: this.getDataUser().user_id
       };
 
@@ -236,9 +236,9 @@ export default {
     GetDataBy() {
       var param = {
         option_url: "/MK/MK_Quotation",
-        line_no: 0,
-        id: this.paramFromList.row_id,
-        lastupdatestamp: this.paramFromList.lastupdatestamp
+        line_no: 7,
+        id: this.paramFromList.DetailList.row_id,
+        lastupdatestamp: this.paramFromList.DetailList.lastupdatestamp
       };
 
       this.getJSON(this.getUrlCRUD(), param).then(response => {

@@ -1102,31 +1102,37 @@ export default {
     doFTL() {
       var param = this.paramFromList;
       param.isEdit = false;
+      param.DetailList = { row_id: 0, lastupdatestamp: 0 };
       this.$router.push({ name: "MK_Quotation_ftlForm", params: param });
     },
     doLTL() {
       var param = this.paramFromList;
       param.isEdit = false;
+      param.DetailList = { row_id: 0, lastupdatestamp: 0 };
       this.$router.push({ name: "MK_Quotation_ltlForm", params: param });
     },
     doRental() {
       var param = this.paramFromList;
       param.isEdit = false;
+      param.DetailList = { row_id: 0, lastupdatestamp: 0 };
       this.$router.push({ name: "MK_Quotation_rentalForm", params: param });
     },
     doProject() {
       var param = this.paramFromList;
       param.isEdit = false;
+      param.DetailList = { row_id: 0, lastupdatestamp: 0 };
       this.$router.push({ name: "MK_Quotation_projectForm", params: param });
     },
     doRequiredDoc() {
       var param = this.paramFromList;
       param.isEdit = false;
+      param.DetailList = { row_id: 0, lastupdatestamp: 0 };
       this.$router.push({ name: "MK_Quotation_documentForm", params: param });
     },
     doLogBook() {
       var param = this.AllData;
       param.isEdit = false;
+      param.DetailList = { row_id: 0, lastupdatestamp: 0 };
       this.$router.push({ name: "MK_Quotation_logbookForm", params: param });
     },
     doBack() {

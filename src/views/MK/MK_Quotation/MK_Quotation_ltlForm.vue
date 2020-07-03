@@ -381,7 +381,7 @@ export default {
         cm_commodity_id: this.M_MkQuotationLtl.cm_commodity_id,
         kgs_price_amt: this.M_MkQuotationLtl.kgs_price_amt,
         cbm_price_amt: this.M_MkQuotationLtl.cbm_price_amt,
-        lastupdatestamp: this.paramFromList.lastupdatestamp,
+        lastupdatestamp: this.paramFromList.DetailList.lastupdatestamp,
         user_edit: this.getDataUser().user_id
       };
 
@@ -395,9 +395,9 @@ export default {
     GetDataBy() {
       var param = {
         option_url: "/MK/MK_Quotation",
-        line_no: 0,
-        id: this.paramFromList.row_id,
-        lastupdatestamp: this.paramFromList.lastupdatestamp
+        line_no: 4,
+        id: this.paramFromList.DetailList.row_id,
+        lastupdatestamp: this.paramFromList.DetailList.lastupdatestamp
       };
 
       this.getJSON(this.getUrlCRUD(), param).then(response => {
