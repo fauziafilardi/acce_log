@@ -2,6 +2,8 @@ import CM_CustomerStatus from '@/views/CM/CM_CustomerStatus/CM_CustomerStatus'
 import CM_AddCustomerStatus from '@/views/CM/CM_CustomerStatus/CM_AddCustomerStatus'
 
 import CM_MarketingMaster from '@/views/CM/CM_MarketingMaster/CM_MarketingMaster'
+import CM_MarketingMasterForm from '@/views/CM/CM_MarketingMaster/MK_MarketingMasterForm'
+import CM_MarketingMasterView from '@/views/CM/CM_MarketingMaster/MK_MarketingMasterView'
 import CM_MarketingMaster_Target from '@/views/CM/CM_MarketingMaster/CM_MarketingMaster_Target'
 import CM_MarketingMaster_AddTarget from '@/views/CM/CM_MarketingMaster/CM_MarketingMaster_AddTarget'
 import CM_MarketingMaster_Team from '@/views/CM/CM_MarketingMaster/CM_MarketingMaster_Team'
@@ -42,6 +44,23 @@ export const CMRender = {
                 requiresAuth: true
             }
         },
+        {
+            path: '/CM/CM_MarketingMaster/Form',
+            name: 'CM_MarketingMasterForm',
+            component: CM_MarketingMasterForm,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/CM/CM_MarketingMaster/View',
+            name: 'CM_MarketingMasterView',
+            component: CM_MarketingMasterView,
+            meta: {
+                requiresAuth: true
+            }
+        },
+
         {
             path: '/CM/CM_MarketingMaster/Target',
             name: 'CM_MarketingMaster_Target',

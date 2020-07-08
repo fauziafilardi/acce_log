@@ -4,103 +4,134 @@
       <b-row class="dashboardBody">
         <b-col md="12">
           <div class="card">
-            <div class="card__title" style="padding-bottom: 5px !important;">
+            <div class="card__title">
               <b-row>
                 <b-col style="max-width:fit-content !important;">
-                  <span>Marketing Master - Team Setup</span>
+                  <span>View Marketing Master</span>
                 </b-col>
-
-                <b-col class="col-right">
-                  <span>
-                    <ABSButton
-                      :text="'Back'"
-                      classButton="button button--back2"
-                      classIcon="icon-style-1"
-                      @click="doBack"
-                    />
-                  </span>
-                </b-col>
-              </b-row>
-            </div>
-            <div class="card__body">
-              <div class="table--list" :id="'marketingmaster_team'">
-                <b-table
-                  :responsive="true"
-                  :striped="false"
-                  :bordered="false"
-                  :outlined="false"
-                  :small="false"
-                  :hover="true"
-                  :dark="false"
-                  :fixed="false"
-                  :foot-clone="false"
-                  :fields="fieldHeader"
-                  :items="items"
-                  class="table-sm table-style-3"
-                >
-                  <template v-slot:cell(monthly_point)="data">
-                    <!-- {{data.item.monthly_point}} -->
-                    <ACCTextBox
-                      :prop="{
-                                cValidate: '',
-                                cName: 'monthly_point_' + data.index,
-                                cOrder: 1,
-                                cKey: false,
-                                cType: 'numeric',
-                                cProtect: false,
-                                cParentForm: 'MarketingMaster',
-                                cDecimal: 2,
-                                cInputStatus: 'new'
-                          }"
-                      v-model="data.item.monthly_point"
-                      :ref="'ref_monthly_point_' + data.index"
-                    />
-                  </template>
-                  <template v-slot:cell(monthly_new_prospect)="data">
-                    <!-- {{data.item.monthly_new_prospect}} -->
-                    <ACCTextBox
-                      :prop="{
-                                cValidate: '',
-                                cName: 'monthly_new_prospect_' + data.index,
-                                cOrder: 2,
-                                cKey: false,
-                                cType: 'numeric',
-                                cProtect: false,
-                                cParentForm: 'MarketingMaster',
-                                cDecimal: 2,
-                                cInputStatus: 'new'
-                          }"
-                      v-model="data.item.monthly_new_prospect"
-                      :ref="'ref_monthly_new_prospect_' + data.index"
-                    />
-                  </template>
-                  <template v-slot:cell(is_my_team)="data">
-                    <b-form-checkbox
-                      :id="'cbTeam_'+data.index"
-                      :name="'cbTeam_'+data.index"
-                      v-model="data.item.is_my_team"
-                      :value="true"
-                      :unchecked-value="false"
-                      style="min-height:15px !important;padding-top:0px !important;"
-                    />
-                  </template>
-                </b-table>
-              </div>
-            </div>
-            <div class="card__footer" style="padding-bottom: 10px;">
-              <b-row>
-                <b-col md="12" style="text-align: center;">
+                <b-col style="text-align: right;">
                   <ABSButton
-                    :text="'Save'"
-                    classButton="btn btn--default"
+                    :text="'Back'"
+                    classButton="button button--back"
                     classIcon="icon-style-1"
-                    @click="doSave"
-                    styleButton="height: 40px;width: 75%;"
+                    @click="doBack"
                   />
                 </b-col>
               </b-row>
             </div>
-            <iframe name="print_frame" width="0" height="0" frameborder="0" src="about:blank"></iframe>
+            <div class="card__body">
+              <b-form :data-vv-scope="'parent'" :data-vv-value-path="'parent'">
+                <b-row>
+                  <b-col md="12">
+                    <b-row class="row-view">
+                      <b-col style="text-align: right;">
+                        <span>
+                          <ABSButton
+                            :text="'Delete'"
+                            classButton="btn btn--default"
+                            classIcon="icon-style-1"
+                            @click="doDelete"
+                          />
+                        </span>
+                        <span>
+                          <ABSButton
+                            :text="'Edit'"
+                            classButton="btn btn--default"
+                            classIcon="icon-style-1"
+                            @click="doEdit"
+                          />
+                        </span>
+                      </b-col>
+                    </b-row>
+                    <b-row class="row-view">
+                      <!-- <b-col>
+                        <span>
+                          <label>Monthly Point</label>
+                        </span>
+                        <br />
+                        <span>
+                          <label>{{M_MkMarketing.monthly_point}}</label>
+                        </span>
+                      </b-col>-->
+                      <div class="card__body">
+                        <div class="table--list" :id="'marketingmaster'">
+                          <b-table
+                            :responsive="true"
+                            :striped="false"
+                            :bordered="true"
+                            :outlined="false"
+                            :small="false"
+                            :hover="false"
+                            :dark="false"
+                            :fixed="false"
+                            :foot-clone="false"
+                            :fields="fieldHeader"
+                            :items="items"
+                            class="table-sm table-style-3"
+                          >
+                            <template v-slot:cell(name)="data">
+                              <span>{{data.item.marketing_id+" - " +data.item.name}}</span>
+                            </template>
+                          </b-table>
+                        </div>
+                      </div>
+                    </b-row>
+                    <b-row>
+                      <b-col md="12">
+                        <span>
+                          <label>Add Team</label>
+                        </span>
+                        <div class="card__body">
+                          <div class="table--list" :id="'marketingmaster_team'">
+                            <b-table
+                              :responsive="true"
+                              :striped="false"
+                              :bordered="true"
+                              :outlined="false"
+                              :small="false"
+                              :hover="true"
+                              :dark="false"
+                              :fixed="false"
+                              :foot-clone="false"
+                              :fields="fieldHeader2"
+                              :items="items2"
+                              class="table-sm table-style-3"
+                            >
+                              <template v-slot:cell(name)="data">
+                                <span>{{data.item.marketing_id+" - " +data.item.name}}</span>
+                              </template>
+                              <template v-slot:cell(is_my_team)="data">
+                                <b-form-checkbox
+                                  :id="'cbTeam_'+data.index"
+                                  :name="'cbTeam_'+data.index"
+                                  v-model="data.item.is_my_team"
+                                  :value="true"
+                                  :unchecked-value="false"
+                                  style="min-height:15px !important;padding-top:0px !important;"
+                                />
+                              </template>
+                            </b-table>
+                          </div>
+                        </div>
+                        <div class="card__footer" style="padding-bottom: 10px;">
+                          <b-row>
+                            <b-col md="12" style="text-align: center;">
+                              <ABSButton
+                                :text="'Save'"
+                                classButton="btn btn--default"
+                                classIcon="icon-style-1"
+                                @click="doSave"
+                                styleButton="height: 40px;width: 75%;"
+                              />
+                            </b-col>
+                          </b-row>
+                        </div>
+                      </b-col>
+                    </b-row>
+                  </b-col>
+                </b-row>
+              </b-form>
+            </div>
           </div>
         </b-col>
       </b-row>
@@ -113,25 +144,47 @@ export default {
   data() {
     return {
       propList: {
-        initialWhere: "",
+        initialWhere:
+          "ss_portfolio_id='" + this.getDataUser().portfolio_id + "'",
         LineNo: 0,
         PageLevel: 1,
         TabIndex: 1,
-        OrderBy: " time_edit DESCS ",
+        OrderBy: "marketing_id ASC ",
         SourceField: "",
         ParamView: ""
       },
-
+      M_MkMarketing: {
+        mk_marketing_id: 0,
+        ss_portfolio_id: 0,
+        user_id: "",
+        marketing_id: "",
+        nameLabel: "",
+        nik_id: "",
+        address: "",
+        email: "",
+        hand_phone: "",
+        status_active: "",
+        join_date: "",
+        monthly_point: 0,
+        monthly_new_prospect: 0,
+        user_input: "",
+        user_edit: "",
+        time_input: "",
+        time_edit: "",
+        minimum_margin: "",
+        remarks: "",
+        row_id: 0,
+        lastupdatestamp: 0
+      },
+      fieldHeader2: [],
+      items2: [],
       //For List
-      cmbMarketing: [],
-      cmbYear: [],
-      WithViewButton: false,
+      WithViewButton: true,
       isFirst: false,
       selected: false,
       rowSelected: [],
       dataSelected: [],
       rowSel: -1,
-      filterActionM: "",
       filterAction: "",
 
       search: "",
@@ -139,7 +192,7 @@ export default {
       fieldHeader: [],
       items: [],
       firstSort: true,
-      sort: "time_edit DESC",
+      sort: "marketing_id ASC",
 
       totalRows: 0,
       currentPage: 1,
@@ -168,7 +221,7 @@ export default {
       selectedColumnTemp: [],
       selectedColumnSelected: [],
 
-      sortedField: [{ field: "time_edit", sort: "DESCS" }],
+      sortedField: [{ field: "marketing_id", sort: "ASC" }],
       isDisableTable: false,
       responses: []
     };
@@ -176,72 +229,30 @@ export default {
   computed: {
     paramFromList() {
       var param = this.$route.params;
-      // if (param == null || param == undefined) {
-      //     this.doBack();
-      // } else {
-      //     if (Object.keys(param).length < 1) {
-      //         this.doBack();
-      //     } else {
-      return param;
-      //     }
-      // }
+      if (param == null || param == undefined) {
+        this.doBack();
+      } else {
+        if (Object.keys(param).length < 1) {
+          this.doBack();
+        } else {
+          return param;
+        }
+      }
     }
   },
   methods: {
     doBack() {
       this.$router.go(-1);
     },
-    // Onmonthly_pointInput(data,index) {
-    //     this.$nextTick(() => {
-    //         this.items[index].monthly_point = data
-    //     })
-    //     this.$forceUpdate();
-    // },
-    // Onmonthly_new_prospectInput(data,index) {
-    //     this.$nextTick(() => {
-    //         this.items[index].monthly_new_prospect = data
-    //     })
-    //     this.$forceUpdate();
-    // },
-    rowClicked(record, index) {},
-    doDoubleClick(record, index) {},
-    doViewClick(record, index) {
-      //target ntr
+    doEdit() {
+      var param = this.paramFromList;
+      param.isEdit = true;
+      this.$router.push({ name: "CM_MarketingMasterForm", params: param });
     },
-    rowLink(url) {},
-    M_PageSize() {},
-    M_Pagination() {},
-    M_Advance_Filter() {},
-    M_Head_Table() {},
-    refreshColumn() {},
-    onSearchEnter(data) {
-      //   this.doGetList(this.search, "onSearchEnter");
-    },
-    onTeamClick() {},
-    onCustomerListClick() {},
-    // doProspect() {
-    //   var filter = " contact_type = 'P'";
-    //   this.propList.initialWhere = filter;
-    //   this.doGetList(this.search);
-    // },
-    // doCustomer() {
-    //   var filter = " contact_type = 'C'";
-    //   this.propList.initialWhere = filter;
-    //   this.doGetList(this.search);
-    // },
-
-    dofilterAction() {
-      //   var filter = " action = '" + this.filterAction + "'";
-      //   this.propList.initialWhere = filter;
-      this.doGetList2();
-    },
-    // dofilterActionM() {
-    //     this.doGetList2();
-    // },
-    doGetList(search) {
+    doGetList(search, a = null) {
       var param = {
-        option_url: "/CM/CM_MarketingMaster",
-        line_no: 2,
+        option_url: "/MK/MK_Marketing",
+        line_no: 0,
         user_id: this.getDataUser().user_id,
         portfolio_id: this.getDataUser().portfolio_id,
         subportfolio_id: this.getDataUser().subportfolio_id,
@@ -332,13 +343,13 @@ export default {
             return val.key != str_array[i];
           });
 
-          var thClass = "HeaderACCList2 ";
+          var thClass = "HeaderACCList " + defineSize[i];
           if (str_array[i] !== "no") {
             thClass += defineSize[i];
           }
           //   var thClass = "HeaderACCList2 L";
 
-          var tdClass = "ContentACCList2 notranslate";
+          var tdClass = "ContentACCList notranslate";
           if (
             str_array[i].toLowerCase().includes("amount") ||
             str_array[i].toLowerCase().includes("amt") ||
@@ -347,7 +358,7 @@ export default {
           ) {
             tdClass = "ABStdClassList2 notranslate";
             thClass = "ABSthClassList2";
-          } else if (str_array[i].toLowerCase() == "target") {
+          } else if (str_array[i].toLowerCase() == "action") {
             thClass += " th-cus-center";
             tdClass += " td-cus-center";
           }
@@ -417,7 +428,15 @@ export default {
               },
               {
                 key: "Row Id",
-                value: "Target"
+                value: "View"
+              },
+              {
+                key: "Row  Id",
+                value: "View"
+              },
+              {
+                key: "Name",
+                value: "Marketing Name"
               }
             ];
             var isGotIt = false;
@@ -465,7 +484,7 @@ export default {
               }
             }
 
-            if (labelHeader == "Row Id") continue;
+            // if (labelHeader == "Row Id") continue;
 
             this.fieldHeader.push({
               value: i + 1,
@@ -492,7 +511,7 @@ export default {
         user_id: this.getDataUser().user_id
       };
 
-      this.fieldHeader = [
+      this.fieldHeader2 = [
         {
           value: 1,
           key: "no",
@@ -500,47 +519,47 @@ export default {
           tdClass: "ContentACCList2 notranslate",
           label: "No"
         },
+        // {
+        //     value: 2,
+        //     key: "marketing_id",
+        //     thClass: "HeaderACCList  S",
+        //     tdClass: "ContentACCList2 notranslate",
+        //     label: "Marketing ID"
+        // },
         {
           value: 2,
-          key: "marketing_id",
-          thClass: "HeaderACCList2 S",
-          tdClass: "ContentACCList2 notranslate",
-          label: "Marketing ID"
+          key: "name",
+          thClass: "HeaderACCList  M",
+          tdClass: "ContentACCList notranslate",
+          label: "Marketing Name"
         },
+        // {
+        //     value: 4,
+        //     key: "join_date",
+        //     thClass: "HeaderACCList  M",
+        //     tdClass: "ContentACCList2 notranslate",
+        //     label: "Join Date"
+        // },
+        // {
+        //     value: 5,
+        //     key: "monthly_point",
+        //     thClass: "HeaderACCList  S",
+        //     tdClass: "ContentACCList2 notranslate",
+        //     label: "Monthly Point"
+        // },
+        // {
+        //     value: 6,
+        //     key: "monthly_new_prospect",
+        //     thClass: "HeaderACCList  S",
+        //     tdClass: "ContentACCList2 notranslate",
+        //     label: "Monthly New Prospect"
+        // },
         {
           value: 3,
-          key: "name",
-          thClass: "HeaderACCList2 M",
-          tdClass: "ContentACCList2 notranslate",
-          label: "Name"
-        },
-        {
-          value: 4,
-          key: "join_date",
-          thClass: "HeaderACCList2 M",
-          tdClass: "ContentACCList2 notranslate",
-          label: "Join Date"
-        },
-        {
-          value: 5,
-          key: "monthly_point",
-          thClass: "HeaderACCList2 S",
-          tdClass: "ContentACCList2 notranslate",
-          label: "Monthly Point"
-        },
-        {
-          value: 6,
-          key: "monthly_new_prospect",
-          thClass: "HeaderACCList2 S",
-          tdClass: "ContentACCList2 notranslate",
-          label: "Monthly New Prospect"
-        },
-        {
-          value: 7,
           key: "is_my_team",
-          thClass: "HeaderACCList2",
-          tdClass: "ContentACCList2 notranslate",
-          label: "Set As My Team"
+          thClass: "HeaderACCList S",
+          tdClass: "ContentACCList notranslate",
+          label: "My Team"
         }
       ];
 
@@ -548,10 +567,10 @@ export default {
         // response from API
         if (response == null) return;
         this.$nextTick(() => {
-          this.items = [];
-          this.responses = response.Data;
+          this.items2 = [];
+          this.responses2 = response.Data;
           for (let i = 0; i < response.Data.length; i++) {
-            this.items.push({
+            this.items2.push({
               no: i + 1,
               marketing_id: response.Data[i].marketing_id,
               name: response.Data[i].name,
@@ -574,22 +593,22 @@ export default {
     },
     getList() {
       this.$nextTick(() => {
-        for (let i = 0; i < this.items.length; i++) {
-          this.items[i].monthly_point =
-            this.responses[i] !== undefined
-              ? this.responses[i].monthly_point &&
-                this.responses[i].monthly_point !== ""
-                ? this.responses[i].monthly_point
+        for (let i = 0; i < this.items2.length; i++) {
+          this.items2[i].monthly_point =
+            this.responses2[i] !== undefined
+              ? this.responses2[i].monthly_point &&
+                this.responses2[i].monthly_point !== ""
+                ? this.responses2[i].monthly_point
                 : 0
               : 0;
-          this.items[i].monthly_new_prospect =
-            this.responses[i] !== undefined
-              ? this.responses[i].monthly_new_prospect &&
-                this.responses[i].monthly_new_prospect !== ""
-                ? this.responses[i].monthly_new_prospect
+          this.items2[i].monthly_new_prospect =
+            this.responses2[i] !== undefined
+              ? this.responses2[i].monthly_new_prospect &&
+                this.responses2[i].monthly_new_prospect !== ""
+                ? this.responses2[i].monthly_new_prospect
                 : 0
               : 0;
-          this.items[i].is_my_team = this.responses[i].is_my_team;
+          this.items2[i].is_my_team = this.responses2[i].is_my_team;
         }
       });
 
@@ -607,7 +626,7 @@ export default {
     M_Save() {
       var paramInsert = [];
 
-      this.items.forEach((data, index) => {
+      this.items2.forEach((data, index) => {
         paramInsert.push({
           marketing_id: data.marketing_id,
           name: data.name,
@@ -630,14 +649,78 @@ export default {
           this.doBack();
         });
       });
+    },
+    doDelete() {
+      this.alertConfirmation("Are You Sure Want To Delete This Data ?").then(
+        ress => {
+          if (ress.value) {
+            this.M_Delete();
+          }
+        }
+      );
+    },
+    M_Delete() {
+      var param = {
+        option_url: "/MK/MK_Marketing",
+        line_no: 0,
+        id: this.paramFromList.row_id,
+        lastupdatestamp: this.paramFromList.lastupdatestamp
+      };
+      this.deleteJSON(this.getUrlCRUD(), param).then(response => {
+        // response from API
+        if (response == null) return;
+
+        // var data = response.Data[0];
+      });
+    },
+    GetDataBy() {
+      var param = {
+        option_url: "/MK/MK_Marketing",
+        line_no: 0,
+        id: this.paramFromList.row_id,
+        lastupdatestamp: this.paramFromList.lastupdatestamp
+      };
+
+      this.getJSON(this.getUrlCRUD(), param).then(response => {
+        // response from API
+        if (response == null) return;
+
+        var data = response.Data[0];
+
+        this.M_MkMarketing = {
+          mk_marketing_id: data.mk_marketing_id,
+          ss_portfolio_id: data.ss_portfolio_id,
+          user_id: data.user_id__lo_1,
+          marketing_id: data.marketing_id,
+          nameLabel: data.name__lbl__lo_1,
+          nik_id: data.nik_id,
+          address: data.address,
+          email: data.email,
+          hand_phone: data.hand_phone,
+          status_active: data.status_active,
+          join_date: data.join_date,
+          monthly_point: data.monthly_point__tb_2,
+          monthly_new_prospect: data.monthly_new_prospect__tb_3,
+          user_input: data.user_input,
+          user_edit: data.user_edit,
+          time_input: data.time_input,
+          time_edit: data.time_edit,
+          minimum_margin: data.minimum_margin__tb_4,
+          remarks: data.remarks__tb_5,
+          row_id: data.row_id,
+          lastupdatestamp: data.lastupdatestamp
+        };
+        var filter = " AND row_id = " + data.mk_marketing_id;
+        this.propList.initialWhere += filter;
+        this.doGetList(this.search);
+        this.doGetList2();
+      });
     }
   },
   mounted() {
-    //   if (this.paramFromList !== undefined) {
-    this.doGetList2();
-    //   }
+    this.GetDataBy();
   },
-  created() {}
+  beforeMount() {}
 };
 </script>
 
