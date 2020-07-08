@@ -78,6 +78,8 @@ import MK_CustomerTarget from '@/views/MK/MK_CustomerTarget/MK_CustomerTarget'
 import MK_AddCustomerTarget from '@/views/MK/MK_CustomerTarget/MK_AddCustomerTarget'
 import MK_ViewCustomerTarget from '@/views/MK/MK_CustomerTarget/MK_ViewCustomerTarget'
 
+import MK_DocumentType from '@/views/MK/MK_Dokument_Type/MK_Dokument_TypeList'
+import MK_DocumentTypeForm from '@/views/MK/MK_Dokument_Type/MK_Dokument_TypeForm'
 
 export const MKRender = {
     path: '/MK',
@@ -593,6 +595,24 @@ export const MKRender = {
         path: '/MK/MK_CustomerTarget/View',
         name: 'MK_ViewCustomerTarget',
         component: MK_ViewCustomerTarget,
+        meta: {
+            requiresAuth: true
+        }
+
+    },
+    {
+        path: '/MK/MK_Document_Type',
+        name: 'MK_DocumentType',
+        component: MK_DocumentType,
+        meta: {
+            requiresAuth: true
+        }
+
+    },
+    {
+        path: '/MK/MK_Document_Type/Form',
+        name: 'MK_DocumentTypeForm',
+        component: MK_DocumentTypeForm,
         meta: {
             requiresAuth: true
         }
