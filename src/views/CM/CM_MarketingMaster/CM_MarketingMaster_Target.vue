@@ -650,7 +650,7 @@ export default {
         this.$store.commit('setStatusLoader', true)
         var param = {
             option_function_cd: "GetMarketingTarget",
-            module_cd: "CM",
+            module_cd: "MK",
             marketing_id: this.filterActionM,
             year: this.filterAction
         };

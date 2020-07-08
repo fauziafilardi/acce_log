@@ -13,7 +13,7 @@
       :disabled="(inputStatus == 'edit' && prop.cKey) || prop.cProtect"
       @keypress.native="formatNumber"
       :style="style"
-      @blur.native="isCurrency2"
+      @blur.native="isCurrency2(true)"
       :ref="prop.cName"
       :id="prop.cName"
       @paste.native="onPaste"
@@ -101,7 +101,7 @@ export default {
       }
     },
     handleInput () {
-      console.log(this.value)
+      // console.log(this.value)
       if (this.prop.cType == 'text') {
         if (this.value) {
           this.value = this.value.toString()
@@ -186,7 +186,7 @@ export default {
           }
       }
     },
-    isCurrency2 () {
+    isCurrency2 (b = false) {
       // console.log(this.value)
       if (this.prop.cType == 'decimal') {
         // console.log(this.value)
@@ -219,7 +219,9 @@ export default {
         }
       }
 
-      this.$emit('onBlur', this.value)
+      if (b) {
+        this.$emit('onBlur', this.value)
+      }
       this.$emit('input', this.value)
     },
     onFocus () {
@@ -263,7 +265,7 @@ export default {
         this.decimals += "0"
 
         if (i === this.prop.cDecimal) {
-          this.isCurrency2()
+          this.isCurrency2(false)
         }
       }
 

@@ -71,6 +71,14 @@ import MK_DashboardProspect from '@/views/MK/MK_Dashboard/MK_DashboardProspect'
 import MK_DashboardOutstandingPayment from '@/views/MK/MK_Dashboard/MK_DashboardOutstandingPayment'
 import MK_DashboardCommision from '@/views/MK/MK_Dashboard/MK_DashboardCommision'
 
+import MK_MarketingTarget from '@/views/MK/MK_MarketingTarget/MK_MarketingTarget'
+import MK_AddMarketingTarget from '@/views/MK/MK_MarketingTarget/MK_AddMarketingTarget'
+import MK_ViewMarketingTarget from '@/views/MK/MK_MarketingTarget/MK_ViewMarketingTarget'
+import MK_CustomerTarget from '@/views/MK/MK_CustomerTarget/MK_CustomerTarget'
+import MK_AddCustomerTarget from '@/views/MK/MK_CustomerTarget/MK_AddCustomerTarget'
+import MK_ViewCustomerTarget from '@/views/MK/MK_CustomerTarget/MK_ViewCustomerTarget'
+
+
 export const MKRender = {
     path: '/MK',
     component: {
@@ -530,6 +538,61 @@ export const MKRender = {
         path: '/MK/MK_DashboardCommision',
         name: 'MK_DashboardCommision',
         component: MK_DashboardCommision,
+        meta: {
+            requiresAuth: true
+        }
+
+    },
+
+    {
+        path: '/MK/MK_MarketingTarget',
+        name: 'MK_MarketingTarget',
+        component: MK_MarketingTarget,
+        meta: {
+            requiresAuth: true
+        }
+
+    },
+    {
+        path: '/MK/MK_MarketingTarget/Form',
+        name: 'MK_AddMarketingTarget',
+        component: MK_AddMarketingTarget,
+        meta: {
+            requiresAuth: true
+        }
+
+    },
+    {
+        path: '/MK/MK_MarketingTarget/View',
+        name: 'MK_ViewMarketingTarget',
+        component: MK_ViewMarketingTarget,
+        meta: {
+            requiresAuth: true
+        }
+
+    },
+    {
+        path: '/MK/MK_CustomerTarget',
+        name: 'MK_CustomerTarget',
+        component: MK_CustomerTarget,
+        meta: {
+            requiresAuth: true
+        }
+
+    },
+    {
+        path: '/MK/MK_CustomerTarget/Form',
+        name: 'MK_AddCustomerTarget',
+        component: MK_AddCustomerTarget,
+        meta: {
+            requiresAuth: true
+        }
+
+    },
+    {
+        path: '/MK/MK_CustomerTarget/View',
+        name: 'MK_ViewCustomerTarget',
+        component: MK_ViewCustomerTarget,
         meta: {
             requiresAuth: true
         }
