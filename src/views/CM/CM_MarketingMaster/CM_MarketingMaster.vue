@@ -20,7 +20,7 @@
                     style="color: #7f8084; font-weight: normal; margin-left: 5px; cursor: pointer;"
                     @click="doCustomer"
                   >Customer</span> &nbsp;
-                </b-col> -->
+                </b-col>-->
                 <!-- <b-col md="2">
                   <b-form-select
                     id="cmbFilter"
@@ -34,7 +34,7 @@
                     :disabled="isDisableTable"
                     style="height: 22px !important; width: 100% !important; margin-bottom: 5px;"
                   ></b-form-select>
-                </b-col> -->
+                </b-col>-->
                 <!-- <b-col md="3">
                   <b-form-input
                     id="txtSearch"
@@ -48,7 +48,7 @@
                     :disabled="isSearchDisable"
                     style="width: 100% !important;"
                   ></b-form-input>
-                </b-col> -->
+                </b-col>-->
                 <b-col class="col-right">
                   <!-- <span>
                     <ABSButton
@@ -57,41 +57,49 @@
                       classIcon="icon-style-1"
                       @click="onSearchEnter"
                     />
-                  </span> -->
+                  </span>-->
 
-                  <span>
+                  <!-- <span>
                     <ABSButton
-                        :text="'Team'"
-                        classButton="button button--back2"
-                        classIcon="icon-style-1"
-                        @click="onTeamClick"
+                      :text="'Team'"
+                      classButton="button button--back2"
+                      classIcon="icon-style-1"
+                      @click="onTeamClick"
                     />
                   </span>
 
                   <span>
                     <ABSButton
-                        :text="'Target'"
-                        classButton="button button--back2"
-                        classIcon="icon-style-1"
-                        @click="onTargetClick"
+                      :text="'Target'"
+                      classButton="button button--back2"
+                      classIcon="icon-style-1"
+                      @click="onTargetClick"
                     />
                   </span>
 
                   <span>
                     <ABSButton
-                        :text="'Add Target'"
-                        classButton="button button--back2"
-                        classIcon="icon-style-1"
-                        @click="onAddTargetClick"
+                      :text="'Add Target'"
+                      classButton="button button--back2"
+                      classIcon="icon-style-1"
+                      @click="onAddTargetClick"
                     />
                   </span>
 
                   <span>
                     <ABSButton
-                        :text="'Customer List'"
-                        classButton="button button--back2"
-                        classIcon="icon-style-1"
-                        @click="onCustomerListClick"
+                      :text="'Customer List'"
+                      classButton="button button--back2"
+                      classIcon="icon-style-1"
+                      @click="onCustomerListClick"
+                    />
+                  </span>-->
+                  <span>
+                    <ABSButton
+                      :text="'Add Marketing'"
+                      classButton="button button--back2"
+                      classIcon="icon-style-1"
+                      @click="onAddMarketing"
                     />
                   </span>
 
@@ -111,7 +119,7 @@
                 <b-table
                   :responsive="true"
                   :striped="false"
-                  :bordered="false"
+                  :bordered="true"
                   :outlined="false"
                   :small="false"
                   :hover="true"
@@ -122,14 +130,17 @@
                   :items="items"
                   class="table-sm table-style-3"
                 >
+                  <template v-slot:cell(name)="data">
+                    <span>{{data.item.marketing_id+" - " +data.item.name}}</span>
+                  </template>
                   <template v-slot:cell(row_id)="data">
                     <b-button
                       v-if="WithViewButton == true"
                       size="sm"
-                      @click.stop="viewClicked(data.item, data.index)"
+                      @click.stop="doViewClick(data.item, data.index)"
                       :disabled="false"
                       class="btn btn--default"
-                    >Target</b-button>
+                    >View</b-button>
                     <span v-else>{{data.item.row_id}}</span>
                   </template>
                 </b-table>
@@ -176,17 +187,18 @@ export default {
   data() {
     return {
       propList: {
-        initialWhere: "user_id_login='" + this.getDataUser().user_id + "'",
+        initialWhere:
+          "ss_portfolio_id='" + this.getDataUser().portfolio_id + "'",
         LineNo: 0,
         PageLevel: 1,
         TabIndex: 1,
-        OrderBy: " order_list ASC,marketing_id ASC ",
+        OrderBy: "marketing_id ASC ",
         SourceField: "",
         ParamView: ""
       },
 
       //For List
-      WithViewButton: false,
+      WithViewButton: true,
       isFirst: false,
       selected: false,
       rowSelected: [],
@@ -199,7 +211,7 @@ export default {
       fieldHeader: [],
       items: [],
       firstSort: true,
-      sort: "order_list ASC,marketing_id ASC",
+      sort: "marketing_id ASC",
 
       totalRows: 0,
       currentPage: 1,
@@ -228,15 +240,15 @@ export default {
       selectedColumnTemp: [],
       selectedColumnSelected: [],
 
-      sortedField: [{ field: "order_list", sort: "ASC" }, { field: "marketing_id", sort: "ASC" }],
+      sortedField: [{ field: "marketing_id", sort: "ASC" }],
       isDisableTable: false,
       responses: []
     };
   },
   methods: {
-      doBack() {
-        this.$router.go(-1);
-      },
+    doBack() {
+      this.$router.go(-1);
+    },
     rowClicked(record, index) {},
     doDoubleClick(record, index) {},
     viewClicked(record, index) {
@@ -264,16 +276,13 @@ export default {
     onCustomerListClick() {
       this.$router.push({ name: "CM_MarketingMaster_CustomerList" });
     },
-    // doProspect() {
-    //   var filter = " contact_type = 'P'";
-    //   this.propList.initialWhere = filter;
-    //   this.doGetList(this.search);
-    // },
-    // doCustomer() {
-    //   var filter = " contact_type = 'C'";
-    //   this.propList.initialWhere = filter;
-    //   this.doGetList(this.search);
-    // },
+    onAddMarketing() {
+      this.$router.push({ name: "CM_MarketingMasterForm" });
+    },
+    doViewClick(record, index) {
+      var param = record;
+      this.$router.push({ name: "CM_MarketingMasterView", params: param });
+    },
 
     dofilterAction() {
       var filter = " action = '" + this.filterAction + "'";
@@ -374,13 +383,13 @@ export default {
             return val.key != str_array[i];
           });
 
-          var thClass = "HeaderACCList2 ";
+          var thClass = "HeaderACCList " + defineSize[i];
           if (str_array[i] !== "no") {
             thClass += defineSize[i];
           }
           //   var thClass = "HeaderACCList2 L";
 
-          var tdClass = "ContentACCList2 notranslate";
+          var tdClass = "ContentACCList notranslate";
           if (
             str_array[i].toLowerCase().includes("amount") ||
             str_array[i].toLowerCase().includes("amt") ||
@@ -389,10 +398,9 @@ export default {
           ) {
             tdClass = "ABStdClassList2 notranslate";
             thClass = "ABSthClassList2";
-          }
-          else if (str_array[i].toLowerCase() == "target") {
-              thClass += " th-cus-center"
-              tdClass += " td-cus-center";
+          } else if (str_array[i].toLowerCase() == "action") {
+            thClass += " th-cus-center";
+            tdClass += " td-cus-center";
           }
 
           var isSorted = this.sortedField
@@ -460,7 +468,11 @@ export default {
               },
               {
                 key: "Row Id",
-                value: "Target"
+                value: "View"
+              },
+              {
+                key: "Row  Id",
+                value: "View"
               }
             ];
             var isGotIt = false;
@@ -508,7 +520,7 @@ export default {
               }
             }
 
-            if (labelHeader == "Row Id") continue;
+            // if (labelHeader == "Row Id") continue;
 
             this.fieldHeader.push({
               value: i + 1,
@@ -533,8 +545,7 @@ export default {
   mounted() {
     this.doGetList("");
   },
-  created() {
-  }
+  created() {}
 };
 </script>
 
