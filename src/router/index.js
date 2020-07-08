@@ -47,6 +47,9 @@ import {
 import {
   ADMRender
 } from './ADM/ADM'
+import {
+  SetupRender
+} from './Setup/Setup'
 
 
 // import { TNRender } from './TN/TN'
@@ -206,6 +209,7 @@ export default new Router({
         SORender,
         OPRender,
         ADMRender,
+        SetupRender,
 
         // TNRender,
         // // WFRender,

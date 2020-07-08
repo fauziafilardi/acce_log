@@ -144,7 +144,7 @@
                             classButton="btn btn--default"
                             classIcon="icon-style-1"
                             @click="doEdit"
-                            :disabled="!ButtonStatus.btnEdit"
+                            :disabled="ButtonStatus == null ? false : !ButtonStatus.btnEdit"
                           />
                         </span>
                         <br />

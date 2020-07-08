@@ -1,0 +1,164 @@
+<template>
+  <div class="dashboard-page-chart">
+    <div class="dashboard-page-chart__body">
+      <b-row class="dashboardBody">
+        <b-col md="4" @click="onFleetMasterClick">
+          <div class="card">
+            <div class="card__title">
+              <b-row>
+                <b-col>
+                  <span style="float: left !important;">Fleet Master</span> &nbsp;
+                </b-col>
+              </b-row>
+            </div>
+            <div class="card__body">
+              <div style="width: 100%; text-align: center;">
+                <font-awesome-icon style="color: #333399;" icon="cog" size="6x" />
+                <br />
+                <br />
+                <span style="width: 75%">Fleet Master Setup</span>
+              </div>
+            </div>
+          </div>
+        </b-col>
+        <b-col md="4" @click="onDriverManagementClick">
+          <div class="card">
+            <div class="card__title">
+              <b-row>
+                <b-col>
+                  <span style="float: left !important;">Driver Management</span> &nbsp;
+                </b-col>
+              </b-row>
+            </div>
+            <div class="card__body">
+              <div style="width: 100%; text-align: center;">
+                <font-awesome-icon style="color: #333399;" icon="cog" size="6x" />
+                <br />
+                <br />
+                <span style="width: 75%">Manage Driver Setup</span>
+              </div>
+            </div>
+          </div>
+        </b-col>
+        <b-col md="4" @click="onVehicleBrandClick">
+          <div class="card">
+            <div class="card__title">
+              <b-row>
+                <b-col>
+                  <span style="float: left !important;">Vehicle Brand</span> &nbsp;
+                </b-col>
+              </b-row>
+            </div>
+            <div class="card__body">
+              <div style="width: 100%; text-align: center;">
+                <font-awesome-icon style="color: #333399;" icon="cog" size="6x" />
+                <br />
+                <br />
+                <span style="width: 75%">Master Vehicle Brand</span>
+              </div>
+            </div>
+          </div>
+        </b-col>
+      </b-row>
+      <b-row class="dashboardBody">
+        <b-col md="4" @click="onVehicleTypeClick">
+          <div class="card">
+            <div class="card__title">
+              <b-row>
+                <b-col>
+                  <span style="float: left !important;">Vehicle Type</span> &nbsp;
+                </b-col>
+              </b-row>
+            </div>
+            <div class="card__body">
+              <div style="width: 100%; text-align: center;">
+                <font-awesome-icon style="color: #333399;" icon="cog" size="6x" />
+                <br />
+                <br />
+                <span style="width: 75%">Master Vehicle Type</span>
+              </div>
+            </div>
+          </div>
+        </b-col>
+        <b-col md="4" @click="onVehicleCaroseryClick">
+          <div class="card">
+            <div class="card__title">
+              <b-row>
+                <b-col>
+                  <span style="float: left !important;">Vehicle Carosery</span> &nbsp;
+                </b-col>
+              </b-row>
+            </div>
+            <div class="card__body">
+              <div style="width: 100%; text-align: center;">
+                <font-awesome-icon style="color: #333399;" icon="cog" size="6x" />
+                <br />
+                <br />
+                <span style="width: 75%">Master Vehicle Carosery</span>
+              </div>
+            </div>
+          </div>
+        </b-col>
+        <b-col md="4" @click="onMaintenanceTypeClick">
+          <div class="card">
+            <div class="card__title">
+              <b-row>
+                <b-col>
+                  <span style="float: left !important;">Maintenance Type</span> &nbsp;
+                </b-col>
+              </b-row>
+            </div>
+            <div class="card__body">
+              <div style="width: 100%; text-align: center;">
+                <font-awesome-icon style="color: #333399;" icon="cog" size="6x" />
+                <br />
+                <br />
+                <span style="width: 75%">Master Maintenance Type</span>
+              </div>
+            </div>
+          </div>
+        </b-col>
+      </b-row>
+      <b-row class="dashboardBody">
+        <b-col md="4" @click="onTicketCategoryClick">
+          <div class="card">
+            <div class="card__title">
+              <b-row>
+                <b-col>
+                  <span style="float: left !important;">Ticket Category</span> &nbsp;
+                </b-col>
+              </b-row>
+            </div>
+            <div class="card__body">
+              <div style="width: 100%; text-align: center;">
+                <font-awesome-icon style="color: #333399;" icon="cog" size="6x" />
+                <br />
+                <br />
+                <span style="width: 75%">Master Ticket Category</span>
+              </div>
+            </div>
+          </div>
+        </b-col>
+      </b-row>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {};
+  },
+  computed: {},
+  methods: {
+    onFleetMasterClick() {},
+    onDriverManagementClick() {},
+    onVehicleBrandClick() {},
+    onVehicleTypeClick() {},
+    onVehicleCaroseryClick() {},
+    onMaintenanceTypeClick() {},
+    onTicketCategoryClick() {},
+  },
+  mounted() {}
+};
+</script>

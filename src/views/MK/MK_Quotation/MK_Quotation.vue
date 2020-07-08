@@ -41,7 +41,7 @@
                       classButton="button button--back2"
                       classIcon="icon-style-1"
                       @click="doAdd"
-                      :disabled="!ButtonStatus.btnAdd"
+                      :disabled="ButtonStatus == null ? false : !ButtonStatus.btnAdd"
                     />
                   </span>
                   <span>
