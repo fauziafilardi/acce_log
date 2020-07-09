@@ -89,12 +89,21 @@
                     </b-row>
 
                     <b-row style="margin-top: 10px;">
-                      <b-col md="6">
+                      <b-col :md="mdSave">
                         <ABSButton
                           :text="'Save'"
                           classButton="btn btn--default"
                           classIcon="icon-style-default"
                           @click="doSave"
+                          styleButton="height: 40px;width: 100%;"
+                        />
+                      </b-col>
+                      <b-col md="3" v-if="disableBtnDelete==true">
+                        <ABSButton
+                          :text="'Delete'"
+                          classButton="btn btn--default"
+                          classIcon="icon-style-default"
+                          @click="doDelete"
                           styleButton="height: 40px;width: 100%;"
                         />
                       </b-col>
@@ -115,7 +124,8 @@ export default {
   data() {
     return {
       title: "",
-
+      mdSave: 6,
+      disableBtnDelete: false,
       M_MkQuotationProject: {
         mk_quotation_project_id: 0,
         mk_quotation_id: 0,
@@ -339,6 +349,29 @@ export default {
         });
       });
     },
+    doDelete() {
+      this.alertConfirmation("Are You Sure Want To Delete This Data ?").then(
+        ress => {
+          if (ress.value) {
+            this.M_Delete();
+          }
+        }
+      );
+    },
+    M_Delete() {
+      var param = {
+        option_url: "/MK/MK_Quotation",
+        line_no: 6,
+        id: this.paramFromList.row_id,
+        lastupdatestamp: this.paramFromList.DetailList.lastupdatestamp
+      };
+      this.deleteJSON(this.getUrlCRUD(), param).then(response => {
+        if (response == null) return;
+        this.alertSuccess("Data Has Been Deleted").then(() => {
+          this.doBack();
+        });
+      });
+    },
     GetDataBy() {
       var param = {
         option_url: "/MK/MK_Quotation",
@@ -378,8 +411,14 @@ export default {
   },
   mounted() {
     this.M_ClearForm();
+    this.PI_fr_cm_contact_delivery_address_id.dataLookUp.InitialWhere =
+      "cm_contact_id=" + this.paramFromList.cm_contact_id;
+    this.PI_to_cm_contact_delivery_address_id.dataLookUp.InitialWhere =
+      "cm_contact_id=" + this.paramFromList.cm_contact_id;
     if (this.inputStatus == "edit") {
       this.title = "Edit";
+      this.mdSave = 3;
+      this.disableBtnDelete = true;
       this.GetDataBy();
     } else {
       this.title = "Add";

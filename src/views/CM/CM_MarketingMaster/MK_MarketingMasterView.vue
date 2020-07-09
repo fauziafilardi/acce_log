@@ -670,7 +670,9 @@ export default {
         // response from API
         if (response == null) return;
 
-        // var data = response.Data[0];
+        this.alertSuccess("Data Has Been Deleted").then(() => {
+          this.doBack();
+        });
       });
     },
     GetDataBy() {

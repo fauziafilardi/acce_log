@@ -7,35 +7,10 @@
             <div class="card__title" style="padding-bottom: 5px !important;">
               <b-row>
                 <b-col style="max-width:fit-content !important;">
-                  <span>Marketing Master</span>
+                  <span>Marketing Reassignment</span>
                 </b-col>
-                <!-- <b-col style="text-align: right;">
-                  <b-badge variant="primary" @click="doProspect" style="cursor: pointer;">&nbsp;</b-badge>
-                  <span
-                    style="color: #7f8084; font-weight: normal; margin-left: 5px; cursor: pointer;"
-                    @click="doProspect"
-                  >Prospect</span> &nbsp;
-                  <b-badge variant="success" @click="doCustomer" style="cursor: pointer;">&nbsp;</b-badge>
-                  <span
-                    style="color: #7f8084; font-weight: normal; margin-left: 5px; cursor: pointer;"
-                    @click="doCustomer"
-                  >Customer</span> &nbsp;
-                </b-col>-->
-                <!-- <b-col md="2">
-                  <b-form-select
-                    id="cmbFilter"
-                    v-model="filterAction"
-                    @input="dofilterAction"
-                    :options="[
-                                            {value: 'C', text: 'Call'},
-                                            {value: 'V', text: 'Visit'},
-                                            {value: 'E', text: 'Entertainment'}
-                                        ]"
-                    :disabled="isDisableTable"
-                    style="height: 22px !important; width: 100% !important; margin-bottom: 5px;"
-                  ></b-form-select>
-                </b-col>-->
-                <!-- <b-col md="3">
+
+                <b-col md="3">
                   <b-form-input
                     id="txtSearch"
                     v-model="search"
@@ -48,79 +23,43 @@
                     :disabled="isSearchDisable"
                     style="width: 100% !important;"
                   ></b-form-input>
-                </b-col>-->
-                <b-col class="col-right">
-                  <!-- <span>
+                </b-col>
+                <b-col md="3" class="col-right">
+                  <span>
                     <ABSButton
                       :text="'Search'"
                       classButton="button button--back2"
                       classIcon="icon-style-1"
                       @click="onSearchEnter"
                     />
-                  </span>-->
-
-                  <!-- <span>
-                    <ABSButton
-                      :text="'Team'"
-                      classButton="button button--back2"
-                      classIcon="icon-style-1"
-                      @click="onTeamClick"
-                    />
                   </span>
 
                   <span>
                     <ABSButton
-                      :text="'Target'"
+                      :text="'Replace Marketing'"
                       classButton="button button--back2"
                       classIcon="icon-style-1"
-                      @click="onTargetClick"
+                      @click="onReplaceEnter"
                     />
                   </span>
-
-                  <span>
-                    <ABSButton
-                      :text="'Add Target'"
-                      classButton="button button--back2"
-                      classIcon="icon-style-1"
-                      @click="onAddTargetClick"
-                    />
-                  </span>
-
-                  <span>
-                    <ABSButton
-                      :text="'Customer List'"
-                      classButton="button button--back2"
-                      classIcon="icon-style-1"
-                      @click="onCustomerListClick"
-                    />
-                  </span>-->
-                  <span>
-                    <ABSButton
-                      :text="'Add Marketing'"
-                      classButton="button button--back2"
-                      classIcon="icon-style-1"
-                      @click="onAddMarketing"
-                    />
-                  </span>
-
                   <span>
                     <ABSButton
                       :text="'Back'"
                       classButton="button button--back2"
                       classIcon="icon-style-1"
-                      @click="doBack"
+                      @click="$router.go(-1)"
                     />
                   </span>
                 </b-col>
               </b-row>
             </div>
             <div class="card__body">
-              <div class="table--list" :id="'marketingmaster'">
+              <div class="table--list" :id="'MarketingCustomerList'">
                 <b-table
                   :responsive="true"
                   :striped="false"
                   :bordered="true"
-                  :outlined="false"
+                  :outlined="true"
                   :small="false"
                   :hover="true"
                   :dark="false"
@@ -130,18 +69,23 @@
                   :items="items"
                   class="table-sm table-style-3"
                 >
-                  <template v-slot:cell(name)="data">
-                    <span>{{data.item.marketing_id+" - " +data.item.name}}</span>
-                  </template>
                   <template v-slot:cell(row_id)="data">
                     <b-button
                       v-if="WithViewButton == true"
                       size="sm"
-                      @click.stop="doViewClick(data.item, data.index)"
+                      @click.stop="viewClicked(data.item, data.index)"
                       :disabled="false"
                       class="btn btn--default"
                     >View</b-button>
                     <span v-else>{{data.item.row_id}}</span>
+                  </template>
+
+                  <template v-slot:cell(status)="data">
+                    <span>
+                      <b-badge
+                        :style="`background-color:`+data.item.status_colour+`; width: 75px; padding: 6px !important; border-radius: 4px !important; font-weight: normal !important;`"
+                      >{{data.item.status}}</b-badge>
+                    </span>
                   </template>
                 </b-table>
               </div>
@@ -188,11 +132,15 @@ export default {
     return {
       propList: {
         initialWhere:
-          "ss_portfolio_id='" + this.getDataUser().portfolio_id + "'",
+          " ss_portfolio_id='" +
+          this.getDataUser().portfolio_id +
+          "' AND user_id='" +
+          this.getDataUser().user_id +
+          "'",
         LineNo: 0,
         PageLevel: 1,
         TabIndex: 1,
-        OrderBy: "marketing_id ASC ",
+        OrderBy: "",
         SourceField: "",
         ParamView: ""
       },
@@ -211,7 +159,7 @@ export default {
       fieldHeader: [],
       items: [],
       firstSort: true,
-      sort: "marketing_id ASC",
+      sort: "time_edit DESC",
 
       totalRows: 0,
       currentPage: 1,
@@ -240,20 +188,20 @@ export default {
       selectedColumnTemp: [],
       selectedColumnSelected: [],
 
-      sortedField: [{ field: "marketing_id", sort: "ASC" }],
+      sortedField: [{ field: "time_edit", sort: "DESC" }],
       isDisableTable: false,
       responses: []
     };
   },
   methods: {
-    doBack() {
-      this.$router.go(-1);
-    },
     rowClicked(record, index) {},
     doDoubleClick(record, index) {},
-    viewClicked(record, index) {
-      var param = record;
-      this.$router.push({ name: "CM_MarketingMaster_Target", params: param });
+    doViewClick(record, index) {
+      //   var param = record;
+      // param.option_url = '/MK/MK_MarketingCustomer'
+      // param.urlAdd="MK_AddNewProspect"
+      // param.title = "New Prospect"
+      //   this.$router.push({ name: "MK_ViewNewProspect", params: param });
     },
     rowLink(url) {},
     M_PageSize() {},
@@ -264,24 +212,9 @@ export default {
     onSearchEnter(data) {
       this.doGetList(this.search, "onSearchEnter");
     },
-    onTeamClick() {
-      this.$router.push({ name: "CM_MarketingMaster_Team" });
-    },
-    onTargetClick() {
-      this.$router.push({ name: "CM_MarketingMaster_Target" });
-    },
-    onAddTargetClick() {
-      this.$router.push({ name: "CM_MarketingMaster_AddTarget" });
-    },
-    onCustomerListClick() {
-      this.$router.push({ name: "CM_MarketingMaster_CustomerList" });
-    },
-    onAddMarketing() {
-      this.$router.push({ name: "CM_MarketingMasterForm" });
-    },
-    doViewClick(record, index) {
-      var param = record;
-      this.$router.push({ name: "CM_MarketingMasterView", params: param });
+
+    onReplaceEnter() {
+      this.$router.push({ name: "MK_MarketingCustomerReplace" });
     },
 
     dofilterAction() {
@@ -289,9 +222,13 @@ export default {
       this.propList.initialWhere = filter;
       this.doGetList(this.search);
     },
+    dogetget() {
+      this.doGetList(this.search);
+    },
+
     doGetList(search, a = null) {
       var param = {
-        option_url: this.getOptionUrl(),
+        option_url: "/MK/MK_MarketingCustomer",
         line_no: 0,
         user_id: this.getDataUser().user_id,
         portfolio_id: this.getDataUser().portfolio_id,
@@ -342,7 +279,7 @@ export default {
         var definedColumn = [];
 
         this.allColumn_bf.forEach((val, idx) => {
-          var thClass = "HeaderACCList2";
+          var thClass = "HeaderACCList";
           var isSorted = this.sortedField.map(x => x.field).indexOf(val);
           if (isSorted > -1) {
             if (this.sortedField[isSorted].sort == "ASC") {
@@ -356,7 +293,7 @@ export default {
             value: idx + 1,
             key: val,
             thClass: thClass,
-            tdClass: "ContentACCList2 notranslate",
+            tdClass: "ContentACCList notranslate",
             text: val
           });
 
@@ -364,7 +301,7 @@ export default {
             value: idx + 1,
             key: val,
             thClass: thClass,
-            tdClass: "ContentACCList2 notranslate"
+            tdClass: "ContentACCList notranslate"
           });
         });
 
@@ -384,10 +321,7 @@ export default {
           });
 
           var thClass = "HeaderACCList " + defineSize[i];
-          if (str_array[i] !== "no") {
-            thClass += defineSize[i];
-          }
-          //   var thClass = "HeaderACCList2 L";
+          //   var thClass = "HeaderACCList L";
 
           var tdClass = "ContentACCList notranslate";
           if (
@@ -400,7 +334,7 @@ export default {
             thClass = "ABSthClassList2";
           } else if (str_array[i].toLowerCase() == "action") {
             thClass += " th-cus-center";
-            tdClass += " td-cus-center";
+            tdClass += " th-cus-center";
           }
 
           var isSorted = this.sortedField
@@ -471,8 +405,8 @@ export default {
                 value: "View"
               },
               {
-                key: "Row  Id",
-                value: "View"
+                key: "Name",
+                value: "Customer"
               }
             ];
             var isGotIt = false;
@@ -520,7 +454,7 @@ export default {
               }
             }
 
-            // if (labelHeader == "Row Id") continue;
+            if (labelHeader == "Row Id") continue;
 
             this.fieldHeader.push({
               value: i + 1,
@@ -540,10 +474,28 @@ export default {
         this.totalRows = this.responses.Total;
         this.lastPage = this.responses.Last_Page;
       });
+    },
+    doEdit(record) {
+      var param = record;
+      param.isEdit = true;
+      this.$router.push({ name: "MK_EditAppointment", params: param });
+    },
+    IsWarning(date) {
+      var arrDate = date.split("/");
+      date = arrDate[1] + "/" + arrDate[0] + "/" + arrDate[2];
+
+      var next_action = new Date(date);
+      var now = new Date();
+
+      if (next_action < now) {
+        return true;
+      }
+      return false;
     }
   },
   mounted() {
     this.doGetList("");
+    // this.GenDoList();
   },
   created() {
     this.$store.commit("setParamPage", {});
