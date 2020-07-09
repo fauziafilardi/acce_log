@@ -53,26 +53,25 @@
                       </b-col>
                     </b-row>
                     <b-row>
-                      <b-col md="6">
+                      <b-col md="1" class="col-p-1">
                         <span>
-                          <label>Phone No</label>
+                          <label style="width: 100px;">Phone No.</label>
                         </span>
-                        <b-row>
-                          <b-col md="2">
-                            <ACCTextBox
-                              :prop="PI_phone_no_1"
-                              v-model="M_FmFleetBrand.phone_no_1"
-                              ref="ref_phone_no_1"
-                            />
-                          </b-col>
-                          <b-col md="6">
-                            <ACCTextBox
-                              :prop="PI_phone_no_2"
-                              v-model="M_FmFleetBrand.phone_no_2"
-                              ref="ref_phone_no_2"
-                            />
-                          </b-col>
-                        </b-row>
+                        <ACCTextBox
+                          :prop="PI_phone_no_1"
+                          v-model="M_FmFleetBrand.phone_no_1"
+                          ref="ref_phone_no_1"
+                        />
+                      </b-col>
+                      <b-col md="5" class="col-p-2">
+                        <span>
+                          <label>&nbsp;</label>
+                        </span>
+                        <ACCTextBox
+                          :prop="PI_phone_no_2"
+                          v-model="M_FmFleetBrand.phone_no_2"
+                          ref="ref_phone_no_2"
+                        />
                       </b-col>
                     </b-row>
 
@@ -225,7 +224,7 @@ export default {
         brand_name: this.M_FmFleetBrand.brand_name,
         pic: this.M_FmFleetBrand.pic,
         phone_no:
-          this.M_FmFleetBrand.phone_no_1 + this.M_FmFleetBrand.phone_no_1,
+          this.M_FmFleetBrand.phone_no_1 + "-" + this.M_FmFleetBrand.phone_no_2,
         user_input: this.getDataUser().user_id
       };
 
@@ -244,7 +243,8 @@ export default {
         ss_portfolio_id: this.getDataUser().portfolio_id,
         brand_name: this.M_FmFleetBrand.brand_name,
         pic: this.M_FmFleetBrand.pic,
-        phone_no: this.M_FmFleetBrand.phone_no,
+        phone_no:
+          this.M_FmFleetBrand.phone_no_1 + "-" + this.M_FmFleetBrand.phone_no_2,
         lastupdatestamp: this.paramFromList.lastupdatestamp,
         user_edit: this.getDataUser().user_id
       };
@@ -283,13 +283,17 @@ export default {
         if (response == null) return;
 
         var data = response.Data[0];
-
+        var phone_no =
+          data.phone_no__tb_3 && data.phone_no__tb_3 !== ""
+            ? data.phone_no__tb_3.split("-")
+            : "";
         this.M_FmFleetBrand = {
           fm_fleet_brand_id: data.fm_fleet_brand_id,
           ss_portfolio_id: data.ss_portfolio_id,
           brand_name: data.brand_name__tb_1,
           pic: data.pic__tb_2,
-          phone_no: data.phone_no__tb_3,
+          phone_no_1: phone_no[0],
+          phone_no_2: phone_no[1],
           user_input: data.user_input,
           user_edit: data.user_edit,
           time_input: data.time_input,
