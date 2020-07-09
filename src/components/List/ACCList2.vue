@@ -24,7 +24,7 @@
             </b-col>
           </b-row>
         </b-col>
-        <b-col md="4" class="col-right">
+        <b-col style="max-width:fit-content !important;" class="col-right">
           <span>
             <ABSButton
               :text="'Search'"
