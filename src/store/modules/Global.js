@@ -28,7 +28,9 @@ const state = {
   TitleForTabProcess: '',
   hideSideMenu: true,
   parentSeqNo: '',
-  moduleName: ''
+  moduleName: '',
+
+  ParamPage: {}
 }
 
 const getters = {
@@ -58,7 +60,9 @@ const getters = {
   getTitleForTabProcess: state => { return state.TitleForTabProcess },
   getHideSideMenu: state => { return state.hideSideMenu },
   getParentSeqNo: state => { return state.parentSeqNo },
-  getModuleName: state => { return state.moduleName }
+  getModuleName: state => { return state.moduleName },
+
+  getParamPage: state => { return state.ParamPage }
 }
 
 const mutations = {
@@ -136,6 +140,10 @@ const mutations = {
   },
   setModuleName (state, data){
     state.moduleName = data
+  },
+  
+  setParamPage (state, data){
+    state.ParamPage = data
   }
 }
 
