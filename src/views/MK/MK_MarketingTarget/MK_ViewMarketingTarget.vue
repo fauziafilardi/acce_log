@@ -312,7 +312,8 @@ export default {
             var param = this.paramFromList;
             param.isView = false;
             param.isEdit = true;
-            this.$router.push({ name: "MK_AddMarketingTarget", params: param });
+            this.$store.commit("setParamPage", param);
+            this.$router.push({ name: "MK_AddMarketingTarget" });
         },
     rowClicked(record, index) {},
     doDoubleClick(record, index) {},

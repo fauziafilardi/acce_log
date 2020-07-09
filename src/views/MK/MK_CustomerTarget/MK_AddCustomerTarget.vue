@@ -310,7 +310,7 @@ export default {
   },
   computed: {
         paramFromList() {
-            var param = this.$route.params;
+            var param = this.$store.getters.getParamPage;
             // if (param == null || param == undefined) {
             //     this.doBack();
             // } else {
@@ -322,7 +322,7 @@ export default {
             // }
         },
         inputStatus() {
-            var param = this.$route.params;
+            var param = this.$store.getters.getParamPage;
             if (param.isEdit && param.isEdit === true) {
                 return "edit";
             } else if (param.isView && param.isView === true) {
@@ -379,12 +379,10 @@ export default {
     dofilterAction() {
     },
     dofilterActionM(data) {
-        console.log(data)
         this.M_Target.cm_contact_id = data.cm_contact_id;
         this.M_Target.customer_name = data.name;
     },
     doGetList2() {
-        console.log(this.paramFromList)
         this.$store.commit('setStatusLoader', true)
         var param = {
             option_function_cd: "GetCustomerTarget",
@@ -590,7 +588,7 @@ export default {
         this.postJSONMulti(this.getUrlProsesDataPostMulti(), param).then(response => {
             if (response == null) return;
                 this.alertSuccess("Save Data Has Been Successfully").then(() => {
-                this.doBack();
+                this.$router.replace({ name: "MK_CustomerTarget" });
             });
         });
     },

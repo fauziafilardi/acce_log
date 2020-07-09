@@ -542,7 +542,7 @@ export default {
         this.postJSONMulti(this.getUrlProsesDataPostMulti(), param).then(response => {
             if (response == null) return;
                 this.alertSuccess("Save Data Has Been Successfully").then(() => {
-                this.doBack();
+                this.$router.replace({ name: "MK_MarketingTarget" });
             });
         });
     },

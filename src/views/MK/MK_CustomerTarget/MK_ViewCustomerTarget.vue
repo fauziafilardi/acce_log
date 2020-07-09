@@ -274,7 +274,7 @@ export default {
   },
   computed: {
         paramFromList() {
-            var param = this.$route.params;
+            var param = this.$store.getters.getParamPage;
             if (param == null || param == undefined) {
                 this.doBack();
             } else {
@@ -286,7 +286,7 @@ export default {
             }
         },
         inputStatus() {
-            var param = this.$route.params;
+            var param = this.$store.getters.getParamPage;
             if (param.isEdit && param.isEdit === true) {
                 return "edit";
             } else if (param.isView && param.isView === true) {
@@ -312,7 +312,8 @@ export default {
             var param = this.paramFromList;
             param.isView = false;
             param.isEdit = true;
-            this.$router.push({ name: "MK_AddCustomerTarget", params: param });
+            this.$store.commit("setParamPage", param);
+            this.$router.push({ name: "MK_AddCustomerTarget" });
         },
     rowClicked(record, index) {},
     doDoubleClick(record, index) {},

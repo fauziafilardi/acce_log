@@ -122,7 +122,7 @@
                   @click="viewClicked(data.item, data.index)"
                 />
                 <ABSButton
-                  v-if="(ButtonStatus == null ? false : !ButtonStatus.btnDelete) || WithViewButton == true"
+                  v-if="(ButtonStatus == null ? false : !ButtonStatus.btnDelete) || WithDeleteButton == true"
                   :icon="'trash'"
                   classButton="button button--delete"
                   classIcon="icon-style-1"
@@ -1239,7 +1239,7 @@ export default {
               },
               {
                 key: "Row Id",
-                value: "View"
+                value: "Action"
               }
               // {
               //   key: "Pic",
@@ -1291,7 +1291,7 @@ export default {
                 );
               } else {
                 if (labelHeader.includes(data.key)) {
-                  if (labelHeader == "Row Id" && (!this.WithViewButton || !this.WithDeleteButton)) continue;
+                  if (labelHeader == "Row Id" && (!this.WithViewButton && !this.WithDeleteButton)) continue;
                   // if (labelHeader == 'Row Id' && !this.WithViewButton) {
 
                   // }
