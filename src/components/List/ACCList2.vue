@@ -1422,7 +1422,7 @@ export default {
   mounted() {
   },
   created() {
-    this.GetButtonStatus(this.getDataUser().portfolio_id, this.getDataUser().group_id, this.getDataUser().user_id, "/MK/MK_Quotation")
+    this.GetButtonStatus(this.getDataUser().portfolio_id, this.getDataUser().group_id, this.getDataUser().user_id, this.getOptionUrl())
     .then(ress => {
       var x = {}
       for (let i = 0; i < ress.length; i++) {
