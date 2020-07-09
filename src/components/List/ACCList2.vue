@@ -115,14 +115,14 @@
             <template v-slot:[`cell(${l.key})`]="data" v-for="l in fieldHeader">
               <template v-if="l.key == 'row_id'">
                 <ABSButton
-                  v-show="(ButtonStatus == null ? false : ButtonStatus.btnView) || WithViewButton"
+                  v-show="(ButtonStatus == null ? true : ButtonStatus.btnView) || WithViewButton"
                   :text="'View'"
                   classButton="btn btn--default"
                   classIcon="icon-style-1"
                   @click="viewClicked(data.item, data.index)"
                 />
                 <ABSButton
-                  v-show="(ButtonStatus == null ? false : ButtonStatus.btnDelete) || WithDeleteButton"
+                  v-show="(ButtonStatus == null ? true : ButtonStatus.btnDelete) || WithDeleteButton"
                   :icon="'trash'"
                   classButton="button button--delete"
                   classIcon="icon-style-1"
@@ -1424,12 +1424,18 @@ export default {
   created() {
     this.GetButtonStatus(this.getDataUser().portfolio_id, this.getDataUser().group_id, this.getDataUser().user_id, this.getOptionUrl())
     .then(ress => {
-      var x = {}
-      for (let i = 0; i < ress.length; i++) {
-          x[ress[i].button_id] = ress[i].button_status
+      if (ress.length < 1) {
+        this.$store.commit("setButtonStatus", null);
+        return
       }
+      else {
+        var x = {}
+        for (let i = 0; i < ress.length; i++) {
+            x[ress[i].button_id] = ress[i].button_status
+        }
 
-      this.$store.commit("setButtonStatus", x);
+        this.$store.commit("setButtonStatus", x);
+      }
     })
   }
 };
