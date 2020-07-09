@@ -8,6 +8,7 @@
             :title="'Master Vehicle Brand'"
             @rowClicked="rowClicked"
             @rowDblClicked="doDoubleClick"
+            @buttonDeleteClicked="doDeleteClick"
             @rowLinkClick="rowLink"
             @pageSize="M_PageSize"
             @pagination="M_Pagination"
@@ -16,7 +17,7 @@
             @refreshColumn="refreshColumn"
             ref="ref_FmFleetBrand"
             urlAdd="OP_FleetBrandForm"
-            WithViewButton
+            WithDeleteButton
             @buttonViewClicked="doViewClick"
           />
         </b-col>
@@ -47,9 +48,27 @@ export default {
     doViewClick(record, index) {
       var param = record;
       param.isEdit = true;
-      this.$router.push({ name: "OP_FleetBrandView", params: param });
+      param.isView = true;
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "OP_FleetBrandForm" });
     },
     doDoubleClick(record, index) {},
+    doDeleteClick(record, index) {
+      var param = {
+        option_url: "/OP/OP_FleetBrand",
+        line_no: 0,
+        id: record.row_id,
+        lastupdatestamp: record.lastupdatestamp
+      };
+      this.deleteJSON(this.getUrlCRUD(), param).then(response => {
+        // response from API
+        if (response == null) return;
+
+        this.alertSuccess("Data Has Been Deleted").then(() => {
+          this.$refs.ref_FmFleetBrand.doGetList("");
+        });
+      });
+    },
     rowLink(url) {},
     M_PageSize() {},
     M_Pagination() {},
@@ -59,19 +78,6 @@ export default {
   },
   mounted() {
     this.$refs.ref_FmFleetBrand.doGetList("");
-    this.GetButtonStatus(
-      this.getDataUser().portfolio_id,
-      this.getDataUser().group_id,
-      this.getDataUser().user_id,
-      "/MK/MK_Quotation"
-    ).then(ress => {
-      var x = {};
-      for (let i = 0; i < ress.length; i++) {
-        x[ress[i].button_id] = ress[i].button_status;
-      }
-
-      this.$store.commit("setButtonStatus", x);
-    });
   },
   created() {
     this.$store.comit("setParamPage", {});
