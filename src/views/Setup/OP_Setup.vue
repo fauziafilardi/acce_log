@@ -160,7 +160,9 @@ export default {
     onVehicleBrandClick() {
       this.$router.push({ name: "OP_FleetBrand" });
     },
-    onVehicleTypeClick() {},
+    onVehicleTypeClick() {
+      this.$router.push({ name: "OP_FleetType" });
+    },
     onVehicleCaroseryClick() {},
     onMaintenanceTypeClick() {},
     onTicketCategoryClick() {}

@@ -254,7 +254,7 @@ export default {
   },
   computed: {
     paramFromList() {
-      var param = this.$route.params;
+      var param = this.$store.getters.getParamPage;
       if (param == null || param == undefined) {
         this.doBack();
       } else {
@@ -272,7 +272,9 @@ export default {
     },
     doEdit() {
       var param = this.paramFromList;
+      param.isView = false;
       param.isEdit = true;
+      this.$store.commit("setParamPage", param);
       this.$router.push({ name: "OP_DriverForm", params: param });
     },
 	 M_Delete() {

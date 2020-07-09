@@ -7,7 +7,7 @@
             <div class="card__title">
               <b-row>
                 <b-col style="max-width:fit-content !important;">
-                  <span>{{title}} Master Vehicle Brand</span>
+                  <span>{{title}} Master Vehicle Type</span>
                 </b-col>
                 <b-col style="text-align: right;">
                   <ABSButton
@@ -21,8 +21,8 @@
             </div>
             <div class="card__body">
               <b-form
-                :data-vv-scope="'OP_FormFmFleetBrand'"
-                :data-vv-value-path="'OP_FormFmFleetBrand'"
+                :data-vv-scope="'OP_FormFmFleetType'"
+                :data-vv-value-path="'OP_FormFmFleetType'"
               >
                 <b-row>
                   <b-col md="2">
@@ -35,50 +35,28 @@
                     <b-row>
                       <b-col md="6">
                         <span>
-                          <label>Brand Name</label>
+                          <label>Fleet Cd</label>
                         </span>
                         <ACCTextBox
-                          :prop="PI_brand_name"
-                          v-model="M_FmFleetBrand.brand_name"
-                          ref="ref_brand_name"
+                          :prop="PI_fleet_cd"
+                          v-model="M_FmFleetType.fleet_cd"
+                          ref="ref_fleet_cd"
                         />
                       </b-col>
                     </b-row>
                     <b-row>
                       <b-col md="6">
                         <span>
-                          <label>Pic</label>
+                          <label>Descs</label>
                         </span>
-                        <ACCTextBox :prop="PI_pic" v-model="M_FmFleetBrand.pic" ref="ref_pic" />
-                      </b-col>
-                    </b-row>
-                    <b-row>
-                      <b-col md="1" class="col-p-1">
-                        <span>
-                          <label style="width: 100px;">Phone No.</label>
-                        </span>
-                        <ACCTextBox
-                          :prop="PI_phone_no_1"
-                          v-model="M_FmFleetBrand.phone_no_1"
-                          ref="ref_phone_no_1"
-                        />
-                      </b-col>
-                      <b-col md="5" class="col-p-2">
-                        <span>
-                          <label>&nbsp;</label>
-                        </span>
-                        <ACCTextBox
-                          :prop="PI_phone_no_2"
-                          v-model="M_FmFleetBrand.phone_no_2"
-                          ref="ref_phone_no_2"
-                        />
+                        <ACCTextBox :prop="PI_descs" v-model="M_FmFleetType.descs" ref="ref_descs" />
                       </b-col>
                     </b-row>
 
                     <b-row style="margin-top: 10px;">
                       <b-col md="6">
                         <ABSButton
-                          :text="'Save '"
+                          :text="'Save FleetType'"
                           classButton="btn btn--default"
                           classIcon="icon-style-default"
                           @click="doSave"
@@ -103,61 +81,39 @@ export default {
     return {
       title: "",
 
-      M_FmFleetBrand: {
-        fm_fleet_brand_id: 0,
-        ss_portfolio_id: 0,
-        brand_name: "",
-        pic: "",
-        phone_no_1: "+62",
-        phone_no_2: "",
+      M_FmFleetType: {
+        fm_fleet_type_id: 0,
+        fleet_cd: "",
+        descs: "",
+        file_name: "",
+        path_file: "",
         user_input: "",
         user_edit: "",
         time_input: "",
         time_edit: "",
+        ss_portfolio_id: 0,
         row_id: 0,
         lastupdatestamp: 0
       },
-      PI_brand_name: {
+      PI_fleet_cd: {
         cValidate: "",
-        cName: "brand_name",
+        cName: "fleet_cd",
         cOrder: 1,
         cKey: false,
         cType: "text",
         cProtect: false,
-        cParentForm: "OP_FormFmFleetBrand",
+        cParentForm: "OP_FormFmFleetType",
         cDecimal: 2,
         cInputStatus: this.inputStatus
       },
-      PI_pic: {
+      PI_descs: {
         cValidate: "",
-        cName: "pic",
+        cName: "descs",
         cOrder: 2,
         cKey: false,
         cType: "text",
         cProtect: false,
-        cParentForm: "OP_FormFmFleetBrand",
-        cDecimal: 2,
-        cInputStatus: this.inputStatus
-      },
-      PI_phone_no_1: {
-        cValidate: "",
-        cName: "phone_no_1",
-        cOrder: 3,
-        cKey: false,
-        cType: "text",
-        cProtect: false,
-        cParentForm: "OP_FormFmFleetBrand",
-        cDecimal: 2,
-        cInputStatus: this.inputStatus
-      },
-      PI_phone_no_2: {
-        cValidate: "",
-        cName: "phone_no_2",
-        cOrder: 4,
-        cKey: false,
-        cType: "text",
-        cProtect: false,
-        cParentForm: "OP_FormFmFleetBrand",
+        cParentForm: "OP_FormFmFleetType",
         cDecimal: 2,
         cInputStatus: this.inputStatus
       }
@@ -183,29 +139,29 @@ export default {
     },
 
     M_ClearForm() {
-      this.M_FmFleetBrand = {
-        fm_fleet_brand_id: 0,
-        ss_portfolio_id: 0,
-        brand_name: "",
-        pic: "",
-        phone_no_1: "+62",
-        phone_no_2: "",
+      this.M_FmFleetType = {
+        fm_fleet_type_id: 0,
+        fleet_cd: "",
+        descs: "",
+        file_name: "",
+        path_file: "",
         user_input: "",
         user_edit: "",
         time_input: "",
         time_edit: "",
+        ss_portfolio_id: 0,
         row_id: 0,
         lastupdatestamp: 0
       };
     },
 
     doSave() {
-      this.$validator._base.validateAll("OP_FormFmFleetBrand").then(result => {
+      this.$validator._base.validateAll("OP_FormFmFleetType").then(result => {
         if (!result) return;
         this.alertConfirmation("Are You Sure Want To Save This Data ?").then(
           ress => {
             if (ress.value) {
-              this.$validator.errors.clear("OP_FormFmFleetBrand");
+              this.$validator.errors.clear("OP_FormFmFleetType");
               if (this.inputStatus == "edit") {
                 this.M_Update();
               } else {
@@ -218,14 +174,14 @@ export default {
     },
     M_Save() {
       var param = {
-        option_url: "/OP/OP_FleetBrand",
+        option_url: "/OP/OP_FleetType",
         line_no: 0,
-        ss_portfolio_id: this.getDataUser().portfolio_id,
-        brand_name: this.M_FmFleetBrand.brand_name,
-        pic: this.M_FmFleetBrand.pic,
-        phone_no:
-          this.M_FmFleetBrand.phone_no_1 + "-" + this.M_FmFleetBrand.phone_no_2,
-        user_input: this.getDataUser().user_id
+        fleet_cd: this.M_FmFleetType.fleet_cd,
+        descs: this.M_FmFleetType.descs,
+        file_name: this.M_FmFleetType.file_name,
+        path_file: this.M_FmFleetType.path_file,
+        user_input: this.getDataUser().user_id,
+        ss_portfolio_id: this.getDataUser().portfolio_id
       };
 
       this.postJSON(this.getUrlCRUD(), param).then(response => {
@@ -237,16 +193,16 @@ export default {
     },
     M_Update() {
       var param = {
-        option_url: "/OP/OP_FleetBrand",
+        option_url: "/OP/OP_FleetType",
         line_no: 0,
-        fm_fleet_brand_id: this.M_FmFleetBrand.fm_fleet_brand_id,
-        ss_portfolio_id: this.getDataUser().portfolio_id,
-        brand_name: this.M_FmFleetBrand.brand_name,
-        pic: this.M_FmFleetBrand.pic,
-        phone_no:
-          this.M_FmFleetBrand.phone_no_1 + "-" + this.M_FmFleetBrand.phone_no_2,
+        fm_fleet_type_id: this.M_FmFleetType.fm_fleet_type_id,
+        fleet_cd: this.M_FmFleetType.fleet_cd,
+        descs: this.M_FmFleetType.descs,
+        file_name: this.M_FmFleetType.file_name,
+        path_file: this.M_FmFleetType.path_file,
         lastupdatestamp: this.paramFromList.lastupdatestamp,
-        user_edit: this.getDataUser().user_id
+        user_edit: this.getDataUser().user_id,
+        ss_portfolio_id: this.getDataUser().portfolio_id
       };
 
       this.putJSON(this.getUrlCRUD(), param).then(response => {
@@ -258,7 +214,7 @@ export default {
     },
     M_Delete() {
       var param = {
-        option_url: "/OP/OP_FleetBrand",
+        option_url: "/OP/OP_FleetType",
         line_no: { LineNo },
         id: this.paramFromList.row_id,
         lastupdatestamp: this.paramFromList.lastupdatestamp
@@ -272,7 +228,7 @@ export default {
     },
     GetDataBy() {
       var param = {
-        option_url: "/OP/OP_FleetBrand",
+        option_url: "/OP/OP_FleetType",
         line_no: 0,
         id: this.paramFromList.row_id,
         lastupdatestamp: this.paramFromList.lastupdatestamp
@@ -283,21 +239,18 @@ export default {
         if (response == null) return;
 
         var data = response.Data[0];
-        var phone_no =
-          data.phone_no__tb_3 && data.phone_no__tb_3 !== ""
-            ? data.phone_no__tb_3.split("-")
-            : "";
-        this.M_FmFleetBrand = {
-          fm_fleet_brand_id: data.fm_fleet_brand_id,
-          ss_portfolio_id: data.ss_portfolio_id,
-          brand_name: data.brand_name__tb_1,
-          pic: data.pic__tb_2,
-          phone_no_1: phone_no[0],
-          phone_no_2: phone_no[1],
+
+        this.M_FmFleetType = {
+          fm_fleet_type_id: data.fm_fleet_type_id,
+          fleet_cd: data.fleet_cd__tb_1,
+          descs: data.descs__tb_2,
+          file_name: data.file_name,
+          path_file: data.path_file,
           user_input: data.user_input,
           user_edit: data.user_edit,
           time_input: data.time_input,
           time_edit: data.time_edit,
+          ss_portfolio_id: data.ss_portfolio_id,
           row_id: data.row_id,
           lastupdatestamp: data.lastupdatestamp
         };
@@ -308,10 +261,10 @@ export default {
     this.M_ClearForm();
     if (this.inputStatus == "edit") {
       this.title = "Edit";
-      this.PI_brand_name.cProtect = true;
+      this.PI_fleet_cd.cProtect = true;
       this.GetDataBy();
     } else {
-      this.PI_brand_name.cProtect = false;
+      this.PI_fleet_cd.cProtect = false;
       this.title = "Add";
     }
   }

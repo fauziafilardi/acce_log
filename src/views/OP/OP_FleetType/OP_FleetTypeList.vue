@@ -5,7 +5,7 @@
         <b-col md="12">
           <ACCList2
             :prop="propList"
-            :title="'Driver Management'"
+            :title="'Master Vehicle Type'"
             @rowClicked="rowClicked"
             @buttonDeleteClicked="doDeleteClick"
             @rowDblClicked="doDoubleClick"
@@ -15,9 +15,9 @@
             @filter="M_Advance_Filter"
             @headTable="M_Head_Table"
             @refreshColumn="refreshColumn"
-            ref="ref_FmDriver"
-            urlAdd="OP_DriverForm"
-            WithViewButton
+            ref="ref_FmFleetType"
+            urlAdd="OP_FleetTypeForm"
+            WithDeleteButton
             @buttonViewClicked="doViewClick"
           />
         </b-col>
@@ -50,10 +50,25 @@ export default {
       param.isEdit = true;
       param.isView = true;
       this.$store.commit("setParamPage", param);
-      this.$router.push({ name: "OP_DriverView" });
+      this.$router.push({ name: "OP_FleetTypeForm" });
     },
     doDoubleClick(record, index) {},
-    doDeleteClick(record, index) {},
+    doDeleteClick(record, index) {
+      var param = {
+        option_url: "/OP/OP_FleetType",
+        line_no: 0,
+        id: record.row_id,
+        lastupdatestamp: record.lastupdatestamp
+      };
+      this.deleteJSON(this.getUrlCRUD(), param).then(response => {
+        // response from API
+        if (response == null) return;
+
+        this.alertSuccess("Data Has Been Deleted").then(() => {
+          this.$refs.ref_FmFleetType.doGetList("");
+        });
+      });
+    },
     rowLink(url) {},
     M_PageSize() {},
     M_Pagination() {},
@@ -62,7 +77,7 @@ export default {
     refreshColumn() {}
   },
   mounted() {
-    this.$refs.ref_FmDriver.doGetList("");
+    this.$refs.ref_FmFleetType.doGetList("");
   },
   created() {
     this.$store.comit("setParamPage", {});

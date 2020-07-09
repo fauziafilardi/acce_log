@@ -5,7 +5,7 @@
         <b-col md="12">
           <ACCList2
             :prop="propList"
-            :title="'Marketing Master tes'"
+            :title="'Marketing Master'"
             @rowClicked="rowClicked"
             @rowDblClicked="doDoubleClick"
             @buttonDeleteClicked="doDeleteClick"
