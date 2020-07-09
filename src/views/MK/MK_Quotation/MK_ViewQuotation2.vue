@@ -861,7 +861,7 @@ export default {
   },
   computed: {
     paramFromList() {
-      var param = this.$route.params;
+      var param = this.$store.getters.getParamPage;
       if (param == null || param == undefined) {
         this.doBack();
       } else {
@@ -1010,7 +1010,8 @@ export default {
           dataList: this.paramFromList,
           chatFill: []
         };
-        this.$router.push({ name: url, params: param });
+        this.$store.commit("setParamPage", param);
+        this.$router.push({ name: url });
       })
     },
     // Modal End
@@ -1042,7 +1043,8 @@ export default {
             isEdit: false,
             dataList: this.paramFromList
           };
-          this.$router.push({ name: url, params: param });
+          this.$store.commit("setParamPage", param);
+          this.$router.push({ name: url });
         }
       })
     },
@@ -1098,7 +1100,8 @@ export default {
     doEdit() {
       var param = this.paramFromList;
       param.isEdit = true;
-      this.$router.push({ name: "MK_AddQuotation", params: param });
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "MK_AddQuotation" });
     },
     M_ClearForm() {
       this.M_Quotation = {

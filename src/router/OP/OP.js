@@ -14,6 +14,10 @@ import OP_FleetBrand from '@/views/OP/OP_FleetBrand/OP_FleetBrandList'
 import OP_FleetBrandView from '@/views/OP/OP_FleetBrand/OP_FleetBrandView'
 import OP_FleetBrandForm from '@/views/OP/OP_FleetBrand/OP_FleetBrandForm'
 
+//Fleet Master
+import OP_FleetMaster from '@/views/OP/OP_FleetMaster/OP_FleetMasterList'
+// import OP_FleetMasterView from '@/views/OP/OP_FleetMaster/OP_FleetMasterView'
+import OP_FleetMasterForm from '@/views/OP/OP_FleetMaster/OP_FleetMasterForm'
 
 export const OPRender = {
     path: '/OP',
@@ -106,6 +110,31 @@ export const OPRender = {
         path: '/OP/OP_FleetBrand/Form',
         name: 'OP_FleetBrandForm',
         component: OP_FleetBrandForm,
+        meta: {
+            requiresAuth: true
+        }
+    },
+
+    {
+        path: '/OP/OP_FleetMaster',
+        name: 'OP_FleetMaster',
+        component: OP_FleetMaster,
+        meta: {
+            requiresAuth: true
+        }
+    },
+    // {
+    //     path: '/OP/OP_FleetMaster/View',
+    //     name: 'OP_FleetMasterView',
+    //     component: OP_FleetMasterView,
+    //     meta: {
+    //         requiresAuth: true
+    //     }
+    // },
+    {
+        path: '/OP/OP_FleetMaster/Form',
+        name: 'OP_FleetMasterForm',
+        component: OP_FleetMasterForm,
         meta: {
             requiresAuth: true
         }

@@ -224,7 +224,7 @@ export default {
   },
   computed: {
     paramFromList() {
-      var param = this.$route.params;
+      var param = this.$store.getters.getParamPage;
       if (param == null || param == undefined) {
         this.doBack();
       } else {
@@ -245,7 +245,8 @@ export default {
         // title: this.title,
         isEdit: false
       };
-      this.$router.push({ name: url, params: param });
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: url });
     },
     doBack() {
       this.$router.go(-1);
@@ -265,7 +266,8 @@ export default {
     viewClicked(record, index) {
       // MK_ViewQuotation
       var param = record;
-      this.$router.push({ name: "MK_ViewQuotation", params: param });
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "MK_ViewQuotation" });
     },
     GetContactData() {
       var param = {

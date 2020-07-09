@@ -236,7 +236,7 @@ export default {
   },
   computed: {
     paramFromList() {
-      var param = this.$route.params;
+      var param = this.$store.getters.getParamPage;
       if (param == null || param == undefined) {
         this.doBack();
       } else {
@@ -255,12 +255,14 @@ export default {
     doEdit() {
       var param = this.paramFromList;
       param.isEdit = true;
-      this.$router.push({ name: "MK_AddNewProspect", params: param });
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "MK_AddNewProspect" });
     },
     doContact() {
       var param = this.paramFromList;
       // param.isEdit = true;
-      this.$router.push({ name: "MK_ToDoList_P", params: param });
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "MK_ToDoList_P" });
     },
     GetDataBy() {
       var param = {

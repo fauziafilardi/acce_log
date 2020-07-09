@@ -597,7 +597,8 @@ export default {
     doEdit(record) {
       var param = record;
       param.isEdit = true;
-      this.$router.push({ name: "MK_EditAppointment", params: param });
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "MK_EditAppointment" });
     },
     IsWarning(date) {
       var arrDate = date.split("/");
@@ -617,6 +618,7 @@ export default {
     // this.GenDoList();
   },
   created() {
+    this.$store.commit("setParamPage", {});
     // this.GenDoList();
   }
 };

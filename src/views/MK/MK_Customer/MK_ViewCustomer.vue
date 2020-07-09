@@ -382,7 +382,7 @@ export default {
   },
   computed: {
     paramFromList() {
-      var param = this.$route.params;
+      var param = this.$store.getters.getParamPage;
       if (param == null || param == undefined) {
         this.doBack();
       } else {
@@ -517,12 +517,14 @@ export default {
     doEdit() {
       var param = this.paramFromList;
       param.isEdit = true;
-      this.$router.push({ name: "MK_AddEditCustomer", params: param });
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "MK_AddEditCustomer" });
     },
     doContact() {
       var param = this.paramFromList;
       // param.isEdit = true;
-      this.$router.push({ name: "MK_ToDoCustomer", params: param });
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "MK_ToDoCustomer" });
     },
     doGetList(search) {
       var param = {

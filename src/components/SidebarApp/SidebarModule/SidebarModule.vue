@@ -435,7 +435,7 @@ export default {
       this.$store.commit("setEditStatus", true);
       this.$store.commit("setDeleteStatus", true);
 
-      this.$store.commit("setParamPage", null);
+      this.$store.commit("setParamPage", {});
       // this.$store.commit('setStatusLoader', true)
     }
   }

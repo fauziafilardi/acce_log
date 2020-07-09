@@ -478,6 +478,7 @@ export default {
     doEdit(record) {
       var param = record;
       param.isEdit = true;
+      this.$store.commit("setParamPage", param);
       this.$router.push({ name: "MK_EditAppointment", params: param });
     },
     IsWarning(date) {

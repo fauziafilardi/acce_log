@@ -229,7 +229,7 @@ export default {
   },
   computed: {
     paramFromList() {
-      var param = this.$route.params;
+      var param = this.$store.getters.getParamPage;;
       // if (param == null || param == undefined) {
       //     this.doBack();
       // } else {
@@ -875,6 +875,7 @@ export default {
   },
   mounted() {
     this.getMarketing()
+    this.$store.commit("setParamPage", {});
   },
   created() {}
 };

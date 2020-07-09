@@ -151,7 +151,9 @@ export default {
   },
   computed: {},
   methods: {
-    onFleetMasterClick() {},
+    onFleetMasterClick() {
+      this.$router.push({ name: "OP_FleetMaster" });
+    },
     onDriverManagementClick() {
       this.$router.push({ name: "OP_DriverManagement" });
     },

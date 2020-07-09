@@ -227,7 +227,7 @@ export default {
   },
   computed: {
     paramFromList() {
-      var param = this.$route.params;
+      var param = this.$store.getters.getParamPage;
       // if (param == null || param == undefined) {
       //     this.doBack();
       // } else {
@@ -253,7 +253,8 @@ export default {
     doDoubleClick(record, index) {},
     viewClicked(record, index) {
       var param = record;
-      this.$router.push({ name: "MK_ViewQuotation", params: param });
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "MK_ViewQuotation" });
     },
     rowLink(url) {},
     M_PageSize() {},
@@ -620,7 +621,9 @@ export default {
       this.$store.commit("setButtonStatus", x);
     })
   },
-  created() {}
+  created() {
+    this.$store.commit("setParamPage", {});
+  }
 };
 </script>
 

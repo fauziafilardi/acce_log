@@ -312,7 +312,8 @@ export default {
     doDoubleClick(record, index) {},
     doViewClick(record, index) {
       var param = record;
-      this.$router.push({ name: "MK_ViewOrder", params: param });
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "MK_ViewOrder" });
     },
     onAddNewClick() {
       var param = {
@@ -320,7 +321,8 @@ export default {
         // title: this.title,
         isEdit: false
       };
-      this.$router.push({ name: "MK_AddEditCustomer", params: param });
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "MK_AddEditCustomer" });
     },
     rowLink(url) {},
     M_PageSize() {},
@@ -596,7 +598,8 @@ export default {
     doEdit(record) {
       var param = record;
       param.isEdit = true;
-      this.$router.push({ name: "MK_EditAppointment", params: param });
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "MK_EditAppointment" });
     },
     getMarketing() {
       var param = {
@@ -888,6 +891,7 @@ export default {
   },
   mounted() {
     this.getMarketing();
+    this.$store.commit("setParamPage", {});
   }
 };
 </script>

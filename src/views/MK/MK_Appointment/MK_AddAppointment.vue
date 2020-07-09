@@ -447,7 +447,7 @@ export default {
   },
   computed: {
     paramFromList() {
-      var param = this.$route.params;
+      var param = this.$store.getters.getParamPage;
       // if (param == null || param == undefined) {
       //   this.doBack();
       // } else {
@@ -459,7 +459,7 @@ export default {
       // }
     },
     inputStatus() {
-      var param = this.$route.params;
+      var param = this.$store.getters.getParamPage;
       if (param.isEdit && param.isEdit === true) {
         return "edit";
       } else {
