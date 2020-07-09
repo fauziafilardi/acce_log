@@ -2,12 +2,16 @@
   <div class="dashboard-page-chart">
     <div class="dashboard-page-chart__body">
       <b-row class="dashboardBody">
-        <b-col md="12">
+        <b-col sm="12">
           <div class="card" style="font-size: 12px !important;">
             <div class="card__title">
               <b-row>
                 <b-col style="max-width:fit-content !important;">
-                  <span>Marketing Reassignment</span>
+                  <span>
+                    <h5>
+                      <b>Marketing Reassignment</b>
+                    </h5>
+                  </span>
                 </b-col>
                 <b-col style="text-align: right;">
                   <ABSButton
@@ -25,48 +29,72 @@
                 :data-vv-value-path="'MarketingCustomer'"
               >
                 <b-row>
-                  <b-col md="2">
-                    <div>
-                      <!-- <img :src="M_NewProspect.path_file" alt width="100%" /> -->
-                      <img :src="require('@/assets/paper.png')" alt style="width: 70px;" />
-                    </div>
-                  </b-col>
-                  <b-col md="10">
-                    <b-row>
-                      <b-col md="6">
+                  <b-col style="text-align: center">
+                    <b-row class="my-1">
+                      <b-col>
                         <span>
-                          <label>Dokument Type</label>
+                          <label>
+                            <b>Marketing</b>
+                          </label>
                         </span>
-                        <ACCTextBox
-                          :prop="PI_dokument_type"
-                          v-model="M_MkDokumentType.dokument_type"
-                          ref="ref_dokument_type"
-                        />
                       </b-col>
                     </b-row>
-                    <b-row>
-                      <b-col md="6">
-                        <span>
-                          <label>Descs</label>
-                        </span>
-                        <ACCTextBox
-                          :prop="PI_descs"
-                          v-model="M_MkDokumentType.descs"
-                          ref="ref_descs"
-                        />
+                    <b-row class="my-1" style="text-align: center">
+                      <b-col sm="3"></b-col>
+                      <b-col sm="6" style="text-align: center">
+                        <b-row>
+                          <b-col sm="6">
+                            <span>
+                              <label style="width: 100px;">Current Marketing</label>
+                            </span>
+                          </b-col>
+                          <b-col sm="6">
+                            <span>
+                              <label style="width: 100px;">Target Marketing</label>
+                            </span>
+                          </b-col>
+                        </b-row>
+                        <b-row>
+                          <b-col sm="5">
+                            <ACCDropDown
+                              @change="Oncurr_marketingChange"
+                              :prop="PI_curr_marketing_id"
+                              v-model="M_MarketingReassignment.curr_marketing"
+                              :label="M_MarketingReassignment.curr_marketingLabel"
+                              ref="ref_action"
+                            />
+                          </b-col>
+                          <b-col sm="2">
+                            <label style="width: 100px;">
+                              <i class="fa fa-arrow-right fa-2x"></i>
+                            </label>
+                          </b-col>
+                          <b-col sm="5">
+                            <ACCDropDown
+                              @change="Ontarget_marketingChange"
+                              :prop="PI_target_marketing_id"
+                              v-model="M_MarketingReassignment.target_marketing"
+                              :label="M_MarketingReassignment.target_marketingLabel"
+                              ref="ref_action"
+                            />
+                          </b-col>
+                        </b-row>
                       </b-col>
+                      <b-col sm="3"></b-col>
                     </b-row>
 
-                    <b-row style="margin-top: 10px;">
-                      <b-col md="6">
+                    <b-row class="my-1" style="margin-top: 10px;">
+                      <b-col sm="3"></b-col>
+                      <b-col sm="6">
                         <ABSButton
-                          :text="'Save Dokument'"
+                          :text="'Replace'"
                           classButton="btn btn--default"
                           classIcon="icon-style-default"
                           @click="doSave"
                           styleButton="height: 40px;width: 100%;"
                         />
                       </b-col>
+                      <b-col sm="3"></b-col>
                     </b-row>
                   </b-col>
                 </b-row>
@@ -85,38 +113,56 @@ export default {
     return {
       title: "",
 
-      M_MkDokumentType: {
-        mk_dokument_type_id: 0,
-        ss_portfolio_id: 0,
-        dokument_type: "",
-        descs: "",
-        user_input: "",
-        user_edit: "",
-        time_input: "",
-        time_edit: "",
+      M_MarketingReassignment: {
+        curr_marketing: "",
+        curr_marketingLabel: "",
+        target_marketing: "",
+        target_marketingLabel: "",
         row_id: 0,
         lastupdatestamp: 0
       },
-      PI_dokument_type: {
-        cValidate: "",
-        cName: "dokument_type",
+      PI_curr_marketing_id: {
+        dataLookUp: {
+          LookUpCd: "GetMarketing",
+          ColumnDB: "marketing_id",
+          InitialWhere: "",
+          ParamWhere: "",
+          OrderBy: "",
+          ParamView: "",
+          SourceField: "",
+          DisplayLookUp: ""
+        },
+        cValidate: "required",
+        cName: "action",
+        ckey: false,
         cOrder: 1,
-        cKey: false,
-        cType: "text",
         cProtect: false,
-        cParentForm: "MarketingCustomer",
-        cDecimal: 2,
+        cParentForm: "MK_FormMkQuotationLtl",
+        cStatic: false,
+        cOption: [],
+        cDisplayColumn: "action_type,descs",
         cInputStatus: this.inputStatus
       },
-      PI_descs: {
-        cValidate: "",
-        cName: "descs",
-        cOrder: 2,
-        cKey: false,
-        cType: "text",
+      PI_target_marketing_id: {
+        dataLookUp: {
+          LookUpCd: "GetMarketing",
+          ColumnDB: "marketing_id",
+          InitialWhere: "",
+          ParamWhere: "",
+          OrderBy: "",
+          ParamView: "",
+          SourceField: "",
+          DisplayLookUp: ""
+        },
+        cValidate: "required",
+        cName: "action",
+        ckey: false,
+        cOrder: 1,
         cProtect: false,
-        cParentForm: "MarketingCustomer",
-        cDecimal: 2,
+        cParentForm: "MK_FormMkQuotationLtl",
+        cStatic: false,
+        cOption: [],
+        cDisplayColumn: "action_type,descs",
         cInputStatus: this.inputStatus
       }
     };
@@ -139,65 +185,48 @@ export default {
     doBack() {
       this.$router.go(-1);
     },
-
+    Oncurr_marketingChange(data) {
+      this.$nextTick(() => {
+        this.M_MarketingReassignment.curr_marketing = data.id;
+        this.M_MarketingReassignment.curr_marketingLabel = data.label;
+      });
+    },
+    Ontarget_marketingChange(data) {
+      this.$nextTick(() => {
+        this.M_MarketingReassignment.target_marketing = data.id;
+        this.M_MarketingReassignment.target_marketingLabel = data.label;
+      });
+    },
     M_ClearForm() {
-      this.M_MkDokumentType = {
-        mk_dokument_type_id: 0,
-        ss_portfolio_id: 0,
-        dokument_type: "",
-        descs: "",
-        user_input: "",
-        user_edit: "",
-        time_input: "",
-        time_edit: "",
-        row_id: 0,
-        lastupdatestamp: 0
+      this.M_MarketingReassignment = {
+        curr_marketing: "",
+        curr_marketingLabel: "",
+        target_marketing: "",
+        target_marketingLabel: ""
       };
     },
 
     doSave() {
       this.$validator._base.validateAll("MarketingCustomer").then(result => {
         if (!result) return;
-        this.alertConfirmation("Are You Sure Want To Save This Data ?").then(
+        this.alertConfirmation("Are You Sure Want To Replace Marketing ?").then(
           ress => {
             if (ress.value) {
               this.$validator.errors.clear("MarketingCustomer");
-              if (this.inputStatus == "edit") {
-                this.M_Update();
-              } else {
-                this.M_Save();
-              }
+
+              this.M_Update();
             }
           }
         );
       });
     },
-    M_Save() {
-      var param = {
-        option_url: "/MK/MK_Document_Type",
-        line_no: 0,
-        ss_portfolio_id: this.getDataUser().portfolio_id,
-        dokument_type: this.M_MkDokumentType.dokument_type,
-        descs: this.M_MkDokumentType.descs,
-        user_input: this.getDataUser().user_id
-      };
-
-      this.postJSON(this.getUrlCRUD(), param).then(response => {
-        if (response == null) return;
-        this.alertSuccess(response.Message).then(() => {
-          this.doBack();
-        });
-      });
-    },
     M_Update() {
       var param = {
-        option_url: "/MK/MK_Document_Type",
-        line_no: 0,
-        mk_dokument_type_id: this.M_MkDokumentType.mk_dokument_type_id,
+        option_url: "/MK/MK_MarketingCustomer",
+        line_no: 1,
         ss_portfolio_id: this.getDataUser().portfolio_id,
-        dokument_type: this.M_MkDokumentType.dokument_type,
-        descs: this.M_MkDokumentType.descs,
-        lastupdatestamp: this.paramFromList.lastupdatestamp,
+        old_marketing_id: this.M_MarketingReassignment.curr_marketing,
+        marketing_id: this.M_MarketingReassignment.target_marketing,
         user_edit: this.getDataUser().user_id
       };
 
@@ -222,7 +251,7 @@ export default {
 
         var data = response.Data[0];
 
-        this.M_MkDokumentType = {
+        this.M_MarketingReassignment = {
           mk_dokument_type_id: data.mk_dokument_type_id,
           ss_portfolio_id: data.ss_portfolio_id,
           dokument_type: data.dokument_type__tb_1,
@@ -239,12 +268,12 @@ export default {
   },
   mounted() {
     this.M_ClearForm();
-    if (this.inputStatus == "edit") {
-      this.title = "Edit";
-      this.GetDataBy();
-    } else {
-      this.title = "Add";
-    }
+    // if (this.inputStatus == "edit") {
+    //   this.title = "Edit";
+    //   this.GetDataBy();
+    // } else {
+    //   this.title = "Add";
+    // }
   }
 };
 </script>

@@ -1,12 +1,12 @@
 import MK_MarketingSpec from '@/views/MK/MK_MarketingSpec/MK_MarketingSpec'
 
-import MK_LogBook_List from '@/views/MK/MK_LogBook_Mobile/MK_LogBook_List'
-import MK_LogBook_Header from '@/views/MK/MK_LogBook_Mobile/MK_LogBook_Header'
-import MK_LogBook_Detail from '@/views/MK/MK_LogBook_Mobile/MK_LogBook_Detail'
-import MK_LogBook_List2 from '@/views/MK/MK_LogBook_Mobile/MK_LogBook_List2'
-import MK_LogBook_Edit from '@/views/MK/MK_LogBook_Mobile/MK_LogBook_Edit'
-import MK_LogBook_New from '@/views/MK/MK_LogBook_Mobile/MK_LogBook_New'
-import MK_LogBook_New2 from '@/views/MK/MK_LogBook_Mobile/MK_LogBook_New2'
+// import MK_LogBook_List from '@/views/MK/MK_LogBook_Mobile/MK_LogBook_List'
+// import MK_LogBook_Header from '@/views/MK/MK_LogBook_Mobile/MK_LogBook_Header'
+// import MK_LogBook_Detail from '@/views/MK/MK_LogBook_Mobile/MK_LogBook_Detail'
+// import MK_LogBook_List2 from '@/views/MK/MK_LogBook_Mobile/MK_LogBook_List2'
+// import MK_LogBook_Edit from '@/views/MK/MK_LogBook_Mobile/MK_LogBook_Edit'
+// import MK_LogBook_New from '@/views/MK/MK_LogBook_Mobile/MK_LogBook_New'
+// import MK_LogBook_New2 from '@/views/MK/MK_LogBook_Mobile/MK_LogBook_New2'
 
 import MK_NewProspect from '@/views/MK/MK_NewProspect/MK_NewProspect'
 import MK_AddNewProspect from '@/views/MK/MK_NewProspect/MK_AddNewProspect'
@@ -81,62 +81,62 @@ export const MKRender = {
         }
     },
 
-    {
-        path: '/MK/MK_LogBook_List',
-        name: 'MK_LogBook_List',
-        component: MK_LogBook_List,
-        meta: {
-            requiresAuth: true
-        }
-    },
-    {
-        path: '/MK/MK_LogBook_Header',
-        name: 'MK_LogBook_Header',
-        component: MK_LogBook_Header,
-        meta: {
-            requiresAuth: true
-        }
-    },
-    {
-        path: '/MK/MK_LogBook_Detail',
-        name: 'MK_LogBook_Detail',
-        component: MK_LogBook_Detail,
-        meta: {
-            requiresAuth: true
-        }
-    },
-    {
-        path: '/MK/MK_LogBook_List2',
-        name: 'MK_LogBook_List2',
-        component: MK_LogBook_List2,
-        meta: {
-            requiresAuth: true
-        }
-    },
-    {
-        path: '/MK/MK_LogBook_Edit',
-        name: 'MK_LogBook_Edit',
-        component: MK_LogBook_Edit,
-        meta: {
-            requiresAuth: true
-        }
-    },
-    {
-        path: '/MK/MK_LogBook_New',
-        name: 'MK_LogBook_New',
-        component: MK_LogBook_New,
-        meta: {
-            requiresAuth: true
-        }
-    },
-    {
-        path: '/MK/MK_LogBook_New2',
-        name: 'MK_LogBook_New2',
-        component: MK_LogBook_New2,
-        meta: {
-            requiresAuth: true
-        }
-    },
+    // {
+    //     path: '/MK/MK_LogBook_List',
+    //     name: 'MK_LogBook_List',
+    //     component: MK_LogBook_List,
+    //     meta: {
+    //         requiresAuth: true
+    //     }
+    // },
+    // {
+    //     path: '/MK/MK_LogBook_Header',
+    //     name: 'MK_LogBook_Header',
+    //     component: MK_LogBook_Header,
+    //     meta: {
+    //         requiresAuth: true
+    //     }
+    // },
+    // {
+    //     path: '/MK/MK_LogBook_Detail',
+    //     name: 'MK_LogBook_Detail',
+    //     component: MK_LogBook_Detail,
+    //     meta: {
+    //         requiresAuth: true
+    //     }
+    // },
+    // {
+    //     path: '/MK/MK_LogBook_List2',
+    //     name: 'MK_LogBook_List2',
+    //     component: MK_LogBook_List2,
+    //     meta: {
+    //         requiresAuth: true
+    //     }
+    // },
+    // {
+    //     path: '/MK/MK_LogBook_Edit',
+    //     name: 'MK_LogBook_Edit',
+    //     component: MK_LogBook_Edit,
+    //     meta: {
+    //         requiresAuth: true
+    //     }
+    // },
+    // {
+    //     path: '/MK/MK_LogBook_New',
+    //     name: 'MK_LogBook_New',
+    //     component: MK_LogBook_New,
+    //     meta: {
+    //         requiresAuth: true
+    //     }
+    // },
+    // {
+    //     path: '/MK/MK_LogBook_New2',
+    //     name: 'MK_LogBook_New2',
+    //     component: MK_LogBook_New2,
+    //     meta: {
+    //         requiresAuth: true
+    //     }
+    // },
 
     {
         path: '/MK/MK_NewProspect',

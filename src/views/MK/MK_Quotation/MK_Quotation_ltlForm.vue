@@ -242,11 +242,7 @@ export default {
         cProtect: false,
         cParentForm: "MK_FormMkQuotationLtl",
         cStatic: false,
-        cOption: [
-          // { id: "C", label: "Call" },
-          // { id: "V", label: "Visit" },
-          // { id: "E", label: "Entertaintment" }
-        ],
+        cOption: [],
         cDisplayColumn: "action_type,descs",
         cInputStatus: this.inputStatus
       },
