@@ -115,14 +115,14 @@
             <template v-slot:[`cell(${l.key})`]="data" v-for="l in fieldHeader">
               <template v-if="l.key == 'row_id'">
                 <ABSButton
-                  v-if="(ButtonStatus == null ? false : !ButtonStatus.btnView) || WithViewButton == true"
+                  v-show="(ButtonStatus == null ? false : ButtonStatus.btnView) || WithViewButton"
                   :text="'View'"
                   classButton="btn btn--default"
                   classIcon="icon-style-1"
                   @click="viewClicked(data.item, data.index)"
                 />
                 <ABSButton
-                  v-if="(ButtonStatus == null ? false : !ButtonStatus.btnDelete) || WithDeleteButton == true"
+                  v-show="(ButtonStatus == null ? false : ButtonStatus.btnDelete) || WithDeleteButton"
                   :icon="'trash'"
                   classButton="button button--delete"
                   classIcon="icon-style-1"
@@ -146,7 +146,7 @@
                 >
                   <font-awesome-icon icon="icon" class="classIcon" style="styleIcon"/>
                 </b-button> -->
-                <span v-if="WithViewButton == false && WithDeleteButton == false">{{data.item.row_id}}</span>
+                <!-- <span v-if="WithViewButton == false && WithDeleteButton == false">{{data.item.row_id}}</span> -->
               </template>
               <template v-else>
                 <slot :name="`${l.key}`" :item="data.item"></slot>
