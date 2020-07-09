@@ -88,6 +88,7 @@
       </b-row>
     </div>
     <div class="card__body">
+      <slot name="HeaderTable"></slot>
       <div class="table--list" :id="tableId">
         <b-table
           :responsive="true"
@@ -106,42 +107,56 @@
           @row-dblclicked="rowDblClicked"
           class="table-sm table-style-3"
         >
-          <!-- <template slot="HEAD_chkBoxAction" slot-scope="data">
-                                <b-form-checkbox
-                                    v-show="!hideCheckboxAndGear || !hideCheckbox"
-                                    @click.native.stop
-                                    @change="headChkBoxAction"
-                                    v-model="selected"
-                                    :disabled="isDisableTable"
-                                />
-          </template>-->
+          <!-- <template v-slot:cell(row_id)="data">
+            
+          </template> -->
 
-          <!-- <template slot="chkBoxAction" slot-scope="row">
-                                <b-form-checkbox
-                                    v-show="!hideCheckboxAndGear || !hideCheckbox"
-                                    @dblclick.native.stop
-                                    @click.native.stop
-                                    @change="chkBoxAction(row.index)"
-                                    @input="chkBoxInput(row.index)"
-                                    v-model="rowSelected"
-                                    :value="row.index"
-                                    :disabled="isDisableTable || (isCheckDisable == undefined ? false: row.item[isCheckDisable] == null)"
-                                    style="min-height:15px !important;padding-top:0px !important;"
-                                />
-          </template>-->
-          <template v-slot:cell(row_id)="data">
-            <b-button
-              v-if="WithViewButton == true"
-              size="sm"
-              @click.stop="viewClicked(data.item, data.index)"
-              :disabled="false"
-              class="btn btn--default"
-            >
-              <!-- <font-awesome-icon :icon="icon" :class="classIcon" :style="styleIcon"/> -->
-              View
-            </b-button>
-            <span v-else>{{data.item.row_id}}</span>
-          </template>
+          <!-- <template v-for="l in fieldHeader"> -->
+            <template v-slot:[`cell(${l.key})`]="data" v-for="l in fieldHeader">
+              <template v-if="l.key == 'row_id'">
+                <ABSButton
+                  v-if="WithViewButton == true"
+                  :text="'View'"
+                  classButton="btn btn--default"
+                  classIcon="icon-style-1"
+                  @click="viewClicked(data.item, data.index)"
+                />
+                <ABSButton
+                  v-if="WithViewButton == true"
+                  :icon="'trash'"
+                  classButton="button button--delete"
+                  classIcon="icon-style-1"
+                  @click="deleteClicked(data.item, data.index)"
+                />
+                <!-- <b-button
+                  v-if="WithViewButton == true"
+                  size="sm"
+                  @click.stop="viewClicked(data.item, data.index)"
+                  :disabled="false"
+                  class="btn btn--default"
+                >
+                  View
+                </b-button> -->
+                <!-- <b-button
+                  v-if="WithDeleteButton == true"
+                  size="sm"
+                  @click.stop="deleteClicked(data.item, data.index)"
+                  :disabled="false"
+                  class="btn btn--danger"
+                >
+                  <font-awesome-icon icon="icon" class="classIcon" style="styleIcon"/>
+                </b-button> -->
+                <span v-if="WithViewButton == false && WithDeleteButton == false">{{data.item.row_id}}</span>
+              </template>
+              <template v-else>
+                <slot :name="`${l.key}`" :item="data.item"></slot>
+
+                <span v-show="!hasSlot(`${l.key}`)">
+                  {{data.item[`${l.key}`]}}
+                </span>
+              </template>
+            </template>
+          <!-- </template> -->
         </b-table>
       </div>
     </div>
@@ -489,7 +504,8 @@ export default {
     hideCheckbox: Boolean,
     cShowNumber: Boolean,
     urlAdd: String,
-    WithViewButton: Boolean
+    WithViewButton: Boolean,
+    WithDeleteButton: Boolean
   },
   data() {
     return {
@@ -577,6 +593,9 @@ export default {
     }
   },
   methods: {
+    hasSlot(key) {
+      return !!this.$scopedSlots[key]
+    },
     openModalExport() {
       // this.$store.commit("setLevel", this.prop.PageLevel);
       // this.$store.commit("setTab", this.prop.TabIndex);
@@ -975,6 +994,12 @@ export default {
       if (this.isDisableTable) return;
       this.$emit("buttonViewClicked", record, index);
     },
+    deleteClicked: function(record, index) {
+      // alert("test");
+      // this.$store.commit("setStatusLoader", true);
+      if (this.isDisableTable) return;
+      this.$emit("buttonDeleteClicked", record, index);
+    },
     doGetList(search, method) {
       this.checkOrderBy();
       // if (this.getIsCallBack()) {
@@ -1174,6 +1199,7 @@ export default {
             });
           } else {
             if (str_array[i] == "lastupdatestamp") continue;
+            if (str_array[i] == "time_edit") continue;
 
             var listReplace = [
               {
@@ -1270,7 +1296,7 @@ export default {
                 );
               } else {
                 if (labelHeader.includes(data.key)) {
-                  if (labelHeader == "Row Id" && !this.WithViewButton) continue;
+                  if (labelHeader == "Row Id" && (!this.WithViewButton || !this.WithDeleteButton)) continue;
                   // if (labelHeader == 'Row Id' && !this.WithViewButton) {
 
                   // }

@@ -72,6 +72,7 @@ export default {
       this.$store.commit("setSearch2", "");
       this.$store.commit("setSearch3", "");
       this.$store.commit("setPsMenu", menu);
+      this.$store.commit("setParamPage", null);
       // this.$store.commit('setStatusLoader', true)
     },
     changeFavMenu(data) {
