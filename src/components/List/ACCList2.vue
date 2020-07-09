@@ -735,7 +735,8 @@ export default {
         // title: this.title,
         isEdit: false
       };
-      this.$router.push({ name: url, params: param });
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: url });
     },
     doAddFilter() {
       var dataColumn = this.selectedColumn;

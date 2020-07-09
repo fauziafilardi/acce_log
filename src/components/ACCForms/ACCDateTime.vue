@@ -2,7 +2,7 @@
   <span>
     <!-- <b-col md="12"> -->
     <b-row>
-      <b-col md="6" class="col-a-1" style="padding-left:0px !important;">
+      <b-col class="col-a-1" style="padding-left:0px !important;">
         <!-- <span>
           <font-awesome-icon style="color: blue;" icon="calendar-alt" size="lg" />
         </span>-->

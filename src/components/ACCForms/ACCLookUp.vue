@@ -50,24 +50,26 @@
     </b-modal>
     <!-- <b-row>
     <b-col>-->
-    <b-form-input
-      v-show="inputStatus!=='view'"
-      v-validate="prop.cValidate"
-      :class="{'input': true, 'error-text-field': errors.has(prop.cParentForm+'.'+prop.cName)}"
-      type="text"
-      v-bind:name="prop.cName"
-      v-model="label"
-      class="text-field-form-list"
-      :tabindex="prop.cOrder"
-      :readonly="true"
-      :ref="prop.cName"
-      :id="prop.cName"
-      :style="(inputStatus=='edit' && prop.cKey || prop.cProtect ? 'background-color:  #e9ecef; padding-right:36px !important;' : 'background-color: #FFF; padding-right:36px !important;') + prop.cStyle"
-      :disabled="inputStatus=='edit' && prop.cKey || prop.cProtect"
-      @click.native="openLookup"
-    />
-    <span v-show="inputStatus!=='view' && label!='' " @click="clear" class="clear">&times;</span>
-    <i v-show="inputStatus!=='view'" @click="openLookup" role="presentation" class="open-indicator"></i>
+    <b-col style="padding-right: 0px !important; padding-left: 0px !important;">
+      <b-form-input
+        v-show="inputStatus!=='view'"
+        v-validate="prop.cValidate"
+        :class="{'input': true, 'error-text-field': errors.has(prop.cParentForm+'.'+prop.cName)}"
+        type="text"
+        v-bind:name="prop.cName"
+        v-model="label"
+        class="text-field-form-list"
+        :tabindex="prop.cOrder"
+        :readonly="true"
+        :ref="prop.cName"
+        :id="prop.cName"
+        :style="(inputStatus=='edit' && prop.cKey || prop.cProtect ? 'background-color:  #e9ecef; padding-right:36px !important;' : 'background-color: #FFF; padding-right:36px !important;') + prop.cStyle"
+        :disabled="inputStatus=='edit' && prop.cKey || prop.cProtect"
+        @click.native="openLookup"
+      />
+      <span v-show="inputStatus!=='view' && label!='' " @click="clear" class="clear">&times;</span>
+      <i v-show="inputStatus!=='view'" @click="openLookup" role="presentation" class="open-indicator"></i>
+    </b-col>
 
     <span
       v-show="errors.has(prop.cParentForm+'.'+prop.cName)"
@@ -445,7 +447,7 @@ export default {
 
   position: absolute !important;
   right: 30px !important;
-  top: 36px !important;
+  top: 30% !important;
   /* margin-top: 5px !important; */
   display: inline-block;
   cursor: pointer !important;
@@ -478,7 +480,6 @@ export default {
   } */
 
 .open-indicator {
-  display: flex;
   align-items: center;
   cursor: pointer;
   pointer-events: all;
@@ -489,7 +490,9 @@ export default {
 
   position: absolute !important;
   right: 12px !important;
-  top: 36px !important;
+  top: 30% !important;
+  /* left: 97% !important;
+  bottom: 30px !important; */
   margin-top: 2px !important;
   display: inline-block;
   margin-right: 0px !important;

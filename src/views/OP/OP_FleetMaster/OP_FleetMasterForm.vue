@@ -36,226 +36,233 @@
                       </div>
                     </div>
                   </b-col>
-                  <b-col md="10">
+                  <b-col md="5">
                     <b-row>
-                      <b-col md="6">
+                      <b-col style="max-width: fit-content !important; margin: auto;">
+                        <span>
+                          <font-awesome-icon
+                            class="icon-style-default"
+                            icon="user"
+                            size="sm"
+                          /> &nbsp; &nbsp;
+                          <label>Driver Name</label>
+                        </span>
+                      </b-col>
+                      <b-col>
+                        <ACCLookUp
+                          @change = "Onfm_driver_idChange"
+                          :prop = "PI_fm_driver_id"
+                          v-model = "M_FmFleetMstr.fm_driver_id"
+                          :label = "M_FmFleetMstr.driver_nameLabel"
+                          ref = "ref_fm_driver_id"
+                        />
+                      </b-col>
+                    </b-row>
+
+                    <b-row style="border: solid 1px #ccc; border-radius: 10px;">
+                      <b-col md="12">
                         <b-row>
-                          <b-col style="max-width: max-width:fit-content !important;">
-                            <span>
-                              <font-awesome-icon
-                                class="icon-style-default"
-                                icon="user"
-                                size="sm"
-                              />
-                              <label>Driver Name</label>
-                            </span>
-                          </b-col>
                           <b-col>
+                            <span>
+                              <label>BPKB No</label>
+                            </span>
+                            <ACCTextBox
+                              :prop = "PI_bpkb_no"
+                              v-model = "M_FmFleetMstr.bpkb_no"
+                              ref = "ref_bpkb_no"
+                            />
+                          </b-col>
+                        </b-row>
+                        <b-row>
+                          <b-col md="7">
+                            <span>
+                              <label>License Plat</label>
+                            </span>
+                            <ACCTextBox
+                              :prop = "PI_license_plate_no"
+                              v-model = "M_FmFleetMstr.license_plate_no"
+                              ref = "ref_license_plate_no"
+                            />
+                          </b-col>
+                          <b-col md="5">
+                            <span>
+                              <label>Valid Until</label>
+                            </span>
+                            <ACCDateTime
+                              @input = "Onlicense_plate_expiry_dateChange"
+                              :prop = "PI_license_plate_expiry_date"
+                              v-model = "M_FmFleetMstr.license_plate_expiry_date"
+                              ref = "ref_license_plate_expiry_date"
+                            />
+                          </b-col>
+                        </b-row>
+                        <b-row>
+                          <b-col md="12">
+                            <span>
+                              <label>Vehicle Brand</label>
+                            </span>
                             <ACCLookUp
-                              @change = "Onfm_driver_idChange"
-                              :prop = "PI_fm_driver_id"
-                              v-model = "M_FmFleetMstr.fm_driver_id"
-                              :label = "M_FmFleetMstr.driver_nameLabel"
-                              ref = "ref_fm_driver_id"
+                              @change = "Onfm_fleet_brand_idChange"
+                              :prop = "PI_fm_fleet_brand_id"
+                              v-model = "M_FmFleetMstr.fm_fleet_brand_id"
+                              :label = "M_FmFleetMstr.vehicle_typeLabel"
+                              ref = "ref_fm_fleet_brand_id"
+                            />
+                          </b-col>
+                        </b-row>
+                        <b-row>
+                          <b-col md="12">
+                            <span>
+                              <label>Vehicle Type</label>
+                            </span>
+                            <ACCLookUp
+                              @change = "Onfm_fleet_type_idChange"
+                              :prop = "PI_fm_fleet_type_id"
+                              v-model = "M_FmFleetMstr.fm_fleet_type_id"
+                              :label = "M_FmFleetMstr.fm_fleet_type_id"
+                              ref = "ref_fm_fleet_type_id"
+                            />
+                          </b-col>
+                        </b-row>
+                        <b-row>
+                          <b-col md="12">
+                            <span>
+                              <label>Vehicle Carosery</label>
+                            </span>
+                            <ACCLookUp
+                              @change = "Onfm_fleet_carosery_idChange"
+                              :prop = "PI_fm_fleet_carosery_id"
+                              v-model = "M_FmFleetMstr.fm_fleet_carosery_id"
+                              :label = "M_FmFleetMstr.fm_fleet_carosery_id"
+                              ref = "ref_fm_fleet_carosery_id"
+                            />
+                          </b-col>
+                        </b-row>
+                        <b-row>
+                          <b-col md="7">
+                            <span>
+                              <label>STNK No</label>
+                            </span>
+                            <ACCTextBox
+                              :prop = "PI_stnk_no"
+                              v-model = "M_FmFleetMstr.stnk_no"
+                              ref = "ref_stnk_no"
+                            />
+                          </b-col>
+                          <b-col md="5">
+                            <span>
+                              <label>Valid Until</label>
+                            </span>
+                            <ACCDateTime
+                              @input = "Onstnk_expiry_dateChange"
+                              :prop = "PI_stnk_expiry_date"
+                              v-model = "M_FmFleetMstr.stnk_expiry_date"
+                              ref = "ref_stnk_expiry_date"
+                            />
+                          </b-col>
+                        </b-row>
+                        <b-row>
+                          <b-col md="7">
+                            <span>
+                              <label>KIR</label>
+                            </span>
+                            <ACCTextBox
+                              :prop = "PI_kir"
+                              v-model = "M_FmFleetMstr.kir"
+                              ref = "ref_kir"
+                            />
+                          </b-col>
+                          <b-col md="5">
+                            <span>
+                              <label>Valid Until</label>
+                            </span>
+                            <ACCDateTime
+                              @input = "Onkir_expiry_dateChange"
+                              :prop = "PI_kir_expiry_date"
+                              v-model = "M_FmFleetMstr.kir_expiry_date"
+                              ref = "ref_kir_expiry_date"
+                            />
+                          </b-col>
+                        </b-row>
+                        <b-row>
+                          <b-col md="6">
+                            <span>
+                              <label>Capacity KGS</label>
+                            </span>
+                            <ACCTextBox
+                              :prop = "PI_capacity_kgs"
+                              v-model = "M_FmFleetMstr.capacity_kgs"
+                              ref = "ref_capacity_kgs"
+                            />
+                          </b-col>
+                          <b-col md="6">
+                            <span>
+                              <label>Capacity CBM</label>
+                            </span>
+                            <ACCTextBox
+                              :prop = "PI_capacity_cbm"
+                              v-model = "M_FmFleetMstr.capacity_cbm"
+                              ref = "ref_capacity_cbm"
                             />
                           </b-col>
                         </b-row>
                       </b-col>
                     </b-row>
-
-                    <b-row>
-                      <b-col md="6">
-                        
-                      </b-col>
-                    </b-row>
-                    
-                    <b-row>
-                      <b-col md="6">
-                        <span>
-                          <label>Bpkb No</label>
-                        </span>
-                        <ACCTextBox
-                          :prop = "PI_bpkb_no"
-                          v-model = "M_FmFleetMstr.bpkb_no"
-                          ref = "ref_bpkb_no"
-                        />
-                      </b-col>
-                    </b-row>
-                    <b-row>
-                      <b-col md="6">
-                        <span>
-                          <label>License Plate No</label>
-                        </span>
-                        <ACCTextBox
-                          :prop = "PI_license_plate_no"
-                          v-model = "M_FmFleetMstr.license_plate_no"
-                          ref = "ref_license_plate_no"
-                        />
-                      </b-col>
-                    </b-row>
-                    <b-row>
-                      <b-col md="6">
-                        <span>
-                          <label>Vehicle Brand</label>
-                        </span>
-                        <ACCLookUp
-                          @change = "Onlicense_plate_expiry_dateChange"
-                          :prop = "PI_license_plate_expiry_date"
-                          v-model = "M_FmFleetMstr.license_plate_expiry_date"
-                          :label = "M_FmFleetMstr.vehicle_brandLabel"
-                          ref = "ref_license_plate_expiry_date"
-                        />
-                      </b-col>
-                    </b-row>
-                    <b-row>
-                      <b-col md="6">
-                        <span>
-                          <label>Vehicle Type</label>
-                        </span>
-                        <ACCLookUp
-                          @change = "Onfm_fleet_brand_idChange"
-                          :prop = "PI_fm_fleet_brand_id"
-                          v-model = "M_FmFleetMstr.fm_fleet_brand_id"
-                          :label = "M_FmFleetMstr.vehicle_typeLabel"
-                          ref = "ref_fm_fleet_brand_id"
-                        />
-                      </b-col>
-                    </b-row>
-                    <b-row>
-                      <b-col md="6">
-                        <span>
-                          <label>Fm Fleet Type Id</label>
-                        </span>
-                        <ACCLookUp
-                          @change = "Onfm_fleet_type_idChange"
-                          :prop = "PI_fm_fleet_type_id"
-                          v-model = "M_FmFleetMstr.fm_fleet_type_id"
-                          :label = "M_FmFleetMstr.fm_fleet_type_id"
-                          ref = "ref_fm_fleet_type_id"
-                        />
-                      </b-col>
-                    </b-row>
-                    <b-row>
-                      <b-col md="6">
-                        <span>
-                          <label>Fm Fleet Carosery Id</label>
-                        </span>
-                        <ACCLookUp
-                          @change = "Onfm_fleet_carosery_idChange"
-                          :prop = "PI_fm_fleet_carosery_id"
-                          v-model = "M_FmFleetMstr.fm_fleet_carosery_id"
-                          :label = "M_FmFleetMstr.fm_fleet_carosery_id"
-                          ref = "ref_fm_fleet_carosery_id"
-                        />
-                      </b-col>
-                    </b-row>
-                    <b-row>
-                      <b-col md="6">
-                        <span>
-                          <label>Stnk No</label>
-                        </span>
-                        <ACCTextBox
-                          :prop = "PI_stnk_no"
-                          v-model = "M_FmFleetMstr.stnk_no"
-                          ref = "ref_stnk_no"
-                        />
-                      </b-col>
-                    </b-row>
-                    <b-row>
-                      <b-col md="6">
-                        <span>
-                          <label>Stnk Expiry Date</label>
-                        </span>
-                        <ACCTextBox
-                          :prop = "PI_stnk_expiry_date"
-                          v-model = "M_FmFleetMstr.stnk_expiry_date"
-                          ref = "ref_stnk_expiry_date"
-                        />
-                      </b-col>
-                    </b-row>
-                    <b-row>
-                      <b-col md="6">
-                        <span>
-                          <label>Kir</label>
-                        </span>
-                        <ACCTextBox
-                          :prop = "PI_kir"
-                          v-model = "M_FmFleetMstr.kir"
-                          ref = "ref_kir"
-                        />
-                      </b-col>
-                    </b-row>
-                    <b-row>
-                      <b-col md="6">
-                        <span>
-                          <label>Kir Expiry Date</label>
-                        </span>
-                        <ACCTextBox
-                          :prop = "PI_kir_expiry_date"
-                          v-model = "M_FmFleetMstr.kir_expiry_date"
-                          ref = "ref_kir_expiry_date"
-                        />
-                      </b-col>
-                    </b-row>
-                    <b-row>
-                      <b-col md="6">
-                        <span>
-                          <label>Capacity Kgs</label>
-                        </span>
-                        <ACCTextBox
-                          :prop = "PI_capacity_kgs"
-                          v-model = "M_FmFleetMstr.capacity_kgs"
-                          ref = "ref_capacity_kgs"
-                        />
-                      </b-col>
-                    </b-row>
-                    <b-row>
-                      <b-col md="6">
-                        <span>
-                          <label>Capacity Cbm</label>
-                        </span>
-                        <ACCTextBox
-                          :prop = "PI_capacity_cbm"
-                          v-model = "M_FmFleetMstr.capacity_cbm"
-                          ref = "ref_capacity_cbm"
-                        />
-                      </b-col>
-                    </b-row>
-                    <b-row>
-                      <b-col md="6">
-                        <span>
-                          <label>Millage</label>
-                        </span>
-                        <ACCTextBox
-                          :prop = "PI_millage"
-                          v-model = "M_FmFleetMstr.millage"
-                          ref = "ref_millage"
-                        />
-                      </b-col>
-                    </b-row>
-                    <b-row>
-                      <b-col md="6">
-                        <span>
-                          <label>Remarks</label>
-                        </span>
-                        <ACCTextBox
-                          :prop = "PI_remarks"
-                          v-model = "M_FmFleetMstr.remarks"
-                          ref = "ref_remarks"
-                        />
-                      </b-col>
-                    </b-row>
-                    <b-row style="margin-top: 10px;">
-                      <b-col md="6">
+                  </b-col>
+                  <b-col md="5"> <!-- di border -->
+                    <b-row style="border: solid 1px #ccc; border-radius: 10px;">
+                      <b-col md="12">
                         <ABSButton
-                          :text="'Save FleetMaster'"
+                          :text="'Add Picture'"
+                          icon="plus-circle"
                           classButton="btn btn--default"
-                          classIcon="icon-style-default"
-                          @click="doSave"
-                          styleButton="height: 40px;width: 100%;"
+                          styleButton="height: 40px;width: 70%;"
+                          @click="addPict"
                         />
                       </b-col>
                     </b-row>
+                    <b-row style="margin-top: 10px; border: solid 1px #ccc; border-radius: 10px;">
+                      <b-col>
+                        <b-row>
+                          <b-col md="11">
+                            <span>
+                              <label>Millage</label>
+                            </span>
+                            <ACCTextBox
+                              :prop = "PI_millage"
+                              v-model = "M_FmFleetMstr.millage"
+                              ref = "ref_millage"
+                            />
+                          </b-col>
+                          <b-col style="margin-top: 35px;">
+                            Km
+                          </b-col>
+                        </b-row>
+                        <b-row>
+                          <b-col md="12">
+                            <span>
+                              <label>Remarks</label>
+                            </span>
+                            <ACCTextArea
+                              :prop = "PI_remarks"
+                              v-model = "M_FmFleetMstr.remarks"
+                              ref = "ref_remarks"
+                            />
+                          </b-col>
+                        </b-row>
+                      </b-col>
+                    </b-row>
+                  </b-col>
+                </b-row>
+                <b-row style="margin-top: 10px;">
+                  <b-col offset="2" md="10" style="text-align: center">
+                    <ABSButton
+                      :text="'Save Fleet Master'"
+                      classButton="btn btn--default"
+                      classIcon="icon-style-default"
+                      @click="doSave"
+                      styleButton="height: 40px;width: 70%;"
+                    />
                   </b-col>
                 </b-row>
               </b-form>
@@ -308,14 +315,14 @@ export default {
             ,
       PI_fm_driver_id: {
         dataLookUp:{
-          LookUpCd:'',
-          ColumnDB:'',
+          LookUpCd:'GetDriver',
+          ColumnDB:'driver_id',
           InitialWhere:'',
           ParamWhere:'',
           OrderBy:'',
           ParamView:'',
           SourceField:'',
-          DisplayLookUp:''
+          DisplayLookUp:'driver_name, handphone'
         },
         cValidate: '',
         cName: "fm_driver_id",
@@ -325,7 +332,7 @@ export default {
         cProtect: false,
         cParentForm: "OP_FormFmFleetMstr",
         cOption: [],
-        cDisplayColumn: '',
+        cDisplayColumn: 'driver_name, handphone',
         cInputStatus: this.inputStatus
       },
       PI_bpkb_no: {
@@ -351,15 +358,14 @@ export default {
         cInputStatus: this.inputStatus
       },
       PI_license_plate_expiry_date: {
-        cValidate: '',
+        cValidate: "",
         cName: "license_plate_expiry_date",
         cOrder: 4,
         cKey: false,
-        cType: "text",
         cProtect: false,
-        cParentForm: "OP_FormFmFleetMstr",
-        cDecimal: 2,
-        cInputStatus: this.inputStatus
+        cWithTime: false,
+        cFormat: "dd/MM/yyyy",
+        cParentForm: "OP_FormFmFleetMstr"
       },
       PI_fm_fleet_brand_id: {
         dataLookUp:{
@@ -385,14 +391,14 @@ export default {
       },
       PI_fm_fleet_type_id: {
         dataLookUp:{
-          LookUpCd:'',
-          ColumnDB:'',
+          LookUpCd:'GetFleetType',
+          ColumnDB:'fleet_type_id',
           InitialWhere:'',
           ParamWhere:'',
           OrderBy:'',
           ParamView:'',
           SourceField:'',
-          DisplayLookUp:''
+          DisplayLookUp:'vehicle_type,remarks'
         },
         cValidate: '',
         cName: "fm_fleet_type_id",
@@ -402,7 +408,7 @@ export default {
         cProtect: false,
         cParentForm: "OP_FormFmFleetMstr",
         cOption: [],
-        cDisplayColumn: '',
+        cDisplayColumn: 'vehicle_type,remarks',
         cInputStatus: this.inputStatus
       },
       PI_fm_fleet_carosery_id: {
@@ -439,15 +445,14 @@ export default {
         cInputStatus: this.inputStatus
       },
       PI_stnk_expiry_date: {
-        cValidate: '',
+        cValidate: "",
         cName: "stnk_expiry_date",
         cOrder: 9,
         cKey: false,
-        cType: "text",
         cProtect: false,
-        cParentForm: "OP_FormFmFleetMstr",
-        cDecimal: 2,
-        cInputStatus: this.inputStatus
+        cWithTime: false,
+        cFormat: "dd/MM/yyyy",
+        cParentForm: "OP_FormFmFleetMstr"
       },
       PI_kir: {
         cValidate: '',
@@ -461,15 +466,14 @@ export default {
         cInputStatus: this.inputStatus
       },
       PI_kir_expiry_date: {
-        cValidate: '',
+        cValidate: "",
         cName: "kir_expiry_date",
         cOrder: 11,
         cKey: false,
-        cType: "text",
         cProtect: false,
-        cParentForm: "OP_FormFmFleetMstr",
-        cDecimal: 2,
-        cInputStatus: this.inputStatus
+        cWithTime: false,
+        cFormat: "dd/MM/yyyy",
+        cParentForm: "OP_FormFmFleetMstr"
       },
       PI_capacity_kgs: {
         cValidate: '',
@@ -539,52 +543,52 @@ export default {
     Onfm_driver_idChange(data) {
       this.$nextTick(() => {
         this.M_FmFleetMstr.fm_driver_id = data.id
-        this.M_FmFleetMstr.driver_nameLabel = data.descs
+        this.M_FmFleetMstr.driver_nameLabel = data.label
       });
     },
     Onfm_fleet_brand_idChange(data) {
       this.$nextTick(() => {
         this.M_FmFleetMstr.fm_fleet_brand_id = data.id
-        this.M_FmFleetMstr.vehicle_typeLabel = data.descs
+        this.M_FmFleetMstr.vehicle_brandLabel = data.label
       });
     },
     Onfm_fleet_type_idChange(data) {
       this.$nextTick(() => {
         this.M_FmFleetMstr.fm_fleet_type_id = data.id
-        this.M_FmFleetMstr.fm_fleet_type_id = data.descs
+        this.M_FmFleetMstr.vehicle_typeLabel = data.label
       });
     },
     Onfm_fleet_carosery_idChange(data) {
       this.$nextTick(() => {
         this.M_FmFleetMstr.fm_fleet_carosery_id = data.id
-        this.M_FmFleetMstr.fm_fleet_carosery_id = data.descs
+        this.M_FmFleetMstr.vehicle_caroseryLabel = data.label
       });
     },
 		
     M_ClearForm() {
 
       this.M_FmFleetMstr = {
-        fm_fleet_mstr_id : 0,
-        ss_portfolio_id : 0,
-        fm_driver_id : 0,
+        fm_fleet_mstr_id : '',
+        ss_portfolio_id : '',
+        fm_driver_id : '',
         driver_nameLabel : '',
-        fm_driver_id2 : 0,
+        fm_driver_id2 : '',
         bpkb_no : '',
         license_plate_no : '',
         license_plate_expiry_date : '',
-        fm_fleet_brand_id : 0,
+        fm_fleet_brand_id : '',
         vehicle_brandLabel : '',
-        fm_fleet_type_id : 0,
+        fm_fleet_type_id : '',
         vehicle_typeLabel : '',
-        fm_fleet_carosery_id : 0,
+        fm_fleet_carosery_id : '',
         vehicle_caroseryLabel : '',
         stnk_no : '',
         stnk_expiry_date : '',
         kir : '',
         kir_expiry_date : '',
-        capacity_kgs : 0,
-        capacity_cbm : 0,
-        millage : 0,
+        capacity_kgs : '',
+        capacity_cbm : '',
+        millage : '',
         remarks : '',
         dt_doc_file_name : '',
         dt_doc_path_file : '',
@@ -592,10 +596,9 @@ export default {
         user_edit : '',
         time_input : '',
         time_edit : '',
-        row_id : 0,
-        lastupdatestamp : 0
+        row_id : '',
+        lastupdatestamp : ''
       }
-                 
     },
    
     doSave() {

@@ -32,7 +32,7 @@ $brand-colors: ("new", #0680FF),
             border: 1px solid nth($color, 2);
 
             svg {
-                color: nth($color, 2);
+                color: #FFFFFF;
             }
 
             &:hover {
