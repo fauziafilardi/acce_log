@@ -47,7 +47,9 @@ export default {
     doViewClick(record, index) {
       var param = record;
       param.isEdit = true;
-      this.$router.push({ name: "MK_DocumentTypeForm", params: param });
+      param.isView = true;
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "MK_DocumentTypeForm" });
     },
     doDoubleClick(record, index) {},
     rowLink(url) {},
@@ -59,19 +61,6 @@ export default {
   },
   mounted() {
     this.$refs.ref_MkDokumentType.doGetList("");
-    this.GetButtonStatus(
-      this.getDataUser().portfolio_id,
-      this.getDataUser().group_id,
-      this.getDataUser().user_id,
-      "/MK/MK_Document_Type"
-    ).then(ress => {
-      var x = {};
-      for (let i = 0; i < ress.length; i++) {
-        x[ress[i].button_id] = ress[i].button_status;
-      }
-
-      this.$store.commit("setButtonStatus", x);
-    });
   },
   created() {
     this.$store.commit("setParamPage", {});

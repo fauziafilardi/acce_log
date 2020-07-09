@@ -178,11 +178,11 @@ export default {
   },
   computed: {
     paramFromList() {
-      var param = this.$route.params;
+      var param = this.$store.getters.getParamPage;
       return param;
     },
     inputStatus() {
-      var param = this.$route.params;
+      var param = this.$store.getters.getParamPage;
       if (param.isEdit && param.isEdit === true) {
         return "edit";
       } else {
