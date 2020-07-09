@@ -39,7 +39,7 @@
               :text="'Add New'"
               classButton="button button--back2"
               classIcon="icon-style-1"
-              :disabled="!isCanAdd"
+              :disabled="ButtonStatus == null ? false : !ButtonStatus.btnAdd"
               @click="onAddNewClick"
             />
           </span>
@@ -115,14 +115,14 @@
             <template v-slot:[`cell(${l.key})`]="data" v-for="l in fieldHeader">
               <template v-if="l.key == 'row_id'">
                 <ABSButton
-                  v-if="WithViewButton == true"
+                  v-if="(ButtonStatus == null ? false : !ButtonStatus.btnView) || WithViewButton == true"
                   :text="'View'"
                   classButton="btn btn--default"
                   classIcon="icon-style-1"
                   @click="viewClicked(data.item, data.index)"
                 />
                 <ABSButton
-                  v-if="WithViewButton == true"
+                  v-if="(ButtonStatus == null ? false : !ButtonStatus.btnDelete) || WithViewButton == true"
                   :icon="'trash'"
                   classButton="button button--delete"
                   classIcon="icon-style-1"
@@ -583,13 +583,8 @@ export default {
     tableId() {
       return "AccList-" + Math.floor(Math.random() * 10);
     },
-    isCanAdd() {
-      var url = this.urlAdd;
-      if (!url || url == "" || url == undefined) {
-        return false;
-      } else {
-        return true;
-      }
+    ButtonStatus() {
+      return this.$store.getters.getButtonStatus;
     }
   },
   methods: {
@@ -1427,9 +1422,15 @@ export default {
   mounted() {
   },
   created() {
-    // if (this.WithViewButton == undefined) {
-    //   this.WithViewButton = false
-    // }
+    this.GetButtonStatus(this.getDataUser().portfolio_id, this.getDataUser().group_id, this.getDataUser().user_id, "/MK/MK_Quotation")
+    .then(ress => {
+      var x = {}
+      for (let i = 0; i < ress.length; i++) {
+          x[ress[i].button_id] = ress[i].button_status
+      }
+
+      this.$store.commit("setButtonStatus", x);
+    })
   }
 };
 </script>
