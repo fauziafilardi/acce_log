@@ -152,12 +152,16 @@ export default {
   computed: {},
   methods: {
     onFleetMasterClick() {},
-    onDriverManagementClick() {},
-    onVehicleBrandClick() {},
+    onDriverManagementClick() {
+      this.$router.push({ name: "OP_DriverManagement" });
+    },
+    onVehicleBrandClick() {
+      this.$router.push({ name: "OP_FleetBrand" });
+    },
     onVehicleTypeClick() {},
     onVehicleCaroseryClick() {},
     onMaintenanceTypeClick() {},
-    onTicketCategoryClick() {},
+    onTicketCategoryClick() {}
   },
   mounted() {}
 };

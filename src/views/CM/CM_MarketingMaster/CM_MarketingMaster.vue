@@ -545,7 +545,9 @@ export default {
   mounted() {
     this.doGetList("");
   },
-  created() {}
+  created() {
+    this.$store.commit("setParamPage", {});
+  }
 };
 </script>
 

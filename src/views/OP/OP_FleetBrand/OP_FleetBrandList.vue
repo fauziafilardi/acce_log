@@ -5,7 +5,7 @@
         <b-col md="12">
           <ACCList2
             :prop="propList"
-            :title="'Dokument Type'"
+            :title="'Master Vehicle Brand'"
             @rowClicked="rowClicked"
             @rowDblClicked="doDoubleClick"
             @rowLinkClick="rowLink"
@@ -14,8 +14,8 @@
             @filter="M_Advance_Filter"
             @headTable="M_Head_Table"
             @refreshColumn="refreshColumn"
-            ref="ref_MkDokumentType"
-            urlAdd="MK_DocumentTypeForm"
+            ref="ref_FmFleetBrand"
+            urlAdd="OP_FleetBrandForm"
             WithViewButton
             @buttonViewClicked="doViewClick"
           />
@@ -47,7 +47,7 @@ export default {
     doViewClick(record, index) {
       var param = record;
       param.isEdit = true;
-      this.$router.push({ name: "MK_DocumentTypeForm", params: param });
+      this.$router.push({ name: "OP_FleetBrandView", params: param });
     },
     doDoubleClick(record, index) {},
     rowLink(url) {},
@@ -58,12 +58,12 @@ export default {
     refreshColumn() {}
   },
   mounted() {
-    this.$refs.ref_MkDokumentType.doGetList("");
+    this.$refs.ref_FmFleetBrand.doGetList("");
     this.GetButtonStatus(
       this.getDataUser().portfolio_id,
       this.getDataUser().group_id,
       this.getDataUser().user_id,
-      "/MK/MK_Document_Type"
+      "/MK/MK_Quotation"
     ).then(ress => {
       var x = {};
       for (let i = 0; i < ress.length; i++) {
@@ -74,7 +74,7 @@ export default {
     });
   },
   created() {
-    this.$store.commit("setParamPage", {});
+    this.$store.comit("setParamPage", {});
   }
 };
 </script>

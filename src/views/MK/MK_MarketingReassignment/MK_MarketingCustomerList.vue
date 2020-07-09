@@ -498,7 +498,7 @@ export default {
     // this.GenDoList();
   },
   created() {
-    // this.GenDoList();
+    this.$store.commit("setParamPage", {});
   }
 };
 </script>
