@@ -17,7 +17,7 @@
             @refreshColumn="refreshColumn"
             ref="ref_FmFleetCarosery"
             urlAdd="OP_FleetCaroseryForm"
-            WithViewButton
+            WithDeleteButton
             @buttonViewClicked="doViewClick"
           />
         </b-col>
@@ -50,7 +50,7 @@ export default {
       param.isEdit = true;
       param.isView = true;
       this.$store.commit("setParamPage", param);
-      this.$router.push({ name: "OP_FleetCaroseryView" });
+      this.$router.push({ name: "OP_FleetCaroseryForm" });
     },
     doDoubleClick(record, index) {},
     doDeleteClick(record, index) {

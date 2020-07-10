@@ -5,9 +5,9 @@
         <b-col md="12">
           <ACCList2
             :prop="propList"
-            :title="'TicketCategory'"
+            :title="'Ticket Category'"
             @rowClicked="rowClicked"
-			@buttonDeleteClicked="doDeleteClick"
+            @buttonDeleteClicked="doDeleteClick"
             @rowDblClicked="doDoubleClick"
             @rowLinkClick="rowLink"
             @pageSize="M_PageSize"
@@ -17,7 +17,7 @@
             @refreshColumn="refreshColumn"
             ref="ref_OpTicketCategory"
             urlAdd="OP_TicketCategoryForm"
-            WithViewButton
+            WithDeleteButton
             @buttonViewClicked="doViewClick"
           />
         </b-col>
@@ -43,17 +43,17 @@ export default {
   },
   methods: {
     rowClicked(record, index) {
-      this.doViewClick(record, index)
+      this.doViewClick(record, index);
     },
     doViewClick(record, index) {
       var param = record;
-	  param.isEdit = true;
+      param.isEdit = true;
       param.isView = true;
       this.$store.commit("setParamPage", param);
-      this.$router.push({ name: "OP_TicketCategoryView"});
+      this.$router.push({ name: "OP_TicketCategoryForm" });
     },
     doDoubleClick(record, index) {},
-	doDeleteClick(record, index) {
+    doDeleteClick(record, index) {
       var param = {
         option_url: "/OP/OP_TicketCategory",
         line_no: 0,
@@ -78,10 +78,9 @@ export default {
   },
   mounted() {
     this.$refs.ref_OpTicketCategory.doGetList("");
-	
   },
-  created(){
-	this.$store.comit("setParamPage",{})
+  created() {
+    this.$store.comit("setParamPage", {});
   }
 };
 </script>

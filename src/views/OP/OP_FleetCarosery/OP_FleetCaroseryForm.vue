@@ -71,14 +71,24 @@
                           </b-col>
                         </b-row>
                         <b-row>
-                          <b-col md="6">
+                          <b-col md="1" class="col-p-1">
                             <span>
-                              <label>Phone No</label>
+                              <label style="width: 100px;">Phone No.</label>
                             </span>
                             <ACCTextBox
-                              :prop="PI_phone_no"
-                              v-model="M_FmFleetCarosery.phone_no"
-                              ref="ref_phone_no"
+                              :prop="PI_phone_no_1"
+                              v-model="M_FmFleetCarosery.phone_no_1"
+                              ref="ref_phone_no_1"
+                            />
+                          </b-col>
+                          <b-col md="5" class="col-p-2">
+                            <span>
+                              <label>&nbsp;</label>
+                            </span>
+                            <ACCTextBox
+                              :prop="PI_phone_no_2"
+                              v-model="M_FmFleetCarosery.phone_no_2"
+                              ref="ref_phone_no_2"
                             />
                           </b-col>
                         </b-row>
@@ -121,7 +131,8 @@ export default {
         carosery_name: "",
         company_name: "",
         pic: "",
-        phone_no: "",
+        phone_no_1: "+62",
+        phone_no_2: "",
         user_input: "",
         user_edit: "",
         time_input: "",
@@ -162,10 +173,21 @@ export default {
         cDecimal: 2,
         cInputStatus: this.inputStatus
       },
-      PI_phone_no: {
+      PI_phone_no_1: {
         cValidate: "",
-        cName: "phone_no",
+        cName: "phone_no_1",
         cOrder: 4,
+        cKey: false,
+        cType: "text",
+        cProtect: false,
+        cParentForm: "OP_FormFmFleetCarosery",
+        cDecimal: 2,
+        cInputStatus: this.inputStatus
+      },
+      PI_phone_no_2: {
+        cValidate: "",
+        cName: "phone_no_2",
+        cOrder: 5,
         cKey: false,
         cType: "text",
         cProtect: false,
@@ -201,7 +223,8 @@ export default {
         carosery_name: "",
         company_name: "",
         pic: "",
-        phone_no: "",
+        phone_no_1: "+62",
+        phone_no_2: "",
         user_input: "",
         user_edit: "",
         time_input: "",
@@ -238,7 +261,10 @@ export default {
         carosery_name: this.M_FmFleetCarosery.carosery_name,
         company_name: this.M_FmFleetCarosery.company_name,
         pic: this.M_FmFleetCarosery.pic,
-        phone_no: this.M_FmFleetCarosery.phone_no,
+        phone_no:
+          this.M_FmFleetCarosery.phone_no_1 +
+          "-" +
+          this.M_FmFleetCarosery.phone_no_2,
         user_input: this.getDataUser().user_id
       };
 
@@ -258,7 +284,10 @@ export default {
         carosery_name: this.M_FmFleetCarosery.carosery_name,
         company_name: this.M_FmFleetCarosery.company_name,
         pic: this.M_FmFleetCarosery.pic,
-        phone_no: this.M_FmFleetCarosery.phone_no,
+        phone_no:
+          this.M_FmFleetCarosery.phone_no_1 +
+          "-" +
+          this.M_FmFleetCarosery.phone_no_2,
         lastupdatestamp: this.paramFromList.lastupdatestamp,
         user_edit: this.getDataUser().user_id
       };
@@ -297,14 +326,18 @@ export default {
         if (response == null) return;
 
         var data = response.Data[0];
-
+        var phone_no =
+          data.phone_no__tb_4 && data.phone_no__tb_4 !== ""
+            ? data.phone_no__tb_4.split("-")
+            : "";
         this.M_FmFleetCarosery = {
           fm_fleet_carosery_id: data.fm_fleet_carosery_id,
           ss_portfolio_id: data.ss_portfolio_id,
           carosery_name: data.carosery_name__tb_1,
           company_name: data.company_name__tb_2,
           pic: data.pic__tb_3,
-          phone_no: data.phone_no__tb_4,
+          phone_no_1: phone_no[0],
+          phone_no_2: phone_no[1],
           user_input: data.user_input,
           user_edit: data.user_edit,
           time_input: data.time_input,
