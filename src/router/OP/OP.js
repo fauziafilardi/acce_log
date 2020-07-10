@@ -20,7 +20,7 @@ import OP_FleetTypeForm from '@/views/OP/OP_FleetType/OP_FleetTypeForm'
 
 //Fleet Master
 import OP_FleetMaster from '@/views/OP/OP_FleetMaster/OP_FleetMasterList'
-// import OP_FleetMasterView from '@/views/OP/OP_FleetMaster/OP_FleetMasterView'
+import OP_FleetMasterView from '@/views/OP/OP_FleetMaster/OP_FleetMasterView'
 import OP_FleetMasterForm from '@/views/OP/OP_FleetMaster/OP_FleetMasterForm'
 
 export const OPRender = {
@@ -143,14 +143,14 @@ export const OPRender = {
             requiresAuth: true
         }
     },
-    // {
-    //     path: '/OP/OP_FleetMaster/View',
-    //     name: 'OP_FleetMasterView',
-    //     component: OP_FleetMasterView,
-    //     meta: {
-    //         requiresAuth: true
-    //     }
-    // },
+    {
+        path: '/OP/OP_FleetMaster/View',
+        name: 'OP_FleetMasterView',
+        component: OP_FleetMasterView,
+        meta: {
+            requiresAuth: true
+        }
+    },
     {
         path: '/OP/OP_FleetMaster/Form',
         name: 'OP_FleetMasterForm',
