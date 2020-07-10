@@ -139,7 +139,7 @@
                                 </span>
                                 <br />
                                 <span>
-                                  <label>{{ momentDate(new Date(M_FmDriver.sim_expiry_date)) }}</label>
+                                  <label>{{ momentDateFormatting(M_FmDriver.sim_expiry_date,'DD/MM/YYYY')}}</label>
                                 </span>
                               </b-col>
                             </b-row>
@@ -159,7 +159,7 @@
                                 </span>
                                 <br />
                                 <span>
-                                  <label>{{ momentDate(new Date(M_FmDriver.skck_expiry_date)) }}</label>
+                                  <label>{{ momentDateFormatting(M_FmDriver.skck_expiry_date,'DD/MM/YYYY')}}</label>
                                 </span>
                               </b-col>
                             </b-row>
@@ -179,7 +179,7 @@
                                 </span>
                                 <br />
                                 <span>
-                                  <label>{{ momentDate(new Date(M_FmDriver.employee_expiry_date)) }}</label>
+                                  <label>{{ momentDateFormatting(M_FmDriver.employee_expiry_date,'DD/MM/YYYY')}}</label>
                                 </span>
                               </b-col>
                             </b-row>

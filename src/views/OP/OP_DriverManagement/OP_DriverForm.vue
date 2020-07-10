@@ -649,6 +649,9 @@ export default {
     doBack() {
       this.$router.go(-1);
     },
+    doList() {
+      this.$router.push({ name: "OP_DriverManagement" });
+    },
 
     M_ClearForm() {
       this.M_FmDriver = {
@@ -700,40 +703,7 @@ export default {
         );
       });
     },
-    M_SaveOld() {
-      var param = {
-        option_url: "/OP/OP_Driver",
-        line_no: 0,
-        ss_portfolio_id: this.getDataUser().portfolio_id,
-        employee_id: this.M_FmDriver.employee_id,
-        driver_name: this.M_FmDriver.driver_name,
-        handphone:
-          this.M_FmDriver.handphone_1 + "-" + this.M_FmDriver.handphone_2,
-        ktp: this.M_FmDriver.ktp,
-        npwp: this.M_FmDriver.npwp,
-        sim: this.M_FmDriver.sim,
-        sim_expiry_date: this.M_FmDriver.sim_expiry_date,
-        skck: this.M_FmDriver.skck,
-        skck_expiry_date: this.M_FmDriver.skck_expiry_date,
-        employee_status: this.M_FmDriver.employee_status,
-        employee_expiry_date: this.M_FmDriver.employee_expiry_date,
-        emergency_contact_name: this.M_FmDriver.emergency_contact_name,
-        emergency_relation: this.M_FmDriver.emergency_relation,
-        emergency_phone_no:
-          this.M_FmDriver.emergency_phone_no_1 +
-          "-" +
-          this.M_FmDriver.emergency_phone_no_2,
-        emergency_remarks: this.M_FmDriver.emergency_remarks,
-        user_input: this.getDataUser().user_id
-      };
 
-      this.postJSON(this.getUrlCRUD(), param).then(response => {
-        if (response == null) return;
-        this.alertSuccess(response.Message).then(() => {
-          this.doBack();
-        });
-      });
-    },
     M_Save() {
       var paramH = {
           _Method_: "SAVE",
@@ -792,7 +762,8 @@ export default {
           // console.log(response)
           if (response == null) return;
           this.alertSuccess("Save Data Has Been Successfully").then(() => {
-            this.doBack();
+            // this.doBack();
+            this.doList();
           });
         }
       );
@@ -829,7 +800,8 @@ export default {
       this.putJSON(this.getUrlCRUD(), param).then(response => {
         if (response == null) return;
         this.alertSuccess(response.Message).then(() => {
-          this.doBack();
+          // this.doBack();
+          this.doList();
         });
       });
     },
