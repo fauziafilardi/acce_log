@@ -60,14 +60,14 @@
                       <b-col md="6">
                         <b-row style="border: solid 1px #ccc; border-radius: 10px;">
                           <b-col md="12">
-                            <b-row>
+                            <b-row class="row-view">
                               <b-col>
                                 <span style="font-size: 15px; color: #333399; font-weight: bold;">
                                   <label>Driver Information</label>
                                 </span>
                               </b-col>
                             </b-row>
-                            <b-row>
+                            <b-row class="row-view">
                               <b-col md="12">
                                 <span>
                                   <label>Employee ID</label>
@@ -78,7 +78,7 @@
                                 </span>
                               </b-col>
                             </b-row>
-                            <b-row>
+                            <b-row class="row-view">
                               <b-col md="12">
                                 <span>
                                   <label>Full Name</label>
@@ -89,7 +89,7 @@
                                 </span>
                               </b-col>
                             </b-row>
-                            <b-row>
+                            <b-row class="row-view">
                               <b-col md="12">
                                 <span>
                                   <label>Phone No.</label>
@@ -100,7 +100,7 @@
                                 </span>
                               </b-col>
                             </b-row>
-                            <b-row>
+                            <b-row class="row-view">
                               <b-col md="12">
                                 <span>
                                   <label>Ktp</label>
@@ -112,7 +112,7 @@
                               </b-col>
                             </b-row>
 
-                            <b-row>
+                            <b-row class="row-view">
                               <b-col md="12">
                                 <span>
                                   <label>Npwp</label>
@@ -123,7 +123,7 @@
                                 </span>
                               </b-col>
                             </b-row>
-                            <b-row>
+                            <b-row class="row-view">
                               <b-col md="7">
                                 <span>
                                   <label>SIM</label>
@@ -139,11 +139,11 @@
                                 </span>
                                 <br />
                                 <span>
-                                  <label>{{M_FmDriver.sim_expiry_date}}</label>
+                                  <label>{{ momentDate(new Date(M_FmDriver.sim_expiry_date)) }}</label>
                                 </span>
                               </b-col>
                             </b-row>
-                            <b-row>
+                            <b-row class="row-view">
                               <b-col md="7">
                                 <span>
                                   <label>SKCK</label>
@@ -159,11 +159,11 @@
                                 </span>
                                 <br />
                                 <span>
-                                  <label>{{M_FmDriver.skck_expiry_date}}</label>
+                                  <label>{{ momentDate(new Date(M_FmDriver.skck_expiry_date)) }}</label>
                                 </span>
                               </b-col>
                             </b-row>
-                            <b-row>
+                            <b-row class="row-view">
                               <b-col md="7">
                                 <span>
                                   <label>Employee Status</label>
@@ -179,7 +179,7 @@
                                 </span>
                                 <br />
                                 <span>
-                                  <label>{{M_FmDriver.employee_expiry_date}}</label>
+                                  <label>{{ momentDate(new Date(M_FmDriver.employee_expiry_date)) }}</label>
                                 </span>
                               </b-col>
                             </b-row>
@@ -212,14 +212,14 @@
                           style="margin-top: 10px; border: solid 1px #ccc; border-radius: 10px;"
                         >
                           <b-col>
-                            <b-row>
+                            <b-row class="row-view">
                               <b-col>
                                 <span style="font-size: 15px; color: #333399; font-weight: bold;">
                                   <label>Emergency Contact</label>
                                 </span>
                               </b-col>
                             </b-row>
-                            <b-row>
+                            <b-row class="row-view">
                               <b-col md="6">
                                 <span>
                                   <label>Full Name</label>
@@ -239,7 +239,7 @@
                                 </span>
                               </b-col>
                             </b-row>
-                            <b-row>
+                            <b-row class="row-view">
                               <b-col md="12">
                                 <span>
                                   <label>Phone No.</label>
@@ -250,7 +250,7 @@
                                 </span>
                               </b-col>
                             </b-row>
-                            <b-row>
+                            <b-row class="row-view">
                               <b-col md="12">
                                 <span>
                                   <label>Remarks</label>
