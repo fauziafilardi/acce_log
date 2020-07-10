@@ -31,6 +31,14 @@ import OP_FleetMaster from '@/views/OP/OP_FleetMaster/OP_FleetMasterList'
 import OP_FleetMasterView from '@/views/OP/OP_FleetMaster/OP_FleetMasterView'
 import OP_FleetMasterForm from '@/views/OP/OP_FleetMaster/OP_FleetMasterForm'
 
+//Maintenance Type
+import OP_MaintenanceType from '@/views/OP/OP_MaintenanceType/OP_MaintenanceTypeList'
+import OP_MaintenanceTypeForm from '@/views/OP/OP_MaintenanceType/OP_MaintenanceTypeForm'
+import OP_MaintenanceTypeView from '@/views/OP/OP_MaintenanceType/OP_MaintenanceTypeView'
+
+//Maintenance Item
+import OP_MaintenanceItemForm from '@/views/OP/OP_MaintenanceItem/OP_MaintenanceItemForm'
+
 export const OPRender = {
     path: '/OP',
     component: {
@@ -196,6 +204,40 @@ export const OPRender = {
         path: '/OP/OP_FleetMaster/Form',
         name: 'OP_FleetMasterForm',
         component: OP_FleetMasterForm,
+        meta: {
+            requiresAuth: true
+        }
+    },
+
+    {
+        path: '/OP/OP_MaintenanceType',
+        name: 'OP_MaintenanceType',
+        component: OP_MaintenanceType,
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/OP/OP_MaintenanceType/Form',
+        name: 'OP_MaintenanceTypeForm',
+        component: OP_MaintenanceTypeForm,
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/OP/OP_MaintenanceType/View',
+        name: 'OP_MaintenanceTypeView',
+        component: OP_MaintenanceTypeView,
+        meta: {
+            requiresAuth: true
+        }
+    },
+
+    {
+        path: '/OP/OP_MaintenanceItem/Form',
+        name: 'OP_MaintenanceItemForm',
+        component: OP_MaintenanceItemForm,
         meta: {
             requiresAuth: true
         }

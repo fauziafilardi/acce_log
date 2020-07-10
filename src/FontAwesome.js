@@ -73,7 +73,8 @@ import {
     faUserCircle,
     faClipboard,
     faTruck,
-    faPlusSquare
+    faPlusSquare,
+    faWrench
 } from '@fortawesome/free-solid-svg-icons'
 
 
@@ -150,5 +151,5 @@ library.add(faClipboard)
 library.add(faTruck)
 library.add(faPlusSquare)
 library.add(faCog)
-
+library.add(faWrench)
 Vue.component('font-awesome-icon', FontAwesomeIcon)

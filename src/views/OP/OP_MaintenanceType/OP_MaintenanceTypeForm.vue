@@ -7,7 +7,7 @@
             <div class="card__title">
               <b-row>
                 <b-col style="max-width:fit-content !important;">
-                  <span>Maintenance</span>
+                  <span>{{Stype == "M" ? "Master Maintenance Type" : "Maintenance Type"}}</span>
                 </b-col>
                 <b-col style="text-align: right;">
                   <span>
@@ -32,15 +32,15 @@
                         <div style="text-align: center;">
                             <font-awesome-icon
                                 class="icon-style-default"
-                                icon="truck"
+                                icon="wrench"
                                 size="10x"
                             />
                         </div>
                         </div>
                     </b-col>
-                    <b-col md="10" style="text-align: center;">
-                        <b-row class="row-bordered">
-                            <b-col md="6">
+                    <b-col md="10" class="row-bordered">
+                        <!-- <b-row class="row-bordered"> -->
+                            <b-col md="6" offset="3">
                                 <b-row>
                                     <b-col>
                                         <span>
@@ -119,7 +119,7 @@
                                                 />
                                             </b-col>
                                             <b-col style="max-width: fit-content !important; margin-top: 35px;">
-                                                Km
+                                                Day(s)
                                             </b-col>
                                         </b-row>
                                     </b-col>
@@ -138,7 +138,7 @@
                                                 />
                                             </b-col>
                                             <b-col style="max-width: fit-content !important; margin-top: 35px;">
-                                                Km
+                                                Day(s)
                                             </b-col>
                                         </b-row>
                                     </b-col>
@@ -155,7 +155,7 @@
                                     </b-col>
                                 </b-row>
                             </b-col>
-                        </b-row>
+                        <!-- </b-row> -->
                     </b-col>
                 </b-row>
               </b-form>
@@ -171,6 +171,7 @@
 export default {
     data() {
         return {
+            Stype: "M",
             M_FmFleetMstr :{
                 maintenance_type: '',
                 maintenance_typeLabel: '',
@@ -184,7 +185,7 @@ export default {
                 dataLookUp:{
                 LookUpCd:'GetMaintenanceType',
                 ColumnDB:'mm_maintenance_type_id',
-                InitialWhere:'',
+                InitialWhere:"ss_portfolio_id='"+this.getDataUser().portfolio_id+"'",
                 ParamWhere:'',
                 OrderBy:'',
                 ParamView:'',
@@ -257,6 +258,7 @@ export default {
                 cDecimal: 2,
                 cInputStatus: this.inputStatus
             },
+            parentParam: {}
         };
     },
     computed: {
@@ -275,15 +277,17 @@ export default {
     },
     methods: {
         doBack() {
-            var param = this.paramFromList
-            param.ForMaintenance = null
-            this.$store.commit("setParamPage", param);
             this.$router.go(-1);
         },
         Onmaintenance_typeChange(data) {
             this.$nextTick(() => {
                 this.M_FmFleetMstr.maintenance_type = data.id
                 this.M_FmFleetMstr.maintenance_typeLabel = data.label
+                this.M_FmFleetMstr.descs = data.description
+                this.M_FmFleetMstr.usage = data.usage_in_km
+                this.M_FmFleetMstr.usage_t = data.usage_tolerance_in_km
+                this.M_FmFleetMstr.time = data.time_days
+                this.M_FmFleetMstr.time_t = data.time_tolerance_in_days
             });
         },
         M_ClearForm() {
@@ -314,18 +318,36 @@ export default {
             });
         },
         M_Save() {
-            var param = {
-                option_url: "/OP/OP_FleetMaster",
-                line_no: 0,
-                ss_portfolio_id: this.getDataUser().portfolio_id,
-                fm_fleet_mstr_id: this.paramFromList.ForMaintenance.fm_fleet_mstr_id,
-                mm_maintenance_type_id: this.M_FmFleetMstr.maintenance_type,
-                descs: this.M_FmFleetMstr.descs,
-                usage_distance: this.M_FmFleetMstr.user_id,
-                usage_tolerance_distance: this.M_FmFleetMstr.usage_t,
-                time_days: this.M_FmFleetMstr.time,
-                time_days_tolerance: this.M_FmFleetMstr.time_t,
-                user_input: this.getDataUser().user_id
+            var param = {};
+            if (this.Stype == "M") {
+                param = {
+                    option_url: "/OP/OP_MaintenanceType",
+                    line_no: 0,
+                    ss_portfolio_id: this.getDataUser().portfolio_id,
+                    fm_fleet_mstr_id: this.paramFromList.fm_fleet_mstr_id,
+                    mm_maintenance_type_id: this.M_FmFleetMstr.maintenance_type,
+                    descs: this.M_FmFleetMstr.descs,
+                    usage_distance: this.M_FmFleetMstr.usage,
+                    usage_tolerance_distance: this.M_FmFleetMstr.usage_t,
+                    time_days: this.M_FmFleetMstr.time,
+                    time_days_tolerance: this.M_FmFleetMstr.time_t,
+                    user_input: this.getDataUser().user_id
+                }
+            }
+            else {
+                param = {
+                    option_url: "/OP/OP_FleetMaster",
+                    line_no: 2,
+                    ss_portfolio_id: this.getDataUser().portfolio_id,
+                    fm_fleet_mstr_id: this.paramFromList.ForMaintenance.fm_fleet_mstr_id,
+                    mm_maintenance_type_id: this.M_FmFleetMstr.maintenance_type,
+                    descs: this.M_FmFleetMstr.descs,
+                    usage_distance: this.M_FmFleetMstr.usage,
+                    usage_tolerance_distance: this.M_FmFleetMstr.usage_t,
+                    time_days: this.M_FmFleetMstr.time,
+                    time_days_tolerance: this.M_FmFleetMstr.time_t,
+                    user_input: this.getDataUser().user_id
+                }
             }
 
             this.postJSON(this.getUrlCRUD(), param).then(response => {
@@ -336,36 +358,75 @@ export default {
             });
         },
         M_Update() {
-            var param = {
-                option_url: "/OP/OP_FleetMaster",
-                line_no: 0,
-                fm_fleet_maintenance_type_id: this.paramFromList.ForMaintenance.row_id,
-                ss_portfolio_id: this.getDataUser().portfolio_id,
-                fm_fleet_mstr_id: this.paramFromList.ForMaintenance.fm_fleet_mstr_id,
-                mm_maintenance_type_id: this.M_FmFleetMstr.maintenance_type,
-                descs: this.M_FmFleetMstr.descs,
-                usage_distance: this.M_FmFleetMstr.user_id,
-                usage_tolerance_distance: this.M_FmFleetMstr.usage_t,
-                time_days: this.M_FmFleetMstr.time,
-                time_days_tolerance: this.M_FmFleetMstr.time_t,
-                lastupdatestamp:this.paramFromList.ForMaintenance.lastupdatestamp,
-                p_user_edit: this.getDataUser().user_id
+            var param = {};
+            if (this.Stype == "M") {
+                param = {
+                    option_url: "/OP/OP_MaintenanceType",
+                    line_no: 0,
+                    // fm_fleet_maintenance_type_id: this.paramFromList.row_id,
+                    ss_portfolio_id: this.getDataUser().portfolio_id,
+                    fm_fleet_mstr_id: this.paramFromList.fm_fleet_mstr_id,
+                    mm_maintenance_type_id: this.M_FmFleetMstr.maintenance_type,
+                    descs: this.M_FmFleetMstr.descs,
+                    usage_distance: this.M_FmFleetMstr.usage,
+                    usage_tolerance_distance: this.M_FmFleetMstr.usage_t,
+                    time_days: this.M_FmFleetMstr.time,
+                    time_days_tolerance: this.M_FmFleetMstr.time_t,
+                    lastupdatestamp:this.paramFromList.lastupdatestamp,
+                    user_edit: this.getDataUser().user_id
+                }
+            }
+            else {
+                var param = {
+                    option_url: "/OP/OP_FleetMaster",
+                    line_no: 2,
+                    fm_fleet_maintenance_type_id: this.paramFromList.ForMaintenance.row_id,
+                    ss_portfolio_id: this.getDataUser().portfolio_id,
+                    fm_fleet_mstr_id: this.paramFromList.ForMaintenance.fm_fleet_mstr_id,
+                    mm_maintenance_type_id: this.M_FmFleetMstr.maintenance_type,
+                    descs: this.M_FmFleetMstr.descs,
+                    usage_distance: this.M_FmFleetMstr.usage,
+                    usage_tolerance_distance: this.M_FmFleetMstr.usage_t,
+                    time_days: this.M_FmFleetMstr.time,
+                    time_days_tolerance: this.M_FmFleetMstr.time_t,
+                    lastupdatestamp:this.paramFromList.ForMaintenance.lastupdatestamp,
+                    user_edit: this.getDataUser().user_id
+                }
             }
 
             this.putJSON(this.getUrlCRUD(), param).then(response => {
                 if (response == null) return;
                 this.alertSuccess(response.Message).then(() => {
-                    this.doBack();
+                    if (this.Stype == "M") {
+                        this.doBack();
+                    }
+                    else {
+                        var param = this.paramFromList
+                        param.ForMaintenance = null
+                        this.$store.commit("setParamPage", param);
+                        this.$router.replace({ name: "OP_FleetMasterView" });
+                    }
                 });
             })
         },
         GetDataBy() {
-            var param = {
-                option_url: "/OP/OP_FleetMaster",
-                line_no: 0,
-                id: this.paramFromList.ForMaintenance.row_id,
-                lastupdatestamp: this.paramFromList.ForMaintenance.lastupdatestamp
-            };
+            var param = {};
+            if (this.Stype == "M") {
+                param = {
+                    option_url: "/OP/OP_MaintenanceType",
+                    line_no: 0,
+                    id: this.paramFromList.row_id,
+                    lastupdatestamp: this.paramFromList.lastupdatestamp
+                }
+            }
+            else {
+                param = {
+                    option_url: "/OP/OP_FleetMaster",
+                    line_no: 2,
+                    id: this.paramFromList.ForMaintenance.row_id,
+                    lastupdatestamp: this.paramFromList.ForMaintenance.lastupdatestamp
+                }
+            }
 
             this.getJSON(this.getUrlCRUD(), param).then(response => {
                 // response from API
@@ -382,10 +443,23 @@ export default {
                     time_t: data.time_days_tolerance__tb_6
                 }
             });
+        },
+        CheckType() {
+            console.log(this.paramFromList)
+            if (this.paramFromList.ForMaintenance == null || this.paramFromList.ForMaintenance == undefined) {
+                this.Stype = "M"
+            } else {
+                if (Object.keys(this.paramFromList.ForMaintenance).length < 1) {
+                    this.Stype = "M"
+                } else {
+                    this.Stype = "D"
+                }
+            }
         }
     },
     mounted() {
         this.M_ClearForm();
+        this.CheckType();
         if (this.inputStatus == "edit") {
             this.GetDataBy();
         }
