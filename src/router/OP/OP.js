@@ -18,6 +18,14 @@ import OP_FleetBrandForm from '@/views/OP/OP_FleetBrand/OP_FleetBrandForm'
 import OP_FleetType from '@/views/OP/OP_FleetType/OP_FleetTypeList'
 import OP_FleetTypeForm from '@/views/OP/OP_FleetType/OP_FleetTypeForm'
 
+// Fleet Carosery
+import OP_FleetCarosery from '@/views/OP/OP_FleetCarosery/OP_FleetCaroseryList'
+import OP_FleetCaroseryForm from '@/views/OP/OP_FleetCarosery/OP_FleetCaroseryForm'
+
+// Ticket Category
+import OP_TicketCategory from '@/views/OP/OP_TicketCategory/OP_TicketCategoryList'
+import OP_TicketCategoryForm from '@/views/OP/OP_TicketCategory/OP_TicketCategoryForm'
+
 //Fleet Master
 import OP_FleetMaster from '@/views/OP/OP_FleetMaster/OP_FleetMasterList'
 // import OP_FleetMasterView from '@/views/OP/OP_FleetMaster/OP_FleetMasterView'
@@ -130,6 +138,39 @@ export const OPRender = {
         path: '/OP/OP_FleetType/Form',
         name: 'OP_FleetTypeForm',
         component: OP_FleetTypeForm,
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/OP/OP_FleetCarosery',
+        name: 'OP_FleetCarosery',
+        component: OP_FleetCarosery,
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/OP/OP_FleetCarosery/Form',
+        name: 'OP_FleetCaroseryForm',
+        component: OP_FleetCaroseryForm,
+        meta: {
+            requiresAuth: true
+        }
+    },
+
+    {
+        path: '/OP/OP_TicketCategory',
+        name: 'OP_TicketCategory',
+        component: OP_TicketCategory,
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/OP/OP_TicketCategory/Form',
+        name: 'OP_TicketCategoryForm',
+        component: OP_TicketCategoryForm,
         meta: {
             requiresAuth: true
         }

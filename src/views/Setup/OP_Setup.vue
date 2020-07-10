@@ -163,9 +163,13 @@ export default {
     onVehicleTypeClick() {
       this.$router.push({ name: "OP_FleetType" });
     },
-    onVehicleCaroseryClick() {},
+    onVehicleCaroseryClick() {
+      this.$router.push({ name: "OP_FleetCarosery" });
+    },
     onMaintenanceTypeClick() {},
-    onTicketCategoryClick() {}
+    onTicketCategoryClick() {
+      this.$router.push({ name: "OP_TicketCategory" });
+    }
   },
   mounted() {}
 };
