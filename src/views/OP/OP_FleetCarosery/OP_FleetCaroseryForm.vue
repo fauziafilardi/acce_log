@@ -7,7 +7,7 @@
             <div class="card__title">
               <b-row>
                 <b-col style="max-width:fit-content !important;">
-                  <span>{{title}} Master Vehicle Brand</span>
+                  <span>{{title}} Master Vehicle Carosery</span>
                 </b-col>
                 <b-col style="text-align: right;">
                   <ABSButton
@@ -21,8 +21,8 @@
             </div>
             <div class="card__body">
               <b-form
-                :data-vv-scope="'OP_FormFmFleetBrand'"
-                :data-vv-value-path="'OP_FormFmFleetBrand'"
+                :data-vv-scope="'OP_FormFmFleetCarosery'"
+                :data-vv-value-path="'OP_FormFmFleetCarosery'"
               >
                 <b-row>
                   <b-col md="2">
@@ -37,12 +37,24 @@
                         <b-row>
                           <b-col md="6">
                             <span>
-                              <label>Brand Name</label>
+                              <label>Carosery Name</label>
                             </span>
                             <ACCTextBox
-                              :prop="PI_brand_name"
-                              v-model="M_FmFleetBrand.brand_name"
-                              ref="ref_brand_name"
+                              :prop="PI_carosery_name"
+                              v-model="M_FmFleetCarosery.carosery_name"
+                              ref="ref_carosery_name"
+                            />
+                          </b-col>
+                        </b-row>
+                        <b-row>
+                          <b-col md="6">
+                            <span>
+                              <label>Company Name</label>
+                            </span>
+                            <ACCTextBox
+                              :prop="PI_company_name"
+                              v-model="M_FmFleetCarosery.company_name"
+                              ref="ref_company_name"
                             />
                           </b-col>
                         </b-row>
@@ -51,28 +63,22 @@
                             <span>
                               <label>Pic</label>
                             </span>
-                            <ACCTextBox :prop="PI_pic" v-model="M_FmFleetBrand.pic" ref="ref_pic" />
+                            <ACCTextBox
+                              :prop="PI_pic"
+                              v-model="M_FmFleetCarosery.pic"
+                              ref="ref_pic"
+                            />
                           </b-col>
                         </b-row>
                         <b-row>
-                          <b-col md="1" class="col-p-1">
+                          <b-col md="6">
                             <span>
-                              <label style="width: 100px;">Phone No.</label>
+                              <label>Phone No</label>
                             </span>
                             <ACCTextBox
-                              :prop="PI_phone_no_1"
-                              v-model="M_FmFleetBrand.phone_no_1"
-                              ref="ref_phone_no_1"
-                            />
-                          </b-col>
-                          <b-col md="5" class="col-p-2">
-                            <span>
-                              <label>&nbsp;</label>
-                            </span>
-                            <ACCTextBox
-                              :prop="PI_phone_no_2"
-                              v-model="M_FmFleetBrand.phone_no_2"
-                              ref="ref_phone_no_2"
+                              :prop="PI_phone_no"
+                              v-model="M_FmFleetCarosery.phone_no"
+                              ref="ref_phone_no"
                             />
                           </b-col>
                         </b-row>
@@ -80,7 +86,7 @@
                         <b-row style="margin-top: 10px;">
                           <b-col md="6">
                             <ABSButton
-                              :text="'Save '"
+                              :text="'Save FleetCarosery'"
                               classButton="btn btn--default"
                               classIcon="icon-style-default"
                               @click="doSave"
@@ -109,13 +115,13 @@ export default {
     return {
       title: "",
 
-      M_FmFleetBrand: {
-        fm_fleet_brand_id: 0,
+      M_FmFleetCarosery: {
+        fm_fleet_carosery_id: 0,
         ss_portfolio_id: 0,
-        brand_name: "",
+        carosery_name: "",
+        company_name: "",
         pic: "",
-        phone_no_1: "+62",
-        phone_no_2: "",
+        phone_no: "",
         user_input: "",
         user_edit: "",
         time_input: "",
@@ -123,47 +129,47 @@ export default {
         row_id: 0,
         lastupdatestamp: 0
       },
-      PI_brand_name: {
+      PI_carosery_name: {
         cValidate: "",
-        cName: "brand_name",
+        cName: "carosery_name",
         cOrder: 1,
         cKey: false,
         cType: "text",
         cProtect: false,
-        cParentForm: "OP_FormFmFleetBrand",
+        cParentForm: "OP_FormFmFleetCarosery",
+        cDecimal: 2,
+        cInputStatus: this.inputStatus
+      },
+      PI_company_name: {
+        cValidate: "",
+        cName: "company_name",
+        cOrder: 2,
+        cKey: false,
+        cType: "text",
+        cProtect: false,
+        cParentForm: "OP_FormFmFleetCarosery",
         cDecimal: 2,
         cInputStatus: this.inputStatus
       },
       PI_pic: {
         cValidate: "",
         cName: "pic",
-        cOrder: 2,
-        cKey: false,
-        cType: "text",
-        cProtect: false,
-        cParentForm: "OP_FormFmFleetBrand",
-        cDecimal: 2,
-        cInputStatus: this.inputStatus
-      },
-      PI_phone_no_1: {
-        cValidate: "",
-        cName: "phone_no_1",
         cOrder: 3,
         cKey: false,
         cType: "text",
         cProtect: false,
-        cParentForm: "OP_FormFmFleetBrand",
+        cParentForm: "OP_FormFmFleetCarosery",
         cDecimal: 2,
         cInputStatus: this.inputStatus
       },
-      PI_phone_no_2: {
+      PI_phone_no: {
         cValidate: "",
-        cName: "phone_no_2",
+        cName: "phone_no",
         cOrder: 4,
         cKey: false,
         cType: "text",
         cProtect: false,
-        cParentForm: "OP_FormFmFleetBrand",
+        cParentForm: "OP_FormFmFleetCarosery",
         cDecimal: 2,
         cInputStatus: this.inputStatus
       }
@@ -189,13 +195,13 @@ export default {
     },
 
     M_ClearForm() {
-      this.M_FmFleetBrand = {
-        fm_fleet_brand_id: 0,
+      this.M_FmFleetCarosery = {
+        fm_fleet_carosery_id: 0,
         ss_portfolio_id: 0,
-        brand_name: "",
+        carosery_name: "",
+        company_name: "",
         pic: "",
-        phone_no_1: "+62",
-        phone_no_2: "",
+        phone_no: "",
         user_input: "",
         user_edit: "",
         time_input: "",
@@ -206,31 +212,33 @@ export default {
     },
 
     doSave() {
-      this.$validator._base.validateAll("OP_FormFmFleetBrand").then(result => {
-        if (!result) return;
-        this.alertConfirmation("Are You Sure Want To Save This Data ?").then(
-          ress => {
-            if (ress.value) {
-              this.$validator.errors.clear("OP_FormFmFleetBrand");
-              if (this.inputStatus == "edit") {
-                this.M_Update();
-              } else {
-                this.M_Save();
+      this.$validator._base
+        .validateAll("OP_FormFmFleetCarosery")
+        .then(result => {
+          if (!result) return;
+          this.alertConfirmation("Are You Sure Want To Save This Data ?").then(
+            ress => {
+              if (ress.value) {
+                this.$validator.errors.clear("OP_FormFmFleetCarosery");
+                if (this.inputStatus == "edit") {
+                  this.M_Update();
+                } else {
+                  this.M_Save();
+                }
               }
             }
-          }
-        );
-      });
+          );
+        });
     },
     M_Save() {
       var param = {
-        option_url: "/OP/OP_FleetBrand",
+        option_url: "/OP/OP_FleetCarosery",
         line_no: 0,
         ss_portfolio_id: this.getDataUser().portfolio_id,
-        brand_name: this.M_FmFleetBrand.brand_name,
-        pic: this.M_FmFleetBrand.pic,
-        phone_no:
-          this.M_FmFleetBrand.phone_no_1 + "-" + this.M_FmFleetBrand.phone_no_2,
+        carosery_name: this.M_FmFleetCarosery.carosery_name,
+        company_name: this.M_FmFleetCarosery.company_name,
+        pic: this.M_FmFleetCarosery.pic,
+        phone_no: this.M_FmFleetCarosery.phone_no,
         user_input: this.getDataUser().user_id
       };
 
@@ -243,14 +251,14 @@ export default {
     },
     M_Update() {
       var param = {
-        option_url: "/OP/OP_FleetBrand",
+        option_url: "/OP/OP_FleetCarosery",
         line_no: 0,
-        fm_fleet_brand_id: this.M_FmFleetBrand.fm_fleet_brand_id,
+        fm_fleet_carosery_id: this.M_FmFleetCarosery.fm_fleet_carosery_id,
         ss_portfolio_id: this.getDataUser().portfolio_id,
-        brand_name: this.M_FmFleetBrand.brand_name,
-        pic: this.M_FmFleetBrand.pic,
-        phone_no:
-          this.M_FmFleetBrand.phone_no_1 + "-" + this.M_FmFleetBrand.phone_no_2,
+        carosery_name: this.M_FmFleetCarosery.carosery_name,
+        company_name: this.M_FmFleetCarosery.company_name,
+        pic: this.M_FmFleetCarosery.pic,
+        phone_no: this.M_FmFleetCarosery.phone_no,
         lastupdatestamp: this.paramFromList.lastupdatestamp,
         user_edit: this.getDataUser().user_id
       };
@@ -264,7 +272,7 @@ export default {
     },
     M_Delete() {
       var param = {
-        option_url: "/OP/OP_FleetBrand",
+        option_url: "/OP/OP_FleetCarosery",
         line_no: { LineNo },
         id: this.paramFromList.row_id,
         lastupdatestamp: this.paramFromList.lastupdatestamp
@@ -278,7 +286,7 @@ export default {
     },
     GetDataBy() {
       var param = {
-        option_url: "/OP/OP_FleetBrand",
+        option_url: "/OP/OP_FleetCarosery",
         line_no: 0,
         id: this.paramFromList.row_id,
         lastupdatestamp: this.paramFromList.lastupdatestamp
@@ -289,17 +297,14 @@ export default {
         if (response == null) return;
 
         var data = response.Data[0];
-        var phone_no =
-          data.phone_no__tb_3 && data.phone_no__tb_3 !== ""
-            ? data.phone_no__tb_3.split("-")
-            : "";
-        this.M_FmFleetBrand = {
-          fm_fleet_brand_id: data.fm_fleet_brand_id,
+
+        this.M_FmFleetCarosery = {
+          fm_fleet_carosery_id: data.fm_fleet_carosery_id,
           ss_portfolio_id: data.ss_portfolio_id,
-          brand_name: data.brand_name__tb_1,
-          pic: data.pic__tb_2,
-          phone_no_1: phone_no[0],
-          phone_no_2: phone_no[1],
+          carosery_name: data.carosery_name__tb_1,
+          company_name: data.company_name__tb_2,
+          pic: data.pic__tb_3,
+          phone_no: data.phone_no__tb_4,
           user_input: data.user_input,
           user_edit: data.user_edit,
           time_input: data.time_input,
@@ -314,10 +319,10 @@ export default {
     this.M_ClearForm();
     if (this.inputStatus == "edit") {
       this.title = "Edit";
-      this.PI_brand_name.cProtect = true;
+      this.PI_carosery_name.cProtect = true;
       this.GetDataBy();
     } else {
-      this.PI_brand_name.cProtect = false;
+      this.PI_carosery_name.cProtect = false;
       this.title = "Add";
     }
   }

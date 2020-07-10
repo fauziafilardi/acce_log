@@ -32,36 +32,46 @@
                     </div>
                   </b-col>
                   <b-col md="10">
-                    <b-row>
-                      <b-col md="6">
-                        <span>
-                          <label>Fleet Cd</label>
-                        </span>
-                        <ACCTextBox
-                          :prop="PI_fleet_cd"
-                          v-model="M_FmFleetType.fleet_cd"
-                          ref="ref_fleet_cd"
-                        />
-                      </b-col>
-                    </b-row>
-                    <b-row>
-                      <b-col md="6">
-                        <span>
-                          <label>Descs</label>
-                        </span>
-                        <ACCTextBox :prop="PI_descs" v-model="M_FmFleetType.descs" ref="ref_descs" />
-                      </b-col>
-                    </b-row>
+                    <b-row style="border: solid 1px #ccc; border-radius: 10px;">
+                      <b-col md="12">
+                        <b-row>
+                          <b-col md="6">
+                            <span>
+                              <label>Fleet Cd</label>
+                            </span>
+                            <ACCTextBox
+                              :prop="PI_fleet_cd"
+                              v-model="M_FmFleetType.fleet_cd"
+                              ref="ref_fleet_cd"
+                            />
+                          </b-col>
+                        </b-row>
+                        <b-row>
+                          <b-col md="6">
+                            <span>
+                              <label>Descs</label>
+                            </span>
+                            <ACCTextBox
+                              :prop="PI_descs"
+                              v-model="M_FmFleetType.descs"
+                              ref="ref_descs"
+                            />
+                          </b-col>
+                        </b-row>
 
-                    <b-row style="margin-top: 10px;">
-                      <b-col md="6">
-                        <ABSButton
-                          :text="'Save FleetType'"
-                          classButton="btn btn--default"
-                          classIcon="icon-style-default"
-                          @click="doSave"
-                          styleButton="height: 40px;width: 100%;"
-                        />
+                        <b-row style="margin-top: 10px;">
+                          <b-col md="6">
+                            <ABSButton
+                              :text="'Save FleetType'"
+                              classButton="btn btn--default"
+                              classIcon="icon-style-default"
+                              @click="doSave"
+                              styleButton="height: 40px;width: 100%;"
+                            />
+                          </b-col>
+                        </b-row>
+                        <br />
+                        <br />
                       </b-col>
                     </b-row>
                   </b-col>
