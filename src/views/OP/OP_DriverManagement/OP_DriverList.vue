@@ -16,8 +16,7 @@
             @headTable="M_Head_Table"
             @refreshColumn="refreshColumn"
             ref="ref_FmDriver"
-            urlAdd="OP_DriverForm"
-            WithViewButton
+            urlAdd="OP_DriverManagementForm"
             @buttonViewClicked="doViewClick"
           />
         </b-col>
@@ -50,10 +49,25 @@ export default {
       param.isEdit = true;
       param.isView = true;
       this.$store.commit("setParamPage", param);
-      this.$router.push({ name: "OP_DriverView" });
+      this.$router.push({ name: "OP_DriverManagementView" });
     },
     doDoubleClick(record, index) {},
-    doDeleteClick(record, index) {},
+    doDeleteClick(record, index) {
+      var param = {
+        option_url: "/OP/OP_Driver",
+        line_no: 0,
+        id: record.row_id,
+        lastupdatestamp: record.lastupdatestamp
+      };
+      this.deleteJSON(this.getUrlCRUD(), param).then(response => {
+        // response from API
+        if (response == null) return;
+
+        this.alertSuccess("Data Has Been Deleted").then(() => {
+          this.$refs.ref_OpTicketCategory.doGetList("");
+        });
+      });
+    },
     rowLink(url) {},
     M_PageSize() {},
     M_Pagination() {},

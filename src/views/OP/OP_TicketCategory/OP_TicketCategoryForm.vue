@@ -7,7 +7,7 @@
             <div class="card__title">
               <b-row>
                 <b-col style="max-width:fit-content !important;">
-                  <span>{{title}} TicketCategory</span>
+                  <span>{{title}} Ticket Category</span>
                 </b-col>
                 <b-col style="text-align: right;">
                   <ABSButton
@@ -28,7 +28,7 @@
                   <b-col md="2">
                     <div>
                       <!-- <img :src="M_NewProspect.path_file" alt width="100%" /> -->
-					  <img :src="require('@/assets/paper.png')" alt style="width: 70px;" />
+                      <img :src="require('@/assets/paper.png')" alt style="width: 70px;" />
                     </div>
                   </b-col>
                   <b-col md="10">
@@ -38,9 +38,9 @@
                           <label>Ticket Category</label>
                         </span>
                         <ACCTextBox
-                          :prop = "PI_ticket_category"
-                          v-model = "M_OpTicketCategory.ticket_category"
-                          ref = "ref_ticket_category"
+                          :prop="PI_ticket_category"
+                          v-model="M_OpTicketCategory.ticket_category"
+                          ref="ref_ticket_category"
                         />
                       </b-col>
                     </b-row>
@@ -50,9 +50,9 @@
                           <label>Solving Hour</label>
                         </span>
                         <ACCTextBox
-                          :prop = "PI_solving_hour"
-                          v-model = "M_OpTicketCategory.solving_hour"
-                          ref = "ref_solving_hour"
+                          :prop="PI_solving_hour"
+                          v-model="M_OpTicketCategory.solving_hour"
+                          ref="ref_solving_hour"
                         />
                       </b-col>
                     </b-row>
@@ -62,9 +62,9 @@
                           <label>Solving Minute</label>
                         </span>
                         <ACCTextBox
-                          :prop = "PI_solving_minute"
-                          v-model = "M_OpTicketCategory.solving_minute"
-                          ref = "ref_solving_minute"
+                          :prop="PI_solving_minute"
+                          v-model="M_OpTicketCategory.solving_minute"
+                          ref="ref_solving_minute"
                         />
                       </b-col>
                     </b-row>
@@ -74,14 +74,14 @@
                           <label>Descs</label>
                         </span>
                         <ACCTextBox
-                          :prop = "PI_descs"
-                          v-model = "M_OpTicketCategory.descs"
-                          ref = "ref_descs"
+                          :prop="PI_descs"
+                          v-model="M_OpTicketCategory.descs"
+                          ref="ref_descs"
                         />
                       </b-col>
                     </b-row>
-				
-					<b-row style="margin-top: 10px;">
+
+                    <b-row style="margin-top: 10px;">
                       <b-col md="6">
                         <ABSButton
                           :text="'Save TicketCategory'"
@@ -91,8 +91,8 @@
                           styleButton="height: 40px;width: 100%;"
                         />
                       </b-col>
-                    </b-row>  
-				  </b-col>
+                    </b-row>
+                  </b-col>
                 </b-row>
               </b-form>
             </div>
@@ -107,25 +107,24 @@
 export default {
   data() {
     return {
- 	title:'',
+      title: "",
 
-      M_OpTicketCategory :{
-        op_ticket_category_id : 0,
-        ss_portfolio_id : 0,
-        ticket_category : '',
-        solving_hour : 0,
-        solving_minute : 0,
-        descs : '',
-        user_input : '',
-        user_edit : '',
-        time_input : '',
-        time_edit : '',
-        row_id : 0,
-        lastupdatestamp : 0
-      }
-            ,
+      M_OpTicketCategory: {
+        op_ticket_category_id: 0,
+        ss_portfolio_id: 0,
+        ticket_category: "",
+        solving_hour: 0,
+        solving_minute: 0,
+        descs: "",
+        user_input: "",
+        user_edit: "",
+        time_input: "",
+        time_edit: "",
+        row_id: 0,
+        lastupdatestamp: 0
+      },
       PI_ticket_category: {
-        cValidate: '',
+        cValidate: "",
         cName: "ticket_category",
         cOrder: 1,
         cKey: false,
@@ -136,7 +135,7 @@ export default {
         cInputStatus: this.inputStatus
       },
       PI_solving_hour: {
-        cValidate: '',
+        cValidate: "",
         cName: "solving_hour",
         cOrder: 2,
         cKey: false,
@@ -147,7 +146,7 @@ export default {
         cInputStatus: this.inputStatus
       },
       PI_solving_minute: {
-        cValidate: '',
+        cValidate: "",
         cName: "solving_minute",
         cOrder: 3,
         cKey: false,
@@ -158,7 +157,7 @@ export default {
         cInputStatus: this.inputStatus
       },
       PI_descs: {
-        cValidate: '',
+        cValidate: "",
         cName: "descs",
         cOrder: 4,
         cKey: false,
@@ -167,8 +166,7 @@ export default {
         cParentForm: "OP_FormOpTicketCategory",
         cDecimal: 2,
         cInputStatus: this.inputStatus
-      },
-
+      }
     };
   },
   computed: {
@@ -189,54 +187,54 @@ export default {
     doBack() {
       this.$router.go(-1);
     },
-		
-    M_ClearForm() {
 
+    M_ClearForm() {
       this.M_OpTicketCategory = {
-        op_ticket_category_id : 0,
-        ss_portfolio_id : 0,
-        ticket_category : '',
-        solving_hour : 0,
-        solving_minute : 0,
-        descs : '',
-        user_input : '',
-        user_edit : '',
-        time_input : '',
-        time_edit : '',
-        row_id : 0,
-        lastupdatestamp : 0
-      }
-                 
+        op_ticket_category_id: 0,
+        ss_portfolio_id: 0,
+        ticket_category: "",
+        solving_hour: 0,
+        solving_minute: 0,
+        descs: "",
+        user_input: "",
+        user_edit: "",
+        time_input: "",
+        time_edit: "",
+        row_id: 0,
+        lastupdatestamp: 0
+      };
     },
-   
+
     doSave() {
-      this.$validator._base.validateAll("OP_FormOpTicketCategory").then(result => {
-        if (!result) return;
-        this.alertConfirmation("Are You Sure Want To Save This Data ?").then(
-          ress => {
-            if (ress.value) {
-              this.$validator.errors.clear("OP_FormOpTicketCategory");
-              if (this.inputStatus == "edit") {
-                this.M_Update();
-              } else {
-                this.M_Save();
+      this.$validator._base
+        .validateAll("OP_FormOpTicketCategory")
+        .then(result => {
+          if (!result) return;
+          this.alertConfirmation("Are You Sure Want To Save This Data ?").then(
+            ress => {
+              if (ress.value) {
+                this.$validator.errors.clear("OP_FormOpTicketCategory");
+                if (this.inputStatus == "edit") {
+                  this.M_Update();
+                } else {
+                  this.M_Save();
+                }
               }
             }
-          }
-        );
-      });
+          );
+        });
     },
     M_Save() {
       var param = {
-        option_url : "/OP/OP_TicketCategory",
-        line_no :0, 
-        ss_portfolio_id:this.getDataUser().portfolio_id,
-        ticket_category:this.M_OpTicketCategory.ticket_category,
-        solving_hour:this.M_OpTicketCategory.solving_hour,
-        solving_minute:this.M_OpTicketCategory.solving_minute,
-        descs:this.M_OpTicketCategory.descs,
-        user_input:this.getDataUser().user_id
-      }
+        option_url: "/OP/OP_TicketCategory",
+        line_no: 0,
+        ss_portfolio_id: this.getDataUser().portfolio_id,
+        ticket_category: this.M_OpTicketCategory.ticket_category,
+        solving_hour: this.M_OpTicketCategory.solving_hour,
+        solving_minute: this.M_OpTicketCategory.solving_minute,
+        descs: this.M_OpTicketCategory.descs,
+        user_input: this.getDataUser().user_id
+      };
 
       this.postJSON(this.getUrlCRUD(), param).then(response => {
         if (response == null) return;
@@ -244,21 +242,20 @@ export default {
           this.doBack();
         });
       });
- 
     },
-	 M_Update() {     
+    M_Update() {
       var param = {
-        option_url : "/OP/OP_TicketCategory",
-        line_no :0, 
-        oticket_category_id:this.M_OpTicketCategory.oticket_category_id,
-        ss_portfolio_id:this.getDataUser().portfolio_id,
-        ticket_category:this.M_OpTicketCategory.ticket_category,
-        solving_hour:this.M_OpTicketCategory.solving_hour,
-        solving_minute:this.M_OpTicketCategory.solving_minute,
-        descs:this.M_OpTicketCategory.descs,
-        lastupdatestamp:this.paramFromList.lastupdatestamp,
-        user_edit:this.getDataUser().user_id
-      }
+        option_url: "/OP/OP_TicketCategory",
+        line_no: 0,
+        op_ticket_category_id: this.M_OpTicketCategory.op_ticket_category_id,
+        ss_portfolio_id: this.getDataUser().portfolio_id,
+        ticket_category: this.M_OpTicketCategory.ticket_category,
+        solving_hour: this.M_OpTicketCategory.solving_hour,
+        solving_minute: this.M_OpTicketCategory.solving_minute,
+        descs: this.M_OpTicketCategory.descs,
+        lastupdatestamp: this.paramFromList.lastupdatestamp,
+        user_edit: this.getDataUser().user_id
+      };
 
       this.putJSON(this.getUrlCRUD(), param).then(response => {
         if (response == null) return;
@@ -266,12 +263,11 @@ export default {
           this.doBack();
         });
       });
-           
     },
-	M_Delete() {
+    M_Delete() {
       var param = {
         option_url: "/OP/OP_TicketCategory",
-        line_no: {LineNo},
+        line_no: { LineNo },
         id: this.paramFromList.row_id,
         lastupdatestamp: this.paramFromList.lastupdatestamp
       };
@@ -296,33 +292,33 @@ export default {
 
         var data = response.Data[0];
 
-      this.M_OpTicketCategory  = {
-        op_ticket_category_id : data.op_ticket_category_id,
-        ss_portfolio_id : data.ss_portfolio_id,
-        ticket_category : data.ticket_category__tb_1,
-        solving_hour : data.solving_hour__tb_2,
-        solving_minute : data.solving_minute__tb_3,
-        descs : data.descs__tb_4,
-        user_input : data.user_input,
-        user_edit : data.user_edit,
-        time_input : data.time_input,
-        time_edit : data.time_edit,
-        row_id : data.row_id,
-        lastupdatestamp : data.lastupdatestamp
-      };
-                   
+        this.M_OpTicketCategory = {
+          op_ticket_category_id: data.op_ticket_category_id,
+          ss_portfolio_id: data.ss_portfolio_id,
+          ticket_category: data.ticket_category__tb_1,
+          solving_hour: data.solving_hour__tb_2,
+          solving_minute: data.solving_minute__tb_3,
+          descs: data.descs__tb_4,
+          user_input: data.user_input,
+          user_edit: data.user_edit,
+          time_input: data.time_input,
+          time_edit: data.time_edit,
+          row_id: data.row_id,
+          lastupdatestamp: data.lastupdatestamp
+        };
       });
     }
-   
   },
   mounted() {
     this.M_ClearForm();
     if (this.inputStatus == "edit") {
-		this.title = 'Edit'
-		this.GetDataBy();
-    }else{
-		this.title = 'Add'
-	}
+      this.title = "Edit";
+      this.PI_ticket_category.cProtect = true;
+      this.GetDataBy();
+    } else {
+      this.PI_ticket_category.cProtect = false;
+      this.title = "Add";
+    }
   }
 };
 </script>
