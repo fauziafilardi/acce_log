@@ -17,6 +17,7 @@
             @refreshColumn="refreshColumn"
             ref="ref_FmDriver"
             urlAdd="OP_DriverManagementForm"
+            WithViewButton
             @buttonViewClicked="doViewClick"
           />
         </b-col>
@@ -34,7 +35,7 @@ export default {
         LineNo: 0,
         PageLevel: 1,
         TabIndex: 1,
-        OrderBy: "",
+        OrderBy: "employee_id",
         SourceField: "",
         ParamView: ""
       }

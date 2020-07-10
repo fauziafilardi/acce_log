@@ -38,12 +38,8 @@
                       <b-col md="12">
                         <b-row>
                           <b-col>
-                            <span>
-                              <label>
-                                <b>
-                                  <h5>Driver Information</h5>
-                                </b>
-                              </label>
+                            <span style="font-size: 15px; color: #333399; font-weight: bold;">
+                              <label>Driver Information</label>
                             </span>
                           </b-col>
                         </b-row>
@@ -153,9 +149,11 @@
                             <span>
                               <label>Employee Status</label>
                             </span>
-                            <ACCTextBox
+                            <ACCDropDown
+                              @change="Onemployee_statusChange"
                               :prop="PI_employee_status"
                               v-model="M_FmDriver.employee_status"
+                              :label="M_FmDriver.employee_statusLabel"
                               ref="ref_employee_status"
                             />
                           </b-col>
@@ -176,27 +174,43 @@
                   </b-col>
                   <b-col md="5">
                     <!-- di border -->
-                    <b-row style="border: solid 1px #ccc; border-radius: 10px;">
+                    <b-row class="row-bordered" style="background-color: #ced4da;">
                       <b-col md="12">
-                        <ABSButton
-                          :text="'Add Picture'"
-                          icon="plus-circle"
-                          classButton="btn btn--default"
-                          styleButton="height: 40px;width: 70%;"
-                          @click="addPict"
-                        />
+                        <b-row style="margin-bottom: 10px">
+                          <template v-for="(pict, index) in M_Picture">
+                            <b-col style="max-width: fit-content !important;" v-bind:key="index">
+                              <img
+                                :id="'pict_'+index"
+                                :src="pict.file_show"
+                                alt
+                                style="width: 150px; cursor: pointer; "
+                                @click="showPict(pict)"
+                              />
+                            </b-col>
+                          </template>
+                        </b-row>
+                        <b-row>
+                          <b-col md="12">
+                            <div @click="addPict" style="width: 20%; cursor: pointer;">
+                              <font-awesome-icon
+                                class="icon-style-default"
+                                icon="plus-circle"
+                                size="2x"
+                              />&nbsp; &nbsp;
+                              <span
+                                style="position: absolute; font-size: 15px; color: #333399; font-weight: bold;"
+                              >Add Picture</span>
+                            </div>
+                          </b-col>
+                        </b-row>
                       </b-col>
                     </b-row>
                     <b-row style="margin-top: 10px; border: solid 1px #ccc; border-radius: 10px;">
                       <b-col>
                         <b-row>
                           <b-col>
-                            <span>
-                              <label>
-                                <b>
-                                  <h5>Emergency Contact</h5>
-                                </b>
-                              </label>
+                            <span style="font-size: 15px; color: #333399; font-weight: bold;">
+                              <label>Emergency Contact</label>
                             </span>
                           </b-col>
                         </b-row>
@@ -272,6 +286,61 @@
                   </b-col>
                 </b-row>
               </b-form>
+              <ABSModal id="Modal_Picture" ref="Modal_Picture" size="sm">
+                <template slot="headerTitle">Add Picture</template>
+                <template slot="content">
+                  <b-row>
+                    <b-col md="12">
+                      <b-form
+                        :data-vv-scope="'Parent_Picture'"
+                        :data-vv-value-path="'Parent_Picture'"
+                      >
+                        <b-row>
+                          <b-col md="12">
+                            <b-row>
+                              <b-col md="12" style="text-align: center;">
+                                <img
+                                  id="logo"
+                                  :src="M_ModalPict.file_show"
+                                  alt
+                                  style="width: 200px;"
+                                />
+                              </b-col>
+                              <b-col md="12">
+                                <ACCImageUpload
+                                  :prop="PI_add_pict"
+                                  @change="Onadd_pictChange"
+                                  v-model="M_ModalPict.file_logo"
+                                />
+                              </b-col>
+                            </b-row>
+                            <b-row>
+                              <b-col style="text-align: center;">
+                                <ABSButton
+                                  :text="'Add Picture'"
+                                  classButton="btn btn--default"
+                                  classIcon="icon-style-default"
+                                  @click="doAddPict"
+                                  styleButton="height: 40px;width: 70%;"
+                                />
+                              </b-col>
+                            </b-row>
+                          </b-col>
+                        </b-row>
+                      </b-form>
+                    </b-col>
+                  </b-row>
+                </template>
+              </ABSModal>
+              <ABSModal id="Show_Picture" ref="Show_Picture" size="sm">
+                <template slot="content">
+                  <b-row>
+                    <b-col md="12" style="text-align: center;">
+                      <img id="show_pict" :src="M_ModalPict.file_show" alt style="width: 200px;" />
+                    </b-col>
+                  </b-row>
+                </template>
+              </ABSModal>
             </div>
           </div>
         </b-col>
@@ -300,11 +369,12 @@ export default {
         skck: "",
         skck_expiry_date: "",
         employee_status: "",
+        employee_statusLabel: "",
         employee_expiry_date: "",
         emergency_contact_name: "",
         emergency_relation: "",
         emergency_phone_no_1: "+62",
-        emergency_phone_no_2: "+62",
+        emergency_phone_no_2: "",
         emergency_remarks: "",
         dt_doc_file_name: "",
         dt_doc_path_file: "",
@@ -423,15 +493,34 @@ export default {
         cFormat: "dd/MM/yyyy",
         cParentForm: "OP_FormFmDriver"
       },
+      // PI_employee_status: {
+      //   cValidate: "",
+      //   cName: "employee_status",
+      //   cOrder: 11,
+      //   cKey: false,
+      //   cType: "text",
+      //   cProtect: false,
+      //   cParentForm: "OP_FormFmDriver",
+      //   cDecimal: 2,
+      //   cInputStatus: this.inputStatus
+      // },
       PI_employee_status: {
+        dataLookUp: null,
         cValidate: "",
         cName: "employee_status",
+        ckey: false,
         cOrder: 11,
-        cKey: false,
-        cType: "text",
         cProtect: false,
-        cParentForm: "OP_FormFmDriver",
-        cDecimal: 2,
+        cParentForm: "MK_FormMkQuotationProject",
+        cStatic: true,
+        cOption: [
+          { id: "Permanent", label: "Permanent" },
+          { id: "Contract", label: "Contract" },
+          { id: "Freelance", label: "Freelance" },
+          { id: "Terminate", label: "Terminate" }
+          // { id: "E", label: "Entertaintment" }
+        ],
+        cDisplayColumn: "",
         cInputStatus: this.inputStatus
       },
       PI_employee_expiry_date: {
@@ -498,7 +587,20 @@ export default {
         cParentForm: "OP_FormFmFleetMstr",
         cDecimal: 2,
         cInputStatus: this.inputStatus
-      }
+      },
+      PI_add_pict: {
+        cName: "picture",
+        cAccept: ".jpg, .png, .gif",
+        cTitle: "Browse",
+        cModule: "OP"
+      },
+      M_ModalPict: {
+        file_logo: "",
+        file_logo_name: "",
+        file_logo_path: "",
+        file_show: require("@/assets/default_photo_.png")
+      },
+      M_Picture: []
     };
   },
   computed: {
@@ -516,6 +618,34 @@ export default {
     }
   },
   methods: {
+    Onemployee_statusChange(data) {
+      this.$nextTick(() => {
+        this.M_FmDriver.employee_status = data.id;
+        this.M_FmDriver.employee_statusLabel = data.label;
+      });
+    },
+    Onadd_pictChange(data) {
+      this.M_ModalPict.file_logo_name = data.name;
+      this.M_ModalPict.file_logo_path = data.path;
+      this.M_ModalPict.file_show = this.url + data.path;
+    },
+    addPict() {
+      this.$refs.Modal_Picture._show();
+      this.M_ModalPict = {
+        file_logo: "",
+        file_logo_name: "",
+        file_logo_path: "",
+        file_show: require("@/assets/default_photo_.png")
+      };
+    },
+    doAddPict() {
+      this.M_Picture.push(this.M_ModalPict);
+      this.$refs.Modal_Picture._hide();
+    },
+    showPict(pict) {
+      this.M_ModalPict = pict;
+      this.$refs.Show_Picture._show();
+    },
     doBack() {
       this.$router.go(-1);
     },
@@ -535,10 +665,12 @@ export default {
         skck: "",
         skck_expiry_date: "",
         employee_status: "",
+        employee_statusLabel: "",
         employee_expiry_date: "",
         emergency_contact_name: "",
         emergency_relation: "",
-        emergency_phone_no: "",
+        emergency_phone_no_1: "+62",
+        emergency_phone_no_2: "",
         emergency_remarks: "",
         dt_doc_file_name: "",
         dt_doc_path_file: "",
@@ -568,7 +700,7 @@ export default {
         );
       });
     },
-    M_Save() {
+    M_SaveOld() {
       var param = {
         option_url: "/OP/OP_Driver",
         line_no: 0,
@@ -601,6 +733,69 @@ export default {
           this.doBack();
         });
       });
+    },
+    M_Save() {
+      var paramH = {
+          _Method_: "SAVE",
+          _LineNo_: 0,
+          ss_portfolio_id: this.getDataUser().portfolio_id,
+          employee_id: this.M_FmDriver.employee_id,
+          driver_name: this.M_FmDriver.driver_name,
+          handphone:
+            this.M_FmDriver.handphone_1 + "-" + this.M_FmDriver.handphone_2,
+          ktp: this.M_FmDriver.ktp,
+          npwp: this.M_FmDriver.npwp,
+          sim: this.M_FmDriver.sim,
+          sim_expiry_date: this.M_FmDriver.sim_expiry_date,
+          skck: this.M_FmDriver.skck,
+          skck_expiry_date: this.M_FmDriver.skck_expiry_date,
+          employee_status: this.M_FmDriver.employee_status,
+          employee_expiry_date: this.M_FmDriver.employee_expiry_date,
+          emergency_contact_name: this.M_FmDriver.emergency_contact_name,
+          emergency_relation: this.M_FmDriver.emergency_relation,
+          emergency_phone_no:
+            this.M_FmDriver.emergency_phone_no_1 +
+            "-" +
+            this.M_FmDriver.emergency_phone_no_2,
+          emergency_remarks: this.M_FmDriver.emergency_remarks,
+          user_input: this.getDataUser().user_id
+        },
+        paramD = [];
+
+      this.M_Picture.forEach((pict, index) => {
+        paramD.push({
+          _Method_: "SAVE",
+          _LineNo_: 1,
+          fm_driver_id: "A_Insert.row_id_output",
+          doc_type: "NULL",
+          doc_no: "NULL",
+          doc_file_name: pict.file_logo_name,
+          doc_path_file: pict.file_logo_path,
+          expiry_date: "NULL",
+          user_input: this.getDataUser().user_id
+        });
+      });
+
+      var param = {
+        option_url: "/OP/OP_Driver",
+        line_no: 0,
+        Data: [
+          {
+            A_Insert: paramH,
+            B_Looping: paramD
+          }
+        ]
+      };
+
+      this.postJSONMulti(this.getUrlProsesDataPostMulti(), param).then(
+        response => {
+          // console.log(response)
+          if (response == null) return;
+          this.alertSuccess("Save Data Has Been Successfully").then(() => {
+            this.doBack();
+          });
+        }
+      );
     },
     M_Update() {
       var param = {
@@ -664,45 +859,58 @@ export default {
         // response from API
         if (response == null) return;
 
-        var data = response.Data[0];
-        var phone_no =
-          data.handphone__tb_3 && data.handphone__tb_3 !== ""
-            ? data.handphone__tb_3.split("-")
-            : "";
-        var emer_phone_no =
-          data.emergency_phone_no__tb_14 &&
-          data.emergency_phone_no__tb_14 !== ""
-            ? data.emergency_phone_no__tb_14.split("-")
-            : "";
-        this.M_FmDriver = {
-          fm_driver_id: data.fm_driver_id,
-          ss_portfolio_id: data.ss_portfolio_id,
-          employee_id: data.employee_id__tb_1,
-          driver_name: data.driver_name__tb_2,
-          handphone_1: phone_no[0],
-          handphone_2: phone_no[1],
-          ktp: data.ktp__tb_4,
-          npwp: data.npwp__tb_5,
-          sim: data.sim__tb_6,
-          sim_expiry_date: data.sim_expiry_date__tb_7,
-          skck: data.skck__tb_8,
-          skck_expiry_date: data.skck_expiry_date__tb_9,
-          employee_status: data.employee_status__tb_10,
-          employee_expiry_date: data.employee_expiry_date__tb_11,
-          emergency_contact_name: data.emergency_contact_name__tb_12,
-          emergency_relation: data.emergency_relation__tb_13,
-          emergency_phone_no_1: emer_phone_no[0],
-          emergency_phone_no_2: emer_phone_no[1],
-          emergency_remarks: data.emergency_remarks__tb_15,
-          dt_doc_file_name: data.dt_doc_file_name,
-          dt_doc_path_file: data.dt_doc_path_file,
-          user_input: data.user_input,
-          user_edit: data.user_edit,
-          time_input: data.time_input,
-          time_edit: data.time_edit,
-          row_id: data.row_id,
-          lastupdatestamp: data.lastupdatestamp
-        };
+        var data = response.Data;
+        for (let i = 0; i < data.length; i++) {
+          if (i === 0) {
+            var phone_no =
+              data[i].handphone__tb_3 && data[i].handphone__tb_3 !== ""
+                ? data[i].handphone__tb_3.split("-")
+                : "";
+            var emer_phone_no =
+              data[i].emergency_phone_no__tb_14 &&
+              data[i].emergency_phone_no__tb_14 !== ""
+                ? data[i].emergency_phone_no__tb_14.split("-")
+                : "";
+            this.M_FmDriver = {
+              fm_driver_id: data[i].fm_driver_id,
+              ss_portfolio_id: data[i].ss_portfolio_id,
+              employee_id: data[i].employee_id__tb_1,
+              driver_name: data[i].driver_name__tb_2,
+              handphone_1: phone_no[0],
+              handphone_2: phone_no[1],
+              ktp: data[i].ktp__tb_4,
+              npwp: data[i].npwp__tb_5,
+              sim: data[i].sim__tb_6,
+              sim_expiry_date: data[i].sim_expiry_date__tb_7,
+              skck: data[i].skck__tb_8,
+              skck_expiry_date: data[i].skck_expiry_date__tb_9,
+              employee_status: data[i].employee_status__tb_10,
+              employee_expiry_date: data[i].employee_expiry_date__tb_11,
+              emergency_contact_name: data[i].emergency_contact_name__tb_12,
+              emergency_relation: data[i].emergency_relation__tb_13,
+              emergency_phone_no_1: emer_phone_no[0],
+              emergency_phone_no_2: emer_phone_no[1],
+              emergency_remarks: data[i].emergency_remarks__tb_15,
+              dt_doc_file_name: data[i].dt_doc_file_name,
+              dt_doc_path_file: data[i].dt_doc_path_file,
+              user_input: data[i].user_input,
+              user_edit: data[i].user_edit,
+              time_input: data[i].time_input,
+              time_edit: data[i].time_edit,
+              row_id: data[i].row_id,
+              lastupdatestamp: data[i].lastupdatestamp
+            };
+          }
+          this.M_Picture.push({
+            file_logo: "dtfile_" + i,
+            file_logo_name: data[i].dt_doc_file_name,
+            file_logo_path: data[i].dt_doc_path_file,
+            file_show:
+              data[i].dt_doc_path_file && data[i].dt_doc_path_file !== ""
+                ? this.url + data[i].dt_doc_path_file
+                : require("@/assets/default_photo_.png")
+          });
+        }
       });
     }
   },
