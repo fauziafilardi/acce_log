@@ -12,15 +12,6 @@
                 <b-col style="text-align: right;">
                   <span>
                     <ABSButton
-                      v-if="inputStatus == 'edit'"
-                      :text="'Add Maintenance Type'"
-                      classButton="button button--back"
-                      classIcon="icon-style-1"
-                      @click="doMaintain"
-                    />
-                  </span>
-                  <span>
-                    <ABSButton
                       :text="'Back'"
                       classButton="button button--back"
                       classIcon="icon-style-1"
@@ -651,7 +642,6 @@ export default {
       this.M_ModalPict = pict
       this.$refs.Show_Picture._show();
     },
-    doMaintain() {},
     doBack() {
       this.$router.go(-1);
     },

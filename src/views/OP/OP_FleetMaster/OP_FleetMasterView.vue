@@ -10,12 +10,22 @@
                   <span>View Fleet Master</span>
                 </b-col>
                 <b-col style="text-align: right;">
-                  <ABSButton
-                    :text="'Back'"
-                    classButton="button button--back"
-                    classIcon="icon-style-1"
-                    @click="doBack"
-                  />
+                  <span>
+                    <ABSButton
+                      :text="'Add Maintenance Type'"
+                      classButton="button button--back"
+                      classIcon="icon-style-1"
+                      @click="doMaintain"
+                    />
+                  </span>
+                  <span>
+                    <ABSButton
+                      :text="'Back'"
+                      classButton="button button--back"
+                      classIcon="icon-style-1"
+                      @click="doBack"
+                    />
+                  </span>
                 </b-col>
               </b-row>
             </div>
@@ -36,13 +46,13 @@
                       <b-col>
                         <b-row>
                           <b-col style="max-width: fit-content !important; margin: auto;">
-                            <span style="font-size: 15px; color: #333399; font-weight: bold;"> General Information </span>
+                            <label style="font-size: 15px; color: #333399; font-weight: bold;"> General Information </label>
                             <br>
                             <span>
                               <font-awesome-icon
                                 class="icon-style-default"
                                 icon="user"
-                                size="sm"
+                                size="2x"
                               /> &nbsp; &nbsp;
                               <label>Driver Name : {{M_FmFleetMstr.driver_nameLabel}}</label>
                             </span>
@@ -222,7 +232,7 @@
                           <b-col md="12">
                             <b-row class="row-view">
                               <b-col>
-                                <span style="font-size: 15px; color: #333399; font-weight: bold;"> Specification </span>
+                                <label style="font-size: 15px; color: #333399; font-weight: bold;"> Specification </label>
                               </b-col>
                             </b-row>
                             <b-row class="row-view">
@@ -247,6 +257,35 @@
                                 </span>
                               </b-col>
                             </b-row>
+                          </b-col>
+                        </b-row>
+                        <b-row class="row-bordered">
+                          <b-col md="12">
+                            <b-row class="row-view">
+                              <b-col>
+                                <label style="font-size: 15px; color: #333399; font-weight: bold;"> Maintenance </label>
+                              </b-col>
+                            </b-row>
+                            <template v-for="(m, index) in M_Maintenance">
+                              <b-row class="row-view" v-bind:key="index">
+                                <b-col>
+                                  <span>
+                                    <label>{{m.descs}}</label>
+                                  </span>
+                                </b-col>
+                                <b-col style="max-width: fit-content !important;">
+                                  <span>
+                                    <font-awesome-icon
+                                      class="icon-style-default"
+                                      icon="trash"
+                                      size="2x"
+                                      style="cursor: pointer;"
+                                      @click="Delete_Maintenance(m)"
+                                    />
+                                  </span>
+                                </b-col>
+                              </b-row>
+                            </template>
                           </b-col>
                         </b-row>
                       </b-col>
@@ -275,7 +314,6 @@
 export default {
   data() {
     return {
-
       M_FmFleetMstr :{
         fm_fleet_mstr_id : 0,
         ss_portfolio_id : 0,
@@ -314,7 +352,8 @@ export default {
         file_logo_name: "",
         file_logo_path: "",
         file_show: require("@/assets/default_photo_.png")
-      }
+      },
+      M_Maintenance: []
     };
   },
   computed: {
@@ -332,6 +371,15 @@ export default {
     }
   },
   methods: {
+    doMaintain() {
+      var param = this.paramFromList
+      param.ForMaintenance = {
+        fm_fleet_mstr_id: param.row_id,
+      }
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "OP_FleetMasterForm" });
+    },
+    Delete_Maintenance(m) {},
     doBack() {
       this.$router.go(-1);
     },
@@ -344,7 +392,7 @@ export default {
       param.isView = false;
       param.isEdit = true;
       this.$store.commit("setParamPage", param);
-      this.$router.push({ name: "OP_FleetMasterForm", params: param });
+      this.$router.push({ name: "OP_FleetMasterForm" });
     },
     doDelete() {
       this.alertConfirmation("Are You Sure Want To Delete This Data ?").then(
@@ -426,7 +474,12 @@ export default {
             file_show: data[i].dt_doc_path_file && data[i].dt_doc_path_file !== '' ? this.url + data[i].dt_doc_path_file : require("@/assets/default_photo_.png")
           })
         }
+
+        this.getMaintenance()
       });
+    },
+    getMaintenance() {
+
     }
   },
   mounted() {
