@@ -13,7 +13,7 @@
             </div>
             <div class="card__body">
               <div style="width: 100%; text-align: center;">
-                <font-awesome-icon style="color: #333399;" icon="cog" size="6x" />
+                <font-awesome-icon style="color: #333399;" icon="truck" size="6x" />
                 <br />
                 <br />
                 <span style="width: 75%">Fleet Master Setup</span>
@@ -32,7 +32,7 @@
             </div>
             <div class="card__body">
               <div style="width: 100%; text-align: center;">
-                <font-awesome-icon style="color: #333399;" icon="cog" size="6x" />
+                <font-awesome-icon style="color: #333399;" icon="user" size="6x" />
                 <br />
                 <br />
                 <span style="width: 75%">Manage Driver Setup</span>
@@ -51,7 +51,7 @@
             </div>
             <div class="card__body">
               <div style="width: 100%; text-align: center;">
-                <font-awesome-icon style="color: #333399;" icon="cog" size="6x" />
+                <font-awesome-icon style="color: #333399;" icon="copyright" size="6x" />
                 <br />
                 <br />
                 <span style="width: 75%">Master Vehicle Brand</span>
@@ -72,7 +72,7 @@
             </div>
             <div class="card__body">
               <div style="width: 100%; text-align: center;">
-                <font-awesome-icon style="color: #333399;" icon="cog" size="6x" />
+                <font-awesome-icon style="color: #333399;" icon="cogs" size="6x" />
                 <br />
                 <br />
                 <span style="width: 75%">Master Vehicle Type</span>
@@ -91,7 +91,7 @@
             </div>
             <div class="card__body">
               <div style="width: 100%; text-align: center;">
-                <font-awesome-icon style="color: #333399;" icon="cog" size="6x" />
+                <font-awesome-icon style="color: #333399;" icon="dice-d6" size="6x" />
                 <br />
                 <br />
                 <span style="width: 75%">Master Vehicle Carosery</span>
@@ -110,7 +110,7 @@
             </div>
             <div class="card__body">
               <div style="width: 100%; text-align: center;">
-                <font-awesome-icon style="color: #333399;" icon="cog" size="6x" />
+                <font-awesome-icon style="color: #333399;" icon="wrench" size="6x" />
                 <br />
                 <br />
                 <span style="width: 75%">Master Maintenance Type</span>
@@ -131,7 +131,7 @@
             </div>
             <div class="card__body">
               <div style="width: 100%; text-align: center;">
-                <font-awesome-icon style="color: #333399;" icon="cog" size="6x" />
+                <font-awesome-icon style="color: #333399;" icon="clipboard-list" size="6x" />
                 <br />
                 <br />
                 <span style="width: 75%">Master Ticket Category</span>

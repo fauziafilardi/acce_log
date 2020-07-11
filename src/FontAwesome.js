@@ -38,6 +38,7 @@ import {
     faBan,
     faSortDown,
     faCog,
+    faCogs,
     faArrowUp,
     faArrowDown,
     faAngleDown,
@@ -74,7 +75,10 @@ import {
     faClipboard,
     faTruck,
     faPlusSquare,
-    faWrench
+    faWrench,
+    faDiceD6,
+    faCopyright,
+    faClipboardList
 } from '@fortawesome/free-solid-svg-icons'
 
 
@@ -119,6 +123,7 @@ library.add(faInfoCircle)
 library.add(faBan)
 library.add(faSortDown)
 library.add(faCog)
+library.add(faCogs)
 library.add(faArrowUp)
 library.add(faArrowDown)
 library.add(faAngleDown)
@@ -152,4 +157,8 @@ library.add(faTruck)
 library.add(faPlusSquare)
 library.add(faCog)
 library.add(faWrench)
+library.add(faDiceD6)
+library.add(faCopyright)
+library.add(faClipboardList)
+
 Vue.component('font-awesome-icon', FontAwesomeIcon)
