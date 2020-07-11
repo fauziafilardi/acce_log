@@ -166,7 +166,9 @@ export default {
     onVehicleCaroseryClick() {
       this.$router.push({ name: "OP_FleetCarosery" });
     },
-    onMaintenanceTypeClick() {},
+    onMaintenanceTypeClick() {
+      this.$router.push({ name: "OP_MaintenanceType" });
+    },
     onTicketCategoryClick() {
       this.$router.push({ name: "OP_TicketCategory" });
     }

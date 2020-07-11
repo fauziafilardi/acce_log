@@ -5,9 +5,8 @@
         <b-col md="12">
           <ACCList2
             :prop="propList"
-            :title="'MaintenanceType'"
+            :title="'Maintenance Type'"
             @rowClicked="rowClicked"
-			@buttonDeleteClicked="doDeleteClick"
             @rowDblClicked="doDoubleClick"
             @rowLinkClick="rowLink"
             @pageSize="M_PageSize"
@@ -17,8 +16,9 @@
             @refreshColumn="refreshColumn"
             ref="ref_MmMaintenanceType"
             urlAdd="OP_MaintenanceTypeForm"
-            WithViewButton
+            WithDeleteButton
             @buttonViewClicked="doViewClick"
+            @buttonDeleteClicked="doDeleteClick"
           />
         </b-col>
       </b-row>
@@ -47,13 +47,27 @@ export default {
     },
     doViewClick(record, index) {
       var param = record;
-	  param.isEdit = true;
-      param.isView = true;
+      param.isEdit = true;
       this.$store.commit("setParamPage", param);
-      this.$router.push({ name: "OP_MaintenanceTypeView"});
+      this.$router.push({ name: "OP_MaintenanceTypeForm"});
     },
     doDoubleClick(record, index) {},
-	doDeleteClick(record, index) {
+    doDeleteClick(record, index) {
+      this.alertConfirmation("Are You Sure Want To Delete This Data ?").then(
+        ress => {
+          if (ress.value) {
+            this.M_Delete();
+          }
+        }
+      );
+    },
+    rowLink(url) {},
+    M_PageSize() {},
+    M_Pagination() {},
+    M_Advance_Filter() {},
+    M_Head_Table() {},
+    refreshColumn() {},
+    M_Delete() {
       var param = {
         option_url: "/OP/OP_MaintenanceType",
         line_no: 0,
@@ -65,16 +79,10 @@ export default {
         if (response == null) return;
 
         this.alertSuccess("Data Has Been Deleted").then(() => {
-          this.$refs.ref_FmFleetBrand.doGetList("");
+          this.$refs.ref_MmMaintenanceType.doGetList("");
         });
       });
-    },
-    rowLink(url) {},
-    M_PageSize() {},
-    M_Pagination() {},
-    M_Advance_Filter() {},
-    M_Head_Table() {},
-    refreshColumn() {}
+    }
   },
   mounted() {
     this.$refs.ref_MmMaintenanceType.doGetList("");

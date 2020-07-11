@@ -42,18 +42,41 @@
                         <!-- <b-row class="row-bordered"> -->
                             <b-col md="6" offset="3">
                                 <b-row>
-                                    <b-col>
-                                        <span>
-                                            <label>Maintenance Type</label>
-                                        </span>
-                                        <ACCDropDown
-                                            @change = "Onmaintenance_typeChange"
-                                            :prop = "PI_maintenance_type"
-                                            v-model = "M_FmFleetMstr.maintenance_type"
-                                            :label = "M_FmFleetMstr.maintenance_typeLabel"
-                                            ref = "ref_maintenance_type"
-                                        />
-                                    </b-col>
+                                    <template v-if="Stype == 'M'">
+                                        <b-col v-if="inputStatus == 'new'">
+                                            <span>
+                                                <label>Maintenance Type</label>
+                                            </span>
+                                            <ACCTextBox
+                                                :prop = "PI_maintenance_type_t"
+                                                v-model = "M_FmFleetMstr.maintenance_type"
+                                                ref = "ref_maintenance_type"
+                                            />
+                                        </b-col>
+                                        <b-col v-else class="row-view">
+                                            <span>
+                                                <label>Maintenance Type</label>
+                                            </span>
+                                            <br>
+                                            <span>
+                                                <label>{{M_FmFleetMstr.maintenance_type}}</label>
+                                            </span>
+                                        </b-col>
+                                    </template>
+                                    <template v-else>
+                                        <b-col>
+                                            <span>
+                                                <label>Maintenance Type</label>
+                                            </span>
+                                            <ACCDropDown
+                                                @change = "Onmaintenance_typeChange"
+                                                :prop = "PI_maintenance_type"
+                                                v-model = "M_FmFleetMstr.maintenance_type"
+                                                :label = "M_FmFleetMstr.maintenance_typeLabel"
+                                                ref = "ref_maintenance_type"
+                                            />
+                                        </b-col>
+                                    </template>
                                 </b-row>
                                 <b-row>
                                     <b-col>
@@ -203,6 +226,17 @@ export default {
                 cDisplayColumn: 'maintenance_type',
                 cInputStatus: this.inputStatus
             },
+            PI_maintenance_type_t: {
+                cValidate: '',
+                cName: "maintenance_type",
+                cOrder: 1,
+                cKey: false,
+                cType: "text",
+                cProtect: false,
+                cParentForm: "OP_FormFmFleetMstrMaintenance",
+                cDecimal: 2,
+                cInputStatus: this.inputStatus
+            },
             PI_descs: {
                 cValidate: '',
                 cName: "descs",
@@ -324,8 +358,7 @@ export default {
                     option_url: "/OP/OP_MaintenanceType",
                     line_no: 0,
                     ss_portfolio_id: this.getDataUser().portfolio_id,
-                    fm_fleet_mstr_id: this.paramFromList.fm_fleet_mstr_id,
-                    mm_maintenance_type_id: this.M_FmFleetMstr.maintenance_type,
+                    maintenance_type: this.M_FmFleetMstr.maintenance_type,
                     descs: this.M_FmFleetMstr.descs,
                     usage_distance: this.M_FmFleetMstr.usage,
                     usage_tolerance_distance: this.M_FmFleetMstr.usage_t,
@@ -363,10 +396,9 @@ export default {
                 param = {
                     option_url: "/OP/OP_MaintenanceType",
                     line_no: 0,
-                    // fm_fleet_maintenance_type_id: this.paramFromList.row_id,
+                    mm_maintenance_type_id: this.paramFromList.row_id,
                     ss_portfolio_id: this.getDataUser().portfolio_id,
-                    fm_fleet_mstr_id: this.paramFromList.fm_fleet_mstr_id,
-                    mm_maintenance_type_id: this.M_FmFleetMstr.maintenance_type,
+                    maintenance_type: this.M_FmFleetMstr.maintenance_type,
                     descs: this.M_FmFleetMstr.descs,
                     usage_distance: this.M_FmFleetMstr.usage,
                     usage_tolerance_distance: this.M_FmFleetMstr.usage_t,
@@ -434,8 +466,8 @@ export default {
 
                 var data = response.Data[0];
                 this.M_FmFleetMstr = {
-                    maintenance_type: data.mm_maintenance_type_id__lo_1,
-                    maintenance_typeLabel: data.maintenance_type_descs__lbl_lo_1,
+                    maintenance_type: this.Stype == "M" ? data.maintenance_type__tb_1 : data.mm_maintenance_type_id__lo_1,
+                    maintenance_typeLabel: this.Stype == "M" ? data.maintenance_type__tb_1 : data.maintenance_type_descs__lbl_lo_1,
                     descs: data.descs__tb_2,
                     usage: data.usage_distance__tb_3,
                     usage_t: data.usage_tolerance_distance__tb_4,
@@ -445,7 +477,6 @@ export default {
             });
         },
         CheckType() {
-            console.log(this.paramFromList)
             if (this.paramFromList.ForMaintenance == null || this.paramFromList.ForMaintenance == undefined) {
                 this.Stype = "M"
             } else {
