@@ -33,7 +33,7 @@
               <b-form :data-vv-scope="'parent'" :data-vv-value-path="'parent'">
                 <b-row>
                   <b-col md="2">
-                    <div>
+                    <div style="text-align: center;">
                       <font-awesome-icon
                         class="icon-style-default"
                         icon="truck"
@@ -52,7 +52,7 @@
                               <font-awesome-icon
                                 class="icon-style-default"
                                 icon="user"
-                                size="2x"
+                                size="lg"
                               /> &nbsp; &nbsp;
                               <label>Driver Name : {{M_FmFleetMstr.driver_nameLabel}}</label>
                             </span>
@@ -219,7 +219,7 @@
                       <b-col md="6">
                         <b-row class="row-bordered" style="background-color: #ced4da;">
                           <b-col md="12">
-                            <b-row style="margin-bottom: 10px">
+                            <b-row>
                               <template v-for="(pict, index) in M_Picture">
                                 <b-col style="max-width: fit-content !important;" v-bind:key="index">
                                   <img :id="'pict_'+index" :src="pict.file_show" alt style="width: 150px; cursor: pointer; " @click="showPict(pict)" />
@@ -267,10 +267,10 @@
                               </b-col>
                             </b-row>
                             <template v-for="(m, index) in M_Maintenance">
-                              <b-row class="row-view" v-bind:key="index">
-                                <b-col>
+                              <b-row class="row-view" v-bind:key="index" style="cursor: pointer;">
+                                <b-col @click="doMaintenanceView(m)">
                                   <span>
-                                    <label>{{m.descs}}</label>
+                                    <label>{{m.maintenance_type_descs}}</label>
                                   </span>
                                 </b-col>
                                 <b-col style="max-width: fit-content !important;">
@@ -278,7 +278,7 @@
                                     <font-awesome-icon
                                       class="icon-style-default"
                                       icon="trash"
-                                      size="2x"
+                                      size="lg"
                                       style="cursor: pointer;"
                                       @click="Delete_Maintenance(m)"
                                     />
@@ -373,13 +373,29 @@ export default {
   methods: {
     doMaintain() {
       var param = this.paramFromList
+      param.isEdit = false;
       param.ForMaintenance = {
         fm_fleet_mstr_id: param.row_id,
       }
       this.$store.commit("setParamPage", param);
-      this.$router.push({ name: "OP_FleetMasterForm" });
+      this.$router.push({ name: "OP_MaintenanceTypeForm" });
     },
-    Delete_Maintenance(m) {},
+    Delete_Maintenance(m) {
+      this.alertConfirmation("Are You Sure Want To Delete This Data ?").then(
+        ress => {
+          if (ress.value) {
+            this.M_DeleteM(m);
+          }
+        }
+      );
+    },
+    doMaintenanceView(m) {
+      var param = this.paramFromList
+      m.fm_fleet_mstr_id = param.row_id
+      param.ForMaintenance = m
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "OP_MaintenanceTypeView" });
+    },
     doBack() {
       this.$router.go(-1);
     },
@@ -403,7 +419,21 @@ export default {
         }
       );
     },
-	 M_Delete() {
+	 M_DeleteM(m) {
+      var param = {
+        option_url: "/OP/OP_FleetMaster",
+        line_no: 2,
+        id: m.row_id,
+        lastupdatestamp: m.lastupdatestamp
+      };
+      this.deleteJSON(this.getUrlCRUD(), param).then(response => {
+        if (response == null) return;
+        this.alertSuccess("Data Has Been Deleted").then(() => {
+          this.getMaintenance();
+        });
+      });
+    },
+    M_Delete() {
       var param = {
         option_url: "/OP/OP_FleetMaster",
         line_no: 0,
@@ -479,7 +509,17 @@ export default {
       });
     },
     getMaintenance() {
+      var param = {
+          option_function_cd: "GetListFMFleetMaintenanceType",
+          module_cd: "OP",
+          ss_portfolio_id: this.getDataUser().portfolio_id ,
+          row_id: this.paramFromList.row_id
+      };
 
+      this.CallFunction(param).then(response => {
+          if (response == null) return
+          this.M_Maintenance = response.Data;
+      })
     }
   },
   mounted() {

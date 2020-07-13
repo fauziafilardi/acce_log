@@ -45,7 +45,7 @@
                           <font-awesome-icon
                             class="icon-style-default"
                             icon="user"
-                            size="sm"
+                            size="lg"
                           /> &nbsp; &nbsp;
                           <label>Driver Name</label>
                         </span>
@@ -813,10 +813,14 @@ export default {
       this.putJSON(this.getUrlCRUD(), param).then(response => {
         if (response == null) return;
         this.alertSuccess(response.Message).then(() => {
-          this.doBack();
+          if (this.inputStatus == 'new') {
+            this.doBack();
+          }
+          else {
+            this.$router.replace({ name: "OP_FleetMaster" });
+          }
         });
       });
-           
     },
 	M_Delete() {
       var param = {

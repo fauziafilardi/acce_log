@@ -208,7 +208,7 @@
                     <span>Zone</span>
                   </b-col>
                   <b-col md="4" style="width: 35% !important; text-align:center;">
-                    <font-awesome-icon style="color: #333399;" icon="cube" size="lg" />&nbsp;
+                    <font-awesome-icon style="color: #333399;" icon="dice-d6" size="lg" />&nbsp;
                     <span>m3</span>
                   </b-col>
                   <b-col md="4" style="width: 35% !important; text-align:center;">
