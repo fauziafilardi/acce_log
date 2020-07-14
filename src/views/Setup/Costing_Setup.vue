@@ -99,7 +99,7 @@ export default {
       this.$router.push({ name: "OP_CostType" });
     },
     onZoneClick() {
-      this.$router.push({ name: "OP_FleetBrand" });
+      this.$router.push({ name: "OP_Zone" });
     },
     onQuotationCostingAdjusmentClick() {
       this.$router.push({ name: "OP_FleetType" });

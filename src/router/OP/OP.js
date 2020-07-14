@@ -39,6 +39,21 @@ import OP_MaintenanceTypeView from '@/views/OP/OP_MaintenanceType/OP_Maintenance
 //Maintenance Item
 import OP_MaintenanceItemForm from '@/views/OP/OP_MaintenanceItem/OP_MaintenanceItemForm'
 
+//Standard Pricing & Costing
+import OP_PricingCosting from '@/views/OP/OP_PricingCosting/OP_PricingCostingList'
+import OP_PricingCostingFTL from '@/views/OP/OP_PricingCosting/OP_PricingCostingFTL'
+import OP_PricingCostingLTL from '@/views/OP/OP_PricingCosting/OP_PricingCostingLTL'
+import OP_PricingCostingView from '@/views/OP/OP_PricingCosting/OP_PricingCostingView'
+import OP_PricingCostingFormDetail from '@/views/OP/OP_PricingCosting/OP_PricingCosting_op_pricing_costing_dtlForm'
+
+//cost type
+import OP_CostType from '@/views/OP/OP_CostType/OP_CostTypeList'
+import OP_CostTypeForm from '@/views/OP/OP_CostType/OP_CostTypeForm'
+
+// Zone
+import OP_Zone from '@/views/OP/OP_Zone/OP_ZoneList'
+import OP_ZoneForm from '@/views/OP/OP_Zone/OP_ZoneForm'
+
 export const OPRender = {
     path: '/OP',
     component: {
@@ -46,201 +61,274 @@ export const OPRender = {
             return c('router-view')
         }
     },
-    children: [{
-        path: '/OP/OP_BookingEntry',
-        name: 'OP_BookingEntry',
-        component: OP_BookingEntry,
-        meta: {
-            requiresAuth: true
-        }
-    },
-    {
-        path: '/OP/OP_AddBookingEntry',
-        name: 'OP_AddBookingEntry',
-        component: OP_AddBookingEntry,
-        meta: {
-            requiresAuth: true
-        }
-    },
-    {
-        path: '/OP/OP_ViewBookingEntry',
-        name: 'OP_ViewBookingEntry',
-        component: OP_ViewBookingEntry,
-        meta: {
-            requiresAuth: true
-        }
-    },
-    {
-        path: '/OP/OP_PlanExecution',
-        name: 'OP_PlanExecution',
-        component: OP_PlanExecution,
-        meta: {
-            requiresAuth: true
-        }
-    },
-    {
-        path: '/OP/OP_ViewPlanExecution',
-        name: 'OP_ViewPlanExecution',
-        component: OP_ViewPlanExecution,
-        meta: {
-            requiresAuth: true
-        }
-    },
-    {
-        path: '/OP/OP_Driver',
-        name: 'OP_DriverManagement',
-        component: OP_DriverManagement,
-        meta: {
-            requiresAuth: true
-        }
-    },
-    {
-        path: '/OP/OP_Driver/View',
-        name: 'OP_DriverManagementView',
-        component: OP_DriverManagementView,
-        meta: {
-            requiresAuth: true
-        }
-    },
-    {
-        path: '/OP/OP_Driver/Form',
-        name: 'OP_DriverManagementForm',
-        component: OP_DriverManagementForm,
-        meta: {
-            requiresAuth: true
-        }
-    },
-    {
-        path: '/OP/OP_FleetBrand',
-        name: 'OP_FleetBrand',
-        component: OP_FleetBrand,
-        meta: {
-            requiresAuth: true
-        }
-    },
-    {
-        path: '/OP/OP_FleetBrand/View',
-        name: 'OP_FleetBrandView',
-        component: OP_FleetBrandView,
-        meta: {
-            requiresAuth: true
-        }
-    },
-    {
-        path: '/OP/OP_FleetBrand/Form',
-        name: 'OP_FleetBrandForm',
-        component: OP_FleetBrandForm,
-        meta: {
-            requiresAuth: true
-        }
-    },
-    {
-        path: '/OP/OP_FleetType',
-        name: 'OP_FleetType',
-        component: OP_FleetType,
-        meta: {
-            requiresAuth: true
-        }
-    },
-    {
-        path: '/OP/OP_FleetType/Form',
-        name: 'OP_FleetTypeForm',
-        component: OP_FleetTypeForm,
-        meta: {
-            requiresAuth: true
-        }
-    },
-    {
-        path: '/OP/OP_FleetCarosery',
-        name: 'OP_FleetCarosery',
-        component: OP_FleetCarosery,
-        meta: {
-            requiresAuth: true
-        }
-    },
-    {
-        path: '/OP/OP_FleetCarosery/Form',
-        name: 'OP_FleetCaroseryForm',
-        component: OP_FleetCaroseryForm,
-        meta: {
-            requiresAuth: true
-        }
-    },
+    children: [
+        {
+            path: '/OP/OP_Zone',
+            name: 'OP_Zone',
+            component: OP_Zone,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/OP_Zone/Form',
+            name: 'OP_ZoneForm',
+            component: OP_ZoneForm,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/OP_CostType',
+            name: 'OP_CostType',
+            component: OP_CostType,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/OP_CostType/Form',
+            name: 'OP_CostTypeForm',
+            component: OP_CostTypeForm,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/OP_PricingCosting',
+            name: 'OP_PricingCosting',
+            component: OP_PricingCosting,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/OP_PricingCosting/View',
+            name: 'OP_PricingCostingView',
+            component: OP_PricingCostingView,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/OP_PricingCosting/FTL',
+            name: 'OP_PricingCostingFTL',
+            component: OP_PricingCostingFTL,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/OP_PricingCosting/LTL',
+            name: 'OP_PricingCostingLTL',
+            component: OP_PricingCostingLTL,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/OP_PricingCosting/detail_costing',
+            name: 'OP_PricingCostingFormDetail',
+            component: OP_PricingCostingFormDetail,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/OP_BookingEntry',
+            name: 'OP_BookingEntry',
+            component: OP_BookingEntry,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/OP_AddBookingEntry',
+            name: 'OP_AddBookingEntry',
+            component: OP_AddBookingEntry,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/OP_ViewBookingEntry',
+            name: 'OP_ViewBookingEntry',
+            component: OP_ViewBookingEntry,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/OP_PlanExecution',
+            name: 'OP_PlanExecution',
+            component: OP_PlanExecution,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/OP_ViewPlanExecution',
+            name: 'OP_ViewPlanExecution',
+            component: OP_ViewPlanExecution,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/OP_Driver',
+            name: 'OP_DriverManagement',
+            component: OP_DriverManagement,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/OP_Driver/View',
+            name: 'OP_DriverManagementView',
+            component: OP_DriverManagementView,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/OP_Driver/Form',
+            name: 'OP_DriverManagementForm',
+            component: OP_DriverManagementForm,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/OP_FleetBrand',
+            name: 'OP_FleetBrand',
+            component: OP_FleetBrand,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/OP_FleetBrand/View',
+            name: 'OP_FleetBrandView',
+            component: OP_FleetBrandView,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/OP_FleetBrand/Form',
+            name: 'OP_FleetBrandForm',
+            component: OP_FleetBrandForm,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/OP_FleetType',
+            name: 'OP_FleetType',
+            component: OP_FleetType,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/OP_FleetType/Form',
+            name: 'OP_FleetTypeForm',
+            component: OP_FleetTypeForm,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/OP_FleetCarosery',
+            name: 'OP_FleetCarosery',
+            component: OP_FleetCarosery,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/OP_FleetCarosery/Form',
+            name: 'OP_FleetCaroseryForm',
+            component: OP_FleetCaroseryForm,
+            meta: {
+                requiresAuth: true
+            }
+        },
 
-    {
-        path: '/OP/OP_TicketCategory',
-        name: 'OP_TicketCategory',
-        component: OP_TicketCategory,
-        meta: {
-            requiresAuth: true
-        }
-    },
-    {
-        path: '/OP/OP_TicketCategory/Form',
-        name: 'OP_TicketCategoryForm',
-        component: OP_TicketCategoryForm,
-        meta: {
-            requiresAuth: true
-        }
-    },
+        {
+            path: '/OP/OP_TicketCategory',
+            name: 'OP_TicketCategory',
+            component: OP_TicketCategory,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/OP_TicketCategory/Form',
+            name: 'OP_TicketCategoryForm',
+            component: OP_TicketCategoryForm,
+            meta: {
+                requiresAuth: true
+            }
+        },
 
-    {
-        path: '/OP/OP_FleetMaster',
-        name: 'OP_FleetMaster',
-        component: OP_FleetMaster,
-        meta: {
-            requiresAuth: true
-        }
-    },
-    {
-        path: '/OP/OP_FleetMaster/View',
-        name: 'OP_FleetMasterView',
-        component: OP_FleetMasterView,
-        meta: {
-            requiresAuth: true
-        }
-    },
-    {
-        path: '/OP/OP_FleetMaster/Form',
-        name: 'OP_FleetMasterForm',
-        component: OP_FleetMasterForm,
-        meta: {
-            requiresAuth: true
-        }
-    },
+        {
+            path: '/OP/OP_FleetMaster',
+            name: 'OP_FleetMaster',
+            component: OP_FleetMaster,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/OP_FleetMaster/View',
+            name: 'OP_FleetMasterView',
+            component: OP_FleetMasterView,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/OP_FleetMaster/Form',
+            name: 'OP_FleetMasterForm',
+            component: OP_FleetMasterForm,
+            meta: {
+                requiresAuth: true
+            }
+        },
 
-    {
-        path: '/OP/OP_MaintenanceType',
-        name: 'OP_MaintenanceType',
-        component: OP_MaintenanceType,
-        meta: {
-            requiresAuth: true
-        }
-    },
-    {
-        path: '/OP/OP_MaintenanceType/Form',
-        name: 'OP_MaintenanceTypeForm',
-        component: OP_MaintenanceTypeForm,
-        meta: {
-            requiresAuth: true
-        }
-    },
-    {
-        path: '/OP/OP_MaintenanceType/View',
-        name: 'OP_MaintenanceTypeView',
-        component: OP_MaintenanceTypeView,
-        meta: {
-            requiresAuth: true
-        }
-    },
+        {
+            path: '/OP/OP_MaintenanceType',
+            name: 'OP_MaintenanceType',
+            component: OP_MaintenanceType,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/OP_MaintenanceType/Form',
+            name: 'OP_MaintenanceTypeForm',
+            component: OP_MaintenanceTypeForm,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/OP_MaintenanceType/View',
+            name: 'OP_MaintenanceTypeView',
+            component: OP_MaintenanceTypeView,
+            meta: {
+                requiresAuth: true
+            }
+        },
 
-    {
-        path: '/OP/OP_MaintenanceItem/Form',
-        name: 'OP_MaintenanceItemForm',
-        component: OP_MaintenanceItemForm,
-        meta: {
-            requiresAuth: true
-        }
-    },
+        {
+            path: '/OP/OP_MaintenanceItem/Form',
+            name: 'OP_MaintenanceItemForm',
+            component: OP_MaintenanceItemForm,
+            meta: {
+                requiresAuth: true
+            }
+        },
     ]
 }

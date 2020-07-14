@@ -7,15 +7,25 @@
             <div class="card__title">
               <b-row>
                 <b-col style="max-width:fit-content !important;">
-                  <span>View Marketing Master</span>
+                  <span>View Standard Pricing & Costing</span>
                 </b-col>
                 <b-col style="text-align: right;">
-                  <ABSButton
-                    :text="'Back'"
-                    classButton="button button--back"
-                    classIcon="icon-style-1"
-                    @click="doBack"
-                  />
+                  <span>
+                    <ABSButton
+                      :text="'Add Costing'"
+                      classButton="button button--back"
+                      classIcon="icon-style-1"
+                      @click="doAddCosting"
+                    />
+                  </span>
+                  <span>
+                    <ABSButton
+                      :text="'Back'"
+                      classButton="button button--back"
+                      classIcon="icon-style-1"
+                      @click="doBack"
+                    />
+                  </span>
                 </b-col>
               </b-row>
             </div>
@@ -50,7 +60,7 @@
                         </span>
                         <br />
                         <span>
-                          <label>{{M_MkMarketing.monthly_point}}</label>
+                          <label>{{M_OpPricingCosting .monthly_point}}</label>
                         </span>
                       </b-col>-->
                       <div class="card__body">
@@ -69,8 +79,21 @@
                             :items="items"
                             class="table-sm table-style-3"
                           >
-                            <template v-slot:cell(name)="data">
-                              <span>{{data.item.marketing_id+" - " +data.item.name}}</span>
+                            <template v-slot:cell(margin)="data">
+                              <span style="text-align:rigth;">
+                                {{isCurrency(data.item.margin,decimal)}}
+                                <b>({{data.item.margin_percent}}%)</b>
+                              </span>
+                            </template>
+                            <template v-slot:cell(selling_price)="data">
+                              <span
+                                style="text-align:rigth;"
+                              >{{isCurrency(data.item.selling_price,decimal)}}</span>
+                            </template>
+                            <template v-slot:cell(cost_price)="data">
+                              <span
+                                style="text-align:rigth;"
+                              >{{isCurrency(data.item.cost_price,decimal)}}</span>
                             </template>
                           </b-table>
                         </div>
@@ -79,7 +102,7 @@
                     <b-row>
                       <b-col md="12">
                         <span>
-                          <label>Add Team</label>
+                          <label style="font-size: 15px; color: #333399; font-weight: bold;">Costing</label>
                         </span>
                         <div class="card__body">
                           <div class="table--list" :id="'marketingmaster_team'">
@@ -95,25 +118,21 @@
                               :foot-clone="false"
                               :fields="fieldHeader2"
                               :items="items2"
+                              @row-clicked="doEditCosting"
                               class="table-sm table-style-3"
                             >
-                              <template v-slot:cell(name)="data">
-                                <span>{{data.item.marketing_id+" - " +data.item.name}}</span>
-                              </template>
-                              <template v-slot:cell(is_my_team)="data">
-                                <b-form-checkbox
-                                  :id="'cbTeam_'+data.index"
-                                  :name="'cbTeam_'+data.index"
-                                  v-model="data.item.is_my_team"
-                                  :value="true"
-                                  :unchecked-value="false"
-                                  style="min-height:15px !important;padding-top:0px !important;"
+                              <template v-slot:cell(row_id)="data">
+                                <ABSButton
+                                  :icon="'trash'"
+                                  classButton="button button--delete"
+                                  classIcon="icon-style-1"
+                                  @click="doDeletedtl(data.item, data.index)"
                                 />
                               </template>
                             </b-table>
                           </div>
                         </div>
-                        <div class="card__footer" style="padding-bottom: 10px;">
+                        <!-- <div class="card__footer" style="padding-bottom: 10px;">
                           <b-row>
                             <b-col md="12" style="text-align: center;">
                               <ABSButton
@@ -125,7 +144,7 @@
                               />
                             </b-col>
                           </b-row>
-                        </div>
+                        </div>-->
                       </b-col>
                     </b-row>
                   </b-col>
@@ -149,30 +168,31 @@ export default {
         LineNo: 0,
         PageLevel: 1,
         TabIndex: 1,
-        OrderBy: "marketing_id ASC ",
+        OrderBy: "zone_from ASC ",
         SourceField: "",
         ParamView: ""
       },
-      M_MkMarketing: {
-        mk_marketing_id: 0,
+      M_OpPricingCosting: {
+        op_pricing_costing_id: 0,
         ss_portfolio_id: 0,
-        user_id: "",
-        marketing_id: "",
-        nameLabel: "",
-        nik_id: "",
-        address: "",
-        email: "",
-        hand_phone: "",
-        status_active: "",
-        join_date: "",
-        monthly_point: 0,
-        monthly_new_prospect: 0,
+        category: "",
+        fr_cm_zone_id: 0,
+        fr_zone_cdLabel: "",
+        to_cm_zone_id: 0,
+        to_zone_cdLabel: "",
+        fm_fleet_type_id: 0,
+        fleet_cdLabel: "",
+        cm_commodity_id: 0,
+        commodity_cdLabel: "",
+        selling_price: 0,
+        cbm_selling_price: 0,
+        kgs_selling_price: 0,
+        total_cost_value: 0,
+        remarks: "",
         user_input: "",
         user_edit: "",
         time_input: "",
         time_edit: "",
-        minimum_margin: "",
-        remarks: "",
         row_id: 0,
         lastupdatestamp: 0
       },
@@ -192,7 +212,7 @@ export default {
       fieldHeader: [],
       items: [],
       firstSort: true,
-      sort: "marketing_id ASC",
+      sort: "from_zone ASC",
 
       totalRows: 0,
       currentPage: 1,
@@ -244,14 +264,35 @@ export default {
     doBack() {
       this.$router.go(-1);
     },
+    doEditCosting(record, index) {
+      var param = this.paramFromList;
+      param.isEdit = true;
+      param.DetailList = record;
+
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "OP_PricingCostingFormDetail" });
+    },
+    doAddCosting() {
+      var param = this.paramFromList;
+      param.isEdit = false;
+
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "OP_PricingCostingFormDetail" });
+    },
     doEdit() {
       var param = this.paramFromList;
       param.isEdit = true;
-      this.$router.push({ name: "CM_MarketingMasterForm", params: param });
+      param.isView = true;
+      this.$store.commit("setParamPage", param);
+      if (this.M_OpPricingCosting.category == "L") {
+        this.$router.push({ name: "OP_PricingCostingLTL" });
+      } else {
+        this.$router.push({ name: "OP_PricingCostingFTL" });
+      }
     },
     doGetList(search, a = null) {
       var param = {
-        option_url: "/MK/MK_Marketing",
+        option_url: "/OP/OP_PricingCosting",
         line_no: 0,
         user_id: this.getDataUser().user_id,
         portfolio_id: this.getDataUser().portfolio_id,
@@ -288,7 +329,7 @@ export default {
           this.responses.DefineColumn && this.responses.DefineColumn !== ""
             ? this.responses.DefineColumn.split(",")
             : this.responses.AllColumn.split(",");
-        var x = ",L,S,S,L,S,S,S";
+        var x = ",S,S,S,S,S,S,S";
         // var defineSize = this.responses.DefineSize.split(",");
         var defineSize = x.split(",");
 
@@ -484,7 +525,7 @@ export default {
               }
             }
 
-            // if (labelHeader == "Row Id") continue;
+            if (labelHeader == "Row Id") continue;
 
             this.fieldHeader.push({
               value: i + 1,
@@ -506,11 +547,6 @@ export default {
       });
     },
     doGetList2() {
-      var param = {
-        portfolio_id: this.getDataUser().portfolio_id,
-        user_id: this.getDataUser().user_id
-      };
-
       this.fieldHeader2 = [
         {
           value: 1,
@@ -519,51 +555,42 @@ export default {
           tdClass: "ContentACCList2 notranslate",
           label: "No"
         },
-        // {
-        //     value: 2,
-        //     key: "marketing_id",
-        //     thClass: "HeaderACCList  S",
-        //     tdClass: "ContentACCList2 notranslate",
-        //     label: "Marketing ID"
-        // },
         {
           value: 2,
-          key: "name",
-          thClass: "HeaderACCList  M",
+          key: "cost_type",
+          thClass: "HeaderACCList2  S",
           tdClass: "ContentACCList notranslate",
-          label: "Marketing Name"
+          label: "Cost Type"
         },
-        // {
-        //     value: 4,
-        //     key: "join_date",
-        //     thClass: "HeaderACCList  M",
-        //     tdClass: "ContentACCList2 notranslate",
-        //     label: "Join Date"
-        // },
-        // {
-        //     value: 5,
-        //     key: "monthly_point",
-        //     thClass: "HeaderACCList  S",
-        //     tdClass: "ContentACCList2 notranslate",
-        //     label: "Monthly Point"
-        // },
-        // {
-        //     value: 6,
-        //     key: "monthly_new_prospect",
-        //     thClass: "HeaderACCList  S",
-        //     tdClass: "ContentACCList2 notranslate",
-        //     label: "Monthly New Prospect"
-        // },
         {
           value: 3,
-          key: "is_my_team",
-          thClass: "HeaderACCList S",
+          key: "descs",
+          thClass: "HeaderACCList2 L",
           tdClass: "ContentACCList notranslate",
-          label: "My Team"
+          label: "Description"
+        },
+        {
+          value: 4,
+          key: "value",
+          thClass: "HeaderACCList2  M",
+          tdClass: "ABStdClassList2 notranslate",
+          label: "Value"
+        },
+        {
+          value: 5,
+          key: "row_id",
+          thClass: "HeaderACCList2",
+          tdClass: "ContentACCList2 notranslate",
+          label: ""
         }
       ];
 
-      this.getJSON(this.getUrlMarketingTeam(), param).then(response => {
+      var param = {
+        option_function_cd: "GetListOPPricingDtl",
+        module_cd: "OP",
+        row_id: this.paramFromList.row_id
+      };
+      this.CallFunction(param).then(response => {
         // response from API
         if (response == null) return;
         this.$nextTick(() => {
@@ -572,48 +599,19 @@ export default {
           for (let i = 0; i < response.Data.length; i++) {
             this.items2.push({
               no: i + 1,
-              marketing_id: response.Data[i].marketing_id,
-              name: response.Data[i].name,
-              join_date2: response.Data[i].join_date,
-              join_date: this.momentDateFormat(
-                response.Data[i].join_date,
-                "YYYY-MM-DD"
-              ),
-              monthly_point: 0,
-              monthly_new_prospect: 0,
-              is_my_team: false
+              cost_type: response.Data[i].cost_type,
+              value: this.isCurrency(response.Data[i].cost_value, this.decimal),
+              descs: response.Data[i].description,
+              row_id: response.Data[i].row_id,
+              lastupdatestamp: response.Data[i].lastupdatestamp
             });
           }
         });
 
         this.$forceUpdate();
-
-        this.getList();
       });
     },
-    getList() {
-      this.$nextTick(() => {
-        for (let i = 0; i < this.items2.length; i++) {
-          this.items2[i].monthly_point =
-            this.responses2[i] !== undefined
-              ? this.responses2[i].monthly_point &&
-                this.responses2[i].monthly_point !== ""
-                ? this.responses2[i].monthly_point
-                : 0
-              : 0;
-          this.items2[i].monthly_new_prospect =
-            this.responses2[i] !== undefined
-              ? this.responses2[i].monthly_new_prospect &&
-                this.responses2[i].monthly_new_prospect !== ""
-                ? this.responses2[i].monthly_new_prospect
-                : 0
-              : 0;
-          this.items2[i].is_my_team = this.responses2[i].is_my_team;
-        }
-      });
 
-      this.$forceUpdate();
-    },
     doSave() {
       this.alertConfirmation("Are You Sure Want To Save This Data ?").then(
         ress => {
@@ -659,9 +657,18 @@ export default {
         }
       );
     },
+    doDeletedtl(record, index) {
+      this.alertConfirmation("Are You Sure Want To Delete This Data ?").then(
+        ress => {
+          if (ress.value) {
+            this.M_DeleteDtl(record, index);
+          }
+        }
+      );
+    },
     M_Delete() {
       var param = {
-        option_url: "/MK/MK_Marketing",
+        option_url: "/OP/OP_PricingCosting",
         line_no: 0,
         id: this.paramFromList.row_id,
         lastupdatestamp: this.paramFromList.lastupdatestamp
@@ -675,9 +682,25 @@ export default {
         });
       });
     },
+    M_DeleteDtl(record, index) {
+      var param = {
+        option_url: "/OP/OP_PricingCosting",
+        line_no: 1,
+        id: record.row_id,
+        lastupdatestamp: record.lastupdatestamp
+      };
+      this.deleteJSON(this.getUrlCRUD(), param).then(response => {
+        // response from API
+        if (response == null) return;
+
+        this.alertSuccess("Data Has Been Deleted").then(() => {
+          this.doBack();
+        });
+      });
+    },
     GetDataBy() {
       var param = {
-        option_url: "/MK/MK_Marketing",
+        option_url: "/OP/OP_PricingCosting",
         line_no: 0,
         id: this.paramFromList.row_id,
         lastupdatestamp: this.paramFromList.lastupdatestamp
@@ -689,30 +712,31 @@ export default {
 
         var data = response.Data[0];
 
-        this.M_MkMarketing = {
-          mk_marketing_id: data.mk_marketing_id,
+        this.M_OpPricingCosting = {
+          op_pricing_costing_id: data.op_pricing_costing_id,
           ss_portfolio_id: data.ss_portfolio_id,
-          user_id: data.user_id__lo_1,
-          marketing_id: data.marketing_id,
-          nameLabel: data.name__lbl__lo_1,
-          nik_id: data.nik_id,
-          address: data.address,
-          email: data.email,
-          hand_phone: data.hand_phone,
-          status_active: data.status_active,
-          join_date: data.join_date,
-          monthly_point: data.monthly_point__tb_2,
-          monthly_new_prospect: data.monthly_new_prospect__tb_3,
+          category: data.category,
+          fr_cm_zone_id: data.fr_cm_zone_id__lo_1,
+          fr_zone_cdLabel: data.fr_zone_cd__lbl__lo_1,
+          to_cm_zone_id: data.to_cm_zone_id__lo_2,
+          to_zone_cdLabel: data.to_zone_cd__lbl__lo_2,
+          fm_fleet_type_id: data.fm_fleet_type_id__lo_3,
+          fleet_cdLabel: data.fleet_cd__lbl__lo_3,
+          cm_commodity_id: data.cm_commodity_id__lo_4,
+          commodity_cdLabel: data.commodity_cd__lbl__lo_4,
+          selling_price: data.selling_price__tb_5,
+          cbm_selling_price: data.cbm_selling_price__tb_6,
+          kgs_selling_price: data.kgs_selling_price__tb_7,
+          total_cost_value: data.total_cost_value,
+          remarks: data.remarks__tb_8,
           user_input: data.user_input,
           user_edit: data.user_edit,
           time_input: data.time_input,
           time_edit: data.time_edit,
-          minimum_margin: data.minimum_margin__tb_4,
-          remarks: data.remarks__tb_5,
           row_id: data.row_id,
           lastupdatestamp: data.lastupdatestamp
         };
-        var filter = " AND row_id = " + data.mk_marketing_id;
+        var filter = " AND row_id = " + data.row_id;
         this.propList.initialWhere += filter;
         this.doGetList(this.search);
         this.doGetList2();
