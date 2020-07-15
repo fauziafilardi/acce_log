@@ -466,7 +466,7 @@ export default {
     },
     doSave() {
       this.$validator._base.validateAll("MK_AddQuotation").then(result => {
-        console.log(result)
+        // console.log(result)
         if (!result) return;
         this.alertConfirmation("Are You Sure Want To Save This Data ?").then(
           ress => {
@@ -483,6 +483,7 @@ export default {
       });
     },
     M_Insert() {
+      // console.log(this.M_Quotation)
       var param = {
         option_url: "/MK/MK_Quotation",
         line_no: 0,
@@ -494,7 +495,7 @@ export default {
         quotation_type: this.M_Quotation.type,
         project_name: this.M_Quotation.project_name,
         descs: this.M_Quotation.descs,
-        project_value: this.M_Quotation.project_value && this.M_Quotation.project_value !== '' ? this.replaceAllString(this.M_Quotation.project_value, ',', '', 'number') : 0,
+        // project_value: this.M_Quotation.project_value && this.M_Quotation.project_value !== '' ? this.replaceAllString(this.M_Quotation.project_value, ',', '', 'number') : 0,
         start_date: this.M_Quotation.date && this.M_Quotation.date !== '' ? this.M_Quotation.date : "NULL",
         expired_date: this.M_Quotation.date2 && this.M_Quotation.date2 !== '' ? this.M_Quotation.date2 : "NULL",
         extra_pick_drop_charges: this.replaceAllString(this.M_Quotation.extra_charge, ',', '', 'number'),
