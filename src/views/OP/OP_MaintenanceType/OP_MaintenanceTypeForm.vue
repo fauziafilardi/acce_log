@@ -7,7 +7,7 @@
             <div class="card__title">
               <b-row>
                 <b-col style="max-width:fit-content !important;">
-                  <span>{{Stype == "M" ? "Master Maintenance Type" : "Maintenance Type"}}</span>
+                  <span>{{Stype == "M" ? "Maintenance" : "Maintenance Type"}}</span>
                 </b-col>
                 <b-col style="text-align: right;">
                   <span>

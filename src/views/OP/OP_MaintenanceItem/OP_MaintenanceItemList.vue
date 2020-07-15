@@ -5,7 +5,7 @@
         <b-col md="12">
           <ACCList2
             :prop="propList"
-            :title="'Maintenance Type'"
+            :title="'Maintenance Item'"
             @rowClicked="rowClicked"
             @rowDblClicked="doDoubleClick"
             @rowLinkClick="rowLink"
@@ -14,8 +14,8 @@
             @filter="M_Advance_Filter"
             @headTable="M_Head_Table"
             @refreshColumn="refreshColumn"
-            ref="ref_MmMaintenanceType"
-            urlAdd="OP_MaintenanceTypeForm"
+            ref="ref_MmMaintenanceItem"
+            urlAdd="OP_MaintenanceItemForm"
             WithDeleteButton
             @buttonViewClicked="doViewClick"
             @buttonDeleteClicked="doDeleteClick"
@@ -49,7 +49,7 @@ export default {
       var param = record;
       param.isEdit = true;
       this.$store.commit("setParamPage", param);
-      this.$router.push({ name: "OP_MaintenanceTypeForm"});
+      this.$router.push({ name: "OP_MaintenanceItemForm"});
     },
     doDoubleClick(record, index) {},
     doDeleteClick(record, index) {
@@ -69,7 +69,7 @@ export default {
     refreshColumn() {},
     M_Delete(record) {
       var param = {
-        option_url: "/OP/OP_MaintenanceType",
+        option_url: "/OP/OP_MaintenanceItem",
         line_no: 0,
         id: record.row_id,
         lastupdatestamp: record.lastupdatestamp
@@ -79,13 +79,13 @@ export default {
         if (response == null) return;
 
         this.alertSuccess("Data Has Been Deleted").then(() => {
-          this.$refs.ref_MmMaintenanceType.doGetList("");
+          this.$refs.ref_MmMaintenanceItem.doGetList("");
         });
       });
     }
   },
   mounted() {
-    this.$refs.ref_MmMaintenanceType.doGetList("");
+    this.$refs.ref_MmMaintenanceItem.doGetList("");
 	
   },
   created(){

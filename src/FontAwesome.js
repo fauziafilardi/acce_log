@@ -78,7 +78,8 @@ import {
     faWrench,
     faDiceD6,
     faCopyright,
-    faClipboardList
+    faClipboardList,
+    faFillDrip
 } from '@fortawesome/free-solid-svg-icons'
 
 
@@ -160,5 +161,6 @@ library.add(faWrench)
 library.add(faDiceD6)
 library.add(faCopyright)
 library.add(faClipboardList)
+library.add(faFillDrip)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)

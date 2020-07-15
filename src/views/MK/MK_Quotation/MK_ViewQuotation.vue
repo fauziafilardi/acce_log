@@ -72,7 +72,7 @@
                               <font-awesome-icon
                                 class="icon-style-default"
                                 icon="map-marker-alt"
-                                size="sm"
+                                size="lg"
                               />
                               &nbsp;
                               {{ M_Quotation.fulladdress }}
@@ -82,7 +82,7 @@
                               <font-awesome-icon
                                 class="icon-style-default"
                                 icon="phone-square-alt"
-                                size="sm"
+                                size="lg"
                               />
                               {{ M_Quotation.phone_no }}
                             </span> &nbsp;
@@ -90,20 +90,20 @@
                               <font-awesome-icon
                                 class="icon-style-default"
                                 icon="globe-americas"
-                                size="sm"
+                                size="lg"
                               />
                               {{ M_Quotation.website }}
                             </span>
                             <br />
                             <span>
-                              <font-awesome-icon class="icon-style-default" icon="user" size="sm" />
+                              <font-awesome-icon class="icon-style-default" icon="user" size="lg" />
                               {{ M_Quotation.pic }}
                             </span> &nbsp;
                             <span>
                               <font-awesome-icon
                                 class="icon-style-default"
                                 icon="phone-square-alt"
-                                size="sm"
+                                size="lg"
                               />
                               {{ M_Quotation.pic_phone_no }}
                             </span> &nbsp;
@@ -111,7 +111,7 @@
                               <font-awesome-icon
                                 class="icon-style-default"
                                 icon="envelope"
-                                size="sm"
+                                size="lg"
                               />
                               {{ M_Quotation.email }}
                             </span> &nbsp;
@@ -196,14 +196,14 @@
                     </b-row>
                     <hr />
                     <b-row>
-                      <b-col style="max-width: fit-content !important; margin-right: 20px; border-bottom: solid 2px rgb(153, 153, 153); padding-bottom: 5px">
+                      <b-col style="max-width: fit-content !important; margin-right: 20px; padding-bottom: 5px" class="row-view">
                         <span>
                           <label style="margin-bottom: 0px !important;">Quotation Number</label>
                         </span>
                         <br />
                         <span style="color: #999999;">{{ M_Quotation.quotation_no }}</span>
                       </b-col>
-                      <b-col style="max-width: fit-content !important; margin-right: 20px; border-bottom: solid 2px rgb(153, 153, 153); padding-bottom: 5px">
+                      <b-col style="max-width: fit-content !important; margin-right: 20px; padding-bottom: 5px" class="row-view">
                         <span>
                           <label style="margin-bottom: 0px !important;">Valid Thru</label>
                         </span>
@@ -212,7 +212,7 @@
                           style="color: #999999;"
                         >{{ M_Quotation.date + ' - ' + M_Quotation.date2}}</span>
                       </b-col>
-                      <b-col style="max-width: fit-content !important; margin-right: 20px; border-bottom: solid 2px rgb(153, 153, 153); padding-bottom: 5px">
+                      <b-col style="max-width: fit-content !important; margin-right: 20px; padding-bottom: 5px" class="row-view">
                         <span>
                           <label style="margin-bottom: 0px !important;">Status</label>
                         </span>
@@ -221,7 +221,7 @@
                       </b-col>
                     </b-row>
                     <b-row>
-                      <b-col style="max-width: fit-content !important; margin-right: 20px; border-bottom: solid 2px rgb(153, 153, 153); padding-bottom: 5px">
+                      <b-col style="max-width: fit-content !important; margin-right: 20px; padding-bottom: 5px" class="row-view">
                         <span>
                           <label style="margin-bottom: 0px !important;">Project Name</label>
                         </span>
@@ -230,7 +230,7 @@
                       </b-col>
                     </b-row>
                     <b-row>
-                      <b-col style="max-width: fit-content !important; margin-right: 20px; border-bottom: solid 2px rgb(153, 153, 153); padding-bottom: 5px">
+                      <b-col style="max-width: fit-content !important; margin-right: 20px; padding-bottom: 5px" class="row-view">
                         <span>
                           <label style="margin-bottom: 0px !important;">Description</label>
                         </span>
@@ -239,14 +239,14 @@
                       </b-col>
                     </b-row>
                     <b-row>
-                      <b-col style="max-width: fit-content !important; margin-right: 20px; border-bottom: solid 2px rgb(153, 153, 153); padding-bottom: 5px">
+                      <b-col style="max-width: fit-content !important; margin-right: 20px; padding-bottom: 5px" class="row-view">
                         <span>
                           <label style="margin-bottom: 0px !important;">Extra Pick/Drop Charges</label>
                         </span>
                         <br />
                         <span style="color: #999999;">{{ M_Quotation.extra_charge }}</span>
                       </b-col>
-                      <b-col style="max-width: fit-content !important; margin-right: 20px; border-bottom: solid 2px rgb(153, 153, 153); padding-bottom: 5px">
+                      <b-col style="max-width: fit-content !important; margin-right: 20px; padding-bottom: 5px" class="row-view">
                         <span>
                           <label style="margin-bottom: 0px !important;">Over Night Charges</label>
                         </span>
