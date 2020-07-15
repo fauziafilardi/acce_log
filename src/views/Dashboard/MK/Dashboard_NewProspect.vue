@@ -217,7 +217,9 @@ export default {
             target: data.target_prospect,
             achievement: data.achievement_prospect,
             targetPoint: data.monthly_point_target,
-            achievementPoint: data.monthly_point_achievement,
+            achievementPoint: data.monthly_point_achievement
+              ? data.monthly_point_achievement
+              : 0,
             pendingPoint: data.monthly_point_pending
           };
         } else {

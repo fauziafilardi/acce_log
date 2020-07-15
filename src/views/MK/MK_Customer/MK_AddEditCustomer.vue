@@ -7,7 +7,7 @@
             <div class="card__title">
               <b-row>
                 <b-col style="max-width:fit-content !important;">
-                  <span>Customer List</span>
+                  <span>Customer List tes</span>
                 </b-col>
                 <b-col style="text-align: right;">
                   <ABSButton

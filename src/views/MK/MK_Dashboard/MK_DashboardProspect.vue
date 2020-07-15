@@ -40,7 +40,7 @@
         </b-col>
         <!-- <div> -->
         <!-- {{dataList}} -->
-        <b-col md="4" v-for="(data,index) in M_Marketing" v-bind:key="index">
+        <b-col md="6" v-for="(data,index) in M_Marketing" v-bind:key="index">
           <div class="card">
             <div class="card__title">
               <b-row>
