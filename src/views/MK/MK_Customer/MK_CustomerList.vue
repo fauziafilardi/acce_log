@@ -7,9 +7,8 @@
             <div class="card__title" style="padding-bottom: 5px !important;">
               <b-row>
                 <b-col style="max-width:fit-content !important;">
-                  <span>Customer List</span>
+                  <span>Customer Master</span>
                 </b-col>
-
                 <b-col style="text-align: right;">
                   <b-row>
                     <b-col>
@@ -27,13 +26,22 @@
                     </b-col>
                   </b-row>
                 </b-col>
-                <b-col md="1" class="col-right">
+                <b-col md="2" class="col-right">
                   <span>
                     <ABSButton
                       :text="'Search'"
                       classButton="button button--back2"
                       classIcon="icon-style-1"
                       @click="doSearch"
+                    />
+                  </span>
+                  <span>
+                    <ABSButton
+                      :text="'Add'"
+                      classButton="button button--back2"
+                      classIcon="icon-style-1"
+                      @click="doAdd"
+                      :disabled="ButtonStatus == null ? false : !ButtonStatus.btnAdd"
                     />
                   </span>
                   <span>
@@ -50,57 +58,60 @@
           </div>
         </b-col>
         <!-- <div> -->
-          <!-- {{dataList}} -->
-          <b-col md="12" v-for="(dataList,indexs) in cmbMarketing" v-bind:key="indexs">
-            <div class="card">
-              <div class="card__title" style="padding-bottom: 5px !important;">
-                <b-row>
-                  <b-col style="max-width:fit-content !important;">
-                    <span>{{dataList.marketing_name}}</span>
-                  </b-col>
-                </b-row>
-              </div>
-              <div class="card__body">
-                <div class="table--list" :id="'customer_list_'+indexs">
-                  <b-table
-                    :responsive="true"
-                    :striped="false"
-                    :bordered="true"
-                    :outlined="false"
-                    :small="false"
-                    :hover="false"
-                    :dark="false"
-                    :fixed="false"
-                    :foot-clone="false"
-                    :fields="fieldHeader"
-                    :items="dataList.items"
-                    class="table-sm table-style-3"
-                  >
-                    <template v-slot:cell(row_id)="data">
-                      <b-button
-                        v-if="WithViewButton == true"
-                        size="sm"
-                        @click.stop="viewClicked(data.item, data.index)"
-                        :disabled="false"
-                        class="btn btn--default"
-                      >View</b-button>
-                      <span v-else>{{data.item.row_id}}</span>
-                    </template>
+        <!-- {{dataList}} -->
+        <b-col md="12" v-for="(dataList,indexs) in cmbMarketing" v-bind:key="indexs">
+          <div class="card">
+            <div class="card__title" style="padding-bottom: 5px !important;">
+              <b-row>
+                <b-col style="max-width:fit-content !important;">
+                  <span>{{dataList.marketing_name}}</span>
+                </b-col>
+              </b-row>
+            </div>
+            <div class="card__body">
+              <div class="table--list" :id="'customer_list_'+indexs">
+                <b-table
+                  :responsive="true"
+                  :striped="false"
+                  :bordered="true"
+                  :outlined="false"
+                  :small="false"
+                  :hover="false"
+                  :dark="false"
+                  :fixed="false"
+                  :foot-clone="false"
+                  :fields="fieldHeader"
+                  :items="dataList.items"
+                  class="table-sm table-style-3"
+                >
+                  <template v-slot:cell(row_id)="data">
+                    <b-button
+                      v-if="WithViewButton == true"
+                      size="sm"
+                      @click.stop="viewClicked(data.item, data.index)"
+                      :disabled="false"
+                      class="btn btn--default"
+                    >View</b-button>
+                    <span v-else>{{data.item.row_id}}</span>
+                  </template>
 
-                    <template v-slot:cell(status)="data">
-                      <!-- <span>
+                  <template v-slot:cell(status)="data">
+                    <!-- <span>
                       <p style="background-color:tomato;">{{data.item.status}}</p>
-                      </span>-->
-                      <!-- <span
+                    </span>-->
+                    <!-- <span
                         :style="`color:white;background-color:`+data.item.customer_status_colour+`;`"
-                      >{{data.item.status}}</span> -->
-                      <div class="badge-primary badgeStatus" :style="`background-color:`+data.item.customer_status_colour+` !important;width: 60%;margin: auto;`" >{{data.item.status}}</div>
-                    </template>
-                  </b-table>
-                </div>
+                    >{{data.item.status}}</span>-->
+                    <div
+                      class="badge-primary badgeStatus"
+                      :style="`background-color:`+data.item.customer_status_colour+` !important;width: 60%;margin: auto;`"
+                    >{{data.item.status}}</div>
+                  </template>
+                </b-table>
               </div>
-              <div class="card__footer" :id="`customer_list_footer_`+indexs">
-                <!-- <b-row> style="padding-bottom: 10px;"
+            </div>
+            <div class="card__footer" :id="`customer_list_footer_`+indexs">
+              <!-- <b-row> style="padding-bottom: 10px;"
                 <b-col md="12" style="text-align: center;">
                   <ABSButton
                     :text="'Save'"
@@ -110,44 +121,44 @@
                     styleButton="height: 40px;width: 75%;"
                   />
                 </b-col>
-                </b-row>-->
-                <b-form inline style="float: left; color: #333;">
-                  <label
-                    class="font-lbl"
-                    style="margin-bottom:0px !important; margin-right:0px !important;"
-                  >Page Size</label>
-                  <b-form-select
-                    id="cmbPerPage"
-                    v-model="dataList.perPage"
-                    v-on:change="doGetList2(indexs)"
-                    :options="pagingData"
-                    class="sm-3 mgn-left-10 font-lbl page-size-left"
-                    :disabled="isDisableTable"
-                  ></b-form-select>
-                  of {{ dataList.totalRows }} Records
-                </b-form>
-
-                <b-pagination
-                  align="right"
-                  v-model="dataList.currentPage"
-                  @change="doGetList2(indexs)"
-                  :total-rows="dataList.totalRows"
-                  :per-page="dataList.perPage"
-                  :limit="dataList.limit"
-                  style="margin-bottom: 0px;"
+              </b-row>-->
+              <b-form inline style="float: left; color: #333;">
+                <label
+                  class="font-lbl"
+                  style="margin-bottom:0px !important; margin-right:0px !important;"
+                >Page Size</label>
+                <b-form-select
+                  id="cmbPerPage"
+                  v-model="dataList.perPage"
+                  v-on:change="doGetList2(indexs)"
+                  :options="pagingData"
+                  class="sm-3 mgn-left-10 font-lbl page-size-left"
                   :disabled="isDisableTable"
-                ></b-pagination>
-              </div>
-              <iframe
-                :name="`print_frame_`+indexs"
-                :id="`print_frame_`+indexs"
-                width="0"
-                height="0"
-                frameborder="0"
-                src="about:blank"
-              ></iframe>
+                ></b-form-select>
+                of {{ dataList.totalRows }} Records
+              </b-form>
+
+              <b-pagination
+                align="right"
+                v-model="dataList.currentPage"
+                @change="doGetList2(indexs)"
+                :total-rows="dataList.totalRows"
+                :per-page="dataList.perPage"
+                :limit="dataList.limit"
+                style="margin-bottom: 0px;"
+                :disabled="isDisableTable"
+              ></b-pagination>
             </div>
-          </b-col>
+            <iframe
+              :name="`print_frame_`+indexs"
+              :id="`print_frame_`+indexs"
+              width="0"
+              height="0"
+              frameborder="0"
+              src="about:blank"
+            ></iframe>
+          </div>
+        </b-col>
         <!-- </div> -->
       </b-row>
     </div>
@@ -159,7 +170,10 @@ export default {
   data() {
     return {
       propList: {
-        initialWhere: "",
+        initialWhere:
+          "ss_portfolio_id='" +
+          this.getDataUser().portfolio_id +
+          "' AND contact_type <> 'V'",
         LineNo: 0,
         PageLevel: 1,
         TabIndex: 1,
@@ -229,7 +243,7 @@ export default {
   },
   computed: {
     paramFromList() {
-      var param = this.$store.getters.getParamPage;;
+      var param = this.$store.getters.getParamPage;
       // if (param == null || param == undefined) {
       //     this.doBack();
       // } else {
@@ -245,10 +259,23 @@ export default {
     doBack() {
       this.$router.go(-1);
     },
-    rowClicked(record, index) {},
-    doDoubleClick(record, index) {},
-    doViewClick(record, index) {
+    doAdd() {
+      var param = {};
+      param.isEdit = false;
+      param.isView = false;
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "MK_CustomerForm" });
     },
+    rowClicked(record, index) {},
+    viewClicked(record, index) {
+      var param = record;
+      param.isEdit = true;
+      param.isView = true;
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "MK_CustomerView" });
+    },
+    doDoubleClick(record, index) {},
+    doViewClick(record, index) {},
     rowLink(url) {},
     M_PageSize() {},
     M_Pagination() {},
@@ -256,7 +283,7 @@ export default {
     M_Head_Table() {},
     refreshColumn() {},
     onSearchEnter(data) {
-        // this.doGetList(this.search, "onSearchEnter");
+      // this.doGetList(this.search, "onSearchEnter");
       for (let i = 0; i < this.cmbMarketing.length; i++) {
         // this.cmbMarketing.push({
         //   marketing_id: data[i].marketing_id,
@@ -533,31 +560,34 @@ export default {
       });
     },
     doGetList2(ix = null) {
-      if (ix == null || ix == undefined || ix < 0) return
-      if (this.cmbMarketing[ix] == undefined) return
+      if (ix == null || ix == undefined || ix < 0) return;
+      if (this.cmbMarketing[ix] == undefined) return;
       // console.log(this.cmbMarketing, ix)
 
       var totalRows = this.cmbMarketing[ix].totalRows,
-      currentPage = this.cmbMarketing[ix].currentPage,
-      lastPage = this.cmbMarketing[ix].lastPage,
-      perPage = this.cmbMarketing[ix].perPage,
-      limit = this.cmbMarketing[ix].limit,
-      where = " marketing_id = '" + this.cmbMarketing[ix].marketing_id + "' ",
-      // marketing_id
-      param = {
-        option_url: "/MK/MK_Customer",
-        line_no: 0,
-        user_id: this.getDataUser().user_id,
-        portfolio_id: this.getDataUser().portfolio_id,
-        subportfolio_id: this.getDataUser().subportfolio_id,
-        current_page: currentPage,
-        per_page: perPage,
-        param_where: this.search,
-        initial_where: where,
-        sort_field: '',
-        source_field: '',
-        param_view: ''
-      };
+        currentPage = this.cmbMarketing[ix].currentPage,
+        lastPage = this.cmbMarketing[ix].lastPage,
+        perPage = this.cmbMarketing[ix].perPage,
+        limit = this.cmbMarketing[ix].limit,
+        where =
+          " marketing_id = '" +
+          this.cmbMarketing[ix].marketing_id +
+          "' AND contact_type <> 'V' ",
+        // marketing_id
+        param = {
+          option_url: "/MK/MK_Customer",
+          line_no: 0,
+          user_id: this.getDataUser().user_id,
+          portfolio_id: this.getDataUser().portfolio_id,
+          subportfolio_id: this.getDataUser().subportfolio_id,
+          current_page: currentPage,
+          per_page: perPage,
+          param_where: this.search,
+          initial_where: where,
+          sort_field: "",
+          source_field: "",
+          param_view: ""
+        };
 
       this.postJSON(this.getUrlList(), param).then(response => {
         if (response == null) return;
@@ -802,7 +832,7 @@ export default {
 
           this.doGetList2(i);
         }
-        
+
         // this.getList();
       });
     },
@@ -874,10 +904,24 @@ export default {
     }
   },
   mounted() {
-    this.getMarketing()
-    this.$store.commit("setParamPage", {});
+    this.getMarketing();
+    this.GetButtonStatus(
+      this.getDataUser().portfolio_id,
+      this.getDataUser().group_id,
+      this.getDataUser().user_id,
+      "/MK/MK_Quotation"
+    ).then(ress => {
+      var x = {};
+      for (let i = 0; i < ress.length; i++) {
+        x[ress[i].button_id] = ress[i].button_status;
+      }
+
+      this.$store.commit("setButtonStatus", x);
+    });
   },
-  created() {}
+  created() {
+    this.$store.commit("setParamPage", {});
+  }
 };
 </script>
 

@@ -118,8 +118,8 @@ export default {
   },
   methods: {
     doBack() {
-      // this.$router.go(-1);
-      this.$router.push({ name: "MK_Quotation" });
+      this.$router.go(-1);
+      // this.$router.push({ name: "MK_Quotation" });
     },
 
     M_ClearForm() {

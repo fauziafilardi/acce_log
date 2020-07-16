@@ -1,6 +1,7 @@
 import MK_Setup from '@/views/Setup/MK_Setup'
 import OP_Setup from '@/views/Setup/OP_Setup'
 import OP_CostingSetup from '@/views/Setup/Costing_Setup'
+import CM_Setup from '@/views/Setup/CM_Setup'
 
 export const SetupRender = {
     path: '',
@@ -10,6 +11,14 @@ export const SetupRender = {
         }
     },
     children: [
+        {
+            path: '/CM/CM_Setup',
+            name: 'CM_Setup',
+            component: CM_Setup,
+            meta: {
+                requiresAuth: true
+            }
+        },
         {
             path: '/MK/MK_Setup',
             name: 'MK_Setup',

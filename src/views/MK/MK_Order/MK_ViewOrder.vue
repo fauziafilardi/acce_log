@@ -321,14 +321,15 @@ export default {
       //   var param = record;
       //   this.$router.push({ name: "MK_ViewQuotation", params: param });
     },
-    GetContactData() {
+    GetDataBy() {
       var param = {
-        option_function_cd: "GetDataCMContact",
-        module_cd: "CM",
-        row_id: this.paramFromList.cm_contact_id
+        option_url: "/MK/MK_Customer",
+        line_no: 3,
+        id: this.paramFromList.row_id,
+        lastupdatestamp: this.paramFromList.lastupdatestamp
       };
 
-      this.CallFunction(param).then(response => {
+      this.getJSON(this.getUrlCRUD(), param).then(response => {
         // response from API
         if (response == null) return;
 
@@ -579,7 +580,7 @@ export default {
   },
   mounted() {
     this.M_ClearForm();
-    this.GetContactData();
+    this.GetDataBy();
   }
 };
 </script>
