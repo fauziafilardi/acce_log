@@ -120,6 +120,25 @@
         </b-col>
       </b-row>
       <b-row class="dashboardBody">
+        <b-col md="4" @click="onMaintenanceItemClick">
+          <div class="card">
+            <div class="card__title">
+              <b-row>
+                <b-col>
+                  <span style="float: left !important;">Maintenance Item</span> &nbsp;
+                </b-col>
+              </b-row>
+            </div>
+            <div class="card__body">
+              <div style="width: 100%; text-align: center;">
+                <font-awesome-icon style="color: #333399;" icon="fill-drip" size="6x" />
+                <br />
+                <br />
+                <span style="width: 75%">Master Maintenance Item</span>
+              </div>
+            </div>
+          </div>
+        </b-col>
         <b-col md="4" @click="onTicketCategoryClick">
           <div class="card">
             <div class="card__title">
@@ -168,6 +187,9 @@ export default {
     },
     onMaintenanceTypeClick() {
       this.$router.push({ name: "OP_MaintenanceType" });
+    },
+    onMaintenanceItemClick() {
+      this.$router.push({ name: "OP_MaintenanceItem" });
     },
     onTicketCategoryClick() {
       this.$router.push({ name: "OP_TicketCategory" });

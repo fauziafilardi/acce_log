@@ -102,7 +102,7 @@ export default {
       this.$router.push({ name: "OP_Zone" });
     },
     onQuotationCostingAdjusmentClick() {
-      this.$router.push({ name: "OP_FleetType" });
+      this.$router.push({ name: "MK_QuotationCosting" });
     }
   },
   mounted() {}

@@ -68,6 +68,9 @@ import MK_DocumentTypeForm from '@/views/MK/MK_Dokument_Type/MK_Dokument_TypeFor
 import MK_MarketingCustomer from '@/views/MK/MK_MarketingReassignment/MK_MarketingCustomerList'
 import MK_MarketingCustomerReplace from '@/views/MK/MK_MarketingReassignment/MK_MarketingCustomer_replaceMarketing'
 
+import MK_QuotationCosting from '@/views/MK/MK_QuotationCosting/MK_QuotationCosting'
+import MK_QuotationCostingView from '@/views/MK/MK_QuotationCosting/MK_QuotationCostingView'
+import MK_QuotationCostingForm_D from '@/views/MK/MK_QuotationCosting/MK_QuotationCostingForm_D'
 
 export const MKRender = {
     path: '/MK',
@@ -539,6 +542,30 @@ export const MKRender = {
 
     },
 
+    {
+        path: '/MK/MK_QuotationCosting',
+        name: 'MK_QuotationCosting',
+        component: MK_QuotationCosting,
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/MK/MK_QuotationCosting/View',
+        name: 'MK_QuotationCostingView',
+        component: MK_QuotationCostingView,
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/MK/MK_QuotationCosting/FormCosting',
+        name: 'MK_QuotationCostingForm_D',
+        component: MK_QuotationCostingForm_D,
+        meta: {
+            requiresAuth: true
+        }
+    },
 
     ]
 }

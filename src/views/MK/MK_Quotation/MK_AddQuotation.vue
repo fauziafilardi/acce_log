@@ -128,7 +128,7 @@
                       </b-col>
                     </b-row>
                     <b-row>
-                      <b-col md="4">
+                      <b-col md="4" style="padding-right: 0px !important;">
                         <span>
                           <label>Valid Thru</label>
                         </span>
@@ -139,6 +139,11 @@
                           ref="ref_date"
                         />
                       </b-col>
+                      <div style="margin-top: 2.5%; width: fit-content;">
+                        <span>
+                          -
+                        </span>
+                      </div>
                       <b-col md="4">
                         <span>
                           <label>&nbsp;</label>
@@ -152,7 +157,7 @@
                       </b-col>
                     </b-row>
                     <b-row>
-                      <b-col md="6">
+                      <b-col md="8">
                         <span>
                           <label>Project Name</label>
                         </span>
@@ -164,7 +169,7 @@
                       </b-col>
                     </b-row>
                     <b-row>
-                      <b-col md="6">
+                      <b-col md="8">
                         <span>
                           <label>Description</label>
                         </span>
@@ -264,7 +269,7 @@ export default {
         dataLookUp: {
           LookUpCd: "GetContactPerson",
           ColumnDB: "contact_person_id",
-          InitialWhere: "",
+          InitialWhere: " cm_contact_id = 0 ",
           ParamWhere: "",
           OrderBy: "",
           ParamView: "",
@@ -394,6 +399,7 @@ export default {
       this.$nextTick(() => {
         this.M_Quotation.customer = data.row_id;
         this.M_Quotation.customerLabel = data.name;
+        this.PI_pic.InitialWhere = " cm_contact_id = '" + data.row_id + "' ";
         // this.M_Quotation.fulladdress =
         //   data.address +
         //   ", " +

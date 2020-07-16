@@ -37,6 +37,7 @@ import OP_MaintenanceTypeForm from '@/views/OP/OP_MaintenanceType/OP_Maintenance
 import OP_MaintenanceTypeView from '@/views/OP/OP_MaintenanceType/OP_MaintenanceTypeView'
 
 //Maintenance Item
+import OP_MaintenanceItem from '@/views/OP/OP_MaintenanceItem/OP_MaintenanceItemList'
 import OP_MaintenanceItemForm from '@/views/OP/OP_MaintenanceItem/OP_MaintenanceItemForm'
 
 //Standard Pricing & Costing
@@ -369,6 +370,14 @@ export const OPRender = {
             }
         },
 
+        {
+            path: '/OP/OP_MaintenanceItem',
+            name: 'OP_MaintenanceItem',
+            component: OP_MaintenanceItem,
+            meta: {
+                requiresAuth: true
+            }
+        },
         {
             path: '/OP/OP_MaintenanceItem/Form',
             name: 'OP_MaintenanceItemForm',

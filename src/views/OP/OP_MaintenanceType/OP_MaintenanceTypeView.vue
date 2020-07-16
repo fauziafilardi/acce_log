@@ -185,6 +185,7 @@
 export default {
   data() {
     return {
+      Stype: "M",
       M_MmMaintenanceType :{
         mm_maintenance_type_id : 0,
         ss_portfolio_id : 0,
@@ -295,8 +296,8 @@ export default {
     },
     M_DeleteI(i) {
       var param = {
-        option_url: "/OP/OP_FleetMaster",
-        line_no: 3,
+        option_url: "/OP/OP_MaintenanceItem",
+        line_no: 0,
         id: i.row_id,
         lastupdatestamp: i.lastupdatestamp
       };
@@ -308,12 +309,23 @@ export default {
       });
     },
     M_Delete() {
-      var param = {
-        option_url: "/OP/OP_FleetMaster",
-        line_no: 2,
-        id: this.paramFromList.ForMaintenance.row_id,
-        lastupdatestamp: this.paramFromList.ForMaintenance.lastupdatestamp
-      };
+      var param = {};
+      if (this.Stype == "M") {
+        param = {
+          option_url: "/OP/OP_MaintenanceType",
+          line_no: 0,
+          id: this.paramFromList.row_id,
+          lastupdatestamp: this.paramFromList.lastupdatestamp
+        };
+      }
+      else {
+        param = {
+          option_url: "/OP/OP_FleetMaster",
+          line_no: 2,
+          id: this.paramFromList.ForMaintenance.row_id,
+          lastupdatestamp: this.paramFromList.ForMaintenance.lastupdatestamp
+        };
+      }
       this.deleteJSON(this.getUrlCRUD(), param).then(response => {
         if (response == null) return;
         this.alertSuccess("Data Has Been Deleted").then(() => {
@@ -322,12 +334,23 @@ export default {
       });
     },
     GetDataBy() {
-      var param = {
-        option_url: "/OP/OP_FleetMaster",
-        line_no: 2,
-        id: this.paramFromList.ForMaintenance.row_id,
-        lastupdatestamp: this.paramFromList.ForMaintenance.lastupdatestamp
-      };
+      var param = {};
+      if (this.Stype == "M") {
+          param = {
+              option_url: "/OP/OP_MaintenanceType",
+              line_no: 0,
+              id: this.paramFromList.row_id,
+              lastupdatestamp: this.paramFromList.lastupdatestamp
+          }
+      }
+      else {
+          param = {
+              option_url: "/OP/OP_FleetMaster",
+              line_no: 2,
+              id: this.paramFromList.ForMaintenance.row_id,
+              lastupdatestamp: this.paramFromList.ForMaintenance.lastupdatestamp
+          }
+      }
 
       this.getJSON(this.getUrlCRUD(), param).then(response => {
         // response from API
@@ -336,42 +359,62 @@ export default {
         var data = response.Data[0];
 
         this.M_MmMaintenanceType  = {
+          fm_fleet_mstr_id: data.fm_fleet_mstr_id,
           mm_maintenance_type_id : data.mm_maintenance_type_id,
           ss_portfolio_id : data.ss_portfolio_id,
-          maintenance_type : data.maintenance_type_descs__lbl_lo_1,
+          maintenance_type : this.Stype == 'M' ? data.maintenance_type__tb_1 : data.maintenance_type_descs__lbl_lo_1,
           descs : data.descs__tb_2,
           usage_distance : data.usage_distance__tb_3 && data.usage_distance__tb_3 !== '' ? data.usage_distance__tb_3 + ' Km' : data.usage_distance__tb_3,
           usage_tolerance_distance : data.usage_tolerance_distance__tb_4 && data.usage_tolerance_distance__tb_4 !== '' ? data.usage_tolerance_distance__tb_4 + ' Km' : data.usage_tolerance_distance__tb_4,
           time_days : data.time_days__tb_5 && data.time_days__tb_5 !== '' ? data.time_days__tb_5 + (data.time_days__tb_5 > 1 ? ' Days' : ' Day') : data.time_days__tb_5,
-          time_days_tolerance : data.time_days_tolerance__tb_6 && data.time_days_tolerance__tb_6 !== '' ? data.time_days_tolerance__tb_6 + (data.time_days_tolerance__tb_6 > 1 ? ' Days' : ' Day') : data.time_days_tolerance__tb_6,
-          user_input : data.user_input,
-          user_edit : data.user_edit,
-          time_input : data.time_input,
-          time_edit : data.time_edit,
-          row_id : data.row_id,
-          lastupdatestamp : data.lastupdatestamp
+          time_days_tolerance : data.time_days_tolerance__tb_6 && data.time_days_tolerance__tb_6 !== '' ? data.time_days_tolerance__tb_6 + (data.time_days_tolerance__tb_6 > 1 ? ' Days' : ' Day') : data.time_days_tolerance__tb_6
         };
 
         this.getItems();
       });
     },
     getItems() {
-      var param = {
-          option_function_cd: "GetListFMFleetMaintenanceItem",
-          module_cd: "OP",
-          ss_portfolio_id: this.getDataUser().portfolio_id,
-          fm_fleet_mstr_id: this.paramFromList.ForMaintenance.fm_fleet_mstr_id,
-          fm_fleet_maintenance_type_id: this.paramFromList.ForMaintenance.row_id
-      };
+      var param = {};
+      if (this.Stype == "M") {
+        param = {
+            option_function_cd: "GetListFMFleetMaintenanceItem",
+            module_cd: "OP",
+            ss_portfolio_id: this.getDataUser().portfolio_id,
+        //     fm_fleet_mstr_id: this.paramFromList.fm_fleet_mstr_id,
+            fm_fleet_maintenance_type_id: this.paramFromList.row_id
+        };
+      }
+      else {
+        param = {
+            option_function_cd: "GetListFMFleetMaintenanceItem",
+            module_cd: "OP",
+            ss_portfolio_id: this.getDataUser().portfolio_id,
+            fm_fleet_mstr_id: this.paramFromList.ForMaintenance.fm_fleet_mstr_id,
+            fm_fleet_maintenance_type_id: this.paramFromList.ForMaintenance.row_id
+        };
+      }
 
       this.CallFunction(param).then(response => {
           if (response == null) return
           this.Items.Tb_Data = response.Data;
       })
-    }
+    },
+    CheckType() {
+            if (this.paramFromList.ForMaintenance == null || this.paramFromList.ForMaintenance == undefined) {
+                this.Stype = "M"
+            } else {
+                if (Object.keys(this.paramFromList.ForMaintenance).length < 1) {
+                    this.Stype = "M"
+                } else {
+                    this.Stype = "D"
+                }
+            }
+
+            this.GetDataBy();
+        }
   },
   mounted() {
-    this.GetDataBy();
+    this.CheckType();
   },
   beforeMount() {}
 };
