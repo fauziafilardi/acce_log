@@ -75,24 +75,23 @@
                       </b-col>
                       <b-col style="text-align: right; margin-top: 10px;">
                         <b-row>
-                          <b-col style="text-align: right; margin-top: 10px;">
-                            <span>
-                              <ACCDropDown
-                                @change="Onmarketing_idChange"
-                                :prop="PI_marketing_id"
-                                v-model="M_Customer.marketing_id"
-                                :label="M_Customer.marketing_idLabel"
-                                ref="ref_action"
-                              />
-
-                              <ABSButton
-                                :text="'Save'"
-                                classButton="btn btn--default"
-                                classIcon="icon-style-1"
-                                @click="doSave"
-                                :disabled="ButtonStatus == null ? false : !ButtonStatus.btnEdit"
-                              />
-                            </span>
+                          <b-col md="2">
+                            <ACCDropDown
+                              @change="Onmarketing_idChange"
+                              :prop="PI_marketing_id"
+                              v-model="M_Customer.marketing_id"
+                              :label="M_Customer.marketing_idLabel"
+                              ref="ref_action"
+                            />
+                          </b-col>
+                          <b-col md="1">
+                            <ABSButton
+                              :text="'Save'"
+                              classButton="btn btn--default"
+                              classIcon="icon-style-1"
+                              @click="doSave"
+                              :disabled="ButtonStatus == null ? false : !ButtonStatus.btnEdit"
+                            />
                           </b-col>
                         </b-row>
                         <br />
@@ -103,7 +102,7 @@
                             style="margin-top:10px;"
                             size="sm"
                           />
-                          &nbsp;&nbsp;Existing : {{getDataUser().user_name}}
+                          &nbsp;&nbsp;Existing : {{paramFromList.existing_marketing}}
                         </span> &nbsp;
                       </b-col>
                     </b-row>
