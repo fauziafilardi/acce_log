@@ -11,36 +11,42 @@
                 </b-col>
                 <b-col style="text-align: right;">
                   <ABSButton
+                    v-show="is_hide_button"
                     :text="'FTL'"
                     classButton="button button--back"
                     classIcon="icon-style-1"
                     @click="doFTL"
                   />
                   <ABSButton
+                    v-show="is_hide_button"
                     :text="'LTL'"
                     classButton="button button--back"
                     classIcon="icon-style-1"
                     @click="doLTL"
                   />
                   <ABSButton
+                    v-show="is_hide_button"
                     :text="'Rental'"
                     classButton="button button--back"
                     classIcon="icon-style-1"
                     @click="doRental"
                   />
                   <ABSButton
+                    v-show="is_hide_button"
                     :text="'Project'"
                     classButton="button button--back"
                     classIcon="icon-style-1"
                     @click="doProject"
                   />
                   <ABSButton
+                    v-show="is_hide_button"
                     :text="'Required Doc'"
                     classButton="button button--back"
                     classIcon="icon-style-1"
                     @click="doRequiredDoc"
                   />
                   <ABSButton
+                    v-show="is_hide_button"
                     :text="'Log Book'"
                     classButton="button button--back"
                     classIcon="icon-style-1"
@@ -119,70 +125,72 @@
                         </b-row>
                       </b-col>
                       <b-col style="text-align: right; margin-top: 10px;">
-                        <span>
-                          <font-awesome-icon
-                            class="icon-style-default"
-                            icon="print"
-                            size="sm"
-                            style="font-size: 17px;
+                        <div v-show="is_hide_button">
+                          <span>
+                            <font-awesome-icon
+                              class="icon-style-default"
+                              icon="print"
+                              size="sm"
+                              style="font-size: 17px;
                                 margin-right: 10px;
                                 margin-left: 10px;
                                 cursor: pointer;"
-                            @click="doPrint"
-                          />
-                        </span>
-                        <span>
-                          <font-awesome-icon
-                            class="icon-style-default"
-                            icon="phone-square-alt"
-                            size="sm"
-                            style="font-size: 17px;
+                              @click="doPrint"
+                            />
+                          </span>
+                          <span>
+                            <font-awesome-icon
+                              class="icon-style-default"
+                              icon="phone-square-alt"
+                              size="sm"
+                              style="font-size: 17px;
                                 margin-right: 10px;
                                 margin-left: 10px;
                                 cursor: pointer;"
-                          />
-                        </span>
-                        <span>
-                          <font-awesome-icon
-                            class="icon-style-default"
-                            icon="envelope"
-                            size="sm"
-                            style="font-size: 17px;
+                            />
+                          </span>
+                          <span>
+                            <font-awesome-icon
+                              class="icon-style-default"
+                              icon="envelope"
+                              size="sm"
+                              style="font-size: 17px;
                                 margin-right: 10px;
                                 margin-left: 10px;
                                 cursor: pointer;"
-                            @click="doEmail"
-                          />
-                        </span>
-                        <span>
-                          <font-awesome-icon
-                            class="icon-style-default"
-                            icon="comment-alt"
-                            size="sm"
-                            style="font-size: 17px;
+                              @click="doEmail"
+                            />
+                          </span>
+                          <span>
+                            <font-awesome-icon
+                              class="icon-style-default"
+                              icon="comment-alt"
+                              size="sm"
+                              style="font-size: 17px;
                                 margin-right: 10px;
                                 margin-left: 10px;
                                 cursor: pointer;"
-                            @click="doChat"
-                          />
-                        </span>
-                        <span>
-                          <ABSButton
-                            :text="'Delete'"
-                            classButton="btn btn--default"
-                            classIcon="icon-style-1"
-                            @click="doDelete"
-                          />
-                        </span>
-                        <span>
-                          <ABSButton
-                            :text="'Edit'"
-                            classButton="btn btn--default"
-                            classIcon="icon-style-1"
-                            @click="doEdit"
-                            :disabled="ButtonStatus == null ? false : !ButtonStatus.btnEdit"
-                          />
-                        </span>
+                              @click="doChat"
+                            />
+                          </span>
+                          <span>
+                            <ABSButton
+                              :text="'Delete'"
+                              classButton="btn btn--default"
+                              classIcon="icon-style-1"
+                              @click="doDelete"
+                            />
+                          </span>
+                          <span>
+                            <ABSButton
+                              :text="'Edit'"
+                              classButton="btn btn--default"
+                              classIcon="icon-style-1"
+                              @click="doEdit"
+                              :disabled="ButtonStatus == null ? false : !ButtonStatus.btnEdit"
+                            />
+                          </span>
+                        </div>
                         <br />
                         <span>
                           <font-awesome-icon
@@ -196,14 +204,20 @@
                     </b-row>
                     <hr />
                     <b-row>
-                      <b-col style="max-width: fit-content !important; margin-right: 20px; padding-bottom: 5px" class="row-view">
+                      <b-col
+                        style="max-width: fit-content !important; margin-right: 20px; padding-bottom: 5px"
+                        class="row-view"
+                      >
                         <span>
                           <label style="margin-bottom: 0px !important;">Quotation Number</label>
                         </span>
                         <br />
                         <span style="color: #999999;">{{ M_Quotation.quotation_no }}</span>
                       </b-col>
-                      <b-col style="max-width: fit-content !important; margin-right: 20px; padding-bottom: 5px" class="row-view">
+                      <b-col
+                        style="max-width: fit-content !important; margin-right: 20px; padding-bottom: 5px"
+                        class="row-view"
+                      >
                         <span>
                           <label style="margin-bottom: 0px !important;">Valid Thru</label>
                         </span>
@@ -212,7 +226,10 @@
                           style="color: #999999;"
                         >{{ M_Quotation.date + ' - ' + M_Quotation.date2}}</span>
                       </b-col>
-                      <b-col style="max-width: fit-content !important; margin-right: 20px; padding-bottom: 5px" class="row-view">
+                      <b-col
+                        style="max-width: fit-content !important; margin-right: 20px; padding-bottom: 5px"
+                        class="row-view"
+                      >
                         <span>
                           <label style="margin-bottom: 0px !important;">Status</label>
                         </span>
@@ -221,7 +238,10 @@
                       </b-col>
                     </b-row>
                     <b-row>
-                      <b-col style="max-width: fit-content !important; margin-right: 20px; padding-bottom: 5px" class="row-view">
+                      <b-col
+                        style="max-width: fit-content !important; margin-right: 20px; padding-bottom: 5px"
+                        class="row-view"
+                      >
                         <span>
                           <label style="margin-bottom: 0px !important;">Project Name</label>
                         </span>
@@ -230,7 +250,10 @@
                       </b-col>
                     </b-row>
                     <b-row>
-                      <b-col style="max-width: fit-content !important; margin-right: 20px; padding-bottom: 5px" class="row-view">
+                      <b-col
+                        style="max-width: fit-content !important; margin-right: 20px; padding-bottom: 5px"
+                        class="row-view"
+                      >
                         <span>
                           <label style="margin-bottom: 0px !important;">Description</label>
                         </span>
@@ -239,14 +262,20 @@
                       </b-col>
                     </b-row>
                     <b-row>
-                      <b-col style="max-width: fit-content !important; margin-right: 20px; padding-bottom: 5px" class="row-view">
+                      <b-col
+                        style="max-width: fit-content !important; margin-right: 20px; padding-bottom: 5px"
+                        class="row-view"
+                      >
                         <span>
                           <label style="margin-bottom: 0px !important;">Extra Pick/Drop Charges</label>
                         </span>
                         <br />
                         <span style="color: #999999;">{{ M_Quotation.extra_charge }}</span>
                       </b-col>
-                      <b-col style="max-width: fit-content !important; margin-right: 20px; padding-bottom: 5px" class="row-view">
+                      <b-col
+                        style="max-width: fit-content !important; margin-right: 20px; padding-bottom: 5px"
+                        class="row-view"
+                      >
                         <span>
                           <label style="margin-bottom: 0px !important;">Over Night Charges</label>
                         </span>
@@ -258,6 +287,7 @@
                     <b-row>
                       <b-col>
                         <ABSButton
+                          v-show="is_hide_button"
                           :text="'Proposed'"
                           classButton="btn btn--default"
                           classIcon="icon-style-1"
@@ -270,7 +300,7 @@
                     <br />
                     <b-row>
                       <b-col>
-                        <span style="color: #333399; font-size: 15px; font-weight: bold;"> FTL </span>
+                        <span style="color: #333399; font-size: 15px; font-weight: bold;">FTL</span>
                         <div class="table--list" id="ftl_tb">
                           <b-table
                             :responsive="true"
@@ -287,20 +317,28 @@
                             class="table-sm table-style-3"
                             @row-clicked="doFTL"
                           >
-                            <template v-slot:cell(no)="data">
-                              {{data.index + 1}}
-                            </template>
+                            <template v-slot:cell(no)="data">{{data.index + 1}}</template>
 
                             <template v-slot:cell(price_amt)="data">
                               <b-row>
-                                <b-col md="1" >
-                                  <font-awesome-icon v-if="data.item.old_price_amt > data.item.price_amt" class="icon-style-default" icon="arrow-down" style="color: red" />
-                                  <font-awesome-icon v-if="data.item.old_price_amt < data.item.price_amt" class="icon-style-default" icon="arrow-up" style="color: blue" />
+                                <b-col md="1">
+                                  <font-awesome-icon
+                                    v-if="data.item.old_price_amt > data.item.price_amt"
+                                    class="icon-style-default"
+                                    icon="arrow-down"
+                                    style="color: red"
+                                  />
+                                  <font-awesome-icon
+                                    v-if="data.item.old_price_amt < data.item.price_amt"
+                                    class="icon-style-default"
+                                    icon="arrow-up"
+                                    style="color: blue"
+                                  />
                                 </b-col>
                                 <b-col style="max-width: fit-content !important;">
-                                  <span :style="data.item.old_price_amt > data.item.price_amt ? 'color: red' : 'color: blue'">
-                                    {{data.item.price_amt}}
-                                  </span>
+                                  <span
+                                    :style="data.item.old_price_amt > data.item.price_amt ? 'color: red' : 'color: blue'"
+                                  >{{data.item.price_amt}}</span>
                                 </b-col>
                               </b-row>
                             </template>
@@ -310,7 +348,7 @@
                     </b-row>
                     <b-row>
                       <b-col>
-                        <span style="color: #333399; font-size: 15px; font-weight: bold;"> LTL </span>
+                        <span style="color: #333399; font-size: 15px; font-weight: bold;">LTL</span>
                         <div class="table--list" id="ltl_tb">
                           <b-table
                             :responsive="true"
@@ -327,33 +365,51 @@
                             class="table-sm table-style-3"
                             @row-clicked="doLTL"
                           >
-                            <template v-slot:cell(no)="data">
-                              {{data.index + 1}}
-                            </template>
+                            <template v-slot:cell(no)="data">{{data.index + 1}}</template>
 
                             <template v-slot:cell(kgs_price_amt)="data">
                               <b-row>
-                                <b-col md="1" >
-                                  <font-awesome-icon v-if="data.item.old_kgs_price_amt > data.item.kgs_price_amt" class="icon-style-default" icon="arrow-down" style="color: red" />
-                                  <font-awesome-icon v-if="data.item.old_kgs_price_amt < data.item.kgs_price_amt" class="icon-style-default" icon="arrow-up" style="color: blue" />
+                                <b-col md="1">
+                                  <font-awesome-icon
+                                    v-if="data.item.old_kgs_price_amt > data.item.kgs_price_amt"
+                                    class="icon-style-default"
+                                    icon="arrow-down"
+                                    style="color: red"
+                                  />
+                                  <font-awesome-icon
+                                    v-if="data.item.old_kgs_price_amt < data.item.kgs_price_amt"
+                                    class="icon-style-default"
+                                    icon="arrow-up"
+                                    style="color: blue"
+                                  />
                                 </b-col>
                                 <b-col style="max-width: fit-content !important;">
-                                  <span :style="data.item.old_kgs_price_amt > data.item.kgs_price_amt ? 'color: red' : 'color: blue'">
-                                    {{data.item.kgs_price_amt}}
-                                  </span>
+                                  <span
+                                    :style="data.item.old_kgs_price_amt > data.item.kgs_price_amt ? 'color: red' : 'color: blue'"
+                                  >{{data.item.kgs_price_amt}}</span>
                                 </b-col>
                               </b-row>
                             </template>
                             <template v-slot:cell(cbm_price_amt)="data">
                               <b-row>
-                                <b-col md="1" >
-                                  <font-awesome-icon v-if="data.item.cbm_price_amt > data.item.cbm_price_amt" class="icon-style-default" icon="arrow-down" style="color: red" />
-                                  <font-awesome-icon v-if="data.item.cbm_price_amt < data.item.cbm_price_amt" class="icon-style-default" icon="arrow-up" style="color: blue" />
+                                <b-col md="1">
+                                  <font-awesome-icon
+                                    v-if="data.item.cbm_price_amt > data.item.cbm_price_amt"
+                                    class="icon-style-default"
+                                    icon="arrow-down"
+                                    style="color: red"
+                                  />
+                                  <font-awesome-icon
+                                    v-if="data.item.cbm_price_amt < data.item.cbm_price_amt"
+                                    class="icon-style-default"
+                                    icon="arrow-up"
+                                    style="color: blue"
+                                  />
                                 </b-col>
                                 <b-col style="max-width: fit-content !important;">
-                                  <span :style="data.item.cbm_price_amt > data.item.cbm_price_amt ? 'color: red' : 'color: blue'">
-                                    {{data.item.cbm_price_amt}}
-                                  </span>
+                                  <span
+                                    :style="data.item.cbm_price_amt > data.item.cbm_price_amt ? 'color: red' : 'color: blue'"
+                                  >{{data.item.cbm_price_amt}}</span>
                                 </b-col>
                               </b-row>
                             </template>
@@ -363,7 +419,7 @@
                     </b-row>
                     <b-row>
                       <b-col>
-                        <span style="color: #333399; font-size: 15px; font-weight: bold;"> Rental </span>
+                        <span style="color: #333399; font-size: 15px; font-weight: bold;">Rental</span>
                         <div class="table--list" id="rental_tb">
                           <b-table
                             :responsive="true"
@@ -380,20 +436,28 @@
                             class="table-sm table-style-3"
                             @row-clicked="doRental"
                           >
-                            <template v-slot:cell(no)="data">
-                              {{data.index + 1}}
-                            </template>
+                            <template v-slot:cell(no)="data">{{data.index + 1}}</template>
 
                             <template v-slot:cell(price_amt)="data">
                               <b-row>
-                                <b-col md="1" >
-                                  <font-awesome-icon v-if="data.item.old_price_amt > data.item.price_amt" class="icon-style-default" icon="arrow-down" style="color: red" />
-                                  <font-awesome-icon v-if="data.item.old_price_amt < data.item.price_amt" class="icon-style-default" icon="arrow-up" style="color: blue" />
+                                <b-col md="1">
+                                  <font-awesome-icon
+                                    v-if="data.item.old_price_amt > data.item.price_amt"
+                                    class="icon-style-default"
+                                    icon="arrow-down"
+                                    style="color: red"
+                                  />
+                                  <font-awesome-icon
+                                    v-if="data.item.old_price_amt < data.item.price_amt"
+                                    class="icon-style-default"
+                                    icon="arrow-up"
+                                    style="color: blue"
+                                  />
                                 </b-col>
                                 <b-col style="max-width: fit-content !important;">
-                                  <span :style="data.item.old_price_amt > data.item.price_amt ? 'color: red' : 'color: blue'">
-                                    {{data.item.price_amt}}
-                                  </span>
+                                  <span
+                                    :style="data.item.old_price_amt > data.item.price_amt ? 'color: red' : 'color: blue'"
+                                  >{{data.item.price_amt}}</span>
                                 </b-col>
                               </b-row>
                             </template>
@@ -406,7 +470,7 @@
                     </b-row>
                     <b-row>
                       <b-col>
-                        <span style="color: #333399; font-size: 15px; font-weight: bold;"> Project </span>
+                        <span style="color: #333399; font-size: 15px; font-weight: bold;">Project</span>
                         <div class="table--list" id="project_tb">
                           <b-table
                             :responsive="true"
@@ -423,20 +487,28 @@
                             class="table-sm table-style-3"
                             @row-clicked="doProject"
                           >
-                            <template v-slot:cell(no)="data">
-                              {{data.index + 1}}
-                            </template>
+                            <template v-slot:cell(no)="data">{{data.index + 1}}</template>
 
                             <template v-slot:cell(price_amt)="data">
                               <b-row>
-                                <b-col md="1" >
-                                  <font-awesome-icon v-if="data.item.old_price_amt > data.item.price_amt" class="icon-style-default" icon="arrow-down" style="color: red" />
-                                  <font-awesome-icon v-if="data.item.old_price_amt < data.item.price_amt" class="icon-style-default" icon="arrow-up" style="color: blue" />
+                                <b-col md="1">
+                                  <font-awesome-icon
+                                    v-if="data.item.old_price_amt > data.item.price_amt"
+                                    class="icon-style-default"
+                                    icon="arrow-down"
+                                    style="color: red"
+                                  />
+                                  <font-awesome-icon
+                                    v-if="data.item.old_price_amt < data.item.price_amt"
+                                    class="icon-style-default"
+                                    icon="arrow-up"
+                                    style="color: blue"
+                                  />
                                 </b-col>
                                 <b-col style="max-width: fit-content !important;">
-                                  <span :style="data.item.old_price_amt > data.item.price_amt ? 'color: red' : 'color: blue'">
-                                    {{data.item.price_amt}}
-                                  </span>
+                                  <span
+                                    :style="data.item.old_price_amt > data.item.price_amt ? 'color: red' : 'color: blue'"
+                                  >{{data.item.price_amt}}</span>
                                 </b-col>
                               </b-row>
                             </template>
@@ -446,7 +518,9 @@
                     </b-row>
                     <b-row>
                       <b-col>
-                        <span style="color: #333399; font-size: 15px; font-weight: bold;"> Document Type </span>
+                        <span
+                          style="color: #333399; font-size: 15px; font-weight: bold;"
+                        >Document Type</span>
                         <div class="table--list" id="document_tb">
                           <b-table
                             :responsive="true"
@@ -463,16 +537,14 @@
                             class="table-sm table-style-3"
                             @row-clicked="doRequiredDoc"
                           >
-                            <template v-slot:cell(no)="data">
-                              {{data.index + 1}}
-                            </template>
+                            <template v-slot:cell(no)="data">{{data.index + 1}}</template>
                           </b-table>
                         </div>
                       </b-col>
                     </b-row>
                     <b-row>
                       <b-col>
-                        <span style="color: #333399; font-size: 15px; font-weight: bold;"> LogBook </span>
+                        <span style="color: #333399; font-size: 15px; font-weight: bold;">LogBook</span>
                         <div class="table--list" id="logbook_tb">
                           <b-table
                             :responsive="true"
@@ -489,17 +561,14 @@
                             class="table-sm table-style-3"
                             @row-clicked="doLogBook"
                           >
-                            <template v-slot:cell(no)="data">
-                              {{data.index + 1}}
-                            </template>
-                            <template v-slot:cell(logbook_date)="data">
-                              {{momentDateFormat(data.item.logbook_date, "DD-MM-YYYY HH:mm")}}
-                            </template>
+                            <template v-slot:cell(no)="data">{{data.index + 1}}</template>
+                            <template
+                              v-slot:cell(logbook_date)="data"
+                            >{{momentDateFormat(data.item.logbook_date, "DD-MM-YYYY HH:mm")}}</template>
                           </b-table>
                         </div>
                       </b-col>
                     </b-row>
-
                   </b-col>
                 </b-row>
               </b-form>
@@ -661,44 +730,52 @@
       <b-row
         style="display: flex; flex-wrap: wrap; margin-right: unset !important; margin-left: unset !important;"
       >
-      <b-col style="position: relative; width: 100%;">
-        <span style="color: #333399; font-size: 15px; font-weight: bold;"> FTL </span>
-        <div class="table--list" id="ftl_tb">
-          <b-table
-            :responsive="true"
-            :striped="false"
-            :bordered="true"
-            :outlined="false"
-            :small="false"
-            :hover="false"
-            :dark="false"
-            :fixed="false"
-            :foot-clone="false"
-            :fields="FTLHeader"
-            :items="FTLItems"
-            class="table-sm table-style-3"
-            @row-clicked="doFTL"
-          >
-            <template v-slot:cell(no)="data">
-              {{data.index + 1}}
-            </template>
+        <b-col style="position: relative; width: 100%;">
+          <span style="color: #333399; font-size: 15px; font-weight: bold;">FTL</span>
+          <div class="table--list" id="ftl_tb">
+            <b-table
+              :responsive="true"
+              :striped="false"
+              :bordered="true"
+              :outlined="false"
+              :small="false"
+              :hover="false"
+              :dark="false"
+              :fixed="false"
+              :foot-clone="false"
+              :fields="FTLHeader"
+              :items="FTLItems"
+              class="table-sm table-style-3"
+              @row-clicked="doFTL"
+            >
+              <template v-slot:cell(no)="data">{{data.index + 1}}</template>
 
-            <template v-slot:cell(price_amt)="data">
-              <b-row>
-                <b-col md="1" >
-                  <font-awesome-icon v-if="data.item.old_price_amt > data.item.price_amt" class="icon-style-default" icon="arrow-down" style="color: red" />
-                  <font-awesome-icon v-if="data.item.old_price_amt < data.item.price_amt" class="icon-style-default" icon="arrow-up" style="color: blue" />
-                </b-col>
-                <b-col style="max-width: fit-content !important;">
-                  <span :style="data.item.old_price_amt > data.item.price_amt ? 'color: red' : 'color: blue'">
-                    {{data.item.price_amt}}
-                  </span>
-                </b-col>
-              </b-row>
-            </template>
-          </b-table>
-        </div>
-      </b-col>
+              <template v-slot:cell(price_amt)="data">
+                <b-row>
+                  <b-col md="1">
+                    <font-awesome-icon
+                      v-if="data.item.old_price_amt > data.item.price_amt"
+                      class="icon-style-default"
+                      icon="arrow-down"
+                      style="color: red"
+                    />
+                    <font-awesome-icon
+                      v-if="data.item.old_price_amt < data.item.price_amt"
+                      class="icon-style-default"
+                      icon="arrow-up"
+                      style="color: blue"
+                    />
+                  </b-col>
+                  <b-col style="max-width: fit-content !important;">
+                    <span
+                      :style="data.item.old_price_amt > data.item.price_amt ? 'color: red' : 'color: blue'"
+                    >{{data.item.price_amt}}</span>
+                  </b-col>
+                </b-row>
+              </template>
+            </b-table>
+          </div>
+        </b-col>
       </b-row>
     </div>
 
@@ -716,9 +793,7 @@
                 <b-col md="12">
                   <b-row>
                     <b-col md="12" style="text-align: center;">
-                      <span>
-                        Are You Sure Want To Delete ?
-                      </span>
+                      <span>Are You Sure Want To Delete ?</span>
                     </b-col>
                   </b-row>
                   <b-row style="margin-top: 10px;">
@@ -897,6 +972,7 @@
 export default {
   data() {
     return {
+      is_hide_button: true,
       M_Quotation: {
         customer: "",
         fulladdress: "",
@@ -1510,8 +1586,12 @@ export default {
       var param = {
         option_url: "/MK/MK_Quotation",
         line_no: 0,
-        id: this.paramFromList.row_id,
-        lastupdatestamp: this.paramFromList.lastupdatestamp
+        id: this.is_hide_button
+          ? this.paramFromList.row_id
+          : this.paramFromList.DetailList.row_id,
+        lastupdatestamp: this.is_hide_button
+          ? this.paramFromList.lastupdatestamp
+          : this.paramFromList.DetailList.lastupdatestamp
       };
 
       this.getJSON(this.getUrlCRUD(), param).then(response => {
@@ -1524,8 +1604,7 @@ export default {
 
         this.M_Quotation = {
           customer: data.name,
-          fulladdress:
-            data.address,
+          fulladdress: data.address,
           address: data.address,
           phone_no: data.phone_no && data.phone_no !== "" ? data.phone_no : "-",
           email: data.email && data.email !== "" ? data.email : "-",
@@ -1567,8 +1646,14 @@ export default {
                 )
               : "-",
           status: data.status == "P" ? "Proposed" : "Pending",
-          extra_charge: this.isCurrency(data.extra_pick_drop_charges, this.decimal),
-          overnight_charge: this.isCurrency(data.over_night_charges, this.decimal)
+          extra_charge: this.isCurrency(
+            data.extra_pick_drop_charges,
+            this.decimal
+          ),
+          overnight_charge: this.isCurrency(
+            data.over_night_charges,
+            this.decimal
+          )
         };
 
         this.M_Quotation.body =
@@ -1606,12 +1691,12 @@ export default {
           "Valid Until      : " +
           this.M_Quotation.date2;
 
-          this.GetFTLList()
-          this.GetLTLList()
-          this.GetRentalList()
-          this.GetProjectList()
-          this.GetDocList()
-          this.GetLogBookList()
+        this.GetFTLList();
+        this.GetLTLList();
+        this.GetRentalList();
+        this.GetProjectList();
+        this.GetDocList();
+        this.GetLogBookList();
       });
     },
     GetFTLList() {
@@ -1620,13 +1705,13 @@ export default {
         module_cd: "MK",
         row_id: this.paramFromList.row_id
       };
-      
+
       this.CallFunction(param).then(response => {
-        if (response == null) return
+        if (response == null) return;
         var data = response.Data;
 
         this.FTLItems = data;
-      })
+      });
     },
     GetLTLList() {
       var param = {
@@ -1634,13 +1719,13 @@ export default {
         module_cd: "MK",
         row_id: this.paramFromList.row_id
       };
-      
+
       this.CallFunction(param).then(response => {
-        if (response == null) return
+        if (response == null) return;
         var data = response.Data;
 
         this.LTLItems = data;
-      })
+      });
     },
     GetRentalList() {
       var param = {
@@ -1648,13 +1733,13 @@ export default {
         module_cd: "MK",
         row_id: this.paramFromList.row_id
       };
-      
+
       this.CallFunction(param).then(response => {
-        if (response == null) return
+        if (response == null) return;
         var data = response.Data;
 
         this.RentalItems = data;
-      })
+      });
     },
     GetProjectList() {
       var param = {
@@ -1662,13 +1747,13 @@ export default {
         module_cd: "MK",
         row_id: this.paramFromList.row_id
       };
-      
+
       this.CallFunction(param).then(response => {
-        if (response == null) return
+        if (response == null) return;
         var data = response.Data;
 
         this.ProjectItems = data;
-      })
+      });
     },
     GetDocList() {
       var param = {
@@ -1676,13 +1761,13 @@ export default {
         module_cd: "MK",
         row_id: this.paramFromList.row_id
       };
-      
+
       this.CallFunction(param).then(response => {
-        if (response == null) return
+        if (response == null) return;
         var data = response.Data;
 
         this.DocItems = data;
-      })
+      });
     },
     GetLogBookList() {
       var param = {
@@ -1708,9 +1793,14 @@ export default {
         // this.LogBookHeader = [];
         this.LogBookItems = this.responses.Data;
       });
-    },
+    }
   },
   mounted() {
+    if (this.paramFromList.FromCustomer) {
+      this.is_hide_button = false;
+    } else {
+      this.is_hide_button = true;
+    }
     this.M_ClearForm();
     this.GetDataBy();
   }

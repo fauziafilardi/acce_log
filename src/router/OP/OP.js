@@ -55,6 +55,13 @@ import OP_CostTypeForm from '@/views/OP/OP_CostType/OP_CostTypeForm'
 import OP_Zone from '@/views/OP/OP_Zone/OP_ZoneList'
 import OP_ZoneForm from '@/views/OP/OP_Zone/OP_ZoneForm'
 
+// Vendor Master
+import OP_Vendor from '@/views/OP/OP_Vendor/OP_VendorList'
+import OP_VendorForm from '@/views/OP/OP_Vendor/OP_VendorForm'
+import OP_VendorView from '@/views/OP/OP_Vendor/OP_VendorView'
+import OP_VendorLogBook from '@/views/OP/OP_Vendor/OP_Vendor_mk_logbookView'
+import OP_VendorPIC from '@/views/OP/OP_Vendor/OP_Vendor_cm_contact_personForm'
+
 export const OPRender = {
     path: '/OP',
     component: {
@@ -63,6 +70,46 @@ export const OPRender = {
         }
     },
     children: [
+        {
+            path: '/OP/OP_Vendor',
+            name: 'OP_Vendor',
+            component: OP_Vendor,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/OP_Vendor/LogBook',
+            name: 'OP_VendorLogBook',
+            component: OP_VendorLogBook,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/OP_Vendor/Form',
+            name: 'OP_VendorForm',
+            component: OP_VendorForm,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/OP_Vendor/PIC',
+            name: 'OP_VendorPIC',
+            component: OP_VendorPIC,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/OP_Vendor/View',
+            name: 'OP_VendorView',
+            component: OP_VendorView,
+            meta: {
+                requiresAuth: true
+            }
+        },
         {
             path: '/OP/OP_Zone',
             name: 'OP_Zone',

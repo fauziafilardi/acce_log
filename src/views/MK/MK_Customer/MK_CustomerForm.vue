@@ -7,7 +7,7 @@
             <div class="card__title">
               <b-row>
                 <b-col style="max-width:fit-content !important;">
-                  <span>{{title}} Prospect</span>
+                  <span>{{title}} Customer</span>
                 </b-col>
                 <b-col style="text-align: right;">
                   <ABSButton
@@ -529,7 +529,7 @@ export default {
         option_url: "/MK/MK_Customer",
         line_no: 0,
         ss_portfolio_id: this.getDataUser().portfolio_id,
-        contact_type: "P",
+        contact_type: "C",
         contact_status: "N",
         // contact_created: '',
         name: this.M_NewProspect.customer_name,

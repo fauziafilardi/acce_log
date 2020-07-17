@@ -30,11 +30,15 @@ import MK_Quotation_projectForm from '@/views/MK/MK_Quotation/MK_Quotation_proje
 import MK_Quotation_documentForm from '@/views/MK/MK_Quotation/MK_Quotation_documentForm'
 import MK_Quotation_logbookForm from '@/views/MK/MK_Quotation/MK_Quotation_logbookForm'
 
-import MK_CustomerList from '@/views/MK/MK_Customer/MK_Customer_List'
-import MK_ListCustomer from '@/views/MK/MK_Customer/MK_ListCustomer'
-import MK_ViewCustomer from '@/views/MK/MK_Customer/MK_ViewCustomer'
-import MK_AddEditCustomer from '@/views/MK/MK_Customer/MK_AddEditCustomer'
+import MK_CustomerList from '@/views/MK/MK_Customer/MK_CustomerList'
+// import MK_ListCustomer from '@/views/MK/MK_Customer/MK_ListCustomer'
+import MK_CustomerView from '@/views/MK/MK_Customer/MK_CustomerView'
+import MK_CustomerForm from '@/views/MK/MK_Customer/MK_CustomerForm'
 import MK_ToDoCustomer from '@/views/MK/MK_Customer/MK_ToDoCustomer'
+import MK_CustomerLogBook from '@/views/MK/MK_Customer/MK_CustomerLogBook'
+
+import MK_CustomerPickUp from '@/views/MK/MK_Customer/MK_Customer_cm_contact_delivery_addressForm'
+import MK_CustomerPIC from '@/views/MK/MK_Customer/MK_Customer_cm_contact_personForm'
 
 import MK_Customer2 from '@/views/MK/MK_Customer2/MK_Customer2List'
 import MK_Customer2View from '@/views/MK/MK_Customer2/MK_Customer2View'
@@ -290,20 +294,20 @@ export const MKRender = {
     //
     {
         path: '/MK/MK_Customer',
-        name: 'MK_ListCustomer',
-        component: MK_ListCustomer,
-        meta: {
-            requiresAuth: true
-        }
-    },
-    {
-        path: '/MK/MK_CustomerList',
         name: 'MK_CustomerList',
         component: MK_CustomerList,
         meta: {
             requiresAuth: true
         }
     },
+    // {
+    //     path: '/MK/MK_CustomerList',
+    //     name: 'MK_CustomerList',
+    //     component: MK_CustomerList,
+    //     meta: {
+    //         requiresAuth: true
+    //     }
+    // },
     {
         path: '/MK/MK_Customer2',
         name: 'MK_Customer2',
@@ -314,8 +318,8 @@ export const MKRender = {
     },//
     {
         path: '/MK/MK_Customer/View',
-        name: 'MK_ViewCustomer',
-        component: MK_ViewCustomer,
+        name: 'MK_CustomerView',
+        component: MK_CustomerView,
         meta: {
             requiresAuth: true
         },
@@ -339,8 +343,32 @@ export const MKRender = {
     //
     {
         path: '/MK/MK_Customer/Form',
-        name: 'MK_AddEditCustomer',
-        component: MK_AddEditCustomer,
+        name: 'MK_CustomerForm',
+        component: MK_CustomerForm,
+        meta: {
+            requiresAuth: true
+        },
+    },
+    {
+        path: '/MK/MK_Customer/LogBook',
+        name: 'MK_CustomerLogBook',
+        component: MK_CustomerLogBook,
+        meta: {
+            requiresAuth: true
+        },
+    },
+    {
+        path: '/MK/MK_Customer/PickUp',
+        name: 'MK_CustomerPickUp',
+        component: MK_CustomerPickUp,
+        meta: {
+            requiresAuth: true
+        },
+    },
+    {
+        path: '/MK/MK_Customer/PIC',
+        name: 'MK_CustomerPIC',
+        component: MK_CustomerPIC,
         meta: {
             requiresAuth: true
         },

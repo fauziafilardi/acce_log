@@ -7,7 +7,7 @@
             <div class="card__title">
               <b-row>
                 <b-col style="max-width:fit-content !important;">
-                  <span>Customer List tes</span>
+                  <span>{{title}} Vendor Master</span>
                 </b-col>
                 <b-col style="text-align: right;">
                   <ABSButton
@@ -27,12 +27,12 @@
                 <b-row>
                   <b-col md="2">
                     <div>
-                      <img id="logo" :src="M_NewProspect.file_show" alt width="100%" />
+                      <img id="logo" :src="M_OpVendor.file_show" alt width="100%" />
                     </div>
                     <ACCImageUpload
                       :prop="PI_logo"
                       @change="onlogoChange"
-                      v-model="M_NewProspect.file_logo"
+                      v-model="M_OpVendor.file_logo"
                     />
                   </b-col>
                   <b-col md="10">
@@ -41,26 +41,26 @@
                     <b-row>
                       <b-col md="9">
                         <span>
-                          <label>Customer Name</label>
+                          <label>Vendor Name</label>
                         </span>
                         <ACCTextBox
                           :prop="PI_customer_name"
-                          v-model="M_NewProspect.customer_name"
+                          v-model="M_OpVendor.customer_name"
                           ref="ref_customer_name"
                         />
                       </b-col>
                     </b-row>
-                    <b-row
+                    <!-- <b-row
                       class="row-view"
                       style="padding-bottom: 10px;padding-top: 5px; margin-left: 5px !important;"
                     >
                       <b-col>
                         <span>
                           <font-awesome-icon class="icon-style-default" icon="check-circle" />
-                          {{M_NewProspect.contact_created}}
+                          {{M_OpVendor.contact_created}}
                         </span>
                       </b-col>
-                    </b-row>
+                    </b-row>-->
                     <b-row>
                       <b-col md="9">
                         <span>
@@ -68,63 +68,12 @@
                         </span>
                         <ACCTextArea
                           :prop="PI_address"
-                          v-model="M_NewProspect.address"
+                          v-model="M_OpVendor.address"
                           ref="ref_address"
                         />
                       </b-col>
                     </b-row>
-                    <b-row>
-                      <b-col md="3">
-                        <span>
-                          <label>District</label>
-                        </span>
-                        <ACCLookUp
-                          @change="OndistrictChange"
-                          :prop="PI_district"
-                          v-model="M_NewProspect.district"
-                          :label="M_NewProspect.districtLabel"
-                          ref="ref_district"
-                        />
-                      </b-col>
-                      <b-col md="3">
-                        <span>
-                          <label>City</label>
-                        </span>
-                        <ACCLookUp
-                          @change="OncityChange"
-                          :prop="PI_city"
-                          v-model="M_NewProspect.city"
-                          :label="M_NewProspect.cityLabel"
-                          ref="ref_city"
-                        />
-                      </b-col>
-                      <b-col md="3">
-                        <span>
-                          <label>Province</label>
-                        </span>
-                        <ACCLookUp
-                          @change="OnprovinceChange"
-                          :prop="PI_province"
-                          v-model="M_NewProspect.province"
-                          :label="M_NewProspect.provinceLabel"
-                          ref="ref_province"
-                        />
-                      </b-col>
-                    </b-row>
-                    <b-row>
-                      <b-col md="3">
-                        <span>
-                          <label>Country</label>
-                        </span>
-                        <ACCLookUp
-                          @change="OncountryChange"
-                          :prop="PI_country"
-                          v-model="M_NewProspect.country"
-                          :label="M_NewProspect.countryLabel"
-                          ref="ref_country"
-                        />
-                      </b-col>
-                    </b-row>
+
                     <b-row>
                       <b-col md="1" class="col-p-1">
                         <span>
@@ -132,27 +81,18 @@
                         </span>
                         <ACCTextBox
                           :prop="PI_phone_no_1"
-                          v-model="M_NewProspect.phone_no_1"
+                          v-model="M_OpVendor.phone_no_1"
                           ref="ref_phone_no_1"
                         />
                       </b-col>
-                      <b-col md="1" class="col-p-2">
+                      <span style="margin-top: 35px;">-</span>
+                      <b-col md="5" class="col-p-3">
                         <span>
                           <label>&nbsp;</label>
                         </span>
                         <ACCTextBox
                           :prop="PI_phone_no_2"
-                          v-model="M_NewProspect.phone_no_2"
-                          ref="ref_phone_no_2"
-                        />
-                      </b-col>
-                      <b-col md="4" class="col-p-3">
-                        <span>
-                          <label>&nbsp;</label>
-                        </span>
-                        <ACCTextBox
-                          :prop="PI_phone_no_3"
-                          v-model="M_NewProspect.phone_no_3"
+                          v-model="M_OpVendor.phone_no_2"
                           ref="ref_phone_no_3"
                         />
                       </b-col>
@@ -162,7 +102,7 @@
                         <span>
                           <label>Email</label>
                         </span>
-                        <ACCTextBox :prop="PI_email" v-model="M_NewProspect.email" ref="ref_email" />
+                        <ACCTextBox :prop="PI_email" v-model="M_OpVendor.email" ref="ref_email" />
                       </b-col>
                     </b-row>
                     <b-row>
@@ -172,74 +112,30 @@
                         </span>
                         <ACCTextBox
                           :prop="PI_website"
-                          v-model="M_NewProspect.website"
+                          v-model="M_OpVendor.website"
                           ref="ref_website"
                         />
                       </b-col>
                     </b-row>
-                    <b-row>
+
+                    <!-- <b-row>
                       <b-col md="6">
-                        <span>
-                          <label>Contact Person</label>
-                        </span>
-                        <ACCTextBox
-                          :prop="PI_contact_person"
-                          v-model="M_NewProspect.contact_person"
-                          ref="ref_contact_person"
-                        />
-                      </b-col>
-                    </b-row>
-                    <b-row>
-                      <b-col md="1" class="col-p-1">
-                        <span>
-                          <label style="width: 100px;">Contact Phone No.</label>
-                        </span>
-                        <ACCTextBox
-                          :prop="PI_contact_phone_no_1"
-                          v-model="M_NewProspect.contact_phone_no_1"
-                          ref="ref_contact_phone_no_1"
-                          style="width: 50px;"
-                        />
-                      </b-col>
-                      <b-col md="1" class="col-p-2">
-                        <span>
-                          <label>&nbsp;</label>
-                        </span>
-                        <ACCTextBox
-                          :prop="PI_contact_phone_no_2"
-                          v-model="M_NewProspect.contact_phone_no_2"
-                          ref="ref_contact_phone_no_2"
-                        />
-                      </b-col>
-                      <b-col md="4" class="col-p-3">
-                        <span>
-                          <label>&nbsp;</label>
-                        </span>
-                        <ACCTextBox
-                          :prop="PI_contact_phone_no_3"
-                          v-model="M_NewProspect.contact_phone_no_3"
-                          ref="ref_contact_phone_no_3"
-                        />
-                      </b-col>
-                    </b-row>
-                    <b-row>
-                      <b-col md="3">
                         <span>
                           <label>Customer Status</label>
                         </span>
                         <ACCLookUp
                           @change="Oncustomer_statusChange"
                           :prop="PI_customer_status"
-                          v-model="M_NewProspect.customer_status"
-                          :label="M_NewProspect.customer_statusLabel"
+                          v-model="M_OpVendor.customer_status"
+                          :label="M_OpVendor.customer_statusLabel"
                           ref="ref_customer_status"
                         />
                       </b-col>
-                    </b-row>
+                    </b-row>-->
                     <b-row style="margin-top: 10px;">
                       <b-col md="6">
                         <ABSButton
-                          :text="'Save Customer'"
+                          :text="'Save '"
                           classButton="btn btn--default"
                           classIcon="icon-style-default"
                           @click="doSave"
@@ -264,6 +160,7 @@
 export default {
   data() {
     return {
+      title: "",
       PI_logo: {
         cName: "Logo",
         cAccept: ".jpg, .png, .gif",
@@ -509,7 +406,7 @@ export default {
         cDisplayColumn: "descs,time_edit",
         cInputStatus: this.inputStatus
       },
-      M_NewProspect: {
+      M_OpVendor: {
         customer_name: "",
         contact_created: "",
         address: "",
@@ -523,7 +420,6 @@ export default {
         countryLabel: "",
         phone_no_1: "+62",
         phone_no_2: "",
-        phone_no_3: "",
         email: "",
         website: "",
         contact_person: "",
@@ -567,7 +463,7 @@ export default {
       this.$router.go(-1);
     },
     M_ClearForm() {
-      this.M_NewProspect = {
+      this.M_OpVendor = {
         customer_name: "",
         contact_created: this.momentDateFormatting(
           new Date(),
@@ -584,7 +480,6 @@ export default {
         countryLabel: "",
         phone_no_1: "+62",
         phone_no_2: "",
-        phone_no_3: "",
         email: "",
         website: "",
         contact_person: "",
@@ -601,39 +496,15 @@ export default {
     },
     onlogoChange(data) {
       console.log(data);
-      this.M_NewProspect.file_logo_name = data.name;
-      this.M_NewProspect.file_logo_path = data.path;
-      this.M_NewProspect.file_show = this.url + data.path;
+      this.M_OpVendor.file_logo_name = data.name;
+      this.M_OpVendor.file_logo_path = data.path;
+      this.M_OpVendor.file_show = this.url + data.path;
     },
-    OndistrictChange(data) {
-      console.log(data);
-      this.$nextTick(() => {
-        this.M_NewProspect.district = data.ss_district_id;
-        this.M_NewProspect.districtLabel = data.district;
-      });
-    },
-    OncityChange(data) {
-      this.$nextTick(() => {
-        this.M_NewProspect.city = data.ss_city_id;
-        this.M_NewProspect.cityLabel = data.city;
-      });
-    },
-    OnprovinceChange(data) {
-      this.$nextTick(() => {
-        this.M_NewProspect.province = data.ss_province_id;
-        this.M_NewProspect.provinceLabel = data.province;
-      });
-    },
-    OncountryChange(data) {
-      this.$nextTick(() => {
-        this.M_NewProspect.country = data.ss_country_id;
-        this.M_NewProspect.countryLabel = data.country;
-      });
-    },
+
     Oncustomer_statusChange(data) {
       this.$nextTick(() => {
-        this.M_NewProspect.customer_status = data.cm_customer_status_id;
-        this.M_NewProspect.customer_statusLabel = data.descs;
+        this.M_OpVendor.customer_status = data.cm_customer_status_id;
+        this.M_OpVendor.customer_statusLabel = data.descs;
       });
     },
     doSave() {
@@ -655,36 +526,21 @@ export default {
     },
     M_Save() {
       var param = {
-        option_url: "/MK/MK_Customer",
+        option_url: "/OP/OP_Vendor",
         line_no: 0,
         ss_portfolio_id: this.getDataUser().portfolio_id,
-        contact_type: "P",
+        contact_type: "V",
         contact_status: "N",
         // contact_created: '',
-        name: this.M_NewProspect.customer_name,
-        address: this.M_NewProspect.address,
-        ss_country_id: this.M_NewProspect.country,
-        ss_province_id: this.M_NewProspect.province,
-        ss_city_id: this.M_NewProspect.city,
-        ss_district_id: this.M_NewProspect.district,
-        phone_no:
-          this.M_NewProspect.phone_no_1 +
-          "-" +
-          this.M_NewProspect.phone_no_2 +
-          "-" +
-          this.M_NewProspect.phone_no_3,
-        email: this.M_NewProspect.email,
-        website: this.M_NewProspect.website,
-        contact_person: this.M_NewProspect.contact_person,
-        contact_phone_no:
-          this.M_NewProspect.contact_phone_no_1 +
-          "-" +
-          this.M_NewProspect.contact_phone_no_2 +
-          "-" +
-          this.M_NewProspect.contact_phone_no_3,
-        cm_customer_status_id: this.M_NewProspect.customer_status,
-        file_name: this.M_NewProspect.file_logo_name,
-        path_file: this.M_NewProspect.file_logo_path,
+        name: this.M_OpVendor.customer_name,
+        address: this.M_OpVendor.address,
+        phone_no: this.M_OpVendor.phone_no_1 + "-" + this.M_OpVendor.phone_no_2,
+        email: this.M_OpVendor.email,
+        website: this.M_OpVendor.website,
+        cm_customer_status_id: "NULL",
+        file_name: this.M_OpVendor.file_logo_name,
+        path_file: this.M_OpVendor.file_logo_path,
+        marketing_id: this.getDataUser().user_id,
         user_input: this.getDataUser().user_id
       };
 
@@ -698,7 +554,7 @@ export default {
     },
     GetDataBy() {
       var param = {
-        option_url: "/MK/MK_Customer",
+        option_url: "/OP/OP_Vendor",
         line_no: 0,
         id: this.paramFromList.row_id,
         lastupdatestamp: this.paramFromList.lastupdatestamp
@@ -710,7 +566,7 @@ export default {
 
         var data = response.Data[0];
 
-        // this.M_NewProspect = {
+        // this.M_OpVendor = {
         //     customer_name: data.name,
         //     contact_created: this.momentDateFormatting(new Date(data.contact_created), 'DD-MM-YYYY HH.mm'),
         //     address: (data.address + ", " + data.district + ", " + data.city + ", " + data.province + ", " + data.country),
@@ -722,12 +578,13 @@ export default {
 
         var phone_no =
           data.phone_no && data.phone_no !== "" ? data.phone_no.split("-") : "";
+
         var contact_phone_no =
           data.contact_phone_no && data.contact_phone_no !== ""
             ? data.contact_phone_no.split("-")
             : "";
 
-        this.M_NewProspect = {
+        this.M_OpVendor = {
           customer_name: data.name,
           contact_created: this.momentDateFormatting(
             new Date(data.contact_created),
@@ -744,7 +601,6 @@ export default {
           countryLabel: data.country,
           phone_no_1: phone_no !== "" ? phone_no[0] : phone_no,
           phone_no_2: phone_no !== "" ? phone_no[1] : phone_no,
-          phone_no_3: phone_no !== "" ? phone_no[2] : phone_no,
           email: data.email,
           website: data.website,
           contact_person: data.contact_person,
@@ -768,34 +624,19 @@ export default {
     },
     M_Update() {
       var param = {
-        option_url: "/MK/MK_Customer",
+        option_url: "/OP/OP_Vendor",
         line_no: 0,
         cm_contact_id: this.paramFromList.row_id,
         ss_portfolio_id: this.getDataUser().portfolio_id,
-        name: this.M_NewProspect.customer_name,
-        address: this.M_NewProspect.address,
-        ss_country_id: this.M_NewProspect.country,
-        ss_province_id: this.M_NewProspect.province,
-        ss_city_id: this.M_NewProspect.city,
-        ss_district_id: this.M_NewProspect.district,
-        phone_no:
-          this.M_NewProspect.phone_no_1 +
-          "-" +
-          this.M_NewProspect.phone_no_2 +
-          "-" +
-          this.M_NewProspect.phone_no_3,
-        email: this.M_NewProspect.email,
-        website: this.M_NewProspect.website,
-        contact_person: this.M_NewProspect.contact_person,
-        contact_phone_no:
-          this.M_NewProspect.contact_phone_no_1 +
-          "-" +
-          this.M_NewProspect.contact_phone_no_2 +
-          "-" +
-          this.M_NewProspect.contact_phone_no_3,
-        cm_customer_status_id: this.M_NewProspect.customer_status,
-        file_name: this.M_NewProspect.file_logo_name,
-        path_file: this.M_NewProspect.file_logo_path,
+        name: this.M_OpVendor.customer_name,
+        address: this.M_OpVendor.address,
+        phone_no: this.M_OpVendor.phone_no_1 + "-" + this.M_OpVendor.phone_no_2,
+        email: this.M_OpVendor.email,
+        website: this.M_OpVendor.website,
+        cm_customer_status_id: "NULL",
+        file_name: this.M_OpVendor.file_logo_name,
+        path_file: this.M_OpVendor.file_logo_path,
+        marketing_id: this.getDataUser().user_id,
         lastupdatestamp: this.paramFromList.lastupdatestamp,
         user_edit: this.getDataUser().user_id
       };
@@ -804,7 +645,11 @@ export default {
         // console.log(response)
         if (response == null) return;
         this.alertSuccess(response.Message).then(() => {
-          this.doBack();
+          if (this.inputStatus == "new") {
+            this.doBack();
+          } else {
+            this.$router.replace({ name: "OP_Vendor" });
+          }
         });
       });
     }
@@ -812,7 +657,10 @@ export default {
   mounted() {
     this.M_ClearForm();
     if (this.inputStatus == "edit") {
+      this.title = "Edit";
       this.GetDataBy();
+    } else {
+      this.title = "Add";
     }
   }
 };

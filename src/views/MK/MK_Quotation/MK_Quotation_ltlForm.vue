@@ -286,8 +286,8 @@ export default {
   },
   methods: {
     doBack() {
-      // this.$router.go(-1);
-      this.$router.push({ name: "MK_Quotation" });
+      this.$router.go(-1);
+      // this.$router.push({ name: "MK_Quotation" });
     },
 
     Onfr_cm_contact_delivery_address_idChange(data) {
