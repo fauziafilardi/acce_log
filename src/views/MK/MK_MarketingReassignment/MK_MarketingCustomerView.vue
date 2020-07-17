@@ -50,13 +50,39 @@
                   </b-col>
                   <b-col md="10">
                     <b-row>
-                      <b-col md="6">
+                      <b-col>
+
                         <b-row>
                           <b-col>
-                            <span>
-                              <h5>{{ M_Customer.customer }}</h5>
+                            <span style="font-size: 20px">
+                              {{ M_Customer.customer }}
                             </span>
-                            <br />
+                          </b-col>
+                          <b-col md="4">
+                            <b-row>
+                              <b-col class="col-right">
+                                <ACCDropDown
+                                  @change="Onmarketing_idChange"
+                                  :prop="PI_marketing_id"
+                                  v-model="M_Customer.marketing_id"
+                                  :label="M_Customer.marketing_idLabel"
+                                  ref="ref_action"
+                                />
+                              </b-col>
+                              <b-col class="col-right" style="max-width: fit-content;">
+                                <ABSButton
+                                  :text="'Save'"
+                                  classButton="btn btn--default"
+                                  classIcon="icon-style-1"
+                                  @click="doSave"
+                                  :disabled="ButtonStatus == null ? false : !ButtonStatus.btnEdit"
+                                />
+                              </b-col>
+                            </b-row>
+                          </b-col>
+                        </b-row>
+                        <b-row class="row-view">
+                          <b-col>
                             <span
                               class="badge-primary badgeStatus"
                               :style="`background-color:`+M_Customer.customer_status_colour+` !important;width: 65%;margin: auto;`"
@@ -71,310 +97,283 @@
                               {{ M_Customer.date }}
                             </span>
                           </b-col>
-                        </b-row>
-                      </b-col>
-                      <b-col style="text-align: right; margin-top: 10px;">
-                        <b-row>
-                          <b-col md="2">
-                            <ACCDropDown
-                              @change="Onmarketing_idChange"
-                              :prop="PI_marketing_id"
-                              v-model="M_Customer.marketing_id"
-                              :label="M_Customer.marketing_idLabel"
-                              ref="ref_action"
-                            />
-                          </b-col>
-                          <b-col md="1">
-                            <ABSButton
-                              :text="'Save'"
-                              classButton="btn btn--default"
-                              classIcon="icon-style-1"
-                              @click="doSave"
-                              :disabled="ButtonStatus == null ? false : !ButtonStatus.btnEdit"
-                            />
-                          </b-col>
-                        </b-row>
-                        <br />
-                        <span>
-                          <font-awesome-icon
-                            class="icon-style-default"
-                            icon="user"
-                            style="margin-top:10px;"
-                            size="sm"
-                          />
-                          &nbsp;&nbsp;Existing : {{paramFromList.existing_marketing}}
-                        </span> &nbsp;
-                      </b-col>
-                    </b-row>
-                    <hr />
-                    <b-row>
-                      <b-col
-                        style="max-width: fit-content !important; margin-right: 20px; border-bottom: solid 2px rgb(153, 153, 153); padding-bottom: 5px"
-                      >
-                        <span>
-                          <label style="margin-bottom: 0px !important;">Address</label>
-                        </span>
-                        <br />
-                        <span style="color: #999999;">{{ M_Customer.fulladdress }}</span>
-                      </b-col>
-                    </b-row>
-                    <b-row>
-                      <b-col
-                        style="max-width: fit-content !important; margin-right: 20px; border-bottom: solid 2px rgb(153, 153, 153); padding-bottom: 5px"
-                      >
-                        <span>
-                          <label style="margin-bottom: 0px !important;">Phone No</label>
-                        </span>
-                        <br />
-                        <span style="color: #999999;">{{ M_Customer.phone_no }}</span>
-                      </b-col>
-                    </b-row>
-                    <b-row>
-                      <b-col
-                        style="max-width: fit-content !important; margin-right: 20px; border-bottom: solid 2px rgb(153, 153, 153); padding-bottom: 5px"
-                      >
-                        <span>
-                          <label style="margin-bottom: 0px !important;">Email</label>
-                        </span>
-                        <br />
-                        <span style="color: #999999; text-align: justify;">{{ M_Customer.email }}</span>
-                      </b-col>
-                    </b-row>
-                    <b-row>
-                      <b-col
-                        style="max-width: fit-content !important; margin-right: 20px; border-bottom: solid 2px rgb(153, 153, 153); padding-bottom: 5px"
-                      >
-                        <span>
-                          <label style="margin-bottom: 0px !important;">Website</label>
-                        </span>
-                        <br />
-                        <span style="color: #999999;">{{ M_Customer.website }}</span>
-                      </b-col>
-                    </b-row>
-                    <br />
-
-                    <br />
-                    <!-- <b-row> -->
-                    <div class="card">
-                      <div class="card__title">
-                        <b-row>
-                          <b-col style="max-width:fit-content !important;">
-                            <span>Pick Up / Delivery Address</span>
-                          </b-col>
-                        </b-row>
-                      </div>
-                      <div class="card__body">
-                        <b-table
-                          :responsive="true"
-                          :striped="false"
-                          :bordered="true"
-                          :outlined="false"
-                          :small="false"
-                          :hover="false"
-                          :dark="false"
-                          :fixed="false"
-                          :foot-clone="false"
-                          :fields="PickUpHeader"
-                          :items="PickUpItems"
-                          class="table-sm table-style-3"
-                          thStyle="padding: 5px !important;"
-                        >
-                          <template v-slot:cell(no)="data">{{data.index + 1}}</template>
-                          <!-- <template v-slot:cell(row_id)="data">
-                            <ABSButton
-                              :icon="'trash'"
-                              classButton="button button--delete"
-                              classIcon="icon-style-1"
-                              @click="doDeleteList(1,data.item, data.index)"
-                            />
-                          </template>-->
-                        </b-table>
-                      </div>
-                    </div>
-
-                    <div class="card">
-                      <div class="card__title">
-                        <b-row>
-                          <b-col style="max-width:fit-content !important;">
-                            <span>PIC</span>
-                          </b-col>
-                        </b-row>
-                      </div>
-                      <div class="card__body">
-                        <b-table
-                          :responsive="true"
-                          :striped="false"
-                          :bordered="true"
-                          :outlined="false"
-                          :small="false"
-                          :hover="false"
-                          :dark="false"
-                          :fixed="false"
-                          :foot-clone="false"
-                          :fields="PICHeader"
-                          :items="PICItems"
-                          class="table-sm table-style-3"
-                          thStyle="padding: 5px !important;"
-                        >
-                          <template v-slot:cell(no)="data">{{data.index + 1}}</template>
-                        </b-table>
-                      </div>
-                    </div>
-
-                    <div class="card">
-                      <div class="card__title">
-                        <b-row>
-                          <b-col style="max-width:fit-content !important;">
-                            <span>Quotation</span>
-                          </b-col>
-                        </b-row>
-                      </div>
-                      <div class="card__body">
-                        <b-table
-                          :responsive="true"
-                          :striped="false"
-                          :bordered="true"
-                          :outlined="false"
-                          :small="false"
-                          :hover="false"
-                          :dark="false"
-                          :fixed="false"
-                          :foot-clone="false"
-                          :fields="QuotationHeader"
-                          :items="QuotationItems"
-                          class="table-sm table-style-3"
-                          thStyle="padding: 5px !important;"
-                        >
-                          <template v-slot:cell(no)="data">{{data.index + 1}}</template>
-                        </b-table>
-                      </div>
-                    </div>
-
-                    <div class="card">
-                      <div class="card__title">
-                        <b-row>
-                          <b-col style="max-width:fit-content !important;">
-                            <span>Order</span>
-                          </b-col>
-                        </b-row>
-                      </div>
-                      <div class="card__body">
-                        <b-table
-                          :responsive="true"
-                          :striped="false"
-                          :bordered="true"
-                          :outlined="false"
-                          :small="false"
-                          :hover="false"
-                          :dark="false"
-                          :fixed="false"
-                          :foot-clone="false"
-                          :fields="OrderHeader"
-                          :items="OrderItems"
-                          class="table-sm table-style-3"
-                          thStyle="padding: 5px !important;"
-                        >
-                          <template v-slot:cell(no)="data">{{data.index + 1}}</template>
-
-                          <template v-slot:cell(order_date)="data">
-                            {{momentDateFormatting(
-                            new Date(data.item.order_date),
-                            "DD/MM/YYYY HH:mm"
-                            )}}
-                          </template>
-                          <template v-slot:cell(order_status)="data">
-                            <span v-if="data.item.order_status=='N'">Pending</span>
-                            <span v-else-if="data.item.order_status=='P'">Progress</span>
-                            <span v-else>Issue</span>
-                          </template>
-                        </b-table>
-                      </div>
-                    </div>
-
-                    <div class="card">
-                      <div class="card__title">
-                        <b-row>
-                          <b-col style="max-width:fit-content !important;">
-                            <span>Outstanding Payment</span>
-                          </b-col>
-                        </b-row>
-                      </div>
-                      <div class="card__body">
-                        <b-table
-                          :responsive="true"
-                          :striped="false"
-                          :bordered="true"
-                          :outlined="false"
-                          :small="false"
-                          :hover="false"
-                          :dark="false"
-                          :fixed="false"
-                          :foot-clone="false"
-                          :fields="OutstandingHeader"
-                          :items="OutstandingItems"
-                          class="table-sm table-style-3"
-                          thStyle="padding: 5px !important;"
-                        >
-                          <template v-slot:cell(no)="data">{{data.index + 1}}</template>
-
-                          <template v-slot:cell(outstanding_amt)="data">
-                            <span>{{isCurrency(data.item.outstanding_amt,decimal)}}</span>
-                          </template>
-                        </b-table>
-                      </div>
-                    </div>
-
-                    <div class="card">
-                      <div class="card__title">
-                        <b-row>
-                          <b-col style="max-width:fit-content !important;">
-                            <span>Log Book</span>
-                          </b-col>
-                        </b-row>
-                      </div>
-                      <div class="card__body">
-                        <b-table
-                          :responsive="true"
-                          :striped="false"
-                          :bordered="true"
-                          :outlined="false"
-                          :small="false"
-                          :hover="false"
-                          :dark="false"
-                          :fixed="false"
-                          :foot-clone="false"
-                          :fields="LogBookHeader"
-                          :items="LogBookItems"
-                          class="table-sm table-style-3"
-                          thStyle="padding: 5px !important;"
-                        >
-                          <template v-slot:cell(no)="data">{{data.index + 1}}</template>
-                          <template v-slot:cell(logbook_date)="data">
-                            {{momentDateFormatting(
-                            new Date(data.item.logbook_date),
-                            "DD/MM/YYYY HH:mm"
-                            )}}
-                          </template>
-
-                          <template v-slot:cell(row_id)="data">
-                            <!-- <ABSButton
-                              :icon="'trash'"
-                              classButton="button button--delete"
-                              classIcon="icon-style-1"
-                              @click="doDeletedQuotation(data.item, data.index)"
-                            />-->
+                          <b-col md="4">
                             <span>
                               <font-awesome-icon
                                 class="icon-style-default"
-                                :icon="data.item.action_type=='C' ? 'phone-square-alt' : (data.item.action_type=='V' ? 'hand-paper' : 'utensils')"
-                                size="lg"
+                                icon="user"
+                                style="margin-top:10px;"
+                                size="sm"
                               />
-                              {{ data.item.action }}
+                              &nbsp;&nbsp;Existing : {{paramFromList.existing_marketing}}
                             </span>
-                          </template>
-                        </b-table>
-                      </div>
-                    </div>
+                          </b-col>
+                        </b-row>
+                        <b-row class="row-view">
+                          <b-col
+                          >
+                            <span>
+                              <label style="margin-bottom: 0px !important;">Address</label>
+                            </span>
+                            <br />
+                            <span style="color: #999999;">{{ M_Customer.fulladdress }}</span>
+                          </b-col>
+                        </b-row>
+                        <b-row class="row-view">
+                          <b-col
+                          >
+                            <span>
+                              <label style="margin-bottom: 0px !important;">Phone No</label>
+                            </span>
+                            <br />
+                            <span style="color: #999999;">{{ M_Customer.phone_no }}</span>
+                          </b-col>
+                          <b-col
+                          >
+                            <span>
+                              <label style="margin-bottom: 0px !important;">Email</label>
+                            </span>
+                            <br />
+                            <span style="color: #999999; text-align: justify;">{{ M_Customer.email }}</span>
+                          </b-col>
+                        </b-row>
+                        <b-row class="row-view">
+                          <b-col
+                          >
+                            <span>
+                              <label style="margin-bottom: 0px !important;">Website</label>
+                            </span>
+                            <br />
+                            <span style="color: #999999;">{{ M_Customer.website }}</span>
+                          </b-col>
+                        </b-row>
+                        
+                        <b-row>
+                          <b-col>
+                            <div class="card">
+                              <div class="card__title">
+                                <b-row>
+                                  <b-col style="max-width:fit-content !important;">
+                                    <span>Pick Up / Delivery Address</span>
+                                  </b-col>
+                                </b-row>
+                              </div>
+                              <div class="card__body">
+                                <b-table
+                                  :responsive="true"
+                                  :striped="false"
+                                  :bordered="true"
+                                  :outlined="false"
+                                  :small="false"
+                                  :hover="false"
+                                  :dark="false"
+                                  :fixed="false"
+                                  :foot-clone="false"
+                                  :fields="PickUpHeader"
+                                  :items="PickUpItems"
+                                  class="table-sm table-style-3"
+                                  thStyle="padding: 5px !important;"
+                                >
+                                  <template v-slot:cell(no)="data">{{data.index + 1}}</template>
+                                  <!-- <template v-slot:cell(row_id)="data">
+                                    <ABSButton
+                                      :icon="'trash'"
+                                      classButton="button button--delete"
+                                      classIcon="icon-style-1"
+                                      @click="doDeleteList(1,data.item, data.index)"
+                                    />
+                                  </template>-->
+                                </b-table>
+                              </div>
+                            </div>
+
+                            <div class="card">
+                              <div class="card__title">
+                                <b-row>
+                                  <b-col style="max-width:fit-content !important;">
+                                    <span>PIC</span>
+                                  </b-col>
+                                </b-row>
+                              </div>
+                              <div class="card__body">
+                                <b-table
+                                  :responsive="true"
+                                  :striped="false"
+                                  :bordered="true"
+                                  :outlined="false"
+                                  :small="false"
+                                  :hover="false"
+                                  :dark="false"
+                                  :fixed="false"
+                                  :foot-clone="false"
+                                  :fields="PICHeader"
+                                  :items="PICItems"
+                                  class="table-sm table-style-3"
+                                  thStyle="padding: 5px !important;"
+                                >
+                                  <template v-slot:cell(no)="data">{{data.index + 1}}</template>
+                                </b-table>
+                              </div>
+                            </div>
+
+                            <div class="card">
+                              <div class="card__title">
+                                <b-row>
+                                  <b-col style="max-width:fit-content !important;">
+                                    <span>Quotation</span>
+                                  </b-col>
+                                </b-row>
+                              </div>
+                              <div class="card__body">
+                                <b-table
+                                  :responsive="true"
+                                  :striped="false"
+                                  :bordered="true"
+                                  :outlined="false"
+                                  :small="false"
+                                  :hover="false"
+                                  :dark="false"
+                                  :fixed="false"
+                                  :foot-clone="false"
+                                  :fields="QuotationHeader"
+                                  :items="QuotationItems"
+                                  class="table-sm table-style-3"
+                                  thStyle="padding: 5px !important;"
+                                >
+                                  <template v-slot:cell(no)="data">{{data.index + 1}}</template>
+                                </b-table>
+                              </div>
+                            </div>
+
+                            <div class="card">
+                              <div class="card__title">
+                                <b-row>
+                                  <b-col style="max-width:fit-content !important;">
+                                    <span>Order</span>
+                                  </b-col>
+                                </b-row>
+                              </div>
+                              <div class="card__body">
+                                <b-table
+                                  :responsive="true"
+                                  :striped="false"
+                                  :bordered="true"
+                                  :outlined="false"
+                                  :small="false"
+                                  :hover="false"
+                                  :dark="false"
+                                  :fixed="false"
+                                  :foot-clone="false"
+                                  :fields="OrderHeader"
+                                  :items="OrderItems"
+                                  class="table-sm table-style-3"
+                                  thStyle="padding: 5px !important;"
+                                >
+                                  <template v-slot:cell(no)="data">{{data.index + 1}}</template>
+
+                                  <template v-slot:cell(order_date)="data">
+                                    {{momentDateFormatting(
+                                    new Date(data.item.order_date),
+                                    "DD/MM/YYYY HH:mm"
+                                    )}}
+                                  </template>
+                                  <template v-slot:cell(order_status)="data">
+                                    <span v-if="data.item.order_status=='N'">Pending</span>
+                                    <span v-else-if="data.item.order_status=='P'">Progress</span>
+                                    <span v-else>Issue</span>
+                                  </template>
+                                </b-table>
+                              </div>
+                            </div>
+
+                            <div class="card">
+                              <div class="card__title">
+                                <b-row>
+                                  <b-col style="max-width:fit-content !important;">
+                                    <span>Outstanding Payment</span>
+                                  </b-col>
+                                </b-row>
+                              </div>
+                              <div class="card__body">
+                                <b-table
+                                  :responsive="true"
+                                  :striped="false"
+                                  :bordered="true"
+                                  :outlined="false"
+                                  :small="false"
+                                  :hover="false"
+                                  :dark="false"
+                                  :fixed="false"
+                                  :foot-clone="false"
+                                  :fields="OutstandingHeader"
+                                  :items="OutstandingItems"
+                                  class="table-sm table-style-3"
+                                  thStyle="padding: 5px !important;"
+                                >
+                                  <template v-slot:cell(no)="data">{{data.index + 1}}</template>
+
+                                  <template v-slot:cell(outstanding_amt)="data">
+                                    <span>{{isCurrency(data.item.outstanding_amt,decimal)}}</span>
+                                  </template>
+                                </b-table>
+                              </div>
+                            </div>
+
+                            <div class="card">
+                              <div class="card__title">
+                                <b-row>
+                                  <b-col style="max-width:fit-content !important;">
+                                    <span>Log Book</span>
+                                  </b-col>
+                                </b-row>
+                              </div>
+                              <div class="card__body">
+                                <b-table
+                                  :responsive="true"
+                                  :striped="false"
+                                  :bordered="true"
+                                  :outlined="false"
+                                  :small="false"
+                                  :hover="false"
+                                  :dark="false"
+                                  :fixed="false"
+                                  :foot-clone="false"
+                                  :fields="LogBookHeader"
+                                  :items="LogBookItems"
+                                  class="table-sm table-style-3"
+                                  thStyle="padding: 5px !important;"
+                                >
+                                  <template v-slot:cell(no)="data">{{data.index + 1}}</template>
+                                  <template v-slot:cell(logbook_date)="data">
+                                    {{momentDateFormatting(
+                                    new Date(data.item.logbook_date),
+                                    "DD/MM/YYYY HH:mm"
+                                    )}}
+                                  </template>
+
+                                  <template v-slot:cell(row_id)="data">
+                                    <!-- <ABSButton
+                                      :icon="'trash'"
+                                      classButton="button button--delete"
+                                      classIcon="icon-style-1"
+                                      @click="doDeletedQuotation(data.item, data.index)"
+                                    />-->
+                                    <span>
+                                      <font-awesome-icon
+                                        class="icon-style-default"
+                                        :icon="data.item.action_type=='C' ? 'phone-square-alt' : (data.item.action_type=='V' ? 'hand-paper' : 'utensils')"
+                                        size="lg"
+                                      />
+                                      {{ data.item.action }}
+                                    </span>
+                                  </template>
+                                </b-table>
+                              </div>
+                            </div>
+                          </b-col>
+                        </b-row>
+                      </b-col>
+                    </b-row>
                   </b-col>
                 </b-row>
               </b-form>
