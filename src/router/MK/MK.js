@@ -66,6 +66,7 @@ import MK_DocumentType from '@/views/MK/MK_Dokument_Type/MK_Dokument_TypeList'
 import MK_DocumentTypeForm from '@/views/MK/MK_Dokument_Type/MK_Dokument_TypeForm'
 
 import MK_MarketingCustomer from '@/views/MK/MK_MarketingReassignment/MK_MarketingCustomerList'
+import MK_MarketingCustomerView from '@/views/MK/MK_MarketingReassignment/MK_MarketingCustomerView'
 import MK_MarketingCustomerReplace from '@/views/MK/MK_MarketingReassignment/MK_MarketingCustomer_replaceMarketing'
 
 import MK_QuotationCosting from '@/views/MK/MK_QuotationCosting/MK_QuotationCosting'
@@ -527,6 +528,15 @@ export const MKRender = {
         path: '/MK/MK_MarketingCustomer',
         name: 'MK_MarketingCustomer',
         component: MK_MarketingCustomer,
+        meta: {
+            requiresAuth: true
+        }
+
+    },
+    {
+        path: '/MK/MK_MarketingCustomer/View',
+        name: 'MK_MarketingCustomerView',
+        component: MK_MarketingCustomerView,
         meta: {
             requiresAuth: true
         }

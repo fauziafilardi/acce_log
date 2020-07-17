@@ -67,13 +67,14 @@
                   :foot-clone="false"
                   :fields="fieldHeader"
                   :items="items"
+                  @row-clicked="rowClicked"
                   class="table-sm table-style-3"
                 >
                   <template v-slot:cell(row_id)="data">
                     <b-button
                       v-if="WithViewButton == true"
                       size="sm"
-                      @click.stop="viewClicked(data.item, data.index)"
+                      @click.stop="doViewClick(data.item, data.index)"
                       :disabled="false"
                       class="btn btn--default"
                     >View</b-button>
@@ -194,14 +195,16 @@ export default {
     };
   },
   methods: {
-    rowClicked(record, index) {},
+    rowClicked(record, index) {
+      this.doViewClick(record, index);
+    },
     doDoubleClick(record, index) {},
     doViewClick(record, index) {
-      //   var param = record;
-      // param.option_url = '/MK/MK_MarketingCustomer'
-      // param.urlAdd="MK_AddNewProspect"
-      // param.title = "New Prospect"
-      //   this.$router.push({ name: "MK_ViewNewProspect", params: param });
+      var param = record;
+      param.isEdit = record == null ? false : true;
+      param.isView = true;
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "MK_MarketingCustomerView" });
     },
     rowLink(url) {},
     M_PageSize() {},
