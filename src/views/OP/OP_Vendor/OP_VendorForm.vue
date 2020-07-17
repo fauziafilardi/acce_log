@@ -75,18 +75,25 @@
                     </b-row>
 
                     <b-row>
-                      <b-col md="1" class="col-p-1">
+                      <b-col md="2" class="col-p-1">
                         <span>
                           <label style="width: 100px;">Phone No.</label>
                         </span>
-                        <ACCTextBox
+                        <!-- <ACCTextBox
                           :prop="PI_phone_no_1"
                           v-model="M_OpVendor.phone_no_1"
+                          ref="ref_phone_no_1"
+                        />-->
+                        <ACCDropDown
+                          @change="Onphone_no_1Change"
+                          :prop="PI_phone_no_1"
+                          v-model="M_OpVendor.phone_no_1"
+                          :label="M_OpVendor.phone_no_1Label"
                           ref="ref_phone_no_1"
                         />
                       </b-col>
                       <span style="margin-top: 35px;">-</span>
-                      <b-col md="5" class="col-p-3">
+                      <b-col md="4" class="col-p-3">
                         <span>
                           <label>&nbsp;</label>
                         </span>
@@ -284,15 +291,18 @@ export default {
         cDisplayColumn: "country,time_edit",
         cInputStatus: this.inputStatus
       },
+
       PI_phone_no_1: {
-        cValidate: "max:3",
+        dataLookUp: null,
+        cValidate: "",
         cName: "phone_no_1",
+        ckey: false,
         cOrder: 7,
-        cKey: false,
-        cType: "tel",
         cProtect: false,
         cParentForm: "MK_AddNewProspect",
-        cDecimal: 2,
+        cStatic: true,
+        cOption: [{ id: "+62", label: "+62" }],
+        cDisplayColumn: "action_type,descs",
         cInputStatus: this.inputStatus
       },
       PI_phone_no_2: {
@@ -351,7 +361,7 @@ export default {
         cInputStatus: this.inputStatus
       },
       PI_contact_phone_no_1: {
-        cValidate: "max:3",
+        cValidate: "",
         cName: "contact_phone_no_1",
         cOrder: 13,
         cKey: false,
@@ -419,6 +429,7 @@ export default {
         country: "",
         countryLabel: "",
         phone_no_1: "+62",
+        phone_no_1Label: "+62",
         phone_no_2: "",
         email: "",
         website: "",
@@ -459,6 +470,12 @@ export default {
     }
   },
   methods: {
+    Onphone_no_1Change(data) {
+      this.$nextTick(() => {
+        this.M_OpVendor.phone_no_1 = data.id;
+        this.M_OpVendor.phone_no_1Label = data.label;
+      });
+    },
     doBack() {
       this.$router.go(-1);
     },
@@ -479,6 +496,7 @@ export default {
         country: "",
         countryLabel: "",
         phone_no_1: "+62",
+        phone_no_1Label: "+62",
         phone_no_2: "",
         email: "",
         website: "",

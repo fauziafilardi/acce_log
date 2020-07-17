@@ -104,10 +104,8 @@
                       </b-col>
                     </b-row>
                     <hr />
-                    <b-row>
-                      <b-col
-                        style="max-width: fit-content !important; margin-right: 20px; border-bottom: solid 2px rgb(153, 153, 153); padding-bottom: 5px"
-                      >
+                    <b-row class="row-view">
+                      <b-col>
                         <span>
                           <label style="margin-bottom: 0px !important;">Address</label>
                         </span>
@@ -115,10 +113,8 @@
                         <span style="color: #999999;">{{ M_Customer.fulladdress }}</span>
                       </b-col>
                     </b-row>
-                    <b-row>
-                      <b-col
-                        style="max-width: fit-content !important; margin-right: 20px; border-bottom: solid 2px rgb(153, 153, 153); padding-bottom: 5px"
-                      >
+                    <b-row class="row-view">
+                      <b-col>
                         <span>
                           <label style="margin-bottom: 0px !important;">Phone No</label>
                         </span>
@@ -126,10 +122,8 @@
                         <span style="color: #999999;">{{ M_Customer.phone_no }}</span>
                       </b-col>
                     </b-row>
-                    <b-row>
-                      <b-col
-                        style="max-width: fit-content !important; margin-right: 20px; border-bottom: solid 2px rgb(153, 153, 153); padding-bottom: 5px"
-                      >
+                    <b-row class="row-view">
+                      <b-col>
                         <span>
                           <label style="margin-bottom: 0px !important;">Email</label>
                         </span>
@@ -137,10 +131,8 @@
                         <span style="color: #999999; text-align: justify;">{{ M_Customer.email }}</span>
                       </b-col>
                     </b-row>
-                    <b-row>
-                      <b-col
-                        style="max-width: fit-content !important; margin-right: 20px; border-bottom: solid 2px rgb(153, 153, 153); padding-bottom: 5px"
-                      >
+                    <b-row class="row-view">
+                      <b-col>
                         <span>
                           <label style="margin-bottom: 0px !important;">Website</label>
                         </span>

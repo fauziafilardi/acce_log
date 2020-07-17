@@ -65,7 +65,7 @@
                   @row-clicked="rowClicked"
                   :responsive="true"
                   :striped="false"
-                  :bordered="false"
+                  :bordered="true"
                   :outlined="false"
                   :small="false"
                   :hover="true"
@@ -80,6 +80,14 @@
                     <div
                       :style="'width:20px; height:20px;background-color:' + data.item.customer_status_colour + '; margin:auto;'"
                     ></div>
+                  </template>
+                  <template v-slot:cell(row_id)="data">
+                    <ABSButton
+                      :icon="'trash'"
+                      classButton="button button--delete"
+                      classIcon="icon-style-1"
+                      @click="doDeleteList(data.item, data.index)"
+                    />
                   </template>
                 </b-table>
               </div>
@@ -187,6 +195,30 @@ export default {
 
       this.$router.push({ name: "CM_MarketingCustomerStatus_Add" });
     },
+    doDeleteList(record, index) {
+      this.alertConfirmation("Are You Sure Want To Delete This Data ?").then(
+        ress => {
+          if (ress.value) {
+            this.doDelete(record, index);
+          }
+        }
+      );
+    },
+    doDelete(record, index) {
+      var param = {
+        option_url: "/CM/CM_CustomerStatus",
+        line_no: 0,
+        id: record.row_id,
+        lastupdatestamp: record.lastupdatestamp
+      };
+
+      this.deleteJSON(this.getUrlCRUD(), param).then(response => {
+        if (response == null) return;
+        this.alertSuccess(response.Message).then(() => {
+          this.doGetList("");
+        });
+      });
+    },
     doBack() {
       this.$router.go(-1);
     },
@@ -248,7 +280,7 @@ export default {
           this.responses.DefineColumn && this.responses.DefineColumn !== ""
             ? this.responses.DefineColumn.split(",")
             : this.responses.AllColumn.split(",");
-        var x = ",L,S,S,L,S,S,S";
+        var x = ",S,S,L,S,S,S,S";
         // var defineSize = this.responses.DefineSize.split(",");
         var defineSize = x.split(",");
 
@@ -393,6 +425,10 @@ export default {
               {
                 key: "Customer Status Cd",
                 value: "Status Code"
+              },
+              {
+                key: "Row Id",
+                value: "Action"
               }
             ];
             var isGotIt = false;
@@ -440,7 +476,7 @@ export default {
               }
             }
 
-            if (labelHeader == "Row Id") continue;
+            // if (labelHeader == "Row Id") continue;
 
             this.fieldHeader.push({
               value: i + 1,

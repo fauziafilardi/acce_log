@@ -16,7 +16,7 @@
                 <font-awesome-icon style="color: #333399;" icon="cog" size="6x" />
                 <br />
                 <br />
-                <span style="width: 75%">Manage Marketing Team and Customer List</span>
+                <span style="width: 75%">Marketing Master Setup</span>
               </div>
             </div>
           </div>
@@ -120,27 +120,6 @@
           </div>
         </b-col>
       </b-row>
-      <b-row class="dashboardBody">
-        <b-col md="4" @click="onMarketingSpecClick">
-          <div class="card">
-            <div class="card__title">
-              <b-row>
-                <b-col>
-                  <span style="float: left !important;">Marketing Spesification</span> &nbsp;
-                </b-col>
-              </b-row>
-            </div>
-            <div class="card__body">
-              <div style="width: 100%; text-align: center;">
-                <font-awesome-icon style="color: #333399;" icon="cog" size="6x" />
-                <br />
-                <br />
-                <span style="width: 75%">Setup Marketing Action and Working Days</span>
-              </div>
-            </div>
-          </div>
-        </b-col>
-      </b-row>
     </div>
   </div>
 </template>
@@ -153,9 +132,9 @@ export default {
   },
   computed: {},
   methods: {
-    onMarketingSpecClick() {
-      this.$router.push({ name: "MK_MarketingSpec" });
-    },
+    // onMarketingSpecClick() {
+    //   this.$router.push({ name: "MK_MarketingSpec" });
+    // },
     onMarketingMasterClick() {
       this.$router.push({ name: "CM_MarketingMaster" });
     },

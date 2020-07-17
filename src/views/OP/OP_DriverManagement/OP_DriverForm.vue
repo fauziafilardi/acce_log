@@ -72,9 +72,16 @@
                             <span>
                               <label>Phone No.</label>
                             </span>
-                            <ACCTextBox
+                            <!-- <ACCTextBox
                               :prop="PI_handphone_1"
                               v-model="M_FmDriver.handphone_1"
+                              ref="ref_handphone_1"
+                            />-->
+                            <ACCDropDown
+                              @change="Onhandphone_1Change"
+                              :prop="PI_handphone_1"
+                              v-model="M_FmDriver.handphone_1"
+                              :label="M_FmDriver.handphone_1Label"
                               ref="ref_handphone_1"
                             />
                           </b-col>
@@ -241,9 +248,16 @@
                             <span>
                               <label>Phone No.</label>
                             </span>
-                            <ACCTextBox
+                            <!-- <ACCTextBox
                               :prop="PI_emergency_phone_no_1"
                               v-model="M_FmDriver.emergency_phone_no_1"
+                              ref="ref_emergency_phone_no_1"
+                            />-->
+                            <ACCDropDown
+                              @change="Onemergency_phone_no_1Change"
+                              :prop="PI_emergency_phone_no_1"
+                              v-model="M_FmDriver.emergency_phone_no_1"
+                              :label="M_FmDriver.emergency_phone_no_1Label"
                               ref="ref_emergency_phone_no_1"
                             />
                           </b-col>
@@ -361,6 +375,7 @@ export default {
         employee_id: "",
         driver_name: "",
         handphone_1: "+62",
+        handphone_1Label: "+62",
         handphone_2: "",
         ktp: "",
         npwp: "",
@@ -374,6 +389,7 @@ export default {
         emergency_contact_name: "",
         emergency_relation: "",
         emergency_phone_no_1: "+62",
+        emergency_phone_no_1Label: "+62",
         emergency_phone_no_2: "",
         emergency_remarks: "",
         dt_doc_file_name: "",
@@ -407,15 +423,18 @@ export default {
         cDecimal: 2,
         cInputStatus: this.inputStatus
       },
+
       PI_handphone_1: {
+        dataLookUp: null,
         cValidate: "",
         cName: "handphone1",
+        ckey: false,
         cOrder: 3,
-        cKey: false,
-        cType: "text",
         cProtect: false,
         cParentForm: "OP_FormFmDriver",
-        cDecimal: 2,
+        cStatic: true,
+        cOption: [{ id: "+62", label: "+62" }],
+        cDisplayColumn: "action_type,descs",
         cInputStatus: this.inputStatus
       },
       PI_handphone_2: {
@@ -555,15 +574,28 @@ export default {
         cDecimal: 2,
         cInputStatus: this.inputStatus
       },
+      // PI_emergency_phone_no_1: {
+      //   cValidate: "",
+      //   cName: "emergency_phone_no_1",
+      //   cOrder: 15,
+      //   cKey: false,
+      //   cType: "text",
+      //   cProtect: false,
+      //   cParentForm: "OP_FormFmDriver",
+      //   cDecimal: 2,
+      //   cInputStatus: this.inputStatus
+      // },
       PI_emergency_phone_no_1: {
+        dataLookUp: null,
         cValidate: "",
         cName: "emergency_phone_no_1",
+        ckey: false,
         cOrder: 15,
-        cKey: false,
-        cType: "text",
         cProtect: false,
         cParentForm: "OP_FormFmDriver",
-        cDecimal: 2,
+        cStatic: true,
+        cOption: [{ id: "+62", label: "+62" }],
+        cDisplayColumn: "action_type,descs",
         cInputStatus: this.inputStatus
       },
       PI_emergency_phone_no_2: {
@@ -618,6 +650,12 @@ export default {
     }
   },
   methods: {
+    Onhandphone_1Change(data) {
+      this.$nextTick(() => {
+        this.M_FmDriver.handphone_1 = data.id;
+        this.M_FmDriver.handphone_1Label = data.label;
+      });
+    },
     Onemployee_statusChange(data) {
       this.$nextTick(() => {
         this.M_FmDriver.employee_status = data.id;
@@ -660,6 +698,7 @@ export default {
         employee_id: "",
         driver_name: "",
         handphone_1: "+62",
+        handphone_1Label: "+62",
         handphone_2: "",
         ktp: "",
         npwp: "",
@@ -673,6 +712,7 @@ export default {
         emergency_contact_name: "",
         emergency_relation: "",
         emergency_phone_no_1: "+62",
+        emergency_phone_no_1Label: "+62",
         emergency_phone_no_2: "",
         emergency_remarks: "",
         dt_doc_file_name: "",
