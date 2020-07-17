@@ -45,18 +45,25 @@
                       </b-col>
                     </b-row>
                     <b-row>
-                      <b-col md="1" class="col-p-1">
+                      <b-col md="2" class="col-p-1">
                         <span>
                           <label style="width: 100px;">Phone No.</label>
                         </span>
-                        <ACCTextBox
+                        <!-- <ACCTextBox
                           :prop="PI_phone_no_1"
                           v-model="M_CmContactPerson.phone_no_1"
+                          ref="ref_phone_no_1"
+                        />-->
+                        <ACCDropDown
+                          @change="Onphone_no_1Change"
+                          :prop="PI_phone_no_1"
+                          v-model="M_CmContactPerson.phone_no_1"
+                          :label="M_CmContactPerson.phone_no_1Label"
                           ref="ref_phone_no_1"
                         />
                       </b-col>
                       <span style="margin-top: 35px;">-</span>
-                      <b-col md="5" class="col-p-3">
+                      <b-col md="4" class="col-p-3">
                         <span>
                           <label>&nbsp;</label>
                         </span>
@@ -113,6 +120,7 @@ export default {
         cm_contact_id: 0,
         name: "",
         phone_no_1: "+62",
+        phone_no_1Label: "+62",
         phone_no_2: "",
         email: "",
         position: "",
@@ -136,16 +144,19 @@ export default {
         cInputStatus: this.inputStatus
       },
       PI_phone_no_1: {
+        dataLookUp: null,
         cValidate: "",
         cName: "phone_no_1",
+        ckey: false,
         cOrder: 2,
-        cKey: false,
-        cType: "text",
         cProtect: false,
         cParentForm: "MK_FormCmContactPerson",
-        cDecimal: 2,
+        cStatic: true,
+        cOption: [{ id: "+62", label: "+62" }],
+        cDisplayColumn: "action_type,descs",
         cInputStatus: this.inputStatus
       },
+
       PI_phone_no_2: {
         cValidate: "",
         cName: "phone_no_2",
@@ -188,13 +199,19 @@ export default {
     doBack() {
       this.$router.go(-1);
     },
-
+    Onphone_no_1Change(data) {
+      this.$nextTick(() => {
+        this.M_NewProspect.phone_no_1 = data.id;
+        this.M_NewProspect.phone_no_1Label = data.label;
+      });
+    },
     M_ClearForm() {
       this.M_CmContactPerson = {
         cm_contact_person_id: 0,
         cm_contact_id: 0,
         name: "",
         phone_no_1: "+62",
+        phone_no_1Label: "+62",
         phone_no_2: "",
         email: "",
         position: "",

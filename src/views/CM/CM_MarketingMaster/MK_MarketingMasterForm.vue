@@ -387,7 +387,8 @@ export default {
           address: data.address,
           email: data.email,
           hand_phone: data.hand_phone,
-          status_active: data.status_active,
+          status_active:
+            data.status_active == null ? false : data.status_active,
           join_date: data.join_date,
           monthly_point: data.monthly_point__tb_2,
           monthly_new_prospect: data.monthly_new_prospect__tb_3,
