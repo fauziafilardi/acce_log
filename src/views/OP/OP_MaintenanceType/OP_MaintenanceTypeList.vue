@@ -49,7 +49,7 @@ export default {
       var param = record;
       param.isEdit = true;
       this.$store.commit("setParamPage", param);
-      this.$router.push({ name: "OP_MaintenanceTypeForm"});
+      this.$router.push({ name: "OP_MaintenanceTypeView"});
     },
     doDoubleClick(record, index) {},
     doDeleteClick(record, index) {
@@ -89,7 +89,7 @@ export default {
 	
   },
   created(){
-	this.$store.comit("setParamPage",{})
+	this.$store.commit("setParamPage",{})
   }
 };
 </script>

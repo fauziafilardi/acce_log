@@ -98,7 +98,7 @@
                                     </b-col>
                                 </b-row>
                             </b-col>
-                            <b-col md="6" offset="3" v-else>
+                            <b-col md="6" offset="3" v-else-if="Stype == 'D'">
                                 <b-row>
                                     <b-col>
                                         <span>
@@ -111,6 +111,54 @@
                                             :label = "M_FmFleetMstr.itemLabel"
                                             ref = "ref_item"
                                         />
+                                    </b-col>
+                                </b-row>
+                                <b-row>
+                                    <b-col>
+                                        <span>
+                                            <label>Qty</label>
+                                        </span>
+                                        <ACCTextBox
+                                            :prop = "PI_qty"
+                                            v-model = "M_FmFleetMstr.qty"
+                                            ref = "ref_qty"
+                                        />
+                                    </b-col>
+                                </b-row>
+                                <b-row style="margin-top: 10px;">
+                                    <b-col style="text-align: center">
+                                        <ABSButton
+                                            :text="'Save Item'"
+                                            classButton="btn btn--default"
+                                            classIcon="icon-style-default"
+                                            @click="doSave"
+                                            styleButton="height: 40px;width: 70%;"
+                                        />
+                                    </b-col>
+                                </b-row>
+                            </b-col>
+                            <b-col md="6" offset="3" v-else>
+                                <b-row>
+                                    <b-col v-if="inputStatus == 'new'">
+                                        <span>
+                                            <label>Item Name</label>
+                                        </span>
+                                        <ACCLookUp
+                                            @change = "OnitemChange"
+                                            :prop = "PI_item"
+                                            v-model = "M_FmFleetMstr.item"
+                                            :label = "M_FmFleetMstr.itemLabel"
+                                            ref = "ref_item"
+                                        />
+                                    </b-col>
+                                    <b-col v-else class="row-view">
+                                        <span>
+                                            <label>Item Name</label>
+                                        </span>
+                                        <br>
+                                        <span>
+                                            <label>{{M_FmFleetMstr.itemLabel}}</label>
+                                        </span>
                                     </b-col>
                                 </b-row>
                                 <b-row>
@@ -217,7 +265,7 @@ export default {
                 cProtect: false,
                 cParentForm: "OP_FormFmFleetMstrMaintenanceItem",
                 cOption: [],
-                cDisplayColumn: 'item_cd,item_name',
+                cDisplayColumn: 'item_name',
                 cInputStatus: this.inputStatus
             },
             PI_qty: {
@@ -229,7 +277,7 @@ export default {
                 cProtect: false,
                 cParentForm: "OP_FormFmFleetMstrMaintenanceItem",
                 cDecimal: 2,
-                cInputStatus: this.inputStatus
+                cInputStatus: 'new'
             },
             parentParam: {}
         };
@@ -253,14 +301,19 @@ export default {
             this.$router.go(-1);
         },
         OnitemChange(data) {
-            this.M_FmFleetMstr.item = data.item_cd
-            this.M_FmFleetMstr.itemLabel = data.item_name
+            this.M_FmFleetMstr.item = data.id
+            this.M_FmFleetMstr.itemLabel = data.label
         },
         M_ClearForm() {
             this.M_FmFleetMstr = {
                 item: '',
                 itemLabel: '',
                 qty: ''
+            }
+            this.M_FmFleetMstr_M = {
+                item_cd: '',
+                item_name: '',
+                descs: ''
             }
         },
         doSave() {
@@ -292,14 +345,25 @@ export default {
                     user_input: this.getDataUser().user_id
                 }
             }
-            else {
+            else if (this.Stype == "D") {
                 param = {
                     option_url: "/OP/OP_FleetMaster",
                     line_no: 3,
                     ss_portfolio_id: this.getDataUser().portfolio_id,
                     fm_fleet_mstr_id: this.paramFromList.ForMaintenanceItem.fm_fleet_mstr_id,
                     fm_fleet_maintenance_type_id: this.paramFromList.ForMaintenanceItem.fm_fleet_maintenance_type_id,
-                    item_name: this.M_FmFleetMstr.item,
+                    mm_maintenance_item_id: this.M_FmFleetMstr.item,
+                    item_qty: this.M_FmFleetMstr.qty,
+                    user_input: this.getDataUser().user_id
+                }
+            }
+            else {
+                param = {
+                    option_url: "/OP/OP_MaintenanceType",
+                    line_no: 1,
+                    ss_portfolio_id: this.getDataUser().portfolio_id,
+                    mm_maintenance_type_id: this.paramFromList.ForMaintenanceItem.mm_maintenance_type_id,
+                    mm_maintenance_item_id: this.M_FmFleetMstr.item,
                     item_qty: this.M_FmFleetMstr.qty,
                     user_input: this.getDataUser().user_id
                 }
@@ -327,17 +391,31 @@ export default {
                     user_edit: this.getDataUser().user_id
                 }
             }
-            else {
+            else if (this.Stype == "D") {
                 param = {
                     option_url: "/OP/OP_FleetMaster",
                     line_no: 3,
                     fm_fleet_maintenance_item_id: this.paramFromList.ForMaintenanceItem.row_id,
+                    mm_maintenance_item_id: this.paramFromList.ForMaintenanceItem.mm_maintenance_item_id,
                     ss_portfolio_id: this.getDataUser().portfolio_id,
                     fm_fleet_mstr_id: this.paramFromList.ForMaintenanceItem.fm_fleet_mstr_id,
                     fm_fleet_maintenance_type_id: this.paramFromList.ForMaintenanceItem.fm_fleet_maintenance_type_id,
-                    item_name: this.M_FmFleetMstr.item,
+                    // item_name: this.M_FmFleetMstr.item,
                     item_qty: this.M_FmFleetMstr.qty,
                     lastupdatestamp:this.paramFromList.ForMaintenanceItem.lastupdatestamp,
+                    user_edit: this.getDataUser().user_id
+                }
+            }
+            else {
+                param = {
+                    option_url: "/OP/OP_MaintenanceType",
+                    line_no: 1,
+                    mm_maintenance_type_dtl_id: this.paramFromList.ForMaintenanceItem.row_id,
+                    mm_maintenance_type_id: this.paramFromList.ForMaintenanceItem.mm_maintenance_type_id,
+                    mm_maintenance_item_id: this.paramFromList.ForMaintenanceItem.mm_maintenance_item_id,
+                    ss_portfolio_id: this   .getDataUser().portfolio_id,
+                    item_qty: this.M_FmFleetMstr.qty,
+                    lastupdatestamp: this.paramFromList.ForMaintenanceItem.lastupdatestamp,
                     user_edit: this.getDataUser().user_id
                 }
             }
@@ -371,10 +449,18 @@ export default {
                     lastupdatestamp: this.paramFromList.lastupdatestamp
                 }
             }
-            else {
+            else if (this.Stype == "D") {
                 param = {
                     option_url: "/OP/OP_FleetMaster",
-                    line_no: 2,
+                    line_no: 3,
+                    id: this.paramFromList.ForMaintenanceItem.row_id,
+                    lastupdatestamp: this.paramFromList.ForMaintenanceItem.lastupdatestamp
+                }
+            }
+            else {
+                param = {
+                    option_url: "/OP/OP_MaintenanceType",
+                    line_no: 1,
                     id: this.paramFromList.ForMaintenanceItem.row_id,
                     lastupdatestamp: this.paramFromList.ForMaintenanceItem.lastupdatestamp
                 }
@@ -392,25 +478,39 @@ export default {
                         descs: data.descs__tb_3
                     }
                 }
-                else {
+                else if(this.Stype == 'D') {
                     this.M_FmFleetMstr = {
                         item: data.mm_maintenance_item_id__lo_1,
                         itemLabel: data.item_name__lbl__lo_1,
                         qty: data.item_qty__tb_2
                     }
                 }
+                else {
+                    this.M_FmFleetMstr = {
+                        item: data.item_descs__lbl__lo_1,
+                        itemLabel: data.item_descs__lbl__lo_1,
+                        qty: data.item_qty__tb_2
+                    }
+                }
             });
         },
         CheckType() {
-            if (this.paramFromList.ForMaintenance == null || this.paramFromList.ForMaintenance == undefined) {
+            if (this.paramFromList.ForMaintenanceItem == null || this.paramFromList.ForMaintenanceItem == undefined) {
                 this.Stype = "M"
             } else {
-                if (Object.keys(this.paramFromList.ForMaintenance).length < 1) {
+                if (Object.keys(this.paramFromList.ForMaintenanceItem).length < 1) {
                     this.Stype = "M"
                 } else {
-                    this.Stype = "D"
+                    if (this.paramFromList.ForMaintenanceItem.from_type == true) {
+                        this.Stype = "DD"
+                    }
+                    else {
+                        this.Stype = "D"
+                    }
                 }
             }
+
+            // console.log(this.Stype)
         }
     },
     mounted() {
