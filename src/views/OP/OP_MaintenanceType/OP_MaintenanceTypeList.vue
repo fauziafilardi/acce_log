@@ -35,7 +35,7 @@ export default {
         LineNo: 0,
         PageLevel: 1,
         TabIndex: 1,
-        OrderBy: "",
+        OrderBy: "maintenance_type ASC",
         SourceField: "",
         ParamView: ""
       }

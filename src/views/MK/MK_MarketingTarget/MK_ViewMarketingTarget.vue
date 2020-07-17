@@ -55,7 +55,7 @@
                                     style="height: 22px !important; width: 100% !important; margin-bottom: 5px;"
                                 ></b-form-select> -->
 
-                                <span> {{ paramFromList.marketing_id && paramFromList.marketing_id !== '' ? (paramFromList.marketing_id + ' - ' + paramFromList.marketing_name) : '' }} </span>
+                                <span> {{ paramFromList.marketing_name }} </span>
                             </b-col>
                         </b-row>
                     </b-col>
@@ -79,7 +79,7 @@
                     </b-col>
                 </b-row>
 
-              <div class="table--list" :id="'MarketingTarget'">
+              <div class="table--list" :id="'MarketingTarget'" style="margin-top: 10px">
                 <b-table
                   :responsive="true"
                   :striped="false"

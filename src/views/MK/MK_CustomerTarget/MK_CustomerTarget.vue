@@ -66,7 +66,9 @@ export default {
     doBack() {
       this.$router.go(-1);
     },
-    rowClicked(record, index) {},
+    rowClicked(record, index) {
+      this.doViewClick(record, index)
+    },
     doDoubleClick(record, index) {},
     doViewClick(record, index) {
       var param = record;
@@ -74,7 +76,7 @@ export default {
       this.$store.commit("setParamPage", param);
       this.$router.push({ name: "MK_ViewCustomerTarget" });
     },
-    doViewClick(record, index) {},
+    // doViewClick(record, index) {},
     rowLink(url) {},
     M_PageSize() {},
     M_Pagination() {},

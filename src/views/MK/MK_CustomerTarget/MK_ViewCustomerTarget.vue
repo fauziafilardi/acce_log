@@ -41,7 +41,7 @@
                             </b-col>
                         </b-row>
                     </b-col>
-                    <b-col md="2">
+                    <b-col md="4">
                         <b-row>
                             <b-col style="max-width:fit-content !important;">
                                 Customer &nbsp;&nbsp;
@@ -55,7 +55,7 @@
                                     style="height: 22px !important; width: 100% !important; margin-bottom: 5px;"
                                 ></b-form-select> -->
 
-                                <span> {{ paramFromList.cm_contact_id && paramFromList.cm_contact_id !== '' ? (paramFromList.cm_contact_id + ' - ' + paramFromList.customer_name) : '' }} </span>
+                                <span> {{ paramFromList.customer_name }} </span>
                             </b-col>
                         </b-row>
                     </b-col>
@@ -79,7 +79,7 @@
                     </b-col>
                 </b-row>
 
-              <div class="table--list" :id="'CustomerTarget'">
+              <div class="table--list" :id="'CustomerTarget'" style="margin-top: 10px">
                 <b-table
                   :responsive="true"
                   :striped="false"

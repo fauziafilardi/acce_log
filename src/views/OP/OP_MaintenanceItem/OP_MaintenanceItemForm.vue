@@ -273,7 +273,7 @@ export default {
                 cName: "qty",
                 cOrder: 2,
                 cKey: false,
-                cType: "numeric",
+                cType: "decimal",
                 cProtect: false,
                 cParentForm: "OP_FormFmFleetMstrMaintenanceItem",
                 cDecimal: 2,

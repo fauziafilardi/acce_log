@@ -26,7 +26,7 @@
                     </b-col>
                   </b-row>
                 </b-col>
-                <b-col md="2" class="col-right">
+                <b-col class="col-right" style="max-width: fit-content !important">
                   <span>
                     <ABSButton
                       :text="'Search'"
@@ -83,6 +83,7 @@
                     :fields="fieldHeader"
                     :items="dataList.items"
                     class="table-sm table-style-3"
+                    @row-clicked="viewClicked"
                   >
                     <template v-slot:cell(row_id)="data">
                       <b-button

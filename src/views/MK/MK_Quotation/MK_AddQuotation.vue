@@ -139,7 +139,7 @@
                           ref="ref_date"
                         />
                       </b-col>
-                      <div style="margin-top: 2.5%; width: fit-content;">
+                      <div style="margin-top: 35px; width: fit-content;">
                         <span>
                           -
                         </span>
@@ -284,7 +284,7 @@ export default {
         cParentForm: "MK_AddQuotation",
         cStatic: false,
         cOption: [],
-        cDisplayColumn: "name,phone_no,email,time_edit",
+        cDisplayColumn: "name",
         cInputStatus: this.inputStatus
       },
       PI_quotation_no: {
@@ -350,7 +350,7 @@ export default {
         cName: "extra_charge",
         cOrder: 8,
         cKey: false,
-        cType: "text",
+        cType: "decimal",
         cProtect: false,
         cParentForm: "MK_AddQuotation",
         cDecimal: 2,
@@ -361,7 +361,7 @@ export default {
         cName: "overnight_charge",
         cOrder: 9,
         cKey: false,
-        cType: "text",
+        cType: "decimal",
         cProtect: false,
         cParentForm: "MK_AddQuotation",
         cDecimal: 2,
@@ -399,7 +399,7 @@ export default {
       this.$nextTick(() => {
         this.M_Quotation.customer = data.row_id;
         this.M_Quotation.customerLabel = data.name;
-        this.PI_pic.InitialWhere = " cm_contact_id = '" + data.row_id + "' ";
+        this.PI_pic.dataLookUp.InitialWhere = " cm_contact_id = '" + data.row_id + "' ";
         // this.M_Quotation.fulladdress =
         //   data.address +
         //   ", " +

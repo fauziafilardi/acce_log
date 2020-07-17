@@ -506,8 +506,8 @@ export default {
 
         this.SellingItems = [
           {
-            from_address: data.fr_cm_contact_delivery_address_id && data.fr_cm_contact_delivery_address_id !== '' ? data.fr_cm_contact_delivery_address_id : '',
-            to_address: data.to_cm_contact_delivery_address_id && data.to_cm_contact_delivery_address_id !== '' ? data.to_cm_contact_delivery_address_id : '',
+            from_address: data.from_addr && data.from_addr !== '' ? data.from_addr : '',
+            to_address: data.to_addr && data.to_addr !== '' ? data.to_addr : '',
             from_zone: data.from_zone && data.from_zone !== '' ? data.from_zone : '',
             to_zone: data.to_zone && data.to_zone !== '' ? data.to_zone : '',
             category: data.category && data.category !== '' ? data.category : '',
