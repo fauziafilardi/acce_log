@@ -1241,11 +1241,15 @@ export default {
               {
                 key: "Row Id",
                 value: "Action"
+              },
+              {
+                key: "Ftl",
+                value: "FTL"
+              },
+              {
+                key: "Ltl",
+                value: "LTL"
               }
-              // {
-              //   key: "Pic",
-              //   value: "PIC"
-              // }
             ];
             var isGotIt = false;
             var labelHeader = undefined;

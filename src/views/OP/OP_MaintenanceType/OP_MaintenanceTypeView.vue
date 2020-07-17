@@ -136,7 +136,7 @@
                     </b-row>
                     <b-row class="row-bordered">
                       <b-col>
-                        <div class="table--list" :id="'appointmentList'">
+                        <div class="table--list" :id="'itemList'">
                           <b-table
                             :responsive="true"
                             :striped="false"
@@ -252,19 +252,39 @@ export default {
       this.$router.go(-1);
     },
     doAddItem() {
+      // console.log(this.Stype)
       var param = this.paramFromList
       param.isEdit = false;
-      param.ForMaintenanceItem = {
-        fm_fleet_mstr_id: param.ForMaintenance.fm_fleet_mstr_id,
-        fm_fleet_maintenance_type_id: param.ForMaintenance.row_id
+      if (this.Stype == "M") {
+        param.ForMaintenanceItem = {
+          mm_maintenance_type_id: param.row_id,
+          from_type: true
+        }
+      }
+      else {
+        param.ForMaintenanceItem = {
+          fm_fleet_mstr_id: param.ForMaintenance.fm_fleet_mstr_id,
+          fm_fleet_maintenance_type_id: param.ForMaintenance.row_id,
+          from_type: false
+        }
       }
       this.$store.commit("setParamPage", param);
       this.$router.push({ name: "OP_MaintenanceItemForm" });
     },
     doItemClick(record, index) {
       var param = this.paramFromList;
-      record.fm_fleet_mstr_id = param.row_id;
       param.ForMaintenanceItem = record;
+      if (this.Stype == "M") {
+        param.ForMaintenanceItem.mm_maintenance_type_id = param.row_id
+        param.ForMaintenanceItem.mm_maintenance_item_id = record.mm_maintenance_item_id
+        param.ForMaintenanceItem.from_type = true
+      }
+      else {
+        param.ForMaintenanceItem.fm_fleet_mstr_id = param.ForMaintenance.fm_fleet_mstr_id;
+        param.ForMaintenanceItem.fm_fleet_maintenance_type_id = param.ForMaintenance.row_id
+        param.ForMaintenanceItem.mm_maintenance_item_id = record.mm_maintenance_item_id
+        param.ForMaintenanceItem.from_type = false
+      }
       param.isEdit = true;
       this.$store.commit("setParamPage", param);
       this.$router.push({ name: "OP_MaintenanceItemForm" });
@@ -295,12 +315,29 @@ export default {
       );
     },
     M_DeleteI(i) {
-      var param = {
-        option_url: "/OP/OP_MaintenanceItem",
-        line_no: 0,
-        id: i.row_id,
-        lastupdatestamp: i.lastupdatestamp
-      };
+      // var param = {
+      //   option_url: "/OP/OP_MaintenanceItem",
+      //   line_no: 0,
+      //   id: i.row_id,
+      //   lastupdatestamp: i.lastupdatestamp
+      // };
+      var param = {};
+      if (this.Stype == "M") {
+        param = {
+          option_url: "/OP/OP_MaintenanceType",
+          line_no: 1,
+          id: i.row_id,
+          lastupdatestamp: i.lastupdatestamp
+        };
+      }
+      else {
+        param = {
+          option_url: "/OP/OP_FleetMaster",
+          line_no: 3,
+          id: i.row_id,
+          lastupdatestamp: i.lastupdatestamp
+        };
+      }
       this.deleteJSON(this.getUrlCRUD(), param).then(response => {
         if (response == null) return;
         this.alertSuccess("Data Has Been Deleted").then(() => {
@@ -377,11 +414,9 @@ export default {
       var param = {};
       if (this.Stype == "M") {
         param = {
-            option_function_cd: "GetListFMFleetMaintenanceItem",
+            option_function_cd: "GetListOPMaintenanceTypeDtl",
             module_cd: "OP",
-            ss_portfolio_id: this.getDataUser().portfolio_id,
-        //     fm_fleet_mstr_id: this.paramFromList.fm_fleet_mstr_id,
-            fm_fleet_maintenance_type_id: this.paramFromList.row_id
+            row_id: this.paramFromList.row_id
         };
       }
       else {

@@ -80,7 +80,7 @@ export default {
     this.$refs.ref_OpTicketCategory.doGetList("");
   },
   created() {
-    this.$store.comit("setParamPage", {});
+    this.$store.commit("setParamPage", {});
   }
 };
 </script>

@@ -246,7 +246,7 @@ export default {
     // this.prop.cRowDisable = this.prop.cRowDisable === undefined ? [] : this.prop.cRowDisable
     // this.prop.cHideRowColumnCSS = this.prop.cHideRowColumnCSS ? this.prop.cHideRowColumnCSS : false
     // this.prop.cRowDisable = this.prop.cRowDisable && this.prop.cRowDisable.length > 0 ? this.prop.cRowDisable.length : []
-    this.prop.cInputStatus = this.prop.cInputStatus ? this.prop.cInputStatus : "new"
+    this.prop.cInputStatus = this.prop.cInputStatus !== undefined ? this.prop.cInputStatus : "new"
     this.prop.cStyle = this.prop.cStyle ? this.prop.cStyle : ""
     // this.style += this.prop.cStyle
     this.prop.cPlaceholder = this.prop.cPlaceholder && this.prop.cPlaceholder !== '' ? this.prop.cPlaceholder : ''

@@ -80,7 +80,7 @@ export default {
     this.$refs.ref_FmFleetBrand.doGetList("");
   },
   created() {
-    this.$store.comit("setParamPage", {});
+    this.$store.commit("setParamPage", {});
   }
 };
 </script>

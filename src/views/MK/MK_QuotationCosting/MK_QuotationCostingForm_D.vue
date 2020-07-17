@@ -139,7 +139,7 @@ export default {
                 cName: "value",
                 cOrder: 2,
                 cKey: false,
-                cType: "numeric",
+                cType: "decimal",
                 cProtect: false,
                 cParentForm: "MK_FormMKQuotationCosting",
                 cDecimal: 2,

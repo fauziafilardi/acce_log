@@ -243,7 +243,7 @@ export default {
         cParentForm: "MK_FormMkQuotationLtl",
         cStatic: false,
         cOption: [],
-        cDisplayColumn: "action_type,descs",
+        cDisplayColumn: "descs",
         cInputStatus: this.inputStatus
       },
       PI_kgs_price_amt: {

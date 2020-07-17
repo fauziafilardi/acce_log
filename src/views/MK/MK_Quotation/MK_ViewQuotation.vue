@@ -179,6 +179,7 @@
                               classButton="btn btn--default"
                               classIcon="icon-style-1"
                               @click="doDelete"
+                              :disabled="!isShow"
                             />
                           </span>
                           <span>
@@ -288,6 +289,7 @@
                       <b-col>
                         <ABSButton
                           v-show="is_hide_button"
+                          :disabled="!isShow"
                           :text="'Proposed'"
                           classButton="btn btn--default"
                           classIcon="icon-style-1"
@@ -321,7 +323,7 @@
 
                             <template v-slot:cell(price_amt)="data">
                               <b-row>
-                                <b-col md="1">
+                                <b-col class="col-right">
                                   <font-awesome-icon
                                     v-if="data.item.old_price_amt > data.item.price_amt"
                                     class="icon-style-default"
@@ -334,12 +336,13 @@
                                     icon="arrow-up"
                                     style="color: blue"
                                   />
-                                </b-col>
-                                <b-col style="max-width: fit-content !important;">
+
                                   <span
                                     :style="data.item.old_price_amt > data.item.price_amt ? 'color: red' : 'color: blue'"
-                                  >{{data.item.price_amt}}</span>
+                                  >{{isCurrency(data.item.price_amt, decimal)}}</span>
                                 </b-col>
+                                <!-- <b-col style="max-width: fit-content !important;">
+                                </b-col> -->
                               </b-row>
                             </template>
                           </b-table>
@@ -369,7 +372,7 @@
 
                             <template v-slot:cell(kgs_price_amt)="data">
                               <b-row>
-                                <b-col md="1">
+                                <b-col class="col-right">
                                   <font-awesome-icon
                                     v-if="data.item.old_kgs_price_amt > data.item.kgs_price_amt"
                                     class="icon-style-default"
@@ -382,17 +385,18 @@
                                     icon="arrow-up"
                                     style="color: blue"
                                   />
-                                </b-col>
-                                <b-col style="max-width: fit-content !important;">
+
                                   <span
                                     :style="data.item.old_kgs_price_amt > data.item.kgs_price_amt ? 'color: red' : 'color: blue'"
-                                  >{{data.item.kgs_price_amt}}</span>
+                                  >{{isCurrency(data.item.kgs_price_amt, decimal)}}</span>
                                 </b-col>
+                                <!-- <b-col style="max-width: fit-content !important;">
+                                </b-col> -->
                               </b-row>
                             </template>
                             <template v-slot:cell(cbm_price_amt)="data">
                               <b-row>
-                                <b-col md="1">
+                                <b-col class="col-right">
                                   <font-awesome-icon
                                     v-if="data.item.cbm_price_amt > data.item.cbm_price_amt"
                                     class="icon-style-default"
@@ -405,12 +409,13 @@
                                     icon="arrow-up"
                                     style="color: blue"
                                   />
-                                </b-col>
-                                <b-col style="max-width: fit-content !important;">
+
                                   <span
                                     :style="data.item.cbm_price_amt > data.item.cbm_price_amt ? 'color: red' : 'color: blue'"
-                                  >{{data.item.cbm_price_amt}}</span>
+                                  >{{isCurrency(data.item.cbm_price_amt, decimal)}}</span>
                                 </b-col>
+                                <!-- <b-col style="max-width: fit-content !important;">
+                                </b-col> -->
                               </b-row>
                             </template>
                           </b-table>
@@ -440,7 +445,7 @@
 
                             <template v-slot:cell(price_amt)="data">
                               <b-row>
-                                <b-col md="1">
+                                <b-col class="col-right">
                                   <font-awesome-icon
                                     v-if="data.item.old_price_amt > data.item.price_amt"
                                     class="icon-style-default"
@@ -457,7 +462,7 @@
                                 <b-col style="max-width: fit-content !important;">
                                   <span
                                     :style="data.item.old_price_amt > data.item.price_amt ? 'color: red' : 'color: blue'"
-                                  >{{data.item.price_amt}}</span>
+                                  >{{isCurrency(data.item.price_amt, decimal)}}</span>
                                 </b-col>
                               </b-row>
                             </template>
@@ -491,7 +496,7 @@
 
                             <template v-slot:cell(price_amt)="data">
                               <b-row>
-                                <b-col md="1">
+                                <b-col class="col-right">
                                   <font-awesome-icon
                                     v-if="data.item.old_price_amt > data.item.price_amt"
                                     class="icon-style-default"
@@ -508,7 +513,7 @@
                                 <b-col style="max-width: fit-content !important;">
                                   <span
                                     :style="data.item.old_price_amt > data.item.price_amt ? 'color: red' : 'color: blue'"
-                                  >{{data.item.price_amt}}</span>
+                                  >{{isCurrency(data.item.price_amt, decimal)}}</span>
                                 </b-col>
                               </b-row>
                             </template>
@@ -973,6 +978,7 @@ export default {
   data() {
     return {
       is_hide_button: true,
+      isShow: true,
       M_Quotation: {
         customer: "",
         fulladdress: "",
@@ -1416,13 +1422,13 @@ export default {
       var param = {
         option_url: "/MK/MK_Quotation",
         line_no: 0,
-        mk_quotation_id: this.paramFromList.row_id,
+        id: this.paramFromList.row_id,
         lastupdatestamp: this.paramFromList.lastupdatestamp
       };
 
       this.deleteJSON(this.getUrlCRUD(), param).then(response => {
         if (response == null) return;
-        this.alertSuccess(response.Message).then(() => {
+        this.alertSuccess("Data Has Been Deleted").then(() => {
           this.$refs.Modal_MK_Quotation._hide();
           this.doBack();
         });
@@ -1603,6 +1609,7 @@ export default {
         this.AllData = data;
 
         this.M_Quotation = {
+          portfolio_id: data.ss_portfolio_id,
           customer: data.name,
           fulladdress: data.address,
           address: data.address,
@@ -1655,6 +1662,13 @@ export default {
             this.decimal
           )
         };
+
+        if (data.status == "P") {
+          this.isShow = false
+        }
+        else {
+          this.isShow = true
+        }
 
         this.M_Quotation.body =
           this.M_Quotation.customer +
@@ -1779,7 +1793,7 @@ export default {
         current_page: 1,
         per_page: 1000,
         param_where: "",
-        initial_where: "",
+        initial_where: " ss_portfolio_id = '" + this.M_Quotation.portfolio_id + "' AND referance_no = '" + this.M_Quotation.quotation_no + "'",
         sort_field: "",
         source_field: "",
         param_view: ""
