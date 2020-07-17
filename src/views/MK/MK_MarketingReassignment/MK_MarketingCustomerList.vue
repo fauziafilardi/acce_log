@@ -10,7 +10,7 @@
                   <span>Marketing Reassignment</span>
                 </b-col>
 
-                <b-col md="3">
+                <b-col style="text-align: right;">
                   <b-form-input
                     id="txtSearch"
                     v-model="search"
@@ -24,7 +24,7 @@
                     style="width: 100% !important;"
                   ></b-form-input>
                 </b-col>
-                <b-col md="3" class="col-right">
+                <b-col class="col-right" style="max-width: fit-content !important">
                   <span>
                     <ABSButton
                       :text="'Search'"
