@@ -20,18 +20,20 @@
         </div>
         <div class="card__body">
             <b-table
-            :responsive="true"
-            :striped="false"
-            :bordered="true"
-            :outlined="false"
-            :small="false"
-            :hover="false"
-            :dark="false"
-            :fixed="false"
-            :foot-clone="false"
-            :fields="Quotation.Header"
-            :items="Quotation.Data"
-            thStyle="padding: 5px !important;"
+                :responsive="true"
+                :striped="false"
+                :bordered="true"
+                :outlined="false"
+                :small="false"
+                :hover="false"
+                :dark="false"
+                :fixed="false"
+                :foot-clone="false"
+                :fields="Quotation.Header"
+                :items="Quotation.Data"
+                thStyle="padding: 5px !important;"
+                @row-clicked="viewClicked"
+                style="cursor: pointer;"
             >
                 <template v-slot:cell(no)="data">{{data.index + 1}}</template>
             </b-table>
@@ -81,6 +83,11 @@ export default {
         }
     },
     methods: {
+        viewClicked(record, index) {
+            var param = record;
+            this.$store.commit("setParamPage", param);
+            this.$router.push({ name: "MK_ViewQuotation" });
+        },
         doViewAllQuotation() {
             var url = "MK_Quotation";
             if (!url || url == "" || url == undefined) return;

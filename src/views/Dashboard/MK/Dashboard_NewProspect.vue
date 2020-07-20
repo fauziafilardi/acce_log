@@ -69,7 +69,7 @@
               <b-row>
                 <b-col md="4">
                   <div class="card">
-                    <div class="container">
+                    <!-- <div class="container"> -->
                       <b-col style="text-align: center">
                         <b-col>
                           <span class="buleth-text isGrey" style="font-size:12px;">Target</span>
@@ -80,13 +80,13 @@
                           </h4>
                         </b-col>
                       </b-col>
-                    </div>
+                    <!-- </div> -->
                   </div>
                 </b-col>
 
                 <b-col md="4">
                   <div class="card">
-                    <div class="container">
+                    <!-- <div class="container"> -->
                       <b-col style="text-align: center">
                         <b-col>
                           <span class="buleth-text isGrey" style="font-size:12px;">Achievement</span>
@@ -97,13 +97,13 @@
                           </h4>
                         </b-col>
                       </b-col>
-                    </div>
+                    <!-- </div> -->
                   </div>
                 </b-col>
 
                 <b-col md="4">
                   <div class="card">
-                    <div class="container">
+                    <!-- <div class="container"> -->
                       <b-col style="text-align: center">
                         <b-col>
                           <span class="buleth-text isGrey" style="font-size:12px;">Pending</span>
@@ -114,7 +114,7 @@
                           </h4>
                         </b-col>
                       </b-col>
-                    </div>
+                    <!-- </div> -->
                   </div>
                 </b-col>
               </b-row>
