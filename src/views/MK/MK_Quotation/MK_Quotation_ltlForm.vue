@@ -202,28 +202,7 @@ export default {
         cDisplayColumn: "title,address",
         cInputStatus: this.inputStatus
       },
-      // PI_cm_commodity_id: {
-      //   dataLookUp: {
-      //     LookUpCd: "GetCommodity",
-      //     ColumnDB: "cm_commodity_id",
-      //     InitialWhere: "",
-      //     ParamWhere: "",
-      //     OrderBy: "",
-      //     ParamView: "",
-      //     SourceField: "",
-      //     DisplayLookUp: ""
-      //   },
-      //   cValidate: "",
-      //   cName: "cm_commodity_id",
-      //   cOrder: 3,
-      //   cKey: false,
-      //   cStatic: false,
-      //   cProtect: false,
-      //   cParentForm: "MK_FormMkQuotationLtl",
-      //   cOption: [],
-      //   cDisplayColumn: "",
-      //   cInputStatus: this.inputStatus
-      // },
+
       PI_cm_commodity_id: {
         dataLookUp: {
           LookUpCd: "GetCommodity",
