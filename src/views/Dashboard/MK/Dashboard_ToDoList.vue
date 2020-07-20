@@ -46,11 +46,11 @@
                     <b-col style="text-align: center;padding-top: 9px;" class="bordered" md="2">Status</b-col>
                     <b-col style="text-align: center;padding-top: 9px;" class="bordered" md="3">Customer Name</b-col>
                     <b-col style="text-align: center;padding-top: 9px;" class="bordered" md="2">Last Action</b-col>
-                    <b-col style="text-align: center;padding-top: 9px;" class="bordered" md="3">Next Action</b-col>
-                    <b-col style="text-align: center;padding-top: 9px;" class="bordered" md="2">Action</b-col>
+                    <b-col style="text-align: center;padding-top: 9px;" class="bordered" md="2">Next Action</b-col>
+                    <b-col style="text-align: center;padding-top: 9px;" class="bordered">Action</b-col>
                 </b-row>
                 <b-row class="badgeContent"
-                style="min-width: 640px !important; flex-wrap: unset !important;"
+                style="flex-wrap: unset !important;"
                 v-for="(data, index) in ToDoList"
                 v-bind:key="index">
                     <b-col class="ContentFillBadge bordered" style="text-align: center;" md="2">
@@ -64,9 +64,9 @@
                         <span>{{data.name}}</span>
                     </b-col>
                     <b-col class="contentFill bordered" style="text-align: center;" md="2">
-                        <span>{{data.last_action && data.last_action !== '' ? data.last_action : '-'}}</span>
+                        <span>{{data.last_action && data.last_action !== '' ? momentDateFormatting(data.last_action, 'DD/MM/YYYY') : '-'}}</span>
                     </b-col>
-                    <b-col class="contentFill__nextaction bordered" md="3">
+                    <b-col class="contentFill__nextaction bordered" style="text-align: center;" md="2">
                         <span>
                         <font-awesome-icon
                             v-if="IsWarning(data.next_action)"
@@ -74,10 +74,10 @@
                             icon="exclamation-triangle"
                             size="sm"
                         />
-                        {{ momentDateFormatting(data.next_action,'DD/MM/YYYY')}}
+                        {{ data.next_action && data.next_action !== '' ? momentDateFormatting(data.next_action,'DD/MM/YYYY') : '-'}}
                         </span>
                     </b-col>
-                    <b-col class="contentFill bordered" md="2">
+                    <b-col class="contentFill bordered">
                         <b-row>
                             <b-col style="padding-left: 20% !important; padding-top: 2px;">
                                 <span>
