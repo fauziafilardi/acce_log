@@ -72,7 +72,7 @@
                     <div class="container">
                       <b-col style="text-align: center">
                         <b-col>
-                          <span class="buleth-text isGrey">Target</span>
+                          <span class="buleth-text isGrey" style="font-size:12px;">Target</span>
                         </b-col>
                         <b-col>
                           <h4 class="isGrey">
@@ -89,7 +89,7 @@
                     <div class="container">
                       <b-col style="text-align: center">
                         <b-col>
-                          <span class="buleth-text isGrey">Achievement</span>
+                          <span class="buleth-text isGrey" style="font-size:12px;">Achievement</span>
                         </b-col>
                         <b-col>
                           <h4 class="isGrey">
@@ -106,7 +106,7 @@
                     <div class="container">
                       <b-col style="text-align: center">
                         <b-col>
-                          <span class="buleth-text isGrey">Pending</span>
+                          <span class="buleth-text isGrey" style="font-size:12px;">Pending</span>
                         </b-col>
                         <b-col>
                           <h4 class="isGrey">
