@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="card" style="height: 95%;">
     <div class="card__title">
       <b-row>
         <b-col style="max-width:fit-content !important;">
