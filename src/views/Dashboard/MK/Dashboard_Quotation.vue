@@ -1,5 +1,5 @@
 <template>
-    <div class="card">
+    <div class="card" style="height: 95%;">
         <div class="card__title">
             <b-row>
                 <b-col style="max-width:fit-content !important;">
@@ -52,10 +52,16 @@ export default {
                     tdClass: "ContentTable__Center"
                 },
                 {
-                    key: "name",
+                    key: "customer",
                     label: "Customer",
                     thClass: "HeaderTable",
                     tdClass: "ContentTable"
+                },
+                {
+                    key: "quotation_no",
+                    label: "Quotation No",
+                    thClass: "HeaderTable",
+                    tdClass: "ContentTable__Center"
                 },
                 {
                     key: "quotation_date",
@@ -64,8 +70,8 @@ export default {
                     tdClass: "ContentTable__Center"
                 },
                 {
-                    key: "type",
-                    label: "Type",
+                    key: "status",
+                    label: "Status",
                     thClass: "HeaderTable",
                     tdClass: "ContentTable__Center"
                 }
