@@ -147,7 +147,7 @@
                             :variant="data.item.status == 'New' ? 'primary' : 'success'"
                         >&nbsp;</b-badge>
                         </span>
-                    </b-col>
+                    </b-col> 
                     <b-col style="padding-left: 20% !important; padding-top: 3px;">
                         <span @click="ToDoListEdit(data)" style="cursor:pointer;">
                         <font-awesome-icon
