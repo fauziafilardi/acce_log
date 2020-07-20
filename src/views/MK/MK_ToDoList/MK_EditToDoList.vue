@@ -926,8 +926,8 @@ export default {
         this.M_Appointment.contact_personLabel = data.contact_person;
         this.M_Appointment.contact_person_Label2 =
           data.contact_phone_no + "  " + data.contact_email;
-        // this.M_Appointment.cm_contact_id = this.paramFromList.cm_contact_id;
-        // this.M_Appointment.mk_appointment_id = this.paramFromList.row_id;
+        this.M_Appointment.cm_contact_id = data.cm_contact_id;
+        this.M_Appointment.mk_appointment_id = 0;
         if (data.row_id !== "undefined") {
           this.doGetlist(data.row_id);
         }
@@ -1139,7 +1139,11 @@ export default {
         descs: this.M_Appointment.descs,
         appointment_date: this.M_Appointment.appointment_date,
         appointment_type: "A",
-        next_action_type: this.M_Appointment.next_appointment,
+        next_action_type:
+          this.M_Appointment.next_appointment == null ||
+          this.M_Appointment.next_appointment == ""
+            ? "NULL"
+            : this.M_Appointment.next_appointment,
         next_appointment_date: this.M_Appointment.nappointment_date,
         next_meeting_address: "", //this.M_Appointment.meeting_location,
         next_descs: this.M_Appointment.descs2,
@@ -1151,9 +1155,21 @@ export default {
         status: "N",
         user_input: this.getDataUser().user_id,
         marketing_id: this.M_Appointment.marketing_id,
-        co_marketing_id1: this.M_Appointment.co_marketing1,
-        co_marketing_id2: this.M_Appointment.co_marketing2,
-        lastupdatestamp: this.paramFromList.lastupdatestamp
+        co_marketing_id1:
+          this.M_Appointment.co_marketing1 == null ||
+          this.M_Appointment.co_marketing1 == ""
+            ? "NULL"
+            : this.M_Appointment.co_marketing1,
+        co_marketing_id2:
+          this.M_Appointment.co_marketing2 == null ||
+          this.M_Appointment.co_marketing2 == ""
+            ? "NULL"
+            : this.M_Appointment.co_marketing2,
+        lastupdatestamp:
+          this.paramFromList.lastupdatestamp == null ||
+          this.paramFromList.lastupdatestamp == "undefined"
+            ? 0
+            : this.paramFromList.lastupdatestamp
       };
 
       this.putJSON(this.getUrlCRUD(), param).then(response => {
@@ -1235,6 +1251,7 @@ export default {
           this.M_Appointment.marketing_name = data.marketing_name;
           // console.log(this.M_Appointment);
         });
+        this.doGetlist(this.paramFromList.cm_contact_id);
       });
     },
     doGetCoMarketing() {
@@ -1498,7 +1515,6 @@ export default {
     }
   },
   mounted() {
-    this.doGetlist(0);
     this.doGetCoMarketing();
     if (this.inputStatus == "edit") {
       this.title = "Edit";
@@ -1506,6 +1522,8 @@ export default {
     } else {
       this.title = "Add";
       this.M_Appointment.mk_appointment_id = 0;
+      this.doGetlist(0);
+      this.M_Appointment.appointment_date = this.momentDate(new Date());
     }
   }
 };
