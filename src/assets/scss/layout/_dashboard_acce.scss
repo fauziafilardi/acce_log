@@ -187,6 +187,28 @@
     margin-bottom: 10px;
 }
 
+.badgeHeader_1 {
+    // width: 100%;
+    color: #fff !important;
+    background-color: #333399 !important;
+    min-height: 40px;
+    font-size: 12px;
+    font-weight: 700;
+
+    border-radius: 10px;
+    margin-bottom: 10px;
+    // border-bottom: 2px solid #dee2e6 !important;
+    // border-bottom: unset !important;
+    border-bottom: 5px solid white !important;
+    border-top: unset !important;
+    text-align: center;
+    border-left: 2px solid !important;
+}
+
+.border-white {
+    border-left: 1px solid !important;
+}
+
 .bordered {
     // border-right: 1px solid white;
     border-left: 1px solid white;
@@ -201,6 +223,22 @@
         // margin: auto;
         padding-top: 9px;
         text-align: right;
+    }
+}
+
+.contentFill_1 {
+    // margin: auto;
+    padding-top: 9px !important;
+    border-top: unset !important;
+    border-left: 1px solid white !important;
+    background-color: #e3e7ee;
+    border-bottom: 5px solid white !important;
+
+    // padding: 0.6% 0px 0px 2.5% !important;
+    &__nextaction {
+        // margin: auto;
+        padding-top: 9px !important;
+        text-align: right !important;
     }
 }
 

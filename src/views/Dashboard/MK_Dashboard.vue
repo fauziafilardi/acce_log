@@ -158,6 +158,9 @@ export default {
   },
   mounted() {
     this.renderDash();
+  },
+  created() {
+    this.$store.commit("setParamPage", {});
   }
 };
 </script>
