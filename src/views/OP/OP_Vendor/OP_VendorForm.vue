@@ -306,7 +306,7 @@ export default {
         cInputStatus: this.inputStatus
       },
       PI_phone_no_2: {
-        cValidate: "max:3",
+        cValidate: "max:20",
         cName: "phone_no_2",
         cOrder: 8,
         cKey: false,
@@ -372,7 +372,7 @@ export default {
         cInputStatus: this.inputStatus
       },
       PI_contact_phone_no_2: {
-        cValidate: "max:3",
+        cValidate: "max:20",
         cName: "contact_phone_no_2",
         cOrder: 14,
         cKey: false,

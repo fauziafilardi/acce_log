@@ -100,121 +100,121 @@
             </b-row>
           </b-col>
         </b-row>
-      </div> -->
-        <b-table
-            :responsive="true"
-            :striped="false"
-            :bordered="false"
-            :outlined="false"
-            :small="false"
-            :hover="false"
-            :dark="false"
-            :fixed="false"
-            :foot-clone="false"
-            :fields="ToDoListHeader"
-            :items="ToDoList"
-            thStyle="padding: 5px !important;"
-            @row-clicked="viewClicked"
-        >
-            <template v-slot:cell(no)="data">{{data.index + 1}}</template>
-            <template v-slot:cell(status)="data">
-                <span>
-                    <b-badge
-                        :style="`background-color:`+data.item.status_colour+`; width: 75px; padding: 6px !important; border-radius: 4px !important; font-weight: normal !important;`"
-                    >{{data.item.status}}</b-badge>
-                </span>
-            </template>
-            <template v-slot:cell(last_action)="data">
-                <span>{{data.item.last_action && data.item.last_action !== '' ? momentDateFormatting(data.item.last_action, 'DD/MM/YYYY') : '-'}}</span>
-            </template>
-            <template v-slot:cell(next_action)="data">
-                <span>
-                    <font-awesome-icon
-                        v-if="IsWarning(data.item.next_action)"
-                        style="color: red;"
-                        icon="exclamation-triangle"
-                        size="sm"
-                    />
-                    {{ data.item.next_action && data.item.next_action !== '' ? momentDateFormatting(data.item.next_action,'DD/MM/YYYY') : '-'}}
-                </span>
-            </template>
-            <template v-slot:cell(action)="data">
-                <b-row>
-                    <b-col style="padding-left: 20% !important; padding-top: 2px;">
-                        <span>
-                        <b-badge
-                            style="width: 15px; height: 15px; padding: 6px !important; border-radius: 15px !important;"
-                            :variant="data.item.status == 'New' ? 'primary' : 'success'"
-                        >&nbsp;</b-badge>
-                        </span>
-                    </b-col> 
-                    <b-col style="padding-left: 20% !important; padding-top: 3px;">
-                        <span @click="ToDoListEdit(data)" style="cursor:pointer;">
-                        <font-awesome-icon
-                            class="icon-style-default"
-                            :icon="data.item.action=='C' ? 'phone-square-alt' : (data.item.action=='V' ? 'hand-paper' : 'utensils')"
-                            size="lg"
-                        />
-                        </span>
-                    </b-col>
-                </b-row>
-            </template>
+      </div>-->
+      <b-table
+        :responsive="true"
+        :striped="false"
+        :bordered="false"
+        :outlined="false"
+        :small="false"
+        :hover="false"
+        :dark="false"
+        :fixed="false"
+        :foot-clone="false"
+        :fields="ToDoListHeader"
+        :items="ToDoList"
+        thStyle="padding: 5px !important;"
+        @row-clicked="viewClicked"
+      >
+        <template v-slot:cell(no)="data">{{data.index + 1}}</template>
+        <template v-slot:cell(status)="data">
+          <span>
+            <b-badge
+              :style="`background-color:`+data.item.status_colour+`; width: 75px; padding: 6px !important; border-radius: 4px !important; font-weight: normal !important;`"
+            >{{data.item.status}}</b-badge>
+          </span>
+        </template>
+        <template v-slot:cell(last_action)="data">
+          <span>{{data.item.last_action && data.item.last_action !== '' ? momentDateFormatting(data.item.last_action, 'DD/MM/YYYY') : '-'}}</span>
+        </template>
+        <template v-slot:cell(next_action)="data">
+          <span>
+            <font-awesome-icon
+              v-if="IsWarning(data.item.next_action)"
+              style="color: red;"
+              icon="exclamation-triangle"
+              size="sm"
+            />
+            {{ data.item.next_action && data.item.next_action !== '' ? momentDateFormatting(data.item.next_action,'DD/MM/YYYY') : '-'}}
+          </span>
+        </template>
+        <template v-slot:cell(action)="data">
+          <b-row>
+            <b-col style="padding-left: 20% !important; padding-top: 2px;">
+              <span>
+                <b-badge
+                  style="width: 15px; height: 15px; padding: 6px !important; border-radius: 15px !important;"
+                  :variant="data.item.status == 'New' ? 'primary' : 'success'"
+                >&nbsp;</b-badge>
+              </span>
+            </b-col>
+            <b-col style="padding-left: 20% !important; padding-top: 3px;">
+              <span @click="ToDoListEdit(data)" style="cursor:pointer;">
+                <font-awesome-icon
+                  class="icon-style-default"
+                  :icon="data.item.action=='C' ? 'phone-square-alt' : (data.item.action=='V' ? 'hand-paper' : 'utensils')"
+                  size="lg"
+                />
+              </span>
+            </b-col>
+          </b-row>
+        </template>
 
-            <!-- <template v-slot:cell(no)="data">{{data.index + 1}}</template> -->
-        </b-table>
+        <!-- <template v-slot:cell(no)="data">{{data.index + 1}}</template> -->
+      </b-table>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-    data() {
-        return {
-            ToDoListHeader: [
-                {
-                    key: "no",
-                    label: "No",
-                    thClass: "badgeHeader_1",
-                    tdClass: "ContentTable__Center contentFill_1"
-                },
-                {
-                    key: "status",
-                    label: "Status",
-                    thClass: "badgeHeader_1 border-white",
-                    tdClass: "ContentTable__Center contentFill_1"
-                },
-                {
-                    key: "name",
-                    label: "Customer Name",
-                    thClass: "badgeHeader_1 border-white",
-                    tdClass: "ContentTable contentFill_1"
-                },
-                {
-                    key: "last_action",
-                    label: "Last Action",
-                    thClass: "badgeHeader_1 border-white",
-                    tdClass: "ContentTable__Center contentFill_1"
-                },
-                {
-                    key: "next_action",
-                    label: "Next Action",
-                    thClass: "badgeHeader_1 border-white",
-                    tdClass: "ContentTable__Center contentFill_1"
-                },
-                {
-                    key: "action",
-                    label: "Action",
-                    thClass: "badgeHeader_1 border-white",
-                    tdClass: "ContentTable__Center contentFill_1"
-                }
-            ],
-            ToDoList: [],
+  data() {
+    return {
+      ToDoListHeader: [
+        {
+          key: "no",
+          label: "No",
+          thClass: "badgeHeader_1",
+          tdClass: "ContentTable__Center contentFill_1"
+        },
+        {
+          key: "status",
+          label: "Status",
+          thClass: "badgeHeader_1 border-white",
+          tdClass: "ContentTable__Center contentFill_1"
+        },
+        {
+          key: "name",
+          label: "Customer Name",
+          thClass: "badgeHeader_1 border-white",
+          tdClass: "ContentTable contentFill_1"
+        },
+        {
+          key: "last_action",
+          label: "Last Action",
+          thClass: "badgeHeader_1 border-white",
+          tdClass: "ContentTable__Center contentFill_1"
+        },
+        {
+          key: "next_action",
+          label: "Next Action",
+          thClass: "badgeHeader_1 border-white",
+          tdClass: "ContentTable__Center contentFill_1"
+        },
+        {
+          key: "action",
+          label: "Action",
+          thClass: "badgeHeader_1 border-white",
+          tdClass: "ContentTable__Center contentFill_1"
         }
-    },
-    methods: {
-        IsWarning(date) {
-            var arrDate = date.split("/");
-            date = arrDate[1] + "/" + arrDate[0] + "/" + arrDate[2];
+      ],
+      ToDoList: []
+    };
+  },
+  methods: {
+    IsWarning(date) {
+      var arrDate = date.split("/");
+      date = arrDate[1] + "/" + arrDate[0] + "/" + arrDate[2];
 
       var next_action = new Date(date);
       var now = new Date();
@@ -240,6 +240,9 @@ export default {
       param.isView = true;
       this.$store.commit("setParamPage", param);
       this.$router.push({ name: "MK_EditToDoList" });
+    },
+    viewClicked(record, index) {
+      this.ToDoListEdit(record);
     },
     ToDoListEdit(data) {
       console.log(JSON.stringify(data, null, 2));

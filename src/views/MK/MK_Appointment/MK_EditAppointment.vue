@@ -7,7 +7,7 @@
             <div class="card__title">
               <b-row>
                 <b-col style="max-width:fit-content !important;">
-                  <span>Appointment</span>
+                  <span>Log Book</span>
                 </b-col>
                 <b-col style="text-align: right;">
                   <ABSButton
@@ -30,56 +30,75 @@
                   </b-col>
                   <b-col md="10">
                     <b-row>
-                      <b-col>
-                        <span>{{ M_Dt_Appointment.name }}</span>
-                        <br />
-                        <span>
-                          <font-awesome-icon
-                            class="icon-style-default"
-                            icon="map-marker-alt"
-                            size="sm"
+                      <b-col md="6">
+                        <div v-if="inputStatus=='new'">
+                          <span>
+                            <label>Select Company</label>
+                          </span>
+                          <ACCLookUp
+                            @change="Onmk_customer_idChange"
+                            :prop="PI_mk_customer_id"
+                            v-model="M_Appointment.mk_customer_id"
+                            :label="M_Appointment.mk_customer_idLabel"
+                            ref="ref_mk_customer_id"
                           />
-                          &nbsp;
-                          {{ M_Dt_Appointment.address }}
-                        </span>
-                        <br />
-                        <span>
-                          <font-awesome-icon
-                            class="icon-style-default"
-                            icon="phone-square-alt"
-                            size="sm"
-                          />
-                          {{ M_Dt_Appointment.phone_no }}
-                        </span> &nbsp;
-                        <span>
-                          <font-awesome-icon class="icon-style-default" icon="envelope" size="sm" />
-                          {{ M_Dt_Appointment.email }}
-                        </span> &nbsp;
-                        <span>
-                          <font-awesome-icon
-                            class="icon-style-default"
-                            icon="globe-americas"
-                            size="sm"
-                          />
-                          {{ M_Dt_Appointment.website }}
-                        </span>
-                        <br />
-                        <span>
-                          <font-awesome-icon class="icon-style-default" icon="user" size="sm" />
-                          {{ M_Dt_Appointment.pic }}
-                        </span> &nbsp;
-                        <span>
-                          <font-awesome-icon
-                            class="icon-style-default"
-                            icon="phone-square-alt"
-                            size="sm"
-                          />
-                          {{ M_Dt_Appointment.pic_phone_no }}
-                        </span>
+                        </div>
+
+                        <div v-else>
+                          <span>{{ M_Dt_Appointment.name }}</span>
+                          <br />
+                          <span>
+                            <font-awesome-icon
+                              class="icon-style-default"
+                              icon="map-marker-alt"
+                              size="sm"
+                            />
+                            &nbsp;
+                            {{ M_Dt_Appointment.address }}
+                          </span>
+                          <br />
+                          <span>
+                            <font-awesome-icon
+                              class="icon-style-default"
+                              icon="phone-square-alt"
+                              size="sm"
+                            />
+                            {{ M_Dt_Appointment.phone_no }}
+                          </span> &nbsp;
+                          <span>
+                            <font-awesome-icon
+                              class="icon-style-default"
+                              icon="envelope"
+                              size="sm"
+                            />
+                            {{ M_Dt_Appointment.email }}
+                          </span> &nbsp;
+                          <span>
+                            <font-awesome-icon
+                              class="icon-style-default"
+                              icon="globe-americas"
+                              size="sm"
+                            />
+                            {{ M_Dt_Appointment.website }}
+                          </span>
+                          <br />
+                          <span>
+                            <font-awesome-icon class="icon-style-default" icon="user" size="sm" />
+                            {{ M_Dt_Appointment.pic }}
+                          </span> &nbsp;
+                          <span>
+                            <font-awesome-icon
+                              class="icon-style-default"
+                              icon="phone-square-alt"
+                              size="sm"
+                            />
+                            {{ M_Dt_Appointment.pic_phone_no }}
+                          </span>
+                        </div>
                       </b-col>
                     </b-row>
                     <hr style="border: solid 1px #ced4da;" />
-                    <b-row style="margin-top: 10px; margin-bottom: 10px;">
+                    <!-- <b-row style="margin-top: 10px; margin-bottom: 10px;">
                       <b-col>
                         <span>
                           <font-awesome-icon class="icon-style-default" icon="user" size="lg" />
@@ -87,7 +106,7 @@
                         </span>
                         <br />
                       </b-col>
-                    </b-row>
+                    </b-row>-->
                     <b-row class="my-1" style="margin-top: 5px;">
                       <b-col sm="6">
                         <span>
@@ -102,11 +121,41 @@
                         />
                       </b-col>
                       <b-col sm="6">
-                        <br />
+                        <b-row>
+                          <b-col md="4">
+                            <span>
+                              <label>Last Action Date</label>
+                            </span>
+                            <br />
+                            <span>
+                              <label>{{M_Appointment.last_action_date}}</label>
+                            </span>
+                          </b-col>
+                          <b-col md="4">
+                            <span>
+                              <label>Appointment Date</label>
+                            </span>
+                            <br />
+                            <span>
+                              <label>{{momentDateFormatting(M_Appointment.appointment_date, 'DD/MM/YYYY HH:mm')}}</label>
+                            </span>
+                          </b-col>
+                          <b-col md="4">
+                            <span>
+                              <label>Marketing Name</label>
+                            </span>
+                            <br />
+                            <span>
+                              <label>{{M_Appointment.marketing_name}}</label>
+                            </span>
+                          </b-col>
+                        </b-row>
+
+                        <!-- <br />
                         <br />
                         <span>
                           <label>Last Action Date : {{M_Appointment.last_action_date}}</label>
-                        </span>
+                        </span>-->
                       </b-col>
                     </b-row>
                     <b-row style="margin-top: 5px;">
@@ -127,7 +176,6 @@
                           ref="ref_contact_person"
                         />
                         <ACCTextBox
-                          @input="fn_kosong"
                           :prop="PI_contact_person_label"
                           v-model="M_Appointment.contact_person_Label2"
                           ref="mref_contact_person_label2"
@@ -167,6 +215,32 @@
                           :prop="PI_descs2"
                           v-model="M_Appointment.descs2"
                           ref="ref_descs2"
+                        />
+                      </b-col>
+                    </b-row>
+                    <b-row>
+                      <b-col md="6">
+                        <span>
+                          <label>Co Marketing I</label>
+                        </span>
+                        <ACCDropDown
+                          @change="Onco_marketing1Change"
+                          :prop="PI_co_marketing1"
+                          v-model="M_Appointment.co_marketing1"
+                          :label="M_Appointment.co_marketing1Label"
+                          ref="ref_co_marketing1"
+                        />
+                      </b-col>
+                      <b-col md="6">
+                        <span>
+                          <label>Co Marketing II</label>
+                        </span>
+                        <ACCDropDown
+                          @change="Onco_marketing2Change"
+                          :prop="PI_co_marketing2"
+                          v-model="M_Appointment.co_marketing2"
+                          :label="M_Appointment.co_marketing2Label"
+                          ref="ref_co_marketing2"
                         />
                       </b-col>
                     </b-row>
@@ -475,6 +549,7 @@ export default {
         SourceField: "",
         ParamView: ""
       },
+      dataCoMarketing: [],
 
       //For List
       WithViewButton: false,
@@ -523,8 +598,10 @@ export default {
 
       M_Appointment: {
         customer: "",
+        mk_customer_id: "",
+        mk_customer_idLabel: "",
         customerLabel: "",
-        action: "",
+        action: "C",
         actionLabel: "",
         contact_person: "",
         contact_personLabel: "",
@@ -534,11 +611,44 @@ export default {
         meeting_location: "",
         descs: "",
         descs2: "",
+        co_marketing1: "",
+        co_marketing1Label: "",
+        co_marketing2: "",
+        co_marketing2Label: "",
         next_appointment: "",
         next_appointmentLabel: "",
         next_contact_person: "",
         next_contact_personLabel: "",
-        last_action_date: null
+        last_action_date: null,
+        marketing_name: "",
+        marketing_id: ""
+      },
+      PI_mk_customer_id: {
+        dataLookUp: {
+          LookUpCd: "GetMkLogbookCustomer",
+          ColumnDB: "contact_id",
+          InitialWhere:
+            "ss_portfolio_id='" +
+            this.getDataUser().portfolio_id +
+            "' AND marketing_user_id='" +
+            this.getDataUser().user_id +
+            "' ",
+          ParamWhere: "",
+          OrderBy: "",
+          ParamView: "",
+          SourceField: "",
+          DisplayLookUp: ""
+        },
+        cValidate: "",
+        cName: "mk_customer_id",
+        cOrder: 1,
+        cKey: false,
+        cStatic: false,
+        cProtect: false,
+        cParentForm: "MK_EditAppointment",
+        cOption: [],
+        cDisplayColumn: "cm_zone_id,zone_code",
+        cInputStatus: this.inputStatus
       },
       PI_action: {
         dataLookUp: null,
@@ -571,7 +681,7 @@ export default {
       PI_contact_person_label: {
         cValidate: "",
         cName: "contact_person_Label2",
-        cOrder: 1,
+        cOrder: 2,
         cKey: false,
         cType: "text",
         cProtect: true,
@@ -615,12 +725,38 @@ export default {
         cParentForm: "MK_EditAppointment",
         cInputStatus: this.inputStatus
       },
+      PI_co_marketing1: {
+        dataLookUp: null,
+        cValidate: "",
+        cName: "co_marketing1",
+        ckey: false,
+        cOrder: 4,
+        cProtect: false,
+        cParentForm: "MK_EditAppointment",
+        cStatic: true,
+        cOption: [{}],
+        cDisplayColumn: "name",
+        cInputStatus: this.inputStatus
+      },
+      PI_co_marketing2: {
+        dataLookUp: null,
+        cValidate: "",
+        cName: "co_marketing2",
+        ckey: false,
+        cOrder: 4,
+        cProtect: false,
+        cParentForm: "MK_EditAppointment",
+        cStatic: true,
+        cOption: [{}],
+        cDisplayColumn: "name",
+        cInputStatus: this.inputStatus
+      },
       PI_next_appointment: {
         dataLookUp: null,
         cValidate: "",
         cName: "next_appointment",
         ckey: false,
-        cOrder: 4,
+        cOrder: 6,
         cProtect: false,
         cParentForm: "MK_EditAppointment",
         cStatic: true,
@@ -635,31 +771,18 @@ export default {
       PI_appointment_date: {
         cValidate: "",
         cName: "nappointment_date",
-        cOrder: 5,
+        cOrder: 7,
         cKey: false,
         cProtect: false,
         cWithTime: true,
         cFormat: "dd/MM/yyyy",
         cParentForm: "MK_EditAppointment"
       },
-      // PI_meeting_location: {
-      //   cValidate: "",
-      //   cName: "meeting_location",
-      //   cOrder: 5,
-      //   cKey: false,
-      //   cProtect: false,
-      //   cResize: false,
-      //   cReadonly: false,
-      //   cRows: 1,
-      //   cMaxRows: 2,
-      //   cSize: "md",
-      //   cParentForm: "MK_EditAppointment",
-      //   cInputStatus: this.inputStatus
-      // },
+
       PI_descs: {
         cValidate: "",
         cName: "descs",
-        cOrder: 6,
+        cOrder: 8,
         cKey: false,
         cProtect: false,
         cResize: false,
@@ -684,7 +807,7 @@ export default {
         cValidate: "required",
         cName: "next_contact_person",
         ckey: false,
-        cOrder: 7,
+        cOrder: 9,
         cProtect: false,
         cParentForm: "MK_AddAppointment",
         cStatic: false,
@@ -728,7 +851,7 @@ export default {
           cInputStatus: this.inputStatus
         },
         PI_contact_phone_no_2: {
-          cValidate: "max:3",
+          cValidate: "max:20",
           cName: "contact_phone_no_2",
           cOrder: 4,
           cKey: false,
@@ -789,16 +912,7 @@ export default {
   computed: {
     paramFromList() {
       var param = this.$store.getters.getParamPage;
-      if (param == null || param == undefined) {
-        this.doBack();
-      } else {
-        if (Object.keys(param).length < 1) {
-          this.doBack();
-        } else {
-          console.log(param);
-          return param;
-        }
-      }
+      return param;
     },
     inputStatus() {
       var param = this.$store.getters.getParamPage;
@@ -810,7 +924,25 @@ export default {
     }
   },
   methods: {
-    fn_kosong() {},
+    Onmk_customer_idChange(data) {
+      this.$nextTick(() => {
+        console.log(data);
+        this.M_Appointment.mk_customer_id = data.row_id;
+        this.M_Appointment.mk_customer_idLabel = data.name;
+        this.M_Appointment.last_action_date = data.last_action_date;
+        this.M_Appointment.marketing_name = data.marketing_name;
+        this.M_Appointment.contact_person = data.cm_contact_person_id;
+        this.M_Appointment.contact_personLabel = data.contact_person;
+        this.M_Appointment.contact_person_Label2 =
+          data.contact_phone_no + "  " + data.contact_email;
+        this.M_Appointment.cm_contact_id = data.cm_contact_id;
+        this.M_Appointment.mk_appointment_id = 0;
+        if (data.row_id !== "undefined") {
+          this.doGetlist(data.row_id);
+        }
+      });
+      this.$forceUpdate();
+    },
     CancelModal() {
       this.$refs.Modal_PIC._hide();
       this.M_ClearPIC();
@@ -907,18 +1039,33 @@ export default {
       this.$nextTick(() => {
         this.M_Appointment.contact_person = data.id;
         this.M_Appointment.contact_personLabel = data.label;
-        this.M_Appointment.contact_person_label2 =
+        this.M_Appointment.contact_person_Label2 =
           data.phone_no +
           "  " +
           data.email +
           "  " +
           (data.position == null ? "" : data.position); // data.position;
       });
+
+      this.$forceUpdate();
     },
     Oncontact_personChange2(data) {
       this.$nextTick(() => {
         this.M_Appointment.next_contact_person = data.id;
         this.M_Appointment.next_contact_personLabel = data.label;
+      });
+      this.$forceUpdate();
+    },
+    Onco_marketing2Change(data) {
+      this.$nextTick(() => {
+        this.M_Appointment.co_marketing2 = data.id;
+        this.M_Appointment.co_marketing2Label = data.label;
+      });
+    },
+    Onco_marketing1Change(data) {
+      this.$nextTick(() => {
+        this.M_Appointment.co_marketing1 = data.id;
+        this.M_Appointment.co_marketing1Label = data.label;
       });
     },
     Onnext_appointmentChange(data) {
@@ -938,7 +1085,7 @@ export default {
       this.M_Appointment = {
         customer: "",
         customerLabel: "",
-        action: "",
+        action: "C",
         actionLabel: "",
         contact_person: "",
         contact_personLabel: "",
@@ -949,7 +1096,9 @@ export default {
         descs2: "",
         next_appointment: "",
         next_appointmentLabel: "",
-        contact_person_Label2: ""
+        contact_person_Label2: "",
+        marketing_name: "",
+        marketing_id: ""
       };
 
       this.M_Dt_Appointment = {
@@ -990,16 +1139,20 @@ export default {
         option_url: "/MK/MK_Appointment",
         line_no: 0,
 
-        mk_appointment_id: this.paramFromList.row_id,
+        mk_appointment_id: this.M_Appointment.mk_appointment_id,
         ss_portfolio_id: this.getDataUser().portfolio_id,
-        cm_contact_id: this.paramFromList.cm_contact_id,
+        cm_contact_id: this.M_Appointment.cm_contact_id,
         cm_contact_person_id: this.M_Appointment.contact_person,
         action_type: this.M_Appointment.action,
         meeting_address: "", //this.M_Dt_Appointment.addr,
         descs: this.M_Appointment.descs,
         appointment_date: this.M_Appointment.appointment_date,
         appointment_type: "A",
-        next_action_type: this.M_Appointment.next_appointment,
+        next_action_type:
+          this.M_Appointment.next_appointment == null ||
+          this.M_Appointment.next_appointment == ""
+            ? "NULL"
+            : this.M_Appointment.next_appointment,
         next_appointment_date: this.M_Appointment.nappointment_date,
         next_meeting_address: "", //this.M_Appointment.meeting_location,
         next_descs: this.M_Appointment.descs2,
@@ -1010,7 +1163,22 @@ export default {
             : this.M_Appointment.next_contact_person,
         status: "N",
         user_input: this.getDataUser().user_id,
-        lastupdatestamp: this.paramFromList.lastupdatestamp
+        marketing_id: this.M_Appointment.marketing_id,
+        co_marketing_id1:
+          this.M_Appointment.co_marketing1 == null ||
+          this.M_Appointment.co_marketing1 == ""
+            ? "NULL"
+            : this.M_Appointment.co_marketing1,
+        co_marketing_id2:
+          this.M_Appointment.co_marketing2 == null ||
+          this.M_Appointment.co_marketing2 == ""
+            ? "NULL"
+            : this.M_Appointment.co_marketing2,
+        lastupdatestamp:
+          this.paramFromList.lastupdatestamp == null ||
+          this.paramFromList.lastupdatestamp == "undefined"
+            ? 0
+            : this.paramFromList.lastupdatestamp
       };
 
       this.putJSON(this.getUrlCRUD(), param).then(response => {
@@ -1035,58 +1203,97 @@ export default {
 
         var data = response.Data[0];
 
-        this.M_Dt_Appointment = {
-          mk_appointment_id: data.mk_appointment_id,
-          name: data.name,
-          address:
-            data.address +
-            ", " +
-            data.district +
-            ", " +
-            data.city +
-            ", " +
-            data.province +
-            " - " +
-            data.country,
-          addr: data.address,
-          country: data.country,
-          province: data.province,
-          city: data.city,
-          district: data.district,
-          email: data.email,
-          website: data.website,
-          phone_no: data.phone_no,
-          pic: data.pic,
-          pic_phone_no: data.contact_phone_no
-        };
+        this.$nextTick(() => {
+          this.M_Dt_Appointment = {
+            mk_appointment_id: data.mk_appointment_id,
+            name: data.name,
+            address:
+              data.address +
+              ", " +
+              data.district +
+              ", " +
+              data.city +
+              ", " +
+              data.province +
+              " - " +
+              data.country,
+            addr: data.address,
+            country: data.country,
+            province: data.province,
+            city: data.city,
+            district: data.district,
+            email: data.email,
+            website: data.website,
+            phone_no: data.phone_no,
+            pic: data.pic,
+            pic_phone_no: data.contact_phone_no
+          };
 
-        this.M_Appointment = {
-          action: data.action_type,
-          actionLabel: data.action_type,
-          contact_person: data.cm_contact_person_id,
-          contact_personLabel: data.contact_person_name,
-          next_contact_person: data.cm_contact_person_id,
-          next_contact_personLabel: data.contact_person_name,
-          contact_person_Label2:
-            data.contact_phone_no +
-            "  " +
-            data.contact_email +
-            "  " +
-            (data.contact_position == null ? "" : data.contact_position),
-          appointment_date: data.appointment_date,
-          meeting_location: data.next_meeting_address,
-          descs2: data.descs,
-          descs: "", //data.next_descs,
-          next_appointment: data.next_action_type,
-          next_appointmentLabel: data.next_action_type,
-          last_action_date:
-            data.last_action_date == null
-              ? ""
-              : this.momentDate(data.last_action_date),
-          nappointment_date: this.momentDate(new Date())
-        };
-        console.log(this.M_Appointment);
-        this.doGetlist(this.search);
+          this.M_Appointment = {
+            action: data.action_type,
+            actionLabel: data.action_type,
+            contact_person: data.cm_contact_person_id,
+            contact_personLabel: data.contact_person_name,
+            next_contact_person: data.cm_contact_person_id,
+            next_contact_personLabel: data.contact_person_name,
+            contact_person_Label2:
+              data.contact_phone_no +
+              "  " +
+              data.contact_email +
+              "  " +
+              (data.contact_position == null ? "" : data.contact_position),
+            appointment_date: data.appointment_date,
+            meeting_location: data.next_meeting_address,
+            descs2: data.descs,
+            descs: "", //data.next_descs,
+            next_appointment: data.next_action_type,
+            next_appointmentLabel: data.next_action_type,
+            last_action_date:
+              data.last_action_date == null
+                ? ""
+                : this.momentDateFormatting(
+                    data.last_action_date,
+                    "DD/MM/YYYY HH:mm"
+                  ),
+            nappointment_date: this.momentDate(new Date())
+          };
+          this.M_Appointment.cm_contact_id = this.paramFromList.cm_contact_id;
+          this.M_Appointment.mk_appointment_id = this.paramFromList.row_id;
+          this.M_Appointment.marketing_id = data.marketing_id;
+          this.M_Appointment.marketing_name = data.marketing_name;
+          // console.log(this.M_Appointment);
+        });
+        this.doGetlist(this.paramFromList.cm_contact_id);
+      });
+    },
+    doGetCoMarketing() {
+      var param = {
+        option_function_cd: "GetLookupMarketingTeam",
+        module_cd: "MK",
+        ss_portfolio_id: this.getDataUser().portfolio_id,
+        user_id: this.getDataUser().user_id
+      };
+      this.CallFunction(param).then(ress => {
+        if (ress == null) return;
+        this.dataCoMarketing = [];
+        var now = new Date();
+        for (let i = 0; i < ress.Data.length; i++) {
+          var next_action = new Date(ress.Data[i].next_action);
+          // console.log(next_action);
+          this.PI_co_marketing2.cOption.push({
+            id: ress.Data[i].marketing_id,
+            label: ress.Data[i].marketing_name
+          });
+          this.PI_co_marketing1.cOption.push({
+            id: ress.Data[i].marketing_id,
+            label: ress.Data[i].marketing_name
+          });
+          // this.dataCoMarketing.push({
+          //   id: ress.Data[i].marketing_id,
+          //   label: ress.Data[i].marketing_name
+          // });
+        }
+        this.$forceUpdate();
       });
     },
     doGetlist(search) {
@@ -1098,8 +1305,8 @@ export default {
         subportfolio_id: this.getDataUser().subportfolio_id,
         current_page: this.currentPage,
         per_page: this.perPage,
-        param_where: search,
-        initial_where: " cm_contact_id = " + this.paramFromList.cm_contact_id,
+        param_where: "",
+        initial_where: "cm_contact_id = " + search,
         sort_field: this.sort,
         source_field: this.propList.SourceField,
         param_view: this.propList.ParamView
@@ -1320,8 +1527,16 @@ export default {
     }
   },
   mounted() {
-    this.M_ClearForm();
-    this.GetDataBy();
+    this.doGetCoMarketing();
+    if (this.inputStatus == "edit") {
+      this.title = "Edit";
+      this.GetDataBy();
+    } else {
+      this.title = "Add";
+      this.M_Appointment.mk_appointment_id = 0;
+      this.doGetlist(0);
+      this.M_Appointment.appointment_date = this.momentDate(new Date());
+    }
   }
 };
 </script>

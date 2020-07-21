@@ -728,7 +728,7 @@ export default {
           cInputStatus: this.inputStatus
         },
         PI_contact_phone_no_2: {
-          cValidate: "max:3",
+          cValidate: "max:20",
           cName: "contact_phone_no_2",
           cOrder: 4,
           cKey: false,

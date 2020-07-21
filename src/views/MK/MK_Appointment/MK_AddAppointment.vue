@@ -75,7 +75,7 @@
                           :prop="PI_contact_person"
                           v-model="M_Appointment.contact_person"
                           ref="ref_contact_person"
-                        /> -->
+                        />-->
                         <ACCLookUp
                           @change="Oncontact_personChange"
                           :prop="PI_contact_person"
@@ -213,7 +213,11 @@
                                 <span>
                                   <label>Email</label>
                                 </span>
-                                <ACCTextBox :prop="MForm.PI_email" v-model="M_Pic.email" ref="mref_email_modal" />
+                                <ACCTextBox
+                                  :prop="MForm.PI_email"
+                                  v-model="M_Pic.email"
+                                  ref="mref_email_modal"
+                                />
                               </b-col>
                             </b-row>
                             <b-row style="margin-top: 10px;">
@@ -400,7 +404,7 @@ export default {
           cInputStatus: this.inputStatus
         },
         PI_contact_phone_no_2: {
-          cValidate: "max:3",
+          cValidate: "max:20",
           cName: "contact_phone_no_2",
           cOrder: 14,
           cKey: false,
@@ -442,7 +446,7 @@ export default {
         cm_contact_id: "",
         cm_contact_person_id: "",
         lastupdatestamp: ""
-      },
+      }
     };
   },
   computed: {
@@ -480,9 +484,8 @@ export default {
         this.M_ClearPIC();
         this.inputStatus = "new";
         this.$refs.Modal_PIC._show();
-      }
-      else {
-        this.alertError("Please Select Customer First !")
+      } else {
+        this.alertError("Please Select Customer First !");
       }
     },
     SaveModal() {
@@ -518,11 +521,11 @@ export default {
         // console.log(response); return;
         if (response == null) return;
         this.alertSuccess(response.Message).then(() => {
-          var dtrow = response.Data[0].row_id
-          this.M_Appointment.contact_person = dtrow
-          this.M_Appointment.contact_personLabel = this.M_Pic.contact_person
+          var dtrow = response.Data[0].row_id;
+          this.M_Appointment.contact_person = dtrow;
+          this.M_Appointment.contact_personLabel = this.M_Pic.contact_person;
 
-          this.CancelModal()
+          this.CancelModal();
         });
       });
     },
@@ -531,7 +534,8 @@ export default {
         this.M_Appointment.customer = data.row_id;
         this.M_Appointment.customerLabel = data.name;
         // this.M_Appointment.contact_person = data.contact_person;
-        this.PI_contact_person.dataLookUp.InitialWhere = " cm_contact_id = '" + data.row_id + "' ";
+        this.PI_contact_person.dataLookUp.InitialWhere =
+          " cm_contact_id = '" + data.row_id + "' ";
       });
     },
     OnactionChange(data) {
@@ -599,7 +603,7 @@ export default {
         appointment_date: this.M_Appointment.appointment_date,
         meeting_address: this.M_Appointment.meeting_location,
         cm_contact_person_id: this.M_Appointment.contact_person,
-        appointment_type: 'A',
+        appointment_type: "A",
         descs: this.M_Appointment.descs,
         user_input: this.getDataUser().user_id
       };
