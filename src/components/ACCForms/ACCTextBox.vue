@@ -42,7 +42,8 @@ export default {
       cStyle: String,
       cDecimal: [String, Number],
       cPlaceholder: String,
-      cInputStatus: String
+      cInputStatus: String,
+      NoPaste: Boolean
     },
     value: [String, Number]
   },
@@ -71,28 +72,87 @@ export default {
   },
   methods: {
     onPaste (evt) {
+      var value = this.replaceAllString(evt.clipboardData.getData('text'), ',', '', 'number')
+      // console.log(evt, value)
+      // if (this.prop.NoPaste) {
+      //   evt.preventDefault()
+      // }
       if (this.prop.cType == 'decimal' || this.prop.cType == 'numeric') {
         var prevValue = this.value
+        var x = parseFloat(value)
+        // console.log(x, typeof x)
+        // console.log(isNaN(x))
         this.$nextTick(() => {
-          for (var i = 0; i < this.value.length; i++) {
-            var code = this.value.charCodeAt(i)
-            // ASCII 0 - 9 AND , AND .
-            if (!(code >= 48 && code <= 57) && !(code == 44) && !(code == 46)) {
-              this.$nextTick(() => {
-                // this.value = prevValue
-                if (this.prop.cType == 'decimal') {
-                  this.value = '0.00'
-                } else {
-                  this.value = ''
-                }
-              })
-              break
-            }    
+          console.log(this.prop.cType)
+          if (typeof x == 'number'){
+            if (isNaN(x)) {
+              // console.log('yes1')
+              evt.preventDefault()
+              if (this.prop.cType == 'decimal') {
+                this.value = '0.00'
+              } else {
+                this.value = ''
+              }
+            }
           }
-          this.$forceUpdate()
+          else {
+            // console.log('yes')
+            evt.preventDefault()
+            if (this.prop.cType == 'decimal') {
+              this.value = '0.00'
+            } else {
+              this.value = ''
+            }
+          }
+          // for (var i = 0; i < value.length; i++) {
+          //   var code = value.charCodeAt(i)
+          //   // ASCII 0 - 9 AND , AND .
+          //   // if (!(code >= 48 && code <= 57) && !(code == 44) && !(code == 46)) {
+          //   if (!(code >= 48 && code <= 57) && !(code == 44) && !(code == 46) && !(code == 45)) {
+          //     this.$nextTick(() => {
+          //       // this.value = prevValue
+          //       if (this.prop.cType == 'decimal') {
+          //         this.value = '0.00'
+          //       } else {
+          //         this.value = ''
+          //       }
+          //     })
+          //     break
+          //   }
+          // }
+          // this.$forceUpdate()
         })
+
+        this.$forceUpdate()
       }
     },
+    // onPaste (evt) {
+    //   console.log(evt)
+    //   // if (this.prop.NoPaste) {
+    //   //   evt.preventDefault()
+    //   // }
+    //   if (this.prop.cType == 'decimal' || this.prop.cType == 'numeric') {
+    //     var prevValue = this.value
+    //     this.$nextTick(() => {
+    //       for (var i = 0; i < this.value.length; i++) {
+    //         var code = this.value.charCodeAt(i)
+    //         // ASCII 0 - 9 AND , AND .
+    //         if (!(code >= 48 && code <= 57) && !(code == 44) && !(code == 46) && !(code == 45)) {
+    //           this.$nextTick(() => {
+    //             // this.value = prevValue
+    //             if (this.prop.cType == 'decimal') {
+    //               this.value = '0.00'
+    //             } else {
+    //               this.value = ''
+    //             }
+    //           })
+    //           break
+    //         }
+    //       }
+    //       this.$forceUpdate()
+    //     })
+    //   }
+    // },
     computedClass(index) {
       if (index % 2 == 0) {
         return 'genap'
@@ -243,6 +303,7 @@ export default {
     // this.prop.cLastLabelShow = this.prop.cLastLabelShow === undefined ? true : this.prop.cLastLabelShow
     // this.prop.cVisible = this.prop.cVisible === undefined ? true : this.prop.cVisible
     this.value = this.prop.cDefault ? this.prop.cDefault : ''
+    this.prop.NoPaste = this.prop.NoPaste ? this.prop.NoPaste : false
     // this.prop.cRowDisable = this.prop.cRowDisable === undefined ? [] : this.prop.cRowDisable
     // this.prop.cHideRowColumnCSS = this.prop.cHideRowColumnCSS ? this.prop.cHideRowColumnCSS : false
     // this.prop.cRowDisable = this.prop.cRowDisable && this.prop.cRowDisable.length > 0 ? this.prop.cRowDisable.length : []

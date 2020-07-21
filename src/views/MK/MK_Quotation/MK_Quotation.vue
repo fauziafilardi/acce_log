@@ -275,7 +275,7 @@ export default {
       var currentPage = this.cmbMarketing[ix].currentPage,
       perPage = this.cmbMarketing[ix].perPage,
       limit = this.cmbMarketing[ix].limit,
-      where = " marketing_id = '" + this.cmbMarketing[ix].marketing_id + "'",
+      where = "ss_portfolio_id='" + this.getDataUser().portfolio_id + "' AND marketing_id='" + this.cmbMarketing[ix].marketing_id + "'",
       // marketing_id
       param = {
         option_url: "/MK/MK_Quotation",
