@@ -40,12 +40,9 @@
                     <b-col md="12">-->
                     <b-row>
                       <b-col md="2">
-                        <font-awesome-icon class="icon-style-default" icon="check-circle" />
-                        User
+                        <font-awesome-icon class="icon-style-default" icon="check-circle" />User
                       </b-col>
-                      <b-col md="2">
-                        : {{ M_UserManagement.user_name }}
-                      </b-col>
+                      <b-col md="2">: {{ M_UserManagement.user_name }}</b-col>
                     </b-row>
                     <b-row>
                       <b-col md="6">
@@ -100,7 +97,11 @@
                         <span>
                           <label>Email</label>
                         </span>
-                        <ACCTextBox :prop="PI_email" v-model="M_UserManagement.email" ref="ref_email" />
+                        <ACCTextBox
+                          :prop="PI_email"
+                          v-model="M_UserManagement.email"
+                          ref="ref_email"
+                        />
                       </b-col>
                     </b-row>
                     <b-row>
@@ -211,7 +212,7 @@ export default {
         cInputStatus: this.inputStatus
       },
       PI_phone_no: {
-        cValidate: "",
+        cValidate: "max:20",
         cName: "phone_no",
         cOrder: 2,
         cKey: false,
@@ -378,7 +379,7 @@ export default {
       };
     },
     OnpasswordChange(data) {
-      this.PI_confirm_password.cValidate = "confirmed:" + data
+      this.PI_confirm_password.cValidate = "confirmed:" + data;
     },
     OnroleChange(data) {
       this.$nextTick(() => {
@@ -387,21 +388,23 @@ export default {
       });
     },
     doSave() {
-      this.$validator._base.validateAll("ADM_AddUserManagement").then(result => {
-        if (!result) return;
-        this.alertConfirmation("Are You Sure Want To Save This Data ?").then(
-          ress => {
-            if (ress.value) {
-              this.$validator.errors.clear("ADM_AddUserManagement");
-              if (this.inputStatus == "edit") {
-                this.M_Update();
-              } else {
-                this.M_Save();
+      this.$validator._base
+        .validateAll("ADM_AddUserManagement")
+        .then(result => {
+          if (!result) return;
+          this.alertConfirmation("Are You Sure Want To Save This Data ?").then(
+            ress => {
+              if (ress.value) {
+                this.$validator.errors.clear("ADM_AddUserManagement");
+                if (this.inputStatus == "edit") {
+                  this.M_Update();
+                } else {
+                  this.M_Save();
+                }
               }
             }
-          }
-        );
-      });
+          );
+        });
     },
     M_Save() {
       var param = {
@@ -435,34 +438,39 @@ export default {
         lastupdatestamp: this.paramFromList.lastupdatestamp
       };
 
-      this.getJSON(this.getUrlAPIUser(this.paramFromList.row_id), param).then(response => {
-        // response from API
-        if (response == null) return;
+      this.getJSON(this.getUrlAPIUser(this.paramFromList.row_id), param).then(
+        response => {
+          // response from API
+          if (response == null) return;
 
-        var data = response.Data;
+          var data = response.Data;
 
-        this.PI_user_id.cProtect = true
+          this.PI_user_id.cProtect = true;
 
-        this.M_UserManagement = {
-          user_name: this.getDataUser().user_name,
-          ss_user_id: data.ss_user_id,
-          user_id: data.user_id,
-          customer_name: data.user_name,
-          phone_no: data.hand_phone,
-          address: data.address,
-          email: data.email,
-          password: "",
-          confirm_password: "",
-          role: data.ss_group_id,
-          roleLabel: data.group_descs,
-          notes: data.notes,
-          user_level: data.user_level,
-          file_logo: data.file_name,
-          file_show: data.path_file && data.path_file !== '' ? (this.url + data.path_file) : this.default_pic,
-          file_logo_name: data.file_name,
-          file_logo_path: data.path_file
-        };
-      });
+          this.M_UserManagement = {
+            user_name: this.getDataUser().user_name,
+            ss_user_id: data.ss_user_id,
+            user_id: data.user_id,
+            customer_name: data.user_name,
+            phone_no: data.hand_phone,
+            address: data.address,
+            email: data.email,
+            password: "",
+            confirm_password: "",
+            role: data.ss_group_id,
+            roleLabel: data.group_descs,
+            notes: data.notes,
+            user_level: data.user_level,
+            file_logo: data.file_name,
+            file_show:
+              data.path_file && data.path_file !== ""
+                ? this.url + data.path_file
+                : this.default_pic,
+            file_logo_name: data.file_name,
+            file_logo_path: data.path_file
+          };
+        }
+      );
     },
     M_Update() {
       var param = {

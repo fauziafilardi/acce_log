@@ -100,7 +100,7 @@
                         <ACCTextBox
                           :prop="PI_phone_no_2"
                           v-model="M_NewProspect.phone_no_2"
-                          ref="ref_phone_no_3"
+                          ref="ref_phone_no_2"
                         />
                       </b-col>
                     </b-row>
@@ -316,7 +316,7 @@ export default {
       //   cInputStatus: this.inputStatus
       // },
       PI_phone_no_2: {
-        cValidate: "",
+        cValidate: "max:20",
         cName: "phone_no_2",
         cOrder: 8,
         cKey: false,

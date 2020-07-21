@@ -438,7 +438,7 @@ export default {
         cInputStatus: this.inputStatus
       },
       PI_handphone_2: {
-        cValidate: "",
+        cValidate: "max:20",
         cName: "handphone_2",
         cOrder: 4,
         cKey: false,
