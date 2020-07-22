@@ -149,7 +149,7 @@
               </span>
             </b-col>
             <b-col style="padding-left: 20% !important; padding-top: 3px;">
-              <span @click="ToDoListEdit(data)" style="cursor:pointer;">
+              <span @click="ToDoListEdit(data.item)" style="cursor:pointer;">
                 <font-awesome-icon
                   class="icon-style-default"
                   :icon="data.item.action=='C' ? 'phone-square-alt' : (data.item.action=='V' ? 'hand-paper' : 'utensils')"
@@ -241,7 +241,8 @@ export default {
       this.$store.commit("setParamPage", param);
       this.$router.push({ name: "MK_EditToDoList" });
     },
-    viewClicked(record, index) {
+    viewClicked(record) {
+      console.log("viewClicked", JSON.stringify(record, null, 2));
       this.ToDoListEdit(record);
     },
     ToDoListEdit(data) {

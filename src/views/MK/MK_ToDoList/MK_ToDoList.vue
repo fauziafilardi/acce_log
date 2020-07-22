@@ -7,7 +7,7 @@
             <div class="card__title" style="padding-bottom: 5px !important;">
               <b-row>
                 <b-col style="max-width:fit-content !important;">
-                  <span>To Do List</span>
+                  <span>To Do List bos</span>
                 </b-col>
                 <b-col style="text-align: right;">
                   <b-badge variant="primary" @click="doProspect" style="cursor: pointer;">&nbsp;</b-badge>
@@ -600,7 +600,8 @@ export default {
     doEdit(record) {
       var param = record;
       param.isEdit = true;
-      console.log(param);
+      param.isView = true;
+      this.$store.commit("setParamPage", param);
       this.$router.push({ name: "MK_EditToDoList", params: param });
     },
     IsWarning(date) {
