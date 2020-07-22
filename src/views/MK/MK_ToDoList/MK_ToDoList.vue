@@ -7,7 +7,7 @@
             <div class="card__title" style="padding-bottom: 5px !important;">
               <b-row>
                 <b-col style="max-width:fit-content !important;">
-                  <span>To Do List bos</span>
+                  <span>To Do List</span>
                 </b-col>
                 <b-col style="text-align: right;">
                   <b-badge variant="primary" @click="doProspect" style="cursor: pointer;">&nbsp;</b-badge>
@@ -240,7 +240,10 @@ export default {
   data() {
     return {
       propList: {
-        initialWhere: " appointment_type = 'T' ",
+        initialWhere:
+          "ss_portfolio_id='" +
+          this.getDataUser().portfolio_id +
+          "' appointment_type = 'T' AND status_logbook = 'N' ",
         LineNo: 0,
         PageLevel: 1,
         TabIndex: 1,
@@ -268,7 +271,7 @@ export default {
       totalRows: 0,
       currentPage: 1,
       lastPage: 1,
-      perPage: 5,
+      perPage: 10,
       limit: 2,
       pagingData: [
         { value: 5, text: "5" },

@@ -240,7 +240,10 @@ export default {
   data() {
     return {
       propList: {
-        initialWhere: " appointment_type = 'A' ",
+        initialWhere:
+          "ss_portfolio_id='" +
+          this.getDataUser().portfolio_id +
+          "' AND appointment_type = 'A' AND status_logbook = 'N' ",
         LineNo: 0,
         PageLevel: 1,
         TabIndex: 1,
@@ -268,7 +271,7 @@ export default {
       totalRows: 0,
       currentPage: 1,
       lastPage: 1,
-      perPage: 5,
+      perPage: 10,
       limit: 2,
       pagingData: [
         { value: 5, text: "5" },
