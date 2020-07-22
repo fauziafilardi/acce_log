@@ -937,6 +937,14 @@ export default {
           data.contact_phone_no + "  " + data.contact_email;
         this.M_Appointment.cm_contact_id = data.cm_contact_id;
         this.M_Appointment.mk_appointment_id = 0;
+
+        this.PI_contact_person.dataLookUp.InitialWhere =
+          "cm_contact_id =" + data.cm_contact_id;
+        this.PI_next_contact_person.dataLookUp.InitialWhere =
+          "cm_contact_id =" + data.cm_contact_id;
+
+        this.M_Appointment.next_contact_person = data.cm_contact_person_id;
+        this.M_Appointment.next_contact_personLabel = data.contact_person;
         if (data.row_id !== "undefined") {
           this.doGetlist(data.row_id);
         }
@@ -1231,7 +1239,7 @@ export default {
               (data.contact_position == null ? "" : data.contact_position),
             appointment_date: data.appointment_date,
             meeting_location: data.next_meeting_address,
-            descs2: data.descs,
+            descs2: "", //data.descs,
             descs: "", //data.next_descs,
             next_appointment: data.next_action_type,
             next_appointmentLabel: data.next_action_type,
@@ -1249,6 +1257,10 @@ export default {
           this.M_Appointment.marketing_id = data.marketing_id;
           this.M_Appointment.marketing_name = data.marketing_name;
           // console.log(this.M_Appointment);
+          this.PI_contact_person.dataLookUp.InitialWhere =
+            "cm_contact_id =" + this.paramFromList.cm_contact_id;
+          this.PI_next_contact_person.dataLookUp.InitialWhere =
+            "cm_contact_id =" + this.paramFromList.cm_contact_id;
         });
         this.doGetlist(this.paramFromList.cm_contact_id);
       });
