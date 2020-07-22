@@ -168,7 +168,7 @@ export default {
         cModule: "MK"
       },
       PI_customer_name: {
-        cValidate: "",
+        cValidate: "max:100",
         cName: "customer_name",
         cOrder: 1,
         cKey: false,
@@ -179,7 +179,7 @@ export default {
         cInputStatus: this.inputStatus
       },
       PI_address: {
-        cValidate: "",
+        cValidate: "max:255",
         cName: "address",
         cOrder: 2,
         cKey: false,
@@ -192,98 +192,7 @@ export default {
         cParentForm: "MK_AddNewProspect",
         cInputStatus: this.inputStatus
       },
-      PI_district: {
-        dataLookUp: {
-          LookUpCd: "GetDistrict",
-          ColumnDB: "district_id",
-          InitialWhere: "ss_country_id = 2",
-          ParamWhere: "",
-          OrderBy: "",
-          ParamView: "",
-          SourceField: "",
-          DisplayLookUp: "district,city,province,country,time_edit"
-        },
-        cValidate: "",
-        cName: "district",
-        ckey: false,
-        cOrder: 3,
-        // cDefault: '',
-        cProtect: false,
-        cParentForm: "MK_AddNewProspect",
-        cStatic: false,
-        cOption: [],
-        cDisplayColumn: "district,city,province,country,time_edit",
-        cInputStatus: this.inputStatus
-      },
-      PI_city: {
-        dataLookUp: {
-          LookUpCd: "GetCity",
-          ColumnDB: "city_id",
-          InitialWhere: "ss_country_id = 2",
-          ParamWhere: "",
-          OrderBy: "",
-          ParamView: "",
-          SourceField: "",
-          DisplayLookUp: "city,province,country,time_edit"
-        },
-        cValidate: "",
-        cName: "city",
-        ckey: false,
-        cOrder: 4,
-        // cDefault: '',
-        cProtect: false,
-        cParentForm: "MK_AddNewProspect",
-        cStatic: false,
-        cOption: [],
-        cDisplayColumn: "city,province,country,time_edit",
-        cInputStatus: this.inputStatus
-      },
-      PI_province: {
-        dataLookUp: {
-          LookUpCd: "GetProvince",
-          ColumnDB: "province_id",
-          InitialWhere: "ss_country_id = 2",
-          ParamWhere: "",
-          OrderBy: "",
-          ParamView: "",
-          SourceField: "",
-          DisplayLookUp: "province,country,time_edit"
-        },
-        cValidate: "",
-        cName: "province",
-        ckey: false,
-        cOrder: 5,
-        // cDefault: '',
-        cProtect: false,
-        cParentForm: "MK_AddNewProspect",
-        cStatic: false,
-        cOption: [],
-        cDisplayColumn: "province,country,time_edit",
-        cInputStatus: this.inputStatus
-      },
-      PI_country: {
-        dataLookUp: {
-          LookUpCd: "GetCountry",
-          ColumnDB: "country_id",
-          InitialWhere: "",
-          ParamWhere: "",
-          OrderBy: "",
-          ParamView: "",
-          SourceField: "",
-          DisplayLookUp: "country,time_edit"
-        },
-        cValidate: "",
-        cName: "country",
-        ckey: false,
-        cOrder: 6,
-        // cDefault: '',
-        cProtect: false,
-        cParentForm: "MK_AddNewProspect",
-        cStatic: false,
-        cOption: [],
-        cDisplayColumn: "country,time_edit",
-        cInputStatus: this.inputStatus
-      },
+
       PI_phone_no_1: {
         cValidate: "",
         cName: "phone_no_1",
@@ -318,7 +227,7 @@ export default {
         cInputStatus: this.inputStatus
       },
       PI_email: {
-        cValidate: "",
+        cValidate: "max:60",
         cName: "email",
         cOrder: 10,
         cKey: false,
@@ -329,7 +238,7 @@ export default {
         cInputStatus: this.inputStatus
       },
       PI_website: {
-        cValidate: "",
+        cValidate: "max:60",
         cName: "website",
         cOrder: 11,
         cKey: false,

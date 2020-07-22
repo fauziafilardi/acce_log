@@ -240,7 +240,10 @@ export default {
   data() {
     return {
       propList: {
-        initialWhere: " appointment_type = 'T' ",
+        initialWhere:
+          "ss_portfolio_id='" +
+          this.getDataUser().portfolio_id +
+          "' appointment_type = 'T' AND status_logbook = 'N' ",
         LineNo: 0,
         PageLevel: 1,
         TabIndex: 1,
@@ -268,7 +271,7 @@ export default {
       totalRows: 0,
       currentPage: 1,
       lastPage: 1,
-      perPage: 5,
+      perPage: 10,
       limit: 2,
       pagingData: [
         { value: 5, text: "5" },
@@ -600,7 +603,8 @@ export default {
     doEdit(record) {
       var param = record;
       param.isEdit = true;
-      console.log(param);
+      param.isView = true;
+      this.$store.commit("setParamPage", param);
       this.$router.push({ name: "MK_EditToDoList", params: param });
     },
     IsWarning(date) {

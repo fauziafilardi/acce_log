@@ -840,7 +840,7 @@ export default {
           cInputStatus: this.inputStatus
         },
         PI_contact_phone_no_1: {
-          cValidate: "max:3",
+          cValidate: "max:20",
           cName: "contact_phone_no_1",
           cOrder: 3,
           cKey: false,
@@ -937,6 +937,14 @@ export default {
           data.contact_phone_no + "  " + data.contact_email;
         this.M_Appointment.cm_contact_id = data.cm_contact_id;
         this.M_Appointment.mk_appointment_id = 0;
+
+        this.PI_contact_person.dataLookUp.InitialWhere =
+          "cm_contact_id =" + data.cm_contact_id;
+        this.PI_next_contact_person.dataLookUp.InitialWhere =
+          "cm_contact_id =" + data.cm_contact_id;
+
+        this.M_Appointment.next_contact_person = data.cm_contact_person_id;
+        this.M_Appointment.next_contact_personLabel = data.contact_person;
         if (data.row_id !== "undefined") {
           this.doGetlist(data.row_id);
         }
@@ -983,7 +991,7 @@ export default {
       var param = {
         option_url: "/MK/MK_Appointment",
         line_no: 2,
-        cm_contact_id: 0,
+        cm_contact_id: this.M_Appointment.cm_contact_id,
         name: this.M_Pic.contact_person,
         phone_no:
           this.M_Pic.contact_phone_no_1 +
@@ -1132,7 +1140,7 @@ export default {
     },
     M_Save() {
       if (this.M_Appointment.descs2 == "") {
-        this.alertError("The descs2 field is required ");
+        this.alertError("Log Book Decsription field is required ");
         return;
       }
       var param = {
@@ -1145,7 +1153,7 @@ export default {
         cm_contact_person_id: this.M_Appointment.contact_person,
         action_type: this.M_Appointment.action,
         meeting_address: "", //this.M_Dt_Appointment.addr,
-        descs: this.M_Appointment.descs,
+        descs: this.M_Appointment.descs2,
         appointment_date: this.M_Appointment.appointment_date,
         appointment_type: "A",
         next_action_type:
@@ -1155,7 +1163,7 @@ export default {
             : this.M_Appointment.next_appointment,
         next_appointment_date: this.M_Appointment.nappointment_date,
         next_meeting_address: "", //this.M_Appointment.meeting_location,
-        next_descs: this.M_Appointment.descs2,
+        next_descs: this.M_Appointment.descs,
         next_cm_contact_person_id:
           this.M_Appointment.next_contact_person == null ||
           this.M_Appointment.next_contact_person == ""
@@ -1207,21 +1215,8 @@ export default {
           this.M_Dt_Appointment = {
             mk_appointment_id: data.mk_appointment_id,
             name: data.name,
-            address:
-              data.address +
-              ", " +
-              data.district +
-              ", " +
-              data.city +
-              ", " +
-              data.province +
-              " - " +
-              data.country,
+            address: data.address,
             addr: data.address,
-            country: data.country,
-            province: data.province,
-            city: data.city,
-            district: data.district,
             email: data.email,
             website: data.website,
             phone_no: data.phone_no,
@@ -1244,7 +1239,7 @@ export default {
               (data.contact_position == null ? "" : data.contact_position),
             appointment_date: data.appointment_date,
             meeting_location: data.next_meeting_address,
-            descs2: data.descs,
+            descs2: "", //data.descs,
             descs: "", //data.next_descs,
             next_appointment: data.next_action_type,
             next_appointmentLabel: data.next_action_type,
@@ -1262,6 +1257,10 @@ export default {
           this.M_Appointment.marketing_id = data.marketing_id;
           this.M_Appointment.marketing_name = data.marketing_name;
           // console.log(this.M_Appointment);
+          this.PI_contact_person.dataLookUp.InitialWhere =
+            "cm_contact_id =" + this.paramFromList.cm_contact_id;
+          this.PI_next_contact_person.dataLookUp.InitialWhere =
+            "cm_contact_id =" + this.paramFromList.cm_contact_id;
         });
         this.doGetlist(this.paramFromList.cm_contact_id);
       });
