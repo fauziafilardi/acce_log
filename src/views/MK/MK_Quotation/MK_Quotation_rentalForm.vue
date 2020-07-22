@@ -34,7 +34,7 @@
                         <span>
                           <label>Vehicle Type</label>
                         </span>
-                        <ACCLookUp
+                        <ACCDropDown
                           @change="Onfm_fleet_type_idChange"
                           :prop="PI_fm_fleet_type_id"
                           v-model="M_MkQuotationRental.fm_fleet_type_id"
@@ -149,7 +149,7 @@ export default {
         cProtect: false,
         cParentForm: "MK_FormMkQuotationRental",
         cOption: [],
-        cDisplayColumn: "descs,time_edit",
+        cDisplayColumn: "descs",
         cInputStatus: this.inputStatus
       },
       PI_include_driver_status: {
@@ -197,8 +197,8 @@ export default {
     },
     Onfm_fleet_type_idChange(data) {
       this.$nextTick(() => {
-        this.M_MkQuotationRental.fm_fleet_type_id = data.row_id;
-        this.M_MkQuotationRental.fleet_type_descsLabel = data.descs;
+        this.M_MkQuotationRental.fm_fleet_type_id = data.id;
+        this.M_MkQuotationRental.fleet_type_descsLabel = data.label;
       });
     },
 

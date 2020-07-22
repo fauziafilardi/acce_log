@@ -381,6 +381,18 @@ export default {
         }
       }
     })
+
+    this.$validator.extend('email', {
+      getMessage (field, val) {
+        // return 'The ' + field + ' field must more than 0.'
+        return "The Email Format is Incorrect."
+      },
+      validate (field) {
+        let re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        
+        return re.test(field);
+      }
+    })
     
   },
   mounted: function () {

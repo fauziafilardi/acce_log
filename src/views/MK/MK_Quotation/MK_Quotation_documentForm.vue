@@ -32,7 +32,7 @@
                     <b-row>
                       <b-col md="6">
                         <span>
-                          <label>Dokument Type</label>
+                          <label>Document Type</label>
                         </span>
                         <ACCLookUp
                           @change="Onmk_dokument_type_idChange"
@@ -46,7 +46,7 @@
                     <b-row>
                       <b-col md="6">
                         <span>
-                          <label>Descs</label>
+                          <label>Description</label>
                         </span>
                         <ACCTextArea
                           :prop="PI_descs"
@@ -130,7 +130,7 @@ export default {
         cInputStatus: this.inputStatus
       },
       PI_descs: {
-        cValidate: "",
+        cValidate: "max:150",
         cName: "descs",
         cOrder: 2,
         cKey: false,

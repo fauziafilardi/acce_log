@@ -321,7 +321,7 @@ export default {
         cInputStatus: this.inputStatus
       },
       PI_project_name: {
-        cValidate: "",
+        cValidate: "max:60",
         cName: "project_name",
         cOrder: 6,
         cKey: false,
@@ -332,7 +332,7 @@ export default {
         cInputStatus: this.inputStatus
       },
       PI_descs: {
-        cValidate: "",
+        cValidate: "required|max:500",
         cName: "descs",
         cOrder: 7,
         cKey: false,
