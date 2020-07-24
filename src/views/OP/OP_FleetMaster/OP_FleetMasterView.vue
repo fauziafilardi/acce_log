@@ -46,15 +46,23 @@
                       <b-col>
                         <b-row>
                           <b-col style="max-width: fit-content !important; margin: auto;">
-                            <label style="font-size: 15px; color: #333399; font-weight: bold;"> General Information </label>
+                            <label style="font-size: 15px; color: #333399; font-weight: bold;"> {{M_FmFleetMstr.license_plate_no}} </label>
                             <br>
+                            <span style="margin-right: 20px">
+                              <font-awesome-icon
+                                class="icon-style-default"
+                                icon="user"
+                                size="lg"
+                              /> &nbsp; &nbsp;
+                              <label>Driver : {{M_FmFleetMstr.driver_nameLabel}}</label>
+                            </span>
                             <span>
                               <font-awesome-icon
                                 class="icon-style-default"
                                 icon="user"
                                 size="lg"
                               /> &nbsp; &nbsp;
-                              <label>Driver Name : {{M_FmFleetMstr.driver_nameLabel}}</label>
+                              <label>Co-Driver : {{M_FmFleetMstr.driver_name2Label}}</label>
                             </span>
                           </b-col>
                           <b-col style = "text-align: right;" >
@@ -320,6 +328,7 @@ export default {
         fm_driver_id : 0,
         driver_nameLabel : '',
         fm_driver_id2 : 0,
+        driver_name2Label : '',
         bpkb_no : '',
         license_plate_no : '',
         license_plate_expiry_date : '',
@@ -469,6 +478,7 @@ export default {
               fm_driver_id : data[i].fm_driver_id__lo_1,
               driver_nameLabel : data[i].driver_name__lbl__lo_1,
               fm_driver_id2 : data[i].fm_driver_id2,
+              driver_name2Label : data[i].driver_name2,
               bpkb_no : data[i].bpkb_no__tb_2,
               license_plate_no : data[i].license_plate_no__tb_3,
               license_plate_expiry_date : data[i].license_plate_expiry_date__tb_4,

@@ -39,7 +39,7 @@
                     </div>
                   </b-col>
                   <b-col md="5">
-                    <b-row>
+                    <!-- <b-row>
                       <b-col style="max-width: fit-content !important; margin: auto;">
                         <span>
                           <font-awesome-icon
@@ -59,7 +59,7 @@
                           ref = "ref_fm_driver_id"
                         />
                       </b-col>
-                    </b-row>
+                    </b-row> -->
 
                     <b-row class="row-bordered">
                       <b-col md="12">
@@ -243,6 +243,41 @@
                       <b-col>
                         <b-row>
                           <b-col>
+                            <span style="font-size: 15px; color: #333399; font-weight: bold;"> Drivers </span>
+                          </b-col>
+                        </b-row>
+                        <b-row>
+                          <b-col md="6">
+                            <span>
+                              <label>Select Driver</label>
+                            </span>
+                            <ACCLookUp
+                              @change = "Onfm_driver_idChange"
+                              :prop = "PI_fm_driver_id"
+                              v-model = "M_FmFleetMstr.fm_driver_id"
+                              :label = "M_FmFleetMstr.driver_nameLabel"
+                              ref = "ref_fm_driver_id"
+                            />
+                          </b-col>
+                          <b-col md="6">
+                            <span>
+                              <label>Select Co-Driver</label>
+                            </span>
+                            <ACCLookUp
+                              @change = "Onfm_driver_id2Change"
+                              :prop = "PI_fm_driver_id2"
+                              v-model = "M_FmFleetMstr.fm_driver_id2"
+                              :label = "M_FmFleetMstr.driver_name2Label"
+                              ref = "ref_fm_driver_id2"
+                            />
+                          </b-col>
+                        </b-row>
+                      </b-col>
+                    </b-row>
+                    <b-row class="row-bordered" style="margin-top: 10px;">
+                      <b-col>
+                        <b-row>
+                          <b-col>
                             <span style="font-size: 15px; color: #333399; font-weight: bold;"> Specification </span>
                           </b-col>
                         </b-row>
@@ -356,6 +391,8 @@ export default {
         fm_driver_id : 0,
         driver_nameLabel : '',
         fm_driver_id2 : 0,
+        driver_name2Label : '',
+        fm_driver_id2 : 0,
         bpkb_no : '',
         license_plate_no : '',
         license_plate_expiry_date : '',
@@ -396,7 +433,29 @@ export default {
         },
         cValidate: '',
         cName: "fm_driver_id",
-        cOrder: 1,
+        cOrder: 14,
+        cKey: false,
+        cStatic: false,
+        cProtect: false,
+        cParentForm: "OP_FormFmFleetMstr",
+        cOption: [],
+        cDisplayColumn: 'full_name',
+        cInputStatus: this.inputStatus
+      },
+      PI_fm_driver_id2: {
+        dataLookUp:{
+          LookUpCd:'GetDriver',
+          ColumnDB:'driver_id',
+          InitialWhere:'',
+          ParamWhere:'',
+          OrderBy:'',
+          ParamView:'',
+          SourceField:'',
+          DisplayLookUp:'fm_driver_id,full_name'
+        },
+        cValidate: '',
+        cName: "fm_driver_id2",
+        cOrder: 15,
         cKey: false,
         cStatic: false,
         cProtect: false,
@@ -570,7 +629,7 @@ export default {
       PI_millage: {
         cValidate: '',
         cName: "millage",
-        cOrder: 14,
+        cOrder: 16,
         cKey: false,
         cType: "decimal",
         cProtect: false,
@@ -581,7 +640,7 @@ export default {
       PI_remarks: {
         cValidate: '',
         cName: "remarks",
-        cOrder: 15,
+        cOrder: 17,
         cKey: false,
         cType: "text",
         cProtect: false,
@@ -646,10 +705,15 @@ export default {
       this.$router.go(-1);
     },
     Onfm_driver_idChange(data) {
-      console.log(data)
       this.$nextTick(() => {
         this.M_FmFleetMstr.fm_driver_id = data.id
         this.M_FmFleetMstr.driver_nameLabel = data.label
+      });
+    },
+    Onfm_driver_id2Change(data) {
+      this.$nextTick(() => {
+        this.M_FmFleetMstr.fm_driver_id2 = data.id
+        this.M_FmFleetMstr.driver_name2Label = data.label
       });
     },
     Onfm_fleet_brand_idChange(data) {
@@ -678,6 +742,8 @@ export default {
         ss_portfolio_id : '',
         fm_driver_id : '',
         driver_nameLabel : '',
+        fm_driver_id2 : '',
+        driver_name2Label : '',
         fm_driver_id2 : '',
         bpkb_no : '',
         license_plate_no : '',
@@ -858,6 +924,7 @@ export default {
               fm_driver_id : data[i].fm_driver_id__lo_1,
               driver_nameLabel : data[i].driver_name__lbl__lo_1,
               fm_driver_id2 : data[i].fm_driver_id2,
+              driver_name2Label : data[i].driver_name2,
               bpkb_no : data[i].bpkb_no__tb_2,
               license_plate_no : data[i].license_plate_no__tb_3,
               license_plate_expiry_date : data[i].license_plate_expiry_date__tb_4,

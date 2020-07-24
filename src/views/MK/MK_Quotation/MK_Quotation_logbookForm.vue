@@ -87,7 +87,7 @@ export default {
         descs: ""
       },
       PI_logbook_descs: {
-        cValidate: "",
+        cValidate: "max:255",
         cName: "logbook_descs",
         cOrder: 1,
         cKey: false,

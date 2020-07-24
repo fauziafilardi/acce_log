@@ -227,7 +227,7 @@ export default {
         cInputStatus: this.inputStatus
       },
       PI_email: {
-        cValidate: "max:60",
+        cValidate: "max:60|email",
         cName: "email",
         cOrder: 10,
         cKey: false,
