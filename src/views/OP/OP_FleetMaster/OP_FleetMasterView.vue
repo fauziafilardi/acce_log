@@ -225,12 +225,19 @@
                         </b-row>
                       </b-col>
                       <b-col md="6">
-                        <b-row class="row-bordered" style="background-color: #ced4da;">
+                        <b-row class="row-bordered" style="background-color: #ced4da; min-height: 50px">
                           <b-col md="12">
                             <b-row>
                               <template v-for="(pict, index) in M_Picture">
-                                <b-col style="max-width: fit-content !important;" v-bind:key="index">
+                                <b-col style="max-width: fit-content !important; text-align: center;" md="1" v-bind:key="index">
                                   <img :id="'pict_'+index" :src="pict.file_show" alt style="width: 150px; cursor: pointer; " @click="showPict(pict)" />
+                                  <!-- <font-awesome-icon
+                                    class="icon-style-default"
+                                    icon="times"
+                                    size="sm"
+                                    style="cursor: pointer;"
+                                    @click="Delete_Pict(index)"
+                                  /> -->
                                 </b-col>
                               </template>
                             </b-row>
@@ -380,6 +387,9 @@ export default {
     }
   },
   methods: {
+    Delete_Pict(i) {
+      this.M_Picture.splice(i, 1)
+    },
     doMaintain() {
       var param = this.paramFromList
       param.isEdit = false;
@@ -469,6 +479,7 @@ export default {
         if (response == null) return;
 
         var data = response.Data;
+        var pict = [];
 
         for (let i = 0; i < data.length; i++) {
           if (i === 0) {
@@ -507,13 +518,27 @@ export default {
             }
           }
 
-          this.M_Picture.push({
-            file_logo: 'dtfile_' + i,
-            file_logo_name: data[i].dt_doc_file_name,
-            file_logo_path: data[i].dt_doc_path_file,
-            file_show: data[i].dt_doc_path_file && data[i].dt_doc_path_file !== '' ? this.url + data[i].dt_doc_path_file : require("@/assets/default_photo_.png")
-          })
+          if (data.length == 1) {
+            if (data[i].dt_doc_file_name && data[i].dt_doc_file_name !== '') {
+              pict.push({
+                file_logo: 'dtfile_' + i,
+                file_logo_name: data[i].dt_doc_file_name,
+                file_logo_path: data[i].dt_doc_path_file,
+                file_show: data[i].dt_doc_path_file && data[i].dt_doc_path_file !== '' ? this.url + data[i].dt_doc_path_file : require("@/assets/default_photo_.png")
+              })
+            }
+          }
+          else {
+            pict.push({
+              file_logo: 'dtfile_' + i,
+              file_logo_name: data[i].dt_doc_file_name,
+              file_logo_path: data[i].dt_doc_path_file,
+              file_show: data[i].dt_doc_path_file && data[i].dt_doc_path_file !== '' ? this.url + data[i].dt_doc_path_file : require("@/assets/default_photo_.png")
+            })
+          }
         }
+
+        this.M_Picture = pict
 
         this.getMaintenance()
       });
