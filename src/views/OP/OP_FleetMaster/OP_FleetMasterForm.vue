@@ -217,12 +217,19 @@
                     </b-row>
                   </b-col>
                   <b-col md="5"> <!-- di border -->
-                    <b-row class="row-bordered" style="background-color: #ced4da;">
+                    <b-row class="row-bordered" style="background-color: #ced4da; min-height: 50px">
                       <b-col md="12">
                         <b-row style="margin-bottom: 10px">
                           <template v-for="(pict, index) in M_Picture">
-                            <b-col style="max-width: fit-content !important;" v-bind:key="index">
-                              <img :id="'pict_'+index" :src="pict.file_show" alt style="width: 150px; cursor: pointer; " @click="showPict(pict)" />
+                            <b-col style="max-width: fit-content !important; text-align: center;" md="1" v-bind:key="index">
+                              <img :id="'pict_'+index" :src="pict.file_show" alt style="width: 150px; cursor: pointer; max-heigth: 150px" @click="showPict(pict)" />
+                              <font-awesome-icon
+                                class="icon-style-danger"
+                                icon="times-circle"
+                                size="lg"
+                                style="cursor: pointer; top: -5px; right: 0px; position: absolute;"
+                                @click="Delete_Pict(index)"
+                              />
                             </b-col>
                           </template>
                         </b-row>
@@ -347,7 +354,7 @@
                             <b-row>
                               <b-col style="text-align: center;">
                                 <ABSButton
-                                  :text="'Add Picture'"
+                                  :text="'Save Picture'"
                                   classButton="btn btn--default"
                                   classIcon="icon-style-default"
                                   @click="doAddPict"
@@ -679,6 +686,9 @@ export default {
     }
   },
   methods: {
+    Delete_Pict(i) {
+      this.M_Picture.splice(i, 1)
+    },
     Onadd_pictChange(data) {
       this.M_ModalPict.file_logo_name = data.name;
       this.M_ModalPict.file_logo_path = data.path;
@@ -844,16 +854,25 @@ export default {
           // console.log(response)
           if (response == null) return;
           this.alertSuccess("Save Data Has Been Successfully").then(() => {
-            this.doBack();
+            // this.doBack();
+            var param = {
+            row_id: response.Data[0].row_id,
+            lastupdatestamp: 0,
+            isView: true
+          }
+          this.$store.commit("setParamPage", param);
+          this.$router.replace({ name: "OP_FleetMasterView" });
           });
         }
       );
  
     },
 	 M_Update() {
-      var param = {
-        option_url : "/OP/OP_FleetMaster",
-        line_no :0, 
+      var paramH = {
+        // option_url : "/OP/OP_FleetMaster",
+        // line_no :0, 
+        _Method_: "UPDATE",
+        _LineNo_: 0,
         fm_fleet_mstr_id:this.M_FmFleetMstr.fm_fleet_mstr_id,
         ss_portfolio_id:this.getDataUser().portfolio_id,
         bpkb_no:this.M_FmFleetMstr.bpkb_no,
@@ -874,19 +893,59 @@ export default {
         remarks:this.M_FmFleetMstr.remarks,
         lastupdatestamp:this.paramFromList.lastupdatestamp,
         user_edit:this.getDataUser().user_id
-      }
+      }, paramD = [], paramDelDoc = {
+        _Method_: "DELETE",
+        _LineNo_: 1,
+        fm_fleet_mstr_id:this.M_FmFleetMstr.fm_fleet_mstr_id
+      };
 
-      this.putJSON(this.getUrlCRUD(), param).then(response => {
-        if (response == null) return;
-        this.alertSuccess(response.Message).then(() => {
-          if (this.inputStatus == 'new') {
-            this.doBack();
-          }
-          else {
-            this.$router.replace({ name: "OP_FleetMaster" });
-          }
+      this.M_Picture.forEach((pict, index) => {
+        paramD.push({
+          _Method_: "SAVE",
+          _LineNo_: 1,
+          fm_fleet_mstr_id: this.M_FmFleetMstr.fm_fleet_mstr_id,
+          doc_type: "NULL",
+          doc_no: "NULL",
+          doc_file_name: pict.file_logo_name,
+          doc_path_file: pict.file_logo_path,
+          expiry_date: "NULL",
+          user_input: this.getDataUser().user_id
         });
       });
+
+      var param = {
+        option_url: "/OP/OP_FleetMaster",
+        line_no: 0,
+        Data: [
+          {
+            A_Insert: paramH,
+            A_Delete: paramDelDoc,
+            B_Looping: paramD
+          }
+        ]
+      };
+
+      this.postJSONMulti(this.getUrlProsesDataPostMulti(), param).then(
+        response => {
+          // console.log(response)
+          if (response == null) return;
+          this.alertSuccess("Save Data Has Been Successfully").then(() => {
+            this.doBack();
+          });
+        }
+      );
+
+      // this.putJSON(this.getUrlCRUD(), param).then(response => {
+      //   if (response == null) return;
+      //   this.alertSuccess(response.Message).then(() => {
+      //     // if (this.inputStatus == 'new') {
+      //       this.doBack();
+      //     // }
+      //     // else {
+      //     //   this.$router.replace({ name: "OP_FleetMaster" });
+      //     // }
+      //   });
+      // });
     },
 	M_Delete() {
       var param = {
@@ -915,6 +974,7 @@ export default {
         if (response == null) return;
 
         var data = response.Data;
+        var pict = []
 
         for (let i = 0; i < data.length; i++) {
           if (i === 0) {
@@ -953,13 +1013,27 @@ export default {
             };
           }
 
-          this.M_Picture.push({
-            file_logo: 'dtfile_' + i,
-            file_logo_name: data[i].dt_doc_file_name,
-            file_logo_path: data[i].dt_doc_path_file,
-            file_show: data[i].dt_doc_path_file && data[i].dt_doc_path_file !== '' ? this.url + data[i].dt_doc_path_file : require("@/assets/default_photo_.png")
-          })
+          if (data.length == 1) {
+            if (data[i].dt_doc_file_name && data[i].dt_doc_file_name !== '') {
+              pict.push({
+                file_logo: 'dtfile_' + i,
+                file_logo_name: data[i].dt_doc_file_name,
+                file_logo_path: data[i].dt_doc_path_file,
+                file_show: data[i].dt_doc_path_file && data[i].dt_doc_path_file !== '' ? this.url + data[i].dt_doc_path_file : require("@/assets/default_photo_.png")
+              })
+            }
+          }
+          else {
+            pict.push({
+              file_logo: 'dtfile_' + i,
+              file_logo_name: data[i].dt_doc_file_name,
+              file_logo_path: data[i].dt_doc_path_file,
+              file_show: data[i].dt_doc_path_file && data[i].dt_doc_path_file !== '' ? this.url + data[i].dt_doc_path_file : require("@/assets/default_photo_.png")
+            })
+          }
         }
+
+        this.M_Picture = pict
       });
     }
    

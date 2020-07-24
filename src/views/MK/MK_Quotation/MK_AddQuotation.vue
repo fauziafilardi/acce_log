@@ -514,7 +514,13 @@ export default {
         // console.log(response)
         if (response == null) return;
         this.alertSuccess(response.Message).then(() => {
-          this.doBack();
+          // this.doBack();
+          var param = {
+            row_id: response.Data[0].row_id,
+            lastupdatestamp: 0
+          }
+          this.$store.commit("setParamPage", param);
+          this.$router.replace({ name: "MK_ViewQuotation" });
         });
       });
     },
