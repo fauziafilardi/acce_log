@@ -475,8 +475,17 @@ export default {
       this.postJSON(this.getUrlCRUD(), param).then(response => {
         // console.log(response)
         if (response == null) return;
+
         this.alertSuccess(response.Message).then(() => {
-          this.doBack();
+          // this.doBack();
+          var param = {
+            row_id: response.Data[0].row_id,
+            lastupdatestamp: 0
+          };
+          param.isEdit = true;
+          param.isView = true;
+          this.$store.commit("setParamPage", param);
+          this.$router.replace({ name: "MK_CustomerView" });
         });
       });
     },
@@ -574,11 +583,11 @@ export default {
         // console.log(response)
         if (response == null) return;
         this.alertSuccess(response.Message).then(() => {
-          if (this.inputStatus == "new") {
-            this.doBack();
-          } else {
-            this.$router.replace({ name: "MK_CustomerList" });
-          }
+          // if (this.inputStatus == "new") {
+          //   this.doBack();
+          // } else {
+          this.$router.replace({ name: "MK_CustomerView" });
+          // }
         });
       });
     }

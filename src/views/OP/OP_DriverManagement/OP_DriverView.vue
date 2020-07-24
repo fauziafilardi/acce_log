@@ -341,7 +341,8 @@ export default {
   },
   methods: {
     doBack() {
-      this.$router.go(-1);
+      // this.$router.go(-1);
+      this.$router.replace({ name: "OP_DriverManagement" });
     },
     showPict(pict) {
       this.M_ModalPict = pict;
@@ -378,7 +379,7 @@ export default {
       });
     },
     GetDataBy() {
-      console.log(this.paramFromList);
+      this.M_PictureM = [];
       var param = {
         option_url: "/OP/OP_Driver",
         line_no: 0,
@@ -421,15 +422,18 @@ export default {
               lastupdatestamp: data[i].lastupdatestamp
             };
           }
-          this.M_Picture.push({
-            file_logo: "dtfile_" + i,
-            file_logo_name: data[i].dt_doc_file_name,
-            file_logo_path: data[i].dt_doc_path_file,
-            file_show:
-              data[i].dt_doc_path_file && data[i].dt_doc_path_file !== ""
-                ? this.url + data[i].dt_doc_path_file
-                : require("@/assets/default_photo_.png")
-          });
+          console.log(data[i].dt_doc_file_name.length);
+          if (data[i].dt_doc_file_name.length > 0) {
+            this.M_Picture.push({
+              file_logo: "dtfile_" + i,
+              file_logo_name: data[i].dt_doc_file_name,
+              file_logo_path: data[i].dt_doc_path_file,
+              file_show:
+                data[i].dt_doc_path_file && data[i].dt_doc_path_file !== ""
+                  ? this.url + data[i].dt_doc_path_file
+                  : require("@/assets/default_photo_.png")
+            });
+          }
         }
       });
     }
