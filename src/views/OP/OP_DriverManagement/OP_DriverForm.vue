@@ -331,7 +331,7 @@
                             <b-row>
                               <b-col style="text-align: center;">
                                 <ABSButton
-                                  :text="'Add Picture'"
+                                  :text="'Save Picture'"
                                   classButton="btn btn--default"
                                   classIcon="icon-style-default"
                                   @click="doAddPict"
@@ -734,7 +734,7 @@ export default {
             if (ress.value) {
               this.$validator.errors.clear("OP_FormFmDriver");
               if (this.inputStatus == "edit") {
-                this.M_Update();
+                this.M_UPdateN();
               } else {
                 this.M_Save();
               }
@@ -803,7 +803,90 @@ export default {
           if (response == null) return;
           this.alertSuccess("Save Data Has Been Successfully").then(() => {
             // this.doBack();
-            this.doList();
+
+            var param = {
+              row_id: response.Data["A_Insert"].row_id,
+              lastupdatestamp: 0
+            };
+            param.isEdit = true;
+            param.isView = true;
+            this.$store.commit("setParamPage", param);
+            this.$router.replace({ name: "OP_DriverManagementView" });
+          });
+        }
+      );
+    },
+    M_UPdateN() {
+      var paramH = {
+          _Method_: "UPDATE",
+          _LineNo_: 0,
+          fm_driver_id: this.M_FmDriver.fm_driver_id,
+          ss_portfolio_id: this.getDataUser().portfolio_id,
+          employee_id: this.M_FmDriver.employee_id,
+          driver_name: this.M_FmDriver.driver_name,
+          handphone:
+            this.M_FmDriver.handphone_1 + "-" + this.M_FmDriver.handphone_2,
+          ktp: this.M_FmDriver.ktp,
+          npwp: this.M_FmDriver.npwp,
+          sim: this.M_FmDriver.sim,
+          sim_expiry_date: this.M_FmDriver.sim_expiry_date,
+          skck: this.M_FmDriver.skck,
+          skck_expiry_date: this.M_FmDriver.skck_expiry_date,
+          employee_status: this.M_FmDriver.employee_status,
+          employee_expiry_date: this.M_FmDriver.employee_expiry_date,
+          emergency_contact_name: this.M_FmDriver.emergency_contact_name,
+          emergency_relation: this.M_FmDriver.emergency_relation,
+          emergency_phone_no:
+            this.M_FmDriver.emergency_phone_no_1 +
+            "-" +
+            this.M_FmDriver.emergency_phone_no_2,
+          emergency_remarks: this.M_FmDriver.emergency_remarks,
+          lastupdatestamp: this.paramFromList.lastupdatestamp,
+          user_edit: this.getDataUser().user_id
+        },
+        paramD = [];
+
+      this.M_Picture.forEach((pict, index) => {
+        paramD.push({
+          _Method_: "SAVE",
+          _LineNo_: 1,
+          fm_driver_id: this.M_FmDriver.fm_driver_id,
+          doc_type: "NULL",
+          doc_no: "NULL",
+          doc_file_name: pict.file_logo_name,
+          doc_path_file: pict.file_logo_path,
+          expiry_date: "NULL",
+          user_input: this.getDataUser().user_id
+        });
+      });
+      // paramDelete = [];
+      var paramDelete = {
+        _Method_: "DELETE",
+        _LineNo_: 1,
+        row_id: this.M_FmDriver.fm_driver_id,
+        lastupdatestamp: 0
+      };
+
+      var param = {
+        option_url: "/OP/OP_Driver",
+        line_no: 0,
+        Data: [
+          {
+            A_Update: paramH,
+            B_Delete: paramDelete,
+            C_Looping: paramD
+          }
+        ]
+      };
+
+      this.postJSONMulti(this.getUrlProsesDataPostMulti(), param).then(
+        response => {
+          // console.log(response)
+          if (response == null) return;
+          this.alertSuccess("Update Data Has Been Successfully").then(() => {
+            // this.doBack();
+
+            this.$router.replace({ name: "OP_DriverManagementView" });
           });
         }
       );
@@ -841,7 +924,7 @@ export default {
         if (response == null) return;
         this.alertSuccess(response.Message).then(() => {
           // this.doBack();
-          this.doList();
+          this.$router.replace({ name: "OP_DriverManagementView" });
         });
       });
     },
@@ -860,6 +943,7 @@ export default {
       });
     },
     GetDataBy() {
+      this.M_PictureM = [];
       var param = {
         option_url: "/OP/OP_Driver",
         line_no: 0,
@@ -913,15 +997,17 @@ export default {
               lastupdatestamp: data[i].lastupdatestamp
             };
           }
-          this.M_Picture.push({
-            file_logo: "dtfile_" + i,
-            file_logo_name: data[i].dt_doc_file_name,
-            file_logo_path: data[i].dt_doc_path_file,
-            file_show:
-              data[i].dt_doc_path_file && data[i].dt_doc_path_file !== ""
-                ? this.url + data[i].dt_doc_path_file
-                : require("@/assets/default_photo_.png")
-          });
+          if (data[i].dt_doc_file_name.length > 0) {
+            this.M_PictureM_Picture.push({
+              file_logo: "dtfile_" + i,
+              file_logo_name: data[i].dt_doc_file_name,
+              file_logo_path: data[i].dt_doc_path_file,
+              file_show:
+                data[i].dt_doc_path_file && data[i].dt_doc_path_file !== ""
+                  ? this.url + data[i].dt_doc_path_file
+                  : require("@/assets/default_photo_.png")
+            });
+          }
         }
       });
     }

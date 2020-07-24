@@ -852,7 +852,8 @@ export default {
       this.$router.push({ name: "MK_CustomerLogBook" });
     },
     doBack() {
-      this.$router.go(-1);
+      // this.$router.go(-1);
+      this.$router.push({ name: "MK_CustomerList" });
     },
     doConfirm() {
       var param = {
