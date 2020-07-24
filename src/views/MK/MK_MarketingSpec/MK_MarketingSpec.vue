@@ -209,6 +209,35 @@
                       </div>
                     </div>
                   </b-col>
+                </b-row>
+                <b-row class="dashboardBody">
+                  <b-col md="6">
+                    <div class="card">
+                      <!-- kiri -->
+                      <div class="card__title">
+                        <b-row>
+                          <b-col style="max-width:fit-content !important;">
+                            <span>General</span>
+                          </b-col>
+                        </b-row>
+                      </div>
+                      <div class="card__body">
+                        <!-- isi -->
+                        <b-row class="row">
+                          <b-col md="4">
+                            <span>
+                              <label>Customer Name</label>
+                            </span>
+                          </b-col>
+                          <b-col md="2">
+                            <label>Point</label>
+                          </b-col>
+                        </b-row>
+                      </div>
+                    </div>
+                  </b-col>
+                </b-row>
+                <b-row class="dashboardBody">
                   <b-col md="12">
                     <b-row>
                       <b-col md="12">
