@@ -846,7 +846,7 @@ export default {
     },
     doLogBook(record) {
       var param = this.AllData;
-      param.isEdit = record == null ? false : true;
+      param.isEdit = true;
       param.DetailList = record;
       this.$store.commit("setParamPage", param);
       this.$router.push({ name: "MK_CustomerLogBook" });

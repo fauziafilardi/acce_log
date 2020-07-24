@@ -102,11 +102,26 @@
                         />
                       </b-col>
                       <b-col sm="6">
-                        <br />
-                        <br />
-                        <span>
-                          <label>Last Action Date : {{M_Appointment.last_action_date}}</label>
-                        </span>
+                        <b-row>
+                          <b-col md="6">
+                            <span>
+                              <label>Last Action Date</label>
+                            </span>
+                            <br />
+                            <span>
+                              <label>{{M_Appointment.last_action_date}}</label>
+                            </span>
+                          </b-col>
+                          <b-col md="6">
+                            <span>
+                              <label>Marketing Name</label>
+                            </span>
+                            <br />
+                            <span>
+                              <label>{{M_Appointment.marketing_name}}</label>
+                            </span>
+                          </b-col>
+                        </b-row>
                       </b-col>
                     </b-row>
                     <b-row style="margin-top: 5px;">
@@ -167,6 +182,32 @@
                           :prop="PI_descs2"
                           v-model="M_Appointment.descs2"
                           ref="ref_descs2"
+                        />
+                      </b-col>
+                    </b-row>
+                    <b-row>
+                      <b-col md="6">
+                        <span>
+                          <label>Co Marketing I</label>
+                        </span>
+                        <ACCDropDown
+                          @change="Onco_marketing1Change"
+                          :prop="PI_co_marketing1"
+                          v-model="M_Appointment.co_marketing1"
+                          :label="M_Appointment.co_marketing1Label"
+                          ref="ref_co_marketing1"
+                        />
+                      </b-col>
+                      <b-col md="6">
+                        <span>
+                          <label>Co Marketing II</label>
+                        </span>
+                        <ACCDropDown
+                          @change="Onco_marketing2Change"
+                          :prop="PI_co_marketing2"
+                          v-model="M_Appointment.co_marketing2"
+                          :label="M_Appointment.co_marketing2Label"
+                          ref="ref_co_marketing2"
                         />
                       </b-col>
                     </b-row>
@@ -524,7 +565,7 @@ export default {
       M_Appointment: {
         customer: "",
         customerLabel: "",
-        action: "",
+        action: "C",
         actionLabel: "",
         contact_person: "",
         contact_personLabel: "",
@@ -534,11 +575,17 @@ export default {
         meeting_location: "",
         descs: "",
         descs2: "",
+        co_marketing1: "",
+        co_marketing1Label: "",
+        co_marketing2: "",
+        co_marketing2Label: "",
         next_appointment: "",
         next_appointmentLabel: "",
         next_contact_person: "",
         next_contact_personLabel: "",
-        last_action_date: null
+        last_action_date: null,
+        marketing_name: "",
+        marketing_id: ""
       },
       PI_action: {
         dataLookUp: null,
@@ -613,6 +660,32 @@ export default {
         cMaxRows: 3,
         cSize: "md",
         cParentForm: "MK_EditAppointment",
+        cInputStatus: this.inputStatus
+      },
+      PI_co_marketing1: {
+        dataLookUp: null,
+        cValidate: "",
+        cName: "co_marketing1",
+        ckey: false,
+        cOrder: 4,
+        cProtect: false,
+        cParentForm: "MK_EditAppointment",
+        cStatic: true,
+        cOption: [{}],
+        cDisplayColumn: "name",
+        cInputStatus: this.inputStatus
+      },
+      PI_co_marketing2: {
+        dataLookUp: null,
+        cValidate: "",
+        cName: "co_marketing2",
+        ckey: false,
+        cOrder: 5,
+        cProtect: false,
+        cParentForm: "MK_EditAppointment",
+        cStatic: true,
+        cOption: [{}],
+        cDisplayColumn: "name",
         cInputStatus: this.inputStatus
       },
       PI_next_appointment: {
@@ -717,7 +790,7 @@ export default {
           cInputStatus: this.inputStatus
         },
         PI_contact_phone_no_1: {
-          cValidate: "max:20",
+          cValidate: "max:3",
           cName: "contact_phone_no_1",
           cOrder: 3,
           cKey: false,
@@ -810,6 +883,18 @@ export default {
     }
   },
   methods: {
+    Onco_marketing2Change(data) {
+      this.$nextTick(() => {
+        this.M_Appointment.co_marketing2 = data.id;
+        this.M_Appointment.co_marketing2Label = data.label;
+      });
+    },
+    Onco_marketing1Change(data) {
+      this.$nextTick(() => {
+        this.M_Appointment.co_marketing1 = data.id;
+        this.M_Appointment.co_marketing1Label = data.label;
+      });
+    },
     fn_kosong() {},
     CancelModal() {
       this.$refs.Modal_PIC._hide();
@@ -851,14 +936,10 @@ export default {
       var param = {
         option_url: "/MK/MK_Appointment",
         line_no: 2,
-        cm_contact_id: 0,
+        cm_contact_id: this.M_Appointment.cm_contact_id,
         name: this.M_Pic.contact_person,
         phone_no:
-          this.M_Pic.contact_phone_no_1 +
-          "-" +
-          this.M_Pic.contact_phone_no_2 +
-          "-" +
-          this.M_Pic.contact_phone_no_3,
+          this.M_Pic.contact_phone_no_1 + "-" + this.M_Pic.contact_phone_no_2,
         email: this.M_Pic.email,
         position: this.M_Pic.position,
         descs: this.M_Pic.descs,
@@ -938,8 +1019,8 @@ export default {
       this.M_Appointment = {
         customer: "",
         customerLabel: "",
-        action: "",
-        actionLabel: "",
+        action: "C",
+        actionLabel: "C",
         contact_person: "",
         contact_personLabel: "",
         appointment_date: this.momentDate(new Date()),
@@ -947,9 +1028,15 @@ export default {
         meeting_location: "",
         descs: "",
         descs2: "",
+        co_marketing1: "",
+        co_marketing1Label: "",
+        co_marketing2: "",
+        co_marketing2Label: "",
         next_appointment: "",
         next_appointmentLabel: "",
-        contact_person_Label2: ""
+        contact_person_Label2: "",
+        marketing_name: "",
+        marketing_id: ""
       };
 
       this.M_Dt_Appointment = {
@@ -983,7 +1070,7 @@ export default {
     },
     M_Save() {
       if (this.M_Appointment.descs2 == "") {
-        this.alertError("The descs2 field is required ");
+        this.alertError("Log Book Decsription field is required ");
         return;
       }
       var param = {
@@ -996,13 +1083,17 @@ export default {
         cm_contact_person_id: this.M_Appointment.contact_person,
         action_type: this.M_Appointment.action,
         meeting_address: "", //this.M_Dt_Appointment.addr,
-        descs: this.M_Appointment.descs,
+        descs: this.M_Appointment.descs2,
         appointment_date: this.momentDate(new Date()), //this.M_Appointment.appointment_date,
         appointment_type: "A",
-        next_action_type: this.M_Appointment.next_appointment,
+        next_action_type:
+          this.M_Appointment.next_appointment == null ||
+          this.M_Appointment.next_appointment == ""
+            ? "NULL"
+            : this.M_Appointment.next_appointment,
         next_appointment_date: this.M_Appointment.nappointment_date,
         next_meeting_address: "", //this.M_Appointment.meeting_location,
-        next_descs: this.M_Appointment.descs2,
+        next_descs: this.M_Appointment.descs,
         next_cm_contact_person_id:
           this.M_Appointment.next_contact_person == null ||
           this.M_Appointment.next_contact_person == ""
@@ -1010,7 +1101,22 @@ export default {
             : this.M_Appointment.next_contact_person,
         status: "N",
         user_input: this.getDataUser().user_id,
-        lastupdatestamp: this.paramFromList.lastupdatestamp
+        marketing_id: this.M_Appointment.marketing_id,
+        co_marketing_id1:
+          this.M_Appointment.co_marketing1 == null ||
+          this.M_Appointment.co_marketing1 == ""
+            ? "NULL"
+            : this.M_Appointment.co_marketing1,
+        co_marketing_id2:
+          this.M_Appointment.co_marketing2 == null ||
+          this.M_Appointment.co_marketing2 == ""
+            ? "NULL"
+            : this.M_Appointment.co_marketing2,
+        lastupdatestamp:
+          this.paramFromList.lastupdatestamp == null ||
+          this.paramFromList.lastupdatestamp == "undefined"
+            ? 0
+            : this.paramFromList.lastupdatestamp
       };
 
       this.putJSON(this.getUrlCRUD(), param).then(response => {
@@ -1034,39 +1140,28 @@ export default {
         if (response == null) return;
 
         var data = response.Data[0];
-
-        this.M_Dt_Appointment = {
-          mk_appointment_id: data.mk_appointment_id,
-          name: data.name,
-          address:
-            data.address +
-            ", " +
-            data.district +
-            ", " +
-            data.city +
-            ", " +
-            data.province +
-            " - " +
-            data.country,
-          addr: data.address,
-          country: data.country,
-          province: data.province,
-          city: data.city,
-          district: data.district,
-          email: data.email,
-          website: data.website,
-          phone_no: data.phone_no,
-          pic: data.pic,
-          pic_phone_no: data.contact_phone_no
-        };
+        this.$nextTick(() => {
+          this.M_Dt_Appointment = {
+            mk_appointment_id: data.mk_appointment_id,
+            name: data.name,
+            address: data.address,
+            addr: data.address,
+            email: data.email,
+            website: data.website,
+            phone_no: data.phone_no,
+            pic: data.pic,
+            pic_phone_no: data.contact_phone_no
+          };
+        });
 
         this.M_Appointment = {
-          //   action: data.action_type,
+          action: "C",
           //   actionLabel: data.action_type,
           contact_person: data.cm_contact_person_id,
           contact_personLabel: data.contact_person,
-          //   next_contact_person: data.cm_contact_person_id,
-          //   next_contact_personLabel: data.contact_person_name,
+
+          next_contact_person: data.cm_contact_person_id,
+          next_contact_personLabel: data.contact_person,
           contact_person_Label2:
             data.contact_phone_no +
             "  " +
@@ -1085,6 +1180,20 @@ export default {
               : this.momentDate(data.last_action_date),
           nappointment_date: this.momentDate(new Date())
         };
+        this.M_Appointment.cm_contact_id = this.paramFromList.cm_contact_id;
+        this.M_Appointment.mk_appointment_id = 0;
+        this.M_Appointment.marketing_id =
+          data.marketing_id == null || data.marketing_id.length == 0
+            ? this.getDataUser().user_id
+            : data.marketing_id;
+        this.M_Appointment.marketing_name =
+          data.marketing_id == null || data.marketing_id.length == 0
+            ? this.getDataUser().user_name
+            : data.marketing_name;
+        this.PI_contact_person.dataLookUp.InitialWhere =
+          "cm_contact_id =" + this.paramFromList.cm_contact_id;
+        this.PI_next_contact_person.dataLookUp.InitialWhere =
+          "cm_contact_id =" + this.paramFromList.cm_contact_id;
         // console.log(this.M_Appointment);
         this.doGetlist(this.search);
       });
@@ -1317,11 +1426,42 @@ export default {
         this.totalRows = this.responses.Total;
         this.lastPage = this.responses.Last_Page;
       });
+    },
+    doGetCoMarketing() {
+      var param = {
+        option_function_cd: "GetLookupMarketingTeam",
+        module_cd: "MK",
+        ss_portfolio_id: this.getDataUser().portfolio_id,
+        user_id: this.getDataUser().user_id
+      };
+      this.CallFunction(param).then(ress => {
+        if (ress == null) return;
+        this.dataCoMarketing = [];
+        var now = new Date();
+        for (let i = 0; i < ress.Data.length; i++) {
+          var next_action = new Date(ress.Data[i].next_action);
+          // console.log(next_action);
+          this.PI_co_marketing2.cOption.push({
+            id: ress.Data[i].marketing_id,
+            label: ress.Data[i].marketing_name
+          });
+          this.PI_co_marketing1.cOption.push({
+            id: ress.Data[i].marketing_id,
+            label: ress.Data[i].marketing_name
+          });
+          // this.dataCoMarketing.push({
+          //   id: ress.Data[i].marketing_id,
+          //   label: ress.Data[i].marketing_name
+          // });
+        }
+        this.$forceUpdate();
+      });
     }
   },
   mounted() {
     this.M_ClearForm();
     this.GetDataBy();
+    this.doGetCoMarketing();
   }
 };
 </script>
