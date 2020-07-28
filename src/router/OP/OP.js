@@ -30,6 +30,7 @@ import OP_TicketCategoryForm from '@/views/OP/OP_TicketCategory/OP_TicketCategor
 import OP_FleetMaster from '@/views/OP/OP_FleetMaster/OP_FleetMasterList'
 import OP_FleetMasterView from '@/views/OP/OP_FleetMaster/OP_FleetMasterView'
 import OP_FleetMasterForm from '@/views/OP/OP_FleetMaster/OP_FleetMasterForm'
+import OP_FleetMasterMaintenance from '@/views/OP/OP_FleetMaster/OP_FleetMasterMaintenance'
 
 //Maintenance Type
 import OP_MaintenanceType from '@/views/OP/OP_MaintenanceType/OP_MaintenanceTypeList'
@@ -340,6 +341,14 @@ export const OPRender = {
             path: '/OP/OP_FleetMaster/Form',
             name: 'OP_FleetMasterForm',
             component: OP_FleetMasterForm,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/OP_FleetMaster/Maintenance',
+            name: 'OP_FleetMasterMaintenance',
+            component: OP_FleetMasterMaintenance,
             meta: {
                 requiresAuth: true
             }
