@@ -20,197 +20,280 @@
               </b-row>
             </div>
             <div class="card__body">
-              <b-form :data-vv-scope="'parent'" :data-vv-value-path="'parent'">
-                <b-row>
-                  <b-col md="6">
-                    <span>
-                      <label>Transaction Information</label>
-                    </span>
-                    <b-list-group>
-                      <b-list-group-item>
-                        <b-row class="row-h">
-                          <b-col>Customer Name</b-col>
-                          <b-col>PIC</b-col>
+              <b-row>
+                <b-col md="6">
+                  <b-row class="row-bordered">
+                    <b-col md="12">
+                      <b-row>
+                        <b-col>
+                          <span style="font-size: 15px; color: #333399; font-weight: bold;"> Transaction Information </span>
+                        </b-col>
+                      </b-row>
+                      <br />
+                      <b-row class="row-view">
+                        <b-col md="6">
+                          <span>
+                            <label>Booking No</label>
+                          </span>
+                          <br/>
+                          <span>
+                            <label>{{M_Order.booking_no}}</label>
+                          </span>
+                        </b-col>
+                        <b-col md="3">
+                          <span>
+                            <label>Status</label>
+                          </span>
+                          <br/>
+                          <span>
+                            <label>{{M_Order.status}}</label>
+                          </span>
+                        </b-col>
+                        <b-col md="3">
+                          <span>
+                            <label>Source</label>
+                          </span>
+                          <br/>
+                          <span>
+                            <label>{{M_Order.source}}</label>
+                          </span>
+                        </b-col>
+                      </b-row>
+                      <b-row class="row-view">
+                        <b-col md="12">
+                          <span>
+                            <label>Customer Name</label>
+                          </span>
+                          <br/>
+                          <span>
+                            <label>{{M_Order.customer_name}}</label>
+                          </span>
+                        </b-col>
+                      </b-row>
+                      <b-row class="row-view">
+                        <b-col md="12">
+                          <span>
+                            <label>PIC</label>
+                          </span>
+                          <br/>
+                          <span>
+                            <label>{{M_Order.contact_person}}</label>
+                          </span>
+                        </b-col>
+                      </b-row>
+                      <b-row class="row-view">
+                        <b-col md="6">
+                          <span>
+                            <label>Order Ref No</label>
+                          </span>
+                          <br/>
+                          <span>
+                            <label>{{M_Order.ref_no}}</label>
+                          </span>
+                        </b-col>
+                        <b-col md="6">
+                          <span>
+                            <label>Pickup Date Time</label>
+                          </span>
+                          <br/>
+                          <span>
+                            <label>{{M_Order.pickup_date}}</label>
+                          </span>
+                        </b-col>
+                      </b-row>
+                      <b-row class="row-view">
+                        <b-col md="6">
+                          <span>
+                            <label>Pickup From</label>
+                          </span>
+                          <br/>
+                          <span>
+                            <label>{{M_Order.pickup_from}}</label>
+                          </span>
+                        </b-col>
+                        <b-col md="6">
+                          <span>
+                            <label>Delivery To</label>
+                          </span>
+                          <br/>
+                          <span>
+                            <label>{{M_Order.delivery_to}}</label>
+                          </span>
+                        </b-col>
+                      </b-row>
+                      <b-row class="row-view">
+                        <b-col md="12">
+                          <span>
+                            <label>Description</label>
+                          </span>
+                          <br/>
+                          <span>
+                            <label>{{M_Order.descs}}</label>
+                          </span>
+                        </b-col>
+                      </b-row>
+                    </b-col>
+                  </b-row>
+                </b-col>
+                <b-col md="6">
+                  <b-row class="row-bordered">
+                    <b-col md="12">
+                      <b-row>
+                        <b-col>
+                          <span style="font-size: 15px; color: #333399; font-weight: bold;"> Information </span>
+                        </b-col>
+                        <b-col class="col-right" style="min-width: fit-content !important;">
+                          <div class="button button-default">
+                            {{M_Order.category}}
+                          </div>
+                        </b-col>
+                      </b-row>
+                      <br />
+                      <template v-if="M_Order.category == 'F'">
+                        <template v-for="(data, index) in TruckDetail">
+                          <b-row class="row-view" v-bind:key="index">
+                            <b-col md="6">
+                              <span>
+                                <label>Truck</label>
+                              </span>
+                              <br/>
+                              <span>
+                                <label>{{data.vehicle_type}}</label>
+                              </span>
+                            </b-col>
+                            <b-col md="6">
+                              <span>
+                                <label>Qty</label>
+                              </span>
+                              <br/>
+                              <span>
+                                <label>{{isCurrency(data.qty, 0)}}</label>
+                              </span>
+                            </b-col>
+                          </b-row>
+                        </template>
+                      </template>
+                      <template v-if="M_Order.category == 'L'">
+                        <b-row class="row-view">
+                          <b-col md="12">
+                            <span>
+                              <label>Comodity</label>
+                            </span>
+                            <br/>
+                            <span>
+                              <label>{{M_Order.comodity}}</label>
+                            </span>
+                          </b-col>
                         </b-row>
-                        <b-row class="row-b">
-                          <b-col>{{M_BookingEntry.customer_name}}</b-col>
-                          <b-col>{{M_BookingEntry.pic}}</b-col>
+                        <b-row class="row-view">
+                          <b-col md="4">
+                            <span>
+                              <label>Total Item</label>
+                            </span>
+                            <br/>
+                            <span>
+                              <label>{{isCurrency(M_Order.total_item, 0)}}</label>
+                            </span>
+                          </b-col>
+                          <b-col md="4">
+                            <span>
+                              <label>Weight (Kg)</label>
+                            </span>
+                            <br/>
+                            <span>
+                              <label>{{isCurrency(M_Order.kgs, 0)}}</label>
+                            </span>
+                          </b-col>
+                          <b-col md="4">
+                            <span>
+                              <label>Cubic</label>
+                            </span>
+                            <br/>
+                            <span>
+                              <label>{{isCurrency(M_Order.cbm, 0)}}</label>
+                            </span>
+                          </b-col>
                         </b-row>
-                        <b-row class="row-h">
-                          <b-col>Order Ref No</b-col>
+                      </template>
+                      <template v-if="M_Order.category == 'P'">
+                        <b-row class="row-view">
+                          <b-col md="12">
+                            <span>
+                              <label>Contract No</label>
+                            </span>
+                            <br/>
+                            <span>
+                              <label>{{M_Order.contract_no}}</label>
+                            </span>
+                          </b-col>
                         </b-row>
-                        <b-row class="row-b">
-                          <b-col>{{M_BookingEntry.order_ref_no}}</b-col>
+                        <b-row class="row-view">
+                          <b-col md="12">
+                            <span>
+                              <label>Description</label>
+                            </span>
+                            <br/>
+                            <span>
+                              <label>{{M_Order.P_descs}}</label>
+                            </span>
+                          </b-col>
                         </b-row>
-                      </b-list-group-item>
-                      <b-list-group-item>
-                        <b-row class="row-h">
-                          <b-col>Booking Category</b-col>
-                          <b-col v-show="showNonProject">Contract No</b-col>
+                        <b-row class="row-view">
+                          <b-col md="4">
+                            <span>
+                              <label>Charge By</label>
+                            </span>
+                            <br/>
+                            <span>
+                              <label>{{M_Order.charge_by}}</label>
+                            </span>
+                          </b-col>
+                          <b-col md="4">
+                            <span>
+                              <label>Contracted Volume</label>
+                            </span>
+                            <br/>
+                            <span>
+                              <label>{{isCurrency(M_Order.contracted_volume, 0)}}</label>
+                            </span>
+                          </b-col>
+                          <b-col md="4">
+                            <span>
+                              <label>Executed Volume</label>
+                            </span>
+                            <br/>
+                            <span>
+                              <label>{{isCurrency(M_Order.executed_volume, 0)}}</label>
+                            </span>
+                          </b-col>
                         </b-row>
-                        <b-row class="row-b">
-                          <b-col>{{M_BookingEntry.booking_category}}</b-col>
-                          <b-col v-show="showNonProject">{{M_BookingEntry.contract_no}}</b-col>
-                        </b-row>
-                        <b-row class="row-h" v-show="showNonProject">
-                          <b-col>Project Base</b-col>
-                          <b-col>Total</b-col>
-                          <b-col>Have Been Pickup</b-col>
-                          <b-col>Rest</b-col>
-                        </b-row>
-                        <b-row class="row-b" v-show="showNonProject">
-                          <b-col>{{M_BookingEntry.project_base}}</b-col>
-                          <b-col>{{M_BookingEntry.total}}</b-col>
-                          <b-col>{{M_BookingEntry.pickup}}</b-col>
-                          <b-col>{{M_BookingEntry.rest}}</b-col>
-                        </b-row>
-                      </b-list-group-item>
-                      <b-list-group-item>
-                        <b-row class="row-h">
-                          <b-col>Picup From</b-col>
-                          <b-col>Delivery To</b-col>
-                        </b-row>
-                        <b-row class="row-b">
-                          <b-col>{{M_BookingEntry.pickup_from}}</b-col>
-                          <b-col>{{M_BookingEntry.delivery_to}}</b-col>
-                        </b-row>
-                        <b-row class="row-h">
-                          <b-col>Pickup Date Time</b-col>
-                        </b-row>
-                        <b-row class="row-b">
-                          <b-col>{{M_BookingEntry.pickup_date}}</b-col>
-                        </b-row>
-                      </b-list-group-item>
-                    </b-list-group>
-                  </b-col>
-                  <b-col md="6">
-                    <span>
-                      <label>Truck Information</label>
-                    </span>
-                    <b-list-group>
-                      <b-list-group-item>
-                        <b-row class="row-h">
-                          <b-col>Type</b-col>
-                        </b-row>
-                        <b-row class="row-b">
-                          <b-col>{{M_BookingEntry.type}}</b-col>
-                        </b-row>
-
-                        <b-row class="row-h" v-show="showLTL">
-                          <b-col>Wight (Kg)</b-col>
-                          <b-col>Cubic</b-col>
-                        </b-row>
-                        <b-row class="row-b" v-show="showLTL">
-                          <b-col>{{M_BookingEntry.weight}}</b-col>
-                          <b-col>{{M_BookingEntry.cubic}}</b-col>
-                        </b-row>
-
-                        <!-- <b-row class="row-h" v-show="showFTL">
-                          <b-col>Truck</b-col>
-                          <b-col>Qty</b-col>
-                        </b-row>
-                        <b-row
-                          v-show="showFTL"
-                          v-for="(data, index) in dataDetail"
-                          v-bind:key="index"
-                        >
-                          <b-col>{{data.ftl_truck}}</b-col>
-                          <b-col>{{data.ftl_qty}}</b-col>
-                        </b-row>-->
-                        <b-list-group v-show="showFTL">
-                          <b-list-group-item>
-                            <b-row>
-                              <b-col>
-                                <span>Truck</span>
-                              </b-col>
-                              <b-col>
-                                <span>Qty</span>
-                              </b-col>
-                            </b-row>
-                          </b-list-group-item>
-                          <b-list-group-item v-for="(data, index) in dataDetail" v-bind:key="index">
-                            <b-row>
-                              <b-col>
-                                <span>{{data.ftl_truck}}</span>
-                              </b-col>
-                              <b-col>
-                                <span>{{data.ftl_qty}}</span>
-                              </b-col>
-                            </b-row>
-                          </b-list-group-item>
-                        </b-list-group>
-                        <!-- <b-list-group>
-                          <b-list-group-item
-                            class="flex-column align-items-start"
-                            style="padding-top: 5px !important; padding-bottom: 5px !important;"
-                          >
-                            <b-row>
-                              <b-col>
-                                <span>Truck</span>
-                              </b-col>
-                              <b-col>
-                                <span>Qty</span>
-                              </b-col>
-                              <b-col>
-                                <span>&nbsp;</span>
-                              </b-col>
-                            </b-row>
-                          </b-list-group-item>
-                          <b-list-group-item
-                            @dblclick="onDataDblClick(index)"
-                            v-for="(data, index) in dataDetail"
-                            href="#"
-                            class="flex-column align-items-start"
-                            v-bind:key="index"
-                            style="padding-top: 5px !important; padding-bottom: 5px !important;"
-                          >
-                            <b-row>
-                              <b-col>
-                                <span>{{data.ftl_truck}}</span>
-                              </b-col>
-                              <b-col>
-                                <span>{{data.ftl_qty}}</span>
-                              </b-col>
-                              <b-col class="center-delete-list" style="max-width:100% !important;">
-                                <font-awesome-icon
-                                  icon="trash-alt"
-                                  class="icon-style-1__deleteMobile"
-                                  @click="M_Delete(index)"
-                                />
-                              </b-col>
-                            </b-row>
-                          </b-list-group-item>
-                        </b-list-group>-->
-                      </b-list-group-item>
-                      <b-list-group-item>
-                        <b-row class="row-h">
-                          <b-col>Extra Pickup</b-col>
-                        </b-row>
-                        <b-row class="row-b">
-                          <b-col>{{M_BookingEntry.extra_pickup}}</b-col>
-                        </b-row>
-                        <b-row class="row-h">
-                          <b-col>Extra Deliver</b-col>
-                        </b-row>
-                        <b-row class="row-b">
-                          <b-col>{{M_BookingEntry.extra_deliver}}</b-col>
-                        </b-row>
-                      </b-list-group-item>
-                    </b-list-group>
-                  </b-col>
-                </b-row>
-                <b-row style="margin-top: 10px;">
-                  <b-col md="12">
-                    <ABSButton
-                      :text="'Edit Booking Entry'"
-                      classButton="btn btn--default"
-                      classIcon="icon-style-1"
-                      @click="doEdit"
-                      styleButton="height: 40px;width: 100%;"
-                    />
-                  </b-col>
-                </b-row>
-              </b-form>
+                        <template v-for="(data, index) in TruckDetail">
+                          <b-row class="row-view" v-bind:key="index">
+                            <b-col md="6">
+                              <span>
+                                <label>Truck</label>
+                              </span>
+                              <br/>
+                              <span>
+                                <label>{{data.vehicle_type}}</label>
+                              </span>
+                            </b-col>
+                            <b-col md="6">
+                              <span>
+                                <label>Qty</label>
+                              </span>
+                              <br/>
+                              <span>
+                                <label>{{isCurrency(data.qty, 0)}}</label>
+                              </span>
+                            </b-col>
+                          </b-row>
+                        </template>
+                      </template>
+                    </b-col>
+                  </b-row>
+                </b-col>
+              </b-row>
             </div>
           </div>
         </b-col>
@@ -223,31 +306,8 @@
 export default {
   data() {
     return {
-      M_BookingEntry: {
-        customer_name: "",
-        pic: "",
-        order_ref_no: "",
-        booking_category: "",
-        contract_no: "",
-        project_base: "",
-        total: "",
-        pickup: "",
-        rest: "",
-        pickup_from: "",
-        delivery_to: "",
-        pickup_date: "",
-        type: "",
-        weight: "",
-        cubic: "",
-        extra_pickup: "",
-        extra_deliver: ""
-      },
-      M_GetDataBy: null,
-      dataDetail: [],
-      showLTL: false,
-      showFTL: false,
-      showProject: false,
-      showNonProject: false
+      M_Order: {
+      }
     };
   },
   computed: {
@@ -273,137 +333,23 @@ export default {
       param.isEdit = true;
       this.$router.push({ name: "OP_AddBookingEntry", params: param });
     },
-    // doGetList(search) {
-    //   var param = {
-    //     option_url: "/MK/MK_Customer",
-    //     line_no: 1,
-    //     user_id: this.getDataUser().user_id,
-    //     portfolio_id: this.getDataUser().portfolio_id,
-    //     subportfolio_id: this.getDataUser().subportfolio_id,
-    //     current_page: 1,
-    //     per_page: 10,
-    //     param_where: "",
-    //     initial_where: " cm_contact_id = " + this.paramFromList.cm_contact_id,
-    //     sort_field: "",
-    //     source_field: "",
-    //     param_view: ""
-    //   };
-    //   this.postJSON(this.getUrlList(), param).then(response => {
-    //     if (response == null) return;
-    //     console.log(response.Data);
-    //     this.dataPIC = response.Data;
-    //   });
-    // },
-    // onDataDblClick(index) {
-    //   this.inputStatus = "edit";
-    //   var param = {
-    //     option_url: "/MK/MK_Customer",
-    //     line_no: 1,
-    //     id: this.dataPIC[index].row_id,
-    //     lastupdatestamp: this.dataPIC[index].lastupdatestamp
-    //   };
-    //   this.getJSON(this.getUrlCRUD(), param).then(response => {
-    //     if (response == null) return;
-    //     var data = response.Data[0];
-    //     this.$refs.Modal_PIC._show();
-    //     var phone_no =
-    //       data.phone_no && data.phone_no !== "" ? data.phone_no.split("-") : "";
-    //     this.M_Customer = {
-    //       cm_contact_id: data.cm_contact_id,
-    //       cm_contact_person_id: data.cm_contact_person_id,
-    //       contact_person_modal: data.name,
-    //       contact_phone_no_1: phone_no !== "" ? phone_no[0] : phone_no,
-    //       contact_phone_no_2: phone_no !== "" ? phone_no[1] : phone_no,
-    //       contact_phone_no_3: phone_no !== "" ? phone_no[2] : phone_no,
-    //       email_modal: data.email,
-    //       lastupdatestamp: data.lastupdatestamp
-    //     };
-    //   });
-    // },
     GetDataBy() {
       var param = {
         option_url: "/OP/OP_BookingEntry",
         line_no: 0,
         id: this.paramFromList.row_id,
         lastupdatestamp: this.paramFromList.lastupdatestamp
-        // id: 1,
-        // lastupdatestamp: 67265
       };
-      this.showLTL = true;
+      
       this.getJSON(this.getUrlCRUD(), param).then(response => {
         if (response == null) return;
         var data = response.Data[0];
-        this.M_GetDataBy = data;
-        this.dataDetail = response.Data;
-
-        if (data.truck_type == "FTL") {
-          this.showFTL = true;
-          this.showLTL = false;
-        } else {
-          this.showFTL = false;
-          this.showLTL = true;
-        }
-
-        if (data.booking_category == "N") {
-          this.showNonProject = false;
-        } else {
-          this.showNonProject = true;
-        }
-
-        // if (
-        //   data.location_extra_pickup == null ||
-        //   data.location_extra_pickup == ""
-        // ) {
-        //   this.M_BookingEntry.extra_pickup = "None";
-        // } else {
-        //   this.M_BookingEntry.extra_pickup = data.location_extra_pickup;
-        // }
-
-        // if (
-        //   data.location_extra_deliver == null ||
-        //   data.location_extra_deliver == ""
-        // ) {
-        //   this.M_BookingEntry.extra_deliver = "None";
-        // } else {
-        //   this.M_BookingEntry.extra_deliver = data.location_extra_deliver;
-        // }
-
-        this.M_BookingEntry = {
-          customer_name: data.contact_name,
-          pic: data.contact_person_name,
-          order_ref_no: data.ref_no,
-          booking_category: data.booking_category,
-          contract_no: data.contract_no,
-          project_base: data.base_type,
-          total: data.base_total,
-          pickup: data.base_pickup,
-          rest: data.base_rest_of,
-          pickup_from: data.location_pickup,
-          delivery_to: data.location_deliver,
-          pickup_date: this.momentDateFormatting(
-            new Date(data.pickup_date),
-            "DD-MM-YYYY HH.mm"
-          ),
-          type: data.truck_type,
-          weight: data.weight,
-          cubic: data.cubic,
-          extra_pickup:
-            data.location_extra_pickup == null ||
-            data.location_extra_pickup == ""
-              ? "None"
-              : data.location_extra_pickup,
-          extra_deliver:
-            data.location_extra_deliver == null ||
-            data.location_extra_deliver == ""
-              ? "None"
-              : data.location_extra_deliver
-        };
+        
       });
     }
   },
   mounted() {
     this.GetDataBy();
-    // this.doGetList();
   },
   beforeMount() {}
 };
