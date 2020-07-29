@@ -137,7 +137,7 @@
                         </b-row>
                         <b-row>
                           <b-col>
-                            <div class="table--list" :id="'itemList'">
+                            <!-- <div class="table--list" :id="'itemList'">
                               <b-table
                                 :responsive="true"
                                 :striped="false"
@@ -166,7 +166,23 @@
                                   </span>
                                 </template>
                               </b-table>
-                            </div>
+                            </div>-->
+                            <ACCFormList
+                              :prop="propList"
+                              :title="'Maintenance Type'"
+                              @rowClicked="rowClicked"
+                              @rowDblClicked="doDoubleClick"
+                              @rowLinkClick="rowLink"
+                              @pageSize="M_PageSize"
+                              @pagination="M_Pagination"
+                              @filter="M_Advance_Filter"
+                              @headTable="M_Head_Table"
+                              @refreshColumn="refreshColumn"
+                              ref="ref_MmMaintenanceType"
+                              urlAdd="OP_MaintenanceTypeForm"
+                              WithDeleteButton
+                              @buttonDeleteClicked="doDeleteClick"
+                            />
                           </b-col>
                         </b-row>
                       </b-col>
@@ -186,6 +202,18 @@
 export default {
   data() {
     return {
+      propList: {
+        OptionUrl: "/OP/OP_FieldClerk",
+        LineNo: 1,
+        initialWhere:
+          "ss_portfolio_id='" +
+          this.getDataUser().portfolio_id +
+          "' and op_field_clerk_id =" +
+          this.paramFromList.row_id,
+        OrderBy: "customer_name ASC",
+        SourceField: "",
+        ParamView: "",
+      },
       M_OpFieldClerk: {
         op_field_clerk_id: 0,
         ss_portfolio_id: 0,
@@ -202,35 +230,35 @@ export default {
         row_id: 0,
         lastupdatestamp: 0,
       },
-      Items: {
-        Tb_Header: [
-          {
-            key: "no",
-            label: "No",
-            thClass: "HeaderACCList2 th-cus-center",
-            tdClass: "ContentACCList2 notranslate th-cus-center",
-          },
-          {
-            key: "customer_name",
-            label: "Customer Name",
-            thClass: "HeaderACCList2 M th-cus-center",
-            tdClass: "ContentACCList2 notranslate",
-          },
-          {
-            key: "address",
-            label: "Address",
-            thClass: "HeaderACCList2 L th-cus-center",
-            tdClass: "ContentACCList2 notranslate th-cus-center",
-          },
-          {
-            key: "row_id",
-            label: " ",
-            thClass: "HeaderACCList2 th-cus-center",
-            tdClass: "ContentACCList2 notranslate th-cus-center",
-          },
-        ],
-        Tb_Data: [],
-      },
+      // Items: {
+      //   Tb_Header: [
+      //     {
+      //       key: "no",
+      //       label: "No",
+      //       thClass: "HeaderACCList2 th-cus-center",
+      //       tdClass: "ContentACCList2 notranslate th-cus-center",
+      //     },
+      //     {
+      //       key: "customer_name",
+      //       label: "Customer Name",
+      //       thClass: "HeaderACCList2 M th-cus-center",
+      //       tdClass: "ContentACCList2 notranslate",
+      //     },
+      //     {
+      //       key: "address",
+      //       label: "Address",
+      //       thClass: "HeaderACCList2 L th-cus-center",
+      //       tdClass: "ContentACCList2 notranslate th-cus-center",
+      //     },
+      //     {
+      //       key: "row_id",
+      //       label: " ",
+      //       thClass: "HeaderACCList2 th-cus-center",
+      //       tdClass: "ContentACCList2 notranslate th-cus-center",
+      //     },
+      //   ],
+      //   Tb_Data: [],
+      // },
     };
   },
   computed: {
@@ -316,18 +344,18 @@ export default {
         });
       });
     },
-    getItems() {
-      var param = {
-        option_function_cd: "GetListOPMaintenanceTypeDtl",
-        module_cd: "OP",
-        row_id: this.paramFromList.row_id,
-      };
+    // getItems() {
+    //   var param = {
+    //     option_function_cd: "GetListOPMaintenanceTypeDtl",
+    //     module_cd: "OP",
+    //     row_id: this.paramFromList.row_id,
+    //   };
 
-      this.CallFunction(param).then((response) => {
-        if (response == null) return;
-        this.Items.Tb_Data = response.Data;
-      });
-    },
+    //   this.CallFunction(param).then((response) => {
+    //     if (response == null) return;
+    //     this.Items.Tb_Data = response.Data;
+    //   });
+    // },
     GetDataBy() {
       var param = {
         option_url: "/OP/OP_FieldClerk",

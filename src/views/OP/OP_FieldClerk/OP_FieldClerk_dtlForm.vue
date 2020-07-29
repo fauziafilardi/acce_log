@@ -76,7 +76,7 @@
                     <b-row style="margin-top: 10px;">
                       <b-col md="6">
                         <ABSButton
-                          :text="'Save FieldClerk'"
+                          :text="'Save'"
                           classButton="btn btn--default"
                           classIcon="icon-style-default"
                           @click="doSave"
@@ -198,8 +198,8 @@ export default {
     },
     Oncm_contact_idChange(data) {
       this.$nextTick(() => {
-        this.M_OpFieldClerkDtl.cm_contact_id = data.id;
-        this.M_OpFieldClerkDtl.nameLabel = data.descs;
+        this.M_OpFieldClerkDtl.cm_contact_id = data.row_id;
+        this.M_OpFieldClerkDtl.nameLabel = data.customer_name;
 
         this.PI_cm_contact_delivery_address_id.dataLookUp.InitialWhere =
           "cm_contact_id=" + data.id;
@@ -207,8 +207,8 @@ export default {
     },
     Oncm_contact_delivery_address_idChange(data) {
       this.$nextTick(() => {
-        this.M_OpFieldClerkDtl.cm_contact_delivery_address_id = data.id;
-        this.M_OpFieldClerkDtl.addressLabel = data.descs;
+        this.M_OpFieldClerkDtl.cm_contact_delivery_address_id = data.row_id;
+        this.M_OpFieldClerkDtl.addressLabel = data.address;
       });
     },
     OndescsChange(data) {
@@ -261,7 +261,7 @@ export default {
         option_url: "/OP/OP_FieldClerk",
         line_no: 1,
         ss_portfolio_id: this.getDataUser().portfolio_id,
-        ofield_clerk_id: this.M_OpFieldClerkDtl.ofield_clerk_id,
+        op_field_clerk_id: this.paramFromList.row_id,
         cm_contact_id: this.M_OpFieldClerkDtl.cm_contact_id,
         cm_contact_delivery_address_id: this.M_OpFieldClerkDtl
           .cm_contact_delivery_address_id,
@@ -280,9 +280,9 @@ export default {
       var param = {
         option_url: "/OP/OP_FieldClerk",
         line_no: 1,
-        ofield_clerk_dtl_id: this.M_OpFieldClerkDtl.ofield_clerk_dtl_id,
+        op_field_clerk_dtl_id: this.M_OpFieldClerkDtl.op_field_clerk_dtl_id,
         ss_portfolio_id: this.getDataUser().portfolio_id,
-        ofield_clerk_id: this.M_OpFieldClerkDtl.ofield_clerk_id,
+        op_field_clerk_id: this.paramFromList.row_id,
         cm_contact_id: this.M_OpFieldClerkDtl.cm_contact_id,
         cm_contact_delivery_address_id: this.M_OpFieldClerkDtl
           .cm_contact_delivery_address_id,
