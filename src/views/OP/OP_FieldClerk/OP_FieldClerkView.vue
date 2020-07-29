@@ -179,7 +179,6 @@
                               @headTable="M_Head_Table"
                               @refreshColumn="refreshColumn"
                               ref="ref_MmMaintenanceType"
-                              urlAdd="OP_MaintenanceTypeForm"
                               WithDeleteButton
                               @buttonDeleteClicked="doDeleteClick"
                             />
@@ -205,11 +204,7 @@ export default {
       propList: {
         OptionUrl: "/OP/OP_FieldClerk",
         LineNo: 1,
-        initialWhere:
-          "ss_portfolio_id='" +
-          this.getDataUser().portfolio_id +
-          "' and op_field_clerk_id =" +
-          this.paramFromList.row_id,
+        initialWhere:'',
         OrderBy: "customer_name ASC",
         SourceField: "",
         ParamView: "",
@@ -387,6 +382,8 @@ export default {
           lastupdatestamp: data.lastupdatestamp,
         };
         // this.getItems();
+        this.propList.initialWhere = "ss_portfolio_id='" + this.getDataUser().portfolio_id + "' and op_field_clerk_id =" + this.paramFromList.row_id
+        this.$refs.ref_MmMaintenanceType.doGetList("");
       });
     },
   },

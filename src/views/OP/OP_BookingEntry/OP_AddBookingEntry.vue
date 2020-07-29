@@ -790,7 +790,7 @@ export default {
     OncomodityChange(data) {
         console.log(data)
         this.$nextTick(() => {
-            this.M_Order.comodity = data.cm_commodity_id;
+            this.M_Order.comodity = data.id;
             this.M_Order.comodityLabel = data.label;
         });
     },
@@ -990,8 +990,8 @@ export default {
             to_cm_contact_delivery_address_id: this.M_Order.deliver_to,
             pickup_date: this.M_Order.date,
             descs: this.M_Order.descs,
-            cm_commodity_id: this.M_Order.comodity,
-            total_item: this.M_Order.total_item,
+            cm_commodity_id: this.M_Order.TL == 'LTL' ? (this.M_Order.comodity && this.M_Order.comodity !== '' ? this.M_Order.comodity : "NULL") : "NULL",
+            total_item: this.M_Order.TL == 'LTL' ? (this.M_Order.total_item && this.M_Order.total_item !== '' ? this.M_Order.total_item : 0) : "NULL",
             total_kgs: this.M_Order.TL == 'LTL' ? (this.M_Order.kgs && this.M_Order.kgs !== '' ? this.M_Order.kgs : 0) : "NULL",
             total_cbm: this.M_Order.TL == 'LTL' ? (this.M_Order.cbm && this.M_Order.cbm !== '' ? this.M_Order.cbm : 0) : "NULL",
             mk_quotation_id: this.M_Order.TL == 'P' ? this.M_Order.contract_no : "NULL",
@@ -1008,16 +1008,16 @@ export default {
                 paramD.push({
                     _Method_: "SAVE",
                     _LineNo_: 1,
-                    op_order_h_id: "A_Insert.row_id_output",
-                    descs: value.truck,
-                    qty: value.qty,
+                    op_booking_h_id: "A_Insert.row_id_output",
+                    fm_fleet_type_id: value.truck,
+                    qty: parseInt(value.qty),
                     user_input: this.getDataUser().user_id
                 })
             })
         }
 
         var params = {
-            option_url: "/OP/OP_BookingEntry",
+            option_url: "/OP/OP_Booking",
             line_no: 0,
             Data: [{
                 A_Insert: paramH,
@@ -1029,7 +1029,12 @@ export default {
             // console.log(response)
             if (response == null) return;
                 this.alertSuccess("Save Data Has Been Successfully").then(() => {
-                this.doBack();
+                var param = {
+                    row_id: response.Data[0].row_id,
+                    lastupdatestamp: 0
+                }
+                this.$store.commit("setParamPage", param);
+                this.$router.replace({ name: "MK_ViewBookingEntry" });
             });
         });
     },
@@ -1080,7 +1085,7 @@ export default {
         }
 
         var params = {
-            option_url: "/OP/OP_BookingEntry",
+            option_url: "/OP/OP_Booking",
             line_no: 0,
             Data: [{
                 A_Update: paramH,
@@ -1098,7 +1103,7 @@ export default {
     },
     GetDataBy() {
         var param = {
-            option_url: "/OP/OP_BookingEntry",
+            option_url: "/OP/OP_Booking",
             line_no: 0,
             id: this.paramFromList.row_id,
             lastupdatestamp: this.paramFromList.lastupdatestamp
