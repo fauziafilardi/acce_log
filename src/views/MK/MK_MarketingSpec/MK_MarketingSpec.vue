@@ -209,6 +209,41 @@
                       </div>
                     </div>
                   </b-col>
+                </b-row>
+                <b-row class="dashboardBody">
+                  <b-col md="6">
+                    <div class="card">
+                      <!-- kiri -->
+                      <div class="card__title">
+                        <b-row>
+                          <b-col style="max-width:fit-content !important;">
+                            <span>General</span>
+                          </b-col>
+                        </b-row>
+                      </div>
+                      <div class="card__body">
+                        <!-- isi -->
+                        <b-row class="row">
+                          <b-col md="4">
+                            <span>
+                              <label>Customer Name</label>
+                            </span>
+                          </b-col>
+                          <b-col md="6">
+                            <ACCLookUp
+                              @change="Oncm_contact_idChange"
+                              :prop="PI_cm_contact_id"
+                              v-model="M_Spec.cm_contact_id"
+                              :label="M_Spec.cm_contact_idLabel"
+                              ref="ref_cm_contact_id"
+                            />
+                          </b-col>
+                        </b-row>
+                      </div>
+                    </div>
+                  </b-col>
+                </b-row>
+                <b-row class="dashboardBody">
                   <b-col md="12">
                     <b-row>
                       <b-col md="12">
@@ -283,7 +318,33 @@ export default {
         working_days_friday: false,
         working_days_saturday: false,
         working_days_sunday: false,
-        new_cm_customer_status_id: 0
+        new_cm_customer_status_id: 0,
+        cm_contact_id: 0,
+        cm_contact_idLabel: ""
+      },
+      PI_cm_contact_id: {
+        dataLookUp: {
+          LookUpCd: "GetCMContact",
+          ColumnDB: "contact_id",
+          InitialWhere:
+            "ss_portfolio_id='" + this.getDataUser().portfolio_id + "'",
+          ParamWhere: "",
+          OrderBy: "",
+          ParamView: "",
+          SourceField: "",
+          DisplayLookUp: ""
+        },
+        cValidate: "",
+        cName: "cm_contact_id",
+        ckey: false,
+        cOrder: 6,
+        // cDefault: '',
+        cProtect: false,
+        cParentForm: "",
+        cStatic: false,
+        cOption: [],
+        cDisplayColumn: "row_id,name",
+        cInputStatus: this.inputStatus
       },
       default_pic: require("@/assets/default_photo_.png")
     };
@@ -311,6 +372,13 @@ export default {
     // }
   },
   methods: {
+    Oncm_contact_idChange(data) {
+      this.$nextTick(() => {
+        this.M_Spec.cm_contact_id = data.row_id;
+        this.M_Spec.cm_contact_idLabel = data.name;
+      });
+      this.$forceUpdate();
+    },
     doBack() {
       this.$router.go(-1);
     },
@@ -326,7 +394,9 @@ export default {
         working_days_friday: false,
         working_days_saturday: false,
         working_days_sunday: false,
-        new_cm_customer_status_id: 0
+        new_cm_customer_status_id: 0,
+        cm_contact_id: 0,
+        cm_contact_idLabel: ""
       };
     },
     OnChecClick() {},
@@ -376,6 +446,10 @@ export default {
         working_days_saturday: this.M_Spec.working_days_saturday ? "Y" : "N",
         working_days_sunday: this.M_Spec.working_days_sunday ? "Y" : "N",
         new_cm_customer_status_id: 0,
+        cm_contact_id:
+          this.M_Spec.cm_contact_id == null || this.M_Spec.cm_contact_id == 0
+            ? null
+            : this.M_Spec.cm_contact_id,
         user_input: this.getDataUser().user_id
       };
 
@@ -403,6 +477,10 @@ export default {
         working_days_saturday: this.M_Spec.working_days_saturday ? "Y" : "N",
         working_days_sunday: this.M_Spec.working_days_sunday ? "Y" : "N",
         new_cm_customer_status_id: 0,
+        cm_contact_id:
+          this.M_Spec.cm_contact_id == null || this.M_Spec.cm_contact_id == 0
+            ? null
+            : this.M_Spec.cm_contact_id,
         user_edit: this.getDataUser().user_id
       };
 
@@ -446,7 +524,9 @@ export default {
           working_days_friday: data.working_days_friday == "Y" ? true : false,
           working_days_saturday:
             data.working_days_saturday == "Y" ? true : false,
-          working_days_sunday: data.working_days_sunday == "Y" ? true : false
+          working_days_sunday: data.working_days_sunday == "Y" ? true : false,
+          cm_contact_id: data.cm_contact_id,
+          cm_contact_idLabel: data.customer_name
         };
       });
     }

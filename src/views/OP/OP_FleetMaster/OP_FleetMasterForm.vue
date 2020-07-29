@@ -30,11 +30,7 @@
                   <b-col md="2">
                     <div>
                       <div style="text-align: center;">
-                        <font-awesome-icon
-                          class="icon-style-default"
-                          icon="truck"
-                          size="10x"
-                        />
+                        <font-awesome-icon class="icon-style-default" icon="truck" size="10x" />
                       </div>
                     </div>
                   </b-col>
@@ -59,13 +55,15 @@
                           ref = "ref_fm_driver_id"
                         />
                       </b-col>
-                    </b-row> -->
+                    </b-row>-->
 
                     <b-row class="row-bordered">
                       <b-col md="12">
                         <b-row>
                           <b-col>
-                            <span style="font-size: 15px; color: #333399; font-weight: bold;"> General Information </span>
+                            <span
+                              style="font-size: 15px; color: #333399; font-weight: bold;"
+                            >General Information</span>
                           </b-col>
                         </b-row>
                         <b-row>
@@ -74,9 +72,9 @@
                               <label>BPKB No</label>
                             </span>
                             <ACCTextBox
-                              :prop = "PI_bpkb_no"
-                              v-model = "M_FmFleetMstr.bpkb_no"
-                              ref = "ref_bpkb_no"
+                              :prop="PI_bpkb_no"
+                              v-model="M_FmFleetMstr.bpkb_no"
+                              ref="ref_bpkb_no"
                             />
                           </b-col>
                         </b-row>
@@ -86,9 +84,9 @@
                               <label>License Plat</label>
                             </span>
                             <ACCTextBox
-                              :prop = "PI_license_plate_no"
-                              v-model = "M_FmFleetMstr.license_plate_no"
-                              ref = "ref_license_plate_no"
+                              :prop="PI_license_plate_no"
+                              v-model="M_FmFleetMstr.license_plate_no"
+                              ref="ref_license_plate_no"
                             />
                           </b-col>
                           <b-col md="5">
@@ -96,10 +94,10 @@
                               <label>Valid Until</label>
                             </span>
                             <ACCDateTime
-                              @input = "Onlicense_plate_expiry_dateChange"
-                              :prop = "PI_license_plate_expiry_date"
-                              v-model = "M_FmFleetMstr.license_plate_expiry_date"
-                              ref = "ref_license_plate_expiry_date"
+                              @input="Onlicense_plate_expiry_dateChange"
+                              :prop="PI_license_plate_expiry_date"
+                              v-model="M_FmFleetMstr.license_plate_expiry_date"
+                              ref="ref_license_plate_expiry_date"
                             />
                           </b-col>
                         </b-row>
@@ -109,11 +107,11 @@
                               <label>Vehicle Brand</label>
                             </span>
                             <ACCDropDown
-                              @change = "Onfm_fleet_brand_idChange"
-                              :prop = "PI_fm_fleet_brand_id"
-                              v-model = "M_FmFleetMstr.fm_fleet_brand_id"
-                              :label = "M_FmFleetMstr.vehicle_brandLabel"
-                              ref = "ref_fm_fleet_brand_id"
+                              @change="Onfm_fleet_brand_idChange"
+                              :prop="PI_fm_fleet_brand_id"
+                              v-model="M_FmFleetMstr.fm_fleet_brand_id"
+                              :label="M_FmFleetMstr.vehicle_brandLabel"
+                              ref="ref_fm_fleet_brand_id"
                             />
                           </b-col>
                         </b-row>
@@ -123,11 +121,11 @@
                               <label>Vehicle Type</label>
                             </span>
                             <ACCDropDown
-                              @change = "Onfm_fleet_type_idChange"
-                              :prop = "PI_fm_fleet_type_id"
-                              v-model = "M_FmFleetMstr.fm_fleet_type_id"
-                              :label = "M_FmFleetMstr.vehicle_typeLabel"
-                              ref = "ref_fm_fleet_type_id"
+                              @change="Onfm_fleet_type_idChange"
+                              :prop="PI_fm_fleet_type_id"
+                              v-model="M_FmFleetMstr.fm_fleet_type_id"
+                              :label="M_FmFleetMstr.vehicle_typeLabel"
+                              ref="ref_fm_fleet_type_id"
                             />
                           </b-col>
                         </b-row>
@@ -137,11 +135,11 @@
                               <label>Vehicle Carosery</label>
                             </span>
                             <ACCDropDown
-                              @change = "Onfm_fleet_carosery_idChange"
-                              :prop = "PI_fm_fleet_carosery_id"
-                              v-model = "M_FmFleetMstr.fm_fleet_carosery_id"
-                              :label = "M_FmFleetMstr.vehicle_caroseryLabel"
-                              ref = "ref_fm_fleet_carosery_id"
+                              @change="Onfm_fleet_carosery_idChange"
+                              :prop="PI_fm_fleet_carosery_id"
+                              v-model="M_FmFleetMstr.fm_fleet_carosery_id"
+                              :label="M_FmFleetMstr.vehicle_caroseryLabel"
+                              ref="ref_fm_fleet_carosery_id"
                             />
                           </b-col>
                         </b-row>
@@ -151,9 +149,9 @@
                               <label>STNK No</label>
                             </span>
                             <ACCTextBox
-                              :prop = "PI_stnk_no"
-                              v-model = "M_FmFleetMstr.stnk_no"
-                              ref = "ref_stnk_no"
+                              :prop="PI_stnk_no"
+                              v-model="M_FmFleetMstr.stnk_no"
+                              ref="ref_stnk_no"
                             />
                           </b-col>
                           <b-col md="5">
@@ -161,10 +159,10 @@
                               <label>Valid Until</label>
                             </span>
                             <ACCDateTime
-                              @input = "Onstnk_expiry_dateChange"
-                              :prop = "PI_stnk_expiry_date"
-                              v-model = "M_FmFleetMstr.stnk_expiry_date"
-                              ref = "ref_stnk_expiry_date"
+                              @input="Onstnk_expiry_dateChange"
+                              :prop="PI_stnk_expiry_date"
+                              v-model="M_FmFleetMstr.stnk_expiry_date"
+                              ref="ref_stnk_expiry_date"
                             />
                           </b-col>
                         </b-row>
@@ -173,21 +171,17 @@
                             <span>
                               <label>KIR</label>
                             </span>
-                            <ACCTextBox
-                              :prop = "PI_kir"
-                              v-model = "M_FmFleetMstr.kir"
-                              ref = "ref_kir"
-                            />
+                            <ACCTextBox :prop="PI_kir" v-model="M_FmFleetMstr.kir" ref="ref_kir" />
                           </b-col>
                           <b-col md="5">
                             <span>
                               <label>Valid Until</label>
                             </span>
                             <ACCDateTime
-                              @input = "Onkir_expiry_dateChange"
-                              :prop = "PI_kir_expiry_date"
-                              v-model = "M_FmFleetMstr.kir_expiry_date"
-                              ref = "ref_kir_expiry_date"
+                              @input="Onkir_expiry_dateChange"
+                              :prop="PI_kir_expiry_date"
+                              v-model="M_FmFleetMstr.kir_expiry_date"
+                              ref="ref_kir_expiry_date"
                             />
                           </b-col>
                         </b-row>
@@ -197,9 +191,9 @@
                               <label>Capacity KGS</label>
                             </span>
                             <ACCTextBox
-                              :prop = "PI_capacity_kgs"
-                              v-model = "M_FmFleetMstr.capacity_kgs"
-                              ref = "ref_capacity_kgs"
+                              :prop="PI_capacity_kgs"
+                              v-model="M_FmFleetMstr.capacity_kgs"
+                              ref="ref_capacity_kgs"
                             />
                           </b-col>
                           <b-col md="6">
@@ -207,22 +201,59 @@
                               <label>Capacity CBM</label>
                             </span>
                             <ACCTextBox
-                              :prop = "PI_capacity_cbm"
-                              v-model = "M_FmFleetMstr.capacity_cbm"
-                              ref = "ref_capacity_cbm"
+                              :prop="PI_capacity_cbm"
+                              v-model="M_FmFleetMstr.capacity_cbm"
+                              ref="ref_capacity_cbm"
+                            />
+                          </b-col>
+                        </b-row>
+                        <b-row>
+                          <b-col md="12">
+                            <span>
+                              <label>GPS Vendor</label>
+                            </span>
+                            <ACCDropDown
+                              @change="Ongps_vendorChange"
+                              :prop="PI_gps_vendor"
+                              v-model="M_FmFleetMstr.gps_vendor"
+                              :label="M_FmFleetMstr.gps_vendorLabel"
+                              ref="ref_gps_vendor"
+                            />
+                          </b-col>
+                        </b-row>
+                        <b-row>
+                          <b-col md="12">
+                            <span>
+                              <label>GPS ID</label>
+                            </span>
+                            <ACCTextBox
+                              :prop="PI_gps_id"
+                              v-model="M_FmFleetMstr.gps_id"
+                              ref="ref_gps_id"
                             />
                           </b-col>
                         </b-row>
                       </b-col>
                     </b-row>
                   </b-col>
-                  <b-col md="5"> <!-- di border -->
+                  <b-col md="5">
+                    <!-- di border -->
                     <b-row class="row-bordered" style="background-color: #ced4da; min-height: 50px">
                       <b-col md="12">
                         <b-row style="margin-bottom: 10px">
                           <template v-for="(pict, index) in M_Picture">
-                            <b-col style="max-width: fit-content !important; text-align: center;" md="1" v-bind:key="index">
-                              <img :id="'pict_'+index" :src="pict.file_show" alt style="width: 150px; cursor: pointer; max-heigth: 150px" @click="showPict(pict)" />
+                            <b-col
+                              style="max-width: fit-content !important; text-align: center;"
+                              md="1"
+                              v-bind:key="index"
+                            >
+                              <img
+                                :id="'pict_'+index"
+                                :src="pict.file_show"
+                                alt
+                                style="width: 150px; cursor: pointer; max-heigth: 150px"
+                                @click="showPict(pict)"
+                              />
                               <font-awesome-icon
                                 class="icon-style-danger"
                                 icon="times-circle"
@@ -240,7 +271,10 @@
                                 class="icon-style-default"
                                 icon="plus-circle"
                                 size="2x"
-                              /> &nbsp; &nbsp; <span style="position: absolute; font-size: 15px; color: #333399; font-weight: bold;"> Add Picture </span>
+                              />&nbsp; &nbsp;
+                              <span
+                                style="position: absolute; font-size: 15px; color: #333399; font-weight: bold;"
+                              >Add Picture</span>
                             </div>
                           </b-col>
                         </b-row>
@@ -250,7 +284,9 @@
                       <b-col>
                         <b-row>
                           <b-col>
-                            <span style="font-size: 15px; color: #333399; font-weight: bold;"> Drivers </span>
+                            <span
+                              style="font-size: 15px; color: #333399; font-weight: bold;"
+                            >Drivers</span>
                           </b-col>
                         </b-row>
                         <b-row>
@@ -259,11 +295,11 @@
                               <label>Select Driver</label>
                             </span>
                             <ACCLookUp
-                              @change = "Onfm_driver_idChange"
-                              :prop = "PI_fm_driver_id"
-                              v-model = "M_FmFleetMstr.fm_driver_id"
-                              :label = "M_FmFleetMstr.driver_nameLabel"
-                              ref = "ref_fm_driver_id"
+                              @change="Onfm_driver_idChange"
+                              :prop="PI_fm_driver_id"
+                              v-model="M_FmFleetMstr.fm_driver_id"
+                              :label="M_FmFleetMstr.driver_nameLabel"
+                              ref="ref_fm_driver_id"
                             />
                           </b-col>
                           <b-col md="6">
@@ -271,11 +307,11 @@
                               <label>Select Co-Driver</label>
                             </span>
                             <ACCLookUp
-                              @change = "Onfm_driver_id2Change"
-                              :prop = "PI_fm_driver_id2"
-                              v-model = "M_FmFleetMstr.fm_driver_id2"
-                              :label = "M_FmFleetMstr.driver_name2Label"
-                              ref = "ref_fm_driver_id2"
+                              @change="Onfm_driver_id2Change"
+                              :prop="PI_fm_driver_id2"
+                              v-model="M_FmFleetMstr.fm_driver_id2"
+                              :label="M_FmFleetMstr.driver_name2Label"
+                              ref="ref_fm_driver_id2"
                             />
                           </b-col>
                         </b-row>
@@ -285,7 +321,9 @@
                       <b-col>
                         <b-row>
                           <b-col>
-                            <span style="font-size: 15px; color: #333399; font-weight: bold;"> Specification </span>
+                            <span
+                              style="font-size: 15px; color: #333399; font-weight: bold;"
+                            >Specification</span>
                           </b-col>
                         </b-row>
                         <b-row>
@@ -294,14 +332,12 @@
                               <label>Millage</label>
                             </span>
                             <ACCTextBox
-                              :prop = "PI_millage"
-                              v-model = "M_FmFleetMstr.millage"
-                              ref = "ref_millage"
+                              :prop="PI_millage"
+                              v-model="M_FmFleetMstr.millage"
+                              ref="ref_millage"
                             />
                           </b-col>
-                          <b-col style="margin-top: 35px;">
-                            Km
-                          </b-col>
+                          <b-col style="margin-top: 35px;">Km</b-col>
                         </b-row>
                         <b-row>
                           <b-col md="12">
@@ -309,9 +345,9 @@
                               <label>Remarks</label>
                             </span>
                             <ACCTextArea
-                              :prop = "PI_remarks"
-                              v-model = "M_FmFleetMstr.remarks"
-                              ref = "ref_remarks"
+                              :prop="PI_remarks"
+                              v-model="M_FmFleetMstr.remarks"
+                              ref="ref_remarks"
                             />
                           </b-col>
                         </b-row>
@@ -322,7 +358,7 @@
                 <b-row style="margin-top: 10px;">
                   <b-col offset="2" md="10" style="text-align: center">
                     <ABSButton
-                      :text="'Save Fleet Master'"
+                      :text="'Save'"
                       classButton="btn btn--default"
                       classIcon="icon-style-default"
                       @click="doSave"
@@ -336,12 +372,20 @@
                 <template slot="content">
                   <b-row>
                     <b-col md="12">
-                      <b-form :data-vv-scope="'Parent_Picture'" :data-vv-value-path="'Parent_Picture'">
+                      <b-form
+                        :data-vv-scope="'Parent_Picture'"
+                        :data-vv-value-path="'Parent_Picture'"
+                      >
                         <b-row>
                           <b-col md="12">
                             <b-row>
                               <b-col md="12" style="text-align: center;">
-                                <img id="logo" :src="M_ModalPict.file_show" alt style="width: 200px;" />
+                                <img
+                                  id="logo"
+                                  :src="M_ModalPict.file_show"
+                                  alt
+                                  style="width: 200px;"
+                                />
                               </b-col>
                               <b-col md="12">
                                 <ACCImageUpload
@@ -390,55 +434,57 @@
 export default {
   data() {
     return {
- 	title:'',
+      title: "",
 
-      M_FmFleetMstr :{
-        fm_fleet_mstr_id : 0,
-        ss_portfolio_id : 0,
-        fm_driver_id : 0,
-        driver_nameLabel : '',
-        fm_driver_id2 : 0,
-        driver_name2Label : '',
-        fm_driver_id2 : 0,
-        bpkb_no : '',
-        license_plate_no : '',
-        license_plate_expiry_date : '',
-        fm_fleet_brand_id : 0,
-        vehicle_brandLabel : '',
-        fm_fleet_type_id : 0,
-        vehicle_typeLabel : '',
-        fm_fleet_carosery_id : 0,
-        vehicle_caroseryLabel : '',
-        stnk_no : '',
-        stnk_expiry_date : '',
-        kir : '',
-        kir_expiry_date : '',
-        capacity_kgs : 0,
-        capacity_cbm : 0,
-        millage : 0,
-        remarks : '',
-        dt_doc_file_name : '',
-        dt_doc_path_file : '',
-        user_input : '',
-        user_edit : '',
-        time_input : '',
-        time_edit : '',
-        row_id : 0,
-        lastupdatestamp : 0
-      }
-            ,
+      M_FmFleetMstr: {
+        fm_fleet_mstr_id: 0,
+        ss_portfolio_id: 0,
+        fm_driver_id: 0,
+        driver_nameLabel: "",
+        fm_driver_id2: 0,
+        driver_name2Label: "",
+        fm_driver_id2: 0,
+        bpkb_no: "",
+        license_plate_no: "",
+        license_plate_expiry_date: "",
+        fm_fleet_brand_id: 0,
+        vehicle_brandLabel: "",
+        fm_fleet_type_id: 0,
+        vehicle_typeLabel: "",
+        fm_fleet_carosery_id: 0,
+        vehicle_caroseryLabel: "",
+        stnk_no: "",
+        stnk_expiry_date: "",
+        kir: "",
+        kir_expiry_date: "",
+        capacity_kgs: 0,
+        capacity_cbm: 0,
+        millage: 0,
+        remarks: "",
+        dt_doc_file_name: "",
+        dt_doc_path_file: "",
+        user_input: "",
+        user_edit: "",
+        time_input: "",
+        time_edit: "",
+        row_id: 0,
+        lastupdatestamp: 0,
+        gps_vendor: "",
+        gps_vendorLabel: "",
+        gps_id: ""
+      },
       PI_fm_driver_id: {
-        dataLookUp:{
-          LookUpCd:'GetDriver',
-          ColumnDB:'driver_id',
-          InitialWhere:'',
-          ParamWhere:'',
-          OrderBy:'',
-          ParamView:'',
-          SourceField:'',
-          DisplayLookUp:'fm_driver_id,full_name'
+        dataLookUp: {
+          LookUpCd: "GetDriver",
+          ColumnDB: "driver_id",
+          InitialWhere: "",
+          ParamWhere: "",
+          OrderBy: "",
+          ParamView: "",
+          SourceField: "",
+          DisplayLookUp: "fm_driver_id,full_name"
         },
-        cValidate: '',
+        cValidate: "",
         cName: "fm_driver_id",
         cOrder: 14,
         cKey: false,
@@ -446,21 +492,21 @@ export default {
         cProtect: false,
         cParentForm: "OP_FormFmFleetMstr",
         cOption: [],
-        cDisplayColumn: 'full_name',
+        cDisplayColumn: "full_name",
         cInputStatus: this.inputStatus
       },
       PI_fm_driver_id2: {
-        dataLookUp:{
-          LookUpCd:'GetDriver',
-          ColumnDB:'driver_id',
-          InitialWhere:'',
-          ParamWhere:'',
-          OrderBy:'',
-          ParamView:'',
-          SourceField:'',
-          DisplayLookUp:'fm_driver_id,full_name'
+        dataLookUp: {
+          LookUpCd: "GetDriver",
+          ColumnDB: "driver_id",
+          InitialWhere: "",
+          ParamWhere: "",
+          OrderBy: "",
+          ParamView: "",
+          SourceField: "",
+          DisplayLookUp: "fm_driver_id,full_name"
         },
-        cValidate: '',
+        cValidate: "",
         cName: "fm_driver_id2",
         cOrder: 15,
         cKey: false,
@@ -468,11 +514,11 @@ export default {
         cProtect: false,
         cParentForm: "OP_FormFmFleetMstr",
         cOption: [],
-        cDisplayColumn: 'full_name',
+        cDisplayColumn: "full_name",
         cInputStatus: this.inputStatus
       },
       PI_bpkb_no: {
-        cValidate: '',
+        cValidate: "",
         cName: "bpkb_no",
         cOrder: 2,
         cKey: false,
@@ -483,7 +529,7 @@ export default {
         cInputStatus: this.inputStatus
       },
       PI_license_plate_no: {
-        cValidate: '',
+        cValidate: "",
         cName: "license_plate_no",
         cOrder: 3,
         cKey: false,
@@ -504,17 +550,17 @@ export default {
         cParentForm: "OP_FormFmFleetMstr"
       },
       PI_fm_fleet_brand_id: {
-        dataLookUp:{
-          LookUpCd:'GetFleetBrand',
-          ColumnDB:'fm_fleet_brand_id',
-          InitialWhere:'',
-          ParamWhere:'',
-          OrderBy:'',
-          ParamView:'',
-          SourceField:'',
-          DisplayLookUp:'fm_fleet_brand_id,brand_name'
+        dataLookUp: {
+          LookUpCd: "GetFleetBrand",
+          ColumnDB: "fm_fleet_brand_id",
+          InitialWhere: "",
+          ParamWhere: "",
+          OrderBy: "",
+          ParamView: "",
+          SourceField: "",
+          DisplayLookUp: "fm_fleet_brand_id,brand_name"
         },
-        cValidate: '',
+        cValidate: "",
         cName: "fm_fleet_brand_id",
         cOrder: 5,
         cKey: false,
@@ -522,21 +568,21 @@ export default {
         cProtect: false,
         cParentForm: "OP_FormFmFleetMstr",
         cOption: [],
-        cDisplayColumn: 'fm_fleet_brand_id,brand_name',
+        cDisplayColumn: "fm_fleet_brand_id,brand_name",
         cInputStatus: this.inputStatus
       },
       PI_fm_fleet_type_id: {
-        dataLookUp:{
-          LookUpCd:'GetFleetType',
-          ColumnDB:'fleet_type_id',
-          InitialWhere:'',
-          ParamWhere:'',
-          OrderBy:'',
-          ParamView:'',
-          SourceField:'',
-          DisplayLookUp:'vehicle_type,descs'
+        dataLookUp: {
+          LookUpCd: "GetFleetType",
+          ColumnDB: "fleet_type_id",
+          InitialWhere: "",
+          ParamWhere: "",
+          OrderBy: "",
+          ParamView: "",
+          SourceField: "",
+          DisplayLookUp: "vehicle_type,descs"
         },
-        cValidate: '',
+        cValidate: "",
         cName: "fm_fleet_type_id",
         cOrder: 6,
         cKey: false,
@@ -544,21 +590,21 @@ export default {
         cProtect: false,
         cParentForm: "OP_FormFmFleetMstr",
         cOption: [],
-        cDisplayColumn: 'vehicle_type,descs',
+        cDisplayColumn: "vehicle_type,descs",
         cInputStatus: this.inputStatus
       },
       PI_fm_fleet_carosery_id: {
-        dataLookUp:{
-          LookUpCd:'GetFleetCarosery',
-          ColumnDB:'fm_fleet_carosery_id',
-          InitialWhere:'',
-          ParamWhere:'',
-          OrderBy:'',
-          ParamView:'',
-          SourceField:'',
-          DisplayLookUp:'fm_fleet_carosery_id,vehicle_carosery'
+        dataLookUp: {
+          LookUpCd: "GetFleetCarosery",
+          ColumnDB: "fm_fleet_carosery_id",
+          InitialWhere: "",
+          ParamWhere: "",
+          OrderBy: "",
+          ParamView: "",
+          SourceField: "",
+          DisplayLookUp: "fm_fleet_carosery_id,vehicle_carosery"
         },
-        cValidate: '',
+        cValidate: "",
         cName: "fm_fleet_carosery_id",
         cOrder: 7,
         cKey: false,
@@ -566,11 +612,11 @@ export default {
         cProtect: false,
         cParentForm: "OP_FormFmFleetMstr",
         cOption: [],
-        cDisplayColumn: 'fm_fleet_carosery_id,vehicle_carosery',
+        cDisplayColumn: "fm_fleet_carosery_id,vehicle_carosery",
         cInputStatus: this.inputStatus
       },
       PI_stnk_no: {
-        cValidate: '',
+        cValidate: "",
         cName: "stnk_no",
         cOrder: 8,
         cKey: false,
@@ -591,7 +637,7 @@ export default {
         cParentForm: "OP_FormFmFleetMstr"
       },
       PI_kir: {
-        cValidate: '',
+        cValidate: "",
         cName: "kir",
         cOrder: 10,
         cKey: false,
@@ -612,7 +658,7 @@ export default {
         cParentForm: "OP_FormFmFleetMstr"
       },
       PI_capacity_kgs: {
-        cValidate: '',
+        cValidate: "",
         cName: "capacity_kgs",
         cOrder: 12,
         cKey: false,
@@ -623,7 +669,7 @@ export default {
         cInputStatus: this.inputStatus
       },
       PI_capacity_cbm: {
-        cValidate: '',
+        cValidate: "",
         cName: "capacity_cbm",
         cOrder: 13,
         cKey: false,
@@ -633,8 +679,41 @@ export default {
         cDecimal: 2,
         cInputStatus: this.inputStatus
       },
+      PI_gps_vendor: {
+        dataLookUp: {
+          LookUpCd: "GetVendorGps",
+          ColumnDB: "op_vendor_gps_id",
+          InitialWhere: "",
+          ParamWhere: "",
+          OrderBy: "",
+          ParamView: "",
+          SourceField: "",
+          DisplayLookUp: "vehicle_type,descs"
+        },
+        cValidate: "",
+        cName: "gps_vendor",
+        cOrder: 14,
+        cKey: false,
+        cStatic: false,
+        cProtect: false,
+        cParentForm: "OP_FormFmFleetMstr",
+        cOption: [],
+        cDisplayColumn: "vehicle_type,descs",
+        cInputStatus: this.inputStatus
+      },
+      PI_gps_id: {
+        cValidate: "",
+        cName: "gps_id",
+        cOrder: 15,
+        cKey: false,
+        cType: "text",
+        cProtect: false,
+        cParentForm: "OP_FormFmFleetMstr",
+        cDecimal: 2,
+        cInputStatus: this.inputStatus
+      },
       PI_millage: {
-        cValidate: '',
+        cValidate: "",
         cName: "millage",
         cOrder: 16,
         cKey: false,
@@ -645,14 +724,17 @@ export default {
         cInputStatus: this.inputStatus
       },
       PI_remarks: {
-        cValidate: '',
+        cValidate: "",
         cName: "remarks",
         cOrder: 17,
         cKey: false,
-        cType: "text",
         cProtect: false,
+        cResize: false,
+        cReadonly: false,
+        cRows: 1,
+        cMaxRows: 4,
+        cSize: "md",
         cParentForm: "OP_FormFmFleetMstr",
-        cDecimal: 2,
         cInputStatus: this.inputStatus
       },
       PI_add_pict: {
@@ -667,8 +749,7 @@ export default {
         file_logo_path: "",
         file_show: require("@/assets/default_photo_.png")
       },
-      M_Picture: [
-      ]
+      M_Picture: []
     };
   },
   computed: {
@@ -687,7 +768,7 @@ export default {
   },
   methods: {
     Delete_Pict(i) {
-      this.M_Picture.splice(i, 1)
+      this.M_Picture.splice(i, 1);
     },
     Onadd_pictChange(data) {
       this.M_ModalPict.file_logo_name = data.name;
@@ -701,14 +782,14 @@ export default {
         file_logo_name: "",
         file_logo_path: "",
         file_show: require("@/assets/default_photo_.png")
-      }
+      };
     },
     doAddPict() {
-      this.M_Picture.push(this.M_ModalPict)
+      this.M_Picture.push(this.M_ModalPict);
       this.$refs.Modal_Picture._hide();
     },
     showPict(pict) {
-      this.M_ModalPict = pict
+      this.M_ModalPict = pict;
       this.$refs.Show_Picture._show();
     },
     doBack() {
@@ -716,73 +797,81 @@ export default {
     },
     Onfm_driver_idChange(data) {
       this.$nextTick(() => {
-        this.M_FmFleetMstr.fm_driver_id = data.id
-        this.M_FmFleetMstr.driver_nameLabel = data.label
+        this.M_FmFleetMstr.fm_driver_id = data.id;
+        this.M_FmFleetMstr.driver_nameLabel = data.label;
       });
     },
     Onfm_driver_id2Change(data) {
       this.$nextTick(() => {
-        this.M_FmFleetMstr.fm_driver_id2 = data.id
-        this.M_FmFleetMstr.driver_name2Label = data.label
+        this.M_FmFleetMstr.fm_driver_id2 = data.id;
+        this.M_FmFleetMstr.driver_name2Label = data.label;
       });
     },
     Onfm_fleet_brand_idChange(data) {
       this.$nextTick(() => {
-        this.M_FmFleetMstr.fm_fleet_brand_id = data.id
-        this.M_FmFleetMstr.vehicle_brandLabel = data.label
+        this.M_FmFleetMstr.fm_fleet_brand_id = data.id;
+        this.M_FmFleetMstr.vehicle_brandLabel = data.label;
       });
     },
     Onfm_fleet_type_idChange(data) {
       this.$nextTick(() => {
-        this.M_FmFleetMstr.fm_fleet_type_id = data.id
-        this.M_FmFleetMstr.vehicle_typeLabel = data.label
+        this.M_FmFleetMstr.fm_fleet_type_id = data.id;
+        this.M_FmFleetMstr.vehicle_typeLabel = data.label;
       });
     },
     Onfm_fleet_carosery_idChange(data) {
       this.$nextTick(() => {
-        this.M_FmFleetMstr.fm_fleet_carosery_id = data.id
-        this.M_FmFleetMstr.vehicle_caroseryLabel = data.label
+        this.M_FmFleetMstr.fm_fleet_carosery_id = data.id;
+        this.M_FmFleetMstr.vehicle_caroseryLabel = data.label;
       });
     },
-		
-    M_ClearForm() {
-
-      this.M_FmFleetMstr = {
-        fm_fleet_mstr_id : '',
-        ss_portfolio_id : '',
-        fm_driver_id : '',
-        driver_nameLabel : '',
-        fm_driver_id2 : '',
-        driver_name2Label : '',
-        fm_driver_id2 : '',
-        bpkb_no : '',
-        license_plate_no : '',
-        license_plate_expiry_date : '',
-        fm_fleet_brand_id : '',
-        vehicle_brandLabel : '',
-        fm_fleet_type_id : '',
-        vehicle_typeLabel : '',
-        fm_fleet_carosery_id : '',
-        vehicle_caroseryLabel : '',
-        stnk_no : '',
-        stnk_expiry_date : '',
-        kir : '',
-        kir_expiry_date : '',
-        capacity_kgs : '',
-        capacity_cbm : '',
-        millage : '',
-        remarks : '',
-        dt_doc_file_name : '',
-        dt_doc_path_file : '',
-        user_input : '',
-        user_edit : '',
-        time_input : '',
-        time_edit : '',
-        row_id : '',
-        lastupdatestamp : ''
-      }
+    Ongps_vendorChange(data) {
+      this.$nextTick(() => {
+        this.M_FmFleetMstr.gps_vendor = data.id;
+        this.M_FmFleetMstr.gps_vendorLabel = data.label;
+      });
     },
-   
+
+    M_ClearForm() {
+      this.M_FmFleetMstr = {
+        fm_fleet_mstr_id: "",
+        ss_portfolio_id: "",
+        fm_driver_id: "",
+        driver_nameLabel: "",
+        fm_driver_id2: "",
+        driver_name2Label: "",
+        fm_driver_id2: "",
+        bpkb_no: "",
+        license_plate_no: "",
+        license_plate_expiry_date: "",
+        fm_fleet_brand_id: "",
+        vehicle_brandLabel: "",
+        fm_fleet_type_id: "",
+        vehicle_typeLabel: "",
+        fm_fleet_carosery_id: "",
+        vehicle_caroseryLabel: "",
+        stnk_no: "",
+        stnk_expiry_date: "",
+        kir: "",
+        kir_expiry_date: "",
+        capacity_kgs: "",
+        capacity_cbm: "",
+        millage: "",
+        remarks: "",
+        dt_doc_file_name: "",
+        dt_doc_path_file: "",
+        user_input: "",
+        user_edit: "",
+        time_input: "",
+        time_edit: "",
+        row_id: "",
+        lastupdatestamp: "",
+        gps_vendor: "",
+        gps_vendorLabel: "",
+        gps_id: ""
+      };
+    },
+
     doSave() {
       this.$validator._base.validateAll("OP_FormFmFleetMstr").then(result => {
         if (!result) return;
@@ -802,27 +891,35 @@ export default {
     },
     M_Save() {
       var paramH = {
-        _Method_: "SAVE",
-        _LineNo_: 0,
-        ss_portfolio_id:this.getDataUser().portfolio_id,
-        bpkb_no:this.M_FmFleetMstr.bpkb_no,
-        license_plate_no:this.M_FmFleetMstr.license_plate_no,
-        license_plate_expiry_date:this.M_FmFleetMstr.license_plate_expiry_date,
-        fm_fleet_brand_id:this.M_FmFleetMstr.fm_fleet_brand_id,
-        fm_fleet_type_id:this.M_FmFleetMstr.fm_fleet_type_id,
-        fm_fleet_carosery_id:this.M_FmFleetMstr.fm_fleet_carosery_id,
-        stnk_no:this.M_FmFleetMstr.stnk_no,
-        stnk_expiry_date:this.M_FmFleetMstr.stnk_expiry_date,
-        kir:this.M_FmFleetMstr.kir,
-        kir_expiry_date:this.M_FmFleetMstr.kir_expiry_date,
-        fm_driver_id:this.M_FmFleetMstr.fm_driver_id,
-        fm_driver_id2:this.M_FmFleetMstr.fm_driver_id2,
-        capacity_kgs:this.M_FmFleetMstr.capacity_kgs,
-        capacity_cbm:this.M_FmFleetMstr.capacity_cbm,
-        millage:this.M_FmFleetMstr.millage,
-        remarks:this.M_FmFleetMstr.remarks,
-        user_input:this.getDataUser().user_id
-      }, paramD = [];
+          _Method_: "SAVE",
+          _LineNo_: 0,
+          ss_portfolio_id: this.getDataUser().portfolio_id,
+          bpkb_no: this.M_FmFleetMstr.bpkb_no,
+          license_plate_no: this.M_FmFleetMstr.license_plate_no,
+          license_plate_expiry_date: this.M_FmFleetMstr
+            .license_plate_expiry_date,
+          fm_fleet_brand_id: this.M_FmFleetMstr.fm_fleet_brand_id,
+          fm_fleet_type_id: this.M_FmFleetMstr.fm_fleet_type_id,
+          fm_fleet_carosery_id: this.M_FmFleetMstr.fm_fleet_carosery_id,
+          stnk_no: this.M_FmFleetMstr.stnk_no,
+          stnk_expiry_date: this.M_FmFleetMstr.stnk_expiry_date,
+          kir: this.M_FmFleetMstr.kir,
+          kir_expiry_date: this.M_FmFleetMstr.kir_expiry_date,
+          fm_driver_id: this.M_FmFleetMstr.fm_driver_id,
+          fm_driver_id2: this.M_FmFleetMstr.fm_driver_id2,
+          capacity_kgs: this.M_FmFleetMstr.capacity_kgs,
+          capacity_cbm: this.M_FmFleetMstr.capacity_cbm,
+          millage: this.M_FmFleetMstr.millage,
+          remarks: this.M_FmFleetMstr.remarks,
+          op_vendor_gps_id:
+            this.M_FmFleetMstr.gps_vendor == null ||
+            this.M_FmFleetMstr.gps_vendor == ""
+              ? "NULL"
+              : this.M_FmFleetMstr.gps_vendor,
+          fleet_gps_id: this.M_FmFleetMstr.gps_id,
+          user_input: this.getDataUser().user_id
+        },
+        paramD = [];
 
       this.M_Picture.forEach((pict, index) => {
         paramD.push({
@@ -856,48 +953,56 @@ export default {
           this.alertSuccess("Save Data Has Been Successfully").then(() => {
             // this.doBack();
             var param = {
-            row_id: response.Data[0].row_id,
-            lastupdatestamp: 0,
-            isView: true
-          }
-          this.$store.commit("setParamPage", param);
-          this.$router.replace({ name: "OP_FleetMasterView" });
+              row_id: response.Data["A_Insert"].row_id,
+              lastupdatestamp: 0,
+              isView: true
+            };
+            this.$store.commit("setParamPage", param);
+            this.$router.replace({ name: "OP_FleetMasterView" });
           });
         }
       );
- 
     },
-	 M_Update() {
+    M_Update() {
       var paramH = {
-        // option_url : "/OP/OP_FleetMaster",
-        // line_no :0, 
-        _Method_: "UPDATE",
-        _LineNo_: 0,
-        fm_fleet_mstr_id:this.M_FmFleetMstr.fm_fleet_mstr_id,
-        ss_portfolio_id:this.getDataUser().portfolio_id,
-        bpkb_no:this.M_FmFleetMstr.bpkb_no,
-        license_plate_no:this.M_FmFleetMstr.license_plate_no,
-        license_plate_expiry_date:this.M_FmFleetMstr.license_plate_expiry_date,
-        fm_fleet_brand_id:this.M_FmFleetMstr.fm_fleet_brand_id,
-        fm_fleet_type_id:this.M_FmFleetMstr.fm_fleet_type_id,
-        fm_fleet_carosery_id:this.M_FmFleetMstr.fm_fleet_carosery_id,
-        stnk_no:this.M_FmFleetMstr.stnk_no,
-        stnk_expiry_date:this.M_FmFleetMstr.stnk_expiry_date,
-        kir:this.M_FmFleetMstr.kir,
-        kir_expiry_date:this.M_FmFleetMstr.kir_expiry_date,
-        fm_driver_id:this.M_FmFleetMstr.fm_driver_id,
-        fm_driver_id2:this.M_FmFleetMstr.fm_driver_id2,
-        capacity_kgs:this.M_FmFleetMstr.capacity_kgs,
-        capacity_cbm:this.M_FmFleetMstr.capacity_cbm,
-        millage:this.M_FmFleetMstr.millage,
-        remarks:this.M_FmFleetMstr.remarks,
-        lastupdatestamp:this.paramFromList.lastupdatestamp,
-        user_edit:this.getDataUser().user_id
-      }, paramD = [], paramDelDoc = {
-        _Method_: "DELETE",
-        _LineNo_: 1,
-        fm_fleet_mstr_id:this.M_FmFleetMstr.fm_fleet_mstr_id
-      };
+          // option_url : "/OP/OP_FleetMaster",
+          // line_no :0,
+          _Method_: "UPDATE",
+          _LineNo_: 0,
+          fm_fleet_mstr_id: this.M_FmFleetMstr.fm_fleet_mstr_id,
+          ss_portfolio_id: this.getDataUser().portfolio_id,
+          bpkb_no: this.M_FmFleetMstr.bpkb_no,
+          license_plate_no: this.M_FmFleetMstr.license_plate_no,
+          license_plate_expiry_date: this.M_FmFleetMstr
+            .license_plate_expiry_date,
+          fm_fleet_brand_id: this.M_FmFleetMstr.fm_fleet_brand_id,
+          fm_fleet_type_id: this.M_FmFleetMstr.fm_fleet_type_id,
+          fm_fleet_carosery_id: this.M_FmFleetMstr.fm_fleet_carosery_id,
+          stnk_no: this.M_FmFleetMstr.stnk_no,
+          stnk_expiry_date: this.M_FmFleetMstr.stnk_expiry_date,
+          kir: this.M_FmFleetMstr.kir,
+          kir_expiry_date: this.M_FmFleetMstr.kir_expiry_date,
+          fm_driver_id: this.M_FmFleetMstr.fm_driver_id,
+          fm_driver_id2: this.M_FmFleetMstr.fm_driver_id2,
+          capacity_kgs: this.M_FmFleetMstr.capacity_kgs,
+          capacity_cbm: this.M_FmFleetMstr.capacity_cbm,
+          millage: this.M_FmFleetMstr.millage,
+          remarks: this.M_FmFleetMstr.remarks,
+          op_vendor_gps_id:
+            this.M_FmFleetMstr.gps_vendor == null ||
+            this.M_FmFleetMstr.gps_vendor == ""
+              ? "NULL"
+              : this.M_FmFleetMstr.gps_vendor,
+          fleet_gps_id: this.M_FmFleetMstr.gps_id,
+          lastupdatestamp: this.paramFromList.lastupdatestamp,
+          user_edit: this.getDataUser().user_id
+        },
+        paramD = [],
+        paramDelDoc = {
+          _Method_: "DELETE",
+          _LineNo_: 1,
+          fm_fleet_mstr_id: this.M_FmFleetMstr.fm_fleet_mstr_id
+        };
 
       this.M_Picture.forEach((pict, index) => {
         paramD.push({
@@ -947,10 +1052,10 @@ export default {
       //   });
       // });
     },
-	M_Delete() {
+    M_Delete() {
       var param = {
         option_url: "/OP/OP_FleetMaster",
-        line_no: {LineNo},
+        line_no: { LineNo },
         id: this.paramFromList.row_id,
         lastupdatestamp: this.paramFromList.lastupdatestamp
       };
@@ -974,78 +1079,86 @@ export default {
         if (response == null) return;
 
         var data = response.Data;
-        var pict = []
+        var pict = [];
 
         for (let i = 0; i < data.length; i++) {
           if (i === 0) {
-            this.M_FmFleetMstr  = {
-              fm_fleet_mstr_id : data[i].fm_fleet_mstr_id,
-              ss_portfolio_id : data[i].ss_portfolio_id,
-              fm_driver_id : data[i].fm_driver_id__lo_1,
-              driver_nameLabel : data[i].driver_name__lbl__lo_1,
-              fm_driver_id2 : data[i].fm_driver_id2,
-              driver_name2Label : data[i].driver_name2,
-              bpkb_no : data[i].bpkb_no__tb_2,
-              license_plate_no : data[i].license_plate_no__tb_3,
-              license_plate_expiry_date : data[i].license_plate_expiry_date__tb_4,
-              fm_fleet_brand_id : data[i].fm_fleet_brand_id__lo_5,
-              vehicle_brandLabel : data[i].vehicle_brand__lbl__lo_5,
-              fm_fleet_type_id : data[i].fm_fleet_type_id__lo_6,
-              vehicle_typeLabel : data[i].vehicle_type__lbl__lo_6,
-              fm_fleet_carosery_id : data[i].fm_fleet_carosery_id__lo_7,
-              vehicle_caroseryLabel : data[i].vehicle_carosery__lbl__lo_7,
-              stnk_no : data[i].stnk_no__tb_8,
-              stnk_expiry_date : data[i].stnk_expiry_date__tb_9,
-              kir : data[i].kir__tb_10,
-              kir_expiry_date : data[i].kir_expiry_date__tb_11,
-              capacity_kgs : data[i].capacity_kgs__tb_12,
-              capacity_cbm : data[i].capacity_cbm__tb_13,
-              millage : data[i].millage__tb_14,
-              remarks : data[i].remarks__tb_15,
-              dt_doc_file_name : data[i].dt_doc_file_name,
-              dt_doc_path_file : data[i].dt_doc_path_file,
-              user_input : data[i].user_input,
-              user_edit : data[i].user_edit,
-              time_input : data[i].time_input,
-              time_edit : data[i].time_edit,
-              row_id : data[i].row_id,
-              lastupdatestamp : data[i].lastupdatestamp
+            this.M_FmFleetMstr = {
+              fm_fleet_mstr_id: data[i].fm_fleet_mstr_id,
+              ss_portfolio_id: data[i].ss_portfolio_id,
+              fm_driver_id: data[i].fm_driver_id__lo_1,
+              driver_nameLabel: data[i].driver_name__lbl__lo_1,
+              fm_driver_id2: data[i].fm_driver_id2,
+              driver_name2Label: data[i].driver_name2,
+              bpkb_no: data[i].bpkb_no__tb_2,
+              license_plate_no: data[i].license_plate_no__tb_3,
+              license_plate_expiry_date:
+                data[i].license_plate_expiry_date__tb_4,
+              fm_fleet_brand_id: data[i].fm_fleet_brand_id__lo_5,
+              vehicle_brandLabel: data[i].vehicle_brand__lbl__lo_5,
+              fm_fleet_type_id: data[i].fm_fleet_type_id__lo_6,
+              vehicle_typeLabel: data[i].vehicle_type__lbl__lo_6,
+              fm_fleet_carosery_id: data[i].fm_fleet_carosery_id__lo_7,
+              vehicle_caroseryLabel: data[i].vehicle_carosery__lbl__lo_7,
+              stnk_no: data[i].stnk_no__tb_8,
+              stnk_expiry_date: data[i].stnk_expiry_date__tb_9,
+              kir: data[i].kir__tb_10,
+              kir_expiry_date: data[i].kir_expiry_date__tb_11,
+              capacity_kgs: data[i].capacity_kgs__tb_12,
+              capacity_cbm: data[i].capacity_cbm__tb_13,
+              millage: data[i].millage__tb_14,
+              remarks: data[i].remarks__tb_15,
+              dt_doc_file_name: data[i].dt_doc_file_name,
+              dt_doc_path_file: data[i].dt_doc_path_file,
+              user_input: data[i].user_input,
+              user_edit: data[i].user_edit,
+              time_input: data[i].time_input,
+              time_edit: data[i].time_edit,
+              row_id: data[i].row_id,
+              lastupdatestamp: data[i].lastupdatestamp,
+              gps_vendor: data[i].op_vendor_gps_id,
+              gps_vendorLabel: data[i].op_vendor_gps_name,
+              gps_id: data[i].fleet_gps_id
             };
           }
 
           if (data.length == 1) {
-            if (data[i].dt_doc_file_name && data[i].dt_doc_file_name !== '') {
+            if (data[i].dt_doc_file_name && data[i].dt_doc_file_name !== "") {
               pict.push({
-                file_logo: 'dtfile_' + i,
+                file_logo: "dtfile_" + i,
                 file_logo_name: data[i].dt_doc_file_name,
                 file_logo_path: data[i].dt_doc_path_file,
-                file_show: data[i].dt_doc_path_file && data[i].dt_doc_path_file !== '' ? this.url + data[i].dt_doc_path_file : require("@/assets/default_photo_.png")
-              })
+                file_show:
+                  data[i].dt_doc_path_file && data[i].dt_doc_path_file !== ""
+                    ? this.url + data[i].dt_doc_path_file
+                    : require("@/assets/default_photo_.png")
+              });
             }
-          }
-          else {
+          } else {
             pict.push({
-              file_logo: 'dtfile_' + i,
+              file_logo: "dtfile_" + i,
               file_logo_name: data[i].dt_doc_file_name,
               file_logo_path: data[i].dt_doc_path_file,
-              file_show: data[i].dt_doc_path_file && data[i].dt_doc_path_file !== '' ? this.url + data[i].dt_doc_path_file : require("@/assets/default_photo_.png")
-            })
+              file_show:
+                data[i].dt_doc_path_file && data[i].dt_doc_path_file !== ""
+                  ? this.url + data[i].dt_doc_path_file
+                  : require("@/assets/default_photo_.png")
+            });
           }
         }
 
-        this.M_Picture = pict
+        this.M_Picture = pict;
       });
     }
-   
   },
   mounted() {
     this.M_ClearForm();
     if (this.inputStatus == "edit") {
-      this.title = 'Edit'
+      this.title = "Edit";
       this.GetDataBy();
-    }else{
-      this.title = 'Add'
-	}
+    } else {
+      this.title = "Add";
+    }
   }
 };
 </script>

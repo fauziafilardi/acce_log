@@ -34,11 +34,7 @@
                 <b-row>
                   <b-col md="2">
                     <div style="text-align: center;">
-                      <font-awesome-icon
-                        class="icon-style-default"
-                        icon="truck"
-                        size="10x"
-                      />
+                      <font-awesome-icon class="icon-style-default" icon="truck" size="10x" />
                     </div>
                   </b-col>
                   <b-col md="10">
@@ -46,41 +42,35 @@
                       <b-col>
                         <b-row>
                           <b-col style="max-width: fit-content !important; margin: auto;">
-                            <label style="font-size: 15px; color: #333399; font-weight: bold;"> {{M_FmFleetMstr.license_plate_no}} </label>
-                            <br>
+                            <label
+                              style="font-size: 15px; color: #333399; font-weight: bold;"
+                            >{{M_FmFleetMstr.license_plate_no}}</label>
+                            <br />
                             <span style="margin-right: 20px">
-                              <font-awesome-icon
-                                class="icon-style-default"
-                                icon="user"
-                                size="lg"
-                              /> &nbsp; &nbsp;
+                              <font-awesome-icon class="icon-style-default" icon="user" size="lg" />&nbsp; &nbsp;
                               <label>Driver : {{M_FmFleetMstr.driver_nameLabel}}</label>
                             </span>
                             <span>
-                              <font-awesome-icon
-                                class="icon-style-default"
-                                icon="user"
-                                size="lg"
-                              /> &nbsp; &nbsp;
+                              <font-awesome-icon class="icon-style-default" icon="user" size="lg" />&nbsp; &nbsp;
                               <label>Co-Driver : {{M_FmFleetMstr.driver_name2Label}}</label>
                             </span>
                           </b-col>
-                          <b-col style = "text-align: right;" >
+                          <b-col style="text-align: right;">
                             <span>
                               <ABSButton
-                                :text = "'Delete'"
-                                classButton = "btn btn--default"
-                                classIcon = "icon-style-1"
-                                @click = "doDelete"
+                                :text="'Delete'"
+                                classButton="btn btn--default"
+                                classIcon="icon-style-1"
+                                @click="doDelete"
                               />
                             </span>
 
                             <span>
                               <ABSButton
-                                :text = "'Edit'"
-                                classButton = "btn btn--default"
-                                classIcon = "icon-style-1"
-                                @click = "doEdit"
+                                :text="'Edit'"
+                                classButton="btn btn--default"
+                                classIcon="icon-style-1"
+                                @click="doEdit"
                               />
                             </span>
                           </b-col>
@@ -94,7 +84,9 @@
                           <b-col md="12">
                             <b-row class="row-view">
                               <b-col>
-                                <span style="font-size: 15px; color: #333399; font-weight: bold;"> General Information </span>
+                                <span
+                                  style="font-size: 15px; color: #333399; font-weight: bold;"
+                                >General Information</span>
                               </b-col>
                             </b-row>
                             <b-row class="row-view">
@@ -102,7 +94,7 @@
                                 <span>
                                   <label>Bpkb No</label>
                                 </span>
-                                <br/>
+                                <br />
                                 <span>
                                   <label>{{M_FmFleetMstr.bpkb_no}}</label>
                                 </span>
@@ -113,7 +105,7 @@
                                 <span>
                                   <label>License Plate No</label>
                                 </span>
-                                <br/>
+                                <br />
                                 <span>
                                   <label>{{M_FmFleetMstr.license_plate_no}}</label>
                                 </span>
@@ -122,7 +114,7 @@
                                 <span>
                                   <label>Valid Until</label>
                                 </span>
-                                <br/>
+                                <br />
                                 <span>
                                   <label>{{M_FmFleetMstr.license_plate_expiry_date}}</label>
                                 </span>
@@ -133,7 +125,7 @@
                                 <span>
                                   <label>Vehicle Brand</label>
                                 </span>
-                                <br/>
+                                <br />
                                 <span>
                                   <label>{{M_FmFleetMstr.vehicle_brandLabel}}</label>
                                 </span>
@@ -144,7 +136,7 @@
                                 <span>
                                   <label>Vehicle Type</label>
                                 </span>
-                                <br/>
+                                <br />
                                 <span>
                                   <label>{{M_FmFleetMstr.vehicle_typeLabel}}</label>
                                 </span>
@@ -155,7 +147,7 @@
                                 <span>
                                   <label>Vehicle Carosery</label>
                                 </span>
-                                <br/>
+                                <br />
                                 <span>
                                   <label>{{M_FmFleetMstr.vehicle_caroseryLabel}}</label>
                                 </span>
@@ -166,7 +158,7 @@
                                 <span>
                                   <label>STNK</label>
                                 </span>
-                                <br/>
+                                <br />
                                 <span>
                                   <label>{{M_FmFleetMstr.stnk_no}}</label>
                                 </span>
@@ -175,7 +167,7 @@
                                 <span>
                                   <label>Valid Until</label>
                                 </span>
-                                <br/>
+                                <br />
                                 <span>
                                   <label>{{M_FmFleetMstr.stnk_expiry_date}}</label>
                                 </span>
@@ -186,7 +178,7 @@
                                 <span>
                                   <label>KIR</label>
                                 </span>
-                                <br/>
+                                <br />
                                 <span>
                                   <label>{{M_FmFleetMstr.kir}}</label>
                                 </span>
@@ -195,7 +187,7 @@
                                 <span>
                                   <label>Valid Until</label>
                                 </span>
-                                <br/>
+                                <br />
                                 <span>
                                   <label>{{M_FmFleetMstr.kir_expiry_date}}</label>
                                 </span>
@@ -206,7 +198,7 @@
                                 <span>
                                   <label>Capacity KGS</label>
                                 </span>
-                                <br/>
+                                <br />
                                 <span>
                                   <label>{{M_FmFleetMstr.capacity_kgs}}</label>
                                 </span>
@@ -215,9 +207,31 @@
                                 <span>
                                   <label>Capacity CBM</label>
                                 </span>
-                                <br/>
+                                <br />
                                 <span>
                                   <label>{{M_FmFleetMstr.capacity_cbm}}</label>
+                                </span>
+                              </b-col>
+                            </b-row>
+                            <b-row class="row-view">
+                              <b-col>
+                                <span>
+                                  <label>GPS Vendor</label>
+                                </span>
+                                <br />
+                                <span>
+                                  <label>{{M_FmFleetMstr.gps_vendor}}</label>
+                                </span>
+                              </b-col>
+                            </b-row>
+                            <b-row class="row-view">
+                              <b-col>
+                                <span>
+                                  <label>GPS ID</label>
+                                </span>
+                                <br />
+                                <span>
+                                  <label>{{M_FmFleetMstr.gps_id}}</label>
                                 </span>
                               </b-col>
                             </b-row>
@@ -225,19 +239,32 @@
                         </b-row>
                       </b-col>
                       <b-col md="6">
-                        <b-row class="row-bordered" style="background-color: #ced4da; min-height: 50px">
+                        <b-row
+                          class="row-bordered"
+                          style="background-color: #ced4da; min-height: 50px"
+                        >
                           <b-col md="12">
                             <b-row>
                               <template v-for="(pict, index) in M_Picture">
-                                <b-col style="max-width: fit-content !important; text-align: center;" md="1" v-bind:key="index">
-                                  <img :id="'pict_'+index" :src="pict.file_show" alt style="width: 150px; cursor: pointer; " @click="showPict(pict)" />
+                                <b-col
+                                  style="max-width: fit-content !important; text-align: center;"
+                                  md="1"
+                                  v-bind:key="index"
+                                >
+                                  <img
+                                    :id="'pict_'+index"
+                                    :src="pict.file_show"
+                                    alt
+                                    style="width: 150px; cursor: pointer; "
+                                    @click="showPict(pict)"
+                                  />
                                   <!-- <font-awesome-icon
                                     class="icon-style-default"
                                     icon="times"
                                     size="sm"
                                     style="cursor: pointer;"
                                     @click="Delete_Pict(index)"
-                                  /> -->
+                                  />-->
                                 </b-col>
                               </template>
                             </b-row>
@@ -247,7 +274,9 @@
                           <b-col md="12">
                             <b-row class="row-view">
                               <b-col>
-                                <label style="font-size: 15px; color: #333399; font-weight: bold;"> Specification </label>
+                                <label
+                                  style="font-size: 15px; color: #333399; font-weight: bold;"
+                                >Specification</label>
                               </b-col>
                             </b-row>
                             <b-row class="row-view">
@@ -255,7 +284,7 @@
                                 <span>
                                   <label>Millage</label>
                                 </span>
-                                <br/>
+                                <br />
                                 <span>
                                   <label>{{M_FmFleetMstr.millage}}</label>
                                 </span>
@@ -266,7 +295,7 @@
                                 <span>
                                   <label>Remarks</label>
                                 </span>
-                                <br/>
+                                <br />
                                 <span>
                                   <label>{{M_FmFleetMstr.remarks}}</label>
                                 </span>
@@ -278,7 +307,9 @@
                           <b-col md="12">
                             <b-row class="row-view">
                               <b-col>
-                                <label style="font-size: 15px; color: #333399; font-weight: bold;"> Maintenance </label>
+                                <label
+                                  style="font-size: 15px; color: #333399; font-weight: bold;"
+                                >Maintenance</label>
                               </b-col>
                             </b-row>
                             <template v-for="(m, index) in M_Maintenance">
@@ -329,38 +360,41 @@
 export default {
   data() {
     return {
-      M_FmFleetMstr :{
-        fm_fleet_mstr_id : 0,
-        ss_portfolio_id : 0,
-        fm_driver_id : 0,
-        driver_nameLabel : '',
-        fm_driver_id2 : 0,
-        driver_name2Label : '',
-        bpkb_no : '',
-        license_plate_no : '',
-        license_plate_expiry_date : '',
-        fm_fleet_brand_id : 0,
-        vehicle_brandLabel : '',
-        fm_fleet_type_id : 0,
-        vehicle_typeLabel : '',
-        fm_fleet_carosery_id : 0,
-        vehicle_caroseryLabel : '',
-        stnk_no : '',
-        stnk_expiry_date : '',
-        kir : '',
-        kir_expiry_date : '',
-        capacity_kgs : 0,
-        capacity_cbm : 0,
-        millage : 0,
-        remarks : '',
-        dt_doc_file_name : '',
-        dt_doc_path_file : '',
-        user_input : '',
-        user_edit : '',
-        time_input : '',
-        time_edit : '',
-        row_id : 0,
-        lastupdatestamp : 0
+      M_FmFleetMstr: {
+        fm_fleet_mstr_id: 0,
+        ss_portfolio_id: 0,
+        fm_driver_id: 0,
+        driver_nameLabel: "",
+        fm_driver_id2: 0,
+        driver_name2Label: "",
+        bpkb_no: "",
+        license_plate_no: "",
+        license_plate_expiry_date: "",
+        fm_fleet_brand_id: 0,
+        vehicle_brandLabel: "",
+        fm_fleet_type_id: 0,
+        vehicle_typeLabel: "",
+        fm_fleet_carosery_id: 0,
+        vehicle_caroseryLabel: "",
+        stnk_no: "",
+        stnk_expiry_date: "",
+        kir: "",
+        kir_expiry_date: "",
+        capacity_kgs: 0,
+        capacity_cbm: 0,
+        millage: 0,
+        remarks: "",
+        dt_doc_file_name: "",
+        dt_doc_path_file: "",
+        user_input: "",
+        user_edit: "",
+        time_input: "",
+        time_edit: "",
+        row_id: 0,
+        lastupdatestamp: 0,
+        gps_vendor: "",
+        gps_vendorLabel: "",
+        gps_id: ""
       },
       M_Picture: [],
       M_ModalPict: {
@@ -388,16 +422,16 @@ export default {
   },
   methods: {
     Delete_Pict(i) {
-      this.M_Picture.splice(i, 1)
+      this.M_Picture.splice(i, 1);
     },
     doMaintain() {
-      var param = this.paramFromList
+      var param = this.paramFromList;
       param.isEdit = false;
       param.ForMaintenance = {
-        fm_fleet_mstr_id: param.row_id,
-      }
+        fm_fleet_mstr_id: param.row_id
+      };
       this.$store.commit("setParamPage", param);
-      this.$router.push({ name: "OP_MaintenanceTypeForm" });
+      this.$router.push({ name: "OP_FleetMasterMaintenance" });
     },
     Delete_Maintenance(m) {
       this.alertConfirmation("Are You Sure Want To Delete This Data ?").then(
@@ -409,9 +443,9 @@ export default {
       );
     },
     doMaintenanceView(m) {
-      var param = this.paramFromList
-      m.fm_fleet_mstr_id = param.row_id
-      param.ForMaintenance = m
+      var param = this.paramFromList;
+      m.fm_fleet_mstr_id = param.row_id;
+      param.ForMaintenance = m;
       this.$store.commit("setParamPage", param);
       this.$router.push({ name: "OP_MaintenanceTypeView" });
     },
@@ -419,7 +453,7 @@ export default {
       this.$router.go(-1);
     },
     showPict(pict) {
-      this.M_ModalPict = pict
+      this.M_ModalPict = pict;
       this.$refs.Show_Picture._show();
     },
     doEdit() {
@@ -438,7 +472,7 @@ export default {
         }
       );
     },
-	 M_DeleteM(m) {
+    M_DeleteM(m) {
       var param = {
         option_url: "/OP/OP_FleetMaster",
         line_no: 2,
@@ -483,78 +517,87 @@ export default {
 
         for (let i = 0; i < data.length; i++) {
           if (i === 0) {
-            this.M_FmFleetMstr  = {
-              fm_fleet_mstr_id : data[i].fm_fleet_mstr_id,
-              ss_portfolio_id : data[i].ss_portfolio_id,
-              fm_driver_id : data[i].fm_driver_id__lo_1,
-              driver_nameLabel : data[i].driver_name__lbl__lo_1,
-              fm_driver_id2 : data[i].fm_driver_id2,
-              driver_name2Label : data[i].driver_name2,
-              bpkb_no : data[i].bpkb_no__tb_2,
-              license_plate_no : data[i].license_plate_no__tb_3,
-              license_plate_expiry_date : data[i].license_plate_expiry_date__tb_4,
-              fm_fleet_brand_id : data[i].fm_fleet_brand_id__lo_5,
-              vehicle_brandLabel : data[i].vehicle_brand__lbl__lo_5,
-              fm_fleet_type_id : data[i].fm_fleet_type_id__lo_6,
-              vehicle_typeLabel : data[i].vehicle_type__lbl__lo_6,
-              fm_fleet_carosery_id : data[i].fm_fleet_carosery_id__lo_7,
-              vehicle_caroseryLabel : data[i].vehicle_carosery__lbl__lo_7,
-              stnk_no : data[i].stnk_no__tb_8,
-              stnk_expiry_date : data[i].stnk_expiry_date__tb_9,
-              kir : data[i].kir__tb_10,
-              kir_expiry_date : data[i].kir_expiry_date__tb_11,
-              capacity_kgs : data[i].capacity_kgs__tb_12,
-              capacity_cbm : data[i].capacity_cbm__tb_13,
-              millage : data[i].millage__tb_14,
-              remarks : data[i].remarks__tb_15,
-              dt_doc_file_name : data[i].dt_doc_file_name,
-              dt_doc_path_file : data[i].dt_doc_path_file,
-              user_input : data[i].user_input,
-              user_edit : data[i].user_edit,
-              time_input : data[i].time_input,
-              time_edit : data[i].time_edit,
-              row_id : data[i].row_id,
-              lastupdatestamp : data[i].lastupdatestamp
-            }
+            this.M_FmFleetMstr = {
+              fm_fleet_mstr_id: data[i].fm_fleet_mstr_id,
+              ss_portfolio_id: data[i].ss_portfolio_id,
+              fm_driver_id: data[i].fm_driver_id__lo_1,
+              driver_nameLabel: data[i].driver_name__lbl__lo_1,
+              fm_driver_id2: data[i].fm_driver_id2,
+              driver_name2Label: data[i].driver_name2,
+              bpkb_no: data[i].bpkb_no__tb_2,
+              license_plate_no: data[i].license_plate_no__tb_3,
+              license_plate_expiry_date:
+                data[i].license_plate_expiry_date__tb_4,
+              fm_fleet_brand_id: data[i].fm_fleet_brand_id__lo_5,
+              vehicle_brandLabel: data[i].vehicle_brand__lbl__lo_5,
+              fm_fleet_type_id: data[i].fm_fleet_type_id__lo_6,
+              vehicle_typeLabel: data[i].vehicle_type__lbl__lo_6,
+              fm_fleet_carosery_id: data[i].fm_fleet_carosery_id__lo_7,
+              vehicle_caroseryLabel: data[i].vehicle_carosery__lbl__lo_7,
+              stnk_no: data[i].stnk_no__tb_8,
+              stnk_expiry_date: data[i].stnk_expiry_date__tb_9,
+              kir: data[i].kir__tb_10,
+              kir_expiry_date: data[i].kir_expiry_date__tb_11,
+              capacity_kgs: data[i].capacity_kgs__tb_12,
+              capacity_cbm: data[i].capacity_cbm__tb_13,
+              millage: data[i].millage__tb_14,
+              remarks: data[i].remarks__tb_15,
+              dt_doc_file_name: data[i].dt_doc_file_name,
+              dt_doc_path_file: data[i].dt_doc_path_file,
+              user_input: data[i].user_input,
+              user_edit: data[i].user_edit,
+              time_input: data[i].time_input,
+              time_edit: data[i].time_edit,
+              row_id: data[i].row_id,
+              lastupdatestamp: data[i].lastupdatestamp,
+              gps_vendor: data[i].op_vendor_gps_id,
+              gps_vendorLabel: data[i].op_vendor_gps_name,
+              gps_id: data[i].fleet_gps_id
+            };
           }
 
           if (data.length == 1) {
-            if (data[i].dt_doc_file_name && data[i].dt_doc_file_name !== '') {
+            if (data[i].dt_doc_file_name && data[i].dt_doc_file_name !== "") {
               pict.push({
-                file_logo: 'dtfile_' + i,
+                file_logo: "dtfile_" + i,
                 file_logo_name: data[i].dt_doc_file_name,
                 file_logo_path: data[i].dt_doc_path_file,
-                file_show: data[i].dt_doc_path_file && data[i].dt_doc_path_file !== '' ? this.url + data[i].dt_doc_path_file : require("@/assets/default_photo_.png")
-              })
+                file_show:
+                  data[i].dt_doc_path_file && data[i].dt_doc_path_file !== ""
+                    ? this.url + data[i].dt_doc_path_file
+                    : require("@/assets/default_photo_.png")
+              });
             }
-          }
-          else {
+          } else {
             pict.push({
-              file_logo: 'dtfile_' + i,
+              file_logo: "dtfile_" + i,
               file_logo_name: data[i].dt_doc_file_name,
               file_logo_path: data[i].dt_doc_path_file,
-              file_show: data[i].dt_doc_path_file && data[i].dt_doc_path_file !== '' ? this.url + data[i].dt_doc_path_file : require("@/assets/default_photo_.png")
-            })
+              file_show:
+                data[i].dt_doc_path_file && data[i].dt_doc_path_file !== ""
+                  ? this.url + data[i].dt_doc_path_file
+                  : require("@/assets/default_photo_.png")
+            });
           }
         }
 
-        this.M_Picture = pict
+        this.M_Picture = pict;
 
-        this.getMaintenance()
+        this.getMaintenance();
       });
     },
     getMaintenance() {
       var param = {
-          option_function_cd: "GetListFMFleetMaintenanceType",
-          module_cd: "OP",
-          ss_portfolio_id: this.getDataUser().portfolio_id ,
-          row_id: this.paramFromList.row_id
+        option_function_cd: "GetListFMFleetMaintenanceType",
+        module_cd: "OP",
+        ss_portfolio_id: this.getDataUser().portfolio_id,
+        row_id: this.paramFromList.row_id
       };
 
       this.CallFunction(param).then(response => {
-          if (response == null) return
-          this.M_Maintenance = response.Data;
-      })
+        if (response == null) return;
+        this.M_Maintenance = response.Data;
+      });
     }
   },
   mounted() {
