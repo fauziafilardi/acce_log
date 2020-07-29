@@ -89,7 +89,7 @@ export default {
     this.$refs.ref_OpFieldClerk.doGetList("");
   },
   created() {
-    this.$store.comit("setParamPage", {});
+    this.$store.commit("setParamPage", {});
   },
 };
 </script>
