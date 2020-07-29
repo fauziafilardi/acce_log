@@ -32,12 +32,12 @@
                     </div>
                   </b-col>
                   <b-col md="10">
-                    <b-row style="border: solid 1px #ccc; border-radius: 10px;">
-                      <b-col md="12">
+                    <b-row class="row-bordered">
+                      <b-col md="6" offset="2">
                         <b-row>
-                          <b-col md="6">
+                          <b-col>
                             <span>
-                              <label>Fleet Cd</label>
+                              <label>Vehicle Type</label>
                             </span>
                             <ACCTextBox
                               :prop="PI_fleet_cd"
@@ -47,11 +47,11 @@
                           </b-col>
                         </b-row>
                         <b-row>
-                          <b-col md="6">
+                          <b-col>
                             <span>
-                              <label>Descs</label>
+                              <label>Remarks</label>
                             </span>
-                            <ACCTextBox
+                            <ACCTextArea
                               :prop="PI_descs"
                               v-model="M_FmFleetType.descs"
                               ref="ref_descs"
@@ -60,9 +60,9 @@
                         </b-row>
 
                         <b-row style="margin-top: 10px;">
-                          <b-col md="6">
+                          <b-col>
                             <ABSButton
-                              :text="'Save FleetType'"
+                              :text="'Save'"
                               classButton="btn btn--default"
                               classIcon="icon-style-default"
                               @click="doSave"
@@ -103,7 +103,7 @@ export default {
         time_edit: "",
         ss_portfolio_id: 0,
         row_id: 0,
-        lastupdatestamp: 0
+        lastupdatestamp: 0,
       },
       PI_fleet_cd: {
         cValidate: "",
@@ -114,19 +114,22 @@ export default {
         cProtect: false,
         cParentForm: "OP_FormFmFleetType",
         cDecimal: 2,
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
       PI_descs: {
         cValidate: "",
         cName: "descs",
         cOrder: 2,
         cKey: false,
-        cType: "text",
         cProtect: false,
+        cResize: false,
+        cReadonly: false,
+        cRows: 1,
+        cMaxRows: 3,
+        cSize: "md",
         cParentForm: "OP_FormFmFleetType",
-        cDecimal: 2,
-        cInputStatus: this.inputStatus
-      }
+        cInputStatus: this.inputStatus,
+      },
     };
   },
   computed: {
@@ -141,7 +144,7 @@ export default {
       } else {
         return "new";
       }
-    }
+    },
   },
   methods: {
     doBack() {
@@ -161,15 +164,15 @@ export default {
         time_edit: "",
         ss_portfolio_id: 0,
         row_id: 0,
-        lastupdatestamp: 0
+        lastupdatestamp: 0,
       };
     },
 
     doSave() {
-      this.$validator._base.validateAll("OP_FormFmFleetType").then(result => {
+      this.$validator._base.validateAll("OP_FormFmFleetType").then((result) => {
         if (!result) return;
         this.alertConfirmation("Are You Sure Want To Save This Data ?").then(
-          ress => {
+          (ress) => {
             if (ress.value) {
               this.$validator.errors.clear("OP_FormFmFleetType");
               if (this.inputStatus == "edit") {
@@ -191,10 +194,10 @@ export default {
         file_name: this.M_FmFleetType.file_name,
         path_file: this.M_FmFleetType.path_file,
         user_input: this.getDataUser().user_id,
-        ss_portfolio_id: this.getDataUser().portfolio_id
+        ss_portfolio_id: this.getDataUser().portfolio_id,
       };
 
-      this.postJSON(this.getUrlCRUD(), param).then(response => {
+      this.postJSON(this.getUrlCRUD(), param).then((response) => {
         if (response == null) return;
         this.alertSuccess(response.Message).then(() => {
           this.doBack();
@@ -212,10 +215,10 @@ export default {
         path_file: this.M_FmFleetType.path_file,
         lastupdatestamp: this.paramFromList.lastupdatestamp,
         user_edit: this.getDataUser().user_id,
-        ss_portfolio_id: this.getDataUser().portfolio_id
+        ss_portfolio_id: this.getDataUser().portfolio_id,
       };
 
-      this.putJSON(this.getUrlCRUD(), param).then(response => {
+      this.putJSON(this.getUrlCRUD(), param).then((response) => {
         if (response == null) return;
         this.alertSuccess(response.Message).then(() => {
           this.doBack();
@@ -227,9 +230,9 @@ export default {
         option_url: "/OP/OP_FleetType",
         line_no: { LineNo },
         id: this.paramFromList.row_id,
-        lastupdatestamp: this.paramFromList.lastupdatestamp
+        lastupdatestamp: this.paramFromList.lastupdatestamp,
       };
-      this.deleteJSON(this.getUrlCRUD(), param).then(response => {
+      this.deleteJSON(this.getUrlCRUD(), param).then((response) => {
         if (response == null) return;
         this.alertSuccess("Data Has Been Deleted").then(() => {
           this.doBack();
@@ -241,10 +244,10 @@ export default {
         option_url: "/OP/OP_FleetType",
         line_no: 0,
         id: this.paramFromList.row_id,
-        lastupdatestamp: this.paramFromList.lastupdatestamp
+        lastupdatestamp: this.paramFromList.lastupdatestamp,
       };
 
-      this.getJSON(this.getUrlCRUD(), param).then(response => {
+      this.getJSON(this.getUrlCRUD(), param).then((response) => {
         // response from API
         if (response == null) return;
 
@@ -262,10 +265,10 @@ export default {
           time_edit: data.time_edit,
           ss_portfolio_id: data.ss_portfolio_id,
           row_id: data.row_id,
-          lastupdatestamp: data.lastupdatestamp
+          lastupdatestamp: data.lastupdatestamp,
         };
       });
-    }
+    },
   },
   mounted() {
     this.M_ClearForm();
@@ -277,7 +280,7 @@ export default {
       this.PI_fleet_cd.cProtect = false;
       this.title = "Add";
     }
-  }
+  },
 };
 </script>
 

@@ -158,6 +158,25 @@
             </div>
           </div>
         </b-col>
+        <b-col md="4" @click="onFieldClerkClick">
+          <div class="card">
+            <div class="card__title">
+              <b-row>
+                <b-col>
+                  <span style="float: left !important;">Field Clerk</span> &nbsp;
+                </b-col>
+              </b-row>
+            </div>
+            <div class="card__body">
+              <div style="width: 100%; text-align: center;">
+                <font-awesome-icon style="color: #333399;" icon="clipboard-list" size="6x" />
+                <br />
+                <br />
+                <span style="width: 75%">Field Clerk</span>
+              </div>
+            </div>
+          </div>
+        </b-col>
       </b-row>
     </div>
   </div>
@@ -193,8 +212,11 @@ export default {
     },
     onTicketCategoryClick() {
       this.$router.push({ name: "OP_TicketCategory" });
-    }
+    },
+    onFieldClerkClick() {
+      this.$router.push({ name: "OP_FieldClerk" });
+    },
   },
-  mounted() {}
+  mounted() {},
 };
 </script>

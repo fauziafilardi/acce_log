@@ -88,7 +88,7 @@
                             </span>
                           </b-col>
                         </b-row>
-                        <b-row>
+                        <b-row v-show="Stype!='M'">
                           <b-col md="6" offset="2">
                             <b-row>
                               <b-col md="6" class="row-view">
@@ -102,7 +102,7 @@
                               </b-col>
                               <b-col md="6" class="row-view">
                                 <span>
-                                  <label>Last Maintenance Usage</label>
+                                  <label>Last Maintenance Date</label>
                                 </span>
                                 <br />
                                 <span>
@@ -268,7 +268,7 @@ export default {
         time_input: "",
         time_edit: "",
         row_id: 0,
-        lastupdatestamp: 0
+        lastupdatestamp: 0,
       },
       Items: {
         Tb_Header: [
@@ -276,29 +276,29 @@ export default {
             key: "no",
             label: "No",
             thClass: "HeaderACCList2 th-cus-center",
-            tdClass: "ContentACCList2 notranslate th-cus-center"
+            tdClass: "ContentACCList2 notranslate th-cus-center",
           },
           {
             key: "item_name",
             label: "Item",
             thClass: "HeaderACCList2 M th-cus-center",
-            tdClass: "ContentACCList2 notranslate"
+            tdClass: "ContentACCList2 notranslate",
           },
           {
             key: "item_qty",
             label: "Qty",
             thClass: "HeaderACCList2 L th-cus-center",
-            tdClass: "ContentACCList2 notranslate th-cus-center"
+            tdClass: "ContentACCList2 notranslate th-cus-center",
           },
           {
             key: "row_id",
             label: " ",
             thClass: "HeaderACCList2 th-cus-center",
-            tdClass: "ContentACCList2 notranslate th-cus-center"
-          }
+            tdClass: "ContentACCList2 notranslate th-cus-center",
+          },
         ],
-        Tb_Data: []
-      }
+        Tb_Data: [],
+      },
     };
   },
   computed: {
@@ -313,7 +313,7 @@ export default {
           return param;
         }
       }
-    }
+    },
   },
   methods: {
     doBack() {
@@ -326,13 +326,13 @@ export default {
       if (this.Stype == "M") {
         param.ForMaintenanceItem = {
           mm_maintenance_type_id: param.row_id,
-          from_type: true
+          from_type: true,
         };
       } else {
         param.ForMaintenanceItem = {
           fm_fleet_mstr_id: param.ForMaintenance.fm_fleet_mstr_id,
           fm_fleet_maintenance_type_id: param.ForMaintenance.row_id,
-          from_type: false
+          from_type: false,
         };
       }
       this.$store.commit("setParamPage", param);
@@ -361,7 +361,7 @@ export default {
     },
     doDelete() {
       this.alertConfirmation("Are You Sure Want To Delete This Data ?").then(
-        ress => {
+        (ress) => {
           if (ress.value) {
             this.M_Delete();
           }
@@ -381,7 +381,7 @@ export default {
     },
     Delete_Item(i) {
       this.alertConfirmation("Are You Sure Want To Delete This Data ?").then(
-        ress => {
+        (ress) => {
           if (ress.value) {
             this.M_DeleteI(i);
           }
@@ -401,17 +401,17 @@ export default {
           option_url: "/OP/OP_MaintenanceType",
           line_no: 1,
           id: i.row_id,
-          lastupdatestamp: i.lastupdatestamp
+          lastupdatestamp: i.lastupdatestamp,
         };
       } else {
         param = {
           option_url: "/OP/OP_FleetMaster",
           line_no: 3,
           id: i.row_id,
-          lastupdatestamp: i.lastupdatestamp
+          lastupdatestamp: i.lastupdatestamp,
         };
       }
-      this.deleteJSON(this.getUrlCRUD(), param).then(response => {
+      this.deleteJSON(this.getUrlCRUD(), param).then((response) => {
         if (response == null) return;
         this.alertSuccess("Data Has Been Deleted").then(() => {
           this.getItems();
@@ -425,17 +425,17 @@ export default {
           option_url: "/OP/OP_MaintenanceType",
           line_no: 0,
           id: this.paramFromList.row_id,
-          lastupdatestamp: this.paramFromList.lastupdatestamp
+          lastupdatestamp: this.paramFromList.lastupdatestamp,
         };
       } else {
         param = {
           option_url: "/OP/OP_FleetMaster",
           line_no: 2,
           id: this.paramFromList.ForMaintenance.row_id,
-          lastupdatestamp: this.paramFromList.ForMaintenance.lastupdatestamp
+          lastupdatestamp: this.paramFromList.ForMaintenance.lastupdatestamp,
         };
       }
-      this.deleteJSON(this.getUrlCRUD(), param).then(response => {
+      this.deleteJSON(this.getUrlCRUD(), param).then((response) => {
         if (response == null) return;
         this.alertSuccess("Data Has Been Deleted").then(() => {
           this.doBack();
@@ -449,18 +449,18 @@ export default {
           option_url: "/OP/OP_MaintenanceType",
           line_no: 0,
           id: this.paramFromList.row_id,
-          lastupdatestamp: this.paramFromList.lastupdatestamp
+          lastupdatestamp: this.paramFromList.lastupdatestamp,
         };
       } else {
         param = {
           option_url: "/OP/OP_FleetMaster",
           line_no: 2,
           id: this.paramFromList.ForMaintenance.row_id,
-          lastupdatestamp: this.paramFromList.ForMaintenance.lastupdatestamp
+          lastupdatestamp: this.paramFromList.ForMaintenance.lastupdatestamp,
         };
       }
 
-      this.getJSON(this.getUrlCRUD(), param).then(response => {
+      this.getJSON(this.getUrlCRUD(), param).then((response) => {
         // response from API
         if (response == null) return;
 
@@ -495,12 +495,12 @@ export default {
               ? data.time_days_tolerance__tb_6 +
                 (data.time_days_tolerance__tb_6 > 1 ? " Days" : " Day")
               : data.time_days_tolerance__tb_6,
-          trigger_by: this.Stype == "M" ? "" : data.trigger_by,
+          trigger_by: data.trigger_by,
           last_maint_usage: this.Stype == "M" ? "" : data.last_maint_usage,
           last_maint_date:
             this.Stype == "M"
               ? ""
-              : this.momentDateFormatting(data.last_maint_date, "DD/MM/YYYY")
+              : this.momentDateFormatting(data.last_maint_date, "DD/MM/YYYY"),
         };
 
         this.getItems();
@@ -512,7 +512,7 @@ export default {
         param = {
           option_function_cd: "GetListOPMaintenanceTypeDtl",
           module_cd: "OP",
-          row_id: this.paramFromList.row_id
+          row_id: this.paramFromList.row_id,
         };
       } else {
         param = {
@@ -520,11 +520,12 @@ export default {
           module_cd: "OP",
           ss_portfolio_id: this.getDataUser().portfolio_id,
           fm_fleet_mstr_id: this.paramFromList.ForMaintenance.fm_fleet_mstr_id,
-          fm_fleet_maintenance_type_id: this.paramFromList.ForMaintenance.row_id
+          fm_fleet_maintenance_type_id: this.paramFromList.ForMaintenance
+            .row_id,
         };
       }
 
-      this.CallFunction(param).then(response => {
+      this.CallFunction(param).then((response) => {
         if (response == null) return;
         this.Items.Tb_Data = response.Data;
       });
@@ -544,12 +545,12 @@ export default {
       }
 
       this.GetDataBy();
-    }
+    },
   },
   mounted() {
     this.CheckType();
   },
-  beforeMount() {}
+  beforeMount() {},
 };
 </script>
 

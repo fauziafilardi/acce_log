@@ -7,7 +7,7 @@
             <div class="card__title">
               <b-row>
                 <b-col style="max-width:fit-content !important;">
-                  <span>{{title}} Ticket Category</span>
+                  <span>{{title}} Field Clerk</span>
                 </b-col>
                 <b-col style="text-align: right;">
                   <ABSButton
@@ -21,8 +21,8 @@
             </div>
             <div class="card__body">
               <b-form
-                :data-vv-scope="'OP_FormOpTicketCategory'"
-                :data-vv-value-path="'OP_FormOpTicketCategory'"
+                :data-vv-scope="'OP_FormOpFieldClerk'"
+                :data-vv-value-path="'OP_FormOpFieldClerk'"
               >
                 <b-row>
                   <b-col md="2">
@@ -36,43 +36,59 @@
                       <b-row>
                         <b-col>
                           <span>
-                            <label>Ticket Category</label>
+                            <label>Coverage</label>
                           </span>
                           <ACCTextBox
-                            :prop="PI_ticket_category"
-                            v-model="M_OpTicketCategory.ticket_category"
-                            ref="ref_ticket_category"
-                          />
-                        </b-col>
-                      </b-row>
-                      <b-row>
-                        <b-col md="2">
-                          <span>
-                            <label>Solving Time</label>
-                          </span>
-                          <ACCTextBox
-                            :prop="PI_solving_hour"
-                            v-model="M_OpTicketCategory.solving_hour"
-                            ref="ref_solving_hour"
-                          />
-                        </b-col>
-                        <b-col md="1" style="margin-top: 35px;">:</b-col>
-                        <b-col md="2" style="margin-top: 25px;">
-                          <ACCTextBox
-                            :prop="PI_solving_minute"
-                            v-model="M_OpTicketCategory.solving_minute"
-                            ref="ref_solving_minute"
+                            :prop="PI_coverage"
+                            v-model="M_OpFieldClerk.coverage"
+                            ref="ref_coverage"
                           />
                         </b-col>
                       </b-row>
                       <b-row>
                         <b-col>
                           <span>
-                            <label>Descs</label>
+                            <label>PIC</label>
+                          </span>
+                          <ACCLookUp
+                            @change="Onuser_idChange"
+                            :prop="PI_user_id"
+                            v-model="M_OpFieldClerk.user_id"
+                            :label="M_OpFieldClerk.user_idLabel"
+                            ref="ref_user_id"
+                          />
+                        </b-col>
+                      </b-row>
+                      <b-row>
+                        <b-col>
+                          <span>
+                            <label>Advanced Limit</label>
+                          </span>
+                          <ACCTextBox
+                            :prop="PI_advanced_limit"
+                            v-model="M_OpFieldClerk.advanced_limit"
+                            ref="ref_advanced_limit"
+                          />
+                        </b-col>
+                        <b-col>
+                          <span>
+                            <label>Reinbursment Limit</label>
+                          </span>
+                          <ACCTextBox
+                            :prop="PI_reinbursment_limit"
+                            v-model="M_OpFieldClerk.reinbursment_limit"
+                            ref="ref_reinbursment_limit"
+                          />
+                        </b-col>
+                      </b-row>
+                      <b-row>
+                        <b-col>
+                          <span>
+                            <label>Description</label>
                           </span>
                           <ACCTextArea
                             :prop="PI_descs"
-                            v-model="M_OpTicketCategory.descs"
+                            v-model="M_OpFieldClerk.descs"
                             ref="ref_descs"
                           />
                         </b-col>
@@ -81,7 +97,7 @@
                       <b-row style="margin-top: 10px;">
                         <b-col>
                           <ABSButton
-                            :text="'Save TicketCategory'"
+                            :text="'Save '"
                             classButton="btn btn--default"
                             classIcon="icon-style-default"
                             @click="doSave"
@@ -107,12 +123,14 @@ export default {
     return {
       title: "",
 
-      M_OpTicketCategory: {
-        op_ticket_category_id: 0,
+      M_OpFieldClerk: {
+        op_field_clerk_id: 0,
         ss_portfolio_id: 0,
-        ticket_category: "",
-        solving_hour: 0,
-        solving_minute: 0,
+        coverage: "",
+        user_id: "",
+        user_idLabel: "",
+        advanced_limit: 0,
+        reinbursment_limit: 0,
         descs: "",
         user_input: "",
         user_edit: "",
@@ -121,43 +139,65 @@ export default {
         row_id: 0,
         lastupdatestamp: 0,
       },
-      PI_ticket_category: {
+      PI_coverage: {
         cValidate: "",
-        cName: "ticket_category",
+        cName: "coverage",
         cOrder: 1,
         cKey: false,
         cType: "text",
         cProtect: false,
-        cParentForm: "OP_FormOpTicketCategory",
+        cParentForm: "OP_FormOpFieldClerk",
         cDecimal: 2,
         cInputStatus: this.inputStatus,
       },
-      PI_solving_hour: {
+      PI_user_id: {
+        dataLookUp: {
+          LookUpCd: "GetUser",
+          ColumnDB: "ss_user_id",
+          InitialWhere: "",
+          ParamWhere: "",
+          OrderBy: "",
+          ParamView: "",
+          SourceField: "",
+          DisplayLookUp: "",
+        },
         cValidate: "",
-        cName: "solving_hour",
+        cName: "user_id",
         cOrder: 2,
         cKey: false,
-        cType: "decimal",
+        cStatic: false,
         cProtect: false,
-        cParentForm: "OP_FormOpTicketCategory",
-        cDecimal: 2,
+        cParentForm: "OP_FormOpFieldClerk",
+        cOption: [],
+        cDisplayColumn: "ss_user_id,user_name",
         cInputStatus: this.inputStatus,
       },
-      PI_solving_minute: {
+      PI_advanced_limit: {
         cValidate: "",
-        cName: "solving_minute",
+        cName: "advanced_limit",
         cOrder: 3,
         cKey: false,
         cType: "decimal",
         cProtect: false,
-        cParentForm: "OP_FormOpTicketCategory",
+        cParentForm: "OP_FormOpFieldClerk",
+        cDecimal: 2,
+        cInputStatus: this.inputStatus,
+      },
+      PI_reinbursment_limit: {
+        cValidate: "",
+        cName: "reinbursment_limit",
+        cOrder: 4,
+        cKey: false,
+        cType: "decimal",
+        cProtect: false,
+        cParentForm: "OP_FormOpFieldClerk",
         cDecimal: 2,
         cInputStatus: this.inputStatus,
       },
       PI_descs: {
         cValidate: "",
         cName: "descs",
-        cOrder: 4,
+        cOrder: 5,
         cKey: false,
         cProtect: false,
         cResize: false,
@@ -165,7 +205,7 @@ export default {
         cRows: 1,
         cMaxRows: 4,
         cSize: "md",
-        cParentForm: "OP_FormOpTicketCategory",
+        cParentForm: "OP_FormOpFieldClerk",
         cInputStatus: this.inputStatus,
       },
     };
@@ -188,14 +228,22 @@ export default {
     doBack() {
       this.$router.go(-1);
     },
+    Onuser_idChange(data) {
+      this.$nextTick(() => {
+        this.M_OpFieldClerk.user_id = data.row_id;
+        this.M_OpFieldClerk.user_idLabel = data.user_name;
+      });
+    },
 
     M_ClearForm() {
-      this.M_OpTicketCategory = {
-        op_ticket_category_id: 0,
+      this.M_OpFieldClerk = {
+        op_field_clerk_id: 0,
         ss_portfolio_id: 0,
-        ticket_category: "",
-        solving_hour: 0,
-        solving_minute: 0,
+        coverage: "",
+        user_id: "",
+        user_idLabel: "",
+        advanced_limit: 0,
+        reinbursment_limit: 0,
         descs: "",
         user_input: "",
         user_edit: "",
@@ -208,13 +256,13 @@ export default {
 
     doSave() {
       this.$validator._base
-        .validateAll("OP_FormOpTicketCategory")
+        .validateAll("OP_FormOpFieldClerk")
         .then((result) => {
           if (!result) return;
           this.alertConfirmation("Are You Sure Want To Save This Data ?").then(
             (ress) => {
               if (ress.value) {
-                this.$validator.errors.clear("OP_FormOpTicketCategory");
+                this.$validator.errors.clear("OP_FormOpFieldClerk");
                 if (this.inputStatus == "edit") {
                   this.M_Update();
                 } else {
@@ -227,13 +275,14 @@ export default {
     },
     M_Save() {
       var param = {
-        option_url: "/OP/OP_TicketCategory",
+        option_url: "/OP/OP_FieldClerk",
         line_no: 0,
         ss_portfolio_id: this.getDataUser().portfolio_id,
-        ticket_category: this.M_OpTicketCategory.ticket_category,
-        solving_hour: this.M_OpTicketCategory.solving_hour,
-        solving_minute: this.M_OpTicketCategory.solving_minute,
-        descs: this.M_OpTicketCategory.descs,
+        coverage: this.M_OpFieldClerk.coverage,
+        user_id: this.getDataUser().user_id,
+        advanced_limit: this.M_OpFieldClerk.advanced_limit,
+        reinbursment_limit: this.M_OpFieldClerk.reinbursment_limit,
+        descs: this.M_OpFieldClerk.descs,
         user_input: this.getDataUser().user_id,
       };
 
@@ -246,14 +295,15 @@ export default {
     },
     M_Update() {
       var param = {
-        option_url: "/OP/OP_TicketCategory",
+        option_url: "/OP/OP_FieldClerk",
         line_no: 0,
-        op_ticket_category_id: this.M_OpTicketCategory.op_ticket_category_id,
+        ofield_clerk_id: this.M_OpFieldClerk.ofield_clerk_id,
         ss_portfolio_id: this.getDataUser().portfolio_id,
-        ticket_category: this.M_OpTicketCategory.ticket_category,
-        solving_hour: this.M_OpTicketCategory.solving_hour,
-        solving_minute: this.M_OpTicketCategory.solving_minute,
-        descs: this.M_OpTicketCategory.descs,
+        coverage: this.M_OpFieldClerk.coverage,
+        user_id: this.getDataUser().user_id,
+        advanced_limit: this.M_OpFieldClerk.advanced_limit,
+        reinbursment_limit: this.M_OpFieldClerk.reinbursment_limit,
+        descs: this.M_OpFieldClerk.descs,
         lastupdatestamp: this.paramFromList.lastupdatestamp,
         user_edit: this.getDataUser().user_id,
       };
@@ -261,13 +311,26 @@ export default {
       this.putJSON(this.getUrlCRUD(), param).then((response) => {
         if (response == null) return;
         this.alertSuccess(response.Message).then(() => {
-          this.doBack();
+          if (this.inputStatus == "new") {
+            this.doBack();
+          } else {
+            this.$router.replace({ name: "OP_FieldClerk" });
+          }
         });
       });
     },
+    doDelete() {
+      this.alertConfirmation("Are You Sure Want To Delete This Data ?").then(
+        (ress) => {
+          if (ress.value) {
+            this.M_Delete();
+          }
+        }
+      );
+    },
     M_Delete() {
       var param = {
-        option_url: "/OP/OP_TicketCategory",
+        option_url: "/OP/OP_FieldClerk",
         line_no: { LineNo },
         id: this.paramFromList.row_id,
         lastupdatestamp: this.paramFromList.lastupdatestamp,
@@ -281,7 +344,7 @@ export default {
     },
     GetDataBy() {
       var param = {
-        option_url: "/OP/OP_TicketCategory",
+        option_url: "/OP/OP_FieldClerk",
         line_no: 0,
         id: this.paramFromList.row_id,
         lastupdatestamp: this.paramFromList.lastupdatestamp,
@@ -293,13 +356,14 @@ export default {
 
         var data = response.Data[0];
 
-        this.M_OpTicketCategory = {
-          op_ticket_category_id: data.op_ticket_category_id,
+        this.M_OpFieldClerk = {
+          op_field_clerk_id: data.op_field_clerk_id,
           ss_portfolio_id: data.ss_portfolio_id,
-          ticket_category: data.ticket_category__tb_1,
-          solving_hour: data.solving_hour__tb_2,
-          solving_minute: data.solving_minute__tb_3,
-          descs: data.descs__tb_4,
+          coverage: data.coverage__tb_1,
+          user_id: data.user_id__lo_2,
+          advanced_limit: data.advanced_limit__tb_3,
+          reinbursment_limit: data.reinbursment_limit__tb_4,
+          descs: data.descs__tb_5,
           user_input: data.user_input,
           user_edit: data.user_edit,
           time_input: data.time_input,
@@ -314,10 +378,8 @@ export default {
     this.M_ClearForm();
     if (this.inputStatus == "edit") {
       this.title = "Edit";
-      this.PI_ticket_category.cProtect = true;
       this.GetDataBy();
     } else {
-      this.PI_ticket_category.cProtect = false;
       this.title = "Add";
     }
   },

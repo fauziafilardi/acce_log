@@ -5,8 +5,9 @@
         <b-col md="12">
           <ACCList2
             :prop="propList"
-            :title="'Fleet Master'"
+            :title="'Field Clerk'"
             @rowClicked="rowClicked"
+            @buttonDeleteClicked="doDeleteClick"
             @rowDblClicked="doDoubleClick"
             @rowLinkClick="rowLink"
             @pageSize="M_PageSize"
@@ -14,12 +15,11 @@
             @filter="M_Advance_Filter"
             @headTable="M_Head_Table"
             @refreshColumn="refreshColumn"
-            ref="ref_FleetMaster"
-            urlAdd="OP_FleetMasterForm"
+            ref="ref_OpFieldClerk"
+            urlAdd="OP_FieldClerkForm"
             WithViewButton
             @buttonViewClicked="doViewClick"
-            @buttonDeleteClicked="doDeleteClick"
-          ></ACCList2>
+          />
         </b-col>
       </b-row>
     </div>
@@ -42,36 +42,54 @@ export default {
     };
   },
   methods: {
-    doBack() {
-      this.$router.go(-1);
-    },
     rowClicked(record, index) {
       this.doViewClick(record, index);
     },
-    doDoubleClick(record, index) {},
     doViewClick(record, index) {
       var param = record;
+      param.isEdit = true;
       param.isView = true;
       this.$store.commit("setParamPage", param);
-      this.$router.push({ name: "OP_FleetMasterView" });
+      this.$router.push({ name: "OP_FieldClerkView" });
     },
-    doDeleteClick(record, index) {},
+    doDoubleClick(record, index) {},
+    doDeleteClick(record, index) {
+      this.alertConfirmation("Are You Sure Want To Delete This Data ?").then(
+        (ress) => {
+          if (ress.value) {
+            this.M_Delete(record, index);
+          }
+        }
+      );
+    },
+    M_Delete(record, index) {
+      var param = {
+        option_url: "/OP/OP_FieldClerk",
+        line_no: 0,
+        id: record.row_id,
+        lastupdatestamp: record.lastupdatestamp,
+      };
+      this.deleteJSON(this.getUrlCRUD(), param).then((response) => {
+        // response from API
+        if (response == null) return;
+
+        this.alertSuccess("Data Has Been Deleted").then(() => {
+          this.$refs.ref_OpFieldClerk.doGetList("");
+        });
+      });
+    },
     rowLink(url) {},
     M_PageSize() {},
     M_Pagination() {},
     M_Advance_Filter() {},
     M_Head_Table() {},
     refreshColumn() {},
-    onSearchEnter(data) {},
-    onAddClick() {
-      this.$router.push({ name: "OP_FleetMasterForm" });
-    },
   },
   mounted() {
-    this.$refs.ref_FleetMaster.doGetList("");
+    this.$refs.ref_OpFieldClerk.doGetList("");
   },
   created() {
-    this.$store.commit("setParamPage", {});
+    this.$store.comit("setParamPage", {});
   },
 };
 </script>

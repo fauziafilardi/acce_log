@@ -193,6 +193,13 @@
                                 style="width: 150px; cursor: pointer; "
                                 @click="showPict(pict)"
                               />
+                              <font-awesome-icon
+                                class="icon-style-danger"
+                                icon="times-circle"
+                                size="lg"
+                                style="cursor: pointer; top: -5px; right: 0px; position: absolute;"
+                                @click="Delete_Pict(index)"
+                              />
                             </b-col>
                           </template>
                         </b-row>
@@ -399,7 +406,7 @@ export default {
         time_input: "",
         time_edit: "",
         row_id: 0,
-        lastupdatestamp: 0
+        lastupdatestamp: 0,
       },
       PI_employee_id: {
         cValidate: "",
@@ -410,7 +417,7 @@ export default {
         cProtect: false,
         cParentForm: "OP_FormFmDriver",
         cDecimal: 2,
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
       PI_driver_name: {
         cValidate: "",
@@ -421,7 +428,7 @@ export default {
         cProtect: false,
         cParentForm: "OP_FormFmDriver",
         cDecimal: 2,
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
 
       PI_handphone_1: {
@@ -435,7 +442,7 @@ export default {
         cStatic: true,
         cOption: [{ id: "+62", label: "+62" }],
         cDisplayColumn: "action_type,descs",
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
       PI_handphone_2: {
         cValidate: "max:20",
@@ -446,7 +453,7 @@ export default {
         cProtect: false,
         cParentForm: "OP_FormFmDriver",
         cDecimal: 2,
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
       PI_ktp: {
         cValidate: "",
@@ -457,7 +464,7 @@ export default {
         cProtect: false,
         cParentForm: "OP_FormFmDriver",
         cDecimal: 2,
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
       PI_npwp: {
         cValidate: "",
@@ -468,7 +475,7 @@ export default {
         cProtect: false,
         cParentForm: "OP_FormFmDriver",
         cDecimal: 2,
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
       PI_sim: {
         cValidate: "",
@@ -479,7 +486,7 @@ export default {
         cProtect: false,
         cParentForm: "OP_FormFmDriver",
         cDecimal: 2,
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
       PI_sim_expiry_date: {
         cValidate: "",
@@ -489,7 +496,7 @@ export default {
         cProtect: false,
         cWithTime: false,
         cFormat: "dd/MM/yyyy",
-        cParentForm: "OP_FormFmDriver"
+        cParentForm: "OP_FormFmDriver",
       },
       PI_skck: {
         cValidate: "",
@@ -500,7 +507,7 @@ export default {
         cProtect: false,
         cParentForm: "OP_FormFmDriver",
         cDecimal: 2,
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
       PI_skck_expiry_date: {
         cValidate: "",
@@ -510,7 +517,7 @@ export default {
         cProtect: false,
         cWithTime: false,
         cFormat: "dd/MM/yyyy",
-        cParentForm: "OP_FormFmDriver"
+        cParentForm: "OP_FormFmDriver",
       },
       // PI_employee_status: {
       //   cValidate: "",
@@ -536,11 +543,11 @@ export default {
           { id: "Permanent", label: "Permanent" },
           { id: "Contract", label: "Contract" },
           { id: "Freelance", label: "Freelance" },
-          { id: "Terminate", label: "Terminate" }
+          { id: "Terminate", label: "Terminate" },
           // { id: "E", label: "Entertaintment" }
         ],
         cDisplayColumn: "",
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
       PI_employee_expiry_date: {
         cValidate: "",
@@ -550,7 +557,7 @@ export default {
         cProtect: false,
         cWithTime: false,
         cFormat: "dd/MM/yyyy",
-        cParentForm: "OP_FormFmDriver"
+        cParentForm: "OP_FormFmDriver",
       },
       PI_emergency_contact_name: {
         cValidate: "",
@@ -561,7 +568,7 @@ export default {
         cProtect: false,
         cParentForm: "OP_FormFmDriver",
         cDecimal: 2,
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
       PI_emergency_relation: {
         cValidate: "",
@@ -572,7 +579,7 @@ export default {
         cProtect: false,
         cParentForm: "OP_FormFmDriver",
         cDecimal: 2,
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
       // PI_emergency_phone_no_1: {
       //   cValidate: "",
@@ -596,7 +603,7 @@ export default {
         cStatic: true,
         cOption: [{ id: "+62", label: "+62" }],
         cDisplayColumn: "action_type,descs",
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
       PI_emergency_phone_no_2: {
         cValidate: "",
@@ -607,7 +614,7 @@ export default {
         cProtect: false,
         cParentForm: "OP_FormFmDriver",
         cDecimal: 2,
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
       PI_emergency_remarks: {
         cValidate: "",
@@ -618,21 +625,21 @@ export default {
         cProtect: false,
         cParentForm: "OP_FormFmFleetMstr",
         cDecimal: 2,
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
       PI_add_pict: {
         cName: "picture",
         cAccept: ".jpg, .png, .gif",
         cTitle: "Browse",
-        cModule: "OP"
+        cModule: "OP",
       },
       M_ModalPict: {
         file_logo: "",
         file_logo_name: "",
         file_logo_path: "",
-        file_show: require("@/assets/default_photo_.png")
+        file_show: require("@/assets/default_photo_.png"),
       },
-      M_Picture: []
+      M_Picture: [],
     };
   },
   computed: {
@@ -647,9 +654,12 @@ export default {
       } else {
         return "new";
       }
-    }
+    },
   },
   methods: {
+    Delete_Pict(i) {
+      this.M_Picture.splice(i, 1);
+    },
     Onhandphone_1Change(data) {
       this.$nextTick(() => {
         this.M_FmDriver.handphone_1 = data.id;
@@ -673,7 +683,7 @@ export default {
         file_logo: "",
         file_logo_name: "",
         file_logo_path: "",
-        file_show: require("@/assets/default_photo_.png")
+        file_show: require("@/assets/default_photo_.png"),
       };
     },
     doAddPict() {
@@ -722,15 +732,15 @@ export default {
         time_input: "",
         time_edit: "",
         row_id: 0,
-        lastupdatestamp: 0
+        lastupdatestamp: 0,
       };
     },
 
     doSave() {
-      this.$validator._base.validateAll("OP_FormFmDriver").then(result => {
+      this.$validator._base.validateAll("OP_FormFmDriver").then((result) => {
         if (!result) return;
         this.alertConfirmation("Are You Sure Want To Save This Data ?").then(
-          ress => {
+          (ress) => {
             if (ress.value) {
               this.$validator.errors.clear("OP_FormFmDriver");
               if (this.inputStatus == "edit") {
@@ -768,7 +778,7 @@ export default {
             "-" +
             this.M_FmDriver.emergency_phone_no_2,
           emergency_remarks: this.M_FmDriver.emergency_remarks,
-          user_input: this.getDataUser().user_id
+          user_input: this.getDataUser().user_id,
         },
         paramD = [];
 
@@ -782,7 +792,7 @@ export default {
           doc_file_name: pict.file_logo_name,
           doc_path_file: pict.file_logo_path,
           expiry_date: "NULL",
-          user_input: this.getDataUser().user_id
+          user_input: this.getDataUser().user_id,
         });
       });
 
@@ -792,13 +802,13 @@ export default {
         Data: [
           {
             A_Insert: paramH,
-            B_Looping: paramD
-          }
-        ]
+            B_Looping: paramD,
+          },
+        ],
       };
 
       this.postJSONMulti(this.getUrlProsesDataPostMulti(), param).then(
-        response => {
+        (response) => {
           // console.log(response)
           if (response == null) return;
           this.alertSuccess("Save Data Has Been Successfully").then(() => {
@@ -806,7 +816,7 @@ export default {
 
             var param = {
               row_id: response.Data["A_Insert"].row_id,
-              lastupdatestamp: 0
+              lastupdatestamp: 0,
             };
             param.isEdit = true;
             param.isView = true;
@@ -842,7 +852,7 @@ export default {
             this.M_FmDriver.emergency_phone_no_2,
           emergency_remarks: this.M_FmDriver.emergency_remarks,
           lastupdatestamp: this.paramFromList.lastupdatestamp,
-          user_edit: this.getDataUser().user_id
+          user_edit: this.getDataUser().user_id,
         },
         paramD = [];
 
@@ -856,7 +866,7 @@ export default {
           doc_file_name: pict.file_logo_name,
           doc_path_file: pict.file_logo_path,
           expiry_date: "NULL",
-          user_input: this.getDataUser().user_id
+          user_input: this.getDataUser().user_id,
         });
       });
       // paramDelete = [];
@@ -864,7 +874,7 @@ export default {
         _Method_: "DELETE",
         _LineNo_: 1,
         row_id: this.M_FmDriver.fm_driver_id,
-        lastupdatestamp: 0
+        lastupdatestamp: 0,
       };
 
       var param = {
@@ -874,13 +884,13 @@ export default {
           {
             A_Update: paramH,
             B_Delete: paramDelete,
-            C_Looping: paramD
-          }
-        ]
+            C_Looping: paramD,
+          },
+        ],
       };
 
       this.postJSONMulti(this.getUrlProsesDataPostMulti(), param).then(
-        response => {
+        (response) => {
           // console.log(response)
           if (response == null) return;
           this.alertSuccess("Update Data Has Been Successfully").then(() => {
@@ -917,10 +927,10 @@ export default {
           this.M_FmDriver.emergency_phone_no_2,
         emergency_remarks: this.M_FmDriver.emergency_remarks,
         lastupdatestamp: this.paramFromList.lastupdatestamp,
-        user_edit: this.getDataUser().user_id
+        user_edit: this.getDataUser().user_id,
       };
 
-      this.putJSON(this.getUrlCRUD(), param).then(response => {
+      this.putJSON(this.getUrlCRUD(), param).then((response) => {
         if (response == null) return;
         this.alertSuccess(response.Message).then(() => {
           // this.doBack();
@@ -933,9 +943,9 @@ export default {
         option_url: "/OP/OP_Driver",
         line_no: { LineNo },
         id: this.paramFromList.row_id,
-        lastupdatestamp: this.paramFromList.lastupdatestamp
+        lastupdatestamp: this.paramFromList.lastupdatestamp,
       };
-      this.deleteJSON(this.getUrlCRUD(), param).then(response => {
+      this.deleteJSON(this.getUrlCRUD(), param).then((response) => {
         if (response == null) return;
         this.alertSuccess("Data Has Been Deleted").then(() => {
           this.doBack();
@@ -948,10 +958,10 @@ export default {
         option_url: "/OP/OP_Driver",
         line_no: 0,
         id: this.paramFromList.row_id,
-        lastupdatestamp: this.paramFromList.lastupdatestamp
+        lastupdatestamp: this.paramFromList.lastupdatestamp,
       };
 
-      this.getJSON(this.getUrlCRUD(), param).then(response => {
+      this.getJSON(this.getUrlCRUD(), param).then((response) => {
         // response from API
         if (response == null) return;
 
@@ -994,23 +1004,35 @@ export default {
               time_input: data[i].time_input,
               time_edit: data[i].time_edit,
               row_id: data[i].row_id,
-              lastupdatestamp: data[i].lastupdatestamp
+              lastupdatestamp: data[i].lastupdatestamp,
             };
           }
+          // if (data[i].dt_doc_file_name.length > 0) {
+          //   this.M_PictureM_Picture.push({
+          //     file_logo: "dtfile_" + i,
+          //     file_logo_name: data[i].dt_doc_file_name,
+          //     file_logo_path: data[i].dt_doc_path_file,
+          //     file_show:
+          //       data[i].dt_doc_path_file && data[i].dt_doc_path_file !== ""
+          //         ? this.url + data[i].dt_doc_path_file
+          //         : require("@/assets/default_photo_.png")
+          //   });
+          // }
+          console.log(data[i].dt_doc_file_name.length);
           if (data[i].dt_doc_file_name.length > 0) {
-            this.M_PictureM_Picture.push({
+            this.M_Picture.push({
               file_logo: "dtfile_" + i,
               file_logo_name: data[i].dt_doc_file_name,
               file_logo_path: data[i].dt_doc_path_file,
               file_show:
                 data[i].dt_doc_path_file && data[i].dt_doc_path_file !== ""
                   ? this.url + data[i].dt_doc_path_file
-                  : require("@/assets/default_photo_.png")
+                  : require("@/assets/default_photo_.png"),
             });
           }
         }
       });
-    }
+    },
   },
   mounted() {
     this.M_ClearForm();
@@ -1020,7 +1042,7 @@ export default {
     } else {
       this.title = "Add";
     }
-  }
+  },
 };
 </script>
 

@@ -63,6 +63,12 @@ import OP_VendorView from '@/views/OP/OP_Vendor/OP_VendorView'
 import OP_VendorLogBook from '@/views/OP/OP_Vendor/OP_Vendor_mk_logbookView'
 import OP_VendorPIC from '@/views/OP/OP_Vendor/OP_Vendor_cm_contact_personForm'
 
+// Field Clerk
+import OP_FieldClerk from '@/views/OP/OP_FieldClerk/OP_FieldClerkList'
+import OP_FieldClerkForm from '@/views/OP/OP_FieldClerk/OP_FieldClerkForm'
+import OP_FieldClerkView from '@/views/OP/OP_FieldClerk/OP_FieldClerkView'
+import OP_FieldClerkDtlForm from '@/views/OP/OP_FieldClerk/OP_FieldClerk_dtlForm.vue'
+
 export const OPRender = {
     path: '/OP',
     component: {
@@ -71,6 +77,38 @@ export const OPRender = {
         }
     },
     children: [
+        {
+            path: '/OP/OP_FieldClerk',
+            name: 'OP_FieldClerk',
+            component: OP_FieldClerk,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/OP_FieldClerk/Form',
+            name: 'OP_FieldClerkForm',
+            component: OP_FieldClerkForm,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/OP_FieldClerk/View',
+            name: 'OP_FieldClerkView',
+            component: OP_FieldClerkView,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/OP_FieldClerk/Address',
+            name: 'OP_FieldClerkDtlForm',
+            component: OP_FieldClerkDtlForm,
+            meta: {
+                requiresAuth: true
+            }
+        },
         {
             path: '/OP/OP_Vendor',
             name: 'OP_Vendor',
