@@ -7,7 +7,7 @@
             :prop="propList"
             :title="'VendorGps'"
             @rowClicked="rowClicked"
-			@buttonDeleteClicked="doDeleteClick"
+            @buttonDeleteClicked="doDeleteClick"
             @rowDblClicked="doDoubleClick"
             @rowLinkClick="rowLink"
             @pageSize="M_PageSize"
@@ -37,60 +37,60 @@ export default {
         TabIndex: 1,
         OrderBy: "",
         SourceField: "",
-        ParamView: ""
-      }
+        ParamView: "",
+      },
     };
   },
   methods: {
     rowClicked(record, index) {
-      this.doViewClick(record, index)
+      this.doViewClick(record, index);
     },
     doViewClick(record, index) {
       var param = record;
-	  param.isEdit = true;
+      param.isEdit = true;
       param.isView = true;
       this.$store.commit("setParamPage", param);
-      this.$router.push({ name: "OP_VendorGpsView"});
+      this.$router.push({ name: "OP_VendorGpsForm" });
     },
     doDoubleClick(record, index) {},
-	doDeleteClick(record, index) {
-      this.alertConfirmation("Are You Sure Want To Delete This Data ?")
-            .then(ress => {
-				if(ress.value){
-					this.M_Delete(record, index);
-				}
-			});
+    doDeleteClick(record, index) {
+      this.alertConfirmation("Are You Sure Want To Delete This Data ?").then(
+        (ress) => {
+          if (ress.value) {
+            this.M_Delete(record, index);
+          }
+        }
+      );
     },
-	M_Delete(record,index){
-		var param = {
-			option_url: "/OP/OP_VendorGps",
-			line_no: 0,
-			id: record.row_id,
-			lastupdatestamp: record.lastupdatestamp
-		  };
-		  this.deleteJSON(this.getUrlCRUD(), param).then(response => {
-			// response from API
-			if (response == null) return;
+    M_Delete(record, index) {
+      var param = {
+        option_url: "/OP/OP_VendorGps",
+        line_no: 0,
+        id: record.row_id,
+        lastupdatestamp: record.lastupdatestamp,
+      };
+      this.deleteJSON(this.getUrlCRUD(), param).then((response) => {
+        // response from API
+        if (response == null) return;
 
-			this.alertSuccess("Data Has Been Deleted").then(() => {
-			  this.$refs.ref_OpVendorGps.doGetList("");
-			});
-		  });
-	},
+        this.alertSuccess("Data Has Been Deleted").then(() => {
+          this.$refs.ref_OpVendorGps.doGetList("");
+        });
+      });
+    },
     rowLink(url) {},
     M_PageSize() {},
     M_Pagination() {},
     M_Advance_Filter() {},
     M_Head_Table() {},
-    refreshColumn() {}
+    refreshColumn() {},
   },
   mounted() {
     this.$refs.ref_OpVendorGps.doGetList("");
-	
   },
-  created(){
-	this.$store.comit("setParamPage",{})
-  }
+  created() {
+    this.$store.comit("setParamPage", {});
+  },
 };
 </script>
 

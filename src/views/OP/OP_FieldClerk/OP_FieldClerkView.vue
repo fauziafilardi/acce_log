@@ -204,7 +204,7 @@ export default {
       propList: {
         OptionUrl: "/OP/OP_FieldClerk",
         LineNo: 1,
-        initialWhere:'',
+        initialWhere: "",
         OrderBy: "customer_name ASC",
         SourceField: "",
         ParamView: "",
@@ -316,26 +316,27 @@ export default {
         });
       });
     },
-    Delete_Item(i) {
+    doDeleteClick(record, index) {
       this.alertConfirmation("Are You Sure Want To Delete This Data ?").then(
         (ress) => {
           if (ress.value) {
-            this.M_DeleteI(i);
+            this.M_DeleteI(record, index);
           }
         }
       );
     },
-    M_DeleteI() {
+    M_DeleteI(record, index) {
       var param = {
         option_url: "/OP/OP_FieldClerk",
-        line_no: 0,
-        id: this.paramFromList.row_id,
-        lastupdatestamp: this.paramFromList.lastupdatestamp,
+        line_no: 1,
+        id: record.row_id,
+        lastupdatestamp: record.lastupdatestamp,
       };
       this.deleteJSON(this.getUrlCRUD(), param).then((response) => {
         if (response == null) return;
         this.alertSuccess("Data Has Been Deleted").then(() => {
-          this.doBack();
+          // this.doBack();
+          this.$refs.ref_MmMaintenanceType.doGetList("");
         });
       });
     },
@@ -382,7 +383,11 @@ export default {
           lastupdatestamp: data.lastupdatestamp,
         };
         // this.getItems();
-        this.propList.initialWhere = "ss_portfolio_id='" + this.getDataUser().portfolio_id + "' and op_field_clerk_id =" + this.paramFromList.row_id
+        this.propList.initialWhere =
+          "ss_portfolio_id='" +
+          this.getDataUser().portfolio_id +
+          "' and op_field_clerk_id =" +
+          this.paramFromList.row_id;
         this.$refs.ref_MmMaintenanceType.doGetList("");
       });
     },
