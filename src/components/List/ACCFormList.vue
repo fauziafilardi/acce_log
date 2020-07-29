@@ -51,10 +51,9 @@
 export default {
   props: {
     prop: {
+      OptionUrl: String,
       initialWhere: String,
       LineNo: Number,
-      PageLevel: String,
-      TabIndex: String,
       OrderBy: String,
       SourceField: String,
       ParamView: String
@@ -593,7 +592,7 @@ export default {
             this.sortedField.push({ field: "time_edit", sort: "DESC" });
             this.firstSort = true;
           }
-          this.perPage = 10;
+          this.perPage = 8;
           this.currentPage = 1;
         } else if (method == "pageSize" || method == "ONSEARCHENTER") {
           this.currentPage = 1;
@@ -605,7 +604,7 @@ export default {
       // }
 
       var param = {
-        option_url: this.getOptionUrl(),
+        option_url: this.prop.OptionUrl,
         line_no: this.prop.LineNo,
         user_id: this.getDataUser().user_id,
         portfolio_id: this.getDataUser().portfolio_id,
