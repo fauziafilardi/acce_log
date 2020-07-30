@@ -69,6 +69,10 @@ import OP_FieldClerkForm from '@/views/OP/OP_FieldClerk/OP_FieldClerkForm'
 import OP_FieldClerkView from '@/views/OP/OP_FieldClerk/OP_FieldClerkView'
 import OP_FieldClerkDtlForm from '@/views/OP/OP_FieldClerk/OP_FieldClerk_dtlForm.vue'
 
+// OP_VendorGps
+import OP_VendorGps from '@/views/OP/OP_VendorGps/OP_VendorGpsList'
+import OP_VendorGpsForm from '@/views/OP/OP_VendorGps/OP_VendorGpsForm'
+
 export const OPRender = {
     path: '/OP',
     component: {
@@ -77,6 +81,22 @@ export const OPRender = {
         }
     },
     children: [
+        {
+            path: '/OP/OP_VendorGps',
+            name: 'OP_VendorGps',
+            component: OP_VendorGps,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/OP_VendorGps/Form',
+            name: 'OP_VendorGpsForm',
+            component: OP_VendorGpsForm,
+            meta: {
+                requiresAuth: true
+            }
+        },
         {
             path: '/OP/OP_FieldClerk',
             name: 'OP_FieldClerk',

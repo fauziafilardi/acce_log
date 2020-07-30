@@ -79,7 +79,44 @@
                           ref="ref_minimum_margin"
                         />
                       </b-col>
-                      <br />%
+                      <br />
+                      <span style="margin-top:35px;">%</span>
+                    </b-row>
+                    <b-row>
+                      <b-col md="6">
+                        <span>
+                          <label>Comssion Type</label>
+                        </span>
+                        <ACCDropDown
+                          @change="Oncomission_typeChange"
+                          :prop="PI_comission_type"
+                          v-model="M_MkMarketing.comission_type"
+                          :label="M_MkMarketing.comission_typeLabel"
+                          ref="ref_comission_type"
+                        />
+                      </b-col>
+                    </b-row>
+                    <b-row>
+                      <b-col md="3">
+                        <span>
+                          <label>Above Target</label>
+                        </span>
+                        <ACCTextBox
+                          :prop="PI_above_target"
+                          v-model="M_MkMarketing.above_target"
+                          ref="ref_above_target"
+                        />
+                      </b-col>
+                      <b-col md="3">
+                        <span>
+                          <label>Below Target</label>
+                        </span>
+                        <ACCTextBox
+                          :prop="PI_below_target"
+                          v-model="M_MkMarketing.below_target"
+                          ref="ref_below_target"
+                        />
+                      </b-col>
                     </b-row>
                     <b-row>
                       <b-col md="6">
@@ -97,7 +134,7 @@
                     <b-row style="margin-top: 10px;">
                       <b-col md="6">
                         <ABSButton
-                          :text="'Save Marketing'"
+                          :text="'Save'"
                           classButton="btn btn--default"
                           classIcon="icon-style-default"
                           @click="doSave"
@@ -144,7 +181,7 @@ export default {
         minimum_margin: 0,
         remarks: "",
         row_id: 0,
-        lastupdatestamp: 0
+        lastupdatestamp: 0,
       },
       PI_user_id: {
         dataLookUp: {
@@ -156,7 +193,7 @@ export default {
           OrderBy: "",
           ParamView: "",
           SourceField: "",
-          DisplayLookUp: ""
+          DisplayLookUp: "",
         },
         cValidate: "",
         cName: "user_id",
@@ -167,7 +204,7 @@ export default {
         cParentForm: "MK_FormMkMarketing",
         cOption: [],
         cDisplayColumn: "marketing_id,name",
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
       PI_monthly_point: {
         cValidate: "",
@@ -178,7 +215,7 @@ export default {
         cProtect: false,
         cParentForm: "MK_FormMkMarketing",
         cDecimal: 2,
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
       PI_monthly_new_prospect: {
         cValidate: "",
@@ -189,7 +226,7 @@ export default {
         cProtect: false,
         cParentForm: "MK_FormMkMarketing",
         cDecimal: 2,
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
       PI_minimum_margin: {
         cValidate: "",
@@ -200,12 +237,50 @@ export default {
         cProtect: false,
         cParentForm: "MK_FormMkMarketing",
         cDecimal: 2,
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
+      },
+      PI_comission_type: {
+        dataLookUp: null,
+        cValidate: "",
+        cName: "comission_type",
+        ckey: false,
+        cOrder: 5,
+        cProtect: false,
+        cParentForm: "MK_FormMkMarketing",
+        cStatic: true,
+        cOption: [
+          { id: "P", label: "Percentage" },
+          { id: "V", label: "Value" },
+        ],
+        cDisplayColumn: "action_type,descs",
+        cInputStatus: this.inputStatus,
+      },
+      PI_above_target: {
+        cValidate: "",
+        cName: "above_target",
+        cOrder: 6,
+        cKey: false,
+        cType: "decimal",
+        cProtect: false,
+        cParentForm: "MK_FormMkMarketing",
+        cDecimal: 2,
+        cInputStatus: this.inputStatus,
+      },
+      PI_below_target: {
+        cValidate: "",
+        cName: "below_target",
+        cOrder: 7,
+        cKey: false,
+        cType: "decimal",
+        cProtect: false,
+        cParentForm: "MK_FormMkMarketing",
+        cDecimal: 2,
+        cInputStatus: this.inputStatus,
       },
       PI_remarks: {
         cValidate: "",
         cName: "remarks",
-        cOrder: 5,
+        cOrder: 8,
         cKey: false,
         cProtect: false,
         cResize: false,
@@ -214,8 +289,8 @@ export default {
         cMaxRows: 3,
         cSize: "md",
         cParentForm: "MK_FormMkMarketing",
-        cInputStatus: this.inputStatus
-      }
+        cInputStatus: this.inputStatus,
+      },
     };
   },
   computed: {
@@ -230,9 +305,15 @@ export default {
       } else {
         return "new";
       }
-    }
+    },
   },
   methods: {
+    Oncomission_typeChange(data) {
+      this.$nextTick(() => {
+        this.M_MkMarketing.comission_type = data.id;
+        this.M_MkMarketing.comission_typeLabel = data.label;
+      });
+    },
     doBack() {
       this.$router.go(-1);
     },
@@ -267,15 +348,15 @@ export default {
         minimum_margin: 0,
         remarks: "",
         row_id: 0,
-        lastupdatestamp: 0
+        lastupdatestamp: 0,
       };
     },
 
     doSave() {
-      this.$validator._base.validateAll("MK_FormMkMarketing").then(result => {
+      this.$validator._base.validateAll("MK_FormMkMarketing").then((result) => {
         if (!result) return;
         this.alertConfirmation("Are You Sure Want To Save This Data ?").then(
-          ress => {
+          (ress) => {
             if (ress.value) {
               this.$validator.errors.clear("MK_FormMkMarketing");
               if (this.inputStatus == "edit") {
@@ -306,10 +387,13 @@ export default {
         monthly_new_prospect: this.M_MkMarketing.monthly_new_prospect,
         minimum_margin: this.M_MkMarketing.minimum_margin,
         remarks: this.M_MkMarketing.remarks,
-        user_input: this.getDataUser().user_id
+        comission_type: this.M_MkMarketing.comission_type,
+        above_target: this.M_MkMarketing.above_target,
+        below_target: this.M_MkMarketing.below_target,
+        user_input: this.getDataUser().user_id,
       };
 
-      this.postJSON(this.getUrlCRUD(), param).then(response => {
+      this.postJSON(this.getUrlCRUD(), param).then((response) => {
         if (response == null) return;
         this.alertSuccess(response.Message).then(() => {
           this.doBack();
@@ -335,26 +419,14 @@ export default {
         monthly_new_prospect: this.M_MkMarketing.monthly_new_prospect,
         lastupdatestamp: this.paramFromList.lastupdatestamp,
         user_edit: this.getDataUser().user_id,
-        mk_marketing_id: this.M_MkMarketing.mk_marketing_id,
-        ss_portfolio_id: this.getDataUser().portfolio_id,
-        user_id: this.getDataUser().user_id,
-        marketing_id: this.M_MkMarketing.marketing_id,
-        name: this.M_MkMarketing.name,
-        nik_id: this.M_MkMarketing.nik_id,
-        address: this.M_MkMarketing.address,
-        email: this.M_MkMarketing.email,
-        hand_phone: this.M_MkMarketing.hand_phone,
-        status_active: this.M_MkMarketing.status_active,
-        join_date: this.M_MkMarketing.join_date,
-        monthly_point: this.M_MkMarketing.monthly_point,
-        monthly_new_prospect: this.M_MkMarketing.monthly_new_prospect,
-        lastupdatestamp: this.paramFromList.lastupdatestamp,
-        user_edit: this.getDataUser().user_id,
+        comission_type: this.M_MkMarketing.comission_type,
+        above_target: this.M_MkMarketing.above_target,
+        below_target: this.M_MkMarketing.below_target,
         minimum_margin: this.M_MkMarketing.minimum_margin,
-        remarks: this.M_MkMarketing.remarks
+        remarks: this.M_MkMarketing.remarks,
       };
 
-      this.putJSON(this.getUrlCRUD(), param).then(response => {
+      this.putJSON(this.getUrlCRUD(), param).then((response) => {
         if (response == null) return;
         this.alertSuccess(response.Message).then(() => {
           this.doBack();
@@ -367,10 +439,10 @@ export default {
         option_url: "/MK/MK_Marketing",
         line_no: 0,
         id: this.paramFromList.row_id,
-        lastupdatestamp: this.paramFromList.lastupdatestamp
+        lastupdatestamp: this.paramFromList.lastupdatestamp,
       };
 
-      this.getJSON(this.getUrlCRUD(), param).then(response => {
+      this.getJSON(this.getUrlCRUD(), param).then((response) => {
         // response from API
         if (response == null) return;
 
@@ -399,10 +471,13 @@ export default {
           minimum_margin: data.minimum_margin__tb_4,
           remarks: data.remarks__tb_5,
           row_id: data.row_id,
-          lastupdatestamp: data.lastupdatestamp
+          comission_type: data.comission_type,
+          above_target: data.above_target,
+          below_target: data.below_target,
+          lastupdatestamp: data.lastupdatestamp,
         };
       });
-    }
+    },
   },
   mounted() {
     this.M_ClearForm();
@@ -412,7 +487,7 @@ export default {
     } else {
       this.title = "Add";
     }
-  }
+  },
 };
 </script>
 

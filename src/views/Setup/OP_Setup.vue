@@ -178,6 +178,27 @@
           </div>
         </b-col>
       </b-row>
+      <b-row class="dashboardBody">
+        <b-col md="4" @click="onGPSVendorClick">
+          <div class="card">
+            <div class="card__title">
+              <b-row>
+                <b-col>
+                  <span style="float: left !important;">GPS Vendor</span> &nbsp;
+                </b-col>
+              </b-row>
+            </div>
+            <div class="card__body">
+              <div style="width: 100%; text-align: center;">
+                <font-awesome-icon style="color: #333399;" icon="clipboard-list" size="6x" />
+                <br />
+                <br />
+                <span style="width: 75%">GPS Vendor</span>
+              </div>
+            </div>
+          </div>
+        </b-col>
+      </b-row>
     </div>
   </div>
 </template>
@@ -215,6 +236,9 @@ export default {
     },
     onFieldClerkClick() {
       this.$router.push({ name: "OP_FieldClerk" });
+    },
+    onGPSVendorClick() {
+      this.$router.push({ name: "OP_VendorGps" });
     },
   },
   mounted() {},
