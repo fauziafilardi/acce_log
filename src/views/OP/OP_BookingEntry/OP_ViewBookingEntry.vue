@@ -20,6 +20,35 @@
               </b-row>
             </div>
             <div class="card__body">
+              <b-row v-show="!isConfirmed">
+                  <b-col class="col-right">
+                      <span>
+                          <ABSButton
+                              :text="'Confirm'"
+                              classButton="button button--default"
+                              classIcon="icon-style-1"
+                              @click="doConfirm"
+                          />
+                      </span>
+                      <span>
+                          <ABSButton
+                              :text="'Delete'"
+                              classButton="button button--default"
+                              classIcon="icon-style-1"
+                              @click="doDelete"
+                          />
+                      </span>
+                      <span>
+                          <ABSButton
+                              :text="'Edit'"
+                              classButton="button button--default"
+                              classIcon="icon-style-1"
+                              @click="doEdit"
+                          />
+                      </span>
+                  </b-col>
+              </b-row>
+              <br >
               <b-row>
                 <b-col md="6">
                   <b-row class="row-bordered">
@@ -40,7 +69,7 @@
                             <label>{{M_Order.booking_no}}</label>
                           </span>
                         </b-col>
-                        <b-col md="3">
+                        <b-col md="6">
                           <span>
                             <label>Status</label>
                           </span>
@@ -49,7 +78,7 @@
                             <label>{{M_Order.status}}</label>
                           </span>
                         </b-col>
-                        <b-col md="3">
+                        <!-- <b-col md="3">
                           <span>
                             <label>Source</label>
                           </span>
@@ -57,7 +86,7 @@
                           <span>
                             <label>{{M_Order.source}}</label>
                           </span>
-                        </b-col>
+                        </b-col> -->
                       </b-row>
                       <b-row class="row-view">
                         <b-col md="12">
@@ -142,9 +171,11 @@
                         <b-col>
                           <span style="font-size: 15px; color: #333399; font-weight: bold;"> Information </span>
                         </b-col>
-                        <b-col class="col-right" style="min-width: fit-content !important;">
-                          <div class="button button-default">
-                            {{M_Order.category}}
+                        <b-col class="col-right" md="1">
+                          <div style="width: 60px; text-align: center; border-radius: 5px !important;" class="row-bordered">
+                            <span style="font-size: 13px; color: #333399; font-weight: bold;">
+                              {{M_Order.category == "F" ? "FTL" : (M_Order.category == "L" ? "LTL" : "Project")}}
+                            </span>
                           </div>
                         </b-col>
                       </b-row>
@@ -158,7 +189,7 @@
                               </span>
                               <br/>
                               <span>
-                                <label>{{data.vehicle_type}}</label>
+                                <label>{{data.fleet_type}}</label>
                               </span>
                             </b-col>
                             <b-col md="6">
@@ -167,7 +198,7 @@
                               </span>
                               <br/>
                               <span>
-                                <label>{{isCurrency(data.qty, 0)}}</label>
+                                <label>{{data.qty}}</label>
                               </span>
                             </b-col>
                           </b-row>
@@ -192,7 +223,7 @@
                             </span>
                             <br/>
                             <span>
-                              <label>{{isCurrency(M_Order.total_item, 0)}}</label>
+                              <label>{{M_Order.total_item}}</label>
                             </span>
                           </b-col>
                           <b-col md="4">
@@ -201,7 +232,7 @@
                             </span>
                             <br/>
                             <span>
-                              <label>{{isCurrency(M_Order.kgs, 0)}}</label>
+                              <label>{{M_Order.kgs}}</label>
                             </span>
                           </b-col>
                           <b-col md="4">
@@ -210,7 +241,7 @@
                             </span>
                             <br/>
                             <span>
-                              <label>{{isCurrency(M_Order.cbm, 0)}}</label>
+                              <label>{{M_Order.cbm}}</label>
                             </span>
                           </b-col>
                         </b-row>
@@ -254,7 +285,7 @@
                             </span>
                             <br/>
                             <span>
-                              <label>{{isCurrency(M_Order.contracted_volume, 0)}}</label>
+                              <label>{{M_Order.contracted_volume}}</label>
                             </span>
                           </b-col>
                           <b-col md="4">
@@ -263,7 +294,7 @@
                             </span>
                             <br/>
                             <span>
-                              <label>{{isCurrency(M_Order.executed_volume, 0)}}</label>
+                              <label>{{M_Order.executed_volume}}</label>
                             </span>
                           </b-col>
                         </b-row>
@@ -275,7 +306,7 @@
                               </span>
                               <br/>
                               <span>
-                                <label>{{data.vehicle_type}}</label>
+                                <label>{{data.fleet_type}}</label>
                               </span>
                             </b-col>
                             <b-col md="6">
@@ -284,7 +315,7 @@
                               </span>
                               <br/>
                               <span>
-                                <label>{{isCurrency(data.qty, 0)}}</label>
+                                <label>{{data.qty}}</label>
                               </span>
                             </b-col>
                           </b-row>
@@ -292,6 +323,19 @@
                       </template>
                     </b-col>
                   </b-row>
+                </b-col>
+              </b-row>
+              <br >
+              <b-row>
+                <b-col>
+                  <ACCFormList
+                    :prop="propList"
+                    :title="''"
+                    @rowClicked="rowClicked"
+                    ref="ref_OrderList"
+                    WithDeleteButton
+                    @buttonDeleteClicked="doDeleteClick"
+                  />
                 </b-col>
               </b-row>
             </div>
@@ -306,13 +350,43 @@
 export default {
   data() {
     return {
+      propList: {
+        OptionUrl: "/OP/OP_Booking",
+        LineNo: 2,
+        initialWhere:"",
+        OrderBy: "",
+        SourceField: "",
+        ParamView: "",
+      },
       M_Order: {
-      }
+        booking_no: "",
+        status: "",
+        source: "",
+        customer_name: "",
+        contact_person: "",
+        ref_no: "",
+        pickup_date: "",
+        pickup_from: "",
+        delivery_to: "",
+        descs: "",
+        category: "",
+        comodity: "",
+        total_item: "",
+        kgs: "",
+        cbm: "",
+        contract_no: "",
+        P_descs: "",
+        charge_by: "",
+        contracted_volume: "",
+        executed_volume: "",
+      },
+      TruckDetail: [],
+      isConfirmed: false
     };
   },
   computed: {
     paramFromList() {
-      var param = this.$route.params;
+      var param = this.$store.getters.getParamPage;
       if (param == null || param == undefined) {
         this.doBack();
       } else {
@@ -328,14 +402,90 @@ export default {
     doBack() {
       this.$router.go(-1);
     },
+    doConfirm(){
+      this.alertConfirmation("Are You Sure Want To Confirm This Data ?").then(
+        ress => {
+          if (ress.value) {
+            this.M_Confirm();
+          }
+        }
+      );
+    },
+    M_Confirm() {
+      var param = {
+        option_function_cd: "ConfirmOpBooking",
+        module_cd: "OP",
+        ss_portfolio_id: this.getDataUser().portfolio_id,
+        row_id: this.paramFromList.row_id,
+        user_id: this.getDataUser().user_id
+      };
+
+      this.CallFunction(param).then(response => {
+        if (response == null) return;
+        this.GetDataBy();
+        // this.isConfirmed = true;
+      });
+    },
+    doDelete() {
+      this.alertConfirmation("Are You Sure Want To Delete This Data ?").then(
+        ress => {
+          if (ress.value) {
+            this.M_Delete();
+          }
+        }
+      );
+    },
+    M_Delete() {
+      var param = {
+        option_url: "/OP/OP_Booking",
+        line_no: 0,
+        id: this.paramFromList.row_id,
+        lastupdatestamp: this.M_Order.lastupdatestamp
+      };
+      this.deleteJSON(this.getUrlCRUD(), param).then(response => {
+        if (response == null) return;
+        this.alertSuccess("Data Has Been Deleted").then(() => {
+          this.doBack();
+        });
+      });
+    },
     doEdit() {
       var param = this.paramFromList;
+      param.isView = false;
       param.isEdit = true;
-      this.$router.push({ name: "OP_AddBookingEntry", params: param });
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "OP_AddBookingEntry" });
+    },
+    renderListOrder() {
+      this.propList.initialWhere = "op_booking_h_id='" + this.paramFromList.row_id + "'"
+      this.$refs.ref_OrderList.doGetList("");
+    },
+    doDeleteClick(record, index) {
+      this.alertConfirmation("Are You Sure Want To Delete This Data ?").then(
+        ress => {
+          if (ress.value) {
+            this.M_DeleteOrder(record);
+          }
+        }
+      );
+    },
+    M_DeleteOrder(i) {
+      var param = {
+        option_url: "/OP/OP_Booking",
+        line_no: 2,
+        id: i.row_id,
+        lastupdatestamp: i.lastupdatestamp
+      };
+      this.deleteJSON(this.getUrlCRUD(), param).then(response => {
+        if (response == null) return;
+        this.alertSuccess("Data Has Been Deleted").then(() => {
+          this.GetDataBy();
+        });
+      });
     },
     GetDataBy() {
       var param = {
-        option_url: "/OP/OP_BookingEntry",
+        option_url: "/OP/OP_Booking",
         line_no: 0,
         id: this.paramFromList.row_id,
         lastupdatestamp: this.paramFromList.lastupdatestamp
@@ -344,7 +494,50 @@ export default {
       this.getJSON(this.getUrlCRUD(), param).then(response => {
         if (response == null) return;
         var data = response.Data[0];
-        
+        // this.isConfirmed = (data.booking_status == "C")
+        if (data.booking_status == "C") {
+          this.renderListOrder()
+          this.isConfirmed = true
+        }
+
+        this.M_Order = {
+          op_booking_h_id: data.op_booking_h_id,
+          booking_no: data.booking_no,
+          status: data.booking_status == "P" ? "Pending" : "Confirmed",
+          source: data.booking_source == "I" ? "Internal" : "Eksternal",
+          customer_name: data.contact_name__lbl__lo_1,
+          contact_person: data.contact_person_name__lbl__lo_2,
+          ref_no: data.ref_no__tb_3,
+          pickup_date: this.momentDateFormatting(data.pickup_date__tb_6, "YYYY-MM-DD HH:mm"),
+          pickup_from: data.fr_address__lbl__lo_4,
+          delivery_to: data.to_address__lbl__lo_5,
+          descs: data.descs__tb_7,
+          category: data.category,
+          comodity: data.commodity_descs,
+          total_item: data.total_item && data.total_item !== '' ? this.isCurrency(data.total_item, 0) : 0,
+          kgs: data.total_kgs && data.total_kgs !== '' ? this.isCurrency(data.total_kgs, 0) : 0,
+          cbm: data.total_cbm && data.total_cbm !== '' ? this.isCurrency(data.total_cbm, 0) : 0,
+          contract_no: data.contract_no,
+          P_descs: data.contract_descs,
+          charge_by: data.contract_charge_by,
+          contracted_volume: data.contract_volume && data.contract_volume !== '' ? this.isCurrency(data.contract_volume, 0) : 0,
+          executed_volume: data.contract_executed_volume && data.contract_executed_volume !== '' ? this.isCurrency(data.contract_executed_volume, 0) : 0,
+          lastupdatestamp: data.lastupdatestamp
+        }
+
+        if (data.category !== "L") {
+          for (let i = 0; i < response.Data.length; i++) {
+            var datas = response.Data[i];
+            this.TruckDetail.push({
+              fleet_type: datas.dt_fleet_type,
+              qty: datas.dt_qty && datas.dt_qty !== '' ? this.isCurrency(datas.dt_qty, 0) : 0
+            })
+          }
+        }
+        else {
+          this.TruckDetail = []
+        }
+
       });
     }
   },

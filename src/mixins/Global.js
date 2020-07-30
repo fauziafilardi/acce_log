@@ -53,7 +53,12 @@ export default {
         return numReal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + numDecimal
       } else {
         // numSplit = [num, '00']
-        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '.00'
+        if (decimal == 0) {
+          return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+        }
+        else {
+          return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '.00'
+        }
       }
     },
     M_FormatingDate (date) {

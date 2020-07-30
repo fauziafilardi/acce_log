@@ -222,7 +222,7 @@ export const OPRender = {
             }
         },
         {
-            path: '/OP/OP_BookingEntry',
+            path: '/OP/OP_Booking',
             name: 'OP_BookingEntry',
             component: OP_BookingEntry,
             meta: {
@@ -230,7 +230,7 @@ export const OPRender = {
             }
         },
         {
-            path: '/OP/OP_AddBookingEntry',
+            path: '/OP/OP_Booking/Form',
             name: 'OP_AddBookingEntry',
             component: OP_AddBookingEntry,
             meta: {
@@ -238,7 +238,7 @@ export const OPRender = {
             }
         },
         {
-            path: '/OP/OP_ViewBookingEntry',
+            path: '/OP/OP_Booking/View',
             name: 'OP_ViewBookingEntry',
             component: OP_ViewBookingEntry,
             meta: {

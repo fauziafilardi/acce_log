@@ -42,11 +42,14 @@ export default {
   },
   methods: {
     rowClicked(record, index) {
+      console.log(record)
       this.doViewClick(record, index)
     },
     doViewClick(record, index) {
       var param = record;
-      this.$router.push({ name: "OP_ViewBookingEntry", params: param });
+      param.isView = true;
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "OP_ViewBookingEntry" });
     },
     doDoubleClick(record, index) {
     },
@@ -59,6 +62,9 @@ export default {
   },
   mounted() {
     this.$refs.ref_BookingEntry.doGetList("");
+  },
+  created() {
+    this.$store.commit("setParamPage", {});
   }
 };
 </script>

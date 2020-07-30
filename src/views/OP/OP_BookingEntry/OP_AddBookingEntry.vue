@@ -22,34 +22,6 @@
             <div class="card__body">
               <b-form :data-vv-scope="'MK_AddQuotation'" :data-vv-value-path="'MK_AddQuotation'">
                 <b-row>
-                    <b-col class="col-right">
-                        <span>
-                            <ABSButton
-                                :text="'Confirm'"
-                                classButton="button button--default"
-                                classIcon="icon-style-1"
-                                @click="doConfirm"
-                            />
-                        </span>
-                        <span>
-                            <ABSButton
-                                :text="'Delete'"
-                                classButton="button button--default"
-                                classIcon="icon-style-1"
-                                @click="doDelete"
-                            />
-                        </span>
-                        <span>
-                            <ABSButton
-                                :text="'Edit'"
-                                classButton="button button--default"
-                                classIcon="icon-style-1"
-                                @click="doEdit"
-                            />
-                        </span>
-                    </b-col>
-                </b-row>
-                <b-row>
                     <b-col md="6">
                         <b-row class="row-bordered">
                             <b-col md="12">
@@ -58,7 +30,7 @@
                                         <span style="font-size: 15px; color: #333399; font-weight: bold;"> Transaction Information </span>
                                     </b-col>
                                 </b-row>
-                                <b-row>
+                                <b-row v-if="inputStatus == 'new'">
                                     <b-col>
                                         <span>
                                             <label>Customer Name</label>
@@ -72,6 +44,39 @@
                                         />
                                     </b-col>
                                 </b-row>
+                                <template v-else>
+                                    <b-row class="row-view">
+                                        <b-col>
+                                            <span>
+                                                <label>Booking No</label>
+                                            </span>
+                                            <br >
+                                            <span>
+                                                <label>{{M_Order.booking_no}}</label>
+                                            </span>
+                                        </b-col>
+                                        <b-col>
+                                            <span>
+                                                <label>Status</label>
+                                            </span>
+                                            <br >
+                                            <span>
+                                                <label>{{M_Order.status}}</label>
+                                            </span>
+                                        </b-col>
+                                    </b-row>
+                                    <b-row class="row-view">
+                                        <b-col>
+                                            <span>
+                                                <label>Customer Name</label>
+                                            </span>
+                                            <br >
+                                            <span>
+                                                <label>{{M_Order.customerLabel}}</label>
+                                            </span>
+                                        </b-col>
+                                    </b-row>
+                                </template>
                                 <b-row>
                                     <b-col>
                                         <span>
@@ -157,10 +162,17 @@
                             <b-col md="12">
                                 <b-row>
                                     <b-col>
-                                        <span style="font-size: 15px; color: #333399; font-weight: bold;"> Truck Information </span>
+                                        <span style="font-size: 15px; color: #333399; font-weight: bold;"> Information </span>
+                                    </b-col>
+                                    <b-col class="col-right" md="1">
+                                        <div style="width: 60px; text-align: center; border-radius: 5px !important;" class="row-bordered">
+                                            <span style="font-size: 13px; color: #333399; font-weight: bold;">
+                                            {{M_Order.category == "F" ? "FTL" : (M_Order.category == "L" ? "LTL" : "Project")}}
+                                            </span>
+                                        </div>
                                     </b-col>
                                 </b-row>
-                                <b-row>
+                                <b-row v-show="inputStatus == 'new'">
                                     <b-col>
                                         <div @click="OnTLChange('FTL')" :class="M_Order.TL == 'FTL' ? 'isOn' : 'isOff'">
                                             FTL
@@ -225,7 +237,7 @@
                                     </b-col>
                                 </b-row>
 
-                                <b-row v-show="M_Order.TL == 'P'">
+                                <b-row v-show="M_Order.TL == 'P' && inputStatus == 'new'">
                                     <b-col>
                                         <span>
                                             <label>Contract No</label>
@@ -237,6 +249,17 @@
                                             :label="M_Order.contract_noLabel"
                                             :ref="'ref_contract_no'"
                                         />
+                                    </b-col>
+                                </b-row>
+                                <b-row v-show="M_Order.TL == 'P' && inputStatus == 'edit'">
+                                    <b-col>
+                                        <span>
+                                            <label>Contract No</label>
+                                        </span>
+                                        <br/>
+                                        <span>
+                                            <label>{{M_Order.contract_no}}</label>
+                                        </span>
                                     </b-col>
                                 </b-row>
 
@@ -340,7 +363,7 @@ export default {
   data() {
     return {
       M_Order: {
-        op_order_h_id: "",
+        op_booking_h_id: "",
         customer: "",
         customerLabel: "",
         pic: "",
@@ -566,7 +589,7 @@ export default {
     },
       FTL : [
           {
-            op_order_d_id: "",
+            op_booking_d_id: "",
             PI_truck: {
                 dataLookUp: {
                     LookUpCd:'GetQuotationFleetType',
@@ -624,19 +647,11 @@ export default {
   },
   computed: {
     paramFromList() {
-      var param = this.$route.params;
-      // if (param == null || param == undefined) {
-      //   this.doBack();
-      // } else {
-      //   if (Object.keys(param).length < 1) {
-      //     this.doBack();
-      //   } else {
+      var param = this.$store.getters.getParamPage;
       return param;
-      //   }
-      // }
     },
     inputStatus() {
-      var param = this.$route.params;
+      var param = this.$store.getters.getParamPage;
       if (param.isEdit && param.isEdit === true) {
         return "edit";
       } else {
@@ -647,12 +662,6 @@ export default {
   methods: {
     doBack() {
       this.$router.go(-1);
-    },
-    doConfirm() {
-    },
-    doDelete() {
-    },
-    doEdit() {
     },
     OncustomerChange(data) {
         console.log(data)
@@ -808,7 +817,7 @@ export default {
     },
     M_ClearForm() {
       this.M_Order = {
-        op_order_h_id: "",
+        op_booking_h_id: "",
         customer: "",
         customerLabel: "",
         pic: "",
@@ -839,7 +848,7 @@ export default {
 
       this.FTL = [
           {
-            op_order_d_id: "",
+            op_booking_d_id: "",
             PI_truck: {
                 dataLookUp: {
                     LookUpCd:'GetQuotationFleetType',
@@ -903,7 +912,7 @@ export default {
             w = "ss_portfolio_id='" + this.getDataUser().portfolio_id + "' AND cm_contact_id=" + (this.M_Order.customer && this.M_Order.customer !== '' ? this.M_Order.customer : 0) + " AND category=" + (this.M_Order.TL == "FTL" ? "'F'" : (this.M_Order.TL == "LTL" ? "'L'" : "'P'"))
         }
         this.FTL.push({
-            op_order_d_id: "",
+            op_booking_d_id: "",
             PI_truck: {
                 dataLookUp: {
                     LookUpCd:'GetQuotationFleetType',
@@ -994,9 +1003,10 @@ export default {
             total_item: this.M_Order.TL == 'LTL' ? (this.M_Order.total_item && this.M_Order.total_item !== '' ? this.M_Order.total_item : 0) : "NULL",
             total_kgs: this.M_Order.TL == 'LTL' ? (this.M_Order.kgs && this.M_Order.kgs !== '' ? this.M_Order.kgs : 0) : "NULL",
             total_cbm: this.M_Order.TL == 'LTL' ? (this.M_Order.cbm && this.M_Order.cbm !== '' ? this.M_Order.cbm : 0) : "NULL",
-            mk_quotation_id: this.M_Order.TL == 'P' ? this.M_Order.contract_no : "NULL",
+            mk_quotation_id: this.M_Order.TL == 'P' ? this.M_Order.mk_quotation_id : "NULL",
             contract_no: this.M_Order.TL == 'P' ? this.M_Order.contract_no : "NULL",
             contract_descs: this.M_Order.TL == 'P' ? this.M_Order.P_descs : "NULL",
+            contract_charge_by: this.M_Order.charge_by,
             contract_volume: this.M_Order.TL == 'P' ? (this.M_Order.contracted_volume && this.M_Order.contracted_volume !== '' ? this.M_Order.contracted_volume : 0) : "NULL",
             contract_executed_volume: this.M_Order.TL == 'P' ? (this.M_Order.executed_volume && this.M_Order.executed_volume !== '' ? this.M_Order.executed_volume : 0) : "NULL",
             user_input: this.getDataUser().user_id,
@@ -1030,11 +1040,11 @@ export default {
             if (response == null) return;
                 this.alertSuccess("Save Data Has Been Successfully").then(() => {
                 var param = {
-                    row_id: response.Data[0].row_id,
+                    row_id: response.Data.A_Insert.row_id,
                     lastupdatestamp: 0
                 }
                 this.$store.commit("setParamPage", param);
-                this.$router.replace({ name: "MK_ViewBookingEntry" });
+                this.$router.replace({ name: "OP_ViewBookingEntry" });
             });
         });
     },
@@ -1042,55 +1052,71 @@ export default {
         var paramH = {
             _Method_: "UPDATE",
             _LineNo_: 0,
-            op_order_h_id: this.M_Order.op_order_h_id,
+            op_booking_h_id: this.M_Order.op_booking_h_id,
             ss_portfolio_id: this.getDataUser().portfolio_id,
             ss_subportfolio_id: this.getDataUser().subportfolio_id,
-            order_no: this.M_Order.order_no,
-            order_status: 'N',
+            booking_no: this.M_Order.booking_no,
+            booking_date: this.getToday(),
+            booking_source: this.M_Order.booking_source,
+            booking_status: this.M_Order.booking_status,
+            category: this.M_Order.TL == "FTL" ? "F" : (this.M_Order.TL == "LTL" ? "L" : "P"),
             cm_contact_id: this.M_Order.customer,
             cm_contact_person_id: this.M_Order.pic,
             ref_no: this.M_Order.order_ref_no,
-            booking_category: this.M_Order.booking_category,
-            contract_no: this.M_Order.booking_category == 'P' ? this.M_Order.contract_no : "NULL",
-            base_type: this.M_Order.with_base,
-            base_total: this.M_Order.booking_category == 'P' ? (this.M_Order.with_base == 'V' ? this.M_Order.v_volume : this.M_Order.t_volume) : "NULL",
-            base_pickup: this.M_Order.booking_category == 'P' ? (this.M_Order.with_base == 'V' ? this.M_Order.v_pickup : this.M_Order.t_pickup) : "NULL",
-            base_rest_of: this.M_Order.booking_category == 'P' ? (this.M_Order.with_base == 'V' ? this.M_Order.v_rest_of : this.M_Order.t_rest_of) : "NULL",
-            pickup_from_id: this.M_Order.pickup_from,
-            deliver_to_id: this.M_Order.deliver_to,
+            fr_cm_contact_delivery_address_id: this.M_Order.pickup_from,
+            to_cm_contact_delivery_address_id: this.M_Order.deliver_to,
             pickup_date: this.M_Order.date,
-            extra_pickup_id: this.M_Order.extra_pickup && this.M_Order.extra_pickup !== '' ? this.M_Order.extra_pickup : "NULL",
-            extra_deliver_id: this.M_Order.extra_deliver && this.M_Order.extra_deliver !== '' ? this.M_Order.extra_deliver : "NULL",
-            truck_type: this.M_Order.TL,
-            weight: this.M_Order.TL == 'LTL' ? (this.M_Order.kgs && this.M_Order.kgs !== '' ? this.M_Order.kgs : 0) : "NULL",
-            cubic: this.M_Order.TL == 'LTL' ? (this.M_Order.cbm && this.M_Order.cbm !== '' ? this.M_Order.cbm : 0) : "NULL",
+            descs: this.M_Order.descs,
+            cm_commodity_id: this.M_Order.TL == 'LTL' ? (this.M_Order.comodity && this.M_Order.comodity !== '' ? this.M_Order.comodity : "NULL") : "NULL",
+            total_item: this.M_Order.TL == 'LTL' ? (this.M_Order.total_item && this.M_Order.total_item !== '' ? this.M_Order.total_item : 0) : "NULL",
+            total_kgs: this.M_Order.TL == 'LTL' ? (this.M_Order.kgs && this.M_Order.kgs !== '' ? this.M_Order.kgs : 0) : "NULL",
+            total_cbm: this.M_Order.TL == 'LTL' ? (this.M_Order.cbm && this.M_Order.cbm !== '' ? this.M_Order.cbm : 0) : "NULL",
+            mk_quotation_id: this.M_Order.TL == 'P' ? this.M_Order.mk_quotation_id : "NULL",
+            contract_no: this.M_Order.TL == 'P' ? this.M_Order.contract_no : "NULL",
+            contract_descs: this.M_Order.TL == 'P' ? this.M_Order.P_descs : "NULL",
+            contract_charge_by: this.M_Order.charge_by,
+            contract_volume: this.M_Order.TL == 'P' ? (this.M_Order.contracted_volume && this.M_Order.contracted_volume !== '' ? this.M_Order.contracted_volume : 0) : "NULL",
+            contract_executed_volume: this.M_Order.TL == 'P' ? (this.M_Order.executed_volume && this.M_Order.executed_volume !== '' ? this.M_Order.executed_volume : 0) : "NULL",
             lastupdatestamp: this.paramFromList.lastupdatestamp,
             user_edit: this.getDataUser().user_id,
         };
 
-        var paramD = []
-        if(this.M_Order.TL == 'FTL') {
+        var paramDel = {
+            _Method_: "DELETE",
+            _LineNo_: 1,
+            op_booking_h_id: this.M_Order.op_booking_h_id
+
+        }, paramD = [], ss = [];
+
+        if(this.M_Order.TL == 'FTL' || this.M_Order.TL == 'Project') {
             this.FTL.forEach((value) => {
                 paramD.push({
-                    _Method_: "UPDATE",
+                    _Method_: "SAVE",
                     _LineNo_: 1,
-                    op_order_d_id: value.op_order_d_id,
-                    op_order_h_id: this.M_Order.op_order_h_id,
-                    descs: value.truck,
-                    qty: value.qty,
-                    user_edit: this.getDataUser().user_id,
-                    lastupdatestamp: value.lastupdatestamp
+                    op_booking_h_id: this.M_Order.op_booking_h_id,
+                    fm_fleet_type_id: value.truck,
+                    qty: parseInt(value.qty),
+                    user_input: this.getDataUser().user_id
                 })
             })
+
+            ss = [{
+                A_Update: paramH,
+                B_Delete: paramDel,
+                C_Looping: paramD
+            }]
+        }
+        else {
+            ss = [{
+                A_Update: paramH,
+                B_Looping: paramD
+            }]
         }
 
         var params = {
             option_url: "/OP/OP_Booking",
             line_no: 0,
-            Data: [{
-                A_Update: paramH,
-                B_Looping: paramD
-            }]
+            Data: ss
         }
 
         this.postJSONMulti(this.getUrlProsesDataPostMulti(), params).then(response => {
@@ -1115,56 +1141,62 @@ export default {
 
             var data = response.Data[0];
             
-            if (data.cm_contact_id && data.cm_contact_id !== '') {
-                this.PI_pic.dataLookUp.InitialWhere = " cm_contact_id = " + data.cm_contact_id
+            if (data.cm_contact_id__lo_1 && data.cm_contact_id__lo_1 !== '') {
+                this.PI_pic.dataLookUp.InitialWhere = "cm_contact_id=" + data.cm_contact_id__lo_1
+                this.PI_pickup_from.dataLookUp.InitialWhere = "ss_portfolio_id='" + this.getDataUser().portfolio_id + "' AND cm_contact_id=" + data.cm_contact_id__lo_1 + " AND category='" + data.category + "'"
+                this.PI_comodity.dataLookUp.InitialWhere = "ss_portfolio_id='" + this.getDataUser().portfolio_id + "' AND cm_contact_id=" + data.cm_contact_id__lo_1 + " AND category='L'"
+                this.PI_contract_no.dataLookUp.InitialWhere = "ss_portfolio_id='" + this.getDataUser().portfolio_id + "' AND cm_contact_id=" + data.cm_contact_id__lo_1 + " AND category='P'"
+                this.PI_deliver_to.dataLookUp.InitialWhere = "ss_portfolio_id='" + this.getDataUser().portfolio_id + "' AND cm_contact_id=" + data.cm_contact_id__lo_1 + " AND category='" + data.category + "' AND fr_cm_contact_delivery_address_id='" + data.fr_cm_contact_delivery_address_id__lo_4 + "'"
             }
 
             this.M_Order = {
-                op_order_h_id: data.op_order_h_id,
-                customer: data.cm_contact_id,
-                customerLabel: data.contact_name,
-                order_no: data.order_no,
-                pic: data.cm_contact_person_id,
-                picLabel: data.contact_person_name,
-                order_ref_no: data.ref_no,
-                booking_category: data.booking_category,
+                op_booking_h_id: data.op_booking_h_id,
+                booking_no: data.booking_no,
+                status: data.booking_status == "P" ? "Pending" : "Confirmed",
+                booking_status: data.booking_status,
+                source: data.booking_source == "I" ? "Internal" : "Eksternal",
+                booking_source: data.booking_source,
+                customer: data.cm_contact_id__lo_1,
+                customerLabel: data.contact_name__lbl__lo_1,
+                pic: data.cm_contact_person_id__lo_2,
+                picLabel: data.contact_person_name__lbl__lo_2,
+                order_ref_no: data.ref_no__tb_3,
+                date: data.pickup_date__tb_6, //this.momentDateFormatting(data.pickup_date__tb_6, "YYYY-MM-DD"),
+                pickup_from: data.fr_cm_contact_delivery_address_id__lo_4,
+                pickup_fromLabel: data.fr_address__lbl__lo_4,
+                deliver_to: data.to_cm_contact_delivery_address_id__lo_5,
+                deliver_toLabel: data.to_address__lbl__lo_5,
+                descs: data.descs__tb_7,
+                category: data.category,
+                TL: data.category == "F" ? "FTL" : (data.category == "L" ? "LTL" : "P"),
+                comodity: data.cm_commodity_id,
+                comodityLabel: data.commodity_descs,
+                total_item: data.total_item && data.total_item !== '' ? this.isCurrency(data.total_item, 0) : 0,
+                kgs: data.total_kgs && data.total_kgs !== '' ? this.isCurrency(data.total_kgs, 0) : 0,
+                cbm: data.total_cbm && data.total_cbm !== '' ? this.isCurrency(data.total_cbm, 0) : 0,
                 contract_no: data.contract_no,
-                with_base: data.base_type,
-                v_volume: data.base_type == "T" ? "NULL" : data.base_total,
-                v_pickup: data.base_type == "T" ? "NULL" : data.base_pickup,
-                v_rest_of: data.base_type == "T" ? "NULL" : data.base_rest_of,
-                t_volume: data.base_type == "V" ? "NULL" : data.base_total,
-                t_pickup: data.base_type == "V" ? "NULL" : data.base_pickup,
-                t_rest_of: data.base_type == "V" ? "NULL" : data.base_rest_of,
-                pickup_from: data.pickup_from_id,
-                pickup_fromLabel: data.location_pickup,
-                deliver_to: data.deliver_to_id,
-                deliver_toLabel: data.location_deliver,
-                date: data.pickup_date,
-                TL: data.truck_type,
-                weight: data.kgs,
-                cubic: data.cbm,
-                extra_pickup: data.extra_pickup_id,
-                extra_pickupLabel: data.location_extra_pickup,
-                extra_deliver: data.extra_deliver_id,
-                extra_deliverLabel: data.location_extra_deliver,
+                contract_noLabel: data.contract_no,
+                P_descs: data.contract_descs,
+                charge_by: data.contract_charge_by,
+                contracted_volume: data.contract_volume && data.contract_volume !== '' ? this.isCurrency(data.contract_volume, 0) : 0,
+                executed_volume: data.contract_executed_volume && data.contract_executed_volume !== '' ? this.isCurrency(data.contract_executed_volume, 0) : 0,
                 lastupdatestamp: data.lastupdatestamp
             }
 
-            if (data.truck_type == "FTL" || data.truck_type == "Project") {
+            if (data.category == "F" || data.category == "P") {
                 this.FTL = []
                 var w = ""
-                if (data.truck_type == 'Project') {
+                if (data.category == 'P') {
                     w = "ss_portfolio_id='" + this.getDataUser().portfolio_id + "'"
                 }
                 else {
-                    w = "ss_portfolio_id='" + this.getDataUser().portfolio_id + "' AND cm_contact_id=" + (this.M_Order.customer && this.M_Order.customer !== '' ? this.M_Order.customer : 0) + " AND category=" + (data == "FTL" ? "'F'" : (data == "LTL" ? "'L'" : "'P'"))
+                    w = "ss_portfolio_id='" + this.getDataUser().portfolio_id + "' AND cm_contact_id=" + (this.M_Order.customer && this.M_Order.customer !== '' ? this.M_Order.customer : 0) + " AND category='" + data.category + "'"
                 }
                 response.Data.forEach((value) => {
                     var rand = Math.floor(Math.random() * 100);
                     this.$nextTick(() => {
                         this.FTL.push({
-                            op_order_d_id: value.op_order_d_id,
+                            op_booking_d_id: value.op_booking_d_id,
                             PI_truck: {
                                 dataLookUp: {
                                 LookUpCd:'GetQuotationFleetType',
@@ -1187,7 +1219,8 @@ export default {
                             cDisplayColumn: "fleet_cd",
                             cInputStatus: this.inputStatus
                             },
-                            truck: value.ftl_truck,
+                            truck: value.dt_fm_fleet_type_id,
+                            truckLabel: value.dt_fleet_type,
                             PI_qty: {
                                 dataLookUp: null,
                                 cValidate: "",
@@ -1212,8 +1245,8 @@ export default {
                                 cDisplayColumn: "qty_id,descs",
                                 cInputStatus: this.inputStatus
                             },
-                            qty: value.ftl_qty.toString(),
-                            qtyLabel: value.ftl_qty.toString(),
+                            qty: value.dt_qty.toString(),
+                            qtyLabel: value.dt_qty.toString(),
                             lastupdatestamp: value.lastupdatestamp_d
                         })
                     })
