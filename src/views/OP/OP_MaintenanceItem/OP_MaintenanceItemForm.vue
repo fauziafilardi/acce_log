@@ -104,7 +104,7 @@
                           <span>
                             <label>Item Name</label>
                           </span>
-                          <ACCLookUp
+                          <ACCDropDown
                             @change="OnitemChange"
                             :prop="PI_item"
                             v-model="M_FmFleetMstr.item"
@@ -139,7 +139,7 @@
                           <span>
                             <label>Item Name</label>
                           </span>
-                          <ACCLookUp
+                          <ACCDropDown
                             @change="OnitemChange"
                             :prop="PI_item"
                             v-model="M_FmFleetMstr.item"

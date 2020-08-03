@@ -22,17 +22,22 @@
           >
             <template slot="HeaderTable">
               <b-row>
-                <b-col style="max-width:fit-content !important;">
-                    Year &nbsp;&nbsp;
-                </b-col>
+                <b-col style="max-width:fit-content !important;">Year &nbsp;&nbsp;</b-col>
                 <b-col md="1">
-                    <b-form-select
+                  <ACCDropDown
+                    @change="dofilterYear"
+                    :prop="PI_years"
+                    v-model="M_Target.year"
+                    :label="M_Target.yearLabel"
+                    ref="ref_years"
+                  />
+                  <!-- <b-form-select
                         id="cmbYear"
                         v-model="M_Target.year"
                         @change="dofilterYear"
                         :options="cmbYear"
                         style="height: 22px !important; width: 100% !important; margin-bottom: 5px;"
-                    ></b-form-select>
+                  ></b-form-select>-->
                 </b-col>
               </b-row>
             </template>
@@ -47,6 +52,19 @@
 export default {
   data() {
     return {
+      PI_years: {
+        dataLookUp: null,
+        cValidate: "",
+        cName: "year",
+        ckey: false,
+        cOrder: 1,
+        cProtect: false,
+        cParentForm: "MarketingTarget",
+        cStatic: true,
+        cOption: [{}],
+        cDisplayColumn: "name",
+        cInputStatus: this.inputStatus,
+      },
       propList: {
         initialWhere: "",
         LineNo: 0,
@@ -54,12 +72,13 @@ export default {
         TabIndex: 1,
         OrderBy: "",
         SourceField: "",
-        ParamView: ""
+        ParamView: "",
       },
 
       cmbYear: [],
       M_Target: {
-        year: ''
+        year: "",
+        yearLabel: "",
       },
     };
   },
@@ -82,46 +101,53 @@ export default {
     M_Advance_Filter() {},
     M_Head_Table() {},
     refreshColumn() {},
-    onSearchEnter(data) {
-    },
+    onSearchEnter(data) {},
     onAddClick() {
       this.$router.push({ name: "MK_AddMarketingTarget" });
     },
 
-    dofilterYear() {
-      var filter = " years = '" + this.M_Target.year + "'";
-      this.propList.initialWhere = filter;
-      this.$refs.ref_MarketingTarget.doGetList("");
+    dofilterYear(data) {
+      this.$nextTick(() => {
+        this.M_Target.year = data.id;
+        this.M_Target.yearLabel = data.id;
+        var filter = " years = '" + data.id + "'";
+        this.propList.initialWhere = filter;
+        this.$refs.ref_MarketingTarget.doGetList("");
+      });
     },
     getYear() {
-        var param = {
-            option_function_cd: "GetYearMarketingTarget",
-            module_cd: "MK",
-            user_id: this.getDataUser().user_id
-        };
-        
-        this.CallFunction(param).then(response => {
-            if (response == null) return
-            var data = response.Data;
+      var param = {
+        option_function_cd: "GetYearMarketingTarget",
+        module_cd: "MK",
+        user_id: this.getDataUser().user_id,
+      };
 
-            this.M_Target.year = data[0].years;
+      this.CallFunction(param).then((response) => {
+        if (response == null) return;
+        var data = response.Data;
 
-            for (let i = 0; i < data.length; i++) {
-                this.cmbYear.push({value: data[i].years, text: data[i].years});
-            }
+        this.M_Target.year = new Date().getFullYear();
 
-            this.propList.initialWhere = " years = '" + this.M_Target.year + "' "
+        for (let i = 0; i < data.length; i++) {
+          this.cmbYear.push({ value: data[i].years, text: data[i].years });
+          this.PI_years.cOption.push({
+            id: data[i].years,
+            label: data[i].years,
+          });
+        }
 
-            this.$refs.ref_MarketingTarget.doGetList("");
-        })
+        this.propList.initialWhere = " years = '" + this.M_Target.year + "' ";
+
+        this.$refs.ref_MarketingTarget.doGetList("");
+      });
     },
   },
   mounted() {
-    this.getYear()
+    this.getYear();
   },
   created() {
     this.$store.commit("setParamPage", {});
-  }
+  },
 };
 </script>
 
