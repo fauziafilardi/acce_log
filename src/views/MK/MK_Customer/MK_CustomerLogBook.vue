@@ -134,7 +134,7 @@
                           v-model="M_Appointment.contact_person"
                           ref="ref_contact_person"
                         />-->
-                        <ACCLookUp
+                        <ACCDropDown
                           @change="Oncontact_personChange"
                           :prop="PI_contact_person"
                           v-model="M_Appointment.contact_person"
@@ -254,7 +254,7 @@
                         <span>
                           <label>PIC</label>
                         </span>
-                        <ACCLookUp
+                        <ACCDropDown
                           @change="Oncontact_personChange2"
                           :prop="PI_next_contact_person"
                           v-model="M_Appointment.next_contact_person"
@@ -514,7 +514,7 @@ export default {
         TabIndex: 1,
         OrderBy: "",
         SourceField: "",
-        ParamView: ""
+        ParamView: "",
       },
 
       //For List
@@ -540,7 +540,7 @@ export default {
         { value: 60, text: "60" },
         { value: 80, text: "80" },
         { value: 100, text: "100" },
-        { value: 1000, text: "1000" }
+        { value: 1000, text: "1000" },
       ],
 
       sortedField: [{ field: "time_edit", sort: "DESC" }],
@@ -559,7 +559,7 @@ export default {
         website: "",
         phone_no: "",
         pic: "",
-        pic_phone_no: ""
+        pic_phone_no: "",
       },
 
       M_Appointment: {
@@ -585,7 +585,7 @@ export default {
         next_contact_personLabel: "",
         last_action_date: null,
         marketing_name: "",
-        marketing_id: ""
+        marketing_id: "",
       },
       PI_action: {
         dataLookUp: null,
@@ -599,10 +599,10 @@ export default {
         cOption: [
           { id: "C", label: "Call" },
           { id: "V", label: "Visit" },
-          { id: "E", label: "Entertaintment" }
+          { id: "E", label: "Entertaintment" },
         ],
         cDisplayColumn: "action_type,descs",
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
       // PI_contact_person: {
       //   cValidate: "",
@@ -624,7 +624,7 @@ export default {
         cProtect: true,
         cParentForm: "MK_EditAppointment",
         cDecimal: 2,
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
       PI_contact_person: {
         dataLookUp: {
@@ -635,7 +635,7 @@ export default {
           OrderBy: "",
           ParamView: "",
           SourceField: "",
-          DisplayLookUp: "name,phone_no,email,time_edit"
+          DisplayLookUp: "name,phone_no,email,time_edit",
         },
         cValidate: "required",
         cName: "contact_person",
@@ -646,7 +646,7 @@ export default {
         cStatic: false,
         cOption: [],
         cDisplayColumn: "name",
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
       PI_descs2: {
         cValidate: "",
@@ -660,7 +660,7 @@ export default {
         cMaxRows: 3,
         cSize: "md",
         cParentForm: "MK_EditAppointment",
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
       PI_co_marketing1: {
         dataLookUp: null,
@@ -673,7 +673,7 @@ export default {
         cStatic: true,
         cOption: [{}],
         cDisplayColumn: "name",
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
       PI_co_marketing2: {
         dataLookUp: null,
@@ -686,7 +686,7 @@ export default {
         cStatic: true,
         cOption: [{}],
         cDisplayColumn: "name",
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
       PI_next_appointment: {
         dataLookUp: null,
@@ -700,10 +700,10 @@ export default {
         cOption: [
           { id: "C", label: "Call" },
           { id: "V", label: "Visit" },
-          { id: "E", label: "Entertaintment" }
+          { id: "E", label: "Entertaintment" },
         ],
         cDisplayColumn: "action_type,descs",
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
       PI_appointment_date: {
         cValidate: "",
@@ -713,7 +713,7 @@ export default {
         cProtect: false,
         cWithTime: true,
         cFormat: "dd/MM/yyyy",
-        cParentForm: "MK_EditAppointment"
+        cParentForm: "MK_EditAppointment",
       },
       // PI_meeting_location: {
       //   cValidate: "",
@@ -741,7 +741,7 @@ export default {
         cMaxRows: 3,
         cSize: "md",
         cParentForm: "MK_EditAppointment",
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
       PI_next_contact_person: {
         dataLookUp: {
@@ -752,7 +752,7 @@ export default {
           OrderBy: "",
           ParamView: "",
           SourceField: "",
-          DisplayLookUp: "name,phone_no,email,time_edit"
+          DisplayLookUp: "name,phone_no,email,time_edit",
         },
         cValidate: "required",
         cName: "next_contact_person",
@@ -763,7 +763,7 @@ export default {
         cStatic: false,
         cOption: [],
         cDisplayColumn: "name",
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
 
       MForm: {
@@ -776,7 +776,7 @@ export default {
           cProtect: false,
           cParentForm: "Parent_PIC",
           cDecimal: 2,
-          cInputStatus: this.inputStatus
+          cInputStatus: this.inputStatus,
         },
         PI_position: {
           cValidate: "",
@@ -787,7 +787,7 @@ export default {
           cProtect: false,
           cParentForm: "Parent_PIC",
           cDecimal: 2,
-          cInputStatus: this.inputStatus
+          cInputStatus: this.inputStatus,
         },
         PI_contact_phone_no_1: {
           cValidate: "max:3",
@@ -798,7 +798,7 @@ export default {
           cProtect: false,
           cParentForm: "Parent_PIC",
           cDecimal: 2,
-          cInputStatus: this.inputStatus
+          cInputStatus: this.inputStatus,
         },
         PI_contact_phone_no_2: {
           cValidate: "max:20",
@@ -809,7 +809,7 @@ export default {
           cProtect: false,
           cParentForm: "Parent_PIC",
           cDecimal: 2,
-          cInputStatus: this.inputStatus
+          cInputStatus: this.inputStatus,
         },
         PI_contact_phone_no_3: {
           cValidate: "max:8",
@@ -820,7 +820,7 @@ export default {
           cProtect: false,
           cParentForm: "Parent_PIC",
           cDecimal: 2,
-          cInputStatus: this.inputStatus
+          cInputStatus: this.inputStatus,
         },
         PI_email: {
           cValidate: "",
@@ -831,7 +831,7 @@ export default {
           cProtect: false,
           cParentForm: "Parent_PIC",
           cDecimal: 2,
-          cInputStatus: this.inputStatus
+          cInputStatus: this.inputStatus,
         },
         PI_pic_descs: {
           cValidate: "",
@@ -842,8 +842,8 @@ export default {
           cProtect: false,
           cParentForm: "Parent_PIC",
           cDecimal: 2,
-          cInputStatus: this.inputStatus
-        }
+          cInputStatus: this.inputStatus,
+        },
       },
       M_Pic: {
         email: "",
@@ -855,8 +855,8 @@ export default {
         cm_contact_person_id: "",
         position: "",
         descs: "",
-        lastupdatestamp: ""
-      }
+        lastupdatestamp: "",
+      },
     };
   },
   computed: {
@@ -880,7 +880,7 @@ export default {
       } else {
         return "new";
       }
-    }
+    },
   },
   methods: {
     Onco_marketing2Change(data) {
@@ -907,7 +907,7 @@ export default {
         contact_phone_no_2: "",
         contact_phone_no_3: "",
         email: "",
-        descs: ""
+        descs: "",
       };
     },
     doBack() {
@@ -920,10 +920,10 @@ export default {
       this.$refs.Modal_PIC._show();
     },
     SaveModal() {
-      this.$validator._base.validateAll("Parent_PIC").then(result => {
+      this.$validator._base.validateAll("Parent_PIC").then((result) => {
         if (!result) return;
         this.alertConfirmation("Are You Sure Want To Save This Data ?").then(
-          ress => {
+          (ress) => {
             if (ress.value) {
               this.$validator.errors.clear("Parent_PIC");
               this.SaveModals();
@@ -943,10 +943,10 @@ export default {
         email: this.M_Pic.email,
         position: this.M_Pic.position,
         descs: this.M_Pic.descs,
-        user_input: this.getDataUser().user_id
+        user_input: this.getDataUser().user_id,
       };
 
-      this.postJSON(this.getUrlCRUD(), param).then(response => {
+      this.postJSON(this.getUrlCRUD(), param).then((response) => {
         // console.log(response); return;
         if (response == null) return;
         this.alertSuccess(response.Message).then(() => {
@@ -1036,7 +1036,7 @@ export default {
         next_appointmentLabel: "",
         contact_person_Label2: "",
         marketing_name: "",
-        marketing_id: ""
+        marketing_id: "",
       };
 
       this.M_Dt_Appointment = {
@@ -1051,15 +1051,15 @@ export default {
         website: "",
         phone_no: "",
         pic: "",
-        pic_phone_no: ""
+        pic_phone_no: "",
       };
     },
     doSave() {
       this.PI_descs2.cValidate = "required";
-      this.$validator._base.validateAll("MK_EditAppointment").then(result => {
+      this.$validator._base.validateAll("MK_EditAppointment").then((result) => {
         if (!result) return;
         this.alertConfirmation("Are You Sure Want To Save This Data ?").then(
-          ress => {
+          (ress) => {
             if (ress.value) {
               this.$validator.errors.clear("MK_EditAppointment");
               this.M_Save();
@@ -1116,10 +1116,10 @@ export default {
           this.paramFromList.lastupdatestamp == null ||
           this.paramFromList.lastupdatestamp == "undefined"
             ? 0
-            : this.paramFromList.lastupdatestamp
+            : this.paramFromList.lastupdatestamp,
       };
 
-      this.putJSON(this.getUrlCRUD(), param).then(response => {
+      this.putJSON(this.getUrlCRUD(), param).then((response) => {
         // console.log(response)
         if (response == null) return;
         this.alertSuccess(response.Message).then(() => {
@@ -1132,10 +1132,10 @@ export default {
         option_url: "/MK/MK_Customer",
         line_no: 3,
         id: this.paramFromList.row_id,
-        lastupdatestamp: this.paramFromList.lastupdatestamp
+        lastupdatestamp: this.paramFromList.lastupdatestamp,
       };
 
-      this.getJSON(this.getUrlCRUD(), param).then(response => {
+      this.getJSON(this.getUrlCRUD(), param).then((response) => {
         // response from API
         if (response == null) return;
 
@@ -1150,7 +1150,7 @@ export default {
             website: data.website,
             phone_no: data.phone_no,
             pic: data.pic,
-            pic_phone_no: data.contact_phone_no
+            pic_phone_no: data.contact_phone_no,
           };
         });
 
@@ -1178,7 +1178,7 @@ export default {
             data.last_action_date == null
               ? ""
               : this.momentDate(data.last_action_date),
-          nappointment_date: this.momentDate(new Date())
+          nappointment_date: this.momentDate(new Date()),
         };
         this.M_Appointment.cm_contact_id = this.paramFromList.cm_contact_id;
         this.M_Appointment.mk_appointment_id = 0;
@@ -1211,10 +1211,10 @@ export default {
         initial_where: " cm_contact_id = " + this.paramFromList.row_id,
         sort_field: this.sort,
         source_field: this.propList.SourceField,
-        param_view: this.propList.ParamView
+        param_view: this.propList.ParamView,
       };
 
-      this.postJSON(this.getUrlList(), param).then(response => {
+      this.postJSON(this.getUrlList(), param).then((response) => {
         if (response == null) return;
         // this.selected = false;
 
@@ -1251,7 +1251,7 @@ export default {
 
         this.allColumn_bf.forEach((val, idx) => {
           var thClass = "HeaderACCList";
-          var isSorted = this.sortedField.map(x => x.field).indexOf(val);
+          var isSorted = this.sortedField.map((x) => x.field).indexOf(val);
           if (isSorted > -1) {
             if (this.sortedField[isSorted].sort == "ASC") {
               thClass = thClass + " AscSorted";
@@ -1265,26 +1265,26 @@ export default {
             key: val,
             thClass: thClass,
             tdClass: "ContentACCList notranslate",
-            text: val
+            text: val,
           });
 
           filteredColumn.push({
             value: idx + 1,
             key: val,
             thClass: thClass,
-            tdClass: "ContentACCList notranslate"
+            tdClass: "ContentACCList notranslate",
           });
         });
 
         for (var i = 0; i < str_array.length; i++) {
-          filteredColumn = filteredColumn.filter(val => {
+          filteredColumn = filteredColumn.filter((val) => {
             if (val.key == str_array[i]) {
               definedColumn.push({
                 value: val.value,
                 key: val.key,
                 thClass: val.thClass,
                 tdClass: val.tdClass,
-                text: val.key
+                text: val.key,
               });
             }
 
@@ -1306,7 +1306,7 @@ export default {
           }
 
           var isSorted = this.sortedField
-            .map(x => x.field)
+            .map((x) => x.field)
             .indexOf(str_array[i]);
           if (isSorted > -1) {
             if (this.sortedField[isSorted].sort == "ASC") {
@@ -1322,7 +1322,7 @@ export default {
               key: str_array[i],
               thClass: thClass,
               tdClass: tdClass,
-              label: this.$t(str_array[i])
+              label: this.$t(str_array[i]),
             });
           } else {
             if (str_array[i] == "lastupdatestamp") continue;
@@ -1330,36 +1330,36 @@ export default {
             var listReplace = [
               {
                 key: "_",
-                value: " "
+                value: " ",
               },
               {
                 key: "Cd",
-                value: " Code"
+                value: " Code",
               },
               {
                 key: "Descs",
-                value: " Description"
+                value: " Description",
               },
               {
                 key: "Time Edit",
-                value: "Last Update"
+                value: "Last Update",
               },
               {
                 key: "garing",
-                value: "/"
+                value: "/",
               },
               {
                 key: "titik",
-                value: "."
+                value: ".",
               },
               {
                 key: "Row Id",
-                value: "View"
+                value: "View",
               },
               {
                 key: "Pic",
-                value: "PIC"
-              }
+                value: "PIC",
+              },
             ];
             var isGotIt = false;
             var labelHeader = undefined;
@@ -1370,7 +1370,7 @@ export default {
               labelHeader = str_array[i]
                 .toLowerCase()
                 .split("_")
-                .map(s => {
+                .map((s) => {
                   return s.charAt(0).toUpperCase() + s.substring(1);
                 })
                 .join(" ");
@@ -1413,7 +1413,7 @@ export default {
               key: str_array[i],
               thClass: thClass,
               tdClass: tdClass,
-              label: labelHeader
+              label: labelHeader,
             });
           }
         }
@@ -1432,9 +1432,9 @@ export default {
         option_function_cd: "GetLookupMarketingTeam",
         module_cd: "MK",
         ss_portfolio_id: this.getDataUser().portfolio_id,
-        user_id: this.getDataUser().user_id
+        user_id: this.getDataUser().user_id,
       };
-      this.CallFunction(param).then(ress => {
+      this.CallFunction(param).then((ress) => {
         if (ress == null) return;
         this.dataCoMarketing = [];
         var now = new Date();
@@ -1443,11 +1443,11 @@ export default {
           // console.log(next_action);
           this.PI_co_marketing2.cOption.push({
             id: ress.Data[i].marketing_id,
-            label: ress.Data[i].marketing_name
+            label: ress.Data[i].marketing_name,
           });
           this.PI_co_marketing1.cOption.push({
             id: ress.Data[i].marketing_id,
-            label: ress.Data[i].marketing_name
+            label: ress.Data[i].marketing_name,
           });
           // this.dataCoMarketing.push({
           //   id: ress.Data[i].marketing_id,
@@ -1456,13 +1456,13 @@ export default {
         }
         this.$forceUpdate();
       });
-    }
+    },
   },
   mounted() {
     this.M_ClearForm();
     this.GetDataBy();
     this.doGetCoMarketing();
-  }
+  },
 };
 </script>
 

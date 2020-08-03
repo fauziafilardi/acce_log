@@ -10,8 +10,23 @@
                   <span>Standard Pricing & Costing</span>
                 </b-col>
 
-                <b-col md="3">
-                  <b-form-input
+                <b-col style="text-align: right;">
+                  <b-row>
+                    <b-col>
+                      <b-form-input
+                        id="txtSearch"
+                        v-model="search"
+                        type="text"
+                        placeholder="Search...."
+                        v-shortkey.focus="['f1']"
+                        class="text-field-search"
+                        @keyup.enter.native="onSearchEnter"
+                        autocomplete="off"
+                        :disabled="isSearchDisable"
+                      ></b-form-input>
+                    </b-col>
+                  </b-row>
+                  <!-- <b-form-input
                     id="txtSearch"
                     v-model="search"
                     type="text"
@@ -22,9 +37,9 @@
                     autocomplete="off"
                     :disabled="isSearchDisable"
                     style="width: 100% !important;"
-                  ></b-form-input>
+                  ></b-form-input>-->
                 </b-col>
-                <b-col md="3" class="col-right">
+                <b-col class="col-right" style="max-width: fit-content !important">
                   <span>
                     <ABSButton
                       :text="'Search'"
@@ -150,7 +165,7 @@ export default {
         TabIndex: 1,
         OrderBy: "",
         SourceField: "",
-        ParamView: ""
+        ParamView: "",
       },
 
       //For List
@@ -183,7 +198,7 @@ export default {
         { value: 60, text: "60" },
         { value: 80, text: "80" },
         { value: 100, text: "100" },
-        { value: 1000, text: "1000" }
+        { value: 1000, text: "1000" },
       ],
 
       fileName: "TestExport",
@@ -198,7 +213,7 @@ export default {
 
       sortedField: [{ field: "from_zone", sort: "ASC" }],
       isDisableTable: false,
-      responses: []
+      responses: [],
     };
   },
   methods: {
@@ -228,14 +243,14 @@ export default {
     },
     onFTLEnter() {
       var param = {
-        isEdit: false
+        isEdit: false,
       };
       this.$store.commit("setParamPage", param);
       this.$router.push({ name: "OP_PricingCostingFTL" });
     },
     onLTLEnter() {
       var param = {
-        isEdit: false
+        isEdit: false,
       };
       this.$store.commit("setParamPage", param);
       this.$router.push({ name: "OP_PricingCostingLTL" });
@@ -263,10 +278,10 @@ export default {
         initial_where: this.propList.initialWhere,
         sort_field: this.sort,
         source_field: this.propList.SourceField,
-        param_view: this.propList.ParamView
+        param_view: this.propList.ParamView,
       };
 
-      this.postJSON(this.getUrlList(), param).then(response => {
+      this.postJSON(this.getUrlList(), param).then((response) => {
         if (response == null) return;
         this.selected = false;
 
@@ -304,7 +319,7 @@ export default {
 
         this.allColumn_bf.forEach((val, idx) => {
           var thClass = "HeaderACCList2";
-          var isSorted = this.sortedField.map(x => x.field).indexOf(val);
+          var isSorted = this.sortedField.map((x) => x.field).indexOf(val);
           if (isSorted > -1) {
             if (this.sortedField[isSorted].sort == "ASC") {
               thClass = thClass + " AscSorted";
@@ -318,26 +333,26 @@ export default {
             key: val,
             thClass: thClass,
             tdClass: "ContentACCList2 notranslate",
-            text: val
+            text: val,
           });
 
           filteredColumn.push({
             value: idx + 1,
             key: val,
             thClass: thClass,
-            tdClass: "ContentACCList2 notranslate"
+            tdClass: "ContentACCList2 notranslate",
           });
         });
 
         for (var i = 0; i < str_array.length; i++) {
-          filteredColumn = filteredColumn.filter(val => {
+          filteredColumn = filteredColumn.filter((val) => {
             if (val.key == str_array[i]) {
               definedColumn.push({
                 value: val.value,
                 key: val.key,
                 thClass: val.thClass,
                 tdClass: val.tdClass,
-                text: val.key
+                text: val.key,
               });
             }
 
@@ -363,7 +378,7 @@ export default {
           }
 
           var isSorted = this.sortedField
-            .map(x => x.field)
+            .map((x) => x.field)
             .indexOf(str_array[i]);
           if (isSorted > -1) {
             if (this.sortedField[isSorted].sort == "ASC") {
@@ -379,7 +394,7 @@ export default {
               key: str_array[i],
               thClass: thClass,
               tdClass: tdClass,
-              label: this.$t(str_array[i])
+              label: this.$t(str_array[i]),
             });
           } else {
             if (str_array[i] == "lastupdatestamp") continue;
@@ -387,52 +402,52 @@ export default {
             var listReplace = [
               {
                 key: "_",
-                value: " "
+                value: " ",
               },
               {
                 key: "Amt",
-                value: " Amount"
+                value: " Amount",
               },
               {
                 key: "Cd",
-                value: " Code"
+                value: " Code",
               },
               {
                 key: "Descs",
-                value: " Description"
+                value: " Description",
               },
               {
                 key: "Time Edit",
-                value: "Last Update"
+                value: "Last Update",
               },
               {
                 key: "Batch Status",
-                value: "Status"
+                value: "Status",
               },
               {
                 key: "garing",
-                value: "/"
+                value: "/",
               },
               {
                 key: "titik",
-                value: "."
+                value: ".",
               },
               {
                 key: "SnP",
-                value: "SnP "
+                value: "SnP ",
               },
               {
                 key: "VO",
-                value: "VO "
+                value: "VO ",
               },
               {
                 key: "Row Id",
-                value: "View"
+                value: "View",
               },
               {
                 key: "Name",
-                value: "Customer"
-              }
+                value: "Customer",
+              },
             ];
             var isGotIt = false;
             var labelHeader = undefined;
@@ -443,7 +458,7 @@ export default {
               labelHeader = str_array[i]
                 .toLowerCase()
                 .split("_")
-                .map(s => {
+                .map((s) => {
                   return s.charAt(0).toUpperCase() + s.substring(1);
                 })
                 .join(" ");
@@ -486,7 +501,7 @@ export default {
               key: str_array[i],
               thClass: thClass,
               tdClass: tdClass,
-              label: labelHeader
+              label: labelHeader,
             });
           }
         }
@@ -518,7 +533,7 @@ export default {
         return true;
       }
       return false;
-    }
+    },
   },
   mounted() {
     this.doGetList("");
@@ -526,7 +541,7 @@ export default {
   },
   created() {
     this.$store.commit("setParamPage", {});
-  }
+  },
 };
 </script>
 

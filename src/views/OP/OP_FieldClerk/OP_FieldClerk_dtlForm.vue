@@ -37,7 +37,7 @@
                         <span>
                           <label>Company Name</label>
                         </span>
-                        <ACCLookUp
+                        <ACCDropDown
                           @change="Oncm_contact_idChange"
                           :prop="PI_cm_contact_id"
                           v-model="M_OpFieldClerkDtl.cm_contact_id"
@@ -51,7 +51,7 @@
                         <span>
                           <label>Address</label>
                         </span>
-                        <ACCLookUp
+                        <ACCDropDown
                           @change="Oncm_contact_delivery_address_idChange"
                           :prop="PI_cm_contact_delivery_address_id"
                           v-model="M_OpFieldClerkDtl.cm_contact_delivery_address_id"
@@ -198,8 +198,8 @@ export default {
     },
     Oncm_contact_idChange(data) {
       this.$nextTick(() => {
-        this.M_OpFieldClerkDtl.cm_contact_id = data.row_id;
-        this.M_OpFieldClerkDtl.nameLabel = data.customer_name;
+        this.M_OpFieldClerkDtl.cm_contact_id = data.id;
+        this.M_OpFieldClerkDtl.nameLabel = data.label;
 
         this.PI_cm_contact_delivery_address_id.dataLookUp.InitialWhere =
           "cm_contact_id=" + data.id;
@@ -207,8 +207,8 @@ export default {
     },
     Oncm_contact_delivery_address_idChange(data) {
       this.$nextTick(() => {
-        this.M_OpFieldClerkDtl.cm_contact_delivery_address_id = data.row_id;
-        this.M_OpFieldClerkDtl.addressLabel = data.address;
+        this.M_OpFieldClerkDtl.cm_contact_delivery_address_id = data.id;
+        this.M_OpFieldClerkDtl.addressLabel = data.label;
       });
     },
     OndescsChange(data) {
@@ -328,9 +328,9 @@ export default {
     GetDataBy() {
       var param = {
         option_url: "/OP/OP_FieldClerk",
-        line_no: 0,
-        id: this.paramFromList.row_id,
-        lastupdatestamp: this.paramFromList.lastupdatestamp,
+        line_no: 1,
+        id: this.paramFromList.DataDetail.row_id,
+        lastupdatestamp: this.paramFromList.DataDetail.lastupdatestamp,
       };
 
       this.getJSON(this.getUrlCRUD(), param).then((response) => {
@@ -364,6 +364,7 @@ export default {
     if (this.inputStatus == "edit") {
       this.title = "Edit";
       this.GetDataBy();
+      this.PI_cm_contact_id.cProtect = true;
     } else {
       this.title = "Add";
     }

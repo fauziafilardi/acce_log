@@ -230,7 +230,7 @@
                             </span>
                           </b-col>
                           <b-col md="6">
-                            <ACCLookUp
+                            <ACCDropDown
                               @change="Oncm_contact_idChange"
                               :prop="PI_cm_contact_id"
                               v-model="M_Spec.cm_contact_id"
@@ -283,7 +283,7 @@ export default {
         cProtect: false,
         cParentForm: "",
         cDecimal: 2,
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
       PI_action_visit_point: {
         cValidate: "",
@@ -294,7 +294,7 @@ export default {
         cProtect: false,
         cParentForm: "",
         cDecimal: 2,
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
       PI_action_entertain_point: {
         cValidate: "",
@@ -305,7 +305,7 @@ export default {
         cProtect: false,
         cParentForm: "",
         cDecimal: 2,
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
       M_Spec: {
         action_call_point: 0,
@@ -320,7 +320,7 @@ export default {
         working_days_sunday: false,
         new_cm_customer_status_id: 0,
         cm_contact_id: 0,
-        cm_contact_idLabel: ""
+        cm_contact_idLabel: "",
       },
       PI_cm_contact_id: {
         dataLookUp: {
@@ -332,7 +332,7 @@ export default {
           OrderBy: "",
           ParamView: "",
           SourceField: "",
-          DisplayLookUp: ""
+          DisplayLookUp: "",
         },
         cValidate: "",
         cName: "cm_contact_id",
@@ -344,9 +344,9 @@ export default {
         cStatic: false,
         cOption: [],
         cDisplayColumn: "row_id,name",
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
-      default_pic: require("@/assets/default_photo_.png")
+      default_pic: require("@/assets/default_photo_.png"),
     };
   },
   computed: {
@@ -361,7 +361,7 @@ export default {
       return param;
       //   }
       // }
-    }
+    },
     // inputStatus() {
     //   var param = this.$route.params;
     //   if (param.isEdit && param.isEdit === true) {
@@ -374,8 +374,8 @@ export default {
   methods: {
     Oncm_contact_idChange(data) {
       this.$nextTick(() => {
-        this.M_Spec.cm_contact_id = data.row_id;
-        this.M_Spec.cm_contact_idLabel = data.name;
+        this.M_Spec.cm_contact_id = data.id;
+        this.M_Spec.cm_contact_idLabel = data.label;
       });
       this.$forceUpdate();
     },
@@ -396,7 +396,7 @@ export default {
         working_days_sunday: false,
         new_cm_customer_status_id: 0,
         cm_contact_id: 0,
-        cm_contact_idLabel: ""
+        cm_contact_idLabel: "",
       };
     },
     OnChecClick() {},
@@ -414,10 +414,10 @@ export default {
       this.$nextTick(() => {});
     },
     doSave() {
-      this.$validator._base.validateAll("M_ScreenSpec").then(result => {
+      this.$validator._base.validateAll("M_ScreenSpec").then((result) => {
         if (!result) return;
         this.alertConfirmation("Are You Sure Want To Save This Data ?").then(
-          ress => {
+          (ress) => {
             if (ress.value) {
               this.$validator.errors.clear("M_ScreenSpec");
               if (this.inputStatus == "edit") {
@@ -450,10 +450,10 @@ export default {
           this.M_Spec.cm_contact_id == null || this.M_Spec.cm_contact_id == 0
             ? null
             : this.M_Spec.cm_contact_id,
-        user_input: this.getDataUser().user_id
+        user_input: this.getDataUser().user_id,
       };
 
-      this.postJSON(this.getUrlCRUD(), param).then(response => {
+      this.postJSON(this.getUrlCRUD(), param).then((response) => {
         // console.log(response)
         if (response == null) return;
         this.alertSuccess(response.Message).then(() => {
@@ -481,10 +481,10 @@ export default {
           this.M_Spec.cm_contact_id == null || this.M_Spec.cm_contact_id == 0
             ? null
             : this.M_Spec.cm_contact_id,
-        user_edit: this.getDataUser().user_id
+        user_edit: this.getDataUser().user_id,
       };
 
-      this.putJSON(this.getUrlCRUD(), param).then(response => {
+      this.putJSON(this.getUrlCRUD(), param).then((response) => {
         // console.log(response)
         if (response == null) return;
         this.alertSuccess(response.Message).then(() => {
@@ -496,10 +496,10 @@ export default {
       var param = {
         option_function_cd: "GetMkSpec",
         module_cd: "MK",
-        portfolio_id: this.getDataUser().portfolio_id
+        portfolio_id: this.getDataUser().portfolio_id,
       };
 
-      this.CallFunction(param).then(response => {
+      this.CallFunction(param).then((response) => {
         // response from API
         if (response == null) return;
         console.log(response.Data.length);
@@ -526,16 +526,16 @@ export default {
             data.working_days_saturday == "Y" ? true : false,
           working_days_sunday: data.working_days_sunday == "Y" ? true : false,
           cm_contact_id: data.cm_contact_id,
-          cm_contact_idLabel: data.customer_name
+          cm_contact_idLabel: data.customer_name,
         };
       });
-    }
+    },
   },
   mounted() {
     // this.M_ClearForm();
 
     this.GetMKSpecData();
-  }
+  },
 };
 </script>
 

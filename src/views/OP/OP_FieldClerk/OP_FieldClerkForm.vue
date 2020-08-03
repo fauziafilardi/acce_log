@@ -50,7 +50,7 @@
                           <span>
                             <label>PIC</label>
                           </span>
-                          <ACCLookUp
+                          <ACCDropDown
                             @change="Onuser_idChange"
                             :prop="PI_user_id"
                             v-model="M_OpFieldClerk.user_id"
@@ -230,8 +230,8 @@ export default {
     },
     Onuser_idChange(data) {
       this.$nextTick(() => {
-        this.M_OpFieldClerk.user_id = data.row_id;
-        this.M_OpFieldClerk.user_idLabel = data.user_name;
+        this.M_OpFieldClerk.user_id = data.id;
+        this.M_OpFieldClerk.user_idLabel = data.label;
       });
     },
 

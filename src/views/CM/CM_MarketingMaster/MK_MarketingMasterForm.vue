@@ -37,7 +37,7 @@
                         <span>
                           <label>Marketing</label>
                         </span>
-                        <ACCLookUp
+                        <ACCDropDown
                           @change="Onuser_idChange"
                           :prop="PI_user_id"
                           v-model="M_MkMarketing.user_id"
@@ -319,8 +319,8 @@ export default {
     },
     Onuser_idChange(data) {
       this.$nextTick(() => {
-        this.M_MkMarketing.marketing_id = data.marketing_id;
-        this.M_MkMarketing.nameLabel = data.marketing_id + " - " + data.name;
+        this.M_MkMarketing.marketing_id = data.id;
+        this.M_MkMarketing.nameLabel = data.label;
         this.M_MkMarketing.name = data.name;
       });
     },

@@ -37,7 +37,7 @@
                         <span>
                           <label>From Zone</label>
                         </span>
-                        <ACCLookUp
+                        <ACCDropDown
                           @change="Onfr_cm_zone_idChange"
                           :prop="PI_fr_cm_zone_id"
                           v-model="M_OpPricingCosting.fr_cm_zone_id"
@@ -49,7 +49,7 @@
                         <span>
                           <label>To Zone</label>
                         </span>
-                        <ACCLookUp
+                        <ACCDropDown
                           @change="Onto_cm_zone_idChange"
                           :prop="PI_to_cm_zone_id"
                           v-model="M_OpPricingCosting.to_cm_zone_id"
@@ -63,7 +63,7 @@
                         <span>
                           <label>Fleet Cd</label>
                         </span>
-                        <ACCLookUp
+                        <ACCDropDown
                           @change="Onfm_fleet_type_idChange"
                           :prop="PI_fm_fleet_type_id"
                           v-model="M_OpPricingCosting.fm_fleet_type_id"
@@ -148,7 +148,7 @@ export default {
         time_input: "",
         time_edit: "",
         row_id: 0,
-        lastupdatestamp: 0
+        lastupdatestamp: 0,
       },
       PI_fr_cm_zone_id: {
         dataLookUp: {
@@ -159,7 +159,7 @@ export default {
           OrderBy: "",
           ParamView: "",
           SourceField: "",
-          DisplayLookUp: ""
+          DisplayLookUp: "",
         },
         cValidate: "",
         cName: "fr_cm_zone_id",
@@ -170,7 +170,7 @@ export default {
         cParentForm: "OP_FormOpPricingCosting",
         cOption: [],
         cDisplayColumn: "cm_zone_id,zone_code",
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
       PI_to_cm_zone_id: {
         dataLookUp: {
@@ -181,7 +181,7 @@ export default {
           OrderBy: "",
           ParamView: "",
           SourceField: "",
-          DisplayLookUp: ""
+          DisplayLookUp: "",
         },
         cValidate: "",
         cName: "to_cm_zone_id",
@@ -192,7 +192,7 @@ export default {
         cParentForm: "OP_FormOpPricingCosting",
         cOption: [],
         cDisplayColumn: "cm_zone_id,zone_code",
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
       PI_fm_fleet_type_id: {
         dataLookUp: {
@@ -203,7 +203,7 @@ export default {
           OrderBy: "",
           ParamView: "",
           SourceField: "",
-          DisplayLookUp: "descs,time_edit"
+          DisplayLookUp: "descs,time_edit",
         },
         cValidate: "",
         cName: "fm_fleet_type_id",
@@ -214,7 +214,7 @@ export default {
         cParentForm: "OP_FormOpPricingCosting",
         cOption: [],
         cDisplayColumn: "descs,time_edit",
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
 
       PI_selling_price: {
@@ -226,7 +226,7 @@ export default {
         cProtect: false,
         cParentForm: "OP_FormOpPricingCosting",
         cDecimal: 2,
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
 
       PI_remarks: {
@@ -238,8 +238,8 @@ export default {
         cProtect: false,
         cParentForm: "OP_FormOpPricingCosting",
         cDecimal: 2,
-        cInputStatus: this.inputStatus
-      }
+        cInputStatus: this.inputStatus,
+      },
     };
   },
   computed: {
@@ -254,7 +254,7 @@ export default {
       } else {
         return "new";
       }
-    }
+    },
   },
   methods: {
     doBack() {
@@ -262,14 +262,14 @@ export default {
     },
     Onfr_cm_zone_idChange(data) {
       this.$nextTick(() => {
-        this.M_OpPricingCosting.fr_cm_zone_id = data.row_id;
-        this.M_OpPricingCosting.fr_zone_cdLabel = data.zone_code;
+        this.M_OpPricingCosting.fr_cm_zone_id = data.id;
+        this.M_OpPricingCosting.fr_zone_cdLabel = data.label;
       });
     },
     Onto_cm_zone_idChange(data) {
       this.$nextTick(() => {
-        this.M_OpPricingCosting.to_cm_zone_id = data.row_id;
-        this.M_OpPricingCosting.to_zone_cdLabel = data.zone_code;
+        this.M_OpPricingCosting.to_cm_zone_id = data.id;
+        this.M_OpPricingCosting.to_zone_cdLabel = data.label;
       });
     },
     Onfm_fleet_type_idChange(data) {
@@ -302,17 +302,17 @@ export default {
         time_input: "",
         time_edit: "",
         row_id: 0,
-        lastupdatestamp: 0
+        lastupdatestamp: 0,
       };
     },
 
     doSave() {
       this.$validator._base
         .validateAll("OP_FormOpPricingCosting")
-        .then(result => {
+        .then((result) => {
           if (!result) return;
           this.alertConfirmation("Are You Sure Want To Save This Data ?").then(
-            ress => {
+            (ress) => {
               if (ress.value) {
                 this.$validator.errors.clear("OP_FormOpPricingCosting");
                 if (this.inputStatus == "edit") {
@@ -340,10 +340,10 @@ export default {
         kgs_selling_price: "NULL",
         total_cost_value: this.M_OpPricingCosting.total_cost_value,
         remarks: this.M_OpPricingCosting.remarks,
-        user_input: this.getDataUser().user_id
+        user_input: this.getDataUser().user_id,
       };
 
-      this.postJSON(this.getUrlCRUD(), param).then(response => {
+      this.postJSON(this.getUrlCRUD(), param).then((response) => {
         if (response == null) return;
         this.alertSuccess(response.Message).then(() => {
           this.doBack();
@@ -367,10 +367,10 @@ export default {
         total_cost_value: this.M_OpPricingCosting.total_cost_value,
         remarks: this.M_OpPricingCosting.remarks,
         lastupdatestamp: this.paramFromList.lastupdatestamp,
-        user_edit: this.getDataUser().user_id
+        user_edit: this.getDataUser().user_id,
       };
 
-      this.putJSON(this.getUrlCRUD(), param).then(response => {
+      this.putJSON(this.getUrlCRUD(), param).then((response) => {
         if (response == null) return;
         this.alertSuccess(response.Message).then(() => {
           if (this.inputStatus == "new") {
@@ -383,7 +383,7 @@ export default {
     },
     doDelete() {
       this.alertConfirmation("Are You Sure Want To Delete This Data ?").then(
-        ress => {
+        (ress) => {
           if (ress.value) {
             this.M_Delete();
           }
@@ -395,9 +395,9 @@ export default {
         option_url: "/OP/OP_PricingCosting",
         line_no: { LineNo },
         id: this.paramFromList.row_id,
-        lastupdatestamp: this.paramFromList.lastupdatestamp
+        lastupdatestamp: this.paramFromList.lastupdatestamp,
       };
-      this.deleteJSON(this.getUrlCRUD(), param).then(response => {
+      this.deleteJSON(this.getUrlCRUD(), param).then((response) => {
         if (response == null) return;
         this.alertSuccess("Data Has Been Deleted").then(() => {
           this.doBack();
@@ -409,10 +409,10 @@ export default {
         option_url: "/OP/OP_PricingCosting",
         line_no: 0,
         id: this.paramFromList.row_id,
-        lastupdatestamp: this.paramFromList.lastupdatestamp
+        lastupdatestamp: this.paramFromList.lastupdatestamp,
       };
 
-      this.getJSON(this.getUrlCRUD(), param).then(response => {
+      this.getJSON(this.getUrlCRUD(), param).then((response) => {
         // response from API
         if (response == null) return;
 
@@ -440,10 +440,10 @@ export default {
           time_input: data.time_input,
           time_edit: data.time_edit,
           row_id: data.row_id,
-          lastupdatestamp: data.lastupdatestamp
+          lastupdatestamp: data.lastupdatestamp,
         };
       });
-    }
+    },
   },
   mounted() {
     this.M_ClearForm();
@@ -453,7 +453,7 @@ export default {
     } else {
       this.title = "Add";
     }
-  }
+  },
 };
 </script>
 

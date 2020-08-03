@@ -111,8 +111,10 @@ export default {
         user_edit: "",
         time_input: "",
         time_edit: "",
+        status_on_order: "",
+        status_return: "",
         row_id: 0,
-        lastupdatestamp: 0
+        lastupdatestamp: 0,
       },
       PI_op_cost_type_id: {
         dataLookUp: {
@@ -124,7 +126,7 @@ export default {
           OrderBy: "",
           ParamView: "",
           SourceField: "",
-          DisplayLookUp: ""
+          DisplayLookUp: "",
         },
         cValidate: "",
         cName: "op_cost_type_id",
@@ -135,7 +137,7 @@ export default {
         cParentForm: "OP_FormOpPricingCostingDtl",
         cOption: [],
         cDisplayColumn: "cost_type",
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
       PI_cost_value: {
         cValidate: "",
@@ -146,7 +148,7 @@ export default {
         cProtect: false,
         cParentForm: "OP_FormOpPricingCostingDtl",
         cDecimal: 2,
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
       PI_descs: {
         cValidate: "",
@@ -157,8 +159,8 @@ export default {
         cProtect: false,
         cParentForm: "OP_FormOpPricingCostingDtl",
         cDecimal: 2,
-        cInputStatus: this.inputStatus
-      }
+        cInputStatus: this.inputStatus,
+      },
     };
   },
   computed: {
@@ -173,7 +175,7 @@ export default {
       } else {
         return "new";
       }
-    }
+    },
   },
   methods: {
     doBack() {
@@ -199,18 +201,20 @@ export default {
         user_edit: "",
         time_input: "",
         time_edit: "",
+        status_on_order: "",
+        status_return: "",
         row_id: 0,
-        lastupdatestamp: 0
+        lastupdatestamp: 0,
       };
     },
 
     doSave() {
       this.$validator._base
         .validateAll("OP_FormOpPricingCostingDtl")
-        .then(result => {
+        .then((result) => {
           if (!result) return;
           this.alertConfirmation("Are You Sure Want To Save This Data ?").then(
-            ress => {
+            (ress) => {
               if (ress.value) {
                 this.$validator.errors.clear("OP_FormOpPricingCostingDtl");
                 if (this.inputStatus == "edit") {
@@ -232,10 +236,12 @@ export default {
         op_cost_type_id: this.M_OpPricingCostingDtl.op_cost_type_id,
         cost_value: this.M_OpPricingCostingDtl.cost_value,
         descs: this.M_OpPricingCostingDtl.descs,
-        user_input: this.getDataUser().user_id
+        status_on_order: "Y",
+        status_return: "N",
+        user_input: this.getDataUser().user_id,
       };
 
-      this.postJSON(this.getUrlCRUD(), param).then(response => {
+      this.postJSON(this.getUrlCRUD(), param).then((response) => {
         if (response == null) return;
         this.alertSuccess(response.Message).then(() => {
           this.doBack();
@@ -252,11 +258,13 @@ export default {
         op_cost_type_id: this.M_OpPricingCostingDtl.op_cost_type_id,
         cost_value: this.M_OpPricingCostingDtl.cost_value,
         descs: this.M_OpPricingCostingDtl.descs,
+        status_on_order: "Y",
+        status_return: "N",
         lastupdatestamp: this.paramFromList.DetailList.lastupdatestamp,
-        user_edit: this.getDataUser().user_id
+        user_edit: this.getDataUser().user_id,
       };
 
-      this.putJSON(this.getUrlCRUD(), param).then(response => {
+      this.putJSON(this.getUrlCRUD(), param).then((response) => {
         if (response == null) return;
         this.alertSuccess(response.Message).then(() => {
           this.doBack();
@@ -265,7 +273,7 @@ export default {
     },
     doDelete() {
       this.alertConfirmation("Are You Sure Want To Delete This Data ?").then(
-        ress => {
+        (ress) => {
           if (ress.value) {
             this.M_Delete();
           }
@@ -277,9 +285,9 @@ export default {
         option_url: "/OP/OP_PricingCosting",
         line_no: { LineNo },
         id: this.paramFromList.row_id,
-        lastupdatestamp: this.paramFromList.lastupdatestamp
+        lastupdatestamp: this.paramFromList.lastupdatestamp,
       };
-      this.deleteJSON(this.getUrlCRUD(), param).then(response => {
+      this.deleteJSON(this.getUrlCRUD(), param).then((response) => {
         if (response == null) return;
         this.alertSuccess("Data Has Been Deleted").then(() => {
           this.doBack();
@@ -291,10 +299,10 @@ export default {
         option_url: "/OP/OP_PricingCosting",
         line_no: 1,
         id: this.paramFromList.DetailList.row_id,
-        lastupdatestamp: this.paramFromList.DetailList.lastupdatestamp
+        lastupdatestamp: this.paramFromList.DetailList.lastupdatestamp,
       };
 
-      this.getJSON(this.getUrlCRUD(), param).then(response => {
+      this.getJSON(this.getUrlCRUD(), param).then((response) => {
         // response from API
         if (response == null) return;
 
@@ -313,10 +321,10 @@ export default {
           time_input: data.time_input,
           time_edit: data.time_edit,
           row_id: data.row_id,
-          lastupdatestamp: data.lastupdatestamp
+          lastupdatestamp: data.lastupdatestamp,
         };
       });
-    }
+    },
   },
   mounted() {
     this.M_ClearForm();
@@ -327,7 +335,7 @@ export default {
     } else {
       this.title = "Add";
     }
-  }
+  },
 };
 </script>
 

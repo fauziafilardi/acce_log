@@ -130,7 +130,7 @@
                         <span>
                           <label>Customer Status</label>
                         </span>
-                        <ACCLookUp
+                        <ACCDropDown
                           @change="Oncustomer_statusChange"
                           :prop="PI_customer_status"
                           v-model="M_NewProspect.customer_status"
@@ -172,7 +172,7 @@ export default {
         cName: "Logo",
         cAccept: ".jpg, .png, .gif",
         cTitle: "Add Logo",
-        cModule: "MK"
+        cModule: "MK",
       },
       PI_customer_name: {
         cValidate: "max:100",
@@ -183,7 +183,7 @@ export default {
         cProtect: false,
         cParentForm: "MK_AddNewProspect",
         cDecimal: 2,
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
       PI_address: {
         cValidate: "max:255",
@@ -197,7 +197,7 @@ export default {
         cMaxRows: 2,
         cSize: "md",
         cParentForm: "MK_AddNewProspect",
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
 
       PI_phone_no_1: {
@@ -211,7 +211,7 @@ export default {
         cStatic: true,
         cOption: [{ id: "+62", label: "+62" }],
         cDisplayColumn: "action_type,descs",
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
 
       PI_phone_no_2: {
@@ -223,7 +223,7 @@ export default {
         cProtect: false,
         cParentForm: "MK_AddNewProspect",
         cDecimal: 2,
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
       PI_phone_no_3: {
         cValidate: "",
@@ -234,7 +234,7 @@ export default {
         cProtect: false,
         cParentForm: "MK_AddNewProspect",
         cDecimal: 2,
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
       PI_email: {
         cValidate: "max:60",
@@ -245,7 +245,7 @@ export default {
         cProtect: false,
         cParentForm: "MK_AddNewProspect",
         cDecimal: 2,
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
       PI_website: {
         cValidate: "max:60",
@@ -256,7 +256,7 @@ export default {
         cProtect: false,
         cParentForm: "MK_AddNewProspect",
         cDecimal: 2,
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
       PI_contact_person: {
         cValidate: "",
@@ -267,7 +267,7 @@ export default {
         cProtect: false,
         cParentForm: "MK_AddNewProspect",
         cDecimal: 2,
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
       PI_contact_phone_no_1: {
         cValidate: "",
@@ -278,7 +278,7 @@ export default {
         cProtect: false,
         cParentForm: "MK_AddNewProspect",
         cDecimal: 2,
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
       PI_contact_phone_no_2: {
         cValidate: "",
@@ -289,7 +289,7 @@ export default {
         cProtect: false,
         cParentForm: "MK_AddNewProspect",
         cDecimal: 2,
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
       PI_contact_phone_no_3: {
         cValidate: "max:8",
@@ -300,7 +300,7 @@ export default {
         cProtect: false,
         cParentForm: "MK_AddNewProspect",
         cDecimal: 2,
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
       PI_customer_status: {
         dataLookUp: {
@@ -311,7 +311,7 @@ export default {
           OrderBy: "",
           ParamView: "",
           SourceField: "",
-          DisplayLookUp: "descs,time_edit"
+          DisplayLookUp: "descs,time_edit",
         },
         cValidate: "",
         cName: "customer_status",
@@ -323,7 +323,7 @@ export default {
         cStatic: false,
         cOption: [],
         cDisplayColumn: "descs,time_edit",
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
       M_NewProspect: {
         customer_name: "",
@@ -351,9 +351,9 @@ export default {
         file_logo: "",
         file_show: require("@/assets/default_photo_.png"),
         file_logo_name: "",
-        file_logo_path: ""
+        file_logo_path: "",
       },
-      default_pic: require("@/assets/default_photo_.png")
+      default_pic: require("@/assets/default_photo_.png"),
     };
   },
   computed: {
@@ -376,7 +376,7 @@ export default {
       } else {
         return "new";
       }
-    }
+    },
   },
   methods: {
     doBack() {
@@ -418,7 +418,7 @@ export default {
         file_logo: "",
         file_show: this.default_pic,
         file_logo_name: "",
-        file_logo_path: ""
+        file_logo_path: "",
       };
     },
     onlogoChange(data) {
@@ -430,15 +430,15 @@ export default {
 
     Oncustomer_statusChange(data) {
       this.$nextTick(() => {
-        this.M_NewProspect.customer_status = data.cm_customer_status_id;
-        this.M_NewProspect.customer_statusLabel = data.descs;
+        this.M_NewProspect.customer_status = data.id;
+        this.M_NewProspect.customer_statusLabel = data.label;
       });
     },
     doSave() {
-      this.$validator._base.validateAll("MK_AddNewProspect").then(result => {
+      this.$validator._base.validateAll("MK_AddNewProspect").then((result) => {
         if (!result) return;
         this.alertConfirmation("Are You Sure Want To Save This Data ?").then(
-          ress => {
+          (ress) => {
             if (ress.value) {
               this.$validator.errors.clear("MK_AddNewProspect");
               if (this.inputStatus == "edit") {
@@ -469,10 +469,10 @@ export default {
         file_name: this.M_NewProspect.file_logo_name,
         path_file: this.M_NewProspect.file_logo_path,
         marketing_id: this.getDataUser().user_id,
-        user_input: this.getDataUser().user_id
+        user_input: this.getDataUser().user_id,
       };
 
-      this.postJSON(this.getUrlCRUD(), param).then(response => {
+      this.postJSON(this.getUrlCRUD(), param).then((response) => {
         // console.log(response)
         if (response == null) return;
 
@@ -480,7 +480,7 @@ export default {
           // this.doBack();
           var param = {
             row_id: response.Data[0].row_id,
-            lastupdatestamp: 0
+            lastupdatestamp: 0,
           };
           param.isEdit = true;
           param.isView = true;
@@ -494,10 +494,10 @@ export default {
         option_url: "/MK/MK_Customer",
         line_no: 0,
         id: this.paramFromList.row_id,
-        lastupdatestamp: this.paramFromList.lastupdatestamp
+        lastupdatestamp: this.paramFromList.lastupdatestamp,
       };
 
-      this.getJSON(this.getUrlCRUD(), param).then(response => {
+      this.getJSON(this.getUrlCRUD(), param).then((response) => {
         // response from API
         if (response == null) return;
 
@@ -555,7 +555,7 @@ export default {
               ? this.url + data.path_file
               : this.default_pic,
           file_logo_name: data.file_name,
-          file_logo_path: data.path_file
+          file_logo_path: data.path_file,
         };
       });
     },
@@ -576,10 +576,10 @@ export default {
         path_file: this.M_NewProspect.file_logo_path,
         marketing_id: this.getDataUser().user_id,
         lastupdatestamp: this.paramFromList.lastupdatestamp,
-        user_edit: this.getDataUser().user_id
+        user_edit: this.getDataUser().user_id,
       };
 
-      this.putJSON(this.getUrlCRUD(), param).then(response => {
+      this.putJSON(this.getUrlCRUD(), param).then((response) => {
         // console.log(response)
         if (response == null) return;
         this.alertSuccess(response.Message).then(() => {
@@ -590,7 +590,7 @@ export default {
           // }
         });
       });
-    }
+    },
   },
   mounted() {
     this.M_ClearForm();
@@ -600,7 +600,7 @@ export default {
     } else {
       this.title = "Add";
     }
-  }
+  },
 };
 </script>
 
