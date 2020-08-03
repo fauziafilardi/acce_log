@@ -363,9 +363,10 @@ export default {
           if (loading) loading(false);
           return;
         }
-      } else {
-        this.prop.dataLookUp.ParamWhere = "";
       }
+      // else {
+      //   this.prop.dataLookUp.ParamWhere = "";
+      // }
 
       var param = {
         LookUpCd: this.prop.dataLookUp.LookUpCd,
