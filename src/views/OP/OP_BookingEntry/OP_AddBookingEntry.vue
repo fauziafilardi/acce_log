@@ -35,7 +35,7 @@
                                         <span>
                                             <label>Customer Name</label>
                                         </span>
-                                        <ACCLookUp
+                                        <ACCDropDown
                                             @change="OncustomerChange"
                                             :prop="PI_customer"
                                             v-model="M_Order.customer"
@@ -394,13 +394,14 @@ export default {
           LookUpCd: "GetQuotationContact",
           ColumnDB: "cm_contact_id",
           InitialWhere: "",
-          ParamWhere: "",
+          ParamWhere: "nau",
           OrderBy: "",
           ParamView: "",
           SourceField: "",
           DisplayLookUp: "customer_name,address,phone_no"
         },
         cValidate: "required",
+        cAsync: true,
         cName: "customer",
         ckey: false,
         cOrder: 1,
