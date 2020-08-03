@@ -39,6 +39,7 @@ import MK_CustomerLogBook from '@/views/MK/MK_Customer/MK_CustomerLogBook'
 
 import MK_CustomerPickUp from '@/views/MK/MK_Customer/MK_Customer_cm_contact_delivery_addressForm'
 import MK_CustomerPIC from '@/views/MK/MK_Customer/MK_Customer_cm_contact_personForm'
+import MK_CustomerRequiredDoc from '@/views/MK/MK_Customer/MK_CustomerRequiredDoc'
 
 import MK_Customer2 from '@/views/MK/MK_Customer2/MK_Customer2List'
 import MK_Customer2View from '@/views/MK/MK_Customer2/MK_Customer2View'
@@ -370,6 +371,14 @@ export const MKRender = {
         path: '/MK/MK_Customer/PIC',
         name: 'MK_CustomerPIC',
         component: MK_CustomerPIC,
+        meta: {
+            requiresAuth: true
+        },
+    },
+    {
+        path: '/MK/MK_Customer/RequirdDoc',
+        name: 'MK_CustomerRequiredDoc',
+        component: MK_CustomerRequiredDoc,
         meta: {
             requiresAuth: true
         },

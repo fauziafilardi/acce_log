@@ -953,6 +953,10 @@ export default {
           var dtrow = response.Data[0].row_id;
 
           if (this.addPic == 1) {
+            this.PI_contact_person.cOption.push({
+              id: dtrow,
+              label: this.M_Pic.contact_person,
+            });
             this.M_Appointment.contact_person = dtrow;
             this.M_Appointment.contact_personLabel = this.M_Pic.contact_person;
             this.M_Appointment.contact_person_Label2 =
@@ -962,11 +966,16 @@ export default {
               "  " +
               this.M_Pic.position;
           } else {
+            this.PI_next_contact_person.cOption.push({
+              id: dtrow,
+              label: this.M_Pic.contact_person,
+            });
             this.M_Appointment.next_contact_person = dtrow;
             this.M_Appointment.next_contact_personLabel = this.M_Pic.contact_person;
           }
 
           this.CancelModal();
+          this.$forceUpdate();
         });
       });
     },
@@ -988,7 +997,7 @@ export default {
       this.$nextTick(() => {
         this.M_Appointment.contact_person = data.id;
         this.M_Appointment.contact_personLabel = data.label;
-        this.M_Appointment.contact_person_label2 =
+        this.M_Appointment.contact_person_Label2 =
           data.phone_no +
           "  " +
           data.email +
