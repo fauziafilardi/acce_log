@@ -294,7 +294,7 @@
                             <span>
                               <label>Select Driver</label>
                             </span>
-                            <ACCLookUp
+                            <ACCDropDown
                               @change="Onfm_driver_idChange"
                               :prop="PI_fm_driver_id"
                               v-model="M_FmFleetMstr.fm_driver_id"
@@ -306,7 +306,7 @@
                             <span>
                               <label>Select Co-Driver</label>
                             </span>
-                            <ACCLookUp
+                            <ACCDropDown
                               @change="Onfm_driver_id2Change"
                               :prop="PI_fm_driver_id2"
                               v-model="M_FmFleetMstr.fm_driver_id2"
@@ -471,7 +471,7 @@ export default {
         lastupdatestamp: 0,
         gps_vendor: "",
         gps_vendorLabel: "",
-        gps_id: ""
+        gps_id: "",
       },
       PI_fm_driver_id: {
         dataLookUp: {
@@ -482,7 +482,7 @@ export default {
           OrderBy: "",
           ParamView: "",
           SourceField: "",
-          DisplayLookUp: "fm_driver_id,full_name"
+          DisplayLookUp: "",
         },
         cValidate: "",
         cName: "fm_driver_id",
@@ -493,18 +493,18 @@ export default {
         cParentForm: "OP_FormFmFleetMstr",
         cOption: [],
         cDisplayColumn: "full_name",
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
       PI_fm_driver_id2: {
         dataLookUp: {
           LookUpCd: "GetDriver",
           ColumnDB: "driver_id",
           InitialWhere: "",
-          ParamWhere: "",
+          ParamWhere: "wawan",
           OrderBy: "",
           ParamView: "",
           SourceField: "",
-          DisplayLookUp: "fm_driver_id,full_name"
+          DisplayLookUp: "",
         },
         cValidate: "",
         cName: "fm_driver_id2",
@@ -515,7 +515,7 @@ export default {
         cParentForm: "OP_FormFmFleetMstr",
         cOption: [],
         cDisplayColumn: "full_name",
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
       PI_bpkb_no: {
         cValidate: "",
@@ -526,7 +526,7 @@ export default {
         cProtect: false,
         cParentForm: "OP_FormFmFleetMstr",
         cDecimal: 2,
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
       PI_license_plate_no: {
         cValidate: "",
@@ -537,7 +537,7 @@ export default {
         cProtect: false,
         cParentForm: "OP_FormFmFleetMstr",
         cDecimal: 2,
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
       PI_license_plate_expiry_date: {
         cValidate: "",
@@ -547,7 +547,7 @@ export default {
         cProtect: false,
         cWithTime: false,
         cFormat: "dd/MM/yyyy",
-        cParentForm: "OP_FormFmFleetMstr"
+        cParentForm: "OP_FormFmFleetMstr",
       },
       PI_fm_fleet_brand_id: {
         dataLookUp: {
@@ -558,7 +558,7 @@ export default {
           OrderBy: "",
           ParamView: "",
           SourceField: "",
-          DisplayLookUp: "fm_fleet_brand_id,brand_name"
+          DisplayLookUp: "fm_fleet_brand_id,brand_name",
         },
         cValidate: "",
         cName: "fm_fleet_brand_id",
@@ -569,7 +569,7 @@ export default {
         cParentForm: "OP_FormFmFleetMstr",
         cOption: [],
         cDisplayColumn: "fm_fleet_brand_id,brand_name",
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
       PI_fm_fleet_type_id: {
         dataLookUp: {
@@ -580,7 +580,7 @@ export default {
           OrderBy: "",
           ParamView: "",
           SourceField: "",
-          DisplayLookUp: "vehicle_type,descs"
+          DisplayLookUp: "vehicle_type,descs",
         },
         cValidate: "",
         cName: "fm_fleet_type_id",
@@ -591,7 +591,7 @@ export default {
         cParentForm: "OP_FormFmFleetMstr",
         cOption: [],
         cDisplayColumn: "vehicle_type,descs",
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
       PI_fm_fleet_carosery_id: {
         dataLookUp: {
@@ -602,7 +602,7 @@ export default {
           OrderBy: "",
           ParamView: "",
           SourceField: "",
-          DisplayLookUp: "fm_fleet_carosery_id,vehicle_carosery"
+          DisplayLookUp: "fm_fleet_carosery_id,vehicle_carosery",
         },
         cValidate: "",
         cName: "fm_fleet_carosery_id",
@@ -613,7 +613,7 @@ export default {
         cParentForm: "OP_FormFmFleetMstr",
         cOption: [],
         cDisplayColumn: "fm_fleet_carosery_id,vehicle_carosery",
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
       PI_stnk_no: {
         cValidate: "",
@@ -624,7 +624,7 @@ export default {
         cProtect: false,
         cParentForm: "OP_FormFmFleetMstr",
         cDecimal: 2,
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
       PI_stnk_expiry_date: {
         cValidate: "",
@@ -634,7 +634,7 @@ export default {
         cProtect: false,
         cWithTime: false,
         cFormat: "dd/MM/yyyy",
-        cParentForm: "OP_FormFmFleetMstr"
+        cParentForm: "OP_FormFmFleetMstr",
       },
       PI_kir: {
         cValidate: "",
@@ -645,7 +645,7 @@ export default {
         cProtect: false,
         cParentForm: "OP_FormFmFleetMstr",
         cDecimal: 2,
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
       PI_kir_expiry_date: {
         cValidate: "",
@@ -655,7 +655,7 @@ export default {
         cProtect: false,
         cWithTime: false,
         cFormat: "dd/MM/yyyy",
-        cParentForm: "OP_FormFmFleetMstr"
+        cParentForm: "OP_FormFmFleetMstr",
       },
       PI_capacity_kgs: {
         cValidate: "",
@@ -666,7 +666,7 @@ export default {
         cProtect: false,
         cParentForm: "OP_FormFmFleetMstr",
         cDecimal: 2,
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
       PI_capacity_cbm: {
         cValidate: "",
@@ -677,7 +677,7 @@ export default {
         cProtect: false,
         cParentForm: "OP_FormFmFleetMstr",
         cDecimal: 2,
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
       PI_gps_vendor: {
         dataLookUp: {
@@ -688,7 +688,7 @@ export default {
           OrderBy: "",
           ParamView: "",
           SourceField: "",
-          DisplayLookUp: "vehicle_type,descs"
+          DisplayLookUp: "vehicle_type,descs",
         },
         cValidate: "",
         cName: "gps_vendor",
@@ -699,7 +699,7 @@ export default {
         cParentForm: "OP_FormFmFleetMstr",
         cOption: [],
         cDisplayColumn: "vehicle_type,descs",
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
       PI_gps_id: {
         cValidate: "",
@@ -710,7 +710,7 @@ export default {
         cProtect: false,
         cParentForm: "OP_FormFmFleetMstr",
         cDecimal: 2,
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
       PI_millage: {
         cValidate: "",
@@ -721,7 +721,7 @@ export default {
         cProtect: false,
         cParentForm: "OP_FormFmFleetMstr",
         cDecimal: 2,
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
       PI_remarks: {
         cValidate: "",
@@ -735,21 +735,21 @@ export default {
         cMaxRows: 4,
         cSize: "md",
         cParentForm: "OP_FormFmFleetMstr",
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
       PI_add_pict: {
         cName: "picture",
         cAccept: ".jpg, .png, .gif",
         cTitle: "Browse",
-        cModule: "OP"
+        cModule: "OP",
       },
       M_ModalPict: {
         file_logo: "",
         file_logo_name: "",
         file_logo_path: "",
-        file_show: require("@/assets/default_photo_.png")
+        file_show: require("@/assets/default_photo_.png"),
       },
-      M_Picture: []
+      M_Picture: [],
     };
   },
   computed: {
@@ -764,7 +764,7 @@ export default {
       } else {
         return "new";
       }
-    }
+    },
   },
   methods: {
     Delete_Pict(i) {
@@ -781,7 +781,7 @@ export default {
         file_logo: "",
         file_logo_name: "",
         file_logo_path: "",
-        file_show: require("@/assets/default_photo_.png")
+        file_show: require("@/assets/default_photo_.png"),
       };
     },
     doAddPict() {
@@ -868,15 +868,15 @@ export default {
         lastupdatestamp: "",
         gps_vendor: "",
         gps_vendorLabel: "",
-        gps_id: ""
+        gps_id: "",
       };
     },
 
     doSave() {
-      this.$validator._base.validateAll("OP_FormFmFleetMstr").then(result => {
+      this.$validator._base.validateAll("OP_FormFmFleetMstr").then((result) => {
         if (!result) return;
         this.alertConfirmation("Are You Sure Want To Save This Data ?").then(
-          ress => {
+          (ress) => {
             if (ress.value) {
               this.$validator.errors.clear("OP_FormFmFleetMstr");
               if (this.inputStatus == "edit") {
@@ -917,7 +917,7 @@ export default {
               ? "NULL"
               : this.M_FmFleetMstr.gps_vendor,
           fleet_gps_id: this.M_FmFleetMstr.gps_id,
-          user_input: this.getDataUser().user_id
+          user_input: this.getDataUser().user_id,
         },
         paramD = [];
 
@@ -931,7 +931,7 @@ export default {
           doc_file_name: pict.file_logo_name,
           doc_path_file: pict.file_logo_path,
           expiry_date: "NULL",
-          user_input: this.getDataUser().user_id
+          user_input: this.getDataUser().user_id,
         });
       });
 
@@ -941,13 +941,13 @@ export default {
         Data: [
           {
             A_Insert: paramH,
-            B_Looping: paramD
-          }
-        ]
+            B_Looping: paramD,
+          },
+        ],
       };
 
       this.postJSONMulti(this.getUrlProsesDataPostMulti(), param).then(
-        response => {
+        (response) => {
           // console.log(response)
           if (response == null) return;
           this.alertSuccess("Save Data Has Been Successfully").then(() => {
@@ -955,7 +955,7 @@ export default {
             var param = {
               row_id: response.Data["A_Insert"].row_id,
               lastupdatestamp: 0,
-              isView: true
+              isView: true,
             };
             this.$store.commit("setParamPage", param);
             this.$router.replace({ name: "OP_FleetMasterView" });
@@ -995,13 +995,13 @@ export default {
               : this.M_FmFleetMstr.gps_vendor,
           fleet_gps_id: this.M_FmFleetMstr.gps_id,
           lastupdatestamp: this.paramFromList.lastupdatestamp,
-          user_edit: this.getDataUser().user_id
+          user_edit: this.getDataUser().user_id,
         },
         paramD = [],
         paramDelDoc = {
           _Method_: "DELETE",
           _LineNo_: 1,
-          fm_fleet_mstr_id: this.M_FmFleetMstr.fm_fleet_mstr_id
+          fm_fleet_mstr_id: this.M_FmFleetMstr.fm_fleet_mstr_id,
         };
 
       this.M_Picture.forEach((pict, index) => {
@@ -1014,7 +1014,7 @@ export default {
           doc_file_name: pict.file_logo_name,
           doc_path_file: pict.file_logo_path,
           expiry_date: "NULL",
-          user_input: this.getDataUser().user_id
+          user_input: this.getDataUser().user_id,
         });
       });
 
@@ -1025,13 +1025,13 @@ export default {
           {
             A_Insert: paramH,
             A_Delete: paramDelDoc,
-            B_Looping: paramD
-          }
-        ]
+            B_Looping: paramD,
+          },
+        ],
       };
 
       this.postJSONMulti(this.getUrlProsesDataPostMulti(), param).then(
-        response => {
+        (response) => {
           // console.log(response)
           if (response == null) return;
           this.alertSuccess("Save Data Has Been Successfully").then(() => {
@@ -1057,9 +1057,9 @@ export default {
         option_url: "/OP/OP_FleetMaster",
         line_no: { LineNo },
         id: this.paramFromList.row_id,
-        lastupdatestamp: this.paramFromList.lastupdatestamp
+        lastupdatestamp: this.paramFromList.lastupdatestamp,
       };
-      this.deleteJSON(this.getUrlCRUD(), param).then(response => {
+      this.deleteJSON(this.getUrlCRUD(), param).then((response) => {
         if (response == null) return;
         this.alertSuccess("Data Has Been Deleted").then(() => {
           this.doBack();
@@ -1071,10 +1071,10 @@ export default {
         option_url: "/OP/OP_FleetMaster",
         line_no: 0,
         id: this.paramFromList.row_id,
-        lastupdatestamp: this.paramFromList.lastupdatestamp
+        lastupdatestamp: this.paramFromList.lastupdatestamp,
       };
 
-      this.getJSON(this.getUrlCRUD(), param).then(response => {
+      this.getJSON(this.getUrlCRUD(), param).then((response) => {
         // response from API
         if (response == null) return;
 
@@ -1118,7 +1118,7 @@ export default {
               lastupdatestamp: data[i].lastupdatestamp,
               gps_vendor: data[i].op_vendor_gps_id,
               gps_vendorLabel: data[i].op_vendor_gps_name,
-              gps_id: data[i].fleet_gps_id
+              gps_id: data[i].fleet_gps_id,
             };
           }
 
@@ -1131,7 +1131,7 @@ export default {
                 file_show:
                   data[i].dt_doc_path_file && data[i].dt_doc_path_file !== ""
                     ? this.url + data[i].dt_doc_path_file
-                    : require("@/assets/default_photo_.png")
+                    : require("@/assets/default_photo_.png"),
               });
             }
           } else {
@@ -1142,14 +1142,14 @@ export default {
               file_show:
                 data[i].dt_doc_path_file && data[i].dt_doc_path_file !== ""
                   ? this.url + data[i].dt_doc_path_file
-                  : require("@/assets/default_photo_.png")
+                  : require("@/assets/default_photo_.png"),
             });
           }
         }
 
         this.M_Picture = pict;
       });
-    }
+    },
   },
   mounted() {
     this.M_ClearForm();
@@ -1159,7 +1159,7 @@ export default {
     } else {
       this.title = "Add";
     }
-  }
+  },
 };
 </script>
 
