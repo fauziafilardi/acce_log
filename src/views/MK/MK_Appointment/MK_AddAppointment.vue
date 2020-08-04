@@ -37,7 +37,7 @@
                             <span style="color:red;">*</span>
                           </label>
                         </span>
-                        <ACCLookUp
+                        <ACCDropDown
                           @change="OncustomerChange"
                           :prop="PI_customer"
                           v-model="M_Appointment.customer"
@@ -76,7 +76,7 @@
                           v-model="M_Appointment.contact_person"
                           ref="ref_contact_person"
                         />-->
-                        <ACCLookUp
+                        <ACCDropDown
                           @change="Oncontact_personChange"
                           :prop="PI_contact_person"
                           v-model="M_Appointment.contact_person"
@@ -289,7 +289,7 @@ export default {
         cParentForm: "MK_AddAppointment",
         cStatic: false,
         cOption: [],
-        cDisplayColumn: "name,contact_person,time_edit",
+        cDisplayColumn: "name",
         cInputStatus: this.inputStatus
       },
       PI_action: {
@@ -339,7 +339,7 @@ export default {
         cParentForm: "MK_AddAppointment",
         cStatic: false,
         cOption: [],
-        cDisplayColumn: "name,phone_no,email,time_edit",
+        cDisplayColumn: "name",
         cInputStatus: this.inputStatus
       },
       PI_appointment_date: {

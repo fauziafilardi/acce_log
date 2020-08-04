@@ -11,13 +11,6 @@
                 </b-col>
                 <b-col style="text-align: right;">
                   <ABSButton
-                    :text="'Add Order'"
-                    classButton="button button--back"
-                    classIcon="icon-style-1"
-                    @click="doAddOrder"
-                  />
-
-                  <ABSButton
                     :text="'Back'"
                     classButton="button button--back"
                     classIcon="icon-style-1"
@@ -27,35 +20,6 @@
               </b-row>
             </div>
             <div class="card__body">
-              <b-row v-show="!isConfirmed">
-                  <b-col class="col-right">
-                      <span>
-                          <ABSButton
-                              :text="'Confirm'"
-                              classButton="button button--default"
-                              classIcon="icon-style-1"
-                              @click="doConfirm"
-                          />
-                      </span>
-                      <span>
-                          <ABSButton
-                              :text="'Delete'"
-                              classButton="button button--default"
-                              classIcon="icon-style-1"
-                              @click="doDelete"
-                          />
-                      </span>
-                      <span>
-                          <ABSButton
-                              :text="'Edit'"
-                              classButton="button button--default"
-                              classIcon="icon-style-1"
-                              @click="doEdit"
-                          />
-                      </span>
-                  </b-col>
-              </b-row>
-              <br >
               <b-row>
                 <b-col md="6">
                   <b-row class="row-bordered">
@@ -332,27 +296,65 @@
                   </b-row>
                 </b-col>
               </b-row>
-              <br >
-              <b-row v-show="M_Order.category !== 'L'">
-                <b-col>
-                  <ACCFormList
-                    :prop="propList"
-                    :title="''"
-                    @rowClicked="rowClicked"
-                    ref="ref_OrderList"
-                    WithDeleteButton
-                    @buttonDeleteClicked="doDeleteClick"
-                  >
-                    <template slot="status" slot-scope="data">
-                      <div style="width: 32px; height: 32px; background-color: purple; border-radius: 50px; margin: auto; padding-top: 3%; color: white">
-                        {{data.item.status}}
-                      </div>
-                    </template>
-                  </ACCFormList>
-                </b-col>
-              </b-row>
             </div>
           </div>
+            <div class="card">
+                <div class="card__body">
+                    <b-form :data-vv-scope="'OP_OrderForm'" :data-vv-value-path="'OP_OrderForm'">
+                        <b-row>
+                            <b-col md="2" style="text-align: center;">
+                                <img :src="require('@/assets/paper.png')" alt style="width: 100px;" />
+                            </b-col>
+                            <b-col md="10">
+                                <b-row>
+                                    <b-col md="4">
+                                        <span>
+                                            <label>Order Date</label>
+                                        </span>
+                                        <ACCDateTime
+                                            @input="OndateChange"
+                                            :prop="PI_date"
+                                            v-model="M_FOrder.date"
+                                            ref="ref_date"
+                                        />
+                                    </b-col>
+                                </b-row>
+                                <b-row>
+                                    <b-col md="8">
+                                        <span>
+                                            <label>Project Name</label>
+                                        </span>
+                                        <ACCTextBox
+                                            :prop="PI_project_name"
+                                            v-model="M_FOrder.project_name"
+                                            ref="ref_project_name"
+                                        />
+                                    </b-col>
+                                </b-row>
+                                <b-row>
+                                    <b-col md="8">
+                                        <span>
+                                            <label>Description</label>
+                                        </span>
+                                        <ACCTextArea :prop="PI_descs" v-model="M_FOrder.descs" ref="ref_descs" />
+                                    </b-col>
+                                </b-row>
+                                <b-row style="margin-top: 10px;">
+                                    <b-col md="8">
+                                        <ABSButton
+                                            :text="'Save'"
+                                            classButton="btn btn--default"
+                                            classIcon="icon-style-default"
+                                            @click="doSave"
+                                            styleButton="height: 40px;width: 100%;"
+                                        />
+                                    </b-col>
+                                </b-row>
+                            </b-col>
+                        </b-row>
+                    </b-form>
+                </div>
+            </div>
         </b-col>
       </b-row>
     </div>
@@ -363,14 +365,6 @@
 export default {
   data() {
     return {
-      propList: {
-        OptionUrl: "/OP/OP_Booking",
-        LineNo: 2,
-        initialWhere:"",
-        OrderBy: "",
-        SourceField: "",
-        ParamView: "",
-      },
       M_Order: {
         booking_no: "",
         status: "",
@@ -393,8 +387,48 @@ export default {
         contracted_volume: "",
         executed_volume: "",
       },
-      TruckDetail: [],
-      isConfirmed: false
+      
+      PI_date: {
+        cValidate: "required",
+        cName: "date",
+        cOrder: 1,
+        cKey: false,
+        cProtect: false,
+        cWithTime: true,
+        cFormat: "dd/MM/yyyy",
+        cParentForm: "OP_OrderForm",
+        cInputStatus: this.inputStatus
+      },
+      PI_project_name: {
+        cValidate: "required|max:60",
+        cName: "project_name",
+        cOrder: 2,
+        cKey: false,
+        cType: "text",
+        cProtect: false,
+        cParentForm: "OP_OrderForm",
+        cDecimal: 2,
+        cInputStatus: this.inputStatus
+      },
+      PI_descs: {
+        cValidate: "required|max:500",
+        cName: "descs",
+        cOrder: 3,
+        cKey: false,
+        cProtect: false,
+        cResize: false,
+        cReadonly: false,
+        cRows: 3,
+        cMaxRows: 10,
+        cSize: "md",
+        cParentForm: "OP_OrderForm",
+        cInputStatus: this.inputStatus
+      },
+      M_FOrder: {
+          date: '',
+          project_name: '',
+          descs: ''
+      }
     };
   },
   computed: {
@@ -412,97 +446,54 @@ export default {
     }
   },
   methods: {
-    doAddOrder() {
-      var param = this.paramFromList;
-      this.$store.commit("setParamPage", param);
-      this.$router.push({ name: "OP_OrderForm" });
-    },
     doBack() {
       this.$router.go(-1);
     },
-    doConfirm(){
-      this.alertConfirmation("Are You Sure Want To Confirm This Data ?").then(
-        ress => {
-          if (ress.value) {
-            this.M_Confirm();
-          }
-        }
-      );
-    },
-    M_Confirm() {
-      var param = {
-        option_function_cd: "ConfirmOpBooking",
-        module_cd: "OP",
-        ss_portfolio_id: this.getDataUser().portfolio_id,
-        row_id: this.paramFromList.row_id,
-        user_id: this.getDataUser().user_id
-      };
-
-      this.CallFunction(param).then(response => {
-        if (response == null) return;
-        this.GetDataBy();
-        // this.isConfirmed = true;
-      });
-    },
-    doDelete() {
-      this.alertConfirmation("Are You Sure Want To Delete This Data ?").then(
-        ress => {
-          if (ress.value) {
-            this.M_Delete();
-          }
-        }
-      );
-    },
-    M_Delete() {
-      var param = {
-        option_url: "/OP/OP_Booking",
-        line_no: 0,
-        id: this.paramFromList.row_id,
-        lastupdatestamp: this.M_Order.lastupdatestamp
-      };
-      this.deleteJSON(this.getUrlCRUD(), param).then(response => {
-        if (response == null) return;
-        this.alertSuccess("Data Has Been Deleted").then(() => {
-          this.doBack();
+    doSave() {
+        this.$validator._base.validateAll("OP_OrderForm").then(result => {
+            // console.log(result)
+            if (!result) return;
+            this.alertConfirmation("Are You Sure Want To Save This Data ?").then(
+            ress => {
+                if (ress.value) {
+                    this.$validator.errors.clear("OP_OrderForm");
+                    if (this.inputStatus == "edit") {
+                        this.M_Update();
+                    } else {
+                        this.M_Insert();
+                    }
+                }
+            }
+            );
         });
-      });
     },
-    doEdit() {
-      var param = this.paramFromList;
-      param.isView = false;
-      param.isEdit = true;
-      this.$store.commit("setParamPage", param);
-      this.$router.push({ name: "OP_AddBookingEntry" });
-    },
-    renderListOrder() {
-      this.propList.initialWhere = "op_booking_h_id='" + this.paramFromList.row_id + "'"
-      this.$refs.ref_OrderList.doGetList("");
-    },
-    doDeleteClick(record, index) {
-      if (record.status !== 'NW') return
+    M_Insert() {
+        var param = {
+            option_url: "/OP/OP_Booking",
+            line_no: 2,
+            ss_portfolio_id: this.getDataUser().portfolio_id,
+            op_booking_h_id: this.paramFromList.row_id,
+            order_date: this.M_FOrder.date,
+            project_name: this.M_FOrder.project_name,
+            descs: this.M_FOrder.descs,
+            user_id: this.getDataUser().user_id
+        };
 
-      this.alertConfirmation("Are You Sure Want To Delete This Data ?").then(
-        ress => {
-          if (ress.value) {
-            this.M_DeleteOrder(record);
-          }
-        }
-      );
-    },
-    M_DeleteOrder(i) {
-      var param = {
-        option_url: "/OP/OP_Booking",
-        line_no: 2,
-        id: i.row_id,
-        lastupdatestamp: i.lastupdatestamp
-      };
-      this.deleteJSON(this.getUrlCRUD(), param).then(response => {
-        if (response == null) return;
-        this.alertSuccess("Data Has Been Deleted").then(() => {
-          this.GetDataBy();
+        this.postJSON(this.getUrlCRUD(), param).then(response => {
+            // console.log(response)
+            if (response == null) return;
+            this.alertSuccess(response.Message).then(() => {
+                this.doBack();
+                // var param = {
+                //     row_id: response.Data[0].row_id,
+                //     lastupdatestamp: 0
+                // }
+                // this.$store.commit("setParamPage", param);
+                // this.$router.replace({ name: "MK_ViewQuotation" });
+            });
         });
-      });
     },
+    M_Update() {},
     GetDataBy() {
       var param = {
         option_url: "/OP/OP_Booking",
@@ -514,11 +505,6 @@ export default {
       this.getJSON(this.getUrlCRUD(), param).then(response => {
         if (response == null) return;
         var data = response.Data[0];
-        // this.isConfirmed = (data.booking_status == "C")
-        if (data.booking_status == "C") {
-          this.renderListOrder()
-          this.isConfirmed = true
-        }
 
         this.M_Order = {
           op_booking_h_id: data.op_booking_h_id,
@@ -544,24 +530,18 @@ export default {
           executed_volume: data.contract_executed_volume && data.contract_executed_volume !== '' ? this.isCurrency(data.contract_executed_volume, 0) : 0,
           lastupdatestamp: data.lastupdatestamp
         }
-
-        if (data.category !== "L") {
-          for (let i = 0; i < response.Data.length; i++) {
-            var datas = response.Data[i];
-            this.TruckDetail.push({
-              fleet_type: datas.dt_fleet_type,
-              qty: datas.dt_qty && datas.dt_qty !== '' ? this.isCurrency(datas.dt_qty, 0) : 0
-            })
-          }
-        }
-        else {
-          this.TruckDetail = []
-        }
-
       });
+    },
+    M_ClearForm() {
+        this.M_FOrder = {
+            date: new Date(),
+            project_name: "",
+            descs: ""
+        }
     }
   },
   mounted() {
+    this.M_ClearForm();
     this.GetDataBy();
   },
   beforeMount() {}

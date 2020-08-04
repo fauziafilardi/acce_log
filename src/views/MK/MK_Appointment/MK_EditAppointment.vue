@@ -35,7 +35,7 @@
                           <span>
                             <label>Select Company</label>
                           </span>
-                          <ACCLookUp
+                          <ACCDropDown
                             @change="Onmk_customer_idChange"
                             :prop="PI_mk_customer_id"
                             v-model="M_Appointment.mk_customer_id"
@@ -168,7 +168,7 @@
                           v-model="M_Appointment.contact_person"
                           ref="ref_contact_person"
                         />-->
-                        <ACCLookUp
+                        <ACCDropDown
                           @change="Oncontact_personChange"
                           :prop="PI_contact_person"
                           v-model="M_Appointment.contact_person"
@@ -287,7 +287,7 @@
                         <span>
                           <label>PIC</label>
                         </span>
-                        <ACCLookUp
+                        <ACCDropDown
                           @change="Oncontact_personChange2"
                           :prop="PI_next_contact_person"
                           v-model="M_Appointment.next_contact_person"

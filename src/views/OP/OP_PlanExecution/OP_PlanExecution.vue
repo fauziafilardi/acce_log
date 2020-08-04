@@ -22,7 +22,7 @@
                     :disabled="isSearchDisable"
                   ></b-form-input>
                 </b-col>
-                <b-col md="3" class="col-right">
+                <b-col md="1" class="col-right">
                   <span>
                     <ABSButton
                       :text="'Search'"
@@ -31,17 +31,6 @@
                       @click="onSearchEnter"
                     />
                   </span>
-
-                  <!-- <span>
-                                        <ABSButton
-                                            :text="'Add New'"
-                                            classButton="button button--back2"
-                                            classIcon="icon-style-1"
-                                            :disabled="!isCanAdd"
-                                            @click="onAddNewClick"
-                                        />
-                  </span>-->
-
                   <span>
                     <ABSButton
                       :text="'Back'"
@@ -54,436 +43,97 @@
               </b-row>
             </div>
             <div class="card__body">
-              <div>
-                <b-card no-body>
-                  <b-tabs card>
-                    <b-tab title="FTL" active>
-                      <b-card-text>
-                        <div class="bedge-container">
-                          <b-row style="min-width: 800px;">
-                            <!-- <div class="bedge-container" style="width:100%;"> -->
-                            <b-col
-                              class="ChartLegend__Wrap"
-                              style="min-width:712px; border-radius: 0px 0px 8px 8px !important; padding: 0px !important;"
-                            >
-                              <b-row
-                                style="border-radius: 0px 0px 8px 8px; !important; border-left: solid 1px #ccc !important; border-right: solid 1px #ccc !important; border-bottom: solid 1px #ccc !important;"
-                              >
-                                <b-col
-                                  style="border-radius: 0px 0px 0px 8px !important; cursor: pointer; background-color: white; border-right: solid 1px #ccc; border-bottom: solid 1px #ccc;"
-                                >
-                                  <div
-                                    :class="'Plan-Dot-Primary'"
-                                    style="margin-top: 10px !important; border-radius: 8px !important;"
-                                  >
-                                    <span>13</span>
-                                  </div>
-                                  <div class="Plan-Dot-Text">All</div>
-                                </b-col>
-                                <b-col
-                                  v-for="(data, index) in PlanExecution"
-                                  v-bind:key="index"
-                                  style="margin-bottom: 10px; cursor: pointer;"
-                                  @click="filterTable(data)"
-                                >
-                                  <div
-                                    :class="'Plan-Dot-' + data.variant"
-                                    style="margin-top: 10px !important;"
-                                  >
-                                    <span>{{data.dataLength}}</span>
-                                  </div>
-                                  <div class="Plan-Dot-Text">{{data.label}}</div>
-                                </b-col>
-                              </b-row>
-                            </b-col>
-                            <!-- </div> -->
-                          </b-row>
-                          <b-row style="margin-top: 15px; min-width:800px;">
-                            <b-col
-                              style="padding-left: 0px !important; padding-right: 0px !important;"
-                            >
-                              <b-table
-                                :responsive="false"
-                                :striped="false"
-                                :bordered="true"
-                                :outlined="false"
-                                :small="false"
-                                :hover="false"
-                                :dark="false"
-                                :fixed="false"
-                                :foot-clone="false"
-                                :fields="PlanExTable.Header"
-                                :items="PlanExTable.Data"
-                                @row-dblclicked="rowDblClicked"
-                                thStyle="padding: 5px !important;"
-                              >
-                                <!-- class="table-sm table-style-1" -->
-                                <template v-slot:cell(no)="data">{{data.index + 1}}</template>
-                                <template v-slot:cell(fleetsource)="data">
-                                  <font-awesome-icon
-                                    style="color: #333399;"
-                                    icon="arrow-alt-circle-left"
-                                    size="lg"
-                                    v-if="data.item.fleetsource == 'l'"
-                                  />
-                                  <font-awesome-icon
-                                    style="color: #333399;"
-                                    icon="arrow-alt-circle-right"
-                                    size="lg"
-                                    v-if="data.item.fleetsource == 'r'"
-                                  />
-                                </template>
-                                <!-- <template v-slot:cell(category)="data">
-                                  <span v-if="data.item.category == 'F'">FTL</span>
-                                  <span v-else-if="data.item.category == 'L'">LTL</span>
-                                  <span v-else-if="data.item.category == 'P'">Project</span>
-                                  <span v-else>Console</span>
-                                </template>-->
-                                <template v-slot:cell(category)="data">
-                                  <span>FTL</span>
-                                </template>
-                                <template
-                                  v-slot:cell(from)="data"
-                                >{{ data.item.from + ' - ' + data.item.to }}</template>
-                                <template v-slot:cell(status)="data">
-                                  <div
-                                    :class="'Plan-DotTable-' + PlanExecution[data.item.status].variant"
-                                  ></div>
-                                </template>
-                              </b-table>
-                            </b-col>
-                          </b-row>
-                        </div>
-                      </b-card-text>
-                    </b-tab>
-                    <b-tab title="LTL">
-                      <b-card-text>
-                        <div class="bedge-container">
-                          <b-row style="min-width: 800px;">
-                            <!-- <div class="bedge-container" style="width:100%;"> -->
-                            <b-col
-                              class="ChartLegend__Wrap"
-                              style="min-width:712px; border-radius: 0px 0px 8px 8px !important; padding: 0px !important;"
-                            >
-                              <b-row
-                                style="border-radius: 0px 0px 8px 8px; !important; border-left: solid 1px #ccc !important; border-right: solid 1px #ccc !important; border-bottom: solid 1px #ccc !important;"
-                              >
-                                <b-col
-                                  style="border-radius: 0px 0px 0px 8px !important; cursor: pointer; background-color: white; border-right: solid 1px #ccc; border-bottom: solid 1px #ccc;"
-                                >
-                                  <div
-                                    :class="'Plan-Dot-Primary'"
-                                    style="margin-top: 10px !important; border-radius: 8px !important;"
-                                  >
-                                    <span>13</span>
-                                  </div>
-                                  <div class="Plan-Dot-Text">All</div>
-                                </b-col>
-                                <b-col
-                                  v-for="(data, index) in PlanExecution"
-                                  v-bind:key="index"
-                                  style="margin-bottom: 10px; cursor: pointer;"
-                                  @click="filterTable(data)"
-                                >
-                                  <div
-                                    :class="'Plan-Dot-' + data.variant"
-                                    style="margin-top: 10px !important;"
-                                  >
-                                    <span>{{data.dataLength}}</span>
-                                  </div>
-                                  <div class="Plan-Dot-Text">{{data.label}}</div>
-                                </b-col>
-                              </b-row>
-                            </b-col>
-                            <!-- </div> -->
-                          </b-row>
-                          <b-row style="margin-top: 15px; min-width:800px;">
-                            <b-col
-                              style="padding-left: 0px !important; padding-right: 0px !important;"
-                            >
-                              <b-table
-                                :responsive="false"
-                                :striped="false"
-                                :bordered="true"
-                                :outlined="false"
-                                :small="false"
-                                :hover="false"
-                                :dark="false"
-                                :fixed="false"
-                                :foot-clone="false"
-                                :fields="PlanExTable.Header"
-                                :items="PlanExTable.Data"
-                                @row-dblclicked="rowDblClicked"
-                                thStyle="padding: 5px !important;"
-                              >
-                                <!-- class="table-sm table-style-1" -->
-                                <template v-slot:cell(no)="data">{{data.index + 1}}</template>
-                                <template v-slot:cell(fleetsource)="data">
-                                  <font-awesome-icon
-                                    style="color: #333399;"
-                                    icon="arrow-alt-circle-left"
-                                    size="lg"
-                                    v-if="data.item.fleetsource == 'l'"
-                                  />
-                                  <font-awesome-icon
-                                    style="color: #333399;"
-                                    icon="arrow-alt-circle-right"
-                                    size="lg"
-                                    v-if="data.item.fleetsource == 'r'"
-                                  />
-                                </template>
-                                <!-- <template v-slot:cell(category)="data">
-                                  <span v-if="data.item.category == 'F'">FTL</span>
-                                  <span v-else-if="data.item.category == 'L'">LTL</span>
-                                  <span v-else-if="data.item.category == 'P'">Project</span>
-                                  <span v-else>Console</span>
-                                </template>-->
-                                <template v-slot:cell(category)="data">
-                                  <span>LTL</span>
-                                </template>
-                                <template
-                                  v-slot:cell(from)="data"
-                                >{{ data.item.from + ' - ' + data.item.to }}</template>
-                                <template v-slot:cell(status)="data">
-                                  <div
-                                    :class="'Plan-DotTable-' + PlanExecution[data.item.status].variant"
-                                  ></div>
-                                </template>
-                              </b-table>
-                            </b-col>
-                          </b-row>
-                        </div>
-                      </b-card-text>
-                    </b-tab>
-                    <b-tab title="Concole">
-                      <b-card-text>
-                        <div class="bedge-container">
-                          <b-row style="min-width: 800px;">
-                            <!-- <div class="bedge-container" style="width:100%;"> -->
-                            <b-col
-                              class="ChartLegend__Wrap"
-                              style="min-width:712px; border-radius: 0px 0px 8px 8px !important; padding: 0px !important;"
-                            >
-                              <b-row
-                                style="border-radius: 0px 0px 8px 8px; !important; border-left: solid 1px #ccc !important; border-right: solid 1px #ccc !important; border-bottom: solid 1px #ccc !important;"
-                              >
-                                <b-col
-                                  style="border-radius: 0px 0px 0px 8px !important; cursor: pointer; background-color: white; border-right: solid 1px #ccc; border-bottom: solid 1px #ccc;"
-                                >
-                                  <div
-                                    :class="'Plan-Dot-Primary'"
-                                    style="margin-top: 10px !important; border-radius: 8px !important;"
-                                  >
-                                    <span>13</span>
-                                  </div>
-                                  <div class="Plan-Dot-Text">All</div>
-                                </b-col>
-                                <b-col
-                                  v-for="(data, index) in PlanExecution"
-                                  v-bind:key="index"
-                                  style="margin-bottom: 10px; cursor: pointer;"
-                                  @click="filterTable(data)"
-                                >
-                                  <div
-                                    :class="'Plan-Dot-' + data.variant"
-                                    style="margin-top: 10px !important;"
-                                  >
-                                    <span>{{data.dataLength}}</span>
-                                  </div>
-                                  <div class="Plan-Dot-Text">{{data.label}}</div>
-                                </b-col>
-                              </b-row>
-                            </b-col>
-                            <!-- </div> -->
-                          </b-row>
-                          <b-row style="margin-top: 15px; min-width:800px;">
-                            <b-col
-                              style="padding-left: 0px !important; padding-right: 0px !important;"
-                            >
-                              <b-table
-                                :responsive="false"
-                                :striped="false"
-                                :bordered="true"
-                                :outlined="false"
-                                :small="false"
-                                :hover="false"
-                                :dark="false"
-                                :fixed="false"
-                                :foot-clone="false"
-                                :fields="PlanExTable.Header"
-                                :items="PlanExTable.Data"
-                                thStyle="padding: 5px !important;"
-                              >
-                                <!-- class="table-sm table-style-1" -->
-                                <template v-slot:cell(no)="data">{{data.index + 1}}</template>
-                                <template v-slot:cell(fleetsource)="data">
-                                  <font-awesome-icon
-                                    style="color: #333399;"
-                                    icon="arrow-alt-circle-left"
-                                    size="lg"
-                                    v-if="data.item.fleetsource == 'l'"
-                                  />
-                                  <font-awesome-icon
-                                    style="color: #333399;"
-                                    icon="arrow-alt-circle-right"
-                                    size="lg"
-                                    v-if="data.item.fleetsource == 'r'"
-                                  />
-                                </template>
-                                <!-- <template v-slot:cell(category)="data">
-                                  <span v-if="data.item.category == 'F'">FTL</span>
-                                  <span v-else-if="data.item.category == 'L'">LTL</span>
-                                  <span v-else-if="data.item.category == 'P'">Project</span>
-                                  <span v-else>Console</span>
-                                </template>-->
-                                <template v-slot:cell(category)="data">
-                                  <span>Console</span>
-                                </template>
-                                <template
-                                  v-slot:cell(from)="data"
-                                >{{ data.item.from + ' - ' + data.item.to }}</template>
-                                <template v-slot:cell(status)="data">
-                                  <div
-                                    :class="'Plan-DotTable-' + PlanExecution[data.item.status].variant"
-                                  ></div>
-                                </template>
-                              </b-table>
-                            </b-col>
-                          </b-row>
-                        </div>
-                      </b-card-text>
-                    </b-tab>
-                    <b-tab title="Project">
-                      <b-card-text>
-                        <div class="bedge-container">
-                          <b-row style="min-width: 800px;">
-                            <!-- <div class="bedge-container" style="width:100%;"> -->
-                            <b-col
-                              class="ChartLegend__Wrap"
-                              style="min-width:712px; border-radius: 0px 0px 8px 8px !important; padding: 0px !important;"
-                            >
-                              <b-row
-                                style="border-radius: 0px 0px 8px 8px; !important; border-left: solid 1px #ccc !important; border-right: solid 1px #ccc !important; border-bottom: solid 1px #ccc !important;"
-                              >
-                                <b-col
-                                  style="border-radius: 0px 0px 0px 8px !important; cursor: pointer; background-color: white; border-right: solid 1px #ccc; border-bottom: solid 1px #ccc;"
-                                >
-                                  <div
-                                    :class="'Plan-Dot-Primary'"
-                                    style="margin-top: 10px !important; border-radius: 8px !important;"
-                                  >
-                                    <span>13</span>
-                                  </div>
-                                  <div class="Plan-Dot-Text">All</div>
-                                </b-col>
-                                <b-col
-                                  v-for="(data, index) in PlanExecution"
-                                  v-bind:key="index"
-                                  style="margin-bottom: 10px; cursor: pointer;"
-                                  @click="filterTable(data)"
-                                >
-                                  <div
-                                    :class="'Plan-Dot-' + data.variant"
-                                    style="margin-top: 10px !important;"
-                                  >
-                                    <span>{{data.dataLength}}</span>
-                                  </div>
-                                  <div class="Plan-Dot-Text">{{data.label}}</div>
-                                </b-col>
-                              </b-row>
-                            </b-col>
-                            <!-- </div> -->
-                          </b-row>
-                          <b-row style="margin-top: 15px; min-width:800px;">
-                            <b-col
-                              style="padding-left: 0px !important; padding-right: 0px !important;"
-                            >
-                              <b-table
-                                :responsive="false"
-                                :striped="false"
-                                :bordered="true"
-                                :outlined="false"
-                                :small="false"
-                                :hover="false"
-                                :dark="false"
-                                :fixed="false"
-                                :foot-clone="false"
-                                :fields="PlanExTable.Header"
-                                :items="PlanExTable.Data"
-                                thStyle="padding: 5px !important;"
-                              >
-                                <!-- class="table-sm table-style-1" -->
-                                <template v-slot:cell(no)="data">{{data.index + 1}}</template>
-                                <template v-slot:cell(fleetsource)="data">
-                                  <font-awesome-icon
-                                    style="color: #333399;"
-                                    icon="arrow-alt-circle-left"
-                                    size="lg"
-                                    v-if="data.item.fleetsource == 'l'"
-                                  />
-                                  <font-awesome-icon
-                                    style="color: #333399;"
-                                    icon="arrow-alt-circle-right"
-                                    size="lg"
-                                    v-if="data.item.fleetsource == 'r'"
-                                  />
-                                </template>
-                                <!-- <template v-slot:cell(category)="data">
-                                  <span v-if="data.item.category == 'F'">FTL</span>
-                                  <span v-else-if="data.item.category == 'L'">LTL</span>
-                                  <span v-else-if="data.item.category == 'P'">Project</span>
-                                  <span v-else>Console</span>
-                                </template>-->
-                                <template v-slot:cell(category)="data">
-                                  <span>Project</span>
-                                </template>
-                                <template
-                                  v-slot:cell(from)="data"
-                                >{{ data.item.from + ' - ' + data.item.to }}</template>
-                                <template v-slot:cell(status)="data">
-                                  <div
-                                    :class="'Plan-DotTable-' + PlanExecution[data.item.status].variant"
-                                  ></div>
-                                </template>
-                              </b-table>
-                            </b-col>
-                          </b-row>
-                        </div>
-                      </b-card-text>
-                    </b-tab>
-                  </b-tabs>
-                </b-card>
+
+              <div class="card">
+                <div class="card__title" style="background-color: rgb(227, 231, 238) !important; padding-bottom: unset;">
+                  <b-row>
+                    <div :class="'col-md-1 isTabs' + (FilterC == 'F' ? ' active' : '')">
+                      <span style="font-size: 13px; color: white; font-weight: bold;">
+                        FTL
+                      </span>
+                    </div>
+                    <div :class="'col-md-1 isTabs' + (FilterC == 'L' ? ' active' : '')">
+                      <span style="font-size: 13px; color: white; font-weight: bold;">
+                        LTL
+                      </span>
+                    </div>
+                    <div :class="'col-md-1 isTabs' + (FilterC == 'C' ? ' active' : '')">
+                      <span style="font-size: 13px; color: white; font-weight: bold;">
+                        Console
+                      </span>
+                    </div>
+                    <div :class="'col-md-1 isTabs' + (FilterC == 'P' ? ' active' : '')">
+                      <span style="font-size: 13px; color: white; font-weight: bold;">
+                        Project
+                      </span>
+                    </div>
+                    <div :class="'col-md-1 isTabs' + (FilterC == 'R' ? ' active' : '')">
+                      <span style="font-size: 13px; color: white; font-weight: bold;">
+                        Return Empty
+                      </span>
+                    </div>
+                  </b-row>
+                </div>
+                <div class="card__body" style="background-color: rgb(227, 231, 238) !important; padding: unset; border-radius: 0px 0px 8px 8px;">
+                  <b-row style="min-width: 800px;">
+                    <b-col
+                      class="ChartLegend__Wrap"
+                      style="min-width:712px; padding: 0px !important;"
+                    >
+                      <b-row
+                        style="border-radius: 0px 0px 8px 8px; !important; border: solid 1px #ccc !important"
+                      >
+                        <b-col
+                          style="border-radius: 0px 0px 0px 8px !important; cursor: pointer; background-color: white; border-right: solid 1px #ccc; border-bottom: solid 1px #ccc;"
+                        >
+                          <div
+                            :class="'Plan-Dot-Primary'"
+                            style="margin-top: 10px !important; border-radius: 8px !important;"
+                          >
+                            <span>{{PlanExecution.length}}</span>
+                          </div>
+                          <div class="Plan-Dot-Text">All</div>
+                        </b-col>
+                        <b-col
+                          v-for="(data, index) in Status"
+                          v-bind:key="index"
+                          style="margin-bottom: 10px; cursor: pointer;"
+                          @click="filterTable(data)"
+                        >
+                          <div
+                            :class="'Plan-Dot-' + data.variant"
+                            :style="'margin-top: 10px !important;' + (FilterS == data.status ? 'font-weight: bold;' : '')"
+                          >
+                            <span>{{data.dataLength}}</span>
+                          </div>
+                          <div class="Plan-Dot-Text" :style="FilterS == data.status ? 'font-weight: bold;' : ''">{{data.label}}</div>
+                        </b-col>
+                      </b-row>
+                    </b-col>
+                  </b-row>
+                </div>
               </div>
             </div>
-            <div class="card__footer">
-              <!-- <b-form inline style="float: left; color: #333;">
-                <label
-                  class="font-lbl"
-                  style="margin-bottom:0px !important; margin-right:0px !important;"
-                >Page Size</label>
-                <b-form-select
-                  id="cmbPerPage"
-                  v-model="perPage"
-                  v-on:input="doGetList(search, 'pageSize')"
-                  :options="pagingData"
-                  class="sm-3 mgn-left-10 font-lbl page-size-left"
-                  :disabled="isDisableTable"
-                ></b-form-select>
-                of {{ this.totalRows }} Records
-              </b-form>
-
-              <b-pagination
-                align="right"
-                v-model="currentPage"
-                @input="doGetList(search, 'pagination')"
-                :total-rows="totalRows"
-                :per-page="perPage"
-                :limit="limit"
-                style="margin-bottom: 0px;"
-                :disabled="isDisableTable"
-              ></b-pagination>-->
-            </div>
-            <iframe name="print_frame" width="0" height="0" frameborder="0" src="about:blank"></iframe>
+          </div>
+          <div>
+            <ACCFormList
+              :prop="propList"
+              :title="''"
+              @rowClicked="rowClicked"
+              ref="ref_OrderList"
+              @onRenderData="onRenderData"
+            >
+              <!-- <template slot="status" slot-scope="data">
+                <div style="width: 32px; height: 32px; background-color: purple; border-radius: 50px; margin: auto; padding-top: 3%; color: white">
+                  {{data.item.status}}
+                </div>
+              </template> -->
+              <template v-slot:cell(status)="data">
+                <div
+                  :class="'Plan-DotTable-' + Status[data.item.status].variant"
+                ></div>
+              </template>
+            </ACCFormList>
           </div>
         </b-col>
       </b-row>
@@ -495,19 +145,39 @@
 export default {
   data() {
     return {
+      propList: {
+        OptionUrl: "/OP/OP_Booking",
+        LineNo: 2,
+        initialWhere:"",
+        OrderBy: "",
+        SourceField: "",
+        ParamView: "",
+        PerPage: 12
+      },
+      FilterC: "",
+      FilterS: "",
       PlanExecution: [],
-      DataTable: [],
-      PlanExTable: {
-        Header: [],
-        Data: []
+      Status: {
+        "NW": { key: "NW", label: "New", variant: "Magenta" },
+        "AS": { key: "AS", label: "Assign", variant: "Lime" },
+        "DP": { key: "DP", label: "Dispatch", variant: "Green" },
+        "AR": { key: "AR", label: "Arrived", variant: "Purple" },
+        "SL": { key: "SL", label: "Start Loading", variant: "Blue" },
+        "FL": { key: "FL", label: "Finish Loading", variant: "Orange" },
+        "GO": { key: "GO", label: "Get Out", variant: "Red" },
+        "AD": { key: "AD", label: "Arrive Destination", variant: "Gold" },
+        "SU": { key: "SU", label: "Start Unloading", variant: "LightGreen" },
+        "FU": { key: "FU", label: "Finish Unloading", variant: "Pink" }
       }
     };
   },
-  computed: {},
+  computed: {
+  },
   methods: {
-    rowDblClicked(record, index) {
+    rowClicked(record, index) {
       var param = record;
       this.$router.push({ name: "OP_ViewPlanExecution", params: param });
+      // console.log(this.$refs.ref_OrderList.items)
     },
     renderPlan() {
       var statusD = [
@@ -793,10 +463,18 @@ export default {
         var dataNew = this.DataTable.filter(x => x.status == status);
         this.PlanExTable.Data = dataNew;
       }
+    },
+    RenderData() {
+      this.$refs.ref_OrderList.doGetList("");
+    },
+    onRenderData(data) {
+      var x = data
+
+      this.PlanExecution  = x
     }
   },
   mounted() {
-    this.renderPlan();
+    this.RenderData();
   }
 };
 </script>
@@ -811,5 +489,20 @@ export default {
 
 .tab-content > .active {
   padding: 0px !important;
+}
+
+.isTabs {
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  background-color: #999999;
+  width: 81px;
+  text-align: center;
+  height: 30px;
+  padding-top: 0.3%;
+  margin-right: 5px;
+}
+
+.active {
+  background-color: #333399 !important;
 }
 </style>
