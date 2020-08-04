@@ -90,6 +90,7 @@
                   :foot-clone="false"
                   :fields="fieldHeader"
                   :items="items"
+                  @row-clicked="viewClicked"
                   class="table-sm table-style-3"
                 >
                   <template v-slot:cell(row_id)="data">
