@@ -146,6 +146,7 @@
 export default {
   data() {
     return {
+      search: "",
       propList: {
         OptionUrl: "/OP/OP_Booking",
         LineNo: 2,
@@ -179,6 +180,10 @@ export default {
       var param = record;
       this.$router.push({ name: "OP_ViewPlanExecution", params: param });
       // console.log(this.$refs.ref_OrderList.items)
+    },
+    onSearchEnter() {
+      this.propList.initialWhere = ""
+      this.$refs.ref_OrderList.doGetList(this.search);
     },
     renderPlan() {
       var statusD = [

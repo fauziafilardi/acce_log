@@ -59,6 +59,9 @@ export default {
       ParamView: String,
       PerPage: Number
     },
+    cStatic: Boolean,
+    cHeader: Array,
+    cData: Array,
     title: String,
     isProcess: Boolean,
     isCheckDisable: String,
@@ -561,6 +564,8 @@ export default {
       this.$emit("buttonDeleteClicked", record, index);
     },
     doGetList(search, method) {
+      if (this.cStatic == true) return
+      
       this.checkOrderBy();
       // if (this.getIsCallBack()) {
       // } else if (this.getIsPopup() && method == 'eb_getList') {
@@ -994,7 +999,12 @@ export default {
   created() {
     this.prop.PerPage = this.prop.PerPage && this.prop.PerPage !== '' ? this.prop.PerPage : 8
     this.perPage = this.prop.PerPage
-    console.log(this.prop.PerPage)
+    
+    this.cStatic = this.cStatic == undefined || !this.cStatic ? false : this.cStatic
+    if (this.cStatic == true) {
+      this.fieldHeader = this.cHeader
+      this.items = this.cData
+    }
     this.GetButtonStatus(this.getDataUser().portfolio_id, this.getDataUser().group_id, this.getDataUser().user_id, this.getOptionUrl())
     .then(ress => {
       if (ress.length < 1) {
