@@ -993,6 +993,8 @@ export default {
   },
   created() {
     this.prop.PerPage = this.prop.PerPage && this.prop.PerPage !== '' ? this.prop.PerPage : 8
+    this.perPage = this.prop.PerPage
+    console.log(this.prop.PerPage)
     this.GetButtonStatus(this.getDataUser().portfolio_id, this.getDataUser().group_id, this.getDataUser().user_id, this.getOptionUrl())
     .then(ress => {
       if (ress.length < 1) {

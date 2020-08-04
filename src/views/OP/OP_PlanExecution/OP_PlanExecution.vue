@@ -47,27 +47,27 @@
               <div class="card">
                 <div class="card__title" style="background-color: rgb(227, 231, 238) !important; padding-bottom: unset;">
                   <b-row>
-                    <div :class="'col-md-1 isTabs' + (FilterC == 'F' ? ' active' : '')">
+                    <div :class="'col-md-1 isTabs' + (FilterC == 'F' ? ' active' : '')" @click="filterTable('C', 'F')">
                       <span style="font-size: 13px; color: white; font-weight: bold;">
                         FTL
                       </span>
                     </div>
-                    <div :class="'col-md-1 isTabs' + (FilterC == 'L' ? ' active' : '')">
+                    <div :class="'col-md-1 isTabs' + (FilterC == 'L' ? ' active' : '')" @click="filterTable('C', 'L')">
                       <span style="font-size: 13px; color: white; font-weight: bold;">
                         LTL
                       </span>
                     </div>
-                    <div :class="'col-md-1 isTabs' + (FilterC == 'C' ? ' active' : '')">
+                    <div :class="'col-md-1 isTabs' + (FilterC == 'C' ? ' active' : '')" @click="filterTable('C', 'C')">
                       <span style="font-size: 13px; color: white; font-weight: bold;">
                         Console
                       </span>
                     </div>
-                    <div :class="'col-md-1 isTabs' + (FilterC == 'P' ? ' active' : '')">
+                    <div :class="'col-md-1 isTabs' + (FilterC == 'P' ? ' active' : '')" @click="filterTable('C', 'P')">
                       <span style="font-size: 13px; color: white; font-weight: bold;">
                         Project
                       </span>
                     </div>
-                    <div :class="'col-md-1 isTabs' + (FilterC == 'R' ? ' active' : '')">
+                    <div :class="'col-md-1 isTabs' + (FilterC == 'R' ? ' active' : '')" @click="filterTable('C', 'R')">
                       <span style="font-size: 13px; color: white; font-weight: bold;">
                         Return Empty
                       </span>
@@ -85,6 +85,7 @@
                       >
                         <b-col
                           style="border-radius: 0px 0px 0px 8px !important; cursor: pointer; background-color: white; border-right: solid 1px #ccc; border-bottom: solid 1px #ccc;"
+                          @click="filterTable('S','')"
                         >
                           <div
                             :class="'Plan-Dot-Primary'"
@@ -98,15 +99,15 @@
                           v-for="(data, index) in Status"
                           v-bind:key="index"
                           style="margin-bottom: 10px; cursor: pointer;"
-                          @click="filterTable(data)"
+                          @click="filterTable('S', data)"
                         >
                           <div
                             :class="'Plan-Dot-' + data.variant"
-                            :style="'margin-top: 10px !important;' + (FilterS == data.status ? 'font-weight: bold;' : '')"
+                            :style="'margin-top: 10px !important;' + (FilterS == data.key ? 'font-weight: bold;' : '')"
                           >
-                            <span>{{data.dataLength}}</span>
+                            <span>{{PlanExecution && PlanExecution.length > 0 ? PlanExecution.filter(x => x.status == data.key).length : 0}}</span>
                           </div>
-                          <div class="Plan-Dot-Text" :style="FilterS == data.status ? 'font-weight: bold;' : ''">{{data.label}}</div>
+                          <div class="Plan-Dot-Text" :style="FilterS == data.key ? 'font-weight: bold;' : ''">{{data.label}}</div>
                         </b-col>
                       </b-row>
                     </b-col>
@@ -123,16 +124,16 @@
               ref="ref_OrderList"
               @onRenderData="onRenderData"
             >
-              <!-- <template slot="status" slot-scope="data">
+              <template slot="status" slot-scope="data">
                 <div style="width: 32px; height: 32px; background-color: purple; border-radius: 50px; margin: auto; padding-top: 3%; color: white">
                   {{data.item.status}}
                 </div>
-              </template> -->
-              <template v-slot:cell(status)="data">
+              </template>
+              <!-- <template v-slot:cell(status)="data">
                 <div
                   :class="'Plan-DotTable-' + Status[data.item.status].variant"
                 ></div>
-              </template>
+              </template> -->
             </ACCFormList>
           </div>
         </b-col>
@@ -152,7 +153,7 @@ export default {
         OrderBy: "",
         SourceField: "",
         ParamView: "",
-        PerPage: 12
+        PerPage: 1000
       },
       FilterC: "",
       FilterS: "",
@@ -455,22 +456,62 @@ export default {
       this.PlanExTable.Data = dataTable;
       this.DataTable = dataTable;
     },
-    filterTable(data) {
-      var status = data.status;
-      if (status == 0) {
-        this.PlanExTable.Data = this.DataTable;
-      } else {
-        var dataNew = this.DataTable.filter(x => x.status == status);
-        this.PlanExTable.Data = dataNew;
+    filterTable(fr, data) {
+      if (fr == 'C') {
+        this.FilterC = data
+        this.FilterS = ""
+        var str = "FTL"
+        switch (data) {
+          case "F":
+            this.propList.initialWhere = "category='FTL'"
+            this.$refs.ref_OrderList.doGetList("");
+            break;
+          case "L":
+            this.propList.initialWhere = "category='LTL'"
+            this.$refs.ref_OrderList.doGetList("");
+            break;
+          case "P":
+            this.propList.initialWhere = "category='Project'"
+            this.$refs.ref_OrderList.doGetList("");
+            break;
+          case "C":
+            this.propList.initialWhere = "category='Console'"
+            this.$refs.ref_OrderList.doGetList("");
+            break;
+          case "R":
+            // this.propList.initialWhere = "category='Console'"
+            // this.$refs.ref_OrderList.doGetList("");
+            break;
+          default:
+            this.propList.initialWhere = ""
+            this.$refs.ref_OrderList.doGetList("");
+            break;
+        }
+      }
+      else {
+        console.log(data)
+        if (data == "") {
+          this.FilterC = ""
+          this.FilterS = data
+          this.propList.initialWhere = data
+          this.$refs.ref_OrderList.doGetList("");
+        } else {
+          this.FilterC = ""
+          this.FilterS = data.key
+  
+          this.propList.initialWhere = "status='" + data.key + "'"
+          this.$refs.ref_OrderList.doGetList("");
+        }
       }
     },
     RenderData() {
       this.$refs.ref_OrderList.doGetList("");
     },
     onRenderData(data) {
-      var x = data
-
-      this.PlanExecution  = x
+      if (this.PlanExecution.length == 0) {
+        var x = data
+        this.PlanExecution  = x
+      }
     }
   },
   mounted() {
