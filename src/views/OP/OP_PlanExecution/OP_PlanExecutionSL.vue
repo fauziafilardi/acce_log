@@ -46,7 +46,7 @@
                   <b-col md="10">
                     <b-row>
                       <b-col>
-                        <span style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;">
+                        <span style="font-size: 15px; font-weight: bold;">
                           {{M_SL_Plan.customer_name}}
                         </span>
                       </b-col>
@@ -80,53 +80,53 @@
                     <b-row>
                       <b-col>
                         <div class="container-step">
-                          <ul class="progressbar">
-                            <li class="active">
+                          <ul class="progressbar" style="padding-inline-start: 0px !important;">
+                            <li class="active" style="width: 10% !important;">
                                 <span>Order</span>
                                 <br />
                                 <span>{{''}}</span>
                             </li>
-                            <li>
+                            <li class="active" style="width: 10% !important;">
                                 <span>Assign</span>
                                 <br />
                                 <span>{{''}}</span>
                             </li>
-                            <li>
+                            <li class="active" style="width: 10% !important;">
                                 <span>Dispatch</span>
                                 <br />
                                 <span>{{''}}</span>
                             </li>
-                            <li>
+                            <li class="active" style="width: 10% !important;">
                                 <span>Arrived</span>
                                 <br />
                                 <span>{{''}}</span>
                             </li>
-                            <li>
+                            <li class="active" style="width: 10% !important;">
                                 <span>Start Loading</span>
                                 <br />
                                 <span>{{''}}</span>
                             </li>
-                            <li>
+                            <li style="width: 10% !important;">
                                 <span>Finish Loading</span>
                                 <br />
                                 <span>{{''}}</span>
                             </li>
-                            <li>
+                            <li style="width: 10% !important;">
                                 <span>Get Out</span>
                                 <br />
                                 <span>{{''}}</span>
                             </li>
-                            <li>
+                            <li style="width: 10% !important;">
                                 <span>Arrive Destination</span>
                                 <br />
                                 <span>{{''}}</span>
                             </li>
-                            <li>
+                            <li style="width: 10% !important;">
                                 <span>Start Unloading</span>
                                 <br />
                                 <span>{{''}}</span>
                             </li>
-                            <li>
+                            <li style="width: 10% !important;">
                                 <span>Finish Unloading</span>
                                 <br />
                                 <span>{{''}}</span>
@@ -145,35 +145,35 @@
                           >
                             <span>Order Number</span>
                             <br />
-                            <span style="color: #ccc">{{M_SL_Plan.order_no}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_SL_Plan.order_no}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span>Date</span>
                             <br />
-                            <span style="color: #ccc">{{M_SL_Plan.date}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_SL_Plan.date}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span>Category</span>
                             <br />
-                            <span style="color: #ccc">{{M_SL_Plan.category}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_SL_Plan.category}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span>From</span>
                             <br />
-                            <span style="color: #ccc">{{M_SL_Plan.from}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_SL_Plan.from}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span>To</span>
                             <br />
-                            <span style="color: #ccc">{{M_SL_Plan.to}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_SL_Plan.to}}</span>
                           </b-col>
                         </b-row>
                         <b-row style="border: solid 1px #e7eaec;border-radius: 0px 0px 5px 5px;">
@@ -182,38 +182,38 @@
                           >
                             <span>Pick Up Date</span>
                             <br />
-                            <span style="color: #ccc">{{M_SL_Plan.pickup_date}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_SL_Plan.pickup_date}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span>KGS</span>
                             <br />
-                            <span style="color: #ccc">{{M_SL_Plan.kgs}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_SL_Plan.kgs}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span>CBM</span>
                             <br />
-                            <span style="color: #ccc">{{M_SL_Plan.cbm}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_SL_Plan.cbm}}</span>
                           </b-col>
                           <b-col style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;">
                             <span>Vehicle Type</span>
                             <br />
-                            <span style="color: #ccc">{{M_SL_Plan.fleet_type_descs}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_SL_Plan.fleet_type_descs}}</span>
                           </b-col>
                           <b-col style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;" >
                             <span>Vehicle Number</span>
                             <br />
-                            <span style="color: #ccc">{{M_SL_Plan.plat_no}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_SL_Plan.plat_no}}</span>
                           </b-col>
                         </b-row>
                       </b-col>
                       <b-col md="3">
                         <b-row
                           class="AppointmentData"
-                          style="height: 100%; background-color: #cccccc; border-radius: 8px;"
+                          style="height: 100%; background-color: rgb(153 153 153)ccc; border-radius: 8px;"
                         >
                           <b-col style="max-width:fit-content !important; margin: auto;">
                             <div style="width:50px;">
@@ -240,14 +240,14 @@
                           <b-col md="12" style="padding-left: 0px !important;">
                             <b-list-group>
                               <b-list-group-item>
-                                <span style="color: #ccc">From :</span>
+                                <span>From :</span>
                                 <br />
-                                <span>{{M_SL_Plan.from_address}}</span>
+                                <span style="color: rgb(153 153 153)">{{M_SL_Plan.from_address}}</span>
                               </b-list-group-item>
                               <b-list-group-item>
-                                <span style="color: #ccc">To :</span>
+                                <span>To :</span>
                                 <br />
-                                <span>{{M_SL_Plan.to_address}}</span>
+                                <span style="color: rgb(153 153 153)">{{M_SL_Plan.to_address}}</span>
                               </b-list-group-item>
                             </b-list-group>
                           </b-col>
@@ -341,7 +341,11 @@
                     <b-row class="row-bordered" style="margin-top: 10px;">
                       <b-col md="12">
                         <b-row>
-                          <b-col md="1">Ticket</b-col>
+                          <b-col style="min-width: fit-content !important;">
+                            <span style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;">
+                              Ticket
+                            </span>
+                          </b-col>
                           <b-col md="1">
                             <b-button
                               style="background-color: transparent; color: black; border: none;"
@@ -599,6 +603,17 @@ data() {
       // param.isEdit = true;
       this.$router.push({ name: "MK_ToDoList_P", params: param });
     },
+    M_ClearForm() {
+      this.M_PlanExe = {
+        finish_loading_date: new Date(),
+        comodity: "",
+        comodityLabel: "",
+        total_item: "",
+        kgs: "",
+        cbm: "",
+        note: ""
+      }
+    },
     GetDataBy() {
       var param = {
         option_url: "/OP/OP_Order",
@@ -611,39 +626,36 @@ data() {
         // response from API
         if (response == null) return;
 
-        var data = response.Data[0];
+        var data = JSON.parse(response.Data[0].fop_order_s)[0];
+        console.log(data)
         
         this.M_SL_Plan = {
-            cm_contact_id: "",
-            customer_name: "",
-            cm_contact_person_id: "",
-            contact_person: "",
-            contact_person_phone_no: "",
-            user: "",
-            status: "",
-            order_no: "",
-            date: "",
-            category: "",
-            from: "",
-            to: "",
-            fm_driver_id1: "",
-            driver1: "",
-            pickup_date: "",
-            kgs: "",
-            cbm: "",
-            fleet_type: "",
-            fleet_type_descs: "",
-            plat_no: "",
-            descs: "",
-            from_address: "",
-            to_address: "",
+            cm_contact_id: 0,
+            customer_name: data.customer_name,
+            cm_contact_person_id: 0,
+            contact_person: data.contact_person_name,
+            contact_person_phone_no: data.contact_person_phone,
+            user: this.getDataUser().user_id,
+            status: data.order_status,
+            order_no: data.order_no,
+            date: this.momentDateFormatting(data.order_date, "YYYY-MM-DD HH:mm"),
+            category: data.category,
+            from: data.from_zone,
+            to: data.to_zone,
+            fm_driver_id1: data.fm_driver_id,
+            driver1: data.driver_name,
+            pickup_date: this.momentDateFormatting(data.pickup_date, "YYYY-MM-DD HH:mm"),
+            kgs: data.total_kgs,
+            cbm: data.total_cbm,
+            fleet_type: data.fm_fleet_type_id,
+            fleet_type_descs: data.vehicle_type_cd,
+            plat_no: data.license_plate_no,
+            descs: data.descs,
+            from_address: data.from_address,
+            to_address: data.to_address,
         }
 
-        // if (data.path_file == "" || data.path_file == null) {
-        //   this.M_NewProspect.path_file = require("@/assets/default_photo_.png");
-        // } else {
-        //   this.M_NewProspect.path_file = this.url + data.path_file;
-        // }
+        this.M_ClearForm();
       });
     }
   },
@@ -684,7 +696,7 @@ data() {
   text-align: center;
   margin: 0 auto 10px auto;
   border-radius: 50%;
-  background-color: #ccc;
+  background-color: rgb(153 153 153);
   color: white;
 }
 .progressbar li:after {
@@ -692,7 +704,7 @@ data() {
   height: 5px;
   content: "";
   position: absolute;
-  background-color: #ccc;
+  background-color: rgb(153 153 153);
   top: 14px;
   left: -45%;
   z-index: -1;
