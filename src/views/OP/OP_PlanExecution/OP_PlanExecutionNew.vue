@@ -47,7 +47,7 @@
                     <b-row>
                       <b-col>
                         <span>
-                          <label>PT. Abadi Sentosa</label>
+                          <label>{{M_GetDataBy.customer_name}}</label>
                         </span>
                       </b-col>
                       <b-col style="text-align: right;">
@@ -72,15 +72,18 @@
                     <b-row class="row-view" style="padding-top: 5px; padding-bottom: 10px;">
                       <b-col>
                         <span>
-                          <font-awesome-icon class="icon-style-default" icon="user" />&nbsp;&nbsp;Basa Aritohang&nbsp;&nbsp;
+                          <font-awesome-icon class="icon-style-default" icon="user" />
+                          &nbsp;&nbsp;{{M_GetDataBy.contact_person_name}}&nbsp;&nbsp;
                         </span>
                         <span>
-                          <font-awesome-icon class="icon-style-default" icon="phone-square-alt" />&nbsp;&nbsp;08989123456
+                          <font-awesome-icon class="icon-style-default" icon="phone-square-alt" />
+                          &nbsp;&nbsp;{{M_GetDataBy.contact_person_phone}}
                         </span>
                       </b-col>
                       <b-col style="text-align: right;">
                         <span>
-                          <font-awesome-icon class="icon-style-default" icon="user" />&nbsp;&nbsp;User : User Account
+                          <font-awesome-icon class="icon-style-default" icon="user" />
+                          &nbsp;&nbsp;User : {{getDataUser().user_name}}
                         </span>
                       </b-col>
                     </b-row>
@@ -89,18 +92,19 @@
                         <div class="container-step">
                           <ul class="progressbar">
                             <li class="active">
-                              <span>Dispatch</span>
+                              <span>Order</span>
                               <br />
-                              <span>01/01/2020 12.00</span>
+                              <span>{{momentDateFormatting(M_GetDataBy.order_date, 'DD/MM/YYYY HH:mm')}}</span>
                             </li>
-                            <li>Arrive</li>
+                            <li>Assign</li>
+                            <li>Dispath</li>
+                            <li>Arrival</li>
                             <li>Start Loading</li>
                             <li>Finish Loading</li>
                             <li>Get Out</li>
-                            <li>Arrive Destination</li>
+                            <li>Arrival Destination</li>
                             <li>Start Unloading</li>
                             <li>Finish Unloading</li>
-                            <li>Get Out Unloading</li>
                           </ul>
                         </div>
                       </b-col>
@@ -113,35 +117,35 @@
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
+                            <span style="color: #ccc">Order No</span>
+                            <br />
+                            <span>{{M_GetDataBy.order_no}}</span>
+                          </b-col>
+                          <b-col
+                            style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
+                          >
                             <span style="color: #ccc">Date</span>
                             <br />
-                            <span>01/01/2020 12.00</span>
+                            <span>{{momentDateFormatting(M_GetDataBy.order_date, 'DD/MM/YYYY')}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
-                            <span style="color: #ccc">Order Number</span>
+                            <span style="color: #ccc">Category</span>
                             <br />
-                            <span>#ORD0000001</span>
+                            <span>{{M_GetDataBy.category}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
-                            <span style="color: #ccc">Type</span>
+                            <span style="color: #ccc">From</span>
                             <br />
-                            <span>FTL</span>
-                          </b-col>
-                          <b-col
-                            style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
-                          >
-                            <span style="color: #ccc">From To</span>
-                            <br />
-                            <span>JKT - SMG</span>
+                            <span>{{M_GetDataBy.from_zone}}</span>
                           </b-col>
                           <b-col style="padding: 10px !important; max-width: 20% !important;">
-                            <span style="color: #ccc">Vehicle Type</span>
+                            <span style="color: #ccc">To</span>
                             <br />
-                            <span>Fuso</span>
+                            <span>{{M_GetDataBy.to_zone}}</span>
                           </b-col>
                         </b-row>
                         <b-row style="border: solid 1px #e7eaec;border-radius: 0px 0px 5px 5px;">
@@ -150,33 +154,35 @@
                           >
                             <span style="color: #ccc">Pick Up Date</span>
                             <br />
-                            <span>01/01/2020 12.00</span>
+                            <span>{{momentDateFormatting(M_GetDataBy.pickup_date, 'DD/MM/YYYY HH:mm')}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
-                            <span style="color: #ccc">Contract Number</span>
+                            <span style="color: #ccc">KGS</span>
                             <br />
-                            <span>#CON0000001</span>
+                            <span>{{M_GetDataBy.total_kgs==null?0:M_GetDataBy.total_kgs}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
-                            <span style="color: #ccc">Metric Volume</span>
+                            <span style="color: #ccc">CBM</span>
                             <br />
-                            <span>9.000 (10.000)</span>
+                            <span>{{M_GetDataBy.total_cbm==null?0:M_GetDataBy.total_cbm}}</span>
+                          </b-col>
+                          <b-col
+                            style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
+                          >
+                            <span style="color: #ccc">Vehicle Type</span>
+                            <br />
+                            <span>{{M_GetDataBy.vehicle_type_cd}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span style="color: #ccc">Vehicle Number</span>
                             <br />
-                            <span>B 1234 AC</span>
-                          </b-col>
-                          <b-col>
-                            <span>&nbsp;</span>
-                            <br />
-                            <span>&nbsp;</span>
+                            <span>{{M_GetDataBy.license_plate_no}}</span>
                           </b-col>
                         </b-row>
                       </b-col>
@@ -199,13 +205,13 @@
                           <b-col style="margin: auto;">
                             <span class="AppointmentTitle">Driver</span>
                             <br />
-                            <span class="AppointmentDescs">Toni Ibrahim</span>
+                            <span class="AppointmentDescs">{{M_GetDataBy.driver_name}}</span>
                           </b-col>
                         </b-row>
                       </b-col>
                     </b-row>
                     <b-row>
-                      <b-col md="6" style="padding-left: 0px !important;">
+                      <b-col md="12" style="padding-left: 0px !important;">
                         <b-row>
                           <b-col md="12" style="padding-left: 0px !important;">
                             <b-list-group>
@@ -281,11 +287,11 @@
                           </b-col>
                         </b-row>
                       </b-col>
-                      <b-col md="6">
+                      <!-- <b-col md="6">
                         <div>
                           <img :src="require('@/assets/map.png')" alt style="width: 100%;" />
                         </div>
-                      </b-col>
+                      </b-col>-->
                     </b-row>
                     <b-row style="margin-top: 10px;">
                       <b-col md="6">
@@ -390,7 +396,7 @@ export default {
         SourceField: "",
         ParamView: "",
       },
-
+      isDisableTable: false,
       //For List
       WithViewButton: false,
 
@@ -805,7 +811,7 @@ export default {
         if (response == null) return;
 
         var data = response.Data[0];
-        this.M_GetDataBy = JSON.parse(data.fop_order_s);
+        this.M_GetDataBy = JSON.parse(data.fop_order_s)[0];
         console.log(this.M_GetDataBy);
 
         // if (data.path_file == "" || data.path_file == null) {
