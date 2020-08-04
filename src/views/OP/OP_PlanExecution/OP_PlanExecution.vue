@@ -206,7 +206,7 @@ export default {
           // code block
           break;
         case "SL":
-          // code block
+          this.$router.push({ name: "OP_PlanExecutionSL" });
           break;
         case "FL":
           // code block
