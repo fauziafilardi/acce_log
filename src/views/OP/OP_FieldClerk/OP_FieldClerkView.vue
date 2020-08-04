@@ -271,6 +271,13 @@ export default {
     },
   },
   methods: {
+    rowClicked(record, index) {
+      var param = this.paramFromList;
+      param.isEdit = true;
+      param.DataDetail = record;
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "OP_FieldClerkDtlForm" });
+    },
     doAddItem() {
       var param = this.paramFromList;
       param.isEdit = false;

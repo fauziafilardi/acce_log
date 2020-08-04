@@ -23,6 +23,12 @@
                     @click="doPIC"
                   />
                   <ABSButton
+                    :text="'Required Doc'"
+                    classButton="button button--back"
+                    classIcon="icon-style-1"
+                    @click="doReqDoc"
+                  />
+                  <ABSButton
                     :text="'Log Book'"
                     classButton="button button--back"
                     classIcon="icon-style-1"
@@ -306,6 +312,32 @@
                         </b-table>
                       </div>
                     </div>
+                    <div class="card">
+                      <div class="card__title">
+                        <b-row>
+                          <b-col style="max-width:fit-content !important;">
+                            <span>Required Document</span>
+                          </b-col>
+                        </b-row>
+                      </div>
+                      <div class="card__body">
+                        <ACCFormList
+                          :prop="propListReqDoc"
+                          :title="'Required Document'"
+                          @rowClicked="rowClicked"
+                          @rowDblClicked="doDoubleClick"
+                          @rowLinkClick="rowLink"
+                          @pageSize="M_PageSize"
+                          @pagination="M_Pagination"
+                          @filter="M_Advance_Filter"
+                          @headTable="M_Head_Table"
+                          @refreshColumn="refreshColumn"
+                          ref="ref_CustomerRequiredDoc"
+                          WithDeleteButton
+                          @buttonDeleteClicked="doDeleteListRequiredDocClick"
+                        />
+                      </div>
+                    </div>
 
                     <div class="card">
                       <div class="card__title">
@@ -468,6 +500,14 @@
 export default {
   data() {
     return {
+      propListReqDoc: {
+        OptionUrl: "/MK/MK_Customer",
+        LineNo: 4,
+        initialWhere: "",
+        OrderBy: "time_edit DESC",
+        SourceField: "",
+        ParamView: "",
+      },
       default_pic: require("@/assets/default_photo_.png"),
       M_Customer: {
         customer_status: "",
@@ -478,7 +518,7 @@ export default {
         phone_no: "",
         email: "",
         website: "",
-        file_show: ""
+        file_show: "",
       },
 
       PI_logbook_descs: {
@@ -493,10 +533,10 @@ export default {
         cMaxRows: 2,
         cSize: "md",
         cParentForm: "Frm_Logbook",
-        cInputStatus: "new"
+        cInputStatus: "new",
       },
       M_LogBook: {
-        descs: ""
+        descs: "",
       },
       AllData: {},
       responses: {},
@@ -505,32 +545,32 @@ export default {
           key: "no",
           label: "No",
           tdClass: "ContentACCList2 notranslate th-cus-center",
-          thClass: "HeaderACCList2 th-cus-center"
+          thClass: "HeaderACCList2 th-cus-center",
         },
         {
           key: "address_name",
           label: "Address Name",
           tdClass: "ContentACCList2 notranslate th-cus-center",
-          thClass: "HeaderACCList2 S th-cus-center"
+          thClass: "HeaderACCList2 S th-cus-center",
         },
         {
           key: "address",
           label: "Address",
           tdClass: "ContentACCList2 notranslate th-cus-center",
-          thClass: "HeaderACCList2 S th-cus-center"
+          thClass: "HeaderACCList2 S th-cus-center",
         },
         {
           key: "zone_descs",
           label: "Zone",
           tdClass: "ContentACCList2 notranslate th-cus-center",
-          thClass: "HeaderACCList2 S th-cus-center"
+          thClass: "HeaderACCList2 S th-cus-center",
         },
         {
           key: "row_id",
           label: "",
           tdClass: "ContentACCList2 notranslate th-cus-center",
-          thClass: "HeaderACCList2 S th-cus-center"
-        }
+          thClass: "HeaderACCList2 S th-cus-center",
+        },
       ],
       PickUpItems: [],
       OutstandingHeader: [
@@ -538,20 +578,20 @@ export default {
           key: "no",
           label: "No",
           tdClass: "ContentACCList2 notranslate th-cus-center",
-          thClass: "HeaderACCList2 th-cus-center"
+          thClass: "HeaderACCList2 th-cus-center",
         },
         {
           key: "customer_name",
           label: "Customer",
           tdClass: "ContentACCList2 notranslate th-cus-center",
-          thClass: "HeaderACCList2 S th-cus-center"
+          thClass: "HeaderACCList2 S th-cus-center",
         },
         {
           key: "outstanding_amt",
           label: "Total Outstanding Payemnt",
           tdClass: "ContentACCList2 notranslate th-cus-center",
-          thClass: "HeaderACCList2 S th-cus-center"
-        }
+          thClass: "HeaderACCList2 S th-cus-center",
+        },
       ],
       OutstandingItems: [],
       PICHeader: [
@@ -559,32 +599,32 @@ export default {
           key: "no",
           label: "No",
           tdClass: "ContentACCList2 notranslate th-cus-center",
-          thClass: "HeaderACCList2 th-cus-center"
+          thClass: "HeaderACCList2 th-cus-center",
         },
         {
           key: "name",
           label: "Contact Person",
           tdClass: "ContentACCList2 notranslate th-cus-center",
-          thClass: "HeaderACCList2 S th-cus-center"
+          thClass: "HeaderACCList2 S th-cus-center",
         },
         {
           key: "phone_no",
           label: "Phone No",
           tdClass: "ContentACCList2 notranslate th-cus-center",
-          thClass: "HeaderACCList2 S th-cus-center"
+          thClass: "HeaderACCList2 S th-cus-center",
         },
         {
           key: "email",
           label: "Email",
           tdClass: "ContentACCList2 notranslate th-cus-center",
-          thClass: "HeaderACCList2 S th-cus-center"
+          thClass: "HeaderACCList2 S th-cus-center",
         },
         {
           key: "row_id",
           label: "",
           tdClass: "ContentACCList2 notranslate th-cus-center",
-          thClass: "HeaderACCList2 S th-cus-center"
-        }
+          thClass: "HeaderACCList2 S th-cus-center",
+        },
       ],
       PICItems: [],
       QuotationHeader: [
@@ -592,38 +632,38 @@ export default {
           key: "no",
           label: "No",
           tdClass: "ContentACCList2 notranslate th-cus-center",
-          thClass: "HeaderACCList2 th-cus-center"
+          thClass: "HeaderACCList2 th-cus-center",
         },
         {
           key: "customer",
           label: "Customer",
           tdClass: "ContentACCList2 notranslate th-cus-center",
-          thClass: "HeaderACCList2 S th-cus-center"
+          thClass: "HeaderACCList2 S th-cus-center",
         },
         {
           key: "quotation_no",
           label: "Quotation No",
           tdClass: "ContentACCList2 notranslate th-cus-center",
-          thClass: "HeaderACCList2 S th-cus-center"
+          thClass: "HeaderACCList2 S th-cus-center",
         },
         {
           key: "date",
           label: "Date",
           tdClass: "ContentACCList2 notranslate th-cus-center",
-          thClass: "HeaderACCList2 S th-cus-center"
+          thClass: "HeaderACCList2 S th-cus-center",
         },
         {
           key: "type",
           label: "Type",
           tdClass: "ContentACCList2 notranslate th-cus-center",
-          thClass: "HeaderACCList2 S th-cus-center"
+          thClass: "HeaderACCList2 S th-cus-center",
         },
         {
           key: "status",
           label: "Status",
           tdClass: "ContentACCList2 notranslate th-cus-center",
-          thClass: "HeaderACCList2 S th-cus-center"
-        }
+          thClass: "HeaderACCList2 S th-cus-center",
+        },
       ],
       QuotationItems: [],
       OrderHeader: [
@@ -631,32 +671,32 @@ export default {
           key: "no",
           label: "No",
           tdClass: "ContentACCList2 notranslate th-cus-center",
-          thClass: "HeaderACCList2 th-cus-center"
+          thClass: "HeaderACCList2 th-cus-center",
         },
         {
           key: "customer_name",
           label: "Customer",
           tdClass: "ContentACCList2 notranslate th-cus-center",
-          thClass: "HeaderACCList2 S th-cus-center"
+          thClass: "HeaderACCList2 S th-cus-center",
         },
         {
           key: "order_no",
           label: "Order No",
           tdClass: "ContentACCList2 notranslate th-cus-center",
-          thClass: "HeaderACCList2 S th-cus-center"
+          thClass: "HeaderACCList2 S th-cus-center",
         },
         {
           key: "order_date",
           label: "Order Date",
           tdClass: "ContentACCList2 notranslate th-cus-center",
-          thClass: "HeaderACCList2 S th-cus-center"
+          thClass: "HeaderACCList2 S th-cus-center",
         },
         {
           key: "order_status",
           label: "Status",
           tdClass: "ContentACCList2 notranslate th-cus-center",
-          thClass: "HeaderACCList2 M th-cus-center"
-        }
+          thClass: "HeaderACCList2 M th-cus-center",
+        },
       ],
       OrderItems: [],
       LogBookHeader: [
@@ -664,34 +704,34 @@ export default {
           key: "no",
           label: "No",
           tdClass: "ContentACCList2 notranslate th-cus-center",
-          thClass: "HeaderACCList2 th-cus-center"
+          thClass: "HeaderACCList2 th-cus-center",
         },
         {
           key: "logbook_date",
           label: "Date",
           tdClass: "ContentACCList2 notranslate th-cus-center",
-          thClass: "HeaderACCList2 S th-cus-center"
+          thClass: "HeaderACCList2 S th-cus-center",
         },
         {
           key: "descs",
           label: "Description",
           tdClass: "ContentACCList2 notranslate th-cus-center",
-          thClass: "HeaderACCList2 M th-cus-center"
+          thClass: "HeaderACCList2 M th-cus-center",
         },
         {
           key: "contact_person_name",
           label: "PIC",
           tdClass: "ContentACCList2 notranslate th-cus-center",
-          thClass: "HeaderACCList2 M th-cus-center"
+          thClass: "HeaderACCList2 M th-cus-center",
         },
         {
           key: "row_id",
           label: "Action",
           tdClass: "ContentACCList2 notranslate th-cus-center",
-          thClass: "HeaderACCList2 M th-cus-center"
-        }
+          thClass: "HeaderACCList2 M th-cus-center",
+        },
       ],
-      LogBookItems: []
+      LogBookItems: [],
     };
   },
   computed: {
@@ -709,12 +749,36 @@ export default {
     },
     ButtonStatus() {
       return this.$store.getters.getButtonStatus;
-    }
+    },
   },
   methods: {
+    doDeleteListRequiredDocClick(record, index) {
+      this.alertConfirmation("Are You Sure Want To Delete This Data ?").then(
+        (ress) => {
+          if (ress.value) {
+            this.M_DeleteReqDoc(record, index);
+          }
+        }
+      );
+    },
+    M_DeleteReqDoc(record, index) {
+      var param = {
+        option_url: "/MK/MK_Customer",
+        line_no: 4,
+        id: record.row_id,
+        lastupdatestamp: record.lastupdatestamp,
+      };
+      this.deleteJSON(this.getUrlCRUD(), param).then((response) => {
+        if (response == null) return;
+        this.alertSuccess("Data Has Been Deleted").then(() => {
+          // this.doBack();
+          this.$refs.ref_CustomerRequiredDoc.doGetList("");
+        });
+      });
+    },
     doDeleteList(from, record, index) {
       this.alertConfirmation("Are You Sure Want To Delete This Data ?").then(
-        ress => {
+        (ress) => {
           if (ress.value) {
             if (from == 1) {
               this.doDeletePickUp(record, index);
@@ -730,10 +794,10 @@ export default {
         option_url: "/MK/MK_Customer",
         line_no: 2,
         id: record.row_id,
-        lastupdatestamp: record.lastupdatestamp
+        lastupdatestamp: record.lastupdatestamp,
       };
 
-      this.deleteJSON(this.getUrlCRUD(), param).then(response => {
+      this.deleteJSON(this.getUrlCRUD(), param).then((response) => {
         if (response == null) return;
         this.alertSuccess(response.Message).then(() => {
           this.GetPickUpList();
@@ -745,10 +809,10 @@ export default {
         option_url: "/MK/MK_Customer",
         line_no: 1,
         id: record.row_id,
-        lastupdatestamp: record.lastupdatestamp
+        lastupdatestamp: record.lastupdatestamp,
       };
 
-      this.deleteJSON(this.getUrlCRUD(), param).then(response => {
+      this.deleteJSON(this.getUrlCRUD(), param).then((response) => {
         if (response == null) return;
         this.alertSuccess(response.Message).then(() => {
           this.GetPICList();
@@ -766,7 +830,7 @@ export default {
       // this.addStatus = true;
       // this.$refs.Modal_MK_Quotation._show();
       this.alertConfirmation("Are You Sure Want To Delete This Data ?").then(
-        ress => {
+        (ress) => {
           if (ress.value) {
             this.YesDelete();
           }
@@ -783,10 +847,10 @@ export default {
         option_url: "/MK/MK_Customer",
         line_no: 0,
         id: this.paramFromList.row_id,
-        lastupdatestamp: this.paramFromList.lastupdatestamp
+        lastupdatestamp: this.paramFromList.lastupdatestamp,
       };
 
-      this.deleteJSON(this.getUrlCRUD(), param).then(response => {
+      this.deleteJSON(this.getUrlCRUD(), param).then((response) => {
         if (response == null) return;
         this.alertSuccess(response.Message).then(() => {
           // this.$refs.Modal_MK_Quotation._hide();
@@ -821,6 +885,13 @@ export default {
       param.DetailList = record;
       this.$store.commit("setParamPage", param);
       this.$router.push({ name: "MK_CustomerPIC" });
+    },
+    doReqDoc(record) {
+      var param = this.paramFromList;
+      param.isEdit = record == null ? false : true;
+      param.DetailList = record;
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "MK_CustomerRequiredDoc" });
     },
     // doPIC(record) {
     //   var param = this.paramFromList;
@@ -861,10 +932,10 @@ export default {
         line_no: 1,
         mk_quotation_id: this.paramFromList.row_id,
         lastupdatestamp: this.paramFromList.lastupdatestamp,
-        user_edit: this.getDataUser().user_id
+        user_edit: this.getDataUser().user_id,
       };
 
-      this.postJSON(this.getUrlCRUD(), param).then(response => {
+      this.postJSON(this.getUrlCRUD(), param).then((response) => {
         // response from API
         if (response == null) return;
         this.alertSuccess("Confirmation Success").then(() => {
@@ -887,7 +958,7 @@ export default {
         email: "",
         website: "",
         pic: "",
-        pic_phone_no: ""
+        pic_phone_no: "",
       };
     },
     GetDataBy() {
@@ -895,10 +966,10 @@ export default {
         option_url: "/MK/MK_Customer",
         line_no: 0,
         id: this.paramFromList.row_id,
-        lastupdatestamp: this.paramFromList.lastupdatestamp
+        lastupdatestamp: this.paramFromList.lastupdatestamp,
       };
 
-      this.getJSON(this.getUrlCRUD(), param).then(response => {
+      this.getJSON(this.getUrlCRUD(), param).then((response) => {
         // response from API
         if (response == null) return;
 
@@ -923,8 +994,11 @@ export default {
                   "DD/MM/YYYY HH:mm"
                 )
               : "-",
-          file_show: data.path_file != "" ? this.url + data.path_file : ""
+          file_show: data.path_file != "" ? this.url + data.path_file : "",
         };
+        this.propListReqDoc.initialWhere =
+          "cm_contact_id=" + data.cm_contact_id;
+        this.$refs.ref_CustomerRequiredDoc.doGetList("");
 
         this.GetPickUpList();
         this.GetOutstandingList();
@@ -938,10 +1012,10 @@ export default {
       var param = {
         option_function_cd: "GetListMkCustomerAddress",
         module_cd: "MK",
-        row_id: this.paramFromList.row_id
+        row_id: this.paramFromList.row_id,
       };
 
-      this.CallFunction(param).then(response => {
+      this.CallFunction(param).then((response) => {
         if (response == null) return;
         var data = response.Data;
 
@@ -952,10 +1026,10 @@ export default {
       var param = {
         option_function_cd: "GetListMkCustomerOutstanding",
         module_cd: "MK",
-        row_id: this.paramFromList.row_id
+        row_id: this.paramFromList.row_id,
       };
 
-      this.CallFunction(param).then(response => {
+      this.CallFunction(param).then((response) => {
         if (response == null) return;
         var data = response.Data;
 
@@ -966,10 +1040,10 @@ export default {
       var param = {
         option_function_cd: "GetListMkCustomerPIC",
         module_cd: "MK",
-        row_id: this.paramFromList.row_id
+        row_id: this.paramFromList.row_id,
       };
 
-      this.CallFunction(param).then(response => {
+      this.CallFunction(param).then((response) => {
         if (response == null) return;
         var data = response.Data;
 
@@ -980,10 +1054,10 @@ export default {
       var param = {
         option_function_cd: "GetListMkCustomerQuotation",
         module_cd: "MK",
-        row_id: this.paramFromList.row_id
+        row_id: this.paramFromList.row_id,
       };
 
-      this.CallFunction(param).then(response => {
+      this.CallFunction(param).then((response) => {
         if (response == null) return;
         var data = response.Data;
 
@@ -994,10 +1068,10 @@ export default {
       var param = {
         option_function_cd: "GetListMkCustomerOrder",
         module_cd: "MK",
-        row_id: this.paramFromList.row_id
+        row_id: this.paramFromList.row_id,
       };
 
-      this.CallFunction(param).then(response => {
+      this.CallFunction(param).then((response) => {
         if (response == null) return;
         var data = response.Data;
 
@@ -1008,16 +1082,16 @@ export default {
       var param = {
         option_function_cd: "GetListMkCustomerLogBook",
         module_cd: "MK",
-        row_id: this.paramFromList.row_id
+        row_id: this.paramFromList.row_id,
       };
 
-      this.CallFunction(param).then(response => {
+      this.CallFunction(param).then((response) => {
         if (response == null) return;
         var data = response.Data;
 
         this.LogBookItems = data;
       });
-    }
+    },
     // GetLogBookList() {
     //   var param = {
     //     option_url: "/MK/MK_Customer",
@@ -1047,7 +1121,7 @@ export default {
   mounted() {
     this.M_ClearForm();
     this.GetDataBy();
-  }
+  },
 };
 </script>
 

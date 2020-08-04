@@ -7,7 +7,7 @@
             <div class="card__title">
               <b-row>
                 <b-col style="max-width:fit-content !important;">
-                  <span>{{title}} Standard Pricing & Costing</span>
+                  <span>{{title}} Required Dokument</span>
                 </b-col>
                 <b-col style="text-align: right;">
                   <ABSButton
@@ -21,8 +21,8 @@
             </div>
             <div class="card__body">
               <b-form
-                :data-vv-scope="'OP_FormOpPricingCostingDtl'"
-                :data-vv-value-path="'OP_FormOpPricingCostingDtl'"
+                :data-vv-scope="'MK_FormMkDokumentType'"
+                :data-vv-value-path="'MK_FormMkDokumentType'"
               >
                 <b-row>
                   <b-col md="2">
@@ -35,37 +35,31 @@
                     <b-row>
                       <b-col md="6">
                         <span>
-                          <label>Cost Type</label>
+                          <label>Dokument Type</label>
                         </span>
+                        <!-- <ACCTextBox
+                          :prop="PI_dokument_type"
+                          v-model="M_MkDokumentType.dokument_type"
+                          ref="ref_dokument_type"
+                        />-->
+
                         <ACCDropDown
-                          @change="Onop_cost_type_idChange"
-                          :prop="PI_op_cost_type_id"
-                          v-model="M_OpPricingCostingDtl.op_cost_type_id"
-                          :label="M_OpPricingCostingDtl.cost_typeLabel"
-                          ref="ref_op_cost_type_id"
+                          @change="Ondokument_typeChange"
+                          :prop="PI_dokument_type"
+                          v-model="M_MkDokumentType.dokument_type"
+                          :label="M_MkDokumentType.dokument_typeLabel"
+                          ref="ref_dokument_type"
                         />
                       </b-col>
                     </b-row>
                     <b-row>
                       <b-col md="6">
                         <span>
-                          <label>Value</label>
+                          <label>Descs</label>
                         </span>
-                        <ACCTextBox
-                          :prop="PI_cost_value"
-                          v-model="M_OpPricingCostingDtl.cost_value"
-                          ref="ref_cost_value"
-                        />
-                      </b-col>
-                    </b-row>
-                    <b-row>
-                      <b-col md="6">
-                        <span>
-                          <label>Description</label>
-                        </span>
-                        <ACCTextBox
+                        <ACCTextArea
                           :prop="PI_descs"
-                          v-model="M_OpPricingCostingDtl.descs"
+                          v-model="M_MkDokumentType.descs"
                           ref="ref_descs"
                         />
                       </b-col>
@@ -99,66 +93,53 @@ export default {
     return {
       title: "",
 
-      M_OpPricingCostingDtl: {
-        op_pricing_costing_dtl_id: 0,
+      M_MkDokumentType: {
+        mk_dokument_type_id: 0,
         ss_portfolio_id: 0,
-        op_pricing_costing_id: 0,
-        op_cost_type_id: 0,
-        cost_typeLabel: "",
-        cost_value: 0,
+        dokument_type: "",
+        dokument_typeLabel: "",
         descs: "",
         user_input: "",
         user_edit: "",
         time_input: "",
         time_edit: "",
-        status_on_order: "",
-        status_return: "",
         row_id: 0,
         lastupdatestamp: 0,
       },
-      PI_op_cost_type_id: {
+      PI_dokument_type: {
         dataLookUp: {
-          LookUpCd: "GetCostType",
-          ColumnDB: "op_cost_type_id",
-          InitialWhere:
-            "ss_portfolio_id='" + this.getDataUser().portfolio_id + "'",
+          LookUpCd: "GetMkDocumentType",
+          ColumnDB: "mk_dokument_type_id",
+          InitialWhere: "",
           ParamWhere: "",
           OrderBy: "",
           ParamView: "",
           SourceField: "",
-          DisplayLookUp: "",
+          DisplayLookUp: "dokument_type,descs",
         },
         cValidate: "",
-        cName: "op_cost_type_id",
+        cName: "mk_dokument_type_id",
         cOrder: 1,
         cKey: false,
         cStatic: false,
         cProtect: false,
-        cParentForm: "OP_FormOpPricingCostingDtl",
+        cParentForm: "MK_FormMkDokumentType",
         cOption: [],
-        cDisplayColumn: "cost_type",
-        cInputStatus: this.inputStatus,
-      },
-      PI_cost_value: {
-        cValidate: "",
-        cName: "cost_value",
-        cOrder: 2,
-        cKey: false,
-        cType: "decimal",
-        cProtect: false,
-        cParentForm: "OP_FormOpPricingCostingDtl",
-        cDecimal: 2,
+        cDisplayColumn: "",
         cInputStatus: this.inputStatus,
       },
       PI_descs: {
         cValidate: "",
         cName: "descs",
-        cOrder: 3,
+        cOrder: 2,
         cKey: false,
-        cType: "text",
         cProtect: false,
-        cParentForm: "OP_FormOpPricingCostingDtl",
-        cDecimal: 2,
+        cResize: false,
+        cReadonly: false,
+        cRows: 3,
+        cMaxRows: 4,
+        cSize: "md",
+        cParentForm: "MK_FormMkDokumentType",
         cInputStatus: this.inputStatus,
       },
     };
@@ -178,31 +159,27 @@ export default {
     },
   },
   methods: {
+    Ondokument_typeChange(data) {
+      this.$nextTick(() => {
+        this.M_MkDokumentType.dokument_type = data.id;
+        this.M_MkDokumentType.dokument_typeLabel = data.label;
+      });
+    },
     doBack() {
       this.$router.go(-1);
     },
-    Onop_cost_type_idChange(data) {
-      this.$nextTick(() => {
-        this.M_OpPricingCostingDtl.op_cost_type_id = data.id;
-        this.M_OpPricingCostingDtl.cost_typeLabel = data.descs;
-      });
-    },
 
     M_ClearForm() {
-      this.M_OpPricingCostingDtl = {
-        op_pricing_costing_dtl_id: 0,
+      this.M_MkDokumentType = {
+        mk_dokument_type_id: 0,
         ss_portfolio_id: 0,
-        op_pricing_costing_id: 0,
-        op_cost_type_id: 0,
-        cost_typeLabel: "",
-        cost_value: 0,
+        dokument_type: "",
+        dokument_typeLabel: "",
         descs: "",
         user_input: "",
         user_edit: "",
         time_input: "",
         time_edit: "",
-        status_on_order: "",
-        status_return: "",
         row_id: 0,
         lastupdatestamp: 0,
       };
@@ -210,13 +187,13 @@ export default {
 
     doSave() {
       this.$validator._base
-        .validateAll("OP_FormOpPricingCostingDtl")
+        .validateAll("MK_FormMkDokumentType")
         .then((result) => {
           if (!result) return;
           this.alertConfirmation("Are You Sure Want To Save This Data ?").then(
             (ress) => {
               if (ress.value) {
-                this.$validator.errors.clear("OP_FormOpPricingCostingDtl");
+                this.$validator.errors.clear("MK_FormMkDokumentType");
                 if (this.inputStatus == "edit") {
                   this.M_Update();
                 } else {
@@ -229,15 +206,11 @@ export default {
     },
     M_Save() {
       var param = {
-        option_url: "/OP/OP_PricingCosting",
-        line_no: 1,
-        ss_portfolio_id: this.getDataUser().portfolio_id,
-        op_pricing_costing_id: this.paramFromList.row_id,
-        op_cost_type_id: this.M_OpPricingCostingDtl.op_cost_type_id,
-        cost_value: this.M_OpPricingCostingDtl.cost_value,
-        descs: this.M_OpPricingCostingDtl.descs,
-        status_on_order: "Y",
-        status_return: "N",
+        option_url: "/MK/MK_Customer",
+        line_no: 4,
+        cm_contact_id: this.paramFromList.cm_contact_id,
+        mk_dokument_type_id: this.M_MkDokumentType.dokument_type,
+        descs: this.M_MkDokumentType.descs,
         user_input: this.getDataUser().user_id,
       };
 
@@ -250,17 +223,14 @@ export default {
     },
     M_Update() {
       var param = {
-        option_url: "/OP/OP_PricingCosting",
-        line_no: 1,
-        op_pricing_costing_dtl_id: this.paramFromList.DetailList.row_id,
-        ss_portfolio_id: this.getDataUser().portfolio_id,
-        op_pricing_costing_id: this.M_OpPricingCostingDtl.op_pricing_costing_id,
-        op_cost_type_id: this.M_OpPricingCostingDtl.op_cost_type_id,
-        cost_value: this.M_OpPricingCostingDtl.cost_value,
-        descs: this.M_OpPricingCostingDtl.descs,
-        status_on_order: "Y",
-        status_return: "N",
-        lastupdatestamp: this.paramFromList.DetailList.lastupdatestamp,
+        option_url: "/MK/MK_Customer",
+        line_no: 4,
+        cm_contact_id: this.paramFromList.cm_contact_id,
+        mk_dokument_type_id: this.M_MkDokumentType.mk_dokument_type_id,
+        cm_contact_document_id: this.M_MkDokumentType.cm_contact_document_id,
+        dokument_type: this.M_MkDokumentType.dokument_type,
+        descs: this.M_MkDokumentType.descs,
+        lastupdatestamp: this.paramFromList.lastupdatestamp,
         user_edit: this.getDataUser().user_id,
       };
 
@@ -271,35 +241,12 @@ export default {
         });
       });
     },
-    doDelete() {
-      this.alertConfirmation("Are You Sure Want To Delete This Data ?").then(
-        (ress) => {
-          if (ress.value) {
-            this.M_Delete();
-          }
-        }
-      );
-    },
-    M_Delete() {
-      var param = {
-        option_url: "/OP/OP_PricingCosting",
-        line_no: { LineNo },
-        id: this.paramFromList.row_id,
-        lastupdatestamp: this.paramFromList.lastupdatestamp,
-      };
-      this.deleteJSON(this.getUrlCRUD(), param).then((response) => {
-        if (response == null) return;
-        this.alertSuccess("Data Has Been Deleted").then(() => {
-          this.doBack();
-        });
-      });
-    },
     GetDataBy() {
       var param = {
-        option_url: "/OP/OP_PricingCosting",
-        line_no: 1,
-        id: this.paramFromList.DetailList.row_id,
-        lastupdatestamp: this.paramFromList.DetailList.lastupdatestamp,
+        option_url: "/MK/MK_Customer",
+        line_no: 4,
+        id: this.paramFromList.row_id,
+        lastupdatestamp: this.paramFromList.lastupdatestamp,
       };
 
       this.getJSON(this.getUrlCRUD(), param).then((response) => {
@@ -308,14 +255,11 @@ export default {
 
         var data = response.Data[0];
 
-        this.M_OpPricingCostingDtl = {
-          op_pricing_costing_dtl_id: data.op_pricing_costing_dtl_id,
+        this.M_MkDokumentType = {
+          mk_dokument_type_id: data.mk_dokument_type_id,
           ss_portfolio_id: data.ss_portfolio_id,
-          op_pricing_costing_id: data.op_pricing_costing_id,
-          op_cost_type_id: data.op_cost_type_id__lo_1,
-          cost_typeLabel: data.cost_type__lbl__lo_1,
-          cost_value: data.cost_value__tb_2,
-          descs: data.descs__tb_3,
+          dokument_type: data.dokument_type__tb_1,
+          descs: data.descs__tb_2,
           user_input: data.user_input,
           user_edit: data.user_edit,
           time_input: data.time_input,
@@ -331,7 +275,6 @@ export default {
     if (this.inputStatus == "edit") {
       this.title = "Edit";
       this.GetDataBy();
-      this.PI_op_cost_type_id.cProtect = true;
     } else {
       this.title = "Add";
     }

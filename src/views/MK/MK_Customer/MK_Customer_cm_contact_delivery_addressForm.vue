@@ -61,7 +61,7 @@
                         <span>
                           <label>Zone Descs</label>
                         </span>
-                        <ACCLookUp
+                        <ACCDropDown
                           @change="Oncm_zone_idChange"
                           :prop="PI_cm_zone_id"
                           v-model="M_CmContactDeliveryAddress.cm_zone_id"
@@ -111,7 +111,7 @@ export default {
         time_input: "",
         time_edit: "",
         row_id: 0,
-        lastupdatestamp: 0
+        lastupdatestamp: 0,
       },
       PI_address_name: {
         cValidate: "",
@@ -125,7 +125,7 @@ export default {
         cMaxRows: 2,
         cSize: "md",
         cParentForm: "MK_FormCmContactDeliveryAddress",
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
       PI_address: {
         cValidate: "",
@@ -136,7 +136,7 @@ export default {
         cProtect: false,
         cParentForm: "MK_FormCmContactDeliveryAddress",
         cDecimal: 2,
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
       PI_cm_zone_id: {
         dataLookUp: {
@@ -147,7 +147,7 @@ export default {
           OrderBy: "",
           ParamView: "",
           SourceField: "",
-          DisplayLookUp: ""
+          DisplayLookUp: "",
         },
         cValidate: "",
         cName: "cm_zone_id",
@@ -158,8 +158,8 @@ export default {
         cParentForm: "MK_FormCmContactDeliveryAddress",
         cOption: [],
         cDisplayColumn: "",
-        cInputStatus: this.inputStatus
-      }
+        cInputStatus: this.inputStatus,
+      },
     };
   },
   computed: {
@@ -174,7 +174,7 @@ export default {
       } else {
         return "new";
       }
-    }
+    },
   },
   methods: {
     doBack() {
@@ -183,7 +183,7 @@ export default {
     Oncm_zone_idChange(data) {
       this.$nextTick(() => {
         this.M_CmContactDeliveryAddress.cm_zone_id = data.id;
-        this.M_CmContactDeliveryAddress.zone_descsLabel = data.descs;
+        this.M_CmContactDeliveryAddress.zone_descsLabel = data.label;
       });
     },
 
@@ -200,17 +200,17 @@ export default {
         time_input: "",
         time_edit: "",
         row_id: 0,
-        lastupdatestamp: 0
+        lastupdatestamp: 0,
       };
     },
 
     doSave() {
       this.$validator._base
         .validateAll("MK_FormCmContactDeliveryAddress")
-        .then(result => {
+        .then((result) => {
           if (!result) return;
           this.alertConfirmation("Are You Sure Want To Save This Data ?").then(
-            ress => {
+            (ress) => {
               if (ress.value) {
                 this.$validator.errors.clear("MK_FormCmContactDeliveryAddress");
                 if (this.inputStatus == "edit") {
@@ -231,10 +231,10 @@ export default {
         address_name: this.M_CmContactDeliveryAddress.address_name,
         address: this.M_CmContactDeliveryAddress.address,
         cm_zone_id: this.M_CmContactDeliveryAddress.cm_zone_id,
-        user_input: this.getDataUser().user_id
+        user_input: this.getDataUser().user_id,
       };
 
-      this.postJSON(this.getUrlCRUD(), param).then(response => {
+      this.postJSON(this.getUrlCRUD(), param).then((response) => {
         if (response == null) return;
         this.alertSuccess(response.Message).then(() => {
           this.doBack();
@@ -252,10 +252,10 @@ export default {
         address: this.M_CmContactDeliveryAddress.address,
         cm_zone_id: this.M_CmContactDeliveryAddress.cm_zone_id,
         lastupdatestamp: this.paramFromList.DetailList.lastupdatestamp,
-        user_edit: this.getDataUser().user_id
+        user_edit: this.getDataUser().user_id,
       };
 
-      this.putJSON(this.getUrlCRUD(), param).then(response => {
+      this.putJSON(this.getUrlCRUD(), param).then((response) => {
         if (response == null) return;
         this.alertSuccess(response.Message).then(() => {
           if (this.inputStatus == "new") {
@@ -268,7 +268,7 @@ export default {
     },
     doDelete() {
       this.alertConfirmation("Are You Sure Want To Delete This Data ?").then(
-        ress => {
+        (ress) => {
           if (ress.value) {
             this.M_Delete();
           }
@@ -280,9 +280,9 @@ export default {
         option_url: "/MK/MK_Customer",
         line_no: { LineNo },
         id: this.paramFromList.row_id,
-        lastupdatestamp: this.paramFromList.lastupdatestamp
+        lastupdatestamp: this.paramFromList.lastupdatestamp,
       };
-      this.deleteJSON(this.getUrlCRUD(), param).then(response => {
+      this.deleteJSON(this.getUrlCRUD(), param).then((response) => {
         if (response == null) return;
         this.alertSuccess("Data Has Been Deleted").then(() => {
           this.doBack();
@@ -294,10 +294,10 @@ export default {
         option_url: "/MK/MK_Customer",
         line_no: 2,
         id: this.paramFromList.DetailList.row_id,
-        lastupdatestamp: this.paramFromList.DetailList.lastupdatestamp
+        lastupdatestamp: this.paramFromList.DetailList.lastupdatestamp,
       };
 
-      this.getJSON(this.getUrlCRUD(), param).then(response => {
+      this.getJSON(this.getUrlCRUD(), param).then((response) => {
         // response from API
         if (response == null) return;
 
@@ -315,10 +315,10 @@ export default {
           time_input: data.time_input,
           time_edit: data.time_edit,
           row_id: data.row_id,
-          lastupdatestamp: data.lastupdatestamp
+          lastupdatestamp: data.lastupdatestamp,
         };
       });
-    }
+    },
   },
   mounted() {
     this.M_ClearForm();
@@ -328,7 +328,7 @@ export default {
     } else {
       this.title = "Add";
     }
-  }
+  },
 };
 </script>
 

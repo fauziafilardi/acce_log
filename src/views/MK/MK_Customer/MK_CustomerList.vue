@@ -32,7 +32,7 @@
                       :text="'Search'"
                       classButton="button button--back2"
                       classIcon="icon-style-1"
-                      @click="doSearch"
+                      @click="onSearchEnter"
                     />
                   </span>
                   <span>
@@ -82,6 +82,7 @@
                   :foot-clone="false"
                   :fields="fieldHeader"
                   :items="dataList.items"
+                  @rowClicked="rowClicked"
                   class="table-sm table-style-3"
                 >
                   <template v-slot:cell(row_id)="data">
@@ -179,7 +180,7 @@ export default {
         TabIndex: 1,
         OrderBy: "",
         SourceField: "",
-        ParamView: ""
+        ParamView: "",
       },
 
       //For List
@@ -215,7 +216,7 @@ export default {
         { value: 60, text: "60" },
         { value: 80, text: "80" },
         { value: 100, text: "100" },
-        { value: 1000, text: "1000" }
+        { value: 1000, text: "1000" },
       ],
 
       fileName: "TestExport",
@@ -230,15 +231,15 @@ export default {
 
       sortedField: [
         { field: "order_list", sort: "ASC" },
-        { field: "marketing_id", sort: "ASC" }
+        { field: "marketing_id", sort: "ASC" },
       ],
       isDisableTable: false,
       responses: [],
 
       ParamTarget: {
         marketing_id: "",
-        year: ""
-      }
+        year: "",
+      },
     };
   },
   computed: {
@@ -253,7 +254,7 @@ export default {
       return param;
       //     }
       // }
-    }
+    },
   },
   methods: {
     doBack() {
@@ -266,7 +267,9 @@ export default {
       this.$store.commit("setParamPage", param);
       this.$router.push({ name: "MK_CustomerForm" });
     },
-    rowClicked(record, index) {},
+    rowClicked(record, index) {
+      this.viewClicked(record, index);
+    },
     viewClicked(record, index) {
       var param = record;
       param.isEdit = true;
@@ -314,10 +317,10 @@ export default {
         initial_where: this.propList.initialWhere,
         sort_field: this.sort,
         source_field: this.propList.SourceField,
-        param_view: this.propList.ParamView
+        param_view: this.propList.ParamView,
       };
 
-      this.postJSON(this.getUrlList(), param).then(response => {
+      this.postJSON(this.getUrlList(), param).then((response) => {
         if (response == null) return;
         this.selected = false;
 
@@ -331,7 +334,7 @@ export default {
         console.log(JSON.stringify(response.Data));
         for (let x = 0; x < this.cmbMarketing.length; x++) {
           console.log(this.cmbMarketing[x].marketing_id);
-          var item = response.Data.filter(dt => {
+          var item = response.Data.filter((dt) => {
             return dt.marketing_id == this.cmbMarketing[x].marketing_id;
           });
           console.log(item);
@@ -365,7 +368,7 @@ export default {
 
         this.allColumn_bf.forEach((val, idx) => {
           var thClass = "HeaderACCList2";
-          var isSorted = this.sortedField.map(x => x.field).indexOf(val);
+          var isSorted = this.sortedField.map((x) => x.field).indexOf(val);
           if (isSorted > -1) {
             if (this.sortedField[isSorted].sort == "ASC") {
               thClass = thClass + " AscSorted";
@@ -379,26 +382,26 @@ export default {
             key: val,
             thClass: thClass,
             tdClass: "ContentACCList2 notranslate",
-            text: val
+            text: val,
           });
 
           filteredColumn.push({
             value: idx + 1,
             key: val,
             thClass: thClass,
-            tdClass: "ContentACCList2 notranslate"
+            tdClass: "ContentACCList2 notranslate",
           });
         });
 
         for (var i = 0; i < str_array.length; i++) {
-          filteredColumn = filteredColumn.filter(val => {
+          filteredColumn = filteredColumn.filter((val) => {
             if (val.key == str_array[i]) {
               definedColumn.push({
                 value: val.value,
                 key: val.key,
                 thClass: val.thClass,
                 tdClass: val.tdClass,
-                text: val.key
+                text: val.key,
               });
             }
 
@@ -426,7 +429,7 @@ export default {
           }
 
           var isSorted = this.sortedField
-            .map(x => x.field)
+            .map((x) => x.field)
             .indexOf(str_array[i]);
           if (isSorted > -1) {
             if (this.sortedField[isSorted].sort == "ASC") {
@@ -442,7 +445,7 @@ export default {
               key: str_array[i],
               thClass: thClass,
               tdClass: tdClass,
-              label: this.$t(str_array[i])
+              label: this.$t(str_array[i]),
             });
           } else {
             if (str_array[i] == "lastupdatestamp") continue;
@@ -450,48 +453,48 @@ export default {
             var listReplace = [
               {
                 key: "_",
-                value: " "
+                value: " ",
               },
               {
                 key: "Amt",
-                value: " Amount"
+                value: " Amount",
               },
               {
                 key: "Cd",
-                value: " Code"
+                value: " Code",
               },
               {
                 key: "Descs",
-                value: " Description"
+                value: " Description",
               },
               {
                 key: "Time Edit",
-                value: "Last Update"
+                value: "Last Update",
               },
               {
                 key: "Batch Status",
-                value: "Status"
+                value: "Status",
               },
               {
                 key: "garing",
-                value: "/"
+                value: "/",
               },
               {
                 key: "titik",
-                value: "."
+                value: ".",
               },
               {
                 key: "SnP",
-                value: "SnP "
+                value: "SnP ",
               },
               {
                 key: "VO",
-                value: "VO "
+                value: "VO ",
               },
               {
                 key: "Row Id",
-                value: "View"
-              }
+                value: "View",
+              },
             ];
             var isGotIt = false;
             var labelHeader = undefined;
@@ -502,7 +505,7 @@ export default {
               labelHeader = str_array[i]
                 .toLowerCase()
                 .split("_")
-                .map(s => {
+                .map((s) => {
                   return s.charAt(0).toUpperCase() + s.substring(1);
                 })
                 .join(" ");
@@ -545,7 +548,7 @@ export default {
               key: str_array[i],
               thClass: thClass,
               tdClass: tdClass,
-              label: labelHeader
+              label: labelHeader,
             });
           }
         }
@@ -586,10 +589,10 @@ export default {
           initial_where: where,
           sort_field: "",
           source_field: "",
-          param_view: ""
+          param_view: "",
         };
 
-      this.postJSON(this.getUrlList(), param).then(response => {
+      this.postJSON(this.getUrlList(), param).then((response) => {
         if (response == null) return;
         this.responses = response;
         // console.log(this.cmbMarketing, ix)
@@ -616,7 +619,7 @@ export default {
 
         this.allColumn_bf.forEach((val, idx) => {
           var thClass = "HeaderACCList2";
-          var isSorted = this.sortedField.map(x => x.field).indexOf(val);
+          var isSorted = this.sortedField.map((x) => x.field).indexOf(val);
           if (isSorted > -1) {
             if (this.sortedField[isSorted].sort == "ASC") {
               thClass = thClass + " AscSorted";
@@ -630,26 +633,26 @@ export default {
             key: val,
             thClass: thClass,
             tdClass: "ContentACCList2 notranslate",
-            text: val
+            text: val,
           });
 
           filteredColumn.push({
             value: idx + 1,
             key: val,
             thClass: thClass,
-            tdClass: "ContentACCList2 notranslate"
+            tdClass: "ContentACCList2 notranslate",
           });
         });
 
         for (var i = 0; i < str_array.length; i++) {
-          filteredColumn = filteredColumn.filter(val => {
+          filteredColumn = filteredColumn.filter((val) => {
             if (val.key == str_array[i]) {
               definedColumn.push({
                 value: val.value,
                 key: val.key,
                 thClass: val.thClass,
                 tdClass: val.tdClass,
-                text: val.key
+                text: val.key,
               });
             }
 
@@ -676,7 +679,7 @@ export default {
           }
 
           var isSorted = this.sortedField
-            .map(x => x.field)
+            .map((x) => x.field)
             .indexOf(str_array[i]);
           if (isSorted > -1) {
             if (this.sortedField[isSorted].sort == "ASC") {
@@ -692,7 +695,7 @@ export default {
               key: str_array[i],
               thClass: thClass,
               tdClass: tdClass,
-              label: this.$t(str_array[i])
+              label: this.$t(str_array[i]),
             });
           } else {
             if (str_array[i] == "lastupdatestamp") continue;
@@ -700,48 +703,48 @@ export default {
             var listReplace = [
               {
                 key: "_",
-                value: " "
+                value: " ",
               },
               {
                 key: "Amt",
-                value: " Amount"
+                value: " Amount",
               },
               {
                 key: "Cd",
-                value: " Code"
+                value: " Code",
               },
               {
                 key: "Descs",
-                value: " Description"
+                value: " Description",
               },
               {
                 key: "Time Edit",
-                value: "Last Update"
+                value: "Last Update",
               },
               {
                 key: "Batch Status",
-                value: "Status"
+                value: "Status",
               },
               {
                 key: "garing",
-                value: "/"
+                value: "/",
               },
               {
                 key: "titik",
-                value: "."
+                value: ".",
               },
               {
                 key: "SnP",
-                value: "SnP "
+                value: "SnP ",
               },
               {
                 key: "VO",
-                value: "VO "
+                value: "VO ",
               },
               {
                 key: "Row Id",
-                value: "View"
-              }
+                value: "View",
+              },
             ];
             var isGotIt = false;
             var labelHeader = undefined;
@@ -750,7 +753,7 @@ export default {
               labelHeader = str_array[i]
                 .toLowerCase()
                 .split("_")
-                .map(s => {
+                .map((s) => {
                   return s.charAt(0).toUpperCase() + s.substring(1);
                 })
                 .join(" ");
@@ -793,7 +796,7 @@ export default {
               key: str_array[i],
               thClass: thClass,
               tdClass: tdClass,
-              label: labelHeader
+              label: labelHeader,
             });
           }
         }
@@ -812,10 +815,10 @@ export default {
       var param = {
         option_function_cd: "GetMarketingTeam",
         module_cd: "MK",
-        user_id: this.getDataUser().user_id
+        user_id: this.getDataUser().user_id,
       };
 
-      this.CallFunction(param).then(response => {
+      this.CallFunction(param).then((response) => {
         if (response == null) return;
         var data = response.Data;
         for (let i = 0; i < data.length; i++) {
@@ -827,7 +830,7 @@ export default {
             lastPage: 1,
             totalRows: 0,
             perPage: 5,
-            limit: 2
+            limit: 2,
           });
 
           this.doGetList2(i);
@@ -838,7 +841,7 @@ export default {
     },
     doSave() {
       this.alertConfirmation("Are You Sure Want To Save This Data ?").then(
-        ress => {
+        (ress) => {
           if (ress.value) {
             this.M_Save();
           }
@@ -850,7 +853,7 @@ export default {
         _Method_: "DELETE",
         _LineNo_: 1,
         marketing_id: this.filterActionM,
-        years: this.filterAction
+        years: this.filterAction,
       };
 
       var paramInsert = [];
@@ -878,7 +881,7 @@ export default {
             data.rental && data.rental !== ""
               ? this.replaceAllString(data.rental, ",", "", "number")
               : "NULL",
-          user_input: this.getDataUser().user_id
+          user_input: this.getDataUser().user_id,
         });
       });
 
@@ -888,20 +891,20 @@ export default {
         Data: [
           {
             A_Delete: paramDelete,
-            B_Looping: paramInsert
-          }
-        ]
+            B_Looping: paramInsert,
+          },
+        ],
       };
 
       this.postJSONMulti(this.getUrlProsesDataPostMulti(), param).then(
-        response => {
+        (response) => {
           if (response == null) return;
           this.alertSuccess("Save Data Has Been Successfully").then(() => {
             this.doBack();
           });
         }
       );
-    }
+    },
   },
   mounted() {
     this.getMarketing();
@@ -910,7 +913,7 @@ export default {
       this.getDataUser().group_id,
       this.getDataUser().user_id,
       "/MK/MK_Quotation"
-    ).then(ress => {
+    ).then((ress) => {
       var x = {};
       for (let i = 0; i < ress.length; i++) {
         x[ress[i].button_id] = ress[i].button_status;
@@ -921,7 +924,7 @@ export default {
   },
   created() {
     this.$store.commit("setParamPage", {});
-  }
+  },
 };
 </script>
 
