@@ -11,6 +11,13 @@
                 </b-col>
                 <b-col style="text-align: right;">
                   <ABSButton
+                    :text="'Add Order'"
+                    classButton="button button--back"
+                    classIcon="icon-style-1"
+                    @click="doAddOrder"
+                  />
+
+                  <ABSButton
                     :text="'Back'"
                     classButton="button button--back"
                     classIcon="icon-style-1"
@@ -35,7 +42,7 @@
                           </label>
                           <template v-if="inputStatus == 'edit'">{{ M_Quotation.customerLabel }}</template>
                         </span>
-                        <ACCLookUp
+                        <ACCDropDown
                           v-if="inputStatus == 'new'"
                           @change="OncustomerChange"
                           :prop="PI_customer"
@@ -106,7 +113,7 @@
                         <span>
                           <label>Select PIC</label>
                         </span>
-                        <ACCLookUp
+                        <ACCDropDown
                           @change="OnpicChange"
                           :prop="PI_pic"
                           v-model="M_Quotation.pic"
@@ -262,7 +269,7 @@ export default {
         cParentForm: "MK_AddQuotation",
         cStatic: false,
         cOption: [],
-        cDisplayColumn: "name,contact_person,time_edit",
+        cDisplayColumn: "name",
         cInputStatus: this.inputStatus
       },
       PI_pic: {
@@ -394,6 +401,11 @@ export default {
   methods: {
     doBack() {
       this.$router.go(-1);
+    },
+    doAddOrder() {
+      var param = this.paramFromList;
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "OP_OrderForm" });
     },
     OncustomerChange(data) {
       this.$nextTick(() => {

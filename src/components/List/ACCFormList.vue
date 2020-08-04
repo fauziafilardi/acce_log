@@ -56,7 +56,8 @@ export default {
       LineNo: Number,
       OrderBy: String,
       SourceField: String,
-      ParamView: String
+      ParamView: String,
+      PerPage: Number
     },
     title: String,
     isProcess: Boolean,
@@ -592,7 +593,7 @@ export default {
             this.sortedField.push({ field: "time_edit", sort: "DESC" });
             this.firstSort = true;
           }
-          this.perPage = 8;
+          this.perPage = this.prop.PerPage;
           this.currentPage = 1;
         } else if (method == "pageSize" || method == "ONSEARCHENTER") {
           this.currentPage = 1;
@@ -655,6 +656,7 @@ export default {
         this.fieldHeader = [];
 
         this.items = this.responses.Data;
+        this.$emit("onRenderData", this.responses.Data)
 
         var str_array =
           this.responses.DefineColumn && this.responses.DefineColumn !== ""
@@ -990,6 +992,7 @@ export default {
   mounted() {
   },
   created() {
+    this.prop.PerPage = this.prop.PerPage && this.prop.PerPage !== '' ? this.prop.PerPage : 8
     this.GetButtonStatus(this.getDataUser().portfolio_id, this.getDataUser().group_id, this.getDataUser().user_id, this.getOptionUrl())
     .then(ress => {
       if (ress.length < 1) {

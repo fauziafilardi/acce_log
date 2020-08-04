@@ -73,6 +73,8 @@ import OP_FieldClerkDtlForm from '@/views/OP/OP_FieldClerk/OP_FieldClerk_dtlForm
 import OP_VendorGps from '@/views/OP/OP_VendorGps/OP_VendorGpsList'
 import OP_VendorGpsForm from '@/views/OP/OP_VendorGps/OP_VendorGpsForm'
 
+import OP_OrderForm from '@/views/OP/OP_Order/OP_OrderForm';
+
 export const OPRender = {
     path: '/OP',
     component: {
@@ -449,6 +451,15 @@ export const OPRender = {
             path: '/OP/OP_MaintenanceItem/Form',
             name: 'OP_MaintenanceItemForm',
             component: OP_MaintenanceItemForm,
+            meta: {
+                requiresAuth: true
+            }
+        },
+
+        {
+            path: '/OP/OP_Order/Form',
+            name: 'OP_OrderForm',
+            component: OP_OrderForm,
             meta: {
                 requiresAuth: true
             }

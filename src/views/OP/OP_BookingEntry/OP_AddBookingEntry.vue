@@ -164,7 +164,7 @@
                                     <b-col>
                                         <span style="font-size: 15px; color: #333399; font-weight: bold;"> Information </span>
                                     </b-col>
-                                    <b-col class="col-right" md="1">
+                                    <b-col class="col-right" md="1" v-show="inputStatus == 'edit'">
                                         <div style="width: 60px; text-align: center; border-radius: 5px !important;" class="row-bordered">
                                             <span style="font-size: 13px; color: #333399; font-weight: bold;">
                                             {{M_Order.category == "F" ? "FTL" : (M_Order.category == "L" ? "LTL" : "Project")}}
@@ -403,7 +403,7 @@ export default {
         cValidate: "required",
         cName: "customer",
         ckey: false,
-        cAsync: true,
+        cAsync: false,
         cOrder: 1,
         cProtect: false,
         cParentForm: "MK_AddQuotation",
