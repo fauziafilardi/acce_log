@@ -60,6 +60,38 @@
                     </b-row>
                     <b-row>
                       <b-col md="6">
+                        <b-row>
+                          <b-col sm="2">
+                            <span>
+                              <label>On Order</label>
+                            </span>
+                          </b-col>
+                          <b-col sm="4">
+                            <b-form-checkbox
+                              v-model="M_OpPricingCostingDtl.status_on_order"
+                              name="check-button"
+                              switch
+                              size="lg"
+                            ></b-form-checkbox>
+                          </b-col>
+                          <b-col sm="2">
+                            <span>
+                              <label>Return Empty</label>
+                            </span>
+                          </b-col>
+                          <b-col sm="4">
+                            <b-form-checkbox
+                              v-model="M_OpPricingCostingDtl.status_return_empty"
+                              name="check-button"
+                              switch
+                              size="lg"
+                            ></b-form-checkbox>
+                          </b-col>
+                        </b-row>
+                      </b-col>
+                    </b-row>
+                    <b-row>
+                      <b-col md="6">
                         <span>
                           <label>Description</label>
                         </span>
@@ -111,8 +143,8 @@ export default {
         user_edit: "",
         time_input: "",
         time_edit: "",
-        status_on_order: "",
-        status_return: "",
+        status_on_order: false,
+        status_return_empty: false,
         row_id: 0,
         lastupdatestamp: 0,
       },
@@ -201,8 +233,8 @@ export default {
         user_edit: "",
         time_input: "",
         time_edit: "",
-        status_on_order: "",
-        status_return: "",
+        status_on_order: false,
+        status_return_empty: false,
         row_id: 0,
         lastupdatestamp: 0,
       };
@@ -236,8 +268,10 @@ export default {
         op_cost_type_id: this.M_OpPricingCostingDtl.op_cost_type_id,
         cost_value: this.M_OpPricingCostingDtl.cost_value,
         descs: this.M_OpPricingCostingDtl.descs,
-        status_on_order: "Y",
-        status_return: "N",
+        status_on_order: this.M_OpPricingCostingDtl.status_on_order ? "Y" : "N",
+        status_return_empty: this.M_OpPricingCostingDtl.status_return_empty
+          ? "Y"
+          : "N",
         user_input: this.getDataUser().user_id,
       };
 
@@ -258,8 +292,10 @@ export default {
         op_cost_type_id: this.M_OpPricingCostingDtl.op_cost_type_id,
         cost_value: this.M_OpPricingCostingDtl.cost_value,
         descs: this.M_OpPricingCostingDtl.descs,
-        status_on_order: "Y",
-        status_return: "N",
+        status_on_order: this.M_OpPricingCostingDtl.status_on_order ? "Y" : "N",
+        status_return_empty: this.M_OpPricingCostingDtl.status_return_empty
+          ? "Y"
+          : "N",
         lastupdatestamp: this.paramFromList.DetailList.lastupdatestamp,
         user_edit: this.getDataUser().user_id,
       };
@@ -322,6 +358,8 @@ export default {
           time_edit: data.time_edit,
           row_id: data.row_id,
           lastupdatestamp: data.lastupdatestamp,
+          status_on_order: data.status_on_order == "Y" ? true : false,
+          status_return_empty: data.status_return_empty == "Y" ? true : false,
         };
       });
     },

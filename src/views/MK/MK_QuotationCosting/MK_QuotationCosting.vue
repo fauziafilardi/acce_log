@@ -74,6 +74,7 @@
                   :foot-clone="false"
                   :fields="fieldHeader"
                   :items="dataList.items"
+                  @row-clicked="doViewClick"
                   class="table-sm table-style-3"
                 >
                   <template v-slot:cell(row_id)="data">
