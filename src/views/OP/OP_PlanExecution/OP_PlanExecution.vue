@@ -194,7 +194,7 @@ export default {
       console.log(record);
       switch (record.status) {
         case "NW":
-          this.$router.push({ name: "OP_ViewPlanExecution" });
+          this.$router.push({ name: "OP_PlanExecutionNew" });
           break;
         case "AS":
           // code block

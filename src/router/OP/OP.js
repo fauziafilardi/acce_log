@@ -5,6 +5,7 @@ import OP_ViewBookingEntry from '@/views/OP/OP_BookingEntry/OP_ViewBookingEntry'
 // Plan Execution
 import OP_PlanExecution from '@/views/OP/OP_PlanExecution/OP_PlanExecution'
 import OP_ViewPlanExecution from '@/views/OP/OP_PlanExecution/OP_ViewPlanExecution'
+import OP_PlanExecutionNew from '@/views/OP/OP_PlanExecution/OP_PlanExecutionNew'
 
 //Driver Management
 import OP_DriverManagement from '@/views/OP/OP_DriverManagement/OP_DriverList'
@@ -273,6 +274,14 @@ export const OPRender = {
             path: '/OP/OP_PlanExecution',
             name: 'OP_PlanExecution',
             component: OP_PlanExecution,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/OP_PlanExecution/new',
+            name: 'OP_PlanExecutionNew',
+            component: OP_PlanExecutionNew,
             meta: {
                 requiresAuth: true
             }
