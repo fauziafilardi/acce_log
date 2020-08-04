@@ -139,14 +139,9 @@
             >
               <template slot="status" slot-scope="data">
                 <div
-                  style="width: 32px; height: 32px; background-color: purple; border-radius: 50px; margin: auto; padding-top: 3%; color: white"
+                  :class="'Plan-Dot-' + (Status[data.item.status].variant)"
                 >{{data.item.status}}</div>
               </template>
-              <!-- <template v-slot:cell(status)="data">
-                <div
-                  :class="'Plan-DotTable-' + Status[data.item.status].variant"
-                ></div>
-              </template>-->
             </ACCFormList>
           </div>
         </b-col>
@@ -206,7 +201,7 @@ export default {
           // code block
           break;
         case "SL":
-          // code block
+          this.$router.push({ name: "OP_PlanExecutionSL" });
           break;
         case "FL":
           // code block
