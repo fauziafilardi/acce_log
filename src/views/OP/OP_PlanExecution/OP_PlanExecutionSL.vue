@@ -159,7 +159,7 @@
                           >
                             <span>Category</span>
                             <br />
-                            <span style="color: rgb(153 153 153)">{{M_SL_Plan.category}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_SL_Plan.category_descs}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
@@ -338,6 +338,49 @@
                       </b-col>
                     </b-row>
 
+                    <b-row class="row-bordered" style="margin-top: 10px;" v-show="M_SL_Plan.category == 'C'">
+                      <b-col md="12">
+                        <b-row>
+                          <b-col md="1">
+                            <span style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;">
+                              Console Detail
+                            </span>
+                          </b-col>
+                          <b-col md="1">
+                            <b-button
+                              style="background-color: transparent; color: black; border: none; padding: unset !important;"
+                              @click="doCreateConsole"
+                            >
+                              <font-awesome-icon
+                                icon="plus-circle"
+                                class="icon-style-default"
+                                style="margin-right: 5px;"
+                              />Add New
+                            </b-button>
+                          </b-col>
+                        </b-row>
+                        <b-row>
+                            <b-col>
+                                <ACCFormList
+                                    :prop="{}"
+                                    :title="''"
+                                    cStatic
+                                    :cHeader="PlanConsole_H"
+                                    :cData="PlanConsole_D"
+                                    @rowClicked="ConsoleClick"
+                                    ref="ref_SL_Plan_Console"
+                                    WithDeleteButton
+                                    @buttonDeleteClicked="doDeleteConsole"
+                                >
+                                  <template slot="pickup_date" slot-scope="data">
+                                    <span>{{momentDateFormatting(data.item.pickup_date, "YYYY-MM-DD HH:mm")}}</span>
+                                  </template>
+                                </ACCFormList>
+                            </b-col>
+                        </b-row>
+                      </b-col>
+                    </b-row>
+
                     <b-row class="row-bordered" style="margin-top: 10px;">
                       <b-col md="12">
                         <b-row>
@@ -373,6 +416,37 @@
                                   <template slot="ticket_date" slot-scope="data">
                                     <span>{{momentDateFormatting(data.item.ticket_date, "YYYY-MM-DD HH:mm")}}</span>
                                   </template>
+                                </ACCFormList>
+                            </b-col>
+                        </b-row>
+                      </b-col>
+                    </b-row>
+
+                    <b-row class="row-bordered" style="margin-top: 10px;">
+                      <b-col md="12">
+                        <b-row>
+                          <b-col md="2">
+                            <span style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;">
+                              Extra Pick/Drop
+                            </span>
+                          </b-col>
+                        </b-row>
+                        <b-row>
+                            <b-col>
+                                <ACCFormList
+                                    :prop="{}"
+                                    :title="''"
+                                    cStatic
+                                    :cHeader="PlanExtra_H"
+                                    :cData="PlanExtra_D"
+                                    @rowClicked="ExtraClick"
+                                    ref="ref_SL_Plan_Extra"
+                                    WithDeleteButton
+                                    @buttonDeleteClicked="doDeleteExtra"
+                                >
+                                  <!-- <template slot="ticket_date" slot-scope="data">
+                                    <span>{{momentDateFormatting(data.item.ticket_date, "YYYY-MM-DD HH:mm")}}</span>
+                                  </template> -->
                                 </ACCFormList>
                             </b-col>
                         </b-row>
@@ -660,6 +734,7 @@ data() {
             order_no: "",
             date: "",
             category: "",
+            category_descs: "",
             from: "",
             to: "",
             fm_driver_id1: "",
@@ -683,6 +758,57 @@ data() {
             cbm: "",
             note: ""
         },
+        PlanTicket_H: [
+          {
+            key: "no",
+            label: "No",
+            tdClass: "ContentACCList2 notranslate th-cus-center",
+            thClass: "HeaderACCList2 th-cus-center"
+          },
+          {
+            key: "order_no",
+            label: "Order No",
+            tdClass: "ContentACCList2 notranslate th-cus-center",
+            thClass: "HeaderACCList2 S th-cus-center"
+          },
+          {
+            key: "pickup_date",
+            label: "Pickup Date",
+            tdClass: "ContentACCList2 notranslate th-cus-center",
+            thClass: "HeaderACCList2 S th-cus-center"
+          },
+          {
+            key: "from_to",
+            label: "From To",
+            tdClass: "ContentACCList2 notranslate th-cus-center",
+            thClass: "HeaderACCList2 S th-cus-center"
+          },
+          {
+            key: "company",
+            label: "Company",
+            tdClass: "ContentACCList2 notranslate th-cus-center",
+            thClass: "HeaderACCList2 S th-cus-center"
+          },
+          {
+            key: "kgs",
+            label: "KGS",
+            tdClass: "ContentACCList2 notranslate th-cus-center",
+            thClass: "HeaderACCList2 S th-cus-center"
+          },
+          {
+            key: "cbm",
+            label: "CBM",
+            tdClass: "ContentACCList2 notranslate th-cus-center",
+            thClass: "HeaderACCList2 S th-cus-center"
+          },
+          {
+            key: "row_id",
+            label: "",
+            tdClass: "ContentACCList2 notranslate th-cus-center",
+            thClass: "HeaderACCList2 th-cus-center"
+          }
+        ],
+        PlanConsole_D: [],
         PlanTicket_H: [
           {
             key: "no",
@@ -777,7 +903,46 @@ data() {
             thClass: "HeaderACCList2 th-cus-center"
           },
         ],
-        PlanCosting_D: []
+        PlanCosting_D: [],
+        PlanExtra_H: [
+          {
+            key: "no",
+            label: "No",
+            tdClass: "ContentACCList2 notranslate th-cus-center",
+            thClass: "HeaderACCList2 th-cus-center"
+          },
+          {
+            key: "location",
+            label: "Location",
+            tdClass: "ContentACCList2 notranslate th-cus-center",
+            thClass: "HeaderACCList2 S th-cus-center"
+          },
+          {
+            key: "address",
+            label: "Address",
+            tdClass: "ContentACCList2 notranslate th-cus-center",
+            thClass: "HeaderACCList2 S th-cus-center"
+          },
+          {
+            key: "category",
+            label: "Category",
+            tdClass: "ContentACCList2 notranslate th-cus-center",
+            thClass: "HeaderACCList2 S th-cus-center"
+          },
+          {
+            key: "descs",
+            label: "Description",
+            tdClass: "ContentACCList2 notranslate th-cus-center",
+            thClass: "HeaderACCList2 S th-cus-center"
+          },
+          {
+            key: "row_id", //untuk button delete
+            label: "",
+            tdClass: "ContentACCList2 notranslate th-cus-center",
+            thClass: "HeaderACCList2 th-cus-center"
+          },
+        ],
+        PlanExtra_D: []
     };
 },
   computed: {
@@ -795,7 +960,9 @@ data() {
     }
   },
   methods: {
+    doDeleteExtra(record, index) {},
     doDeleteCosting(record, index) {},
+    doDeleteConsole(record, index) {},
     Onarrive_date_Change(data) {},
     OncomodityChange(data) {
         this.M_PlanExe.comodity = data.id;
@@ -884,6 +1051,7 @@ data() {
       });
     },
     doCreateTicket() {},
+    doCreateConsole() {},
     doBack() {
       this.$router.go(-1);
     },
@@ -930,6 +1098,7 @@ data() {
             order_no: data.order_no,
             date: this.momentDateFormatting(data.order_date, "YYYY-MM-DD HH:mm"),
             category: data.category,
+            category_descs: data.category_descs,
             from: data.from_zone,
             to: data.to_zone,
             fm_driver_id1: data.fm_driver_id,
@@ -947,6 +1116,8 @@ data() {
 
         this.PlanTicket_D = data.detail_ticket
         this.PlanCosting_D = data.detail_costing
+        this.PlanCosting_D = data.detail_pick_drop
+        this.PlanConsole_D = data.detail_console
 
         this.M_ClearForm();
       });
