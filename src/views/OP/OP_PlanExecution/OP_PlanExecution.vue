@@ -210,7 +210,7 @@ export default {
           // code block
           break;
         case "AD":
-          // code block
+          this.$router.push({ name: "OP_PlanExecutionAD" });
           break;
         case "SU":
           // code block

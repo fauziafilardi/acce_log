@@ -51,7 +51,7 @@
                         </b-col>
                     </b-row>
                     </b-col>
-                    <b-col style="max-width: fit-content !important;">
+                    <b-col md="2">
                     <b-row>
                         <b-col style="max-width:fit-content !important;">
                         <div
