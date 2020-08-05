@@ -10,24 +10,24 @@
                   <span>Plan Execution</span>
                 </b-col>
                 <b-col style="text-align: right;">
-                  <ABSButton
-                    :text="'Costing'"
-                    classButton="button button--back"
-                    classIcon="icon-style-1"
-                    @click="doCosting"
-                  />
-                  <ABSButton
-                    :text="'Extra Pick'"
-                    classButton="button button--back"
-                    classIcon="icon-style-1"
-                    @click="doExtraPict"
-                  />
-                  <ABSButton
-                    :text="'Extra Drop'"
-                    classButton="button button--back"
-                    classIcon="icon-style-1"
-                    @click="doExtraDrop"
-                  />
+                    <ABSButton
+                        :text="'Costing'"
+                        classButton="button button--back"
+                        classIcon="icon-style-1"
+                        @click="doCosting"
+                    />
+                    <ABSButton
+                        :text="'Extra Pick'"
+                        classButton="button button--back"
+                        classIcon="icon-style-1"
+                        @click="doExtraPict"
+                    />
+                    <ABSButton
+                        :text="'Extra Drop'"
+                        classButton="button button--back"
+                        classIcon="icon-style-1"
+                        @click="doExtraDrop"
+                    />
                   <ABSButton
                     :text="'Back'"
                     classButton="button button--back"
@@ -46,9 +46,9 @@
                   <b-col md="10">
                     <b-row>
                       <b-col>
-                        <span
-                          style="font-size: 15px; font-weight: bold;"
-                        >{{M_SL_Plan.customer_name}}</span>
+                        <span style="font-size: 15px; font-weight: bold;">
+                          {{M_SL_Plan.customer_name}}
+                        </span>
                       </b-col>
                       <b-col style="text-align: right;">
                         <span>
@@ -59,24 +59,21 @@
                             @click="doContact"
                           />
                         </span>
-                        <!-- </span> -->
+                        </span>
                       </b-col>
                     </b-row>
                     <b-row class="row-view" style="padding-top: 5px; padding-bottom: 10px;">
                       <b-col>
                         <span>
-                          <font-awesome-icon class="icon-style-default" icon="user" />
-                          &nbsp;&nbsp; {{M_SL_Plan.contact_person}}
+                          <font-awesome-icon class="icon-style-default" icon="user" />&nbsp;&nbsp; {{M_SL_Plan.contact_person}}
                         </span> &nbsp;&nbsp;
                         <span>
-                          <font-awesome-icon class="icon-style-default" icon="phone-square-alt" />
-                          &nbsp;&nbsp; {{M_SL_Plan.contact_person_phone_no}}
+                          <font-awesome-icon class="icon-style-default" icon="phone-square-alt" />&nbsp;&nbsp; {{M_SL_Plan.contact_person_phone_no}}
                         </span>
                       </b-col>
                       <b-col style="text-align: right;">
                         <span>
-                          <font-awesome-icon class="icon-style-default" icon="user" />
-                          &nbsp;&nbsp;User : {{M_SL_Plan.user}}
+                          <font-awesome-icon class="icon-style-default" icon="user" />&nbsp;&nbsp;User : {{M_SL_Plan.user}}
                         </span>
                       </b-col>
                     </b-row>
@@ -85,54 +82,54 @@
                         <div class="container-step">
                           <ul class="progressbar" style="padding-inline-start: 0px !important;">
                             <li class="active" style="width: 10% !important;">
-                              <span>Order</span>
-                              <br />
-                              <span>{{''}}</span>
+                                <span>Order</span>
+                                <br />
+                                <span>{{''}}</span>
                             </li>
                             <li class="active" style="width: 10% !important;">
-                              <span>Assign</span>
-                              <br />
-                              <span>{{''}}</span>
+                                <span>Assign</span>
+                                <br />
+                                <span>{{''}}</span>
                             </li>
                             <li class="active" style="width: 10% !important;">
-                              <span>Dispatch</span>
-                              <br />
-                              <span>{{''}}</span>
+                                <span>Dispatch</span>
+                                <br />
+                                <span>{{''}}</span>
                             </li>
                             <li class="active" style="width: 10% !important;">
-                              <span>Arrived</span>
-                              <br />
-                              <span>{{''}}</span>
+                                <span>Arrived</span>
+                                <br />
+                                <span>{{''}}</span>
                             </li>
                             <li class="active" style="width: 10% !important;">
-                              <span>Start Loading</span>
-                              <br />
-                              <span>{{''}}</span>
+                                <span>Start Loading</span>
+                                <br />
+                                <span>{{''}}</span>
                             </li>
                             <li style="width: 10% !important;">
-                              <span>Finish Loading</span>
-                              <br />
-                              <span>{{''}}</span>
+                                <span>Finish Loading</span>
+                                <br />
+                                <span>{{''}}</span>
                             </li>
                             <li style="width: 10% !important;">
-                              <span>Get Out</span>
-                              <br />
-                              <span>{{''}}</span>
+                                <span>Get Out</span>
+                                <br />
+                                <span>{{''}}</span>
                             </li>
                             <li style="width: 10% !important;">
-                              <span>Arrive Destination</span>
-                              <br />
-                              <span>{{''}}</span>
+                                <span>Arrive Destination</span>
+                                <br />
+                                <span>{{''}}</span>
                             </li>
                             <li style="width: 10% !important;">
-                              <span>Start Unloading</span>
-                              <br />
-                              <span>{{''}}</span>
+                                <span>Start Unloading</span>
+                                <br />
+                                <span>{{''}}</span>
                             </li>
                             <li style="width: 10% !important;">
-                              <span>Finish Unloading</span>
-                              <br />
-                              <span>{{''}}</span>
+                                <span>Finish Unloading</span>
+                                <br />
+                                <span>{{''}}</span>
                             </li>
                           </ul>
                         </div>
@@ -201,16 +198,12 @@
                             <br />
                             <span style="color: rgb(153 153 153)">{{M_SL_Plan.cbm}}</span>
                           </b-col>
-                          <b-col
-                            style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
-                          >
+                          <b-col style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;">
                             <span>Vehicle Type</span>
                             <br />
                             <span style="color: rgb(153 153 153)">{{M_SL_Plan.fleet_type_descs}}</span>
                           </b-col>
-                          <b-col
-                            style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
-                          >
+                          <b-col style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;" >
                             <span>Vehicle Number</span>
                             <br />
                             <span style="color: rgb(153 153 153)">{{M_SL_Plan.plat_no}}</span>
@@ -273,42 +266,50 @@
                           </b-col>
                         </b-row>
                         <b-row>
-                          <b-col md="12" style="padding-left: 0px !important;">
-                            <span>
-                              <label>Comodity</label>
-                            </span>
-                            <ACCDropDown
-                              @change="OncomodityChange"
-                              :prop="PI_comodity"
-                              v-model="M_PlanExe.comodity"
-                              :label="M_PlanExe.comodityLabel"
-                              :ref="'ref_comodity'"
-                            />
-                          </b-col>
+                            <b-col md="12" style="padding-left: 0px !important;">
+                                <span>
+                                    <label>Comodity</label>
+                                </span>
+                                <ACCDropDown
+                                    @change="OncomodityChange"
+                                    :prop="PI_comodity"
+                                    v-model="M_PlanExe.comodity"
+                                    :label="M_PlanExe.comodityLabel"
+                                    :ref="'ref_comodity'"
+                                />
+                            </b-col>
                         </b-row>
                         <b-row>
-                          <b-col md="4" style="padding-left: 0px !important;">
-                            <span>
-                              <label>Total Item</label>
-                            </span>
-                            <ACCTextBox
-                              :prop="PI_total_item"
-                              v-model="M_PlanExe.total_item"
-                              ref="ref_total_item"
-                            />
-                          </b-col>
-                          <b-col md="4" style="padding-left: 0px !important;">
-                            <span>
-                              <label>KGS</label>
-                            </span>
-                            <ACCTextBox :prop="PI_kgs" v-model="M_PlanExe.kgs" ref="ref_kgs" />
-                          </b-col>
-                          <b-col md="4" style="padding-left: 0px !important;">
-                            <span>
-                              <label>CBM</label>
-                            </span>
-                            <ACCTextBox :prop="PI_cbm" v-model="M_PlanExe.cbm" ref="ref_cbm" />
-                          </b-col>
+                            <b-col md="4" style="padding-left: 0px !important;">
+                                <span>
+                                    <label>Total Item</label>
+                                </span>
+                                <ACCTextBox
+                                    :prop="PI_total_item"
+                                    v-model="M_PlanExe.total_item"
+                                    ref="ref_total_item"
+                                />
+                            </b-col>
+                            <b-col md="4" style="padding-left: 0px !important;">
+                                <span>
+                                    <label>KGS</label>
+                                </span>
+                                <ACCTextBox
+                                    :prop="PI_kgs"
+                                    v-model="M_PlanExe.kgs"
+                                    ref="ref_kgs"
+                                />
+                            </b-col>
+                            <b-col md="4" style="padding-left: 0px !important;">
+                                <span>
+                                    <label>CBM</label>
+                                </span>
+                                <ACCTextBox
+                                    :prop="PI_cbm"
+                                    v-model="M_PlanExe.cbm"
+                                    ref="ref_cbm"
+                                />
+                            </b-col>
                         </b-row>
                         <b-row>
                           <b-col md="12" style="padding-left: 0px !important;">
@@ -340,10 +341,10 @@
                     <b-row class="row-bordered" style="margin-top: 10px;">
                       <b-col md="12">
                         <b-row>
-                          <b-col style="min-width: fit-content !important;">
-                            <span
-                              style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;"
-                            >Ticket</span>
+                          <b-col md="1">
+                            <span style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;">
+                              Ticket
+                            </span>
                           </b-col>
                           <b-col md="1">
                             <b-button
@@ -359,17 +360,21 @@
                           </b-col>
                         </b-row>
                         <b-row>
-                          <b-col>
-                            <ACCFormList
-                              :prop="{}"
-                              :title="''"
-                              cStatic
-                              :cHeader="PlanTicket_H"
-                              :cData="PlanTicket_D"
-                              @rowClicked="ticketClick"
-                              ref="ref_SL_Plan_Ticket"
-                            ></ACCFormList>
-                          </b-col>
+                            <b-col>
+                                <ACCFormList
+                                    :prop="{}"
+                                    :title="''"
+                                    cStatic
+                                    :cHeader="PlanTicket_H"
+                                    :cData="PlanTicket_D"
+                                    @rowClicked="ticketClick"
+                                    ref="ref_SL_Plan_Ticket"
+                                >
+                                  <template slot="ticket_date" slot-scope="data">
+                                    <span>{{momentDateFormatting(data.item.ticket_date, "YYYY-MM-DD HH:mm")}}</span>
+                                  </template>
+                                </ACCFormList>
+                            </b-col>
                         </b-row>
                       </b-col>
                     </b-row>
@@ -386,192 +391,245 @@
 
 <script>
 export default {
-  data() {
+data() {
     return {
-      PI_finish_loading_date: {
-        cValidate: "required",
-        cName: "finish_loading_date",
-        cOrder: 1,
-        cKey: false,
-        cProtect: false,
-        cWithTime: true,
-        cFormat: "dd/MM/yyyy",
-        cParentForm: "OP_SL_PlanExecution",
-      },
-      PI_comodity: {
-        dataLookUp: {
-          LookUpCd: "GetQuotationCommodity",
-          ColumnDB: "cm_commodity_id",
-          InitialWhere:
-            "ss_portfolio_id='" + this.getDataUser().portfolio_id + "'",
-          ParamWhere: "",
-          OrderBy: "",
-          ParamView: "",
-          SourceField: "",
-          DisplayLookUp: "comodity_cd",
+        PI_finish_loading_date: {
+            cValidate: "required",
+            cName: "finish_loading_date",
+            cOrder: 1,
+            cKey: false,
+            cProtect: false,
+            cWithTime: true,
+            cFormat: "dd/MM/yyyy",
+            cParentForm: "OP_SL_PlanExecution"
         },
-        cValidate: "required",
-        cName: "comodity",
-        ckey: false,
-        cOrder: 2,
-        cProtect: false,
-        cParentForm: "OP_SL_PlanExecution",
-        cStatic: false,
-        cOption: [],
-        cDisplayColumn: "comodity_cd",
-        cInputStatus: this.inputStatus,
-      },
-      PI_total_item: {
-        cValidate: "required",
-        cName: "total_item",
-        cOrder: 3,
-        cKey: false,
-        cType: "numeric",
-        cProtect: false,
-        cParentForm: "OP_SL_PlanExecution",
-        cDecimal: 2,
-        cInputStatus: this.inputStatus,
-      },
-      PI_kgs: {
-        cValidate: "required",
-        cName: "kgs",
-        cOrder: 4,
-        cKey: false,
-        cType: "numeric",
-        cProtect: false,
-        cParentForm: "OP_SL_PlanExecution",
-        cDecimal: 2,
-        cInputStatus: this.inputStatus,
-      },
-      PI_cbm: {
-        cValidate: "required",
-        cName: "cbm",
-        cOrder: 5,
-        cKey: false,
-        cType: "numeric",
-        cProtect: false,
-        cParentForm: "OP_SL_PlanExecution",
-        cDecimal: 2,
-        cInputStatus: this.inputStatus,
-      },
-      PI_note: {
-        cValidate: "required",
-        cName: "note",
-        cOrder: 6,
-        cKey: false,
-        cProtect: false,
-        cResize: false,
-        cReadonly: false,
-        cRows: 3,
-        cMaxRows: 3,
-        cSize: "md",
-        cParentForm: "OP_SL_PlanExecution",
-        cInputStatus: this.inputStatus,
-      },
-      PlanExTable: {
-        Header: [
+        PI_comodity: {
+            dataLookUp: {
+                LookUpCd:'GetQuotationCommodity',
+                ColumnDB:'cm_commodity_id',
+                InitialWhere:"ss_portfolio_id='" + this.getDataUser().portfolio_id + "'",
+                ParamWhere:'',
+                OrderBy:'',
+                ParamView:'',
+                SourceField:'',
+                DisplayLookUp:'comodity_cd'
+            },
+            cValidate: "required",
+            cName: "comodity",
+            ckey: false,
+            cOrder: 2,
+            cProtect: false,
+            cParentForm: "OP_SL_PlanExecution",
+            cStatic: false,
+            cOption: [],
+            cDisplayColumn: "comodity_cd",
+            cInputStatus: this.inputStatus
+        },
+        PI_total_item: {
+            cValidate: "required",
+            cName: "total_item",
+            cOrder: 3,
+            cKey: false,
+            cType: "numeric",
+            cProtect: false,
+            cParentForm: "OP_SL_PlanExecution",
+            cDecimal: 2,
+            cInputStatus: this.inputStatus
+        },
+        PI_kgs: {
+            cValidate: "required",
+            cName: "kgs",
+            cOrder: 4,
+            cKey: false,
+            cType: "numeric",
+            cProtect: false,
+            cParentForm: "OP_SL_PlanExecution",
+            cDecimal: 2,
+            cInputStatus: this.inputStatus
+        },
+        PI_cbm: {
+            cValidate: "required",
+            cName: "cbm",
+            cOrder: 5,
+            cKey: false,
+            cType: "numeric",
+            cProtect: false,
+            cParentForm: "OP_SL_PlanExecution",
+            cDecimal: 2,
+            cInputStatus: this.inputStatus
+        },
+        PI_note: {
+            cValidate: "required",
+            cName: "note",
+            cOrder: 6,
+            cKey: false,
+            cProtect: false,
+            cResize: false,
+            cReadonly: false,
+            cRows: 3,
+            cMaxRows: 3,
+            cSize: "md",
+            cParentForm: "OP_SL_PlanExecution",
+            cInputStatus: this.inputStatus
+        },
+        PlanExTable: {
+            Header: [
+            {
+                key: "no",
+                label: "No",
+                thClass: "HeaderTable",
+                tdClass: "ContentTable__Center"
+            },
+            {
+                key: "orderno",
+                label: "Order No",
+                thClass: "HeaderTable",
+                tdClass: "ContentTable__Center"
+            },
+            {
+                key: "pickupdate",
+                label: "pickupdate",
+                thClass: "HeaderTable",
+                tdClass: "ContentTable__Center"
+            },
+            {
+                key: "fromto",
+                label: "From - To",
+                thClass: "HeaderTable",
+                tdClass: "ContentTable__Center"
+            },
+            {
+                key: "company",
+                label: "Company",
+                thClass: "HeaderTable",
+                tdClass: "ContentTable__Center"
+            },
+            {
+                key: "cancel",
+                label: "Cancel",
+                thClass: "HeaderTable",
+                tdClass: "ContentTable__Center"
+            }
+            ],
+            Data: [
+            {
+                no: 1,
+                orderno: "#ORD00001",
+                pickupdate: "01/01/2020 20.00",
+                fromto: "JKT - SMG",
+                company: "PT. Abadi Sentosa",
+                cancel: 1
+            },
+            {
+                no: 2,
+                orderno: "#ORD00002",
+                pickupdate: "01/01/2020 20.00",
+                fromto: "JKT - SMG",
+                company: "PT. Abadi Sentosa",
+                cancel: 2
+            },
+            {
+                no: 3,
+                orderno: "#ORD00003",
+                pickupdate: "01/01/2020 20.00",
+                fromto: "JKT - SMG",
+                company: "PT. Abadi Sentosa",
+                cancel: 3
+            }
+            ]
+        },
+        M_SL_Plan: {
+            cm_contact_id: "",
+            customer_name: "",
+            cm_contact_person_id: "",
+            contact_person: "",
+            contact_person_phone_no: "",
+            user: "",
+            status: "",
+            order_no: "",
+            date: "",
+            category: "",
+            from: "",
+            to: "",
+            fm_driver_id1: "",
+            driver1: "",
+            pickup_date: "",
+            kgs: "",
+            cbm: "",
+            fleet_type: "",
+            fleet_type_descs: "",
+            plat_no: "",
+            descs: "",
+            from_address: "",
+            to_address: "",
+        },
+        M_PlanExe: {
+            finish_loading_date: "",
+            comodity: "",
+            comodityLabel: "",
+            total_item: "",
+            kgs: "",
+            cbm: "",
+            note: ""
+        },
+        PlanTicket_H: [
           {
             key: "no",
             label: "No",
-            thClass: "HeaderTable",
-            tdClass: "ContentTable__Center",
+            tdClass: "ContentACCList2 notranslate th-cus-center",
+            thClass: "HeaderACCList2 th-cus-center"
           },
           {
-            key: "orderno",
-            label: "Order No",
-            thClass: "HeaderTable",
-            tdClass: "ContentTable__Center",
+            key: "ticket_no",
+            label: "Ticket No",
+            tdClass: "ContentACCList2 notranslate th-cus-center",
+            thClass: "HeaderACCList2 S th-cus-center"
           },
           {
-            key: "pickupdate",
-            label: "pickupdate",
-            thClass: "HeaderTable",
-            tdClass: "ContentTable__Center",
+            key: "ticket_date",
+            label: "Date",
+            tdClass: "ContentACCList2 notranslate th-cus-center",
+            thClass: "HeaderACCList2 S th-cus-center"
           },
           {
-            key: "fromto",
-            label: "From - To",
-            thClass: "HeaderTable",
-            tdClass: "ContentTable__Center",
+            key: "category",
+            label: "Category",
+            tdClass: "ContentACCList2 notranslate th-cus-center",
+            thClass: "HeaderACCList2 S th-cus-center"
           },
           {
-            key: "company",
-            label: "Company",
-            thClass: "HeaderTable",
-            tdClass: "ContentTable__Center",
+            key: "descs",
+            label: "Description",
+            tdClass: "ContentACCList2 notranslate th-cus-center",
+            thClass: "HeaderACCList2 S th-cus-center"
           },
           {
-            key: "cancel",
-            label: "Cancel",
-            thClass: "HeaderTable",
-            tdClass: "ContentTable__Center",
+            key: "attachment",
+            label: "Attachment",
+            tdClass: "ContentACCList2 notranslate th-cus-center",
+            thClass: "HeaderACCList2 S th-cus-center"
           },
         ],
-        Data: [
+        PlanTicket_D: [
           {
             no: 1,
-            orderno: "#ORD00001",
-            pickupdate: "01/01/2020 20.00",
-            fromto: "JKT - SMG",
-            company: "PT. Abadi Sentosa",
-            cancel: 1,
+            ticket_no: "#ORD1212121",
+            ticket_date: new Date(),
+            descs: "Test Ticket TINGINT",
+            category: "Accident",
+            attachment: "default_photo_.png"
           },
           {
             no: 2,
-            orderno: "#ORD00002",
-            pickupdate: "01/01/2020 20.00",
-            fromto: "JKT - SMG",
-            company: "PT. Abadi Sentosa",
-            cancel: 2,
-          },
-          {
-            no: 3,
-            orderno: "#ORD00003",
-            pickupdate: "01/01/2020 20.00",
-            fromto: "JKT - SMG",
-            company: "PT. Abadi Sentosa",
-            cancel: 3,
-          },
+            ticket_no: "#ORD1212121",
+            ticket_date: new Date(),
+            descs: "Test Ticket TINGINT",
+            category: "Accident",
+            attachment: "default_photo_.png"
+          }
         ],
-      },
-      M_SL_Plan: {
-        cm_contact_id: "",
-        customer_name: "",
-        cm_contact_person_id: "",
-        contact_person: "",
-        contact_person_phone_no: "",
-        user: "",
-        status: "",
-        order_no: "",
-        date: "",
-        category: "",
-        from: "",
-        to: "",
-        fm_driver_id1: "",
-        driver1: "",
-        pickup_date: "",
-        kgs: "",
-        cbm: "",
-        fleet_type: "",
-        fleet_type_descs: "",
-        plat_no: "",
-        descs: "",
-        from_address: "",
-        to_address: "",
-      },
-      M_PlanExe: {
-        finish_loading_date: "",
-        comodity: "",
-        comodityLabel: "",
-        total_item: "",
-        kgs: "",
-        cbm: "",
-        note: "",
-      },
-      PlanTicket_H: [],
-      PlanTicket_D: [],
     };
-  },
+},
   computed: {
     paramFromList() {
       var param = this.$store.getters.getParamPage;
@@ -584,13 +642,13 @@ export default {
           return param;
         }
       }
-    },
+    }
   },
   methods: {
     Onarrive_date_Change(data) {},
     OncomodityChange(data) {
-      this.M_PlanExe.comodity = data.id;
-      this.M_PlanExe.comodityLabel = data.label;
+        this.M_PlanExe.comodity = data.id;
+        this.M_PlanExe.comodityLabel = data.label;
     },
     doSave() {},
     doCreateTicket() {},
@@ -610,61 +668,58 @@ export default {
         total_item: "",
         kgs: "",
         cbm: "",
-        note: "",
-      };
+        note: ""
+      }
     },
     GetDataBy() {
       var param = {
         option_url: "/OP/OP_Order",
         line_no: 0,
         id: this.paramFromList.row_id,
-        lastupdatestamp: this.paramFromList.lastupdatestamp,
+        lastupdatestamp: this.paramFromList.lastupdatestamp
       };
 
-      this.getJSON(this.getUrlCRUD(), param).then((response) => {
+      this.getJSON(this.getUrlCRUD(), param).then(response => {
         // response from API
         if (response == null) return;
 
         var data = JSON.parse(response.Data[0].fop_order_s)[0];
-        console.log(data);
-
+        console.log(data)
+        
         this.M_SL_Plan = {
-          cm_contact_id: 0,
-          customer_name: data.customer_name,
-          cm_contact_person_id: 0,
-          contact_person: data.contact_person_name,
-          contact_person_phone_no: data.contact_person_phone,
-          user: this.getDataUser().user_id,
-          status: data.order_status,
-          order_no: data.order_no,
-          date: this.momentDateFormatting(data.order_date, "YYYY-MM-DD HH:mm"),
-          category: data.category,
-          from: data.from_zone,
-          to: data.to_zone,
-          fm_driver_id1: data.fm_driver_id,
-          driver1: data.driver_name,
-          pickup_date: this.momentDateFormatting(
-            data.pickup_date,
-            "YYYY-MM-DD HH:mm"
-          ),
-          kgs: data.total_kgs,
-          cbm: data.total_cbm,
-          fleet_type: data.fm_fleet_type_id,
-          fleet_type_descs: data.vehicle_type_cd,
-          plat_no: data.license_plate_no,
-          descs: data.descs,
-          from_address: data.from_address,
-          to_address: data.to_address,
-        };
+            cm_contact_id: 0,
+            customer_name: data.customer_name,
+            cm_contact_person_id: 0,
+            contact_person: data.contact_person_name,
+            contact_person_phone_no: data.contact_person_phone,
+            user: this.getDataUser().user_name,
+            status: data.order_status,
+            order_no: data.order_no,
+            date: this.momentDateFormatting(data.order_date, "YYYY-MM-DD HH:mm"),
+            category: data.category,
+            from: data.from_zone,
+            to: data.to_zone,
+            fm_driver_id1: data.fm_driver_id,
+            driver1: data.driver_name,
+            pickup_date: this.momentDateFormatting(data.pickup_date, "YYYY-MM-DD HH:mm"),
+            kgs: data.total_kgs,
+            cbm: data.total_cbm,
+            fleet_type: data.fm_fleet_type_id,
+            fleet_type_descs: data.vehicle_type_cd,
+            plat_no: data.license_plate_no,
+            descs: data.descs,
+            from_address: data.from_address,
+            to_address: data.to_address,
+        }
 
         this.M_ClearForm();
       });
-    },
+    }
   },
   mounted() {
     this.GetDataBy();
   },
-  beforeMount() {},
+  beforeMount() {}
 };
 </script>
 
