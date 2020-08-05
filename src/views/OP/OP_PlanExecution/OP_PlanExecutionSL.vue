@@ -341,7 +341,7 @@
                     <b-row class="row-bordered" style="margin-top: 10px;">
                       <b-col md="12">
                         <b-row>
-                          <b-col style="min-width: fit-content !important;">
+                          <b-col md="1">
                             <span style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;">
                               Ticket
                             </span>
@@ -370,6 +370,9 @@
                                     @rowClicked="ticketClick"
                                     ref="ref_SL_Plan_Ticket"
                                 >
+                                  <template slot="ticket_date" slot-scope="data">
+                                    <span>{{momentDateFormatting(data.item.ticket_date, "YYYY-MM-DD HH:mm")}}</span>
+                                  </template>
                                 </ACCFormList>
                             </b-col>
                         </b-row>
@@ -569,8 +572,62 @@ data() {
             cbm: "",
             note: ""
         },
-        PlanTicket_H: [],
-        PlanTicket_D: [],
+        PlanTicket_H: [
+          {
+            key: "no",
+            label: "No",
+            tdClass: "ContentACCList2 notranslate th-cus-center",
+            thClass: "HeaderACCList2 th-cus-center"
+          },
+          {
+            key: "ticket_no",
+            label: "Ticket No",
+            tdClass: "ContentACCList2 notranslate th-cus-center",
+            thClass: "HeaderACCList2 S th-cus-center"
+          },
+          {
+            key: "ticket_date",
+            label: "Date",
+            tdClass: "ContentACCList2 notranslate th-cus-center",
+            thClass: "HeaderACCList2 S th-cus-center"
+          },
+          {
+            key: "category",
+            label: "Category",
+            tdClass: "ContentACCList2 notranslate th-cus-center",
+            thClass: "HeaderACCList2 S th-cus-center"
+          },
+          {
+            key: "descs",
+            label: "Description",
+            tdClass: "ContentACCList2 notranslate th-cus-center",
+            thClass: "HeaderACCList2 S th-cus-center"
+          },
+          {
+            key: "attachment",
+            label: "Attachment",
+            tdClass: "ContentACCList2 notranslate th-cus-center",
+            thClass: "HeaderACCList2 S th-cus-center"
+          },
+        ],
+        PlanTicket_D: [
+          {
+            no: 1,
+            ticket_no: "#ORD1212121",
+            ticket_date: new Date(),
+            descs: "Test Ticket TINGINT",
+            category: "Accident",
+            attachment: "default_photo_.png"
+          },
+          {
+            no: 2,
+            ticket_no: "#ORD1212121",
+            ticket_date: new Date(),
+            descs: "Test Ticket TINGINT",
+            category: "Accident",
+            attachment: "default_photo_.png"
+          }
+        ],
     };
 },
   computed: {
@@ -635,7 +692,7 @@ data() {
             cm_contact_person_id: 0,
             contact_person: data.contact_person_name,
             contact_person_phone_no: data.contact_person_phone,
-            user: this.getDataUser().user_id,
+            user: this.getDataUser().user_name,
             status: data.order_status,
             order_no: data.order_no,
             date: this.momentDateFormatting(data.order_date, "YYYY-MM-DD HH:mm"),
