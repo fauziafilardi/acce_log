@@ -398,7 +398,7 @@
                                       <label>Driver</label>
                                     </span>
                                     <ACCTextBox
-                                      :prop="PI_driver_name_e"
+                                      :prop="PI_driver_name"
                                       v-model="M_PlanExe.driver_name_e"
                                       ref="ref_driver_name"
                                     />
@@ -408,7 +408,7 @@
                                       <label>Co Driver</label>
                                     </span>
                                     <ACCTextBox
-                                      :prop="PI_co_driver_name_e"
+                                      :prop="PI_co_driver_name"
                                       v-model="M_PlanExe.co_driver_name_e"
                                       ref="ref_co_driver_name"
                                     />
@@ -458,7 +458,7 @@
                                   cStatic
                                   :cHeader="PlanPickDrop_H"
                                   :cData="PlanPickDrop_D"
-                                  @rowClicked="CostingClick"
+                                  @rowClicked="ListDropPickClick"
                                   ref="ref_SL_Plan_Costing"
                                   WithDeleteButton
                                   @buttonDeleteClicked="doDeleteCosting"
@@ -498,9 +498,9 @@
                                   cStatic
                                   :cHeader="PlanCosting_H"
                                   :cData="PlanCosting_D"
-                                  @rowClicked="CostingClick"
+                                  @rowClicked="ListCostingClick"
                                   ref="ref_SL_Plan_Costing"
-                                  WithDeleteButton
+                                  :WithDeleteButton="true"
                                   @buttonDeleteClicked="doDeleteCosting"
                                 >
                                   <!-- <template slot="ticket_date" slot-scope="data">
@@ -746,13 +746,13 @@ export default {
       },
       PlanPickDrop_H: [
         {
-          key: "no",
+          key: "row_number",
           label: "No",
           tdClass: "ContentACCList2 notranslate th-cus-center",
           thClass: "HeaderACCList2 th-cus-center",
         },
         {
-          key: "location",
+          key: "address_name",
           label: "Location",
           tdClass: "ContentACCList2 notranslate th-cus-center",
           thClass: "HeaderACCList2 S th-cus-center",
@@ -764,7 +764,7 @@ export default {
           thClass: "HeaderACCList2 S th-cus-center",
         },
         {
-          key: "category",
+          key: "pickdrop_category",
           label: "Category",
           tdClass: "ContentACCList2 notranslate th-cus-center",
           thClass: "HeaderACCList2 S th-cus-center",
@@ -785,7 +785,7 @@ export default {
       PlanPickDrop_D: [],
       PlanCosting_H: [
         {
-          key: "no",
+          key: "row_number",
           label: "No",
           tdClass: "ContentACCList2 notranslate th-cus-center",
           thClass: "HeaderACCList2 th-cus-center",
@@ -803,13 +803,13 @@ export default {
           thClass: "HeaderACCList2 S th-cus-center",
         },
         {
-          key: "value",
+          key: "cost_value",
           label: "Value",
           tdClass: "ContentACCList2 notranslate th-cus-center",
           thClass: "HeaderACCList2 S th-cus-center",
         },
         {
-          key: "status",
+          key: "order_cost_status",
           label: "Status",
           tdClass: "ContentACCList2 notranslate th-cus-center",
           thClass: "HeaderACCList2 S th-cus-center",
@@ -832,6 +832,8 @@ export default {
     },
   },
   methods: {
+    ListCostingClick(record, index) {},
+    ListDropPickClick(record, index) {},
     doDeleteCosting(record, index) {},
     Onassign_fleet_statusChange(data) {
       console.log(data);
@@ -877,7 +879,288 @@ export default {
         this.M_PlanExe.co_driver_name_i = data.label;
       });
     },
-    doSave() {},
+    doSave() {
+      this.$validator._base
+        .validateAll("OP_NW_PlanExecution")
+        .then((result) => {
+          if (!result) return;
+          this.alertConfirmation("Are You Sure Want To Save This Data ?").then(
+            (ress) => {
+              if (ress.value) {
+                this.$validator.errors.clear("OP_NW_PlanExecution");
+                this.M_Update();
+              }
+            }
+          );
+        });
+    },
+    M_Update() {
+      var param = {
+        option_url: "/OP/OP_Order",
+        line_no: 0,
+        ss_portfolio_id:
+          this.M_GetDataBy.ss_portfolio_id &&
+          this.M_GetDataBy.ss_portfolio_id !== ""
+            ? this.M_GetDataBy.ss_portfolio_id
+            : "NULL",
+        ss_subportfolio_id:
+          this.M_GetDataBy.ss_subportfolio_id &&
+          this.M_GetDataBy.ss_subportfolio_id !== ""
+            ? this.M_GetDataBy.ss_subportfolio_id
+            : "NULL",
+        op_order_id: this.paramFromList.row_id,
+        order_no:
+          this.M_GetDataBy.order_no && this.M_GetDataBy.order_no !== ""
+            ? this.M_GetDataBy.order_no
+            : "NULL",
+        order_status:
+          this.M_GetDataBy.order_status && this.M_GetDataBy.order_status !== ""
+            ? this.M_GetDataBy.order_status
+            : "NULL",
+        descs:
+          this.M_GetDataBy.descs && this.M_GetDataBy.descs !== ""
+            ? this.M_GetDataBy.descs
+            : "NULL",
+        pickup_date:
+          this.M_GetDataBy.pickup_date && this.M_GetDataBy.pickup_date !== ""
+            ? this.M_GetDataBy.pickup_date
+            : "NULL",
+        fr_cm_contact_delivery_address_id:
+          this.M_GetDataBy.fr_cm_contact_delivery_address_id &&
+          this.M_GetDataBy.fr_cm_contact_delivery_address_id !== ""
+            ? this.M_GetDataBy.fr_cm_contact_delivery_address_id
+            : "NULL",
+        to_cm_contact_delivery_address_id:
+          this.M_GetDataBy.to_cm_contact_delivery_address_id &&
+          this.M_GetDataBy.to_cm_contact_delivery_address_id !== ""
+            ? this.M_GetDataBy.to_cm_contact_delivery_address_id
+            : "NULL",
+        fr_cm_zone_id:
+          this.M_GetDataBy.fr_cm_zone_id &&
+          this.M_GetDataBy.fr_cm_zone_id !== ""
+            ? this.M_GetDataBy.fr_cm_zone_id
+            : "NULL",
+        to_cm_zone_id:
+          this.M_GetDataBy.to_cm_zone_id &&
+          this.M_GetDataBy.to_cm_zone_id !== ""
+            ? this.M_GetDataBy.to_cm_zone_id
+            : "NULL",
+        fm_fleet_type_id:
+          this.M_GetDataBy.fm_fleet_type_id &&
+          this.M_GetDataBy.fm_fleet_type_id !== ""
+            ? this.M_GetDataBy.fm_fleet_type_id
+            : "NULL",
+        assign_fleet_status:
+          this.M_GetDataBy.assign_fleet_status &&
+          this.M_GetDataBy.assign_fleet_status !== ""
+            ? this.M_GetDataBy.assign_fleet_status
+            : "NULL",
+        vendor_cm_contact_id:
+          this.M_GetDataBy.vendor_cm_contact_id &&
+          this.M_GetDataBy.vendor_cm_contact_id !== ""
+            ? this.M_GetDataBy.vendor_cm_contact_id
+            : "NULL",
+        fm_fleet_mstr_id:
+          this.M_GetDataBy.fm_fleet_mstr_id &&
+          this.M_GetDataBy.fm_fleet_mstr_id !== ""
+            ? this.M_GetDataBy.fm_fleet_mstr_id
+            : "NULL",
+        license_plate_no:
+          this.M_GetDataBy.license_plate_no &&
+          this.M_GetDataBy.license_plate_no !== ""
+            ? this.M_GetDataBy.license_plate_no
+            : "NULL",
+        fm_driver_id:
+          this.M_GetDataBy.fm_driver_id && this.M_GetDataBy.fm_driver_id !== ""
+            ? this.M_GetDataBy.fm_driver_id
+            : "NULL",
+        driver_name:
+          this.M_GetDataBy.driver_name && this.M_GetDataBy.driver_name !== ""
+            ? this.M_GetDataBy.driver_name
+            : "NULL",
+        fm_driver_id2:
+          this.M_GetDataBy.fm_driver_id2 &&
+          this.M_GetDataBy.fm_driver_id2 !== ""
+            ? this.M_GetDataBy.fm_driver_id2
+            : "NULL",
+        driver_name2:
+          this.M_GetDataBy.driver_name2 && this.M_GetDataBy.driver_name2 !== ""
+            ? this.M_GetDataBy.driver_name2
+            : "NULL",
+        remarks:
+          this.M_GetDataBy.remarks && this.M_GetDataBy.remarks !== ""
+            ? this.M_GetDataBy.remarks
+            : "NULL",
+        dispatch_date:
+          this.M_GetDataBy.dispatch_date &&
+          this.M_GetDataBy.dispatch_date !== ""
+            ? this.M_GetDataBy.dispatch_date
+            : "NULL",
+        dispatch_km:
+          this.M_GetDataBy.dispatch_km && this.M_GetDataBy.dispatch_km !== ""
+            ? this.M_GetDataBy.dispatch_km
+            : "NULL",
+        dispatach_notes:
+          this.M_GetDataBy.dispatach_notes &&
+          this.M_GetDataBy.dispatach_notes !== ""
+            ? this.M_GetDataBy.dispatach_notes
+            : "NULL",
+        arrival_date:
+          this.M_GetDataBy.arrival_date && this.M_GetDataBy.arrival_date !== ""
+            ? this.M_GetDataBy.arrival_date
+            : "NULL",
+        arrival_notes:
+          this.M_GetDataBy.arrival_notes &&
+          this.M_GetDataBy.arrival_notes !== ""
+            ? this.M_GetDataBy.arrival_notes
+            : "NULL",
+        start_loading_date:
+          this.M_GetDataBy.start_loading_date &&
+          this.M_GetDataBy.start_loading_date !== ""
+            ? this.M_GetDataBy.start_loading_date
+            : "NULL",
+        start_loading_notes:
+          this.M_GetDataBy.start_loading_notes &&
+          this.M_GetDataBy.start_loading_notes !== ""
+            ? this.M_GetDataBy.start_loading_notes
+            : "NULL",
+        finish_loading_date:
+          this.M_GetDataBy.finish_loading_date &&
+          this.M_GetDataBy.finish_loading_date !== ""
+            ? this.M_GetDataBy.finish_loading_date
+            : "NULL",
+        cm_commodity_id:
+          this.M_GetDataBy.cm_commodity_id &&
+          this.M_GetDataBy.cm_commodity_id !== ""
+            ? this.M_GetDataBy.cm_commodity_id
+            : "NULL",
+        total_loading_item:
+          this.M_GetDataBy.total_loading_item &&
+          this.M_GetDataBy.total_loading_item !== ""
+            ? this.M_GetDataBy.total_loading_item
+            : "NULL",
+        total_loading_kgs:
+          this.M_GetDataBy.total_loading_kgs &&
+          this.M_GetDataBy.total_loading_kgs !== ""
+            ? this.M_GetDataBy.total_loading_kgs
+            : "NULL",
+        total_loading_cbm:
+          this.M_GetDataBy.total_loading_cbm &&
+          this.M_GetDataBy.total_loading_cbm !== ""
+            ? this.M_GetDataBy.total_loading_cbm
+            : "NULL",
+        finish_loading_notes:
+          this.M_GetDataBy.finish_loading_notes &&
+          this.M_GetDataBy.finish_loading_notes !== ""
+            ? this.M_GetDataBy.finish_loading_notes
+            : "NULL",
+        get_out_arrival_date:
+          this.M_GetDataBy.get_out_arrival_date &&
+          this.M_GetDataBy.get_out_arrival_date !== ""
+            ? this.M_GetDataBy.get_out_arrival_date
+            : "NULL",
+        get_out_arrival_notes:
+          this.M_GetDataBy.get_out_arrival_notes &&
+          this.M_GetDataBy.get_out_arrival_notes !== ""
+            ? this.M_GetDataBy.get_out_arrival_notes
+            : "NULL",
+        arrival_destination_date:
+          this.M_GetDataBy.arrival_destination_date &&
+          this.M_GetDataBy.arrival_destination_date !== ""
+            ? this.M_GetDataBy.arrival_destination_date
+            : "NULL",
+        arrival_destination_notes:
+          this.M_GetDataBy.arrival_destination_notes &&
+          this.M_GetDataBy.arrival_destination_notes !== ""
+            ? this.M_GetDataBy.arrival_destination_notes
+            : "NULL",
+        start_unloading_date:
+          this.M_GetDataBy.start_unloading_date &&
+          this.M_GetDataBy.start_unloading_date !== ""
+            ? this.M_GetDataBy.start_unloading_date
+            : "NULL",
+        start_unloading_notes:
+          this.M_GetDataBy.start_unloading_notes &&
+          this.M_GetDataBy.start_unloading_notes !== ""
+            ? this.M_GetDataBy.start_unloading_notes
+            : "NULL",
+        finish_unloading_date:
+          this.M_GetDataBy.finish_unloading_date &&
+          this.M_GetDataBy.finish_unloading_date !== ""
+            ? this.M_GetDataBy.finish_unloading_date
+            : "NULL",
+        total_delivered_item:
+          this.M_GetDataBy.total_delivered_item &&
+          this.M_GetDataBy.total_delivered_item !== ""
+            ? this.M_GetDataBy.total_delivered_item
+            : "NULL",
+        total_delivered_kgs:
+          this.M_GetDataBy.total_delivered_kgs &&
+          this.M_GetDataBy.total_delivered_kgs !== ""
+            ? this.M_GetDataBy.total_delivered_kgs
+            : "NULL",
+        total_delivered_cbm:
+          this.M_GetDataBy.total_delivered_cbm &&
+          this.M_GetDataBy.total_delivered_cbm !== ""
+            ? this.M_GetDataBy.total_delivered_cbm
+            : "NULL",
+        finish_unloading_notes:
+          this.M_GetDataBy.finish_unloading_notes &&
+          this.M_GetDataBy.finish_unloading_notes !== ""
+            ? this.M_GetDataBy.finish_unloading_notes
+            : "NULL",
+        get_out_destination_date:
+          this.M_GetDataBy.get_out_destination_date &&
+          this.M_GetDataBy.get_out_destination_date !== ""
+            ? this.M_GetDataBy.get_out_destination_date
+            : "NULL",
+        return_empty_to:
+          this.M_GetDataBy.return_empty_to &&
+          this.M_GetDataBy.return_empty_to !== ""
+            ? this.M_GetDataBy.return_empty_to
+            : "NULL",
+        get_out_destination_km:
+          this.M_GetDataBy.get_out_destination_km &&
+          this.M_GetDataBy.get_out_destination_km !== ""
+            ? this.M_GetDataBy.get_out_destination_km
+            : "NULL",
+        get_out_destination_notes:
+          this.M_GetDataBy.get_out_destination_notes &&
+          this.M_GetDataBy.get_out_destination_notes !== ""
+            ? this.M_GetDataBy.get_out_destination_notes
+            : "NULL",
+        ref_op_order_id:
+          this.M_GetDataBy.ref_op_order_id &&
+          this.M_GetDataBy.ref_op_order_id !== ""
+            ? this.M_GetDataBy.ref_op_order_id
+            : "NULL",
+        ref_op_order_no:
+          this.M_GetDataBy.ref_op_order_no &&
+          this.M_GetDataBy.ref_op_order_no !== ""
+            ? this.M_GetDataBy.ref_op_order_no
+            : "NULL",
+        total_order_amt:
+          this.M_GetDataBy.total_order_amt &&
+          this.M_GetDataBy.total_order_amt !== ""
+            ? this.M_GetDataBy.total_order_amt
+            : "NULL",
+        total_order_cost:
+          this.M_GetDataBy.total_order_cost &&
+          this.M_GetDataBy.total_order_cost !== ""
+            ? this.M_GetDataBy.total_order_cost
+            : "NULL",
+        lastupdatestamp: this.paramFromList.lastupdatestamp,
+        user_edit: this.getDataUser().user_id,
+      };
+
+      this.putJSON(this.getUrlCRUD(), param).then((response) => {
+        // console.log(response)
+        if (response == null) return;
+        this.alertSuccess(response.Message).then(() => {
+          this.doBack();
+        });
+      });
+    },
     doCreateTicket() {},
     doAddNew() {},
     doBack() {
@@ -936,6 +1219,15 @@ export default {
           "' AND vehicle_type='" +
           this.M_GetDataBy.vehicle_type_cd +
           "'";
+        this.M_PlanExe.assign_fleet_status = "I";
+        this.PI_Dropvendor.cProtect = true;
+        this.PI_assign_type_t.cProtect = true;
+        this.PI_driver_name.cProtect = true;
+        this.PI_co_driver_name.cProtect = true;
+        this.PI_notes2.cProtect = true;
+        this.PlanCosting_D = this.M_GetDataBy.detail_cost;
+        this.PlanPickDrop_D = this.M_GetDataBy.detail_pick_drop;
+
         // if (data.path_file == "" || data.path_file == null) {
         //   this.M_NewProspect.path_file = require("@/assets/default_photo_.png");
         // } else {
