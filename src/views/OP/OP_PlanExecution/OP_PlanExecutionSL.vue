@@ -38,7 +38,7 @@
               </b-row>
             </div>
             <div class="card__body">
-              <b-form :data-vv-scope="'parent'" :data-vv-value-path="'parent'">
+              <b-form :data-vv-scope="'OP_SL_PlanExecution'" :data-vv-value-path="'OP_SL_PlanExecution'">
                 <b-row>
                   <b-col md="2" style="text-align: center;">
                     <img :src="require('@/assets/paper.png')" alt style="width: 50px;" />
@@ -348,7 +348,7 @@
                           </b-col>
                           <b-col md="1">
                             <b-button
-                              style="background-color: transparent; color: black; border: none;"
+                              style="background-color: transparent; color: black; border: none; padding: unset !important;"
                               @click="doCreateTicket"
                             >
                               <font-awesome-icon
@@ -378,6 +378,116 @@
                         </b-row>
                       </b-col>
                     </b-row>
+
+                    <b-row class="row-bordered" style="margin-top: 10px;">
+                      <b-col md="12">
+                        <b-row>
+                          <b-col md="1">
+                            <span style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;">
+                              Costing
+                            </span>
+                          </b-col>
+                          <b-col>
+                            <font-awesome-icon
+                              icon="exclamation-circle"
+                              class="icon-style-default"
+                              style="margin-right: 5px; color: red;"
+                            />
+                            <span style="font-size: 12px; color: red; font-weight: bold;">
+                              Costing over budget, need approval
+                            </span>
+                          </b-col>
+                        </b-row>
+                        <b-row>
+                            <b-col>
+                                <ACCFormList
+                                    :prop="{}"
+                                    :title="''"
+                                    cStatic
+                                    :cHeader="PlanCosting_H"
+                                    :cData="PlanCosting_D"
+                                    @rowClicked="CostingClick"
+                                    ref="ref_SL_Plan_Costing"
+                                    WithDeleteButton
+                                    @buttonDeleteClicked="doDeleteCosting"
+                                >
+                                  <!-- <template slot="ticket_date" slot-scope="data">
+                                    <span>{{momentDateFormatting(data.item.ticket_date, "YYYY-MM-DD HH:mm")}}</span>
+                                  </template> -->
+                                </ACCFormList>
+                            </b-col>
+                        </b-row>
+                      </b-col>
+                    </b-row>
+
+                    <b-row style="margin-top: 10px;">
+                      <b-col md="12">
+                        <b-row>
+                          <b-col md="1">
+                            <span style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;">
+                              Document
+                            </span>
+                          </b-col>
+                        </b-row>
+                        <b-row>
+                            <b-col style="margin-right: 5px;">
+                                <b-row class="row-bordered">
+                                  <b-col style="text-align: center;">
+                                    <span style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;">
+                                      1. Surat Jalan
+                                    </span>
+                                    <br /><br /><br />
+                                    <!-- <img src="" alt=""> -->
+                                    <font-awesome-icon
+                                      icon="plus-circle"
+                                      class="icon-style-default"
+                                      size="4x"
+                                    />
+                                    <br /><br />
+                                    Upload Document
+                                  </b-col>
+                                </b-row>
+                            </b-col>
+                            <b-col style="margin-right: 5px;">
+                                <b-row class="row-bordered">
+                                  <b-col style="text-align: center;">
+                                    <span style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;">
+                                      2. Shipping Instruction
+                                    </span>
+                                    <br /><br /><br />
+                                    <!-- <img src="" alt=""> -->
+                                    <font-awesome-icon
+                                      icon="plus-circle"
+                                      class="icon-style-default"
+                                      size="4x"
+                                    />
+                                    <br /><br />
+                                    Upload Document
+                                  </b-col>
+                                </b-row>
+                            </b-col>
+                            <b-col>
+                                <b-row class="row-bordered">
+                                  <b-col style="text-align: center;">
+                                    <span style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;">
+                                      3. Delivery Order
+                                    </span>
+                                    <br /><br /><br />
+                                    <!-- <img src="" alt=""> -->
+                                    <font-awesome-icon
+                                      icon="plus-circle"
+                                      class="icon-style-default"
+                                      size="4x"
+                                    />
+                                    <br /><br />
+                                    Upload Document
+                                  </b-col>
+                                </b-row>
+                            </b-col>
+                        </b-row>
+                      </b-col>
+                    </b-row>
+
                   </b-col>
                 </b-row>
               </b-form>
@@ -459,7 +569,7 @@ data() {
             cInputStatus: this.inputStatus
         },
         PI_note: {
-            cValidate: "required",
+            cValidate: "",
             cName: "note",
             cOrder: 6,
             cKey: false,
@@ -538,6 +648,7 @@ data() {
             }
             ]
         },
+        M_DataPost: {},
         M_SL_Plan: {
             cm_contact_id: "",
             customer_name: "",
@@ -611,23 +722,62 @@ data() {
           },
         ],
         PlanTicket_D: [
+          // {
+          //   no: 1,
+          //   ticket_no: "#ORD1212121",
+          //   ticket_date: new Date(),
+          //   descs: "Test Ticket TINGINT",
+          //   category: "Accident",
+          //   attachment: "default_photo_.png"
+          // },
+          // {
+          //   no: 2,
+          //   ticket_no: "#ORD1212121",
+          //   ticket_date: new Date(),
+          //   descs: "Test Ticket TINGINT",
+          //   category: "Accident",
+          //   attachment: "default_photo_.png"
+          // }
+        ],
+        PlanCosting_H: [
           {
-            no: 1,
-            ticket_no: "#ORD1212121",
-            ticket_date: new Date(),
-            descs: "Test Ticket TINGINT",
-            category: "Accident",
-            attachment: "default_photo_.png"
+            key: "no",
+            label: "No",
+            tdClass: "ContentACCList2 notranslate th-cus-center",
+            thClass: "HeaderACCList2 th-cus-center"
           },
           {
-            no: 2,
-            ticket_no: "#ORD1212121",
-            ticket_date: new Date(),
-            descs: "Test Ticket TINGINT",
-            category: "Accident",
-            attachment: "default_photo_.png"
-          }
+            key: "cost_type",
+            label: "Cost Type",
+            tdClass: "ContentACCList2 notranslate th-cus-center",
+            thClass: "HeaderACCList2 S th-cus-center"
+          },
+          {
+            key: "descs",
+            label: "Description",
+            tdClass: "ContentACCList2 notranslate th-cus-center",
+            thClass: "HeaderACCList2 S th-cus-center"
+          },
+          {
+            key: "value",
+            label: "Value",
+            tdClass: "ContentACCList2 notranslate th-cus-center",
+            thClass: "HeaderACCList2 S th-cus-center"
+          },
+          {
+            key: "status",
+            label: "Status",
+            tdClass: "ContentACCList2 notranslate th-cus-center",
+            thClass: "HeaderACCList2 S th-cus-center"
+          },
+          {
+            key: "row_id", //untuk button delete
+            label: "",
+            tdClass: "ContentACCList2 notranslate th-cus-center",
+            thClass: "HeaderACCList2 th-cus-center"
+          },
         ],
+        PlanCosting_D: []
     };
 },
   computed: {
@@ -645,12 +795,94 @@ data() {
     }
   },
   methods: {
+    doDeleteCosting(record, index) {},
     Onarrive_date_Change(data) {},
     OncomodityChange(data) {
         this.M_PlanExe.comodity = data.id;
         this.M_PlanExe.comodityLabel = data.label;
     },
-    doSave() {},
+    doSave() {
+      this.$validator._base.validateAll("OP_SL_PlanExecution").then(result => {
+        if (!result) return;
+        this.alertConfirmation("Are You Sure Want To Save This Data ?").then(
+          ress => {
+            if (ress.value) {
+              this.$validator.errors.clear("OP_SL_PlanExecution");
+              this.M_Update();
+            }
+          }
+        );
+      });
+    },
+    M_Update() {
+      var param = {
+        option_url: "/OP/OP_Order",
+        line_no: 0,
+        ss_portfolio_id: this.M_DataPost.ss_portfolio_id && this.M_DataPost.ss_portfolio_id !== '' ? this.M_DataPost.ss_portfolio_id : "NULL",
+        ss_subportfolio_id: this.M_DataPost.ss_subportfolio_id && this.M_DataPost.ss_subportfolio_id !== '' ? this.M_DataPost.ss_subportfolio_id : "NULL",
+        op_order_id: this.paramFromList.row_id,
+        order_no: this.M_DataPost.order_no && this.M_DataPost.order_no !== '' ? this.M_DataPost.order_no : "NULL",
+        order_status: this.M_DataPost.order_status && this.M_DataPost.order_status !== '' ? this.M_DataPost.order_status : "NULL",
+        descs: this.M_DataPost.descs && this.M_DataPost.descs !== '' ? this.M_DataPost.descs : "NULL",
+        pickup_date: this.M_DataPost.pickup_date && this.M_DataPost.pickup_date !== '' ? this.M_DataPost.pickup_date : "NULL",
+        fr_cm_contact_delivery_address_id: this.M_DataPost.fr_cm_contact_delivery_address_id && this.M_DataPost.fr_cm_contact_delivery_address_id !== '' ? this.M_DataPost.fr_cm_contact_delivery_address_id : "NULL",
+        to_cm_contact_delivery_address_id: this.M_DataPost.to_cm_contact_delivery_address_id && this.M_DataPost.to_cm_contact_delivery_address_id !== '' ? this.M_DataPost.to_cm_contact_delivery_address_id : "NULL",
+        fr_cm_zone_id: this.M_DataPost.fr_cm_zone_id && this.M_DataPost.fr_cm_zone_id !== '' ? this.M_DataPost.fr_cm_zone_id : "NULL",
+        to_cm_zone_id: this.M_DataPost.to_cm_zone_id && this.M_DataPost.to_cm_zone_id !== '' ? this.M_DataPost.to_cm_zone_id : "NULL",
+        fm_fleet_type_id: this.M_DataPost.fm_fleet_type_id && this.M_DataPost.fm_fleet_type_id !== '' ? this.M_DataPost.fm_fleet_type_id : "NULL",
+        assign_fleet_status: this.M_DataPost.assign_fleet_status && this.M_DataPost.assign_fleet_status !== '' ? this.M_DataPost.assign_fleet_status : "NULL",
+        vendor_cm_contact_id: this.M_DataPost.vendor_cm_contact_id && this.M_DataPost.vendor_cm_contact_id !== '' ? this.M_DataPost.vendor_cm_contact_id : "NULL",
+        fm_fleet_mstr_id: this.M_DataPost.fm_fleet_mstr_id && this.M_DataPost.fm_fleet_mstr_id !== '' ? this.M_DataPost.fm_fleet_mstr_id : "NULL",
+        license_plate_no: this.M_DataPost.license_plate_no && this.M_DataPost.license_plate_no !== '' ? this.M_DataPost.license_plate_no : "NULL",
+        fm_driver_id: this.M_DataPost.fm_driver_id && this.M_DataPost.fm_driver_id !== '' ? this.M_DataPost.fm_driver_id : "NULL",
+        driver_name: this.M_DataPost.driver_name && this.M_DataPost.driver_name !== '' ? this.M_DataPost.driver_name : "NULL",
+        fm_driver_id2: this.M_DataPost.fm_driver_id2 && this.M_DataPost.fm_driver_id2 !== '' ? this.M_DataPost.fm_driver_id2 : "NULL",
+        driver_name2: this.M_DataPost.driver_name2 && this.M_DataPost.driver_name2 !== '' ? this.M_DataPost.driver_name2 : "NULL",
+        remarks: this.M_DataPost.remarks && this.M_DataPost.remarks !== '' ? this.M_DataPost.remarks : "NULL",
+        dispatch_date: this.M_DataPost.dispatch_date && this.M_DataPost.dispatch_date !== '' ? this.M_DataPost.dispatch_date : "NULL",
+        dispatch_km: this.M_DataPost.dispatch_km && this.M_DataPost.dispatch_km !== '' ? this.M_DataPost.dispatch_km : "NULL",
+        dispatach_notes: this.M_DataPost.dispatach_notes && this.M_DataPost.dispatach_notes !== '' ? this.M_DataPost.dispatach_notes : "NULL",
+        arrival_date: this.M_DataPost.arrival_date && this.M_DataPost.arrival_date !== '' ? this.M_DataPost.arrival_date : "NULL",
+        arrival_notes: this.M_DataPost.arrival_notes && this.M_DataPost.arrival_notes !== '' ? this.M_DataPost.arrival_notes : "NULL",
+        start_loading_date: this.M_DataPost.start_loading_date && this.M_DataPost.start_loading_date !== '' ? this.M_DataPost.start_loading_date : "NULL",
+        start_loading_notes: this.M_DataPost.start_loading_notes && this.M_DataPost.start_loading_notes !== '' ? this.M_DataPost.start_loading_notes : "NULL",
+        finish_loading_date: this.M_PlanExe.finish_loading_date, // DARI FORM
+        cm_commodity_id: this.M_DataPost.cm_commodity_id && this.M_DataPost.cm_commodity_id !== '' ? this.M_DataPost.cm_commodity_id : "NULL",
+        total_loading_item: this.M_PlanExe.total_item, // DARI FORM
+        total_loading_kgs: this.M_PlanExe.kgs, // DARI FORM
+        total_loading_cbm: this.M_PlanExe.cbm, // DARI FORM
+        finish_loading_notes: this.M_PlanExe.note, // DARI FORM
+        get_out_arrival_date: this.M_DataPost.get_out_arrival_date && this.M_DataPost.get_out_arrival_date !== '' ? this.M_DataPost.get_out_arrival_date : "NULL",
+        get_out_arrival_notes: this.M_DataPost.get_out_arrival_notes && this.M_DataPost.get_out_arrival_notes !== '' ? this.M_DataPost.get_out_arrival_notes : "NULL",
+        arrival_destination_date: this.M_DataPost.arrival_destination_date && this.M_DataPost.arrival_destination_date !== '' ? this.M_DataPost.arrival_destination_date : "NULL",
+        arrival_destination_notes: this.M_DataPost.arrival_destination_notes && this.M_DataPost.arrival_destination_notes !== '' ? this.M_DataPost.arrival_destination_notes : "NULL",
+        start_unloading_date: this.M_DataPost.start_unloading_date && this.M_DataPost.start_unloading_date !== '' ? this.M_DataPost.start_unloading_date : "NULL",
+        start_unloading_notes: this.M_DataPost.start_unloading_notes && this.M_DataPost.start_unloading_notes !== '' ? this.M_DataPost.start_unloading_notes : "NULL",
+        finish_unloading_date: this.M_DataPost.finish_unloading_date && this.M_DataPost.finish_unloading_date !== '' ? this.M_DataPost.finish_unloading_date : "NULL",
+        total_delivered_item: this.M_DataPost.total_delivered_item && this.M_DataPost.total_delivered_item !== '' ? this.M_DataPost.total_delivered_item : "NULL",
+        total_delivered_kgs: this.M_DataPost.total_delivered_kgs && this.M_DataPost.total_delivered_kgs !== '' ? this.M_DataPost.total_delivered_kgs : "NULL",
+        total_delivered_cbm: this.M_DataPost.total_delivered_cbm && this.M_DataPost.total_delivered_cbm !== '' ? this.M_DataPost.total_delivered_cbm : "NULL",
+        finish_unloading_notes: this.M_DataPost.finish_unloading_notes && this.M_DataPost.finish_unloading_notes !== '' ? this.M_DataPost.finish_unloading_notes : "NULL",
+        get_out_destination_date: this.M_DataPost.get_out_destination_date && this.M_DataPost.get_out_destination_date !== '' ? this.M_DataPost.get_out_destination_date : "NULL",
+        return_empty_to: this.M_DataPost.return_empty_to && this.M_DataPost.return_empty_to !== '' ? this.M_DataPost.return_empty_to : "NULL",
+        get_out_destination_km: this.M_DataPost.get_out_destination_km && this.M_DataPost.get_out_destination_km !== '' ? this.M_DataPost.get_out_destination_km : "NULL",
+        get_out_destination_notes: this.M_DataPost.get_out_destination_notes && this.M_DataPost.get_out_destination_notes !== '' ? this.M_DataPost.get_out_destination_notes : "NULL",
+        ref_op_order_id: this.M_DataPost.ref_op_order_id && this.M_DataPost.ref_op_order_id !== '' ? this.M_DataPost.ref_op_order_id : "NULL",
+        ref_op_order_no: this.M_DataPost.ref_op_order_no && this.M_DataPost.ref_op_order_no !== '' ? this.M_DataPost.ref_op_order_no : "NULL",
+        total_order_amt: this.M_DataPost.total_order_amt && this.M_DataPost.total_order_amt !== '' ? this.M_DataPost.total_order_amt : "NULL",
+        total_order_cost: this.M_DataPost.total_order_cost && this.M_DataPost.total_order_cost !== '' ? this.M_DataPost.total_order_cost : "NULL",
+        lastupdatestamp: this.paramFromList.lastupdatestamp,
+        user_edit: this.getDataUser().user_id
+      };
+
+      this.putJSON(this.getUrlCRUD(), param).then(response => {
+        // console.log(response)
+        if (response == null) return;
+        this.alertSuccess(response.Message).then(() => {
+          this.doBack();
+        });
+      });
+    },
     doCreateTicket() {},
     doBack() {
       this.$router.go(-1);
@@ -684,6 +916,7 @@ data() {
         if (response == null) return;
 
         var data = JSON.parse(response.Data[0].fop_order_s)[0];
+        this.M_DataPost = data;
         console.log(data)
         
         this.M_SL_Plan = {
@@ -711,6 +944,9 @@ data() {
             from_address: data.from_address,
             to_address: data.to_address,
         }
+
+        this.PlanTicket_D = data.detail_ticket
+        this.PlanCosting_D = data.detail_costing
 
         this.M_ClearForm();
       });
