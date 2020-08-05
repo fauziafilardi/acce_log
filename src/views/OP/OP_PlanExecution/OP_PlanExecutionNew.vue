@@ -46,7 +46,7 @@
                   <b-col md="10">
                     <b-row>
                       <b-col>
-                        <span>
+                        <span style="font-size: 15px; font-weight: bold;">
                           <label>{{M_GetDataBy.customer_name}}</label>
                         </span>
                       </b-col>
@@ -72,39 +72,82 @@
                     <b-row class="row-view" style="padding-top: 5px; padding-bottom: 10px;">
                       <b-col>
                         <span>
-                          <font-awesome-icon class="icon-style-default" icon="user" />
-                          &nbsp;&nbsp;{{M_GetDataBy.contact_person_name}}&nbsp;&nbsp;
+                          <font-awesome-icon class="icon-style-default" icon="user" />&nbsp;&nbsp;
+                          <span style="font-size: 15px;">
+                            <label>{{M_GetDataBy.contact_person_name}}</label>
+                          </span>
+                          &nbsp;&nbsp;
                         </span>
                         <span>
-                          <font-awesome-icon class="icon-style-default" icon="phone-square-alt" />
-                          &nbsp;&nbsp;{{M_GetDataBy.contact_person_phone}}
+                          <font-awesome-icon class="icon-style-default" icon="phone-square-alt" />&nbsp;&nbsp;
+                          <span style="font-size: 15px;">
+                            <label>{{M_GetDataBy.contact_person_phone}}</label>
+                          </span>
                         </span>
                       </b-col>
                       <b-col style="text-align: right;">
                         <span>
-                          <font-awesome-icon class="icon-style-default" icon="user" />
-                          &nbsp;&nbsp;User : {{getDataUser().user_name}}
+                          <font-awesome-icon class="icon-style-default" icon="user" />&nbsp;&nbsp;
+                          <span style="font-size: 15px;">
+                            <label>{{'User :'+getDataUser().user_name}}</label>
+                          </span>
                         </span>
                       </b-col>
                     </b-row>
                     <b-row>
                       <b-col>
                         <div class="container-step">
-                          <ul class="progressbar">
-                            <li class="active">
+                          <ul class="progressbar" style="padding-inline-start: 0px !important;">
+                            <li class="active" style="width: 10% !important;">
                               <span>Order</span>
                               <br />
                               <span>{{momentDateFormatting(M_GetDataBy.order_date, 'DD/MM/YYYY HH:mm')}}</span>
                             </li>
-                            <li>Assign</li>
-                            <li>Dispath</li>
-                            <li>Arrival</li>
-                            <li>Start Loading</li>
-                            <li>Finish Loading</li>
-                            <li>Get Out</li>
-                            <li>Arrival Destination</li>
-                            <li>Start Unloading</li>
-                            <li>Finish Unloading</li>
+                            <li class="active" style="width: 10% !important;">
+                              <span>Assign</span>
+                              <br />
+                              <span>{{''}}</span>
+                            </li>
+                            <li class="active" style="width: 10% !important;">
+                              <span>Dispatch</span>
+                              <br />
+                              <span>{{''}}</span>
+                            </li>
+                            <li class="active" style="width: 10% !important;">
+                              <span>Arrived</span>
+                              <br />
+                              <span>{{''}}</span>
+                            </li>
+                            <li class="active" style="width: 10% !important;">
+                              <span>Start Loading</span>
+                              <br />
+                              <span>{{''}}</span>
+                            </li>
+                            <li style="width: 10% !important;">
+                              <span>Finish Loading</span>
+                              <br />
+                              <span>{{''}}</span>
+                            </li>
+                            <li style="width: 10% !important;">
+                              <span>Get Out</span>
+                              <br />
+                              <span>{{''}}</span>
+                            </li>
+                            <li style="width: 10% !important;">
+                              <span>Arrive Destination</span>
+                              <br />
+                              <span>{{''}}</span>
+                            </li>
+                            <li style="width: 10% !important;">
+                              <span>Start Unloading</span>
+                              <br />
+                              <span>{{''}}</span>
+                            </li>
+                            <li style="width: 10% !important;">
+                              <span>Finish Unloading</span>
+                              <br />
+                              <span>{{''}}</span>
+                            </li>
                           </ul>
                         </div>
                       </b-col>
@@ -216,37 +259,122 @@
                           <b-col md="12" style="padding-left: 0px !important;">
                             <b-list-group>
                               <b-list-group-item>
-                                <span style="color: #ccc">From :</span>
+                                <span style="color: #ccc">Description</span>
                                 <br />
-                                <span>Jl. Pangkal Raya 1 No. 33 Cibuluh Jakarta</span>
-                              </b-list-group-item>
-                              <b-list-group-item>
-                                <span style="color: #ccc">To :</span>
-                                <br />
-                                <span>Jl. Jendral Sudirman No. 33 Semarang</span>
+                                <span>{{M_GetDataBy.descs}}</span>
                               </b-list-group-item>
                             </b-list-group>
                           </b-col>
                         </b-row>
                         <b-row>
                           <b-col md="12" style="padding-left: 0px !important;">
-                            <span>
-                              <label>Date</label>
-                            </span>
-                            <ACCDateTime
-                              @input="Onarrive_date_Change"
-                              :prop="PI_arrive_date"
-                              v-model="M_PlanExe.arrive_date"
-                              ref="ref_arrive_date"
-                            />
+                            <b-list-group>
+                              <b-list-group-item>
+                                <span style="color: #ccc">From :</span>
+                                <br />
+                                <span>{{M_GetDataBy.from_address}}</span>
+                              </b-list-group-item>
+                              <b-list-group-item>
+                                <span style="color: #ccc">To :</span>
+                                <br />
+                                <span>{{M_GetDataBy.to_address}}</span>
+                              </b-list-group-item>
+                            </b-list-group>
                           </b-col>
                         </b-row>
                         <b-row>
-                          <b-col md="12" style="padding-left: 0px !important;">
-                            <span>
-                              <label>Note</label>
-                            </span>
-                            <ACCTextArea :prop="PI_note" v-model="M_PlanExe.note" ref="ref_note" />
+                          <b-col md="6" style="padding-left: 0px !important;">
+                            <b-row class="row-bordered">
+                              <b-col>
+                                <b-row>
+                                  <b-col>
+                                    <ACCRadioButton
+                                      @input="Onassign_fleet_statusChange"
+                                      :prop="PI_fleet_status_i"
+                                      v-model="M_PlanExe.assign_fleet_status"
+                                      ref="ref_assign_fleet_status"
+                                    />
+                                  </b-col>
+                                </b-row>
+                                <b-row>
+                                  <b-col>
+                                    <b-row>
+                                      <b-col>
+                                        <span>
+                                          <label>Usage</label>
+                                        </span>
+                                        <ACCTextBox
+                                          :prop="PI_usage"
+                                          v-model="M_PlanExe.usage"
+                                          ref="ref_usage"
+                                        />
+                                      </b-col>
+                                      <b-col
+                                        style="max-width: fit-content !important; margin-top: 35px;"
+                                      >Km</b-col>
+                                    </b-row>
+                                  </b-col>
+                                  <b-col>
+                                    <b-row>
+                                      <b-col>
+                                        <span>
+                                          <label>Usage Tolerance</label>
+                                        </span>
+                                        <ACCTextBox
+                                          :prop="PI_usage_t"
+                                          v-model="M_PlanExe.usage_t"
+                                          ref="ref_usage_t"
+                                        />
+                                      </b-col>
+                                      <b-col
+                                        style="max-width: fit-content !important; margin-top: 35px;"
+                                      >Km</b-col>
+                                    </b-row>
+                                  </b-col>
+                                </b-row>
+                                <b-row>
+                                  <b-col>
+                                    <b-row>
+                                      <b-col>
+                                        <span>
+                                          <label>Time</label>
+                                        </span>
+                                        <ACCTextBox
+                                          :prop="PI_time"
+                                          v-model="M_PlanExe.time"
+                                          ref="ref_time"
+                                        />
+                                      </b-col>
+                                      <b-col
+                                        style="max-width: fit-content !important; margin-top: 35px;"
+                                      >Day(s)</b-col>
+                                    </b-row>
+                                  </b-col>
+                                  <b-col>
+                                    <b-row>
+                                      <b-col>
+                                        <span>
+                                          <label>Time Tolerance</label>
+                                        </span>
+                                        <ACCTextBox
+                                          :prop="PI_time_t"
+                                          v-model="M_PlanExe.time_t"
+                                          ref="ref_time_t"
+                                        />
+                                      </b-col>
+                                      <b-col
+                                        style="max-width: fit-content !important; margin-top: 35px;"
+                                      >Day(s)</b-col>
+                                    </b-row>
+                                  </b-col>
+                                </b-row>
+                              </b-col>
+                            </b-row>
+                          </b-col>
+                          <b-col md="6" style="padding-left: 0px !important;">
+                            <b-row class="row-bordered">
+                              <b-col></b-col>
+                            </b-row>
                           </b-col>
                         </b-row>
                         <b-row style="margin-top: 10px;">
@@ -429,6 +557,31 @@ export default {
       M_PlanExe: {
         arrive_date: "",
         note: "",
+        assign_fleet_status: "",
+      },
+      PI_fleet_status_i: {
+        cValidate: "",
+        cName: "fleet_status_i",
+        cId: "rdbfleet_status_i",
+        cRadioOptions: [{ text: "Internal", value: "I" }],
+        cRadioDefaultOption: "",
+        cOrder: 3,
+        cProtect: false,
+        cVisible: true,
+        cParentForm: "OP_NW_PlanExecution",
+        cInputStatus: this.inputStatus,
+      },
+      PI_fleet_status_e: {
+        cValidate: "",
+        cName: "fleet_status_e",
+        cId: "rdbfleet_status_e",
+        cRadioOptions: [{ text: "External", value: "E" }],
+        cRadioDefaultOption: "",
+        cOrder: 5,
+        cProtect: false,
+        cVisible: true,
+        cParentForm: "OP_NW_PlanExecution",
+        cInputStatus: this.inputStatus,
       },
       PI_arrive_date: {
         cValidate: "",
@@ -438,7 +591,7 @@ export default {
         cProtect: false,
         cWithTime: true,
         cFormat: "dd/MM/yyyy",
-        cParentForm: "",
+        cParentForm: "OP_NW_PlanExecution",
       },
       PI_note: {
         cValidate: "",
@@ -451,7 +604,7 @@ export default {
         cRows: 3,
         cMaxRows: 3,
         cSize: "md",
-        cParentForm: "MK_EditAppointment",
+        cParentForm: "OP_NW_PlanExecution",
         cInputStatus: this.inputStatus,
       },
       PlanExTable: {
