@@ -103,22 +103,22 @@
                               <br />
                               <span>{{momentDateFormatting(M_GetDataBy.order_date, 'DD/MM/YYYY HH:mm')}}</span>
                             </li>
-                            <li class="active" style="width: 10% !important;">
+                            <li style="width: 10% !important;">
                               <span>Assign</span>
                               <br />
                               <span>{{''}}</span>
                             </li>
-                            <li class="active" style="width: 10% !important;">
+                            <li style="width: 10% !important;">
                               <span>Dispatch</span>
                               <br />
                               <span>{{''}}</span>
                             </li>
-                            <li class="active" style="width: 10% !important;">
+                            <li style="width: 10% !important;">
                               <span>Arrived</span>
                               <br />
                               <span>{{''}}</span>
                             </li>
-                            <li class="active" style="width: 10% !important;">
+                            <li style="width: 10% !important;">
                               <span>Start Loading</span>
                               <br />
                               <span>{{''}}</span>
@@ -284,6 +284,7 @@
                         </b-row>
                         <b-row>
                           <b-col md="6" style="padding-left: 0px !important;">
+                            <!-- Internal -->
                             <b-row class="row-bordered">
                               <b-col>
                                 <b-row>
@@ -298,82 +299,134 @@
                                 </b-row>
                                 <b-row>
                                   <b-col>
-                                    <b-row>
-                                      <b-col>
-                                        <span>
-                                          <label>Usage</label>
-                                        </span>
-                                        <ACCTextBox
-                                          :prop="PI_usage"
-                                          v-model="M_PlanExe.usage"
-                                          ref="ref_usage"
-                                        />
-                                      </b-col>
-                                      <b-col
-                                        style="max-width: fit-content !important; margin-top: 35px;"
-                                      >Km</b-col>
-                                    </b-row>
-                                  </b-col>
-                                  <b-col>
-                                    <b-row>
-                                      <b-col>
-                                        <span>
-                                          <label>Usage Tolerance</label>
-                                        </span>
-                                        <ACCTextBox
-                                          :prop="PI_usage_t"
-                                          v-model="M_PlanExe.usage_t"
-                                          ref="ref_usage_t"
-                                        />
-                                      </b-col>
-                                      <b-col
-                                        style="max-width: fit-content !important; margin-top: 35px;"
-                                      >Km</b-col>
-                                    </b-row>
+                                    <span>
+                                      <label>Assign Fleet</label>
+                                    </span>
+                                    <ACCDropDown
+                                      @change="Onassign_typeChange"
+                                      :prop="PI_Dropassign_type"
+                                      v-model="M_PlanExe.assign_type"
+                                      :label="M_PlanExe.assign_typeLabel"
+                                      ref="ref_assign_type"
+                                    />
                                   </b-col>
                                 </b-row>
                                 <b-row>
                                   <b-col>
-                                    <b-row>
-                                      <b-col>
-                                        <span>
-                                          <label>Time</label>
-                                        </span>
-                                        <ACCTextBox
-                                          :prop="PI_time"
-                                          v-model="M_PlanExe.time"
-                                          ref="ref_time"
-                                        />
-                                      </b-col>
-                                      <b-col
-                                        style="max-width: fit-content !important; margin-top: 35px;"
-                                      >Day(s)</b-col>
-                                    </b-row>
+                                    <span>
+                                      <label>Driver</label>
+                                    </span>
+                                    <ACCDropDown
+                                      @change="Ondriver_idChange"
+                                      :prop="PI_driver_id"
+                                      v-model="M_PlanExe.driver_id"
+                                      :label="M_PlanExe.driver_name"
+                                      ref="ref_driver_id"
+                                    />
                                   </b-col>
                                   <b-col>
-                                    <b-row>
-                                      <b-col>
-                                        <span>
-                                          <label>Time Tolerance</label>
-                                        </span>
-                                        <ACCTextBox
-                                          :prop="PI_time_t"
-                                          v-model="M_PlanExe.time_t"
-                                          ref="ref_time_t"
-                                        />
-                                      </b-col>
-                                      <b-col
-                                        style="max-width: fit-content !important; margin-top: 35px;"
-                                      >Day(s)</b-col>
-                                    </b-row>
+                                    <span>
+                                      <label>Co Driver</label>
+                                    </span>
+                                    <ACCDropDown
+                                      @change="Onco_driver_idChange"
+                                      :prop="PI_co_driver_id"
+                                      v-model="M_PlanExe.co_driver_id"
+                                      :label="M_PlanExe.co_driver_name"
+                                      ref="ref_co_driver_id"
+                                    />
+                                  </b-col>
+                                </b-row>
+                                <b-row>
+                                  <b-col>
+                                    <span>
+                                      <label>Notes</label>
+                                    </span>
+                                    <ACCTextArea
+                                      :prop="PI_notes"
+                                      v-model="M_PlanExe.notes"
+                                      ref="ref_notes"
+                                    />
                                   </b-col>
                                 </b-row>
                               </b-col>
                             </b-row>
                           </b-col>
                           <b-col md="6" style="padding-left: 0px !important;">
+                            <!-- external -->
                             <b-row class="row-bordered">
-                              <b-col></b-col>
+                              <b-col>
+                                <b-row>
+                                  <b-col>
+                                    <ACCRadioButton
+                                      @input="Onassign_fleet_statusChange"
+                                      :prop="PI_fleet_status_e"
+                                      v-model="M_PlanExe.assign_fleet_status"
+                                      ref="ref_assign_fleet_status"
+                                    />
+                                  </b-col>
+                                </b-row>
+                                <b-row>
+                                  <b-col>
+                                    <span>
+                                      <label>Vendor</label>
+                                    </span>
+                                    <ACCDropDown
+                                      @change="OnvendorChange"
+                                      :prop="PI_Dropvendor"
+                                      v-model="M_PlanExe.vendor"
+                                      :label="M_PlanExe.vendorLabel"
+                                      ref="ref_vendor"
+                                    />
+                                  </b-col>
+                                </b-row>
+                                <b-row>
+                                  <b-col>
+                                    <span>
+                                      <label>Assign Fleet</label>
+                                    </span>
+                                    <ACCTextBox
+                                      :prop="PI_assign_type_t"
+                                      v-model="M_PlanExe.assign_type"
+                                      ref="ref_assign_type_t"
+                                    />
+                                  </b-col>
+                                </b-row>
+                                <b-row>
+                                  <b-col>
+                                    <span>
+                                      <label>Driver</label>
+                                    </span>
+                                    <ACCTextBox
+                                      :prop="PI_driver_name"
+                                      v-model="M_PlanExe.driver_name"
+                                      ref="ref_driver_name"
+                                    />
+                                  </b-col>
+                                  <b-col>
+                                    <span>
+                                      <label>Co Driver</label>
+                                    </span>
+                                    <ACCTextBox
+                                      :prop="PI_co_driver_name"
+                                      v-model="M_PlanExe.co_driver_name"
+                                      ref="ref_co_driver_name"
+                                    />
+                                  </b-col>
+                                </b-row>
+                                <b-row>
+                                  <b-col>
+                                    <span>
+                                      <label>Notes</label>
+                                    </span>
+                                    <ACCTextArea
+                                      :prop="PI_notes2"
+                                      v-model="M_PlanExe.notes"
+                                      ref="ref_notes"
+                                    />
+                                  </b-col>
+                                </b-row>
+                              </b-col>
                             </b-row>
                           </b-col>
                         </b-row>
@@ -558,6 +611,14 @@ export default {
         arrive_date: "",
         note: "",
         assign_fleet_status: "",
+        assign_type: "",
+        assign_typeLabel: "",
+        driver_id: null,
+        driver_name: null,
+        co_driver_id: null,
+        co_driver_name: null,
+        notes: "",
+        vendor_id: null,
       },
       PI_fleet_status_i: {
         cValidate: "",
@@ -583,6 +644,52 @@ export default {
         cParentForm: "OP_NW_PlanExecution",
         cInputStatus: this.inputStatus,
       },
+      PI_Dropvendor: {
+        dataLookUp: {
+          LookUpCd: "GetMaintenanceType",
+          ColumnDB: "mm_maintenance_type_id",
+          InitialWhere:
+            "ss_portfolio_id='" + this.getDataUser().portfolio_id + "'",
+          ParamWhere: "",
+          OrderBy: "",
+          ParamView: "",
+          SourceField: "",
+          DisplayLookUp: "",
+        },
+        cValidate: "",
+        cName: "vendor",
+        cOrder: 1,
+        cKey: false,
+        cStatic: false,
+        cProtect: false,
+        cParentForm: "OP_NW_PlanExecution",
+        cOption: [],
+        cDisplayColumn: "maintenance_type",
+        cInputStatus: this.inputStatus,
+      },
+      PI_Dropassign_type: {
+        dataLookUp: {
+          LookUpCd: "GetMaintenanceType",
+          ColumnDB: "mm_maintenance_type_id",
+          InitialWhere:
+            "ss_portfolio_id='" + this.getDataUser().portfolio_id + "'",
+          ParamWhere: "",
+          OrderBy: "",
+          ParamView: "",
+          SourceField: "",
+          DisplayLookUp: "",
+        },
+        cValidate: "",
+        cName: "assign_type",
+        cOrder: 1,
+        cKey: false,
+        cStatic: false,
+        cProtect: false,
+        cParentForm: "OP_NW_PlanExecution",
+        cOption: [],
+        cDisplayColumn: "maintenance_type",
+        cInputStatus: this.inputStatus,
+      },
       PI_arrive_date: {
         cValidate: "",
         cName: "arrive_date",
@@ -593,7 +700,21 @@ export default {
         cFormat: "dd/MM/yyyy",
         cParentForm: "OP_NW_PlanExecution",
       },
-      PI_note: {
+      PI_notes: {
+        cValidate: "",
+        cName: "note",
+        cOrder: 3,
+        cKey: false,
+        cProtect: false,
+        cResize: false,
+        cReadonly: false,
+        cRows: 7,
+        cMaxRows: 7,
+        cSize: "md",
+        cParentForm: "OP_NW_PlanExecution",
+        cInputStatus: this.inputStatus,
+      },
+      PI_notes2: {
         cValidate: "",
         cName: "note",
         cOrder: 3,
@@ -605,6 +726,83 @@ export default {
         cMaxRows: 3,
         cSize: "md",
         cParentForm: "OP_NW_PlanExecution",
+        cInputStatus: this.inputStatus,
+      },
+      PI_assign_type_t: {
+        cValidate: "",
+        cName: "assign_type",
+        cOrder: 2,
+        cKey: false,
+        cType: "text",
+        cProtect: false,
+        cParentForm: "OP_NW_PlanExecution",
+        cDecimal: 2,
+        cInputStatus: this.inputStatus,
+      },
+      PI_driver_name: {
+        cValidate: "",
+        cName: "driver_name",
+        cOrder: 3,
+        cKey: false,
+        cType: "text",
+        cProtect: false,
+        cParentForm: "OP_NW_PlanExecution",
+        cDecimal: 2,
+        cInputStatus: this.inputStatus,
+      },
+      PI_co_driver_name: {
+        cValidate: "",
+        cName: "co_driver_name",
+        cOrder: 3,
+        cKey: false,
+        cType: "text",
+        cProtect: false,
+        cParentForm: "OP_NW_PlanExecution",
+        cDecimal: 2,
+        cInputStatus: this.inputStatus,
+      },
+      PI_driver_id: {
+        dataLookUp: {
+          LookUpCd: "GetDriver",
+          ColumnDB: "driver_id",
+          InitialWhere: "",
+          ParamWhere: "",
+          OrderBy: "",
+          ParamView: "",
+          SourceField: "",
+          DisplayLookUp: "",
+        },
+        cValidate: "",
+        cName: "fm_driver_id",
+        cOrder: 14,
+        cKey: false,
+        cStatic: false,
+        cProtect: false,
+        cParentForm: "OP_FormFmFleetMstr",
+        cOption: [],
+        cDisplayColumn: "full_name",
+        cInputStatus: this.inputStatus,
+      },
+      PI_co_driver_id: {
+        dataLookUp: {
+          LookUpCd: "GetDriver",
+          ColumnDB: "driver_id",
+          InitialWhere: "",
+          ParamWhere: "",
+          OrderBy: "",
+          ParamView: "",
+          SourceField: "",
+          DisplayLookUp: "",
+        },
+        cValidate: "",
+        cName: "fm_driver_id",
+        cOrder: 14,
+        cKey: false,
+        cStatic: false,
+        cProtect: false,
+        cParentForm: "OP_FormFmFleetMstr",
+        cOption: [],
+        cDisplayColumn: "full_name",
         cInputStatus: this.inputStatus,
       },
       PlanExTable: {
@@ -683,10 +881,46 @@ export default {
     },
   },
   methods: {
-    Onarrive_date_Change() {},
+    Onassign_fleet_statusChange(data) {
+      console.log(data);
+      if (data == "I") {
+        this.PI_Dropvendor.cProtect = true;
+        this.PI_assign_type_t.cProtect = true;
+        this.PI_driver_name.cProtect = true;
+        this.PI_co_driver_name.cProtect = true;
+        this.PI_notes2.cProtect = true;
+
+        this.PI_Dropassign_type.cProtect = false;
+        this.PI_driver_id.cProtect = false;
+        this.PI_co_driver_id.cProtect = false;
+        this.PI_notes.cProtect = false;
+      } else {
+        this.PI_Dropvendor.cProtect = false;
+        this.PI_assign_type_t.cProtect = false;
+        this.PI_driver_name.cProtect = false;
+        this.PI_co_driver_name.cProtect = false;
+        this.PI_notes2.cProtect = false;
+
+        this.PI_Dropassign_type.cProtect = true;
+        this.PI_driver_id.cProtect = true;
+        this.PI_co_driver_id.cProtect = true;
+        this.PI_notes.cProtect = true;
+      }
+    },
+    Ondriver_idChange(data) {
+      this.$nextTick(() => {
+        this.M_PlanExe.driver_id = data.id;
+        this.M_PlanExe.driver_name = data.label;
+      });
+    },
+    Onco_driver_idChange(data) {
+      this.$nextTick(() => {
+        this.M_PlanExe.co_driver_id = data.id;
+        this.M_PlanExe.co_driver_name = data.label;
+      });
+    },
     doSave() {},
     doCreateTicket() {},
-    doChangeFleet() {},
     doAddNew() {},
     doBack() {
       this.$router.go(-1);
