@@ -8,6 +8,7 @@ import OP_ViewPlanExecution from '@/views/OP/OP_PlanExecution/OP_ViewPlanExecuti
 import OP_PlanExecutionNew from '@/views/OP/OP_PlanExecution/OP_PlanExecutionNew'
 import OP_PlanExecutionSL from '@/views/OP/OP_PlanExecution/OP_PlanExecutionSL'
 import OP_PlanExecutionAD from '@/views/OP/OP_PlanExecution/OP_PlanExecutionAD'
+import OP_PlanExecutionCosting from '@/views/OP/OP_PlanExecution/OP_PlanExecutionCosting'
 
 //Driver Management
 import OP_DriverManagement from '@/views/OP/OP_DriverManagement/OP_DriverList'
@@ -300,6 +301,14 @@ export const OPRender = {
             path: '/OP/PlanExecution/AD',
             name: 'OP_PlanExecutionAD',
             component: OP_PlanExecutionAD,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/OP_PlanExecution/Costing',
+            name: 'OP_PlanExecutionCosting',
+            component: OP_PlanExecutionCosting,
             meta: {
                 requiresAuth: true
             }

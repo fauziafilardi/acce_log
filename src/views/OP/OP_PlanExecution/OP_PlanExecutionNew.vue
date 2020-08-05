@@ -938,11 +938,11 @@ export default {
       this.$router.go(-1);
     },
     doCosting() {
-      var param = this.paramFromList;
+      var param = this.M_GetDataBy;
       param.isEdit = false;
 
       this.$store.commit("setParamPage", param);
-      this.$router.push({ name: "OP_PricingCostingFormDetail" });
+      this.$router.push({ name: "OP_PlanExecutionCosting" });
     },
     doPick() {
       var param = this.paramFromList;
