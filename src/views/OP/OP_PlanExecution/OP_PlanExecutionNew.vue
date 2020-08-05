@@ -46,8 +46,8 @@
                   <b-col md="10">
                     <b-row>
                       <b-col>
-                        <span>
-                          <label>PT. Abadi Sentosa</label>
+                        <span style="font-size: 15px; font-weight: bold;">
+                          <label>{{M_GetDataBy.customer_name}}</label>
                         </span>
                       </b-col>
                       <b-col style="text-align: right;">
@@ -72,35 +72,82 @@
                     <b-row class="row-view" style="padding-top: 5px; padding-bottom: 10px;">
                       <b-col>
                         <span>
-                          <font-awesome-icon class="icon-style-default" icon="user" />&nbsp;&nbsp;Basa Aritohang&nbsp;&nbsp;
+                          <font-awesome-icon class="icon-style-default" icon="user" />&nbsp;&nbsp;
+                          <span style="font-size: 15px;">
+                            <label>{{M_GetDataBy.contact_person_name}}</label>
+                          </span>
+                          &nbsp;&nbsp;
                         </span>
                         <span>
-                          <font-awesome-icon class="icon-style-default" icon="phone-square-alt" />&nbsp;&nbsp;08989123456
+                          <font-awesome-icon class="icon-style-default" icon="phone-square-alt" />&nbsp;&nbsp;
+                          <span style="font-size: 15px;">
+                            <label>{{M_GetDataBy.contact_person_phone}}</label>
+                          </span>
                         </span>
                       </b-col>
                       <b-col style="text-align: right;">
                         <span>
-                          <font-awesome-icon class="icon-style-default" icon="user" />&nbsp;&nbsp;User : User Account
+                          <font-awesome-icon class="icon-style-default" icon="user" />&nbsp;&nbsp;
+                          <span style="font-size: 15px;">
+                            <label>{{'User :'+getDataUser().user_name}}</label>
+                          </span>
                         </span>
                       </b-col>
                     </b-row>
                     <b-row>
                       <b-col>
                         <div class="container-step">
-                          <ul class="progressbar">
-                            <li class="active">
+                          <ul class="progressbar" style="padding-inline-start: 0px !important;">
+                            <li class="active" style="width: 10% !important;">
+                              <span>Order</span>
+                              <br />
+                              <span>{{momentDateFormatting(M_GetDataBy.order_date, 'DD/MM/YYYY HH:mm')}}</span>
+                            </li>
+                            <li class="active" style="width: 10% !important;">
+                              <span>Assign</span>
+                              <br />
+                              <span>{{''}}</span>
+                            </li>
+                            <li class="active" style="width: 10% !important;">
                               <span>Dispatch</span>
                               <br />
-                              <span>01/01/2020 12.00</span>
+                              <span>{{''}}</span>
                             </li>
-                            <li>Arrive</li>
-                            <li>Start Loading</li>
-                            <li>Finish Loading</li>
-                            <li>Get Out</li>
-                            <li>Arrive Destination</li>
-                            <li>Start Unloading</li>
-                            <li>Finish Unloading</li>
-                            <li>Get Out Unloading</li>
+                            <li class="active" style="width: 10% !important;">
+                              <span>Arrived</span>
+                              <br />
+                              <span>{{''}}</span>
+                            </li>
+                            <li class="active" style="width: 10% !important;">
+                              <span>Start Loading</span>
+                              <br />
+                              <span>{{''}}</span>
+                            </li>
+                            <li style="width: 10% !important;">
+                              <span>Finish Loading</span>
+                              <br />
+                              <span>{{''}}</span>
+                            </li>
+                            <li style="width: 10% !important;">
+                              <span>Get Out</span>
+                              <br />
+                              <span>{{''}}</span>
+                            </li>
+                            <li style="width: 10% !important;">
+                              <span>Arrive Destination</span>
+                              <br />
+                              <span>{{''}}</span>
+                            </li>
+                            <li style="width: 10% !important;">
+                              <span>Start Unloading</span>
+                              <br />
+                              <span>{{''}}</span>
+                            </li>
+                            <li style="width: 10% !important;">
+                              <span>Finish Unloading</span>
+                              <br />
+                              <span>{{''}}</span>
+                            </li>
                           </ul>
                         </div>
                       </b-col>
@@ -113,35 +160,35 @@
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
+                            <span style="color: #ccc">Order No</span>
+                            <br />
+                            <span>{{M_GetDataBy.order_no}}</span>
+                          </b-col>
+                          <b-col
+                            style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
+                          >
                             <span style="color: #ccc">Date</span>
                             <br />
-                            <span>01/01/2020 12.00</span>
+                            <span>{{momentDateFormatting(M_GetDataBy.order_date, 'DD/MM/YYYY')}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
-                            <span style="color: #ccc">Order Number</span>
+                            <span style="color: #ccc">Category</span>
                             <br />
-                            <span>#ORD0000001</span>
+                            <span>{{M_GetDataBy.category}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
-                            <span style="color: #ccc">Type</span>
+                            <span style="color: #ccc">From</span>
                             <br />
-                            <span>FTL</span>
-                          </b-col>
-                          <b-col
-                            style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
-                          >
-                            <span style="color: #ccc">From To</span>
-                            <br />
-                            <span>JKT - SMG</span>
+                            <span>{{M_GetDataBy.from_zone}}</span>
                           </b-col>
                           <b-col style="padding: 10px !important; max-width: 20% !important;">
-                            <span style="color: #ccc">Vehicle Type</span>
+                            <span style="color: #ccc">To</span>
                             <br />
-                            <span>Fuso</span>
+                            <span>{{M_GetDataBy.to_zone}}</span>
                           </b-col>
                         </b-row>
                         <b-row style="border: solid 1px #e7eaec;border-radius: 0px 0px 5px 5px;">
@@ -150,33 +197,35 @@
                           >
                             <span style="color: #ccc">Pick Up Date</span>
                             <br />
-                            <span>01/01/2020 12.00</span>
+                            <span>{{momentDateFormatting(M_GetDataBy.pickup_date, 'DD/MM/YYYY HH:mm')}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
-                            <span style="color: #ccc">Contract Number</span>
+                            <span style="color: #ccc">KGS</span>
                             <br />
-                            <span>#CON0000001</span>
+                            <span>{{M_GetDataBy.total_kgs==null?0:M_GetDataBy.total_kgs}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
-                            <span style="color: #ccc">Metric Volume</span>
+                            <span style="color: #ccc">CBM</span>
                             <br />
-                            <span>9.000 (10.000)</span>
+                            <span>{{M_GetDataBy.total_cbm==null?0:M_GetDataBy.total_cbm}}</span>
+                          </b-col>
+                          <b-col
+                            style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
+                          >
+                            <span style="color: #ccc">Vehicle Type</span>
+                            <br />
+                            <span>{{M_GetDataBy.vehicle_type_cd}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span style="color: #ccc">Vehicle Number</span>
                             <br />
-                            <span>B 1234 AC</span>
-                          </b-col>
-                          <b-col>
-                            <span>&nbsp;</span>
-                            <br />
-                            <span>&nbsp;</span>
+                            <span>{{M_GetDataBy.license_plate_no}}</span>
                           </b-col>
                         </b-row>
                       </b-col>
@@ -199,48 +248,133 @@
                           <b-col style="margin: auto;">
                             <span class="AppointmentTitle">Driver</span>
                             <br />
-                            <span class="AppointmentDescs">Toni Ibrahim</span>
+                            <span class="AppointmentDescs">{{M_GetDataBy.driver_name}}</span>
                           </b-col>
                         </b-row>
                       </b-col>
                     </b-row>
                     <b-row>
-                      <b-col md="6" style="padding-left: 0px !important;">
+                      <b-col md="12" style="padding-left: 0px !important;">
                         <b-row>
                           <b-col md="12" style="padding-left: 0px !important;">
                             <b-list-group>
                               <b-list-group-item>
-                                <span style="color: #ccc">From :</span>
+                                <span style="color: #ccc">Description</span>
                                 <br />
-                                <span>Jl. Pangkal Raya 1 No. 33 Cibuluh Jakarta</span>
-                              </b-list-group-item>
-                              <b-list-group-item>
-                                <span style="color: #ccc">To :</span>
-                                <br />
-                                <span>Jl. Jendral Sudirman No. 33 Semarang</span>
+                                <span>{{M_GetDataBy.descs}}</span>
                               </b-list-group-item>
                             </b-list-group>
                           </b-col>
                         </b-row>
                         <b-row>
                           <b-col md="12" style="padding-left: 0px !important;">
-                            <span>
-                              <label>Date</label>
-                            </span>
-                            <ACCDateTime
-                              @input="Onarrive_date_Change"
-                              :prop="PI_arrive_date"
-                              v-model="M_PlanExe.arrive_date"
-                              ref="ref_arrive_date"
-                            />
+                            <b-list-group>
+                              <b-list-group-item>
+                                <span style="color: #ccc">From :</span>
+                                <br />
+                                <span>{{M_GetDataBy.from_address}}</span>
+                              </b-list-group-item>
+                              <b-list-group-item>
+                                <span style="color: #ccc">To :</span>
+                                <br />
+                                <span>{{M_GetDataBy.to_address}}</span>
+                              </b-list-group-item>
+                            </b-list-group>
                           </b-col>
                         </b-row>
                         <b-row>
-                          <b-col md="12" style="padding-left: 0px !important;">
-                            <span>
-                              <label>Note</label>
-                            </span>
-                            <ACCTextArea :prop="PI_note" v-model="M_PlanExe.note" ref="ref_note" />
+                          <b-col md="6" style="padding-left: 0px !important;">
+                            <b-row class="row-bordered">
+                              <b-col>
+                                <b-row>
+                                  <b-col>
+                                    <ACCRadioButton
+                                      @input="Onassign_fleet_statusChange"
+                                      :prop="PI_fleet_status_i"
+                                      v-model="M_PlanExe.assign_fleet_status"
+                                      ref="ref_assign_fleet_status"
+                                    />
+                                  </b-col>
+                                </b-row>
+                                <b-row>
+                                  <b-col>
+                                    <b-row>
+                                      <b-col>
+                                        <span>
+                                          <label>Usage</label>
+                                        </span>
+                                        <ACCTextBox
+                                          :prop="PI_usage"
+                                          v-model="M_PlanExe.usage"
+                                          ref="ref_usage"
+                                        />
+                                      </b-col>
+                                      <b-col
+                                        style="max-width: fit-content !important; margin-top: 35px;"
+                                      >Km</b-col>
+                                    </b-row>
+                                  </b-col>
+                                  <b-col>
+                                    <b-row>
+                                      <b-col>
+                                        <span>
+                                          <label>Usage Tolerance</label>
+                                        </span>
+                                        <ACCTextBox
+                                          :prop="PI_usage_t"
+                                          v-model="M_PlanExe.usage_t"
+                                          ref="ref_usage_t"
+                                        />
+                                      </b-col>
+                                      <b-col
+                                        style="max-width: fit-content !important; margin-top: 35px;"
+                                      >Km</b-col>
+                                    </b-row>
+                                  </b-col>
+                                </b-row>
+                                <b-row>
+                                  <b-col>
+                                    <b-row>
+                                      <b-col>
+                                        <span>
+                                          <label>Time</label>
+                                        </span>
+                                        <ACCTextBox
+                                          :prop="PI_time"
+                                          v-model="M_PlanExe.time"
+                                          ref="ref_time"
+                                        />
+                                      </b-col>
+                                      <b-col
+                                        style="max-width: fit-content !important; margin-top: 35px;"
+                                      >Day(s)</b-col>
+                                    </b-row>
+                                  </b-col>
+                                  <b-col>
+                                    <b-row>
+                                      <b-col>
+                                        <span>
+                                          <label>Time Tolerance</label>
+                                        </span>
+                                        <ACCTextBox
+                                          :prop="PI_time_t"
+                                          v-model="M_PlanExe.time_t"
+                                          ref="ref_time_t"
+                                        />
+                                      </b-col>
+                                      <b-col
+                                        style="max-width: fit-content !important; margin-top: 35px;"
+                                      >Day(s)</b-col>
+                                    </b-row>
+                                  </b-col>
+                                </b-row>
+                              </b-col>
+                            </b-row>
+                          </b-col>
+                          <b-col md="6" style="padding-left: 0px !important;">
+                            <b-row class="row-bordered">
+                              <b-col></b-col>
+                            </b-row>
                           </b-col>
                         </b-row>
                         <b-row style="margin-top: 10px;">
@@ -281,11 +415,11 @@
                           </b-col>
                         </b-row>
                       </b-col>
-                      <b-col md="6">
+                      <!-- <b-col md="6">
                         <div>
                           <img :src="require('@/assets/map.png')" alt style="width: 100%;" />
                         </div>
-                      </b-col>
+                      </b-col>-->
                     </b-row>
                     <b-row style="margin-top: 10px;">
                       <b-col md="6">
@@ -390,7 +524,7 @@ export default {
         SourceField: "",
         ParamView: "",
       },
-
+      isDisableTable: false,
       //For List
       WithViewButton: false,
 
@@ -423,6 +557,31 @@ export default {
       M_PlanExe: {
         arrive_date: "",
         note: "",
+        assign_fleet_status: "",
+      },
+      PI_fleet_status_i: {
+        cValidate: "",
+        cName: "fleet_status_i",
+        cId: "rdbfleet_status_i",
+        cRadioOptions: [{ text: "Internal", value: "I" }],
+        cRadioDefaultOption: "",
+        cOrder: 3,
+        cProtect: false,
+        cVisible: true,
+        cParentForm: "OP_NW_PlanExecution",
+        cInputStatus: this.inputStatus,
+      },
+      PI_fleet_status_e: {
+        cValidate: "",
+        cName: "fleet_status_e",
+        cId: "rdbfleet_status_e",
+        cRadioOptions: [{ text: "External", value: "E" }],
+        cRadioDefaultOption: "",
+        cOrder: 5,
+        cProtect: false,
+        cVisible: true,
+        cParentForm: "OP_NW_PlanExecution",
+        cInputStatus: this.inputStatus,
       },
       PI_arrive_date: {
         cValidate: "",
@@ -432,7 +591,7 @@ export default {
         cProtect: false,
         cWithTime: true,
         cFormat: "dd/MM/yyyy",
-        cParentForm: "",
+        cParentForm: "OP_NW_PlanExecution",
       },
       PI_note: {
         cValidate: "",
@@ -445,7 +604,7 @@ export default {
         cRows: 3,
         cMaxRows: 3,
         cSize: "md",
-        cParentForm: "MK_EditAppointment",
+        cParentForm: "OP_NW_PlanExecution",
         cInputStatus: this.inputStatus,
       },
       PlanExTable: {
@@ -805,7 +964,7 @@ export default {
         if (response == null) return;
 
         var data = response.Data[0];
-        this.M_GetDataBy = JSON.parse(data.fop_order_s);
+        this.M_GetDataBy = JSON.parse(data.fop_order_s)[0];
         console.log(this.M_GetDataBy);
 
         // if (data.path_file == "" || data.path_file == null) {
