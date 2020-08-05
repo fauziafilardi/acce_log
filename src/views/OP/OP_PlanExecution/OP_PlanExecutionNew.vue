@@ -305,8 +305,8 @@
                                     <ACCDropDown
                                       @change="Onassign_typeChange"
                                       :prop="PI_Dropassign_type"
-                                      v-model="M_PlanExe.assign_type"
-                                      :label="M_PlanExe.assign_typeLabel"
+                                      v-model="M_PlanExe.assign_type_i"
+                                      :label="M_PlanExe.assign_typeLabel_i"
                                       ref="ref_assign_type"
                                     />
                                   </b-col>
@@ -319,8 +319,8 @@
                                     <ACCDropDown
                                       @change="Ondriver_idChange"
                                       :prop="PI_driver_id"
-                                      v-model="M_PlanExe.driver_id"
-                                      :label="M_PlanExe.driver_name"
+                                      v-model="M_PlanExe.driver_id_i"
+                                      :label="M_PlanExe.driver_name_i"
                                       ref="ref_driver_id"
                                     />
                                   </b-col>
@@ -331,8 +331,8 @@
                                     <ACCDropDown
                                       @change="Onco_driver_idChange"
                                       :prop="PI_co_driver_id"
-                                      v-model="M_PlanExe.co_driver_id"
-                                      :label="M_PlanExe.co_driver_name"
+                                      v-model="M_PlanExe.co_driver_id_i"
+                                      :label="M_PlanExe.co_driver_name_i"
                                       ref="ref_co_driver_id"
                                     />
                                   </b-col>
@@ -344,7 +344,7 @@
                                     </span>
                                     <ACCTextArea
                                       :prop="PI_notes"
-                                      v-model="M_PlanExe.notes"
+                                      v-model="M_PlanExe.notes_i"
                                       ref="ref_notes"
                                     />
                                   </b-col>
@@ -387,7 +387,7 @@
                                     </span>
                                     <ACCTextBox
                                       :prop="PI_assign_type_t"
-                                      v-model="M_PlanExe.assign_type"
+                                      v-model="M_PlanExe.assign_type_e"
                                       ref="ref_assign_type_t"
                                     />
                                   </b-col>
@@ -398,8 +398,8 @@
                                       <label>Driver</label>
                                     </span>
                                     <ACCTextBox
-                                      :prop="PI_driver_name"
-                                      v-model="M_PlanExe.driver_name"
+                                      :prop="PI_driver_name_e"
+                                      v-model="M_PlanExe.driver_name_e"
                                       ref="ref_driver_name"
                                     />
                                   </b-col>
@@ -408,8 +408,8 @@
                                       <label>Co Driver</label>
                                     </span>
                                     <ACCTextBox
-                                      :prop="PI_co_driver_name"
-                                      v-model="M_PlanExe.co_driver_name"
+                                      :prop="PI_co_driver_name_e"
+                                      v-model="M_PlanExe.co_driver_name_e"
                                       ref="ref_co_driver_name"
                                     />
                                   </b-col>
@@ -421,7 +421,7 @@
                                     </span>
                                     <ACCTextArea
                                       :prop="PI_notes2"
-                                      v-model="M_PlanExe.notes"
+                                      v-model="M_PlanExe.notes_e"
                                       ref="ref_notes"
                                     />
                                   </b-col>
@@ -611,13 +611,20 @@ export default {
         arrive_date: "",
         note: "",
         assign_fleet_status: "",
-        assign_type: "",
-        assign_typeLabel: "",
-        driver_id: null,
-        driver_name: null,
-        co_driver_id: null,
-        co_driver_name: null,
-        notes: "",
+        assign_type_i: "",
+        assign_typeLabel_i: "",
+        assign_type_e: "",
+        assign_typeLabel_e: "",
+        driver_id_i: null,
+        driver_name_i: null,
+        driver_id_e: null,
+        driver_name_e: null,
+        co_driver_id_i: null,
+        co_driver_name_i: null,
+        co_driver_id_e: null,
+        co_driver_name_e: null,
+        notes_i: "",
+        notes_e: "",
         vendor_id: null,
       },
       PI_fleet_status_i: {
@@ -646,8 +653,8 @@ export default {
       },
       PI_Dropvendor: {
         dataLookUp: {
-          LookUpCd: "GetMaintenanceType",
-          ColumnDB: "mm_maintenance_type_id",
+          LookUpCd: "GetVendor",
+          ColumnDB: "contact_id",
           InitialWhere:
             "ss_portfolio_id='" + this.getDataUser().portfolio_id + "'",
           ParamWhere: "",
@@ -669,10 +676,9 @@ export default {
       },
       PI_Dropassign_type: {
         dataLookUp: {
-          LookUpCd: "GetMaintenanceType",
-          ColumnDB: "mm_maintenance_type_id",
-          InitialWhere:
-            "ss_portfolio_id='" + this.getDataUser().portfolio_id + "'",
+          LookUpCd: "GetFleetMstr",
+          ColumnDB: "fm_fleet_mstr_id",
+          InitialWhere: "",
           ParamWhere: "",
           OrderBy: "",
           ParamView: "",
@@ -907,16 +913,22 @@ export default {
         this.PI_notes.cProtect = true;
       }
     },
+    Onassign_typeChange(data) {
+      this.$nextTick(() => {
+        this.M_PlanExe.assign_type_i = data.id;
+        this.M_PlanExe.assign_typeLabel_i = data.label;
+      });
+    },
     Ondriver_idChange(data) {
       this.$nextTick(() => {
-        this.M_PlanExe.driver_id = data.id;
-        this.M_PlanExe.driver_name = data.label;
+        this.M_PlanExe.driver_id_i = data.id;
+        this.M_PlanExe.driver_name_i = data.label;
       });
     },
     Onco_driver_idChange(data) {
       this.$nextTick(() => {
-        this.M_PlanExe.co_driver_id = data.id;
-        this.M_PlanExe.co_driver_name = data.label;
+        this.M_PlanExe.co_driver_id_i = data.id;
+        this.M_PlanExe.co_driver_name_i = data.label;
       });
     },
     doSave() {},
@@ -1200,7 +1212,12 @@ export default {
         var data = response.Data[0];
         this.M_GetDataBy = JSON.parse(data.fop_order_s)[0];
         console.log(this.M_GetDataBy);
-
+        this.PI_Dropassign_type.dataLookUp.InitialWhere =
+          "ss_portfolio_id='" +
+          this.getDataUser().portfolio_id +
+          "' AND vehicle_type='" +
+          this.M_GetDataBy.vehicle_type_cd +
+          "'";
         // if (data.path_file == "" || data.path_file == null) {
         //   this.M_NewProspect.path_file = require("@/assets/default_photo_.png");
         // } else {
