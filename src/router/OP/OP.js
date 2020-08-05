@@ -9,6 +9,8 @@ import OP_PlanExecutionNew from '@/views/OP/OP_PlanExecution/OP_PlanExecutionNew
 import OP_PlanExecutionSL from '@/views/OP/OP_PlanExecution/OP_PlanExecutionSL'
 import OP_PlanExecutionAD from '@/views/OP/OP_PlanExecution/OP_PlanExecutionAD'
 import OP_PlanExecutionCosting from '@/views/OP/OP_PlanExecution/OP_PlanExecutionCosting'
+import OP_PlanExecutionDrop from '@/views/OP/OP_PlanExecution/OP_PlanExecutionPickDrop'
+import OP_PlanExecutionPick from '@/views/OP/OP_PlanExecution/OP_PlanExecutionPickDrop'
 
 //Driver Management
 import OP_DriverManagement from '@/views/OP/OP_DriverManagement/OP_DriverList'
@@ -309,6 +311,22 @@ export const OPRender = {
             path: '/OP/OP_PlanExecution/Costing',
             name: 'OP_PlanExecutionCosting',
             component: OP_PlanExecutionCosting,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/OP_PlanExecution/xDrop',
+            name: 'OP_PlanExecutionDrop',
+            component: OP_PlanExecutionDrop,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/OP_PlanExecution/xPick',
+            name: 'OP_PlanExecutionPick',
+            component: OP_PlanExecutionPick,
             meta: {
                 requiresAuth: true
             }

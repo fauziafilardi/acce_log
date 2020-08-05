@@ -431,9 +431,9 @@
                           </b-col>
                         </b-row>
                         <b-row style="margin-top: 10px;">
-                          <b-col md="12" style="padding-left: 0px !important;">
+                          <b-col md="6" offset="2" style="padding-left: 0px !important;">
                             <ABSButton
-                              :text="'Save'"
+                              :text="'Assign Truck'"
                               classButton="btn btn--default"
                               classIcon="icon-style-default"
                               @click="doSave"
@@ -441,115 +441,76 @@
                             />
                           </b-col>
                         </b-row>
-                        <b-row style="margin-top: 10px;">
-                          <b-col>
-                            <b-button
-                              style="background-color: transparent; color: black; border: none;"
-                              @click="doCreateTicket"
-                            >
-                              <font-awesome-icon
-                                icon="plus-circle"
-                                class="icon-style-default"
-                                style="margin-right: 5px;"
-                              />Create Ticket
-                            </b-button>
-                          </b-col>
-                          <b-col>
-                            <b-button
-                              style="background-color: transparent; color: black; border: none;"
-                              @click="doChangeFleet"
-                            >
-                              <font-awesome-icon
-                                icon="truck"
-                                class="icon-style-default"
-                                style="margin-right: 5px;"
-                              />Change Fleet
-                            </b-button>
-                          </b-col>
-                        </b-row>
-                      </b-col>
-                      <!-- <b-col md="6">
-                        <div>
-                          <img :src="require('@/assets/map.png')" alt style="width: 100%;" />
-                        </div>
-                      </b-col>-->
-                    </b-row>
-                    <b-row style="margin-top: 10px;">
-                      <b-col md="6">
-                        <b-row>
-                          <b-col>Console Detail</b-col>
-                          <b-col>
-                            <b-button
-                              style="background-color: transparent; color: black; border: none;"
-                              @click="doAddNew"
-                            >
-                              <font-awesome-icon
-                                icon="plus-circle"
-                                class="icon-style-default"
-                                style="margin-right: 5px;"
-                              />Add New
-                            </b-button>
+                        <b-row class="row-bordered" style="margin-top: 10px;">
+                          <b-col md="12">
+                            <b-row>
+                              <b-col md="3">
+                                <span
+                                  style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;"
+                                >Extra Pick/Drop</span>
+                              </b-col>
+                            </b-row>
+                            <b-row>
+                              <b-col>
+                                <ACCFormList
+                                  :prop="{}"
+                                  :title="''"
+                                  cStatic
+                                  :cHeader="PlanPickDrop_H"
+                                  :cData="PlanPickDrop_D"
+                                  @rowClicked="CostingClick"
+                                  ref="ref_SL_Plan_Costing"
+                                  WithDeleteButton
+                                  @buttonDeleteClicked="doDeleteCosting"
+                                >
+                                  <!-- <template slot="ticket_date" slot-scope="data">
+                                    <span>{{momentDateFormatting(data.item.ticket_date, "YYYY-MM-DD HH:mm")}}</span>
+                                  </template>-->
+                                </ACCFormList>
+                              </b-col>
+                            </b-row>
                           </b-col>
                         </b-row>
-                      </b-col>
-                    </b-row>
-                    <b-row>
-                      <b-table
-                        :responsive="true"
-                        :striped="false"
-                        :bordered="false"
-                        :outlined="false"
-                        :small="false"
-                        :hover="true"
-                        :dark="false"
-                        :fixed="false"
-                        :foot-clone="false"
-                        :fields="PlanExTable.Header"
-                        :items="PlanExTable.Data"
-                        class="table-sm table-style-2"
-                      >
-                        <template v-slot:cell(cancel)="data">
-                          <span>
-                            <font-awesome-icon
-                              class="icon-style-default"
-                              icon="trash"
-                              size="lg"
-                              style="color: red !important;"
-                            />
-                          </span>
-                        </template>
-                      </b-table>
-                    </b-row>
-                    <hr />
-                    <b-row>
-                      <b-col md="6">
-                        <b-form inline style="float: left; color: #333;">
-                          <label
-                            class="font-lbl"
-                            style="margin-bottom:0px !important; margin-right:0px !important;"
-                          >Page Size</label>
-                          <b-form-select
-                            id="cmbPerPage"
-                            v-model="perPage"
-                            v-on:input="doGetList(search, 'pageSize')"
-                            :options="pagingData"
-                            class="sm-3 mgn-left-10 font-lbl page-size-left"
-                            :disabled="isDisableTable"
-                          ></b-form-select>
-                          of {{ this.totalRows }} Records
-                        </b-form>
-                      </b-col>
-                      <b-col md="6">
-                        <b-pagination
-                          align="right"
-                          v-model="currentPage"
-                          @input="doGetList(search, 'pagination')"
-                          :total-rows="totalRows"
-                          :per-page="perPage"
-                          :limit="limit"
-                          style="margin-bottom: 0px;"
-                          :disabled="isDisableTable"
-                        ></b-pagination>
+                        <b-row class="row-bordered" style="margin-top: 10px;">
+                          <b-col md="12">
+                            <b-row>
+                              <b-col md="1">
+                                <span
+                                  style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;"
+                                >Costing</span>
+                              </b-col>
+                              <b-col>
+                                <font-awesome-icon
+                                  icon="exclamation-circle"
+                                  class="icon-style-default"
+                                  style="margin-right: 5px; color: red;"
+                                />
+                                <span
+                                  style="font-size: 12px; color: red; font-weight: bold;"
+                                >Costing over budget, need approval</span>
+                              </b-col>
+                            </b-row>
+                            <b-row>
+                              <b-col>
+                                <ACCFormList
+                                  :prop="{}"
+                                  :title="''"
+                                  cStatic
+                                  :cHeader="PlanCosting_H"
+                                  :cData="PlanCosting_D"
+                                  @rowClicked="CostingClick"
+                                  ref="ref_SL_Plan_Costing"
+                                  WithDeleteButton
+                                  @buttonDeleteClicked="doDeleteCosting"
+                                >
+                                  <!-- <template slot="ticket_date" slot-scope="data">
+                                    <span>{{momentDateFormatting(data.item.ticket_date, "YYYY-MM-DD HH:mm")}}</span>
+                                  </template>-->
+                                </ACCFormList>
+                              </b-col>
+                            </b-row>
+                          </b-col>
+                        </b-row>
                       </b-col>
                     </b-row>
                   </b-col>
@@ -577,34 +538,6 @@ export default {
         SourceField: "",
         ParamView: "",
       },
-      isDisableTable: false,
-      //For List
-      WithViewButton: false,
-
-      search: "",
-      fieldHeader: [],
-      items: [],
-      firstSort: true,
-      sort: "time_edit DESC",
-
-      totalRows: 0,
-      currentPage: 1,
-      lastPage: 1,
-      perPage: 5,
-      limit: 2,
-      pagingData: [
-        { value: 5, text: "5" },
-        { value: 10, text: "10" },
-        { value: 15, text: "15" },
-        { value: 20, text: "20" },
-        { value: 40, text: "40" },
-        { value: 60, text: "60" },
-        { value: 80, text: "80" },
-        { value: 100, text: "100" },
-        { value: 1000, text: "1000" },
-      ],
-
-      sortedField: [{ field: "time_edit", sort: "DESC" }],
 
       PlanExTable: [],
       M_PlanExe: {
@@ -811,72 +744,84 @@ export default {
         cDisplayColumn: "full_name",
         cInputStatus: this.inputStatus,
       },
-      PlanExTable: {
-        Header: [
-          {
-            key: "no",
-            label: "No",
-            thClass: "HeaderTable",
-            tdClass: "ContentTable__Center",
-          },
-          {
-            key: "orderno",
-            label: "Order No",
-            thClass: "HeaderTable",
-            tdClass: "ContentTable__Center",
-          },
-          {
-            key: "pickupdate",
-            label: "pickupdate",
-            thClass: "HeaderTable",
-            tdClass: "ContentTable__Center",
-          },
-          {
-            key: "fromto",
-            label: "From - To",
-            thClass: "HeaderTable",
-            tdClass: "ContentTable__Center",
-          },
-          {
-            key: "company",
-            label: "Company",
-            thClass: "HeaderTable",
-            tdClass: "ContentTable__Center",
-          },
-          {
-            key: "cancel",
-            label: "Cancel",
-            thClass: "HeaderTable",
-            tdClass: "ContentTable__Center",
-          },
-        ],
-        Data: [
-          {
-            no: 1,
-            orderno: "#ORD00001",
-            pickupdate: "01/01/2020 20.00",
-            fromto: "JKT - SMG",
-            company: "PT. Abadi Sentosa",
-            cancel: 1,
-          },
-          {
-            no: 2,
-            orderno: "#ORD00002",
-            pickupdate: "01/01/2020 20.00",
-            fromto: "JKT - SMG",
-            company: "PT. Abadi Sentosa",
-            cancel: 2,
-          },
-          {
-            no: 3,
-            orderno: "#ORD00003",
-            pickupdate: "01/01/2020 20.00",
-            fromto: "JKT - SMG",
-            company: "PT. Abadi Sentosa",
-            cancel: 3,
-          },
-        ],
-      },
+      PlanPickDrop_H: [
+        {
+          key: "no",
+          label: "No",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 th-cus-center",
+        },
+        {
+          key: "location",
+          label: "Location",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center",
+        },
+        {
+          key: "address",
+          label: "Address",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center",
+        },
+        {
+          key: "category",
+          label: "Category",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center",
+        },
+        {
+          key: "descs",
+          label: "Description",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center",
+        },
+        {
+          key: "row_id", //untuk button delete
+          label: "",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 th-cus-center",
+        },
+      ],
+      PlanPickDrop_D: [],
+      PlanCosting_H: [
+        {
+          key: "no",
+          label: "No",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 th-cus-center",
+        },
+        {
+          key: "cost_type",
+          label: "Cost Type",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center",
+        },
+        {
+          key: "descs",
+          label: "Description",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center",
+        },
+        {
+          key: "value",
+          label: "Value",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center",
+        },
+        {
+          key: "status",
+          label: "Status",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center",
+        },
+        {
+          key: "row_id", //untuk button delete
+          label: "",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 th-cus-center",
+        },
+      ],
+      PlanCosting_D: [],
       M_GetDataBy: null,
     };
   },
@@ -887,6 +832,7 @@ export default {
     },
   },
   methods: {
+    doDeleteCosting(record, index) {},
     Onassign_fleet_statusChange(data) {
       console.log(data);
       if (data == "I") {
@@ -947,16 +893,16 @@ export default {
     doPick() {
       var param = this.paramFromList;
       param.isEdit = false;
-
+      param.isPick = true;
       this.$store.commit("setParamPage", param);
-      this.$router.push({ name: "OP_PricingCostingFormDetail" });
+      this.$router.push({ name: "OP_PlanExecutionPick" });
     },
     doDrop() {
       var param = this.paramFromList;
       param.isEdit = false;
-
+      param.isPick = false;
       this.$store.commit("setParamPage", param);
-      this.$router.push({ name: "OP_PricingCostingFormDetail" });
+      this.$router.push({ name: "OP_PlanExecutionDrop" });
     },
     doEdit() {
       var param = this.paramFromList;
@@ -968,235 +914,7 @@ export default {
       // param.isEdit = true;
       this.$router.push({ name: "MK_ToDoList_P", params: param });
     },
-    doGetlist(search) {
-      var param = {
-        option_url: "/MK/MK_Appointment",
-        line_no: 1,
-        user_id: this.getDataUser().user_id,
-        portfolio_id: this.getDataUser().portfolio_id,
-        subportfolio_id: this.getDataUser().subportfolio_id,
-        current_page: this.currentPage,
-        per_page: this.perPage,
-        param_where: search,
-        initial_where: " cm_contact_id = " + this.paramFromList.cm_contact_id,
-        sort_field: this.sort,
-        source_field: this.propList.SourceField,
-        param_view: this.propList.ParamView,
-      };
 
-      this.postJSON(this.getUrlList(), param).then((response) => {
-        if (response == null) return;
-        // this.selected = false;
-
-        // this.rowSelected = [];
-
-        // this.rowSel = 0;
-
-        this.responses = response;
-
-        // this.ExportToken = this.responses.ExportToken;
-
-        if (this.responses.Data.length > 0) {
-        }
-        this.items = [];
-        this.fieldHeader = [];
-
-        this.items = this.responses.Data;
-
-        var str_array =
-          this.responses.DefineColumn && this.responses.DefineColumn !== ""
-            ? this.responses.DefineColumn.split(",")
-            : this.responses.AllColumn.split(",");
-        var x = "M,L,M,S";
-        // var defineSize = this.responses.DefineSize.split(",");
-        var defineSize = x.split(",");
-        this.allColumn_bf = this.responses.AllColumn.split(",");
-        var index = this.allColumn_bf.indexOf("lastupdatestamp");
-        if (index > -1) {
-          this.allColumn_bf.splice(index, 1);
-        }
-        var allColumn = [];
-        var filteredColumn = [];
-        var definedColumn = [];
-
-        this.allColumn_bf.forEach((val, idx) => {
-          var thClass = "HeaderACCList";
-          var isSorted = this.sortedField.map((x) => x.field).indexOf(val);
-          if (isSorted > -1) {
-            if (this.sortedField[isSorted].sort == "ASC") {
-              thClass = thClass + " AscSorted";
-            } else {
-              thClass = thClass + " DescSorted";
-            }
-          }
-
-          allColumn.push({
-            value: idx + 1,
-            key: val,
-            thClass: thClass,
-            tdClass: "ContentACCList notranslate",
-            text: val,
-          });
-
-          filteredColumn.push({
-            value: idx + 1,
-            key: val,
-            thClass: thClass,
-            tdClass: "ContentACCList notranslate",
-          });
-        });
-
-        for (var i = 0; i < str_array.length; i++) {
-          filteredColumn = filteredColumn.filter((val) => {
-            if (val.key == str_array[i]) {
-              definedColumn.push({
-                value: val.value,
-                key: val.key,
-                thClass: val.thClass,
-                tdClass: val.tdClass,
-                text: val.key,
-              });
-            }
-
-            return val.key != str_array[i];
-          });
-
-          var thClass = "HeaderACCList " + defineSize[i];
-          // var thClass = "HeaderACCList L";
-
-          var tdClass = "ContentACCList notranslate";
-          if (
-            str_array[i].toLowerCase().includes("amount") ||
-            str_array[i].toLowerCase().includes("amt") ||
-            str_array[i].toLowerCase().includes("rate") ||
-            str_array[i].toLowerCase().includes("price")
-          ) {
-            tdClass = "ABStdClassList2 notranslate";
-            thClass = "ABSthClassList2";
-          }
-
-          var isSorted = this.sortedField
-            .map((x) => x.field)
-            .indexOf(str_array[i]);
-          if (isSorted > -1) {
-            if (this.sortedField[isSorted].sort == "ASC") {
-              thClass = thClass + " AscSorted";
-            } else {
-              thClass = thClass + " DescSorted";
-            }
-          }
-
-          if (this.languageStatus) {
-            this.fieldHeader.push({
-              value: i + 1,
-              key: str_array[i],
-              thClass: thClass,
-              tdClass: tdClass,
-              label: this.$t(str_array[i]),
-            });
-          } else {
-            if (str_array[i] == "lastupdatestamp") continue;
-
-            var listReplace = [
-              {
-                key: "_",
-                value: " ",
-              },
-              {
-                key: "Cd",
-                value: " Code",
-              },
-              {
-                key: "Descs",
-                value: " Description",
-              },
-              {
-                key: "Time Edit",
-                value: "Last Update",
-              },
-              {
-                key: "garing",
-                value: "/",
-              },
-              {
-                key: "titik",
-                value: ".",
-              },
-              {
-                key: "Row Id",
-                value: "View",
-              },
-              {
-                key: "Pic",
-                value: "PIC",
-              },
-            ];
-            var isGotIt = false;
-            var labelHeader = undefined;
-
-            // console.log(str_array[i])
-
-            if (str_array[i].includes("_")) {
-              labelHeader = str_array[i]
-                .toLowerCase()
-                .split("_")
-                .map((s) => {
-                  return s.charAt(0).toUpperCase() + s.substring(1);
-                })
-                .join(" ");
-            } else {
-              // if (str_array[i] !== 'lastupdatestamp') {
-              labelHeader =
-                str_array[i].charAt(0).toUpperCase() +
-                str_array[i].substring(1);
-              // }
-            }
-
-            for (var data of listReplace) {
-              if (labelHeader == undefined) {
-                labelHeader = this.replaceAllString(
-                  str_array[i],
-                  data.key,
-                  data.value
-                );
-              } else {
-                if (labelHeader.includes(data.key)) {
-                  if (labelHeader == "Row Id" && !this.WithViewButton) continue;
-                  // if (labelHeader == 'Row Id' && !this.WithViewButton) {
-
-                  // }
-                  // else {
-                  labelHeader = this.replaceAllString(
-                    labelHeader,
-                    data.key,
-                    data.value
-                  );
-                  // }
-                }
-              }
-            }
-
-            if (labelHeader == "Row Id") continue;
-
-            this.fieldHeader.push({
-              value: i + 1,
-              key: str_array[i],
-              thClass: thClass,
-              tdClass: tdClass,
-              label: labelHeader,
-            });
-          }
-        }
-
-        // this.availableColumn = filteredColumn;
-        // this.selectedColumn = definedColumn;
-
-        // this.availableColumnTemp = filteredColumn;
-        // this.selectedColumnTemp = definedColumn;
-        this.totalRows = this.responses.Total;
-        this.lastPage = this.responses.Last_Page;
-      });
-    },
     GetDataBy() {
       var param = {
         option_url: "/OP/OP_Order",

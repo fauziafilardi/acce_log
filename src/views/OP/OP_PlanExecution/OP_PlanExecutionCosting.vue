@@ -338,20 +338,15 @@ export default {
     } else {
       this.title = "Add";
     }
-  },
-  created() {
-    console.log(this.paramFromList);
-    if (this.paramFromList.length > 0) {
-      this.PI_op_cost_type_id.dataLookUp.InitialWhere =
-        "ss_portfolio_id='" +
-        this.getDataUser().portfolio_id +
-        "' AND fr_cm_zone_id=" +
-        this.paramFromList.fr_cm_zone_id +
-        " AND to_cm_zone_id=" +
-        this.paramFromList.to_cm_zone_id +
-        " AND fm_fleet_type_id=" +
-        this.paramFromList.fm_fleet_type_id;
-    }
+    this.PI_op_cost_type_id.dataLookUp.InitialWhere =
+      "ss_portfolio_id='" +
+      this.getDataUser().portfolio_id +
+      "' AND fr_cm_zone_id=" +
+      this.paramFromList.fr_cm_zone_id +
+      " AND to_cm_zone_id=" +
+      this.paramFromList.to_cm_zone_id +
+      " AND fm_fleet_type_id=" +
+      this.paramFromList.fm_fleet_type_id;
   },
 };
 </script>
