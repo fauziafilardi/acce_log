@@ -303,11 +303,11 @@
                                       <label>Assign Fleet</label>
                                     </span>
                                     <ACCDropDown
-                                      @change="Onassign_typeChange"
-                                      :prop="PI_Dropassign_type"
-                                      v-model="M_PlanExe.assign_type_i"
-                                      :label="M_PlanExe.assign_typeLabel_i"
-                                      ref="ref_assign_type"
+                                      @change="Onassign_fleetChange"
+                                      :prop="PI_Dropassign_fleet"
+                                      v-model="M_PlanExe.assign_fleet_i"
+                                      :label="M_PlanExe.assign_fleetLabel_i"
+                                      ref="ref_assign_fleet"
                                     />
                                   </b-col>
                                 </b-row>
@@ -386,9 +386,9 @@
                                       <label>Assign Fleet</label>
                                     </span>
                                     <ACCTextBox
-                                      :prop="PI_assign_type_t"
-                                      v-model="M_PlanExe.assign_type_e"
-                                      ref="ref_assign_type_t"
+                                      :prop="PI_assign_fleet_t"
+                                      v-model="M_PlanExe.assign_fleet_e"
+                                      ref="ref_assign_fleet_t"
                                     />
                                   </b-col>
                                 </b-row>
@@ -544,10 +544,10 @@ export default {
         arrive_date: "",
         note: "",
         assign_fleet_status: "",
-        assign_type_i: "",
-        assign_typeLabel_i: "",
-        assign_type_e: "",
-        assign_typeLabel_e: "",
+        assign_fleet_i: "",
+        assign_fleetLabel_i: "",
+        assign_fleet_e: "",
+        assign_fleetLabel_e: "",
         driver_id_i: null,
         driver_name_i: null,
         driver_id_e: null,
@@ -607,7 +607,7 @@ export default {
         cDisplayColumn: "maintenance_type",
         cInputStatus: this.inputStatus,
       },
-      PI_Dropassign_type: {
+      PI_Dropassign_fleet: {
         dataLookUp: {
           LookUpCd: "GetFleetMstr",
           ColumnDB: "fm_fleet_mstr_id",
@@ -619,7 +619,7 @@ export default {
           DisplayLookUp: "",
         },
         cValidate: "",
-        cName: "assign_type",
+        cName: "assign_fleet",
         cOrder: 1,
         cKey: false,
         cStatic: false,
@@ -667,9 +667,9 @@ export default {
         cParentForm: "OP_NW_PlanExecution",
         cInputStatus: this.inputStatus,
       },
-      PI_assign_type_t: {
+      PI_assign_fleet_t: {
         cValidate: "",
-        cName: "assign_type",
+        cName: "assign_fleet",
         cOrder: 2,
         cKey: false,
         cType: "text",
@@ -837,34 +837,35 @@ export default {
     doDeleteCosting(record, index) {},
     Onassign_fleet_statusChange(data) {
       console.log(data);
+      //   this.M_PlanExe.assign_fleet_status = data
       if (data == "I") {
         this.PI_Dropvendor.cProtect = true;
-        this.PI_assign_type_t.cProtect = true;
+        this.PI_assign_fleet_t.cProtect = true;
         this.PI_driver_name.cProtect = true;
         this.PI_co_driver_name.cProtect = true;
         this.PI_notes2.cProtect = true;
 
-        this.PI_Dropassign_type.cProtect = false;
+        this.PI_Dropassign_fleet.cProtect = false;
         this.PI_driver_id.cProtect = false;
         this.PI_co_driver_id.cProtect = false;
         this.PI_notes.cProtect = false;
       } else {
         this.PI_Dropvendor.cProtect = false;
-        this.PI_assign_type_t.cProtect = false;
+        this.PI_assign_fleet_t.cProtect = false;
         this.PI_driver_name.cProtect = false;
         this.PI_co_driver_name.cProtect = false;
         this.PI_notes2.cProtect = false;
 
-        this.PI_Dropassign_type.cProtect = true;
+        this.PI_Dropassign_fleet.cProtect = true;
         this.PI_driver_id.cProtect = true;
         this.PI_co_driver_id.cProtect = true;
         this.PI_notes.cProtect = true;
       }
     },
-    Onassign_typeChange(data) {
+    Onassign_fleetChange(data) {
       this.$nextTick(() => {
-        this.M_PlanExe.assign_type_i = data.id;
-        this.M_PlanExe.assign_typeLabel_i = data.label;
+        this.M_PlanExe.assign_fleet_i = data.id;
+        this.M_PlanExe.assign_fleetLabel_i = data.label;
       });
     },
     Ondriver_idChange(data) {
@@ -917,6 +918,11 @@ export default {
           this.M_GetDataBy.order_status && this.M_GetDataBy.order_status !== ""
             ? this.M_GetDataBy.order_status
             : "NULL",
+        cm_contact_id:
+          this.M_GetDataBy.cm_contact_id &&
+          this.M_GetDataBy.cm_contact_id !== ""
+            ? this.M_GetDataBy.cm_contact_id
+            : "NULL",
         descs:
           this.M_GetDataBy.descs && this.M_GetDataBy.descs !== ""
             ? this.M_GetDataBy.descs
@@ -950,47 +956,40 @@ export default {
           this.M_GetDataBy.fm_fleet_type_id !== ""
             ? this.M_GetDataBy.fm_fleet_type_id
             : "NULL",
-        assign_fleet_status:
-          this.M_GetDataBy.assign_fleet_status &&
-          this.M_GetDataBy.assign_fleet_status !== ""
-            ? this.M_GetDataBy.assign_fleet_status
-            : "NULL",
+        assign_fleet_status: this.M_PlanExe.assign_fleet_status, // dari form
         vendor_cm_contact_id:
-          this.M_GetDataBy.vendor_cm_contact_id &&
-          this.M_GetDataBy.vendor_cm_contact_id !== ""
-            ? this.M_GetDataBy.vendor_cm_contact_id
-            : "NULL",
+          this.M_PlanExe.vendor && this.M_PlanExe.vendor !== ""
+            ? this.M_PlanExe.vendor
+            : "NULL", // dari form
         fm_fleet_mstr_id:
-          this.M_GetDataBy.fm_fleet_mstr_id &&
-          this.M_GetDataBy.fm_fleet_mstr_id !== ""
-            ? this.M_GetDataBy.fm_fleet_mstr_id
-            : "NULL",
+          this.M_PlanExe.assign_fleet_status == "I"
+            ? this.M_PlanExe.assign_fleet_i
+            : "NULL", //dari form
         license_plate_no:
-          this.M_GetDataBy.license_plate_no &&
-          this.M_GetDataBy.license_plate_no !== ""
-            ? this.M_GetDataBy.license_plate_no
-            : "NULL",
+          this.M_PlanExe.assign_fleet_status == "I"
+            ? this.M_PlanExe.assign_fleetLabel_i
+            : this.M_PlanExe.assign_fleet_e, //dari form
         fm_driver_id:
-          this.M_GetDataBy.fm_driver_id && this.M_GetDataBy.fm_driver_id !== ""
-            ? this.M_GetDataBy.fm_driver_id
-            : "NULL",
+          this.M_PlanExe.driver_id_i && this.M_PlanExe.driver_id_i !== ""
+            ? this.M_PlanExe.driver_id_i
+            : "NULL", //dari form
         driver_name:
-          this.M_GetDataBy.driver_name && this.M_GetDataBy.driver_name !== ""
-            ? this.M_GetDataBy.driver_name
-            : "NULL",
+          this.M_PlanExe.driver_id_i && this.M_PlanExe.driver_id_i !== ""
+            ? this.M_PlanExe.driver_name_i
+            : this.M_PlanExe.driver_name_e, //dari form
+
         fm_driver_id2:
-          this.M_GetDataBy.fm_driver_id2 &&
-          this.M_GetDataBy.fm_driver_id2 !== ""
-            ? this.M_GetDataBy.fm_driver_id2
-            : "NULL",
+          this.M_PlanExe.co_driver_id_i && this.M_PlanExe.co_driver_id_i !== ""
+            ? this.M_PlanExe.co_driver_id_i
+            : "NULL", //dari form
         driver_name2:
-          this.M_GetDataBy.driver_name2 && this.M_GetDataBy.driver_name2 !== ""
-            ? this.M_GetDataBy.driver_name2
-            : "NULL",
+          this.M_PlanExe.driver_id_i && this.M_PlanExe.driver_id_i !== ""
+            ? this.M_PlanExe.co_driver_name_i
+            : co_driver_name_e, //dari form
         remarks:
-          this.M_GetDataBy.remarks && this.M_GetDataBy.remarks !== ""
-            ? this.M_GetDataBy.remarks
-            : "NULL",
+          this.M_PlanExe.assign_fleet_status == "I"
+            ? this.M_PlanExe.notes_i
+            : this.M_PlanExe.notes_e, //dari form
         dispatch_date:
           this.M_GetDataBy.dispatch_date &&
           this.M_GetDataBy.dispatch_date !== ""
@@ -1213,7 +1212,7 @@ export default {
         var data = response.Data[0];
         this.M_GetDataBy = JSON.parse(data.fop_order_s)[0];
         console.log(this.M_GetDataBy);
-        this.PI_Dropassign_type.dataLookUp.InitialWhere =
+        this.PI_Dropassign_fleet.dataLookUp.InitialWhere =
           "ss_portfolio_id='" +
           this.getDataUser().portfolio_id +
           "' AND vehicle_type='" +
@@ -1221,7 +1220,7 @@ export default {
           "'";
         this.M_PlanExe.assign_fleet_status = "I";
         this.PI_Dropvendor.cProtect = true;
-        this.PI_assign_type_t.cProtect = true;
+        this.PI_assign_fleet_t.cProtect = true;
         this.PI_driver_name.cProtect = true;
         this.PI_co_driver_name.cProtect = true;
         this.PI_notes2.cProtect = true;
