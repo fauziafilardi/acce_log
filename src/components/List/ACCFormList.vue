@@ -145,7 +145,7 @@ export default {
   },
   watch: {
     cData(newData, oldData) {
-      console.log(newData)
+      // console.log(newData)
       this.items = newData
     }
   },
