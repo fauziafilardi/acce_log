@@ -622,6 +622,69 @@
                   </b-row>
                 </template>
               </ABSModal>
+              <ABSModal id="Modal_Ticket" ref="Modal_Ticket" size="sm">
+                <template slot="headerTitle">Ticket</template>
+                <template slot="content">
+                  <b-row>
+                    <b-col md="12">
+                      <b-form :data-vv-scope="'M_Ticket'" :data-vv-value-path="'M_Ticket'">
+                        <b-row>
+                          <b-col md="12">
+                            <span>
+                              <label>Ticket Category</label>
+                            </span>
+                            <ACCDropDown
+                              @change="Onticket_categoryChange"
+                              :prop="PI_ticket_category"
+                              v-model="M_Ticket.ticket_category"
+                              :label="M_Ticket.ticket_categoryLabel"
+                              :ref="'ref_ticket_category'"
+                            />
+                          </b-col>
+                        </b-row>
+                        <b-row>
+                          <b-col md="12">
+                            <span>
+                              <label>Description</label>
+                            </span>
+                            <ACCTextArea :prop="PI_ticket_descs" v-model="M_Ticket.ticket_descs" ref="ref_ticket_descs" />
+                          </b-col>
+                        </b-row>
+                        <b-row>
+                          <b-col md="12">
+                            <img v-if="M_Ticket.file_path && M_Ticket.file_path !== ''"
+                              id="ticket_attachment"
+                              :src="url + M_Ticket.file_path"
+                              alt
+                              style="width: 200px;"
+                            />
+                            <ACCImageUpload
+                              v-else
+                              :prop="PI_ticket_attachment"
+                              @change="Onticket_attachmentChange"
+                              v-model="M_Ticket.file_name"
+                            />
+                          </b-col>
+                        </b-row>
+                        <b-row style="margin-top: 10px;">
+                          <b-col md="12" style="text-align: center;">
+                            <ABSButton
+                              :text="'Submit Ticket'"
+                              classButton="btn btn--default"
+                              classIcon="icon-style-1"
+                              @click="Save_Ticket"
+                              styleButton="height: 40px;width: 75%;"
+                            />
+                          </b-col>
+                        </b-row>
+                        <b-row>
+
+                        </b-row>
+                      </b-form>
+                    </b-col>
+                  </b-row>
+                </template>
+              </ABSModal>
             </div>
           </div>
         </b-col>
@@ -634,6 +697,55 @@
 export default {
 data() {
     return {
+        PI_ticket_category: {
+            dataLookUp: {
+                LookUpCd:'GetTicketCategory',
+                ColumnDB:'op_ticket_category_id',
+                InitialWhere:"ss_portfolio_id='" + this.getDataUser().portfolio_id + "'",
+                ParamWhere:'',
+                OrderBy:'',
+                ParamView:'',
+                SourceField:'',
+                DisplayLookUp:'ticket_category'
+            },
+            cValidate: "required",
+            cName: "comodity",
+            ckey: false,
+            cOrder: 1,
+            cProtect: false,
+            cParentForm: "M_Ticket",
+            cStatic: false,
+            cOption: [],
+            cDisplayColumn: "ticket_category",
+            cInputStatus: "new"
+        },
+        PI_ticket_descs: {
+          cValidate: "",
+          cName: "ticket_descs",
+          cOrder: 2,
+          cKey: false,
+          cProtect: false,
+          cResize: false,
+          cReadonly: false,
+          cRows: 3,
+          cMaxRows: 3,
+          cSize: "md",
+          cParentForm: "M_Ticket",
+          cInputStatus: "new"
+        },
+        PI_ticket_attachment: {
+          cName: 'attachment',
+          cAccept: '.jpg, .png, .gif',
+          cTitle: 'Attachment',
+          cModule: 'OP',
+        },
+        M_Ticket: {
+          ticket_category: "",
+          ticket_categoryLabel: "",
+          descs: "",
+          file_name: "",
+          file_path: ""
+        },
         PI_finish_loading_date: {
             cValidate: "required",
             cName: "finish_loading_date",
@@ -1077,7 +1189,65 @@ data() {
         }
       );
     },
-    doCreateTicket() {},
+    doCreateTicket() {
+      this.M_Ticket = {
+        ticket_category: "",
+        ticket_categoryLabel: "",
+        descs: "",
+        file_name: "",
+        file_path: ""
+      }
+
+      this.$refs.Modal_Ticket._show();
+    },
+    Onticket_categoryChange(data) {
+      this.M_Ticket.ticket_category = data.id
+      this.M_Ticket.ticket_categoryLabel = data.label
+    },
+    Onticket_attachmentChange(data) {
+      this.M_Ticket.file_name = data.name;
+      this.M_Ticket.file_path = data.path;
+    },
+    Save_Ticket() {
+      this.$validator._base.validateAll("M_Ticket").then(result => {
+        if (!result) return;
+        this.alertConfirmation("Are You Sure Want To Save This Data ?").then(
+          ress => {
+            if (ress.value) {
+              this.$validator.errors.clear("M_Ticket");
+              var param = {
+                option_url: "/OP/OP_Order",
+                line_no: 3,
+                ss_portfolio_id: this.getDataUser().portfolio_id,
+                op_order_id: this.paramFromList.row_id,
+                ticket_date: new Date(),
+                op_ticket_category_id: this.M_Ticket.ticket_category,
+                descs: this.M_Ticket.descs,
+                doc_file_name: this.M_Ticket.file_name,
+                doc_path_file: this.M_Ticket.file_path,
+                remarks: '',
+                wo_status: '',
+                claim_status: '',
+                change_vehicle_status: '',
+                fm_fleet_mstr_id: this.M_DataPost.fm_fleet_mstr_id,
+                license_plate_no: this.M_DataPost.license_plate_no,
+                fm_driver_id: this.M_DataPost.fm_driver_id,
+                fm_driver_id2: this.M_DataPost.fm_driver_id2,
+                user_input: this.getDataUser().user_id
+              };
+
+              this.postJSON(this.getUrlCRUD(), param).then(response => {
+                if (response == null) return;
+                this.alertSuccess(response.Message).then(() => {
+                  this.$refs.Modal_Ticket._hide();
+                  this.GetDataBy();
+                });
+              });
+            }
+          }
+        );
+      });
+    },
     doCreateConsole() {},
     doBack() {
       this.$router.go(-1);
