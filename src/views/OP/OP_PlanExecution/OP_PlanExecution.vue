@@ -138,9 +138,7 @@
               @onRenderData="onRenderData"
             >
               <template slot="status" slot-scope="data">
-                <div
-                  :class="'Plan-Dot-' + (Status[data.item.status].variant)"
-                >{{data.item.status}}</div>
+                <div :class="'Plan-Dot-' + (Status[data.item.status].variant)">{{data.item.status}}</div>
               </template>
             </ACCFormList>
           </div>
@@ -192,7 +190,7 @@ export default {
           this.$router.push({ name: "OP_PlanExecutionNew" });
           break;
         case "AS":
-          // code block
+          this.$router.push({ name: "OP_PlanExecutionAS" });
           break;
         case "DP":
           // code block

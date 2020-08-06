@@ -20,13 +20,13 @@
                     :text="'Extra Pick'"
                     classButton="button button--back"
                     classIcon="icon-style-1"
-                    @click="doExtraPict"
+                    @click="doPick"
                   />
                   <ABSButton
                     :text="'Extra Drop'"
                     classButton="button button--back"
                     classIcon="icon-style-1"
-                    @click="doExtraDrop"
+                    @click="doDrop"
                   />
                   <ABSButton
                     :text="'Back'"
@@ -39,8 +39,8 @@
             </div>
             <div class="card__body">
               <b-form
-                :data-vv-scope="'OP_SL_PlanExecution'"
-                :data-vv-value-path="'OP_SL_PlanExecution'"
+                :data-vv-scope="'OP_AS_PlanExecution'"
+                :data-vv-value-path="'OP_AS_PlanExecution'"
               >
                 <b-row>
                   <b-col md="2" style="text-align: center;">
@@ -51,7 +51,7 @@
                       <b-col>
                         <span
                           style="font-size: 15px; font-weight: bold;"
-                        >{{M_SL_Plan.customer_name}}</span>
+                        >{{M_AS_Plan.customer_name}}</span>
                       </b-col>
                       <b-col style="text-align: right;">
                         <span>
@@ -69,17 +69,17 @@
                       <b-col>
                         <span>
                           <font-awesome-icon class="icon-style-default" icon="user" />
-                          &nbsp;&nbsp; {{M_SL_Plan.contact_person}}
+                          &nbsp;&nbsp; {{M_AS_Plan.contact_person}}
                         </span> &nbsp;&nbsp;
                         <span>
                           <font-awesome-icon class="icon-style-default" icon="phone-square-alt" />
-                          &nbsp;&nbsp; {{M_SL_Plan.contact_person_phone_no}}
+                          &nbsp;&nbsp; {{M_AS_Plan.contact_person_phone_no}}
                         </span>
                       </b-col>
                       <b-col style="text-align: right;">
                         <span>
                           <font-awesome-icon class="icon-style-default" icon="user" />
-                          &nbsp;&nbsp;User : {{M_SL_Plan.user}}
+                          &nbsp;&nbsp;User : {{M_AS_Plan.user}}
                         </span>
                       </b-col>
                     </b-row>
@@ -90,24 +90,24 @@
                             <li class="active" style="width: 10% !important;">
                               <span>Order</span>
                               <br />
-                              <span>{{''}}</span>
+                              <span>{{momentDateFormatting(M_DataPost.order_date, 'DD/MM/YYYY HH:mm')}}</span>
                             </li>
                             <li class="active" style="width: 10% !important;">
                               <span>Assign</span>
                               <br />
-                              <span>{{''}}</span>
+                              <span>{{momentDateFormatting(M_DataPost.assign_date, 'DD/MM/YYYY HH:mm')}}</span>
                             </li>
-                            <li class="active" style="width: 10% !important;">
+                            <li style="width: 10% !important;">
                               <span>Dispatch</span>
                               <br />
                               <span>{{''}}</span>
                             </li>
-                            <li class="active" style="width: 10% !important;">
+                            <li style="width: 10% !important;">
                               <span>Arrived</span>
                               <br />
                               <span>{{''}}</span>
                             </li>
-                            <li class="active" style="width: 10% !important;">
+                            <li style="width: 10% !important;">
                               <span>Start Loading</span>
                               <br />
                               <span>{{''}}</span>
@@ -151,35 +151,35 @@
                           >
                             <span>Order Number</span>
                             <br />
-                            <span style="color: rgb(153 153 153)">{{M_SL_Plan.order_no}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_AS_Plan.order_no}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span>Date</span>
                             <br />
-                            <span style="color: rgb(153 153 153)">{{M_SL_Plan.date}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_AS_Plan.date}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span>Category</span>
                             <br />
-                            <span style="color: rgb(153 153 153)">{{M_SL_Plan.category}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_AS_Plan.category}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span>From</span>
                             <br />
-                            <span style="color: rgb(153 153 153)">{{M_SL_Plan.from}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_AS_Plan.from}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span>To</span>
                             <br />
-                            <span style="color: rgb(153 153 153)">{{M_SL_Plan.to}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_AS_Plan.to}}</span>
                           </b-col>
                         </b-row>
                         <b-row style="border: solid 1px #e7eaec;border-radius: 0px 0px 5px 5px;">
@@ -188,35 +188,35 @@
                           >
                             <span>Pick Up Date</span>
                             <br />
-                            <span style="color: rgb(153 153 153)">{{M_SL_Plan.pickup_date}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_AS_Plan.pickup_date}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span>KGS</span>
                             <br />
-                            <span style="color: rgb(153 153 153)">{{M_SL_Plan.kgs}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_AS_Plan.kgs}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span>CBM</span>
                             <br />
-                            <span style="color: rgb(153 153 153)">{{M_SL_Plan.cbm}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_AS_Plan.cbm}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span>Vehicle Type</span>
                             <br />
-                            <span style="color: rgb(153 153 153)">{{M_SL_Plan.fleet_type_descs}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_AS_Plan.fleet_type_descs}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span>Vehicle Number</span>
                             <br />
-                            <span style="color: rgb(153 153 153)">{{M_SL_Plan.plat_no}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_AS_Plan.plat_no}}</span>
                           </b-col>
                         </b-row>
                       </b-col>
@@ -239,9 +239,20 @@
                           <b-col style="margin: auto;">
                             <span class="AppointmentTitle">Driver</span>
                             <br />
-                            <span class="AppointmentDescs">{{M_SL_Plan.driver1}}</span>
+                            <span class="AppointmentDescs">{{M_AS_Plan.driver1}}</span>
                           </b-col>
                         </b-row>
+                      </b-col>
+                    </b-row>
+                    <b-row>
+                      <b-col md="12" style="padding-left: 0px !important;">
+                        <b-list-group>
+                          <b-list-group-item>
+                            <span>Description</span>
+                            <br />
+                            <span style="color: #ccc">{{M_DataPost.descs}}</span>
+                          </b-list-group-item>
+                        </b-list-group>
                       </b-col>
                     </b-row>
                     <b-row>
@@ -252,65 +263,37 @@
                               <b-list-group-item>
                                 <span>From :</span>
                                 <br />
-                                <span style="color: rgb(153 153 153)">{{M_SL_Plan.from_address}}</span>
+                                <span style="color: rgb(153 153 153)">{{M_AS_Plan.from_address}}</span>
                               </b-list-group-item>
                               <b-list-group-item>
                                 <span>To :</span>
                                 <br />
-                                <span style="color: rgb(153 153 153)">{{M_SL_Plan.to_address}}</span>
+                                <span style="color: rgb(153 153 153)">{{M_AS_Plan.to_address}}</span>
                               </b-list-group-item>
                             </b-list-group>
                           </b-col>
                         </b-row>
+                        <b-row class="row-view" v-show="M_DataPost.assign_fleet_status=='E'">
+                          <b-col md="12" style="padding-left: 0px !important;">
+                            <span>
+                              <label>Vendor Name</label>
+                            </span>
+                            <br />
+                            <span style="color: #ccc">
+                              <label>{{M_DataPost.vendor_name}}</label>
+                            </span>
+                          </b-col>
+                        </b-row>
                         <b-row>
                           <b-col md="12" style="padding-left: 0px !important;">
                             <span>
-                              <label>Finish Loading Date</label>
+                              <label>Dispath Date</label>
                             </span>
                             <ACCDateTime
-                              @input="Onfinish_loading_date_Change"
-                              :prop="PI_finish_loading_date"
-                              v-model="M_PlanExe.finish_loading_date"
-                              ref="ref_finish_loading_date"
+                              :prop="PI_dispatch_date"
+                              v-model="M_PlanExe.dispatch_date"
+                              ref="ref_dispatch_date"
                             />
-                          </b-col>
-                        </b-row>
-                        <b-row>
-                          <b-col md="12" style="padding-left: 0px !important;">
-                            <span>
-                              <label>Comodity</label>
-                            </span>
-                            <ACCDropDown
-                              @change="OncomodityChange"
-                              :prop="PI_comodity"
-                              v-model="M_PlanExe.comodity"
-                              :label="M_PlanExe.comodityLabel"
-                              :ref="'ref_comodity'"
-                            />
-                          </b-col>
-                        </b-row>
-                        <b-row>
-                          <b-col md="4" style="padding-left: 0px !important;">
-                            <span>
-                              <label>Total Item</label>
-                            </span>
-                            <ACCTextBox
-                              :prop="PI_total_item"
-                              v-model="M_PlanExe.total_item"
-                              ref="ref_total_item"
-                            />
-                          </b-col>
-                          <b-col md="4" style="padding-left: 0px !important;">
-                            <span>
-                              <label>KGS</label>
-                            </span>
-                            <ACCTextBox :prop="PI_kgs" v-model="M_PlanExe.kgs" ref="ref_kgs" />
-                          </b-col>
-                          <b-col md="4" style="padding-left: 0px !important;">
-                            <span>
-                              <label>CBM</label>
-                            </span>
-                            <ACCTextBox :prop="PI_cbm" v-model="M_PlanExe.cbm" ref="ref_cbm" />
                           </b-col>
                         </b-row>
                         <b-row>
@@ -324,7 +307,7 @@
                         <b-row style="margin-top: 10px;">
                           <b-col md="12" style="padding-left: 0px !important;">
                             <ABSButton
-                              :text="'Finish Loading'"
+                              :text="'Start Dispatch'"
                               classButton="btn btn--default"
                               classIcon="icon-style-default"
                               @click="doSave"
@@ -334,31 +317,36 @@
                         </b-row>
                       </b-col>
                       <b-col md="6">
-                        <div>
-                          <img :src="require('@/assets/map.png')" alt style="width: 100%;" />
-                        </div>
+                        <b-row>
+                          <b-col md="12" style="padding-left: 0px !important;">
+                            <div>
+                              <img :src="require('@/assets/map.png')" alt style="width: 100%;" />
+                            </div>
+                          </b-col>
+                        </b-row>
+                        <b-row>
+                          <b-col md="11" style="padding-left: 0px !important;">
+                            <span>
+                              <label>Current KM</label>
+                            </span>
+                            <ACCTextBox
+                              :prop="PI_current_km"
+                              v-model="M_PlanExe.current_km"
+                              ref="ref_current_km"
+                            />
+                          </b-col>
+                          <b-col style="margin-top: 35px;">Km</b-col>
+                        </b-row>
                       </b-col>
                     </b-row>
 
                     <b-row class="row-bordered" style="margin-top: 10px;">
                       <b-col md="12">
                         <b-row>
-                          <b-col md="1">
+                          <b-col md="3">
                             <span
                               style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;"
-                            >Ticket</span>
-                          </b-col>
-                          <b-col md="1">
-                            <b-button
-                              style="background-color: transparent; color: black; border: none; padding: unset !important;"
-                              @click="doCreateTicket"
-                            >
-                              <font-awesome-icon
-                                icon="plus-circle"
-                                class="icon-style-default"
-                                style="margin-right: 5px;"
-                              />Add New
-                            </b-button>
+                            >Extra Pick/Drop</span>
                           </b-col>
                         </b-row>
                         <b-row>
@@ -367,14 +355,16 @@
                               :prop="{}"
                               :title="''"
                               cStatic
-                              :cHeader="PlanTicket_H"
-                              :cData="PlanTicket_D"
-                              @rowClicked="ticketClick"
-                              ref="ref_SL_Plan_Ticket"
+                              :cHeader="PlanPickDrop_H"
+                              :cData="PlanPickDrop_D"
+                              @rowClicked="ListDropPickClick"
+                              ref="ref_AS_Plan_Costing"
+                              WithDeleteButton
+                              @buttonDeleteClicked="doDeleteCosting"
                             >
-                              <template slot="ticket_date" slot-scope="data">
-                                <span>{{momentDateFormatting(data.item.ticket_date, "YYYY-MM-DD HH:mm")}}</span>
-                              </template>
+                              <!-- <template slot="ticket_date" slot-scope="data">
+                                    <span>{{momentDateFormatting(data.item.ticket_date, "YYYY-MM-DD HH:mm")}}</span>
+                              </template>-->
                             </ACCFormList>
                           </b-col>
                         </b-row>
@@ -408,8 +398,8 @@
                               cStatic
                               :cHeader="PlanCosting_H"
                               :cData="PlanCosting_D"
-                              @rowClicked="CostingClick"
-                              ref="ref_SL_Plan_Costing"
+                              @rowClicked="ListCostingClick"
+                              ref="ref_AS_Plan_Costing"
                               WithDeleteButton
                               @buttonDeleteClicked="doDeleteCosting"
                             >
@@ -417,80 +407,6 @@
                                     <span>{{momentDateFormatting(data.item.ticket_date, "YYYY-MM-DD HH:mm")}}</span>
                               </template>-->
                             </ACCFormList>
-                          </b-col>
-                        </b-row>
-                      </b-col>
-                    </b-row>
-
-                    <b-row style="margin-top: 10px;">
-                      <b-col md="12">
-                        <b-row>
-                          <b-col md="1">
-                            <span
-                              style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;"
-                            >Document</span>
-                          </b-col>
-                        </b-row>
-                        <b-row>
-                          <b-col style="margin-right: 5px;">
-                            <b-row class="row-bordered">
-                              <b-col style="text-align: center;">
-                                <span
-                                  style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;"
-                                >1. Surat Jalan</span>
-                                <br />
-                                <br />
-                                <br />
-                                <!-- <img src="" alt=""> -->
-                                <font-awesome-icon
-                                  icon="plus-circle"
-                                  class="icon-style-default"
-                                  size="4x"
-                                />
-                                <br />
-                                <br />Upload Document
-                              </b-col>
-                            </b-row>
-                          </b-col>
-                          <b-col style="margin-right: 5px;">
-                            <b-row class="row-bordered">
-                              <b-col style="text-align: center;">
-                                <span
-                                  style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;"
-                                >2. Shipping Instruction</span>
-                                <br />
-                                <br />
-                                <br />
-                                <!-- <img src="" alt=""> -->
-                                <font-awesome-icon
-                                  icon="plus-circle"
-                                  class="icon-style-default"
-                                  size="4x"
-                                />
-                                <br />
-                                <br />Upload Document
-                              </b-col>
-                            </b-row>
-                          </b-col>
-                          <b-col>
-                            <b-row class="row-bordered">
-                              <b-col style="text-align: center;">
-                                <span
-                                  style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;"
-                                >3. Delivery Order</span>
-                                <br />
-                                <br />
-                                <br />
-                                <!-- <img src="" alt=""> -->
-                                <font-awesome-icon
-                                  icon="plus-circle"
-                                  class="icon-style-default"
-                                  size="4x"
-                                />
-                                <br />
-                                <br />Upload Document
-                              </b-col>
-                            </b-row>
                           </b-col>
                         </b-row>
                       </b-col>
@@ -510,72 +426,28 @@
 export default {
   data() {
     return {
-      PI_finish_loading_date: {
+      PI_dispatch_date: {
         cValidate: "required",
-        cName: "finish_loading_date",
+        cName: "dispatch_date",
         cOrder: 1,
         cKey: false,
         cProtect: false,
         cWithTime: true,
         cFormat: "dd/MM/yyyy",
-        cParentForm: "OP_SL_PlanExecution",
+        cParentForm: "OP_AS_PlanExecution",
       },
-      PI_comodity: {
-        dataLookUp: {
-          LookUpCd: "GetQuotationCommodity",
-          ColumnDB: "cm_commodity_id",
-          InitialWhere:
-            "ss_portfolio_id='" + this.getDataUser().portfolio_id + "'",
-          ParamWhere: "",
-          OrderBy: "",
-          ParamView: "",
-          SourceField: "",
-          DisplayLookUp: "comodity_cd",
-        },
-        cValidate: "required",
-        cName: "comodity",
-        ckey: false,
+      PI_current_km: {
+        cValidate: "",
+        cName: "current_km",
         cOrder: 2,
-        cProtect: false,
-        cParentForm: "OP_SL_PlanExecution",
-        cStatic: false,
-        cOption: [],
-        cDisplayColumn: "comodity_cd",
-        cInputStatus: this.inputStatus,
-      },
-      PI_total_item: {
-        cValidate: "required",
-        cName: "total_item",
-        cOrder: 3,
         cKey: false,
-        cType: "numeric",
+        cType: "text",
         cProtect: false,
-        cParentForm: "OP_SL_PlanExecution",
+        cParentForm: "OP_AS_PlanExecution",
         cDecimal: 2,
         cInputStatus: this.inputStatus,
       },
-      PI_kgs: {
-        cValidate: "required",
-        cName: "kgs",
-        cOrder: 4,
-        cKey: false,
-        cType: "numeric",
-        cProtect: false,
-        cParentForm: "OP_SL_PlanExecution",
-        cDecimal: 2,
-        cInputStatus: this.inputStatus,
-      },
-      PI_cbm: {
-        cValidate: "required",
-        cName: "cbm",
-        cOrder: 5,
-        cKey: false,
-        cType: "numeric",
-        cProtect: false,
-        cParentForm: "OP_SL_PlanExecution",
-        cDecimal: 2,
-        cInputStatus: this.inputStatus,
-      },
+
       PI_note: {
         cValidate: "",
         cName: "note",
@@ -584,10 +456,10 @@ export default {
         cProtect: false,
         cResize: false,
         cReadonly: false,
-        cRows: 3,
-        cMaxRows: 3,
+        cRows: 7,
+        cMaxRows: 7,
         cSize: "md",
-        cParentForm: "OP_SL_PlanExecution",
+        cParentForm: "OP_AS_PlanExecution",
         cInputStatus: this.inputStatus,
       },
       PlanExTable: {
@@ -657,7 +529,7 @@ export default {
         ],
       },
       M_DataPost: {},
-      M_SL_Plan: {
+      M_AS_Plan: {
         cm_contact_id: "",
         customer_name: "",
         cm_contact_person_id: "",
@@ -683,35 +555,35 @@ export default {
         to_address: "",
       },
       M_PlanExe: {
-        finish_loading_date: "",
-        comodity: "",
+        dispatch_date: "",
+        current_km: "",
         comodityLabel: "",
         total_item: "",
         kgs: "",
         cbm: "",
         note: "",
       },
-      PlanTicket_H: [
+      PlanPickDrop_H: [
         {
-          key: "no",
+          key: "row_number",
           label: "No",
           tdClass: "ContentACCList2 notranslate th-cus-center",
           thClass: "HeaderACCList2 th-cus-center",
         },
         {
-          key: "ticket_no",
-          label: "Ticket No",
+          key: "address_name",
+          label: "Location",
           tdClass: "ContentACCList2 notranslate th-cus-center",
           thClass: "HeaderACCList2 S th-cus-center",
         },
         {
-          key: "ticket_date",
-          label: "Date",
+          key: "address",
+          label: "Address",
           tdClass: "ContentACCList2 notranslate th-cus-center",
           thClass: "HeaderACCList2 S th-cus-center",
         },
         {
-          key: "category",
+          key: "pickdrop_category",
           label: "Category",
           tdClass: "ContentACCList2 notranslate th-cus-center",
           thClass: "HeaderACCList2 S th-cus-center",
@@ -723,30 +595,13 @@ export default {
           thClass: "HeaderACCList2 S th-cus-center",
         },
         {
-          key: "attachment",
-          label: "Attachment",
+          key: "row_id", //untuk button delete
+          label: "",
           tdClass: "ContentACCList2 notranslate th-cus-center",
-          thClass: "HeaderACCList2 S th-cus-center",
+          thClass: "HeaderACCList2 th-cus-center",
         },
       ],
-      PlanTicket_D: [
-        // {
-        //   no: 1,
-        //   ticket_no: "#ORD1212121",
-        //   ticket_date: new Date(),
-        //   descs: "Test Ticket TINGINT",
-        //   category: "Accident",
-        //   attachment: "default_photo_.png"
-        // },
-        // {
-        //   no: 2,
-        //   ticket_no: "#ORD1212121",
-        //   ticket_date: new Date(),
-        //   descs: "Test Ticket TINGINT",
-        //   category: "Accident",
-        //   attachment: "default_photo_.png"
-        // }
-      ],
+      PlanPickDrop_D: [],
       PlanCosting_H: [
         {
           key: "no",
@@ -803,6 +658,29 @@ export default {
     },
   },
   methods: {
+    ListCostingClick(record, index) {},
+    ListDropPickClick(record, index) {},
+    doCosting() {
+      var param = this.M_GetDataBy;
+      param.isEdit = false;
+
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "OP_PlanExecutionCosting" });
+    },
+    doPick() {
+      var param = this.paramFromList;
+      param.isEdit = false;
+      param.isPick = true;
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "OP_PlanExecutionPick" });
+    },
+    doDrop() {
+      var param = this.paramFromList;
+      param.isEdit = false;
+      param.isPick = false;
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "OP_PlanExecutionDrop" });
+    },
     doDeleteCosting(record, index) {},
     Onarrive_date_Change(data) {},
     OncomodityChange(data) {
@@ -811,13 +689,13 @@ export default {
     },
     doSave() {
       this.$validator._base
-        .validateAll("OP_SL_PlanExecution")
+        .validateAll("OP_AS_PlanExecution")
         .then((result) => {
           if (!result) return;
           this.alertConfirmation("Are You Sure Want To Save This Data ?").then(
             (ress) => {
               if (ress.value) {
-                this.$validator.errors.clear("OP_SL_PlanExecution");
+                this.$validator.errors.clear("OP_AS_PlanExecution");
                 this.M_Update();
               }
             }
@@ -878,6 +756,10 @@ export default {
           this.M_DataPost.fm_fleet_type_id !== ""
             ? this.M_DataPost.fm_fleet_type_id
             : "NULL",
+        assign_date:
+          this.M_GetDataBy.assign_date && this.M_GetDataBy.assign_date !== ""
+            ? this.M_GetDataBy.assign_date
+            : "NULL",
         assign_fleet_status:
           this.M_DataPost.assign_fleet_status &&
           this.M_DataPost.assign_fleet_status !== ""
@@ -918,10 +800,7 @@ export default {
           this.M_DataPost.remarks && this.M_DataPost.remarks !== ""
             ? this.M_DataPost.remarks
             : "NULL",
-        dispatch_date:
-          this.M_DataPost.dispatch_date && this.M_DataPost.dispatch_date !== ""
-            ? this.M_DataPost.dispatch_date
-            : "NULL",
+        dispatch_date: this.M_PlanExe.dispatch_date, //dari form
         dispatch_km:
           this.M_DataPost.dispatch_km && this.M_DataPost.dispatch_km !== ""
             ? this.M_DataPost.dispatch_km
@@ -949,7 +828,11 @@ export default {
           this.M_DataPost.start_loading_notes !== ""
             ? this.M_DataPost.start_loading_notes
             : "NULL",
-        finish_loading_date: this.M_PlanExe.finish_loading_date, // DARI FORM
+        finish_loading_date:
+          this.M_DataPost.finish_loading_date &&
+          this.M_DataPost.finish_loading_date !== ""
+            ? this.M_DataPost.finish_loading_date
+            : "NULL",
         cm_commodity_id:
           this.M_DataPost.cm_commodity_id &&
           this.M_DataPost.cm_commodity_id !== ""
@@ -1077,7 +960,7 @@ export default {
     },
     M_ClearForm() {
       this.M_PlanExe = {
-        finish_loading_date: new Date(),
+        dispatch_date: new Date(),
         comodity: "",
         comodityLabel: "",
         total_item: "",
@@ -1102,7 +985,7 @@ export default {
         this.M_DataPost = data;
         console.log(data);
 
-        this.M_SL_Plan = {
+        this.M_AS_Plan = {
           cm_contact_id: 0,
           customer_name: data.customer_name,
           cm_contact_person_id: 0,
@@ -1131,8 +1014,8 @@ export default {
           to_address: data.to_address,
         };
 
-        this.PlanTicket_D = data.detail_ticket;
         this.PlanCosting_D = data.detail_costing;
+        this.PlanPickDrop_D = data.detail_pick_drop;
 
         this.M_ClearForm();
       });

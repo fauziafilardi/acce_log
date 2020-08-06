@@ -832,6 +832,12 @@ export default {
     },
   },
   methods: {
+    OnvendorChange(data) {
+      this.$nextTick(() => {
+        this.M_PlanExe.vendor = data.id;
+        this.M_PlanExe.vendorLabel = data.label;
+      });
+    },
     ListCostingClick(record, index) {},
     ListDropPickClick(record, index) {},
     doDeleteCosting(record, index) {},
@@ -956,6 +962,7 @@ export default {
           this.M_GetDataBy.fm_fleet_type_id !== ""
             ? this.M_GetDataBy.fm_fleet_type_id
             : "NULL",
+        assign_date: new Date(),
         assign_fleet_status: this.M_PlanExe.assign_fleet_status, // dari form
         vendor_cm_contact_id:
           this.M_PlanExe.vendor && this.M_PlanExe.vendor !== ""
@@ -985,7 +992,7 @@ export default {
         driver_name2:
           this.M_PlanExe.driver_id_i && this.M_PlanExe.driver_id_i !== ""
             ? this.M_PlanExe.co_driver_name_i
-            : co_driver_name_e, //dari form
+            : this.M_PlanExe.co_driver_name_e, //dari form
         remarks:
           this.M_PlanExe.assign_fleet_status == "I"
             ? this.M_PlanExe.notes_i
