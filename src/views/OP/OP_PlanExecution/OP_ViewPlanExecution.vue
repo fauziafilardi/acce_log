@@ -311,6 +311,7 @@
                               size="lg"
                               style="color: red !important;"
                             />
+                            {{data}}
                           </span>
                         </template>
                       </b-table>
@@ -370,7 +371,7 @@ export default {
         TabIndex: 1,
         OrderBy: "",
         SourceField: "",
-        ParamView: ""
+        ParamView: "",
       },
 
       //For List
@@ -396,7 +397,7 @@ export default {
         { value: 60, text: "60" },
         { value: 80, text: "80" },
         { value: 100, text: "100" },
-        { value: 1000, text: "1000" }
+        { value: 1000, text: "1000" },
       ],
 
       sortedField: [{ field: "time_edit", sort: "DESC" }],
@@ -404,7 +405,7 @@ export default {
       PlanExTable: [],
       M_PlanExe: {
         arrive_date: "",
-        note: ""
+        note: "",
       },
       PI_arrive_date: {
         cValidate: "",
@@ -414,7 +415,7 @@ export default {
         cProtect: false,
         cWithTime: true,
         cFormat: "dd/MM/yyyy",
-        cParentForm: ""
+        cParentForm: "",
       },
       PI_note: {
         cValidate: "",
@@ -428,7 +429,7 @@ export default {
         cMaxRows: 3,
         cSize: "md",
         cParentForm: "MK_EditAppointment",
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
       PlanExTable: {
         Header: [
@@ -436,38 +437,38 @@ export default {
             key: "no",
             label: "No",
             thClass: "HeaderTable",
-            tdClass: "ContentTable__Center"
+            tdClass: "ContentTable__Center",
           },
           {
             key: "orderno",
             label: "Order No",
             thClass: "HeaderTable",
-            tdClass: "ContentTable__Center"
+            tdClass: "ContentTable__Center",
           },
           {
             key: "pickupdate",
             label: "pickupdate",
             thClass: "HeaderTable",
-            tdClass: "ContentTable__Center"
+            tdClass: "ContentTable__Center",
           },
           {
             key: "fromto",
             label: "From - To",
             thClass: "HeaderTable",
-            tdClass: "ContentTable__Center"
+            tdClass: "ContentTable__Center",
           },
           {
             key: "company",
             label: "Company",
             thClass: "HeaderTable",
-            tdClass: "ContentTable__Center"
+            tdClass: "ContentTable__Center",
           },
           {
             key: "cancel",
             label: "Cancel",
             thClass: "HeaderTable",
-            tdClass: "ContentTable__Center"
-          }
+            tdClass: "ContentTable__Center",
+          },
         ],
         Data: [
           {
@@ -476,7 +477,7 @@ export default {
             pickupdate: "01/01/2020 20.00",
             fromto: "JKT - SMG",
             company: "PT. Abadi Sentosa",
-            cancel: 1
+            cancel: 1,
           },
           {
             no: 2,
@@ -484,7 +485,7 @@ export default {
             pickupdate: "01/01/2020 20.00",
             fromto: "JKT - SMG",
             company: "PT. Abadi Sentosa",
-            cancel: 2
+            cancel: 2,
           },
           {
             no: 3,
@@ -492,11 +493,11 @@ export default {
             pickupdate: "01/01/2020 20.00",
             fromto: "JKT - SMG",
             company: "PT. Abadi Sentosa",
-            cancel: 3
-          }
-        ]
+            cancel: 3,
+          },
+        ],
       },
-      M_GetDataBy: null
+      M_GetDataBy: null,
     };
   },
   computed: {
@@ -545,10 +546,10 @@ export default {
         initial_where: " cm_contact_id = " + this.paramFromList.cm_contact_id,
         sort_field: this.sort,
         source_field: this.propList.SourceField,
-        param_view: this.propList.ParamView
+        param_view: this.propList.ParamView,
       };
 
-      this.postJSON(this.getUrlList(), param).then(response => {
+      this.postJSON(this.getUrlList(), param).then((response) => {
         if (response == null) return;
         // this.selected = false;
 
@@ -585,7 +586,7 @@ export default {
 
         this.allColumn_bf.forEach((val, idx) => {
           var thClass = "HeaderACCList";
-          var isSorted = this.sortedField.map(x => x.field).indexOf(val);
+          var isSorted = this.sortedField.map((x) => x.field).indexOf(val);
           if (isSorted > -1) {
             if (this.sortedField[isSorted].sort == "ASC") {
               thClass = thClass + " AscSorted";
@@ -599,26 +600,26 @@ export default {
             key: val,
             thClass: thClass,
             tdClass: "ContentACCList notranslate",
-            text: val
+            text: val,
           });
 
           filteredColumn.push({
             value: idx + 1,
             key: val,
             thClass: thClass,
-            tdClass: "ContentACCList notranslate"
+            tdClass: "ContentACCList notranslate",
           });
         });
 
         for (var i = 0; i < str_array.length; i++) {
-          filteredColumn = filteredColumn.filter(val => {
+          filteredColumn = filteredColumn.filter((val) => {
             if (val.key == str_array[i]) {
               definedColumn.push({
                 value: val.value,
                 key: val.key,
                 thClass: val.thClass,
                 tdClass: val.tdClass,
-                text: val.key
+                text: val.key,
               });
             }
 
@@ -640,7 +641,7 @@ export default {
           }
 
           var isSorted = this.sortedField
-            .map(x => x.field)
+            .map((x) => x.field)
             .indexOf(str_array[i]);
           if (isSorted > -1) {
             if (this.sortedField[isSorted].sort == "ASC") {
@@ -656,7 +657,7 @@ export default {
               key: str_array[i],
               thClass: thClass,
               tdClass: tdClass,
-              label: this.$t(str_array[i])
+              label: this.$t(str_array[i]),
             });
           } else {
             if (str_array[i] == "lastupdatestamp") continue;
@@ -664,36 +665,36 @@ export default {
             var listReplace = [
               {
                 key: "_",
-                value: " "
+                value: " ",
               },
               {
                 key: "Cd",
-                value: " Code"
+                value: " Code",
               },
               {
                 key: "Descs",
-                value: " Description"
+                value: " Description",
               },
               {
                 key: "Time Edit",
-                value: "Last Update"
+                value: "Last Update",
               },
               {
                 key: "garing",
-                value: "/"
+                value: "/",
               },
               {
                 key: "titik",
-                value: "."
+                value: ".",
               },
               {
                 key: "Row Id",
-                value: "View"
+                value: "View",
               },
               {
                 key: "Pic",
-                value: "PIC"
-              }
+                value: "PIC",
+              },
             ];
             var isGotIt = false;
             var labelHeader = undefined;
@@ -704,7 +705,7 @@ export default {
               labelHeader = str_array[i]
                 .toLowerCase()
                 .split("_")
-                .map(s => {
+                .map((s) => {
                   return s.charAt(0).toUpperCase() + s.substring(1);
                 })
                 .join(" ");
@@ -747,7 +748,7 @@ export default {
               key: str_array[i],
               thClass: thClass,
               tdClass: tdClass,
-              label: labelHeader
+              label: labelHeader,
             });
           }
         }
@@ -766,10 +767,10 @@ export default {
         option_url: "/MK/MK_NewProspect",
         line_no: 0,
         id: this.paramFromList.row_id,
-        lastupdatestamp: this.paramFromList.lastupdatestamp
+        lastupdatestamp: this.paramFromList.lastupdatestamp,
       };
 
-      this.getJSON(this.getUrlCRUD(), param).then(response => {
+      this.getJSON(this.getUrlCRUD(), param).then((response) => {
         // response from API
         if (response == null) return;
 
@@ -796,7 +797,7 @@ export default {
           email: data.email,
           website: data.website,
           contact_person: data.contact_person,
-          contact_phone_no: data.contact_phone_no
+          contact_phone_no: data.contact_phone_no,
           // path_file: this.url + data.path_file
         };
         if (data.path_file == "" || data.path_file == null) {
@@ -805,12 +806,12 @@ export default {
           this.M_NewProspect.path_file = this.url + data.path_file;
         }
       });
-    }
+    },
   },
   mounted() {
     // this.GetDataBy();
   },
-  beforeMount() {}
+  beforeMount() {},
 };
 </script>
 

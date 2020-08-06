@@ -6,8 +6,13 @@ import OP_ViewBookingEntry from '@/views/OP/OP_BookingEntry/OP_ViewBookingEntry'
 import OP_PlanExecution from '@/views/OP/OP_PlanExecution/OP_PlanExecution'
 import OP_ViewPlanExecution from '@/views/OP/OP_PlanExecution/OP_ViewPlanExecution'
 import OP_PlanExecutionNew from '@/views/OP/OP_PlanExecution/OP_PlanExecutionNew'
+import OP_PlanExecutionAS from '@/views/OP/OP_PlanExecution/OP_PlanExecutionAS'
+
 import OP_PlanExecutionSL from '@/views/OP/OP_PlanExecution/OP_PlanExecutionSL'
 import OP_PlanExecutionAD from '@/views/OP/OP_PlanExecution/OP_PlanExecutionAD'
+import OP_PlanExecutionCosting from '@/views/OP/OP_PlanExecution/OP_PlanExecutionCosting'
+import OP_PlanExecutionDrop from '@/views/OP/OP_PlanExecution/OP_PlanExecutionPickDrop'
+import OP_PlanExecutionPick from '@/views/OP/OP_PlanExecution/OP_PlanExecutionPickDrop'
 
 //Driver Management
 import OP_DriverManagement from '@/views/OP/OP_DriverManagement/OP_DriverList'
@@ -289,6 +294,14 @@ export const OPRender = {
             }
         },
         {
+            path: '/OP/OP_PlanExecution/AS',
+            name: 'OP_PlanExecutionAS',
+            component: OP_PlanExecutionAS,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
             path: '/OP/PlanExecution/SL',
             name: 'OP_PlanExecutionSL',
             component: OP_PlanExecutionSL,
@@ -300,6 +313,30 @@ export const OPRender = {
             path: '/OP/PlanExecution/AD',
             name: 'OP_PlanExecutionAD',
             component: OP_PlanExecutionAD,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/OP_PlanExecution/Costing',
+            name: 'OP_PlanExecutionCosting',
+            component: OP_PlanExecutionCosting,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/OP_PlanExecution/xDrop',
+            name: 'OP_PlanExecutionDrop',
+            component: OP_PlanExecutionDrop,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/OP_PlanExecution/xPick',
+            name: 'OP_PlanExecutionPick',
+            component: OP_PlanExecutionPick,
             meta: {
                 requiresAuth: true
             }
