@@ -62,7 +62,7 @@
                     <b-row style="margin-top: 10px;">
                       <b-col md="6">
                         <ABSButton
-                          :text="'Save Order'"
+                          :text="'Save'"
                           classButton="btn btn--default"
                           classIcon="icon-style-default"
                           @click="doSave"
@@ -224,24 +224,24 @@ export default {
       var param = {
         option_url: "/OP/OP_Order",
         line_no: 2,
-        oorder_pick_droid: this.M_OpOrderPickDrop.oorder_pick_droid,
+        op_order_pick_drop_id: this.M_OpOrderPickDrop.op_order_pick_drop_id,
         op_order_id: this.paramFromList.row_id,
         pick_drop_category: this.paramFromList.isPick ? "P" : "D",
         cm_contact_delivery_address_id: this.M_OpOrderPickDrop
           .cm_contact_delivery_address_id,
         descs: this.M_OpOrderPickDrop.descs,
-        lastupdatestamp: this.paramFromList.lastupdatestamp,
+        lastupdatestamp: this.paramFromList.DetailList.lastupdatestamp,
         user_edit: this.getDataUser().user_id,
       };
 
       this.putJSON(this.getUrlCRUD(), param).then((response) => {
         if (response == null) return;
         this.alertSuccess(response.Message).then(() => {
-          if (this.inputStatus == "new") {
-            this.doBack();
-          } else {
-            this.$router.replace({ name: "OP_Order" });
-          }
+          //   if (this.inputStatus == "new") {
+          this.doBack();
+          //   } else {
+          //     this.$router.replace({ name: "OP_Order" });
+          //   }
         });
       });
     },
@@ -257,7 +257,7 @@ export default {
     M_Delete() {
       var param = {
         option_url: "/OP/OP_Order",
-        line_no: { LineNo },
+        line_no: 2,
         id: this.paramFromList.row_id,
         lastupdatestamp: this.paramFromList.lastupdatestamp,
       };
@@ -271,9 +271,9 @@ export default {
     GetDataBy() {
       var param = {
         option_url: "/OP/OP_Order",
-        line_no: 0,
-        id: this.paramFromList.row_id,
-        lastupdatestamp: this.paramFromList.lastupdatestamp,
+        line_no: 2,
+        id: this.paramFromList.DetailList.row_id,
+        lastupdatestamp: this.paramFromList.DetailList.lastupdatestamp,
       };
 
       this.getJSON(this.getUrlCRUD(), param).then((response) => {

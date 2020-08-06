@@ -20,13 +20,13 @@
                     :text="'Extra Pick'"
                     classButton="button button--back"
                     classIcon="icon-style-1"
-                    @click="doExtraPict"
+                    @click="doExtra(1)"
                   />
                   <ABSButton
                     :text="'Extra Drop'"
                     classButton="button button--back"
                     classIcon="icon-style-1"
-                    @click="doExtraDrop"
+                    @click="doExtra(2)"
                   />
                   <ABSButton
                     :text="'Back'"
@@ -39,8 +39,8 @@
             </div>
             <div class="card__body">
               <b-form
-                :data-vv-scope="'OP_SL_PlanExecution'"
-                :data-vv-value-path="'OP_SL_PlanExecution'"
+                :data-vv-scope="'OP_DP_PlanExecution'"
+                :data-vv-value-path="'OP_DP_PlanExecution'"
               >
                 <b-row>
                   <b-col md="2" style="text-align: center;">
@@ -245,6 +245,17 @@
                       </b-col>
                     </b-row>
                     <b-row>
+                      <b-col md="12" style="padding-left: 0px !important;">
+                        <b-list-group>
+                          <b-list-group-item>
+                            <span>Description</span>
+                            <br />
+                            <span style="color: #ccc">{{M_DataPost.descs}}</span>
+                          </b-list-group-item>
+                        </b-list-group>
+                      </b-col>
+                    </b-row>
+                    <b-row>
                       <b-col md="6" style="padding-left: 0px !important;">
                         <b-row>
                           <b-col md="12" style="padding-left: 0px !important;">
@@ -262,55 +273,47 @@
                             </b-list-group>
                           </b-col>
                         </b-row>
+                        <b-row class="row-view" v-show="M_DataPost.assign_fleet_status=='E'">
+                          <b-col md="12" style="padding-left: 0px !important;">
+                            <span>
+                              <label>Vendor Name</label>
+                            </span>
+                            <br />
+                            <span style="color: #ccc">
+                              <label>{{M_DataPost.vendor_name}}</label>
+                            </span>
+                          </b-col>
+                        </b-row>
+                        <b-row v-show="M_DataPost.assign_fleet_status=='E'">
+                          <b-col class="row-view" md="6" style="padding-left: 0px !important;">
+                            <span>
+                              <label>PIC</label>
+                            </span>
+                            <br />
+                            <span style="color: #ccc">
+                              <label>{{M_DataPost.vendor_contact_person}}</label>
+                            </span>
+                          </b-col>
+                          <b-col class="row-view" md="6" style="padding-left: 0px !important;">
+                            <span>
+                              <label>Phone No</label>
+                            </span>
+                            <br />
+                            <span style="color: #ccc">
+                              <label>{{M_DataPost.vendor_phone_no}}</label>
+                            </span>
+                          </b-col>
+                        </b-row>
                         <b-row>
                           <b-col md="12" style="padding-left: 0px !important;">
                             <span>
-                              <label>Finish Loading Date</label>
+                              <label>Arrival Date</label>
                             </span>
                             <ACCDateTime
-                              @input="Onfinish_loading_date_Change"
-                              :prop="PI_finish_loading_date"
-                              v-model="M_PlanExe.finish_loading_date"
-                              ref="ref_finish_loading_date"
+                              :prop="PI_arrival_date"
+                              v-model="M_PlanExe.arrival_date"
+                              ref="ref_arrival_date"
                             />
-                          </b-col>
-                        </b-row>
-                        <b-row>
-                          <b-col md="12" style="padding-left: 0px !important;">
-                            <span>
-                              <label>Comodity</label>
-                            </span>
-                            <ACCDropDown
-                              @change="OncomodityChange"
-                              :prop="PI_comodity"
-                              v-model="M_PlanExe.comodity"
-                              :label="M_PlanExe.comodityLabel"
-                              :ref="'ref_comodity'"
-                            />
-                          </b-col>
-                        </b-row>
-                        <b-row>
-                          <b-col md="4" style="padding-left: 0px !important;">
-                            <span>
-                              <label>Total Item</label>
-                            </span>
-                            <ACCTextBox
-                              :prop="PI_total_item"
-                              v-model="M_PlanExe.total_item"
-                              ref="ref_total_item"
-                            />
-                          </b-col>
-                          <b-col md="4" style="padding-left: 0px !important;">
-                            <span>
-                              <label>KGS</label>
-                            </span>
-                            <ACCTextBox :prop="PI_kgs" v-model="M_PlanExe.kgs" ref="ref_kgs" />
-                          </b-col>
-                          <b-col md="4" style="padding-left: 0px !important;">
-                            <span>
-                              <label>CBM</label>
-                            </span>
-                            <ACCTextBox :prop="PI_cbm" v-model="M_PlanExe.cbm" ref="ref_cbm" />
                           </b-col>
                         </b-row>
                         <b-row>
@@ -324,7 +327,7 @@
                         <b-row style="margin-top: 10px;">
                           <b-col md="12" style="padding-left: 0px !important;">
                             <ABSButton
-                              :text="'Finish Loading'"
+                              :text="'Arrival'"
                               classButton="btn btn--default"
                               classIcon="icon-style-default"
                               @click="doSave"
@@ -448,7 +451,7 @@
                               @rowClicked="ExtraClick"
                               ref="ref_SL_Plan_Extra"
                               WithDeleteButton
-                              @buttonDeleteClicked="doDeleteExtra"
+                              @buttonDeleteClicked="doDeleteExtraList"
                             >
                               <!-- <template slot="ticket_date" slot-scope="data">
                                     <span>{{momentDateFormatting(data.item.ticket_date, "YYYY-MM-DD HH:mm")}}</span>
@@ -500,7 +503,7 @@
                       </b-col>
                     </b-row>
 
-                    <b-row style="margin-top: 10px;">
+                    <!-- <b-row style="margin-top: 10px;">
                       <b-col md="12">
                         <b-row>
                           <b-col md="1">
@@ -539,12 +542,7 @@
                                     />
                                   </template>
 
-                                  <template v-else>
-                                    <!-- <font-awesome-icon
-                                        icon="plus-circle"
-                                        class="icon-style-default"
-                                        size="4x"
-                                    />-->
+                                  <template v-else>                                  
                                     <ACCImageUpload
                                       :prop="{
                                           cName: doc.dokument_type,
@@ -563,60 +561,10 @@
                               </b-row>
                             </b-col>
                           </template>
-                          <!-- <b-col style="margin-right: 5px;">
-                                <b-row class="row-bordered">
-                                  <b-col style="text-align: center;">
-                                    <span style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;">
-                                      1. Surat Jalan
-                                    </span>
-                                    <br /><br /><br />
-                                    <font-awesome-icon
-                                      icon="plus-circle"
-                                      class="icon-style-default"
-                                      size="4x"
-                                    />
-                                    <br /><br />
-                                    Upload Document
-                                  </b-col>
-                                </b-row>
-                            </b-col>
-                            <b-col style="margin-right: 5px;">
-                                <b-row class="row-bordered">
-                                  <b-col style="text-align: center;">
-                                    <span style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;">
-                                      2. Shipping Instruction
-                                    </span>
-                                    <br /><br /><br />
-                                    <font-awesome-icon
-                                      icon="plus-circle"
-                                      class="icon-style-default"
-                                      size="4x"
-                                    />
-                                    <br /><br />
-                                    Upload Document
-                                  </b-col>
-                                </b-row>
-                            </b-col>
-                            <b-col>
-                                <b-row class="row-bordered">
-                                  <b-col style="text-align: center;">
-                                    <span style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;">
-                                      3. Delivery Order
-                                    </span>
-                                    <br /><br /><br />
-                                    <font-awesome-icon
-                                      icon="plus-circle"
-                                      class="icon-style-default"
-                                      size="4x"
-                                    />
-                                    <br /><br />
-                                    Upload Document
-                                  </b-col>
-                                </b-row>
-                          </b-col>-->
+                         
                         </b-row>
                       </b-col>
-                    </b-row>
+                    </b-row>-->
                   </b-col>
                 </b-row>
               </b-form>
@@ -641,15 +589,15 @@
 export default {
   data() {
     return {
-      PI_finish_loading_date: {
+      PI_arrival_date: {
         cValidate: "required",
-        cName: "finish_loading_date",
+        cName: "arrival_date",
         cOrder: 1,
         cKey: false,
         cProtect: false,
         cWithTime: true,
         cFormat: "dd/MM/yyyy",
-        cParentForm: "OP_SL_PlanExecution",
+        cParentForm: "OP_DP_PlanExecution",
       },
       PI_comodity: {
         dataLookUp: {
@@ -668,7 +616,7 @@ export default {
         ckey: false,
         cOrder: 2,
         cProtect: false,
-        cParentForm: "OP_SL_PlanExecution",
+        cParentForm: "OP_DP_PlanExecution",
         cStatic: false,
         cOption: [],
         cDisplayColumn: "comodity_cd",
@@ -681,7 +629,7 @@ export default {
         cKey: false,
         cType: "numeric",
         cProtect: false,
-        cParentForm: "OP_SL_PlanExecution",
+        cParentForm: "OP_DP_PlanExecution",
         cDecimal: 2,
         cInputStatus: this.inputStatus,
       },
@@ -692,7 +640,7 @@ export default {
         cKey: false,
         cType: "numeric",
         cProtect: false,
-        cParentForm: "OP_SL_PlanExecution",
+        cParentForm: "OP_DP_PlanExecution",
         cDecimal: 2,
         cInputStatus: this.inputStatus,
       },
@@ -703,7 +651,7 @@ export default {
         cKey: false,
         cType: "numeric",
         cProtect: false,
-        cParentForm: "OP_SL_PlanExecution",
+        cParentForm: "OP_DP_PlanExecution",
         cDecimal: 2,
         cInputStatus: this.inputStatus,
       },
@@ -718,7 +666,7 @@ export default {
         cRows: 3,
         cMaxRows: 3,
         cSize: "md",
-        cParentForm: "OP_SL_PlanExecution",
+        cParentForm: "OP_DP_PlanExecution",
         cInputStatus: this.inputStatus,
       },
       M_ModalPict: {
@@ -752,7 +700,7 @@ export default {
         to_address: "",
       },
       M_PlanExe: {
-        finish_loading_date: "",
+        arrival_date: new Date(),
         comodity: "",
         comodityLabel: "",
         total_item: "",
@@ -852,7 +800,7 @@ export default {
       PlanTicket_D: [],
       PlanCosting_H: [
         {
-          key: "no",
+          key: "row_number",
           label: "No",
           tdClass: "ContentACCList2 notranslate th-cus-center",
           thClass: "HeaderACCList2 th-cus-center",
@@ -882,7 +830,7 @@ export default {
           thClass: "HeaderACCList2 S th-cus-center",
         },
         {
-          key: "cost_row_id", //untuk button delete
+          key: "row_id", //untuk button delete
           label: "",
           tdClass: "ContentACCList2 notranslate th-cus-center",
           thClass: "HeaderACCList2 th-cus-center",
@@ -891,13 +839,13 @@ export default {
       PlanCosting_D: [],
       PlanExtra_H: [
         {
-          key: "no",
+          key: "row_number",
           label: "No",
           tdClass: "ContentACCList2 notranslate th-cus-center",
           thClass: "HeaderACCList2 th-cus-center",
         },
         {
-          key: "location",
+          key: "address_name",
           label: "Location",
           tdClass: "ContentACCList2 notranslate th-cus-center",
           thClass: "HeaderACCList2 S th-cus-center",
@@ -909,7 +857,7 @@ export default {
           thClass: "HeaderACCList2 S th-cus-center",
         },
         {
-          key: "category",
+          key: "pickdrop_category",
           label: "Category",
           tdClass: "ContentACCList2 notranslate th-cus-center",
           thClass: "HeaderACCList2 S th-cus-center",
@@ -946,7 +894,48 @@ export default {
     },
   },
   methods: {
-    doDeleteExtra(record, index) {},
+    doCosting() {
+      var param = this.M_DataPost;
+      param.isEdit = false;
+
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "OP_PlanExecutionCosting" });
+    },
+    doExtra(p) {
+      var param = this.paramFromList;
+      param.isEdit = false;
+      param.isPick = p == 1 ? true : false;
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "OP_PlanExecutionPickDrop" });
+    },
+
+    CostingClick(record, index) {},
+    doDeleteCosting(record, index) {},
+    doDeleteExtra(record, index) {
+      var param = {
+        option_url: "/OP/OP_Order",
+        line_no: 2,
+        id: record.row_id,
+        lastupdatestamp: record.lastupdatestamp,
+      };
+      this.deleteJSON(this.getUrlCRUD(), param).then((response) => {
+        // response from API
+        if (response == null) return;
+
+        this.alertSuccess("Data Has Been Deleted").then(() => {
+          this.$refs.ref_NW_Plan_Costing.doGetList("");
+        });
+      });
+    },
+    doDeleteExtraList(record, index) {
+      this.alertConfirmation("Are You Sure Want To Delete This Data ?").then(
+        (ress) => {
+          if (ress.value) {
+            this.doDeleteExtra(record, index);
+          }
+        }
+      );
+    },
     doDeleteCosting(record, index) {},
     doDeleteConsole(record, index) {},
     Onarrive_date_Change(data) {},
@@ -974,13 +963,13 @@ export default {
     },
     doSave() {
       this.$validator._base
-        .validateAll("OP_SL_PlanExecution")
+        .validateAll("OP_DP_PlanExecution")
         .then((result) => {
           if (!result) return;
           this.alertConfirmation("Are You Sure Want To Save This Data ?").then(
             (ress) => {
               if (ress.value) {
-                this.$validator.errors.clear("OP_SL_PlanExecution");
+                this.$validator.errors.clear("OP_DP_PlanExecution");
                 this.M_Update();
               }
             }
@@ -1107,10 +1096,8 @@ export default {
             this.M_DataPost.dispatach_notes !== ""
               ? this.M_DataPost.dispatach_notes
               : "NULL",
-          arrival_date:
-            this.M_DataPost.arrival_date && this.M_DataPost.arrival_date !== ""
-              ? this.M_DataPost.arrival_date
-              : "NULL",
+          arrival_date: this.M_PlanExe.arrival_date, // dari form
+
           arrival_notes:
             this.M_DataPost.arrival_notes &&
             this.M_DataPost.arrival_notes !== ""
@@ -1126,16 +1113,36 @@ export default {
             this.M_DataPost.start_loading_notes !== ""
               ? this.M_DataPost.start_loading_notes
               : "NULL",
-          finish_loading_date: this.M_PlanExe.finish_loading_date, // DARI FORM
+          finish_loading_date:
+            this.M_DataPost.finish_loading_date &&
+            this.M_DataPost.finish_loading_date !== ""
+              ? this.M_DataPost.finish_loading_date
+              : "NULL",
           cm_commodity_id:
             this.M_DataPost.cm_commodity_id &&
             this.M_DataPost.cm_commodity_id !== ""
               ? this.M_DataPost.cm_commodity_id
               : "NULL",
-          total_loading_item: this.M_PlanExe.total_item, // DARI FORM
-          total_loading_kgs: this.M_PlanExe.kgs, // DARI FORM
-          total_loading_cbm: this.M_PlanExe.cbm, // DARI FORM
-          finish_loading_notes: this.M_PlanExe.note, // DARI FORM
+          total_loading_item:
+            this.M_DataPost.total_loading_item &&
+            this.M_DataPost.total_loading_item !== ""
+              ? this.M_DataPost.total_loading_item
+              : "NULL",
+          total_loading_kgs:
+            this.M_DataPost.total_loading_kgs &&
+            this.M_DataPost.total_loading_kgs !== ""
+              ? this.M_DataPost.total_loading_kgs
+              : "NULL",
+          total_loading_cbm:
+            this.M_DataPost.total_loading_cbm &&
+            this.M_DataPost.total_loading_cbm !== ""
+              ? this.M_DataPost.total_loading_cbm
+              : "NULL",
+          finish_loading_notes:
+            this.M_DataPost.finish_loading_notes &&
+            this.M_DataPost.finish_loading_notes !== ""
+              ? this.M_DataPost.finish_loading_notes
+              : "NULL",
           get_out_arrival_date:
             this.M_DataPost.get_out_arrival_date &&
             this.M_DataPost.get_out_arrival_date !== ""
@@ -1284,7 +1291,7 @@ export default {
     },
     M_ClearForm() {
       this.M_PlanExe = {
-        finish_loading_date: new Date(),
+        arrival_date: new Date(),
         comodity: "",
         comodityLabel: "",
         total_item: "",
@@ -1381,7 +1388,7 @@ export default {
 
         this.PlanTicket_D = data.detail_ticket;
         this.PlanCosting_D = data.detail_costing;
-        this.PlanCosting_D = data.detail_pick_drop;
+        this.PlanExtra_D = data.detail_pick_drop;
         this.PlanConsole_D = data.detail_console;
         this.PlanDocument = data.detail_document;
 
