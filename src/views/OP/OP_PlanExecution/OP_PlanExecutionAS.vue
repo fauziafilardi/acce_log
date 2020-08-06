@@ -90,52 +90,52 @@
                             <li class="active" style="width: 10% !important;">
                               <span>Order</span>
                               <br />
-                              <span>{{momentDateFormatting(M_DataPost.order_date, 'DD/MM/YYYY HH:mm')}}</span>
+                              <span>{{this.M_SL_Plan.order_date}}</span>
                             </li>
                             <li class="active" style="width: 10% !important;">
                               <span>Assign</span>
                               <br />
-                              <span>{{momentDateFormatting(M_DataPost.assign_date, 'DD/MM/YYYY HH:mm')}}</span>
+                              <span>{{this.M_SL_Plan.assign_date}}</span>
                             </li>
                             <li style="width: 10% !important;">
                               <span>Dispatch</span>
                               <br />
-                              <span>{{''}}</span>
+                              <span>{{this.M_SL_Plan.dispatch_date}}</span>
                             </li>
                             <li style="width: 10% !important;">
                               <span>Arrived</span>
                               <br />
-                              <span>{{''}}</span>
+                              <span>{{this.M_SL_Plan.arrival_date}}</span>
                             </li>
                             <li style="width: 10% !important;">
                               <span>Start Loading</span>
                               <br />
-                              <span>{{''}}</span>
+                              <span>{{this.M_SL_Plan.start_loading_date}}</span>
                             </li>
                             <li style="width: 10% !important;">
                               <span>Finish Loading</span>
                               <br />
-                              <span>{{''}}</span>
+                              <span>{{this.M_SL_Plan.finish_loading_date}}</span>
                             </li>
                             <li style="width: 10% !important;">
                               <span>Get Out</span>
                               <br />
-                              <span>{{''}}</span>
+                              <span>{{this.M_SL_Plan.get_out_arrival_date}}</span>
                             </li>
                             <li style="width: 10% !important;">
                               <span>Arrive Destination</span>
                               <br />
-                              <span>{{''}}</span>
+                              <span>{{this.M_SL_Plan.get_out_destination_date}}</span>
                             </li>
                             <li style="width: 10% !important;">
                               <span>Start Unloading</span>
                               <br />
-                              <span>{{''}}</span>
+                              <span>{{this.M_SL_Plan.start_unloading_date}}</span>
                             </li>
                             <li style="width: 10% !important;">
                               <span>Finish Unloading</span>
                               <br />
-                              <span>{{''}}</span>
+                              <span>{{this.M_SL_Plan.finish_unloading_date}}</span>
                             </li>
                           </ul>
                         </div>
@@ -340,6 +340,53 @@
                       </b-col>
                     </b-row>
 
+                    <b-row
+                      class="row-bordered"
+                      style="margin-top: 10px;"
+                      v-show="M_SL_Plan.category == 'C'"
+                    >
+                      <b-col md="12">
+                        <b-row>
+                          <b-col md="1">
+                            <span
+                              style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;"
+                            >Console Detail</span>
+                          </b-col>
+                          <b-col md="1">
+                            <b-button
+                              style="background-color: transparent; color: black; border: none; padding: unset !important;"
+                              @click="doCreateConsole"
+                            >
+                              <font-awesome-icon
+                                icon="plus-circle"
+                                class="icon-style-default"
+                                style="margin-right: 5px;"
+                              />Add New
+                            </b-button>
+                          </b-col>
+                        </b-row>
+                        <b-row>
+                          <b-col>
+                            <ACCFormList
+                              :prop="{}"
+                              :title="''"
+                              cStatic
+                              :cHeader="PlanConsole_H"
+                              :cData="PlanConsole_D"
+                              @rowClicked="ConsoleClick"
+                              ref="ref_SL_Plan_Console"
+                              WithDeleteButton
+                              @buttonDeleteClicked="doDeleteConsole"
+                            >
+                              <template slot="pickup_date" slot-scope="data">
+                                <span>{{momentDateFormatting(data.item.pickup_date, "YYYY-MM-DD HH:mm")}}</span>
+                              </template>
+                            </ACCFormList>
+                          </b-col>
+                        </b-row>
+                      </b-col>
+                    </b-row>
+
                     <b-row class="row-bordered" style="margin-top: 10px;">
                       <b-col md="12">
                         <b-row>
@@ -540,6 +587,7 @@ export default {
         order_no: "",
         date: "",
         category: "",
+        category_descs: "",
         from: "",
         to: "",
         fm_driver_id1: "",
@@ -982,9 +1030,9 @@ export default {
         console.log(data);
 
         this.M_AS_Plan = {
-          cm_contact_id: 0,
+          cm_contact_id: data.cm_contact_id,
           customer_name: data.customer_name,
-          cm_contact_person_id: 0,
+          cm_contact_person_id: data.cm_contact_person_id,
           contact_person: data.contact_person_name,
           contact_person_phone_no: data.contact_person_phone,
           user: this.getDataUser().user_name,
@@ -992,6 +1040,7 @@ export default {
           order_no: data.order_no,
           date: this.momentDateFormatting(data.order_date, "YYYY-MM-DD HH:mm"),
           category: data.category,
+          category_descs: data.category_descs,
           from: data.from_zone,
           to: data.to_zone,
           fm_driver_id1: data.fm_driver_id,
@@ -1008,6 +1057,46 @@ export default {
           descs: data.descs,
           from_address: data.from_address,
           to_address: data.to_address,
+          order_date: this.momentDateFormatting(
+            data.order_date,
+            "YYYY-MM-DD HH:mm"
+          ),
+          assign_date: this.momentDateFormatting(
+            data.assign_date,
+            "YYYY-MM-DD HH:mm"
+          ),
+          dispatch_date: this.momentDateFormatting(
+            data.dispatch_date,
+            "YYYY-MM-DD HH:mm"
+          ),
+          arrival_date: this.momentDateFormatting(
+            data.arrival_date,
+            "YYYY-MM-DD HH:mm"
+          ),
+          start_loading_date: this.momentDateFormatting(
+            data.start_loading_date,
+            "YYYY-MM-DD HH:mm"
+          ),
+          finish_loading_date: this.momentDateFormatting(
+            data.finish_loading_date,
+            "YYYY-MM-DD HH:mm"
+          ),
+          get_out_arrival_date: this.momentDateFormatting(
+            data.get_out_arrival_date,
+            "YYYY-MM-DD HH:mm"
+          ),
+          get_out_destination_date: this.momentDateFormatting(
+            data.get_out_destination_date,
+            "YYYY-MM-DD HH:mm"
+          ),
+          start_unloading_date: this.momentDateFormatting(
+            data.start_unloading_date,
+            "YYYY-MM-DD HH:mm"
+          ),
+          finish_unloading_date: this.momentDateFormatting(
+            data.finish_unloading_date,
+            "YYYY-MM-DD HH:mm"
+          ),
         };
 
         this.PlanCosting_D = data.detail_costing;

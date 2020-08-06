@@ -194,6 +194,7 @@ export default {
           break;
         case "DP":
           // code block
+          this.$router.push({ name: "OP_PlanExecutionDP" });
           break;
         case "AR":
           // code block
