@@ -8,12 +8,11 @@ import OP_ViewPlanExecution from '@/views/OP/OP_PlanExecution/OP_ViewPlanExecuti
 import OP_PlanExecutionNew from '@/views/OP/OP_PlanExecution/OP_PlanExecutionNew'
 import OP_PlanExecutionAS from '@/views/OP/OP_PlanExecution/OP_PlanExecutionAS'
 import OP_PlanExecutionDP from '@/views/OP/OP_PlanExecution/OP_PlanExecutionDP'
-
+import OP_PlanExecutionAR from '@/views/OP/OP_PlanExecution/OP_PlanExecutionAR'
 import OP_PlanExecutionSL from '@/views/OP/OP_PlanExecution/OP_PlanExecutionSL'
 import OP_PlanExecutionAD from '@/views/OP/OP_PlanExecution/OP_PlanExecutionAD'
 import OP_PlanExecutionCosting from '@/views/OP/OP_PlanExecution/OP_PlanExecutionCosting'
-import OP_PlanExecutionDrop from '@/views/OP/OP_PlanExecution/OP_PlanExecutionPickDrop'
-import OP_PlanExecutionPick from '@/views/OP/OP_PlanExecution/OP_PlanExecutionPickDrop'
+import OP_PlanExecutionPickDrop from '@/views/OP/OP_PlanExecution/OP_PlanExecutionPickDrop'
 
 //Driver Management
 import OP_DriverManagement from '@/views/OP/OP_DriverManagement/OP_DriverList'
@@ -311,6 +310,14 @@ export const OPRender = {
             }
         },
         {
+            path: '/OP/OP_PlanExecution/AR',
+            name: 'OP_PlanExecutionAR',
+            component: OP_PlanExecutionAR,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
             path: '/OP/PlanExecution/SL',
             name: 'OP_PlanExecutionSL',
             component: OP_PlanExecutionSL,
@@ -335,17 +342,9 @@ export const OPRender = {
             }
         },
         {
-            path: '/OP/OP_PlanExecution/xDrop',
-            name: 'OP_PlanExecutionDrop',
-            component: OP_PlanExecutionDrop,
-            meta: {
-                requiresAuth: true
-            }
-        },
-        {
-            path: '/OP/OP_PlanExecution/xPick',
-            name: 'OP_PlanExecutionPick',
-            component: OP_PlanExecutionPick,
+            path: '/OP/OP_PlanExecution/xPickDrop',
+            name: 'OP_PlanExecutionPickDrop',
+            component: OP_PlanExecutionPickDrop,
             meta: {
                 requiresAuth: true
             }

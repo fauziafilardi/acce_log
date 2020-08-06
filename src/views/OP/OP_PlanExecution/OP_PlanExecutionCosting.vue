@@ -74,7 +74,7 @@
                       <b-row style="margin-top: 10px;">
                         <b-col>
                           <ABSButton
-                            :text="'Save Order'"
+                            :text="'Save'"
                             classButton="btn btn--default"
                             classIcon="icon-style-default"
                             @click="doSave"
@@ -101,6 +101,7 @@ export default {
       title: "",
 
       M_OpOrderCost: {
+        op_order_cost_id: 0,
         ss_portfolio_id: 0,
         op_order_id: 0,
         op_order_price_id: 0,
@@ -196,6 +197,7 @@ export default {
 
     M_ClearForm() {
       this.M_OpOrderCost = {
+        op_order_cost_id: 0,
         ss_portfolio_id: 0,
         op_order_id: 0,
         op_order_price_id: 0,
@@ -266,11 +268,11 @@ export default {
       this.putJSON(this.getUrlCRUD(), param).then((response) => {
         if (response == null) return;
         this.alertSuccess(response.Message).then(() => {
-          if (this.inputStatus == "new") {
-            this.doBack();
-          } else {
-            this.$router.replace({ name: "OP_Order" });
-          }
+          //   if (this.inputStatus == "new") {
+          this.doBack();
+          //   } else {
+          //     this.$router.replace({ name: "OP_Order" });
+          //   }
         });
       });
     },
@@ -301,8 +303,8 @@ export default {
       var param = {
         option_url: "/OP/OP_Order",
         line_no: 1,
-        id: this.paramFromList.row_id,
-        lastupdatestamp: this.paramFromList.lastupdatestamp,
+        id: this.paramFromList.DetailList.row_id,
+        lastupdatestamp: this.paramFromList.DetailList.lastupdatestamp,
       };
 
       this.getJSON(this.getUrlCRUD(), param).then((response) => {
@@ -312,13 +314,15 @@ export default {
         var data = response.Data[0];
 
         this.M_OpOrderCost = {
+          op_order_cost_id: data.row_id,
           ss_portfolio_id: data.ss_portfolio_id,
           op_order_id: data.op_order_id,
           op_order_price_id: data.op_order_price_id,
-          op_cost_type_id: data.op_cost_type_id,
+          op_cost_type_id: data.op_cost_type_id__lo_1,
+          op_cost_type_idLabel: data.cost_type__lbl__lo_1,
           cost_type: data.cost_type,
-          descs: data.descs,
-          cost_value: data.cost_value,
+          descs: data.descs__tb_2,
+          cost_value: data.cost_value__tb_3,
           order_cost_status: data.order_cost_status,
           user_input: data.user_input,
           user_edit: data.user_edit,

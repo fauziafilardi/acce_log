@@ -20,13 +20,13 @@
                     :text="'Extra Pick'"
                     classButton="button button--back"
                     classIcon="icon-style-1"
-                    @click="doPick"
+                    @click="doExtra(1)"
                   />
                   <ABSButton
                     :text="'Extra Drop'"
                     classButton="button button--back"
                     classIcon="icon-style-1"
-                    @click="doDrop"
+                    @click="doExtra(2)"
                   />
                   <ABSButton
                     :text="'Back'"
@@ -47,26 +47,26 @@
                     <b-row>
                       <b-col>
                         <span style="font-size: 15px; font-weight: bold;">
-                          <label>{{M_GetDataBy.customer_name}}</label>
+                          <label>{{M_DataPost.customer_name}}</label>
                         </span>
                       </b-col>
                       <b-col style="text-align: right;">
                         <span>
                           <ABSButton
-                            :text="'Contact'"
+                            :text="'chat'"
                             classButton="btn btn--default"
                             classIcon="icon-style-1"
-                            @click="doContact"
+                            @click="doChat"
                           />
                         </span>
-                        <span>
+                        <!-- <span>
                           <ABSButton
                             :text="'Edit'"
                             classButton="btn btn--default"
                             classIcon="icon-style-1"
                             @click="doEdit"
                           />
-                        </span>
+                        </span>-->
                       </b-col>
                     </b-row>
                     <b-row class="row-view" style="padding-top: 5px; padding-bottom: 10px;">
@@ -74,14 +74,14 @@
                         <span>
                           <font-awesome-icon class="icon-style-default" icon="user" />&nbsp;&nbsp;
                           <span style="font-size: 15px;">
-                            <label>{{M_GetDataBy.contact_person_name}}</label>
+                            <label>{{M_DataPost.contact_person_name}}</label>
                           </span>
                           &nbsp;&nbsp;
                         </span>
                         <span>
                           <font-awesome-icon class="icon-style-default" icon="phone-square-alt" />&nbsp;&nbsp;
                           <span style="font-size: 15px;">
-                            <label>{{M_GetDataBy.contact_person_phone}}</label>
+                            <label>{{M_DataPost.contact_person_phone}}</label>
                           </span>
                         </span>
                       </b-col>
@@ -101,7 +101,7 @@
                             <li class="active" style="width: 10% !important;">
                               <span>Order</span>
                               <br />
-                              <span>{{momentDateFormatting(M_GetDataBy.order_date, 'DD/MM/YYYY HH:mm')}}</span>
+                              <span>{{momentDateFormatting(M_DataPost.order_date, 'DD/MM/YYYY HH:mm')}}</span>
                             </li>
                             <li style="width: 10% !important;">
                               <span>Assign</span>
@@ -162,33 +162,33 @@
                           >
                             <span style="color: #ccc">Order No</span>
                             <br />
-                            <span>{{M_GetDataBy.order_no}}</span>
+                            <span>{{M_DataPost.order_no}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span style="color: #ccc">Date</span>
                             <br />
-                            <span>{{momentDateFormatting(M_GetDataBy.order_date, 'DD/MM/YYYY')}}</span>
+                            <span>{{momentDateFormatting(M_DataPost.order_date, 'DD/MM/YYYY')}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span style="color: #ccc">Category</span>
                             <br />
-                            <span>{{M_GetDataBy.category}}</span>
+                            <span>{{M_DataPost.category}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span style="color: #ccc">From</span>
                             <br />
-                            <span>{{M_GetDataBy.from_zone}}</span>
+                            <span>{{M_DataPost.from_zone}}</span>
                           </b-col>
                           <b-col style="padding: 10px !important; max-width: 20% !important;">
                             <span style="color: #ccc">To</span>
                             <br />
-                            <span>{{M_GetDataBy.to_zone}}</span>
+                            <span>{{M_DataPost.to_zone}}</span>
                           </b-col>
                         </b-row>
                         <b-row style="border: solid 1px #e7eaec;border-radius: 0px 0px 5px 5px;">
@@ -197,35 +197,35 @@
                           >
                             <span style="color: #ccc">Pick Up Date</span>
                             <br />
-                            <span>{{momentDateFormatting(M_GetDataBy.pickup_date, 'DD/MM/YYYY HH:mm')}}</span>
+                            <span>{{momentDateFormatting(M_DataPost.pickup_date, 'DD/MM/YYYY HH:mm')}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span style="color: #ccc">KGS</span>
                             <br />
-                            <span>{{M_GetDataBy.total_kgs==null?0:M_GetDataBy.total_kgs}}</span>
+                            <span>{{M_DataPost.total_kgs==null?0:M_DataPost.total_kgs}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span style="color: #ccc">CBM</span>
                             <br />
-                            <span>{{M_GetDataBy.total_cbm==null?0:M_GetDataBy.total_cbm}}</span>
+                            <span>{{M_DataPost.total_cbm==null?0:M_DataPost.total_cbm}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span style="color: #ccc">Vehicle Type</span>
                             <br />
-                            <span>{{M_GetDataBy.vehicle_type_cd}}</span>
+                            <span>{{M_DataPost.vehicle_type_cd}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span style="color: #ccc">Vehicle Number</span>
                             <br />
-                            <span>{{M_GetDataBy.license_plate_no}}</span>
+                            <span>{{M_DataPost.license_plate_no}}</span>
                           </b-col>
                         </b-row>
                       </b-col>
@@ -248,7 +248,7 @@
                           <b-col style="margin: auto;">
                             <span class="AppointmentTitle">Driver</span>
                             <br />
-                            <span class="AppointmentDescs">{{M_GetDataBy.driver_name}}</span>
+                            <span class="AppointmentDescs">{{M_DataPost.driver_name}}</span>
                           </b-col>
                         </b-row>
                       </b-col>
@@ -261,7 +261,7 @@
                               <b-list-group-item>
                                 <span style="color: #ccc">Description</span>
                                 <br />
-                                <span>{{M_GetDataBy.descs}}</span>
+                                <span>{{M_DataPost.descs}}</span>
                               </b-list-group-item>
                             </b-list-group>
                           </b-col>
@@ -272,12 +272,12 @@
                               <b-list-group-item>
                                 <span style="color: #ccc">From :</span>
                                 <br />
-                                <span>{{M_GetDataBy.from_address}}</span>
+                                <span>{{M_DataPost.from_address}}</span>
                               </b-list-group-item>
                               <b-list-group-item>
                                 <span style="color: #ccc">To :</span>
                                 <br />
-                                <span>{{M_GetDataBy.to_address}}</span>
+                                <span>{{M_DataPost.to_address}}</span>
                               </b-list-group-item>
                             </b-list-group>
                           </b-col>
@@ -441,6 +441,54 @@
                             />
                           </b-col>
                         </b-row>
+
+                        <b-row
+                          class="row-bordered"
+                          style="margin-top: 10px;"
+                          v-show="M_DataPost.category == 'C'"
+                        >
+                          <b-col md="12">
+                            <b-row>
+                              <b-col md="1">
+                                <span
+                                  style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;"
+                                >Console Detail</span>
+                              </b-col>
+                              <b-col md="1">
+                                <b-button
+                                  style="background-color: transparent; color: black; border: none; padding: unset !important;"
+                                  @click="doCreateConsole"
+                                >
+                                  <font-awesome-icon
+                                    icon="plus-circle"
+                                    class="icon-style-default"
+                                    style="margin-right: 5px;"
+                                  />Add New
+                                </b-button>
+                              </b-col>
+                            </b-row>
+                            <b-row>
+                              <b-col>
+                                <ACCFormList
+                                  :prop="{}"
+                                  :title="''"
+                                  cStatic
+                                  :cHeader="PlanConsole_H"
+                                  :cData="PlanConsole_D"
+                                  @rowClicked="ConsoleClick"
+                                  ref="ref_SL_Plan_Console"
+                                  :WithDeleteButton="true"
+                                  @buttonDeleteClicked="doDeleteConsole"
+                                >
+                                  <template slot="pickup_date" slot-scope="data">
+                                    <span>{{momentDateFormatting(data.item.pickup_date, "YYYY-MM-DD HH:mm")}}</span>
+                                  </template>
+                                </ACCFormList>
+                              </b-col>
+                            </b-row>
+                          </b-col>
+                        </b-row>
+
                         <b-row class="row-bordered" style="margin-top: 10px;">
                           <b-col md="12">
                             <b-row>
@@ -459,9 +507,9 @@
                                   :cHeader="PlanPickDrop_H"
                                   :cData="PlanPickDrop_D"
                                   @rowClicked="ListDropPickClick"
-                                  ref="ref_SL_Plan_Costing"
-                                  WithDeleteButton
-                                  @buttonDeleteClicked="doDeleteCosting"
+                                  ref="ref_NW_Plan_Costing"
+                                  :WithDeleteButton="true"
+                                  @buttonDeleteClicked="doDeleteExtraList"
                                 >
                                   <!-- <template slot="ticket_date" slot-scope="data">
                                     <span>{{momentDateFormatting(data.item.ticket_date, "YYYY-MM-DD HH:mm")}}</span>
@@ -499,9 +547,9 @@
                                   :cHeader="PlanCosting_H"
                                   :cData="PlanCosting_D"
                                   @rowClicked="ListCostingClick"
-                                  ref="ref_SL_Plan_Costing"
+                                  ref="ref_NW_Plan_Costing"
                                   :WithDeleteButton="true"
-                                  @buttonDeleteClicked="doDeleteCosting"
+                                  @buttonDeleteClicked="doDeleteCostingList"
                                 >
                                   <!-- <template slot="ticket_date" slot-scope="data">
                                     <span>{{momentDateFormatting(data.item.ticket_date, "YYYY-MM-DD HH:mm")}}</span>
@@ -744,6 +792,57 @@ export default {
         cDisplayColumn: "full_name",
         cInputStatus: this.inputStatus,
       },
+      PlanConsole_H: [
+        {
+          key: "no",
+          label: "No",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 th-cus-center",
+        },
+        {
+          key: "order_no",
+          label: "Order No",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center",
+        },
+        {
+          key: "pickup_date",
+          label: "Pickup Date",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center",
+        },
+        {
+          key: "from_to",
+          label: "From To",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center",
+        },
+        {
+          key: "company",
+          label: "Company",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center",
+        },
+        {
+          key: "kgs",
+          label: "KGS",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center",
+        },
+        {
+          key: "cbm",
+          label: "CBM",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center",
+        },
+        {
+          key: "row_id",
+          label: "",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 th-cus-center",
+        },
+      ],
+      PlanConsole_D: [],
       PlanPickDrop_H: [
         {
           key: "row_number",
@@ -822,7 +921,7 @@ export default {
         },
       ],
       PlanCosting_D: [],
-      M_GetDataBy: null,
+      M_DataPost: null,
     };
   },
   computed: {
@@ -846,9 +945,70 @@ export default {
         this.M_PlanExe.vendorLabel = data.label;
       });
     },
-    ListCostingClick(record, index) {},
-    ListDropPickClick(record, index) {},
-    doDeleteCosting(record, index) {},
+    doCreateConsole(record, index) {},
+    doDeleteConsole() {},
+    ConsoleClick(record, index) {},
+    ListCostingClick(record, index) {
+      var param = this.M_DataPost;
+      param.DetailList = record;
+      param.isEdit = true;
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "OP_PlanExecutionCosting" });
+    },
+    ListDropPickClick(record, index) {
+      var param = this.paramFromList;
+      param.DetailList = record;
+      param.isEdit = true;
+      param.isPick = record.pick_drop_category == "P" ? true : false;
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "OP_PlanExecutionPickDrop" });
+    },
+    doDeleteCosting(record, index) {
+      var param = {
+        option_url: "/OP/OP_Order",
+        line_no: 1,
+        id: record.row_id,
+        lastupdatestamp: record.lastupdatestamp,
+      };
+      this.deleteJSON(this.getUrlCRUD(), param).then((response) => {
+        if (response == null) return;
+        this.alertSuccess("Data Has Been Deleted").then(() => {
+          this.GetDataBy();
+        });
+      });
+    },
+    doDeleteCostingList(record, index) {
+      this.alertConfirmation("Are You Sure Want To Delete This Data ?").then(
+        (ress) => {
+          if (ress.value) {
+            this.doDeleteCosting(record, index);
+          }
+        }
+      );
+    },
+    doDeleteExtra(record, index) {
+      var param = {
+        option_url: "/OP/OP_Order",
+        line_no: 2,
+        id: record.row_id,
+        lastupdatestamp: record.lastupdatestamp,
+      };
+      this.deleteJSON(this.getUrlCRUD(), param).then((response) => {
+        if (response == null) return;
+        this.alertSuccess("Data Has Been Deleted").then(() => {
+          this.GetDataBy();
+        });
+      });
+    },
+    doDeleteExtraList(record, index) {
+      this.alertConfirmation("Are You Sure Want To Delete This Data ?").then(
+        (ress) => {
+          if (ress.value) {
+            this.doDeleteExtra(record, index);
+          }
+        }
+      );
+    },
     Onassign_fleet_statusChange(data) {
       console.log(data);
       //   this.M_PlanExe.assign_fleet_status = data
@@ -914,61 +1074,58 @@ export default {
         option_url: "/OP/OP_Order",
         line_no: 0,
         ss_portfolio_id:
-          this.M_GetDataBy.ss_portfolio_id &&
-          this.M_GetDataBy.ss_portfolio_id !== ""
-            ? this.M_GetDataBy.ss_portfolio_id
+          this.M_DataPost.ss_portfolio_id &&
+          this.M_DataPost.ss_portfolio_id !== ""
+            ? this.M_DataPost.ss_portfolio_id
             : "NULL",
         ss_subportfolio_id:
-          this.M_GetDataBy.ss_subportfolio_id &&
-          this.M_GetDataBy.ss_subportfolio_id !== ""
-            ? this.M_GetDataBy.ss_subportfolio_id
+          this.M_DataPost.ss_subportfolio_id &&
+          this.M_DataPost.ss_subportfolio_id !== ""
+            ? this.M_DataPost.ss_subportfolio_id
             : "NULL",
         op_order_id: this.paramFromList.row_id,
         order_no:
-          this.M_GetDataBy.order_no && this.M_GetDataBy.order_no !== ""
-            ? this.M_GetDataBy.order_no
+          this.M_DataPost.order_no && this.M_DataPost.order_no !== ""
+            ? this.M_DataPost.order_no
             : "NULL",
         order_status:
-          this.M_GetDataBy.order_status && this.M_GetDataBy.order_status !== ""
-            ? this.M_GetDataBy.order_status
+          this.M_DataPost.order_status && this.M_DataPost.order_status !== ""
+            ? this.M_DataPost.order_status
             : "NULL",
         cm_contact_id:
-          this.M_GetDataBy.cm_contact_id &&
-          this.M_GetDataBy.cm_contact_id !== ""
-            ? this.M_GetDataBy.cm_contact_id
+          this.M_DataPost.cm_contact_id && this.M_DataPost.cm_contact_id !== ""
+            ? this.M_DataPost.cm_contact_id
             : "NULL",
         descs:
-          this.M_GetDataBy.descs && this.M_GetDataBy.descs !== ""
-            ? this.M_GetDataBy.descs
+          this.M_DataPost.descs && this.M_DataPost.descs !== ""
+            ? this.M_DataPost.descs
             : "NULL",
         pickup_date:
-          this.M_GetDataBy.pickup_date && this.M_GetDataBy.pickup_date !== ""
-            ? this.M_GetDataBy.pickup_date
+          this.M_DataPost.pickup_date && this.M_DataPost.pickup_date !== ""
+            ? this.M_DataPost.pickup_date
             : "NULL",
         fr_cm_contact_delivery_address_id:
-          this.M_GetDataBy.fr_cm_contact_delivery_address_id &&
-          this.M_GetDataBy.fr_cm_contact_delivery_address_id !== ""
-            ? this.M_GetDataBy.fr_cm_contact_delivery_address_id
+          this.M_DataPost.fr_cm_contact_delivery_address_id &&
+          this.M_DataPost.fr_cm_contact_delivery_address_id !== ""
+            ? this.M_DataPost.fr_cm_contact_delivery_address_id
             : "NULL",
         to_cm_contact_delivery_address_id:
-          this.M_GetDataBy.to_cm_contact_delivery_address_id &&
-          this.M_GetDataBy.to_cm_contact_delivery_address_id !== ""
-            ? this.M_GetDataBy.to_cm_contact_delivery_address_id
+          this.M_DataPost.to_cm_contact_delivery_address_id &&
+          this.M_DataPost.to_cm_contact_delivery_address_id !== ""
+            ? this.M_DataPost.to_cm_contact_delivery_address_id
             : "NULL",
         fr_cm_zone_id:
-          this.M_GetDataBy.fr_cm_zone_id &&
-          this.M_GetDataBy.fr_cm_zone_id !== ""
-            ? this.M_GetDataBy.fr_cm_zone_id
+          this.M_DataPost.fr_cm_zone_id && this.M_DataPost.fr_cm_zone_id !== ""
+            ? this.M_DataPost.fr_cm_zone_id
             : "NULL",
         to_cm_zone_id:
-          this.M_GetDataBy.to_cm_zone_id &&
-          this.M_GetDataBy.to_cm_zone_id !== ""
-            ? this.M_GetDataBy.to_cm_zone_id
+          this.M_DataPost.to_cm_zone_id && this.M_DataPost.to_cm_zone_id !== ""
+            ? this.M_DataPost.to_cm_zone_id
             : "NULL",
         fm_fleet_type_id:
-          this.M_GetDataBy.fm_fleet_type_id &&
-          this.M_GetDataBy.fm_fleet_type_id !== ""
-            ? this.M_GetDataBy.fm_fleet_type_id
+          this.M_DataPost.fm_fleet_type_id &&
+          this.M_DataPost.fm_fleet_type_id !== ""
+            ? this.M_DataPost.fm_fleet_type_id
             : "NULL",
         assign_date: new Date(),
         assign_fleet_status: this.M_PlanExe.assign_fleet_status, // dari form
@@ -1006,162 +1163,160 @@ export default {
             ? this.M_PlanExe.notes_i
             : this.M_PlanExe.notes_e, //dari form
         dispatch_date:
-          this.M_GetDataBy.dispatch_date &&
-          this.M_GetDataBy.dispatch_date !== ""
-            ? this.M_GetDataBy.dispatch_date
+          this.M_DataPost.dispatch_date && this.M_DataPost.dispatch_date !== ""
+            ? this.M_DataPost.dispatch_date
             : "NULL",
         dispatch_km:
-          this.M_GetDataBy.dispatch_km && this.M_GetDataBy.dispatch_km !== ""
-            ? this.M_GetDataBy.dispatch_km
+          this.M_DataPost.dispatch_km && this.M_DataPost.dispatch_km !== ""
+            ? this.M_DataPost.dispatch_km
             : "NULL",
         dispatach_notes:
-          this.M_GetDataBy.dispatach_notes &&
-          this.M_GetDataBy.dispatach_notes !== ""
-            ? this.M_GetDataBy.dispatach_notes
+          this.M_DataPost.dispatach_notes &&
+          this.M_DataPost.dispatach_notes !== ""
+            ? this.M_DataPost.dispatach_notes
             : "NULL",
         arrival_date:
-          this.M_GetDataBy.arrival_date && this.M_GetDataBy.arrival_date !== ""
-            ? this.M_GetDataBy.arrival_date
+          this.M_DataPost.arrival_date && this.M_DataPost.arrival_date !== ""
+            ? this.M_DataPost.arrival_date
             : "NULL",
         arrival_notes:
-          this.M_GetDataBy.arrival_notes &&
-          this.M_GetDataBy.arrival_notes !== ""
-            ? this.M_GetDataBy.arrival_notes
+          this.M_DataPost.arrival_notes && this.M_DataPost.arrival_notes !== ""
+            ? this.M_DataPost.arrival_notes
             : "NULL",
         start_loading_date:
-          this.M_GetDataBy.start_loading_date &&
-          this.M_GetDataBy.start_loading_date !== ""
-            ? this.M_GetDataBy.start_loading_date
+          this.M_DataPost.start_loading_date &&
+          this.M_DataPost.start_loading_date !== ""
+            ? this.M_DataPost.start_loading_date
             : "NULL",
         start_loading_notes:
-          this.M_GetDataBy.start_loading_notes &&
-          this.M_GetDataBy.start_loading_notes !== ""
-            ? this.M_GetDataBy.start_loading_notes
+          this.M_DataPost.start_loading_notes &&
+          this.M_DataPost.start_loading_notes !== ""
+            ? this.M_DataPost.start_loading_notes
             : "NULL",
         finish_loading_date:
-          this.M_GetDataBy.finish_loading_date &&
-          this.M_GetDataBy.finish_loading_date !== ""
-            ? this.M_GetDataBy.finish_loading_date
+          this.M_DataPost.finish_loading_date &&
+          this.M_DataPost.finish_loading_date !== ""
+            ? this.M_DataPost.finish_loading_date
             : "NULL",
         cm_commodity_id:
-          this.M_GetDataBy.cm_commodity_id &&
-          this.M_GetDataBy.cm_commodity_id !== ""
-            ? this.M_GetDataBy.cm_commodity_id
+          this.M_DataPost.cm_commodity_id &&
+          this.M_DataPost.cm_commodity_id !== ""
+            ? this.M_DataPost.cm_commodity_id
             : "NULL",
         total_loading_item:
-          this.M_GetDataBy.total_loading_item &&
-          this.M_GetDataBy.total_loading_item !== ""
-            ? this.M_GetDataBy.total_loading_item
+          this.M_DataPost.total_loading_item &&
+          this.M_DataPost.total_loading_item !== ""
+            ? this.M_DataPost.total_loading_item
             : "NULL",
         total_loading_kgs:
-          this.M_GetDataBy.total_loading_kgs &&
-          this.M_GetDataBy.total_loading_kgs !== ""
-            ? this.M_GetDataBy.total_loading_kgs
+          this.M_DataPost.total_loading_kgs &&
+          this.M_DataPost.total_loading_kgs !== ""
+            ? this.M_DataPost.total_loading_kgs
             : "NULL",
         total_loading_cbm:
-          this.M_GetDataBy.total_loading_cbm &&
-          this.M_GetDataBy.total_loading_cbm !== ""
-            ? this.M_GetDataBy.total_loading_cbm
+          this.M_DataPost.total_loading_cbm &&
+          this.M_DataPost.total_loading_cbm !== ""
+            ? this.M_DataPost.total_loading_cbm
             : "NULL",
         finish_loading_notes:
-          this.M_GetDataBy.finish_loading_notes &&
-          this.M_GetDataBy.finish_loading_notes !== ""
-            ? this.M_GetDataBy.finish_loading_notes
+          this.M_DataPost.finish_loading_notes &&
+          this.M_DataPost.finish_loading_notes !== ""
+            ? this.M_DataPost.finish_loading_notes
             : "NULL",
         get_out_arrival_date:
-          this.M_GetDataBy.get_out_arrival_date &&
-          this.M_GetDataBy.get_out_arrival_date !== ""
-            ? this.M_GetDataBy.get_out_arrival_date
+          this.M_DataPost.get_out_arrival_date &&
+          this.M_DataPost.get_out_arrival_date !== ""
+            ? this.M_DataPost.get_out_arrival_date
             : "NULL",
         get_out_arrival_notes:
-          this.M_GetDataBy.get_out_arrival_notes &&
-          this.M_GetDataBy.get_out_arrival_notes !== ""
-            ? this.M_GetDataBy.get_out_arrival_notes
+          this.M_DataPost.get_out_arrival_notes &&
+          this.M_DataPost.get_out_arrival_notes !== ""
+            ? this.M_DataPost.get_out_arrival_notes
             : "NULL",
         arrival_destination_date:
-          this.M_GetDataBy.arrival_destination_date &&
-          this.M_GetDataBy.arrival_destination_date !== ""
-            ? this.M_GetDataBy.arrival_destination_date
+          this.M_DataPost.arrival_destination_date &&
+          this.M_DataPost.arrival_destination_date !== ""
+            ? this.M_DataPost.arrival_destination_date
             : "NULL",
         arrival_destination_notes:
-          this.M_GetDataBy.arrival_destination_notes &&
-          this.M_GetDataBy.arrival_destination_notes !== ""
-            ? this.M_GetDataBy.arrival_destination_notes
+          this.M_DataPost.arrival_destination_notes &&
+          this.M_DataPost.arrival_destination_notes !== ""
+            ? this.M_DataPost.arrival_destination_notes
             : "NULL",
         start_unloading_date:
-          this.M_GetDataBy.start_unloading_date &&
-          this.M_GetDataBy.start_unloading_date !== ""
-            ? this.M_GetDataBy.start_unloading_date
+          this.M_DataPost.start_unloading_date &&
+          this.M_DataPost.start_unloading_date !== ""
+            ? this.M_DataPost.start_unloading_date
             : "NULL",
         start_unloading_notes:
-          this.M_GetDataBy.start_unloading_notes &&
-          this.M_GetDataBy.start_unloading_notes !== ""
-            ? this.M_GetDataBy.start_unloading_notes
+          this.M_DataPost.start_unloading_notes &&
+          this.M_DataPost.start_unloading_notes !== ""
+            ? this.M_DataPost.start_unloading_notes
             : "NULL",
         finish_unloading_date:
-          this.M_GetDataBy.finish_unloading_date &&
-          this.M_GetDataBy.finish_unloading_date !== ""
-            ? this.M_GetDataBy.finish_unloading_date
+          this.M_DataPost.finish_unloading_date &&
+          this.M_DataPost.finish_unloading_date !== ""
+            ? this.M_DataPost.finish_unloading_date
             : "NULL",
         total_delivered_item:
-          this.M_GetDataBy.total_delivered_item &&
-          this.M_GetDataBy.total_delivered_item !== ""
-            ? this.M_GetDataBy.total_delivered_item
+          this.M_DataPost.total_delivered_item &&
+          this.M_DataPost.total_delivered_item !== ""
+            ? this.M_DataPost.total_delivered_item
             : "NULL",
         total_delivered_kgs:
-          this.M_GetDataBy.total_delivered_kgs &&
-          this.M_GetDataBy.total_delivered_kgs !== ""
-            ? this.M_GetDataBy.total_delivered_kgs
+          this.M_DataPost.total_delivered_kgs &&
+          this.M_DataPost.total_delivered_kgs !== ""
+            ? this.M_DataPost.total_delivered_kgs
             : "NULL",
         total_delivered_cbm:
-          this.M_GetDataBy.total_delivered_cbm &&
-          this.M_GetDataBy.total_delivered_cbm !== ""
-            ? this.M_GetDataBy.total_delivered_cbm
+          this.M_DataPost.total_delivered_cbm &&
+          this.M_DataPost.total_delivered_cbm !== ""
+            ? this.M_DataPost.total_delivered_cbm
             : "NULL",
         finish_unloading_notes:
-          this.M_GetDataBy.finish_unloading_notes &&
-          this.M_GetDataBy.finish_unloading_notes !== ""
-            ? this.M_GetDataBy.finish_unloading_notes
+          this.M_DataPost.finish_unloading_notes &&
+          this.M_DataPost.finish_unloading_notes !== ""
+            ? this.M_DataPost.finish_unloading_notes
             : "NULL",
         get_out_destination_date:
-          this.M_GetDataBy.get_out_destination_date &&
-          this.M_GetDataBy.get_out_destination_date !== ""
-            ? this.M_GetDataBy.get_out_destination_date
+          this.M_DataPost.get_out_destination_date &&
+          this.M_DataPost.get_out_destination_date !== ""
+            ? this.M_DataPost.get_out_destination_date
             : "NULL",
         return_empty_to:
-          this.M_GetDataBy.return_empty_to &&
-          this.M_GetDataBy.return_empty_to !== ""
-            ? this.M_GetDataBy.return_empty_to
+          this.M_DataPost.return_empty_to &&
+          this.M_DataPost.return_empty_to !== ""
+            ? this.M_DataPost.return_empty_to
             : "NULL",
         get_out_destination_km:
-          this.M_GetDataBy.get_out_destination_km &&
-          this.M_GetDataBy.get_out_destination_km !== ""
-            ? this.M_GetDataBy.get_out_destination_km
+          this.M_DataPost.get_out_destination_km &&
+          this.M_DataPost.get_out_destination_km !== ""
+            ? this.M_DataPost.get_out_destination_km
             : "NULL",
         get_out_destination_notes:
-          this.M_GetDataBy.get_out_destination_notes &&
-          this.M_GetDataBy.get_out_destination_notes !== ""
-            ? this.M_GetDataBy.get_out_destination_notes
+          this.M_DataPost.get_out_destination_notes &&
+          this.M_DataPost.get_out_destination_notes !== ""
+            ? this.M_DataPost.get_out_destination_notes
             : "NULL",
         ref_op_order_id:
-          this.M_GetDataBy.ref_op_order_id &&
-          this.M_GetDataBy.ref_op_order_id !== ""
-            ? this.M_GetDataBy.ref_op_order_id
+          this.M_DataPost.ref_op_order_id &&
+          this.M_DataPost.ref_op_order_id !== ""
+            ? this.M_DataPost.ref_op_order_id
             : "NULL",
         ref_op_order_no:
-          this.M_GetDataBy.ref_op_order_no &&
-          this.M_GetDataBy.ref_op_order_no !== ""
-            ? this.M_GetDataBy.ref_op_order_no
+          this.M_DataPost.ref_op_order_no &&
+          this.M_DataPost.ref_op_order_no !== ""
+            ? this.M_DataPost.ref_op_order_no
             : "NULL",
         total_order_amt:
-          this.M_GetDataBy.total_order_amt &&
-          this.M_GetDataBy.total_order_amt !== ""
-            ? this.M_GetDataBy.total_order_amt
+          this.M_DataPost.total_order_amt &&
+          this.M_DataPost.total_order_amt !== ""
+            ? this.M_DataPost.total_order_amt
             : "NULL",
         total_order_cost:
-          this.M_GetDataBy.total_order_cost &&
-          this.M_GetDataBy.total_order_cost !== ""
-            ? this.M_GetDataBy.total_order_cost
+          this.M_DataPost.total_order_cost &&
+          this.M_DataPost.total_order_cost !== ""
+            ? this.M_DataPost.total_order_cost
             : "NULL",
         lastupdatestamp: this.paramFromList.lastupdatestamp,
         user_edit: this.getDataUser().user_id,
@@ -1181,36 +1336,21 @@ export default {
       this.$router.go(-1);
     },
     doCosting() {
-      var param = this.M_GetDataBy;
+      var param = this.M_DataPost;
       param.isEdit = false;
 
       this.$store.commit("setParamPage", param);
       this.$router.push({ name: "OP_PlanExecutionCosting" });
     },
-    doPick() {
+    doExtra(p) {
       var param = this.paramFromList;
       param.isEdit = false;
-      param.isPick = true;
+      param.isPick = p == 1 ? true : false;
       this.$store.commit("setParamPage", param);
-      this.$router.push({ name: "OP_PlanExecutionPick" });
+      this.$router.push({ name: "OP_PlanExecutionPickDrop" });
     },
-    doDrop() {
-      var param = this.paramFromList;
-      param.isEdit = false;
-      param.isPick = false;
-      this.$store.commit("setParamPage", param);
-      this.$router.push({ name: "OP_PlanExecutionDrop" });
-    },
-    doEdit() {
-      var param = this.paramFromList;
-      param.isEdit = true;
-      this.$router.push({ name: "MK_AddNewProspect", params: param });
-    },
-    doContact() {
-      var param = this.paramFromList;
-      // param.isEdit = true;
-      this.$router.push({ name: "MK_ToDoList_P", params: param });
-    },
+
+    doChat() {},
 
     GetDataBy() {
       var param = {
@@ -1225,13 +1365,13 @@ export default {
         if (response == null) return;
 
         var data = response.Data[0];
-        this.M_GetDataBy = JSON.parse(data.fop_order_s)[0];
-        console.log(this.M_GetDataBy);
+        this.M_DataPost = JSON.parse(data.fop_order_s)[0];
+        console.log(this.M_DataPost);
         this.PI_Dropassign_fleet.dataLookUp.InitialWhere =
           "ss_portfolio_id='" +
           this.getDataUser().portfolio_id +
           "' AND vehicle_type='" +
-          this.M_GetDataBy.vehicle_type_cd +
+          this.M_DataPost.vehicle_type_cd +
           "'";
         this.M_PlanExe.assign_fleet_status = "I";
         this.PI_Dropvendor.cProtect = true;
@@ -1239,8 +1379,16 @@ export default {
         this.PI_driver_name.cProtect = true;
         this.PI_co_driver_name.cProtect = true;
         this.PI_notes2.cProtect = true;
-        this.PlanCosting_D = this.M_GetDataBy.detail_cost;
-        this.PlanPickDrop_D = this.M_GetDataBy.detail_pick_drop;
+
+        this.PlanCosting_D = this.M_DataPost.detail_cost;
+        this.PlanPickDrop_D = this.M_DataPost.detail_pick_drop;
+
+        this.PlanConsole_D =
+          !this.M_DataPost.detail_console ||
+          this.M_DataPost.detail_console == null ||
+          this.M_DataPost.detail_console == undefined
+            ? []
+            : this.M_DataPost.detail_console;
 
         // if (data.path_file == "" || data.path_file == null) {
         //   this.M_NewProspect.path_file = require("@/assets/default_photo_.png");
