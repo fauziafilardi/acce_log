@@ -752,7 +752,7 @@ data() {
             cbm: "",
             note: ""
         },
-        PlanTicket_H: [
+        PlanConsole_H: [
           {
             key: "no",
             label: "No",
