@@ -512,7 +512,7 @@
                                       {{id + 1}}. {{doc.dokument_type}}
                                     </span>
                                     <br /><br />
-                                    <template v-if="doc.doc_file_name !== '' && doc.doc_path_file !== ''">
+                                    <template v-if="(doc.doc_file_name && doc.doc_file_name !== '') && (doc.doc_path_file && doc.doc_path_file !== '')">
                                       <img 
                                         :id="doc.dokument_type"
                                         :src="url + doc.doc_path_file"
@@ -525,7 +525,7 @@
                                         class="icon-style-danger"
                                         icon="times-circle"
                                         size="lg"
-                                        style="cursor: pointer; top: 28px; right: 58px; position: absolute;"
+                                        style="cursor: pointer; top: 28px; right: 8%; position: absolute;"
                                         @click="Delete_Pict(id)"
                                       />
                                     </template>
@@ -1041,21 +1041,21 @@ data() {
       },
       paramD = [];
 
-      // for (let i = 0; i < this.PlanDocument.length; i++) {
-      //   paramD.push({
-      //     _Method_: "UPDATE",
-      //     _LineNo_: 4,
-      //     op_order_document_id: this.PlanDocument[i].row_id,
-      //     op_order_id: this.M_DataPost.row_id,
-      //     mk_dokument_type_id: this.PlanDocument[i].mk_dokument_type_id,
-      //     descs: this.PlanDocument[i].descs,
-      //     doc_file_name: this.PlanDocument[i].doc_file_name && this.PlanDocument[i].doc_file_name !== '' ? this.PlanDocument[i].doc_file_name : "NULL",
-      //     doc_path_file: this.PlanDocument[i].doc_path_file && this.PlanDocument[i].doc_path_file !== '' ? this.PlanDocument[i].doc_path_file : "NULL",
-      //     doc_status: this.PlanDocument[i].doc_status,
-      //     lastupdatestamp: this.PlanDocument[i].lastupdatestamp,
-      //     user_edit: this.getDataUser().user_id
-      //   })
-      // }
+      for (let i = 0; i < this.PlanDocument.length; i++) {
+        paramD.push({
+          _Method_: "UPDATE",
+          _LineNo_: 4,
+          op_order_document_id: this.PlanDocument[i].row_id,
+          op_order_id: this.M_DataPost.row_id,
+          mk_dokument_type_id: this.PlanDocument[i].mk_dokument_type_id,
+          descs: this.PlanDocument[i].descs,
+          doc_file_name: this.PlanDocument[i].doc_file_name && this.PlanDocument[i].doc_file_name !== '' ? this.PlanDocument[i].doc_file_name : "NULL",
+          doc_path_file: this.PlanDocument[i].doc_path_file && this.PlanDocument[i].doc_path_file !== '' ? this.PlanDocument[i].doc_path_file : "NULL",
+          doc_status: this.PlanDocument[i].doc_status,
+          lastupdatestamp: this.PlanDocument[i].lastupdatestamp,
+          user_edit: this.getDataUser().user_id
+        })
+      }
 
       var param = {
         option_url: "/OP/OP_Order",
@@ -1151,11 +1151,11 @@ data() {
             finish_unloading_date: this.momentDateFormatting(data.finish_unloading_date, "YYYY-MM-DD HH:mm")
         }
 
-        this.PlanTicket_D = data.detail_ticket
-        this.PlanCosting_D = data.detail_costing
-        this.PlanCosting_D = data.detail_pick_drop
-        this.PlanConsole_D = data.detail_console
-        this.PlanDocument = data.detail_document
+        this.PlanTicket_D = !data.detail_ticket || data.detail_ticket == null || data.detail_ticket == undefined ? [] : data.detail_ticket
+        this.PlanCosting_D = !data.detail_costing || data.detail_costing == null || data.detail_costing == undefined ? [] : data.detail_costing
+        this.PlanCosting_D = !data.detail_pick_drop || data.detail_pick_drop == null || data.detail_pick_drop == undefined ? [] : data.detail_pick_drop
+        this.PlanConsole_D = !data.detail_console || data.detail_console == null || data.detail_console == undefined ? [] : data.detail_console
+        this.PlanDocument = !data.detail_document || data.detail_document == null || data.detail_document == undefined ? [] : data.detail_document
 
         this.M_ClearForm();
       });
