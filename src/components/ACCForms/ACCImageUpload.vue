@@ -1,9 +1,18 @@
 <template>
   <div id="ACCImageUpload">
     <label
+      v-if="cIcon && cIcon !== ''"
       :for="'acc_image_upload_' + prop.cName"
       :style="'background-color: #333399; color: white; width: 100%; text-align: center;border-radius: 5px; margin-top: 10px;border: 1px solid #333399; display: inline-block; padding: 6px 12px; cursor: pointer;' + prop.cStyle"
     >{{prop.cTitle}}</label>
+    <font-awesome-icon
+      v-else
+      :icon="prop.cIcon"
+      class="icon-style-default"
+      :size="prop.cIconSize"
+      style="cursor: pointer;"
+      @click="onClick"
+    />
     <b-form-file
       :id="'acc_image_upload_' + prop.cName"
       style="display: none;"
@@ -24,7 +33,9 @@ export default {
       cAccept: String,
       cTitle: String,
       cModule: String,
-      cStyle: String
+      cStyle: String,
+      cIcon: String,
+      cIconSize: String
     },
     file: String
   },
@@ -33,6 +44,9 @@ export default {
   },
   computed: {},
   methods: {
+    onClick(){
+      document.getElementById('acc_image_upload_' + this.prop.cName).click()
+    },
     fileChanged(e) {
       var files = e.target.files || e.dataTransfer.files;
       if (!files.length) {

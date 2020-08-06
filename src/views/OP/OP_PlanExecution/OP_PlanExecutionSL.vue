@@ -84,52 +84,52 @@
                             <li class="active" style="width: 10% !important;">
                                 <span>Order</span>
                                 <br />
-                                <span>{{''}}</span>
+                                <span>{{this.M_SL_Plan.order_date}}</span>
                             </li>
                             <li class="active" style="width: 10% !important;">
                                 <span>Assign</span>
                                 <br />
-                                <span>{{''}}</span>
+                                <span>{{this.M_SL_Plan.assign_date}}</span>
                             </li>
                             <li class="active" style="width: 10% !important;">
                                 <span>Dispatch</span>
                                 <br />
-                                <span>{{''}}</span>
+                                <span>{{this.M_SL_Plan.dispatch_date}}</span>
                             </li>
                             <li class="active" style="width: 10% !important;">
                                 <span>Arrived</span>
                                 <br />
-                                <span>{{''}}</span>
+                                <span>{{this.M_SL_Plan.arrival_date}}</span>
                             </li>
                             <li class="active" style="width: 10% !important;">
                                 <span>Start Loading</span>
                                 <br />
-                                <span>{{''}}</span>
+                                <span>{{this.M_SL_Plan.start_loading_date}}</span>
                             </li>
                             <li style="width: 10% !important;">
                                 <span>Finish Loading</span>
                                 <br />
-                                <span>{{''}}</span>
+                                <span>{{this.M_SL_Plan.finish_loading_date}}</span>
                             </li>
                             <li style="width: 10% !important;">
                                 <span>Get Out</span>
                                 <br />
-                                <span>{{''}}</span>
+                                <span>{{this.M_SL_Plan.get_out_arrival_date}}</span>
                             </li>
                             <li style="width: 10% !important;">
                                 <span>Arrive Destination</span>
                                 <br />
-                                <span>{{''}}</span>
+                                <span>{{this.M_SL_Plan.get_out_destination_date}}</span>
                             </li>
                             <li style="width: 10% !important;">
                                 <span>Start Unloading</span>
                                 <br />
-                                <span>{{''}}</span>
+                                <span>{{this.M_SL_Plan.start_unloading_date}}</span>
                             </li>
                             <li style="width: 10% !important;">
                                 <span>Finish Unloading</span>
                                 <br />
-                                <span>{{''}}</span>
+                                <span>{{this.M_SL_Plan.finish_unloading_date}}</span>
                             </li>
                           </ul>
                         </div>
@@ -504,14 +504,64 @@
                           </b-col>
                         </b-row>
                         <b-row>
-                            <b-col style="margin-right: 5px;">
+                          <template v-for="(doc, id) in PlanDocument">
+                            <b-col style="margin-right: 5px;" v-bind:key="id">
+                                <b-row class="row-bordered" style="height: 100%">
+                                  <b-col style="text-align: center;">
+                                    <span style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;">
+                                      {{id + 1}}. {{doc.dokument_type}}
+                                    </span>
+                                    <br /><br />
+                                    <template v-if="doc.doc_file_name !== '' && doc.doc_path_file !== ''">
+                                      <img 
+                                        :id="doc.dokument_type"
+                                        :src="url + doc.doc_path_file"
+                                        alt
+                                        width="80%"
+                                        style="cursor: pointer;"
+                                        @click="Show_Pict(doc)"
+                                      />
+                                      <font-awesome-icon
+                                        class="icon-style-danger"
+                                        icon="times-circle"
+                                        size="lg"
+                                        style="cursor: pointer; top: 28px; right: 58px; position: absolute;"
+                                        @click="Delete_Pict(id)"
+                                      />
+                                    </template>
+
+                                    <template v-else>
+                                      <!-- <font-awesome-icon
+                                        icon="plus-circle"
+                                        class="icon-style-default"
+                                        size="4x"
+                                      /> -->
+                                      <ACCImageUpload
+                                        :prop="{
+                                          cName: doc.dokument_type,
+                                          cAccept: '.jpg, .png, .gif',
+                                          cTitle: '',
+                                          cModule: 'OP',
+                                          cIcon: 'plus-circle',
+                                          cIconSize: '4x'
+                                        }"
+                                        @change="onDocChange($event, id)"
+                                        v-model="doc.doc_file_name"
+                                      />
+                                      <br />
+                                      Upload Document
+                                    </template>
+                                  </b-col>
+                                </b-row>
+                            </b-col>
+                          </template>
+                            <!-- <b-col style="margin-right: 5px;">
                                 <b-row class="row-bordered">
                                   <b-col style="text-align: center;">
                                     <span style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;">
                                       1. Surat Jalan
                                     </span>
                                     <br /><br /><br />
-                                    <!-- <img src="" alt=""> -->
                                     <font-awesome-icon
                                       icon="plus-circle"
                                       class="icon-style-default"
@@ -529,7 +579,6 @@
                                       2. Shipping Instruction
                                     </span>
                                     <br /><br /><br />
-                                    <!-- <img src="" alt=""> -->
                                     <font-awesome-icon
                                       icon="plus-circle"
                                       class="icon-style-default"
@@ -547,7 +596,6 @@
                                       3. Delivery Order
                                     </span>
                                     <br /><br /><br />
-                                    <!-- <img src="" alt=""> -->
                                     <font-awesome-icon
                                       icon="plus-circle"
                                       class="icon-style-default"
@@ -557,7 +605,7 @@
                                     Upload Document
                                   </b-col>
                                 </b-row>
-                            </b-col>
+                            </b-col> -->
                         </b-row>
                       </b-col>
                     </b-row>
@@ -565,6 +613,15 @@
                   </b-col>
                 </b-row>
               </b-form>
+              <ABSModal id="Show_Picture" ref="Show_Picture" size="sm">
+                <template slot="content">
+                  <b-row>
+                    <b-col md="12" style="text-align: center;">
+                      <img id="show_pict" :src="M_ModalPict.file" alt style="width: 100%;" />
+                    </b-col>
+                  </b-row>
+                </template>
+              </ABSModal>
             </div>
           </div>
         </b-col>
@@ -656,71 +713,8 @@ data() {
             cParentForm: "OP_SL_PlanExecution",
             cInputStatus: this.inputStatus
         },
-        PlanExTable: {
-            Header: [
-            {
-                key: "no",
-                label: "No",
-                thClass: "HeaderTable",
-                tdClass: "ContentTable__Center"
-            },
-            {
-                key: "orderno",
-                label: "Order No",
-                thClass: "HeaderTable",
-                tdClass: "ContentTable__Center"
-            },
-            {
-                key: "pickupdate",
-                label: "pickupdate",
-                thClass: "HeaderTable",
-                tdClass: "ContentTable__Center"
-            },
-            {
-                key: "fromto",
-                label: "From - To",
-                thClass: "HeaderTable",
-                tdClass: "ContentTable__Center"
-            },
-            {
-                key: "company",
-                label: "Company",
-                thClass: "HeaderTable",
-                tdClass: "ContentTable__Center"
-            },
-            {
-                key: "cancel",
-                label: "Cancel",
-                thClass: "HeaderTable",
-                tdClass: "ContentTable__Center"
-            }
-            ],
-            Data: [
-            {
-                no: 1,
-                orderno: "#ORD00001",
-                pickupdate: "01/01/2020 20.00",
-                fromto: "JKT - SMG",
-                company: "PT. Abadi Sentosa",
-                cancel: 1
-            },
-            {
-                no: 2,
-                orderno: "#ORD00002",
-                pickupdate: "01/01/2020 20.00",
-                fromto: "JKT - SMG",
-                company: "PT. Abadi Sentosa",
-                cancel: 2
-            },
-            {
-                no: 3,
-                orderno: "#ORD00003",
-                pickupdate: "01/01/2020 20.00",
-                fromto: "JKT - SMG",
-                company: "PT. Abadi Sentosa",
-                cancel: 3
-            }
-            ]
+        M_ModalPict: {
+          file: ''
         },
         M_DataPost: {},
         M_SL_Plan: {
@@ -847,24 +841,7 @@ data() {
             thClass: "HeaderACCList2 S th-cus-center"
           },
         ],
-        PlanTicket_D: [
-          // {
-          //   no: 1,
-          //   ticket_no: "#ORD1212121",
-          //   ticket_date: new Date(),
-          //   descs: "Test Ticket TINGINT",
-          //   category: "Accident",
-          //   attachment: "default_photo_.png"
-          // },
-          // {
-          //   no: 2,
-          //   ticket_no: "#ORD1212121",
-          //   ticket_date: new Date(),
-          //   descs: "Test Ticket TINGINT",
-          //   category: "Accident",
-          //   attachment: "default_photo_.png"
-          // }
-        ],
+        PlanTicket_D: [],
         PlanCosting_H: [
           {
             key: "no",
@@ -885,19 +862,19 @@ data() {
             thClass: "HeaderACCList2 S th-cus-center"
           },
           {
-            key: "value",
+            key: "cost_value",
             label: "Value",
             tdClass: "ContentACCList2 notranslate th-cus-center",
             thClass: "HeaderACCList2 S th-cus-center"
           },
           {
-            key: "status",
+            key: "order_cost_status",
             label: "Status",
             tdClass: "ContentACCList2 notranslate th-cus-center",
             thClass: "HeaderACCList2 S th-cus-center"
           },
           {
-            key: "row_id", //untuk button delete
+            key: "cost_row_id", //untuk button delete
             label: "",
             tdClass: "ContentACCList2 notranslate th-cus-center",
             thClass: "HeaderACCList2 th-cus-center"
@@ -942,7 +919,8 @@ data() {
             thClass: "HeaderACCList2 th-cus-center"
           },
         ],
-        PlanExtra_D: []
+        PlanExtra_D: [],
+        PlanDocument: []
     };
 },
   computed: {
@@ -964,6 +942,24 @@ data() {
     doDeleteCosting(record, index) {},
     doDeleteConsole(record, index) {},
     Onarrive_date_Change(data) {},
+    onDocChange(data, index) {
+      this.PlanDocument[index].doc_file_name = data.name;
+      this.PlanDocument[index].doc_path_file = data.path;
+    },
+    Show_Pict(doc) {
+      this.M_ModalPict.file = this.url + doc.doc_path_file;
+      this.$refs.Show_Picture._show();
+    },
+    Delete_Pict(id) {
+      this.alertConfirmation("Are You Sure Want To Delete This Document ?").then(
+        ress => {
+          if (ress.value) {
+            this.PlanDocument[id].doc_path_file = ""
+            this.PlanDocument[id].doc_file_name = ""
+          }
+        }
+      );
+    },
     OncomodityChange(data) {
         this.M_PlanExe.comodity = data.id;
         this.M_PlanExe.comodityLabel = data.label;
@@ -982,14 +978,15 @@ data() {
       });
     },
     M_Update() {
-      var param = {
-        option_url: "/OP/OP_Order",
-        line_no: 0,
+      var paramH = {
+        _Method_: "UPDATE",
+        _LineNo_: 0,
         ss_portfolio_id: this.M_DataPost.ss_portfolio_id && this.M_DataPost.ss_portfolio_id !== '' ? this.M_DataPost.ss_portfolio_id : "NULL",
         ss_subportfolio_id: this.M_DataPost.ss_subportfolio_id && this.M_DataPost.ss_subportfolio_id !== '' ? this.M_DataPost.ss_subportfolio_id : "NULL",
         op_order_id: this.paramFromList.row_id,
         order_no: this.M_DataPost.order_no && this.M_DataPost.order_no !== '' ? this.M_DataPost.order_no : "NULL",
         order_status: this.M_DataPost.order_status && this.M_DataPost.order_status !== '' ? this.M_DataPost.order_status : "NULL",
+        cm_contact_id: this.M_DataPost.cm_contact_id && this.M_DataPost.cm_contact_id !== '' ? this.M_DataPost.cm_contact_id : "NULL",
         descs: this.M_DataPost.descs && this.M_DataPost.descs !== '' ? this.M_DataPost.descs : "NULL",
         pickup_date: this.M_DataPost.pickup_date && this.M_DataPost.pickup_date !== '' ? this.M_DataPost.pickup_date : "NULL",
         fr_cm_contact_delivery_address_id: this.M_DataPost.fr_cm_contact_delivery_address_id && this.M_DataPost.fr_cm_contact_delivery_address_id !== '' ? this.M_DataPost.fr_cm_contact_delivery_address_id : "NULL",
@@ -997,6 +994,7 @@ data() {
         fr_cm_zone_id: this.M_DataPost.fr_cm_zone_id && this.M_DataPost.fr_cm_zone_id !== '' ? this.M_DataPost.fr_cm_zone_id : "NULL",
         to_cm_zone_id: this.M_DataPost.to_cm_zone_id && this.M_DataPost.to_cm_zone_id !== '' ? this.M_DataPost.to_cm_zone_id : "NULL",
         fm_fleet_type_id: this.M_DataPost.fm_fleet_type_id && this.M_DataPost.fm_fleet_type_id !== '' ? this.M_DataPost.fm_fleet_type_id : "NULL",
+        assign_date: this.M_DataPost.assign_date && this.M_DataPost.assign_date !== '' ? this.M_DataPost.assign_date : "NULL",
         assign_fleet_status: this.M_DataPost.assign_fleet_status && this.M_DataPost.assign_fleet_status !== '' ? this.M_DataPost.assign_fleet_status : "NULL",
         vendor_cm_contact_id: this.M_DataPost.vendor_cm_contact_id && this.M_DataPost.vendor_cm_contact_id !== '' ? this.M_DataPost.vendor_cm_contact_id : "NULL",
         fm_fleet_mstr_id: this.M_DataPost.fm_fleet_mstr_id && this.M_DataPost.fm_fleet_mstr_id !== '' ? this.M_DataPost.fm_fleet_mstr_id : "NULL",
@@ -1040,15 +1038,44 @@ data() {
         total_order_cost: this.M_DataPost.total_order_cost && this.M_DataPost.total_order_cost !== '' ? this.M_DataPost.total_order_cost : "NULL",
         lastupdatestamp: this.paramFromList.lastupdatestamp,
         user_edit: this.getDataUser().user_id
+      },
+      paramD = [];
+
+      // for (let i = 0; i < this.PlanDocument.length; i++) {
+      //   paramD.push({
+      //     _Method_: "UPDATE",
+      //     _LineNo_: 4,
+      //     op_order_document_id: this.PlanDocument[i].row_id,
+      //     op_order_id: this.M_DataPost.row_id,
+      //     mk_dokument_type_id: this.PlanDocument[i].mk_dokument_type_id,
+      //     descs: this.PlanDocument[i].descs,
+      //     doc_file_name: this.PlanDocument[i].doc_file_name && this.PlanDocument[i].doc_file_name !== '' ? this.PlanDocument[i].doc_file_name : "NULL",
+      //     doc_path_file: this.PlanDocument[i].doc_path_file && this.PlanDocument[i].doc_path_file !== '' ? this.PlanDocument[i].doc_path_file : "NULL",
+      //     doc_status: this.PlanDocument[i].doc_status,
+      //     lastupdatestamp: this.PlanDocument[i].lastupdatestamp,
+      //     user_edit: this.getDataUser().user_id
+      //   })
+      // }
+
+      var param = {
+        option_url: "/OP/OP_Order",
+        line_no: 0,
+        Data: [
+          {
+            A_Update: paramH,
+            B_Looping: paramD
+          }
+        ]
       };
 
-      this.putJSON(this.getUrlCRUD(), param).then(response => {
-        // console.log(response)
-        if (response == null) return;
-        this.alertSuccess(response.Message).then(() => {
-          this.doBack();
-        });
-      });
+      this.postJSONMulti(this.getUrlProsesDataPostMulti(), param).then(
+        response => {
+          if (response == null) return;
+          this.alertSuccess("Update Data Has Been Successfully").then(() => {
+            this.doBack();
+          });
+        }
+      );
     },
     doCreateTicket() {},
     doCreateConsole() {},
@@ -1088,9 +1115,9 @@ data() {
         console.log(data)
         
         this.M_SL_Plan = {
-            cm_contact_id: 0,
+            cm_contact_id: data.cm_contact_id,
             customer_name: data.customer_name,
-            cm_contact_person_id: 0,
+            cm_contact_person_id: data.cm_contact_person_id,
             contact_person: data.contact_person_name,
             contact_person_phone_no: data.contact_person_phone,
             user: this.getDataUser().user_name,
@@ -1112,12 +1139,23 @@ data() {
             descs: data.descs,
             from_address: data.from_address,
             to_address: data.to_address,
+            order_date: this.momentDateFormatting(data.order_date, "YYYY-MM-DD HH:mm"),
+            assign_date: this.momentDateFormatting(data.assign_date, "YYYY-MM-DD HH:mm"),
+            dispatch_date: this.momentDateFormatting(data.dispatch_date, "YYYY-MM-DD HH:mm"),
+            arrival_date: this.momentDateFormatting(data.arrival_date, "YYYY-MM-DD HH:mm"),
+            start_loading_date: this.momentDateFormatting(data.start_loading_date, "YYYY-MM-DD HH:mm"),
+            finish_loading_date: this.momentDateFormatting(data.finish_loading_date, "YYYY-MM-DD HH:mm"),
+            get_out_arrival_date: this.momentDateFormatting(data.get_out_arrival_date, "YYYY-MM-DD HH:mm"),
+            get_out_destination_date: this.momentDateFormatting(data.get_out_destination_date, "YYYY-MM-DD HH:mm"),
+            start_unloading_date: this.momentDateFormatting(data.start_unloading_date, "YYYY-MM-DD HH:mm"),
+            finish_unloading_date: this.momentDateFormatting(data.finish_unloading_date, "YYYY-MM-DD HH:mm")
         }
 
         this.PlanTicket_D = data.detail_ticket
         this.PlanCosting_D = data.detail_costing
         this.PlanCosting_D = data.detail_pick_drop
         this.PlanConsole_D = data.detail_console
+        this.PlanDocument = data.detail_document
 
         this.M_ClearForm();
       });
