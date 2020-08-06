@@ -441,7 +441,7 @@ export default {
         cName: "current_km",
         cOrder: 2,
         cKey: false,
-        cType: "text",
+        cType: "decimal",
         cProtect: false,
         cParentForm: "OP_AS_PlanExecution",
         cDecimal: 2,
@@ -556,7 +556,7 @@ export default {
       },
       M_PlanExe: {
         dispatch_date: "",
-        current_km: "",
+        current_km: 0,
         comodityLabel: "",
         total_item: "",
         kgs: "",
@@ -682,11 +682,6 @@ export default {
       this.$router.push({ name: "OP_PlanExecutionDrop" });
     },
     doDeleteCosting(record, index) {},
-    Onarrive_date_Change(data) {},
-    OncomodityChange(data) {
-      this.M_PlanExe.comodity = data.id;
-      this.M_PlanExe.comodityLabel = data.label;
-    },
     doSave() {
       this.$validator._base
         .validateAll("OP_AS_PlanExecution")
@@ -725,6 +720,10 @@ export default {
           this.M_DataPost.order_status && this.M_DataPost.order_status !== ""
             ? this.M_DataPost.order_status
             : "NULL",
+        cm_contact_id:
+          this.M_DataPost.cm_contact_id && this.M_DataPost.cm_contact_id !== ""
+            ? this.M_DataPost.cm_contact_id
+            : "NULL",
         descs:
           this.M_DataPost.descs && this.M_DataPost.descs !== ""
             ? this.M_DataPost.descs
@@ -757,8 +756,8 @@ export default {
             ? this.M_DataPost.fm_fleet_type_id
             : "NULL",
         assign_date:
-          this.M_GetDataBy.assign_date && this.M_GetDataBy.assign_date !== ""
-            ? this.M_GetDataBy.assign_date
+          this.M_DataPost.assign_date && this.M_DataPost.assign_date !== ""
+            ? this.M_DataPost.assign_date
             : "NULL",
         assign_fleet_status:
           this.M_DataPost.assign_fleet_status &&
@@ -801,10 +800,7 @@ export default {
             ? this.M_DataPost.remarks
             : "NULL",
         dispatch_date: this.M_PlanExe.dispatch_date, //dari form
-        dispatch_km:
-          this.M_DataPost.dispatch_km && this.M_DataPost.dispatch_km !== ""
-            ? this.M_DataPost.dispatch_km
-            : "NULL",
+        dispatch_km: this.M_PlanExe.current_km, //dari form
         dispatach_notes:
           this.M_DataPost.dispatach_notes &&
           this.M_DataPost.dispatach_notes !== ""
