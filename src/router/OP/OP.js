@@ -6,6 +6,8 @@ import OP_ViewBookingEntry from '@/views/OP/OP_BookingEntry/OP_ViewBookingEntry'
 import OP_PlanExecution from '@/views/OP/OP_PlanExecution/OP_PlanExecution'
 import OP_ViewPlanExecution from '@/views/OP/OP_PlanExecution/OP_ViewPlanExecution'
 import OP_PlanExecutionNew from '@/views/OP/OP_PlanExecution/OP_PlanExecutionNew'
+import OP_PlanExecutionAS from '@/views/OP/OP_PlanExecution/OP_PlanExecutionAS'
+
 import OP_PlanExecutionSL from '@/views/OP/OP_PlanExecution/OP_PlanExecutionSL'
 import OP_PlanExecutionAD from '@/views/OP/OP_PlanExecution/OP_PlanExecutionAD'
 import OP_PlanExecutionCosting from '@/views/OP/OP_PlanExecution/OP_PlanExecutionCosting'
@@ -287,6 +289,14 @@ export const OPRender = {
             path: '/OP/OP_PlanExecution/new',
             name: 'OP_PlanExecutionNew',
             component: OP_PlanExecutionNew,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/OP_PlanExecution/AS',
+            name: 'OP_PlanExecutionAS',
+            component: OP_PlanExecutionAS,
             meta: {
                 requiresAuth: true
             }
