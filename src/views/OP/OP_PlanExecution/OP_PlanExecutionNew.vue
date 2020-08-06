@@ -828,7 +828,15 @@ export default {
   computed: {
     paramFromList() {
       var param = this.$store.getters.getParamPage;
-      return param;
+      if (param == null || param == undefined) {
+        this.doBack();
+      } else {
+        if (Object.keys(param).length < 1) {
+          this.doBack();
+        } else {
+          return param;
+        }
+      }
     },
   },
   methods: {
