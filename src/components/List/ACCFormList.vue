@@ -143,6 +143,12 @@ export default {
       allColumn_bf: []
     };
   },
+  watch: {
+    cData(newData, oldData) {
+      console.log(newData)
+      this.items = newData
+    }
+  },
   computed: {
     isDisableTable() {
       return false;
@@ -1001,10 +1007,12 @@ export default {
     this.perPage = this.prop.PerPage
     
     this.cStatic = this.cStatic == undefined || !this.cStatic ? false : this.cStatic
+
     if (this.cStatic == true) {
       this.fieldHeader = this.cHeader
       this.items = this.cData
     }
+
     this.GetButtonStatus(this.getDataUser().portfolio_id, this.getDataUser().group_id, this.getDataUser().user_id, this.getOptionUrl())
     .then(ress => {
       if (ress.length < 1) {
