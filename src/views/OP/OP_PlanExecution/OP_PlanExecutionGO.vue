@@ -39,8 +39,8 @@
             </div>
             <div class="card__body">
               <b-form
-                :data-vv-scope="'OP_DP_PlanExecution'"
-                :data-vv-value-path="'OP_DP_PlanExecution'"
+                :data-vv-scope="'OP_FL_PlanExecution'"
+                :data-vv-value-path="'OP_FL_PlanExecution'"
               >
                 <b-row>
                   <b-col md="2" style="text-align: center;">
@@ -51,7 +51,7 @@
                       <b-col>
                         <span
                           style="font-size: 15px; font-weight: bold;"
-                        >{{M_DP_Plan.customer_name}}</span>
+                        >{{M_SL_Plan.customer_name}}</span>
                       </b-col>
                       <b-col style="text-align: right;">
                         <span>
@@ -69,17 +69,17 @@
                       <b-col>
                         <span>
                           <font-awesome-icon class="icon-style-default" icon="user" />
-                          &nbsp;&nbsp; {{M_DP_Plan.contact_person}}
+                          &nbsp;&nbsp; {{M_SL_Plan.contact_person}}
                         </span> &nbsp;&nbsp;
                         <span>
                           <font-awesome-icon class="icon-style-default" icon="phone-square-alt" />
-                          &nbsp;&nbsp; {{M_DP_Plan.contact_person_phone_no}}
+                          &nbsp;&nbsp; {{M_SL_Plan.contact_person_phone_no}}
                         </span>
                       </b-col>
                       <b-col style="text-align: right;">
                         <span>
                           <font-awesome-icon class="icon-style-default" icon="user" />
-                          &nbsp;&nbsp;User : {{M_DP_Plan.user}}
+                          &nbsp;&nbsp;User : {{M_SL_Plan.user}}
                         </span>
                       </b-col>
                     </b-row>
@@ -90,52 +90,52 @@
                             <li class="active" style="width: 10% !important;">
                               <span>Order</span>
                               <br />
-                              <span>{{this.M_DP_Plan.order_date}}</span>
+                              <span>{{this.M_SL_Plan.order_date}}</span>
                             </li>
                             <li class="active" style="width: 10% !important;">
                               <span>Assign</span>
                               <br />
-                              <span>{{this.M_DP_Plan.assign_date}}</span>
+                              <span>{{this.M_SL_Plan.assign_date}}</span>
                             </li>
                             <li class="active" style="width: 10% !important;">
                               <span>Dispatch</span>
                               <br />
-                              <span>{{this.M_DP_Plan.dispatch_date}}</span>
+                              <span>{{this.M_SL_Plan.dispatch_date}}</span>
                             </li>
-                            <li style="width: 10% !important;">
+                            <li class="active" style="width: 10% !important;">
                               <span>Arrived</span>
                               <br />
-                              <span>{{this.M_DP_Plan.arrival_date}}</span>
+                              <span>{{this.M_SL_Plan.arrival_date}}</span>
                             </li>
-                            <li style="width: 10% !important;">
+                            <li class="active" style="width: 10% !important;">
                               <span>Start Loading</span>
                               <br />
-                              <span>{{this.M_DP_Plan.start_loading_date}}</span>
+                              <span>{{this.M_SL_Plan.start_loading_date}}</span>
                             </li>
-                            <li style="width: 10% !important;">
+                            <li class="active" style="width: 10% !important;">
                               <span>Finish Loading</span>
                               <br />
-                              <span>{{this.M_DP_Plan.finish_loading_date}}</span>
+                              <span>{{this.M_SL_Plan.finish_loading_date}}</span>
                             </li>
-                            <li style="width: 10% !important;">
+                            <li class="active" style="width: 10% !important;">
                               <span>Get Out</span>
                               <br />
-                              <span>{{this.M_DP_Plan.get_out_arrival_date}}</span>
+                              <span>{{this.M_SL_Plan.get_out_arrival_date}}</span>
                             </li>
                             <li style="width: 10% !important;">
                               <span>Arrive Destination</span>
                               <br />
-                              <span>{{this.M_DP_Plan.get_out_destination_date}}</span>
+                              <span>{{this.M_SL_Plan.get_out_destination_date}}</span>
                             </li>
                             <li style="width: 10% !important;">
                               <span>Start Unloading</span>
                               <br />
-                              <span>{{this.M_DP_Plan.start_unloading_date}}</span>
+                              <span>{{this.M_SL_Plan.start_unloading_date}}</span>
                             </li>
                             <li style="width: 10% !important;">
                               <span>Finish Unloading</span>
                               <br />
-                              <span>{{this.M_DP_Plan.finish_unloading_date}}</span>
+                              <span>{{this.M_SL_Plan.finish_unloading_date}}</span>
                             </li>
                           </ul>
                         </div>
@@ -151,35 +151,35 @@
                           >
                             <span>Order Number</span>
                             <br />
-                            <span style="color: rgb(153 153 153)">{{M_DP_Plan.order_no}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_SL_Plan.order_no}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span>Date</span>
                             <br />
-                            <span style="color: rgb(153 153 153)">{{M_DP_Plan.date}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_SL_Plan.date}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span>Category</span>
                             <br />
-                            <span style="color: rgb(153 153 153)">{{M_DP_Plan.category_descs}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_SL_Plan.category_descs}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span>From</span>
                             <br />
-                            <span style="color: rgb(153 153 153)">{{M_DP_Plan.from}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_SL_Plan.from}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span>To</span>
                             <br />
-                            <span style="color: rgb(153 153 153)">{{M_DP_Plan.to}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_SL_Plan.to}}</span>
                           </b-col>
                         </b-row>
                         <b-row style="border: solid 1px #e7eaec;border-radius: 0px 0px 5px 5px;">
@@ -188,35 +188,35 @@
                           >
                             <span>Pick Up Date</span>
                             <br />
-                            <span style="color: rgb(153 153 153)">{{M_DP_Plan.pickup_date}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_SL_Plan.pickup_date}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span>KGS</span>
                             <br />
-                            <span style="color: rgb(153 153 153)">{{M_DP_Plan.kgs}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_SL_Plan.kgs}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span>CBM</span>
                             <br />
-                            <span style="color: rgb(153 153 153)">{{M_DP_Plan.cbm}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_SL_Plan.cbm}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span>Vehicle Type</span>
                             <br />
-                            <span style="color: rgb(153 153 153)">{{M_DP_Plan.fleet_type_descs}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_SL_Plan.fleet_type_descs}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span>Vehicle Number</span>
                             <br />
-                            <span style="color: rgb(153 153 153)">{{M_DP_Plan.plat_no}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_SL_Plan.plat_no}}</span>
                           </b-col>
                         </b-row>
                       </b-col>
@@ -239,20 +239,9 @@
                           <b-col style="margin: auto;">
                             <span class="AppointmentTitle">Driver</span>
                             <br />
-                            <span class="AppointmentDescs">{{M_DP_Plan.driver1}}</span>
+                            <span class="AppointmentDescs">{{M_SL_Plan.driver1}}</span>
                           </b-col>
                         </b-row>
-                      </b-col>
-                    </b-row>
-                    <b-row>
-                      <b-col md="12" style="padding-left: 0px !important;">
-                        <b-list-group>
-                          <b-list-group-item>
-                            <span>Description</span>
-                            <br />
-                            <span style="color: #ccc">{{M_DataPost.descs}}</span>
-                          </b-list-group-item>
-                        </b-list-group>
                       </b-col>
                     </b-row>
                     <b-row>
@@ -263,12 +252,12 @@
                               <b-list-group-item>
                                 <span>From :</span>
                                 <br />
-                                <span style="color: rgb(153 153 153)">{{M_DP_Plan.from_address}}</span>
+                                <span style="color: rgb(153 153 153)">{{M_SL_Plan.from_address}}</span>
                               </b-list-group-item>
                               <b-list-group-item>
                                 <span>To :</span>
                                 <br />
-                                <span style="color: rgb(153 153 153)">{{M_DP_Plan.to_address}}</span>
+                                <span style="color: rgb(153 153 153)">{{M_SL_Plan.to_address}}</span>
                               </b-list-group-item>
                             </b-list-group>
                           </b-col>
@@ -307,13 +296,54 @@
                         <b-row>
                           <b-col md="12" style="padding-left: 0px !important;">
                             <span>
-                              <label>Arrival Date</label>
+                              <label>Arrival Destination Date</label>
                             </span>
                             <ACCDateTime
-                              :prop="PI_arrival_date"
-                              v-model="M_PlanExe.arrival_date"
-                              ref="ref_arrival_date"
+                              @input="Onarrival_destination_date_Change"
+                              :prop="PI_arrival_destination_date"
+                              v-model="M_PlanExe.arrival_destination_date"
+                              ref="ref_arrival_destination_date"
                             />
+                          </b-col>
+                        </b-row>
+                        <b-row class="row-view">
+                          <b-col md="12" style="padding-left: 0px !important;">
+                            <span>
+                              <label>Comodity</label>
+                            </span>
+                            <br />
+                            <span style="color: #ccc">
+                              <label>{{M_DataPost.commodity_descs}}</label>
+                            </span>
+                          </b-col>
+                        </b-row>
+                        <b-row>
+                          <b-col class="row-view" md="4" style="padding-left: 0px !important;">
+                            <span>
+                              <label>Total Item</label>
+                            </span>
+                            <br />
+                            <span style="color: #ccc">
+                              <label>{{M_DataPost.total_loading_item}}</label>
+                            </span>
+                          </b-col>
+                          <b-col class="row-view" md="4" style="padding-left: 0px !important;">
+                            <span>
+                              <label>KGS</label>
+                            </span>
+                            <br />
+                            <span style="color: #ccc">
+                              <label>{{M_DataPost.total_loading_kgs}}</label>
+                            </span>
+                          </b-col>
+                          <b-col class="row-view" md="4" style="padding-left: 0px !important;">
+                            <span>
+                              <label>CBM</label>
+                            </span>
+                            <br />
+                            <span style="color: #ccc">
+                              <label>{{M_DataPost.total_loading_cbm}}</label>
+                            </span>
                           </b-col>
                         </b-row>
                         <b-row>
@@ -327,7 +357,7 @@
                         <b-row style="margin-top: 10px;">
                           <b-col md="12" style="padding-left: 0px !important;">
                             <ABSButton
-                              :text="'Arrival'"
+                              :text="'Finish Loading'"
                               classButton="btn btn--default"
                               classIcon="icon-style-default"
                               @click="doSave"
@@ -346,7 +376,7 @@
                     <b-row
                       class="row-bordered"
                       style="margin-top: 10px;"
-                      v-show="M_DP_Plan.category == 'C'"
+                      v-show="M_SL_Plan.category == 'C'"
                     >
                       <b-col md="12">
                         <b-row>
@@ -503,7 +533,7 @@
                       </b-col>
                     </b-row>
 
-                    <!-- <b-row style="margin-top: 10px;">
+                    <b-row style="margin-top: 10px;">
                       <b-col md="12">
                         <b-row>
                           <b-col md="1">
@@ -523,7 +553,7 @@
                                   <br />
                                   <br />
                                   <template
-                                    v-if="doc.doc_file_name !== '' && doc.doc_path_file !== ''"
+                                    v-if="(doc.doc_file_name && doc.doc_file_name !== '') && (doc.doc_path_file && doc.doc_path_file !== '')"
                                   >
                                     <img
                                       :id="doc.dokument_type"
@@ -537,12 +567,17 @@
                                       class="icon-style-danger"
                                       icon="times-circle"
                                       size="lg"
-                                      style="cursor: pointer; top: 28px; right: 58px; position: absolute;"
+                                      style="cursor: pointer; top: 28px; right: 8%; position: absolute;"
                                       @click="Delete_Pict(id)"
                                     />
                                   </template>
 
-                                  <template v-else>                                  
+                                  <template v-else>
+                                    <!-- <font-awesome-icon
+                                        icon="plus-circle"
+                                        class="icon-style-default"
+                                        size="4x"
+                                    />-->
                                     <ACCImageUpload
                                       :prop="{
                                           cName: doc.dokument_type,
@@ -561,10 +596,60 @@
                               </b-row>
                             </b-col>
                           </template>
-                         
+                          <!-- <b-col style="margin-right: 5px;">
+                                <b-row class="row-bordered">
+                                  <b-col style="text-align: center;">
+                                    <span style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;">
+                                      1. Surat Jalan
+                                    </span>
+                                    <br /><br /><br />
+                                    <font-awesome-icon
+                                      icon="plus-circle"
+                                      class="icon-style-default"
+                                      size="4x"
+                                    />
+                                    <br /><br />
+                                    Upload Document
+                                  </b-col>
+                                </b-row>
+                            </b-col>
+                            <b-col style="margin-right: 5px;">
+                                <b-row class="row-bordered">
+                                  <b-col style="text-align: center;">
+                                    <span style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;">
+                                      2. Shipping Instruction
+                                    </span>
+                                    <br /><br /><br />
+                                    <font-awesome-icon
+                                      icon="plus-circle"
+                                      class="icon-style-default"
+                                      size="4x"
+                                    />
+                                    <br /><br />
+                                    Upload Document
+                                  </b-col>
+                                </b-row>
+                            </b-col>
+                            <b-col>
+                                <b-row class="row-bordered">
+                                  <b-col style="text-align: center;">
+                                    <span style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;">
+                                      3. Delivery Order
+                                    </span>
+                                    <br /><br /><br />
+                                    <font-awesome-icon
+                                      icon="plus-circle"
+                                      class="icon-style-default"
+                                      size="4x"
+                                    />
+                                    <br /><br />
+                                    Upload Document
+                                  </b-col>
+                                </b-row>
+                          </b-col>-->
                         </b-row>
                       </b-col>
-                    </b-row>-->
+                    </b-row>
                   </b-col>
                 </b-row>
               </b-form>
@@ -589,15 +674,15 @@
 export default {
   data() {
     return {
-      PI_arrival_date: {
+      PI_arrival_destination_date: {
         cValidate: "required",
-        cName: "arrival_date",
+        cName: "arrival_destination_date",
         cOrder: 1,
         cKey: false,
         cProtect: false,
         cWithTime: true,
         cFormat: "dd/MM/yyyy",
-        cParentForm: "OP_DP_PlanExecution",
+        cParentForm: "OP_FL_PlanExecution",
       },
       PI_comodity: {
         dataLookUp: {
@@ -616,7 +701,7 @@ export default {
         ckey: false,
         cOrder: 2,
         cProtect: false,
-        cParentForm: "OP_DP_PlanExecution",
+        cParentForm: "OP_FL_PlanExecution",
         cStatic: false,
         cOption: [],
         cDisplayColumn: "comodity_cd",
@@ -629,7 +714,7 @@ export default {
         cKey: false,
         cType: "numeric",
         cProtect: false,
-        cParentForm: "OP_DP_PlanExecution",
+        cParentForm: "OP_FL_PlanExecution",
         cDecimal: 2,
         cInputStatus: this.inputStatus,
       },
@@ -640,7 +725,7 @@ export default {
         cKey: false,
         cType: "numeric",
         cProtect: false,
-        cParentForm: "OP_DP_PlanExecution",
+        cParentForm: "OP_FL_PlanExecution",
         cDecimal: 2,
         cInputStatus: this.inputStatus,
       },
@@ -651,7 +736,7 @@ export default {
         cKey: false,
         cType: "numeric",
         cProtect: false,
-        cParentForm: "OP_DP_PlanExecution",
+        cParentForm: "OP_FL_PlanExecution",
         cDecimal: 2,
         cInputStatus: this.inputStatus,
       },
@@ -666,14 +751,14 @@ export default {
         cRows: 3,
         cMaxRows: 3,
         cSize: "md",
-        cParentForm: "OP_DP_PlanExecution",
+        cParentForm: "OP_FL_PlanExecution",
         cInputStatus: this.inputStatus,
       },
       M_ModalPict: {
         file: "",
       },
       M_DataPost: {},
-      M_DP_Plan: {
+      M_SL_Plan: {
         cm_contact_id: "",
         customer_name: "",
         cm_contact_person_id: "",
@@ -700,7 +785,7 @@ export default {
         to_address: "",
       },
       M_PlanExe: {
-        arrival_date: new Date(),
+        arrival_destination_date: "",
         comodity: "",
         comodityLabel: "",
         total_item: "",
@@ -708,7 +793,7 @@ export default {
         cbm: "",
         note: "",
       },
-      PlanTicket_H: [
+      PlanConsole_H: [
         {
           key: "no",
           label: "No",
@@ -894,6 +979,16 @@ export default {
     },
   },
   methods: {
+    ConsoleClick(record, index) {},
+    ticketClick(record, index) {},
+    ListDropPickClick(record, index) {
+      var param = this.paramFromList;
+      param.DetailList = record;
+      param.isEdit = true;
+      param.isPick = record.pick_drop_category == "P" ? true : false;
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "OP_PlanExecutionPickDrop" });
+    },
     doCosting() {
       var param = this.M_DataPost;
       param.isEdit = false;
@@ -908,20 +1003,13 @@ export default {
       this.$store.commit("setParamPage", param);
       this.$router.push({ name: "OP_PlanExecutionPickDrop" });
     },
-    ListDropPickClick(record, index) {
+    ListCostingClick(record, index) {
       var param = this.paramFromList;
       param.DetailList = record;
       param.isEdit = true;
       param.isPick = record.pick_drop_category == "P" ? true : false;
       this.$store.commit("setParamPage", param);
       this.$router.push({ name: "OP_PlanExecutionPickDrop" });
-    },
-    ListCostingClick(record, index) {
-      var param = this.M_DataPost;
-      param.DetailList = record;
-      param.isEdit = true;
-      this.$store.commit("setParamPage", param);
-      this.$router.push({ name: "OP_PlanExecutionCosting" });
     },
     doDeleteCosting(record, index) {
       var param = {
@@ -997,13 +1085,13 @@ export default {
     },
     doSave() {
       this.$validator._base
-        .validateAll("OP_DP_PlanExecution")
+        .validateAll("OP_FL_PlanExecution")
         .then((result) => {
           if (!result) return;
           this.alertConfirmation("Are You Sure Want To Save This Data ?").then(
             (ress) => {
               if (ress.value) {
-                this.$validator.errors.clear("OP_DP_PlanExecution");
+                this.$validator.errors.clear("OP_FL_PlanExecution");
                 this.M_Update();
               }
             }
@@ -1130,9 +1218,8 @@ export default {
             this.M_DataPost.dispatach_notes !== ""
               ? this.M_DataPost.dispatach_notes
               : "NULL",
-          arrival_date: this.M_PlanExe.arrival_date, // dari form
-
-          arrival_notes: this.M_PlanExe.note, // dari form
+          arrival_date: this.M_PlanExe.arrival_destination_date, // Form input
+          arrival_notes: this.M_PlanExe.note, // form input
           start_loading_date:
             this.M_DataPost.start_loading_date &&
             this.M_DataPost.start_loading_date !== ""
@@ -1273,21 +1360,29 @@ export default {
         },
         paramD = [];
 
-      // for (let i = 0; i < this.PlanDocument.length; i++) {
-      //   paramD.push({
-      //     _Method_: "UPDATE",
-      //     _LineNo_: 4,
-      //     op_order_document_id: this.PlanDocument[i].row_id,
-      //     op_order_id: this.M_DataPost.row_id,
-      //     mk_dokument_type_id: this.PlanDocument[i].mk_dokument_type_id,
-      //     descs: this.PlanDocument[i].descs,
-      //     doc_file_name: this.PlanDocument[i].doc_file_name && this.PlanDocument[i].doc_file_name !== '' ? this.PlanDocument[i].doc_file_name : "NULL",
-      //     doc_path_file: this.PlanDocument[i].doc_path_file && this.PlanDocument[i].doc_path_file !== '' ? this.PlanDocument[i].doc_path_file : "NULL",
-      //     doc_status: this.PlanDocument[i].doc_status,
-      //     lastupdatestamp: this.PlanDocument[i].lastupdatestamp,
-      //     user_edit: this.getDataUser().user_id
-      //   })
-      // }
+      for (let i = 0; i < this.PlanDocument.length; i++) {
+        paramD.push({
+          _Method_: "UPDATE",
+          _LineNo_: 4,
+          op_order_document_id: this.PlanDocument[i].row_id,
+          op_order_id: this.M_DataPost.row_id,
+          mk_dokument_type_id: this.PlanDocument[i].mk_dokument_type_id,
+          descs: this.PlanDocument[i].descs,
+          doc_file_name:
+            this.PlanDocument[i].doc_file_name &&
+            this.PlanDocument[i].doc_file_name !== ""
+              ? this.PlanDocument[i].doc_file_name
+              : "NULL",
+          doc_path_file:
+            this.PlanDocument[i].doc_path_file &&
+            this.PlanDocument[i].doc_path_file !== ""
+              ? this.PlanDocument[i].doc_path_file
+              : "NULL",
+          doc_status: this.PlanDocument[i].doc_status,
+          lastupdatestamp: this.PlanDocument[i].lastupdatestamp,
+          user_edit: this.getDataUser().user_id,
+        });
+      }
 
       var param = {
         option_url: "/OP/OP_Order",
@@ -1321,7 +1416,7 @@ export default {
     },
     M_ClearForm() {
       this.M_PlanExe = {
-        arrival_date: new Date(),
+        arrival_destination_date: new Date(),
         comodity: "",
         comodityLabel: "",
         total_item: "",
@@ -1346,7 +1441,7 @@ export default {
         this.M_DataPost = data;
         console.log(data);
 
-        this.M_DP_Plan = {
+        this.M_SL_Plan = {
           cm_contact_id: data.cm_contact_id,
           customer_name: data.customer_name,
           cm_contact_person_id: data.cm_contact_person_id,

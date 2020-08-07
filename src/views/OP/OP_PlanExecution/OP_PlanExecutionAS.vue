@@ -468,7 +468,7 @@
                               @rowClicked="ListCostingClick"
                               ref="ref_AS_Plan_Costing"
                               WithDeleteButton
-                              @buttonDeleteClicked="doDeleteCosting"
+                              @buttonDeleteClicked="doDeleteCostingList"
                             >
                               <!-- <template slot="ticket_date" slot-scope="data">
                                     <span>{{momentDateFormatting(data.item.ticket_date, "YYYY-MM-DD HH:mm")}}</span>
@@ -684,7 +684,7 @@ export default {
       PlanConsole_D: [],
       PlanCosting_H: [
         {
-          key: "no",
+          key: "row_number",
           label: "No",
           tdClass: "ContentACCList2 notranslate th-cus-center",
           thClass: "HeaderACCList2 th-cus-center",
@@ -714,7 +714,7 @@ export default {
           thClass: "HeaderACCList2 S th-cus-center",
         },
         {
-          key: "cost_row_id", //untuk button delete
+          key: "row_id", //untuk button delete
           label: "",
           tdClass: "ContentACCList2 notranslate th-cus-center",
           thClass: "HeaderACCList2 th-cus-center",
@@ -816,8 +816,21 @@ export default {
     },
   },
   methods: {
-    ListCostingClick(record, index) {},
-    ListDropPickClick(record, index) {},
+    ListCostingClick(record, index) {
+      var param = this.M_DataPost;
+      param.DetailList = record;
+      param.isEdit = true;
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "OP_PlanExecutionCosting" });
+    },
+    ListDropPickClick(record, index) {
+      var param = this.paramFromList;
+      param.DetailList = record;
+      param.isEdit = true;
+      param.isPick = record.pick_drop_category == "P" ? true : false;
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "OP_PlanExecutionPickDrop" });
+    },
     doCosting() {
       var param = this.M_DataPost;
       param.isEdit = false;
@@ -844,7 +857,6 @@ export default {
         if (response == null) return;
 
         this.alertSuccess("Data Has Been Deleted").then(() => {
-          //   this.$refs.ref_NW_Plan_Costing.doGetList("");
           this.GetDataBy();
         });
       });
@@ -858,7 +870,29 @@ export default {
         }
       );
     },
-    doDeleteCosting(record, index) {},
+    doDeleteCosting(record, index) {
+      var param = {
+        option_url: "/OP/OP_Order",
+        line_no: 1,
+        id: record.row_id,
+        lastupdatestamp: record.lastupdatestamp,
+      };
+      this.deleteJSON(this.getUrlCRUD(), param).then((response) => {
+        if (response == null) return;
+        this.alertSuccess("Data Has Been Deleted").then(() => {
+          this.GetDataBy();
+        });
+      });
+    },
+    doDeleteCostingList(record, index) {
+      this.alertConfirmation("Are You Sure Want To Delete This Data ?").then(
+        (ress) => {
+          if (ress.value) {
+            this.doDeleteCosting(record, index);
+          }
+        }
+      );
+    },
     doSave() {
       this.$validator._base
         .validateAll("OP_AS_PlanExecution")
@@ -978,11 +1012,7 @@ export default {
             : "NULL",
         dispatch_date: this.M_PlanExe.dispatch_date, //dari form
         dispatch_km: this.M_PlanExe.current_km, //dari form
-        dispatach_notes:
-          this.M_DataPost.dispatach_notes &&
-          this.M_DataPost.dispatach_notes !== ""
-            ? this.M_DataPost.dispatach_notes
-            : "NULL",
+        dispatach_notes: this.M_PlanExe.note, //dari form
         arrival_date:
           this.M_DataPost.arrival_date && this.M_DataPost.arrival_date !== ""
             ? this.M_DataPost.arrival_date
@@ -1011,10 +1041,26 @@ export default {
           this.M_DataPost.cm_commodity_id !== ""
             ? this.M_DataPost.cm_commodity_id
             : "NULL",
-        total_loading_item: this.M_PlanExe.total_item, // DARI FORM
-        total_loading_kgs: this.M_PlanExe.kgs, // DARI FORM
-        total_loading_cbm: this.M_PlanExe.cbm, // DARI FORM
-        finish_loading_notes: this.M_PlanExe.note, // DARI FORM
+        total_loading_item:
+          this.M_DataPost.total_loading_item &&
+          this.M_DataPost.total_loading_item !== ""
+            ? this.M_DataPost.total_loading_item
+            : "NULL",
+        total_loading_kgs:
+          this.M_DataPost.total_loading_kgs &&
+          this.M_DataPost.total_loading_kgs !== ""
+            ? this.M_DataPost.total_loading_kgs
+            : "NULL",
+        total_loading_cbm:
+          this.M_DataPost.total_loading_cbm &&
+          this.M_DataPost.total_loading_cbm !== ""
+            ? this.M_DataPost.total_loading_cbm
+            : "NULL",
+        finish_loading_notes:
+          this.M_DataPost.finish_loading_notes &&
+          this.M_DataPost.finish_loading_notes !== ""
+            ? this.M_DataPost.finish_loading_notes
+            : "NULL",
         get_out_arrival_date:
           this.M_DataPost.get_out_arrival_date &&
           this.M_DataPost.get_out_arrival_date !== ""
@@ -1231,11 +1277,12 @@ export default {
 
         // this.PlanTicket_D = !data.detail_ticket || data.detail_ticket == null || data.detail_ticket == undefined ? [] : data.detail_ticket
         this.PlanCosting_D =
-          !data.detail_costing ||
-          data.detail_costing == null ||
-          data.detail_costing == undefined
+          !data.detail_cost ||
+          data.detail_cost == null ||
+          data.detail_cost == undefined
             ? []
-            : data.detail_costing;
+            : data.detail_cost;
+
         this.PlanPickDrop_D =
           !data.detail_pick_drop ||
           data.detail_pick_drop == null ||
