@@ -448,7 +448,7 @@
                               cStatic
                               :cHeader="PlanExtra_H"
                               :cData="PlanExtra_D"
-                              @rowClicked="ExtraClick"
+                              @rowClicked="ListDropPickClick"
                               ref="ref_SL_Plan_Extra"
                               WithDeleteButton
                               @buttonDeleteClicked="doDeleteExtraList"
@@ -489,10 +489,10 @@
                               cStatic
                               :cHeader="PlanCosting_H"
                               :cData="PlanCosting_D"
-                              @rowClicked="CostingClick"
+                              @rowClicked="ListCostingClick"
                               ref="ref_SL_Plan_Costing"
                               WithDeleteButton
-                              @buttonDeleteClicked="doDeleteCosting"
+                              @buttonDeleteClicked="doDeleteCostingList"
                             >
                               <!-- <template slot="ticket_date" slot-scope="data">
                                     <span>{{momentDateFormatting(data.item.ticket_date, "YYYY-MM-DD HH:mm")}}</span>
@@ -908,9 +908,35 @@ export default {
       this.$store.commit("setParamPage", param);
       this.$router.push({ name: "OP_PlanExecutionPickDrop" });
     },
-
-    CostingClick(record, index) {},
-    doDeleteCosting(record, index) {},
+    ListDropPickClick(record, index) {
+      var param = this.paramFromList;
+      param.DetailList = record;
+      param.isEdit = true;
+      param.isPick = record.pick_drop_category == "P" ? true : false;
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "OP_PlanExecutionPickDrop" });
+    },
+    ListCostingClick(record, index) {
+      var param = this.M_DataPost;
+      param.DetailList = record;
+      param.isEdit = true;
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "OP_PlanExecutionCosting" });
+    },
+    doDeleteCosting(record, index) {
+      var param = {
+        option_url: "/OP/OP_Order",
+        line_no: 1,
+        id: record.row_id,
+        lastupdatestamp: record.lastupdatestamp,
+      };
+      this.deleteJSON(this.getUrlCRUD(), param).then((response) => {
+        if (response == null) return;
+        this.alertSuccess("Data Has Been Deleted").then(() => {
+          this.GetDataBy();
+        });
+      });
+    },
     doDeleteExtra(record, index) {
       var param = {
         option_url: "/OP/OP_Order",
@@ -923,7 +949,7 @@ export default {
         if (response == null) return;
 
         this.alertSuccess("Data Has Been Deleted").then(() => {
-          this.$refs.ref_NW_Plan_Costing.doGetList("");
+          this.GetDataBy();
         });
       });
     },
@@ -936,7 +962,15 @@ export default {
         }
       );
     },
-    doDeleteCosting(record, index) {},
+    doDeleteCostingList(record, index) {
+      this.alertConfirmation("Are You Sure Want To Delete This Data ?").then(
+        (ress) => {
+          if (ress.value) {
+            this.doDeleteCosting(record, index);
+          }
+        }
+      );
+    },
     doDeleteConsole(record, index) {},
     Onarrive_date_Change(data) {},
     onDocChange(data, index) {
@@ -1098,11 +1132,7 @@ export default {
               : "NULL",
           arrival_date: this.M_PlanExe.arrival_date, // dari form
 
-          arrival_notes:
-            this.M_DataPost.arrival_notes &&
-            this.M_DataPost.arrival_notes !== ""
-              ? this.M_DataPost.arrival_notes
-              : "NULL",
+          arrival_notes: this.M_PlanExe.note, // dari form
           start_loading_date:
             this.M_DataPost.start_loading_date &&
             this.M_DataPost.start_loading_date !== ""
@@ -1387,7 +1417,7 @@ export default {
         };
 
         this.PlanTicket_D = data.detail_ticket;
-        this.PlanCosting_D = data.detail_costing;
+        this.PlanCosting_D = data.detail_cost;
         this.PlanExtra_D = data.detail_pick_drop;
         this.PlanConsole_D = data.detail_console;
         this.PlanDocument = data.detail_document;
