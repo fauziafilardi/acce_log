@@ -619,7 +619,7 @@
                     <b-col md="12" style="text-align: center;">
                       <img id="show_pict" :src="M_ModalPict.file" alt style="width: 100%;" />
                     </b-col>
-                  </b-row>
+                  </b-row> 
                 </template>
               </ABSModal>
               <ABSModal id="Modal_Ticket" ref="Modal_Ticket" size="sm">
