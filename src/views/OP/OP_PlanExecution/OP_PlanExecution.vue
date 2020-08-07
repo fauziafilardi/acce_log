@@ -203,10 +203,10 @@ export default {
           this.$router.push({ name: "OP_PlanExecutionSL" });
           break;
         case "FL":
-          // code block
+          this.$router.push({ name: "OP_PlanExecutionFL" });
           break;
         case "GO":
-          // code block
+          this.$router.push({ name: "OP_PlanExecutionGO" });
           break;
         case "AD":
           this.$router.push({ name: "OP_PlanExecutionAD" });

@@ -1410,7 +1410,7 @@ export default {
         };
 
         this.PlanTicket_D = data.detail_ticket;
-        this.PlanCosting_D = data.detail_costing;
+        this.PlanCosting_D = data.detail_cost;
         this.PlanExtra_D = data.detail_pick_drop;
         this.PlanConsole_D = data.detail_console;
         this.PlanDocument = data.detail_document;

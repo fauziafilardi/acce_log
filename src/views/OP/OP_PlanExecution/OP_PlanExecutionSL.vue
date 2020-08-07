@@ -1152,7 +1152,7 @@ data() {
         }
 
         this.PlanTicket_D = !data.detail_ticket || data.detail_ticket == null || data.detail_ticket == undefined ? [] : data.detail_ticket
-        this.PlanCosting_D = !data.detail_costing || data.detail_costing == null || data.detail_costing == undefined ? [] : data.detail_costing
+        this.PlanCosting_D = !data.detail_cost || data.detail_cost == null || data.detail_cost == undefined ? [] : data.detail_cost
         this.PlanCosting_D = !data.detail_pick_drop || data.detail_pick_drop == null || data.detail_pick_drop == undefined ? [] : data.detail_pick_drop
         this.PlanConsole_D = !data.detail_console || data.detail_console == null || data.detail_console == undefined ? [] : data.detail_console
         this.PlanDocument = !data.detail_document || data.detail_document == null || data.detail_document == undefined ? [] : data.detail_document

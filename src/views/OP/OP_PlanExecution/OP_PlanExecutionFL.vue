@@ -39,8 +39,8 @@
             </div>
             <div class="card__body">
               <b-form
-                :data-vv-scope="'OP_AS_PlanExecution'"
-                :data-vv-value-path="'OP_AS_PlanExecution'"
+                :data-vv-scope="'OP_FL_PlanExecution'"
+                :data-vv-value-path="'OP_FL_PlanExecution'"
               >
                 <b-row>
                   <b-col md="2" style="text-align: center;">
@@ -51,7 +51,7 @@
                       <b-col>
                         <span
                           style="font-size: 15px; font-weight: bold;"
-                        >{{M_AS_Plan.customer_name}}</span>
+                        >{{M_SL_Plan.customer_name}}</span>
                       </b-col>
                       <b-col style="text-align: right;">
                         <span>
@@ -69,17 +69,17 @@
                       <b-col>
                         <span>
                           <font-awesome-icon class="icon-style-default" icon="user" />
-                          &nbsp;&nbsp; {{M_AS_Plan.contact_person}}
+                          &nbsp;&nbsp; {{M_SL_Plan.contact_person}}
                         </span> &nbsp;&nbsp;
                         <span>
                           <font-awesome-icon class="icon-style-default" icon="phone-square-alt" />
-                          &nbsp;&nbsp; {{M_AS_Plan.contact_person_phone_no}}
+                          &nbsp;&nbsp; {{M_SL_Plan.contact_person_phone_no}}
                         </span>
                       </b-col>
                       <b-col style="text-align: right;">
                         <span>
                           <font-awesome-icon class="icon-style-default" icon="user" />
-                          &nbsp;&nbsp;User : {{M_AS_Plan.user}}
+                          &nbsp;&nbsp;User : {{M_SL_Plan.user}}
                         </span>
                       </b-col>
                     </b-row>
@@ -90,52 +90,52 @@
                             <li class="active" style="width: 10% !important;">
                               <span>Order</span>
                               <br />
-                              <span>{{this.M_AS_Plan.order_date}}</span>
+                              <span>{{this.M_SL_Plan.order_date}}</span>
                             </li>
                             <li class="active" style="width: 10% !important;">
                               <span>Assign</span>
                               <br />
-                              <span>{{this.M_AS_Plan.assign_date}}</span>
+                              <span>{{this.M_SL_Plan.assign_date}}</span>
                             </li>
-                            <li style="width: 10% !important;">
+                            <li class="active" style="width: 10% !important;">
                               <span>Dispatch</span>
                               <br />
-                              <span>{{this.M_AS_Plan.dispatch_date}}</span>
+                              <span>{{this.M_SL_Plan.dispatch_date}}</span>
                             </li>
-                            <li style="width: 10% !important;">
+                            <li class="active" style="width: 10% !important;">
                               <span>Arrived</span>
                               <br />
-                              <span>{{this.M_AS_Plan.arrival_date}}</span>
+                              <span>{{this.M_SL_Plan.arrival_date}}</span>
                             </li>
-                            <li style="width: 10% !important;">
+                            <li class="active" style="width: 10% !important;">
                               <span>Start Loading</span>
                               <br />
-                              <span>{{this.M_AS_Plan.start_loading_date}}</span>
+                              <span>{{this.M_SL_Plan.start_loading_date}}</span>
                             </li>
-                            <li style="width: 10% !important;">
+                            <li class="active" style="width: 10% !important;">
                               <span>Finish Loading</span>
                               <br />
-                              <span>{{this.M_AS_Plan.finish_loading_date}}</span>
+                              <span>{{this.M_SL_Plan.finish_loading_date}}</span>
                             </li>
                             <li style="width: 10% !important;">
                               <span>Get Out</span>
                               <br />
-                              <span>{{this.M_AS_Plan.get_out_arrival_date}}</span>
+                              <span>{{this.M_SL_Plan.get_out_arrival_date}}</span>
                             </li>
                             <li style="width: 10% !important;">
                               <span>Arrive Destination</span>
                               <br />
-                              <span>{{this.M_AS_Plan.get_out_destination_date}}</span>
+                              <span>{{this.M_SL_Plan.get_out_destination_date}}</span>
                             </li>
                             <li style="width: 10% !important;">
                               <span>Start Unloading</span>
                               <br />
-                              <span>{{this.M_AS_Plan.start_unloading_date}}</span>
+                              <span>{{this.M_SL_Plan.start_unloading_date}}</span>
                             </li>
                             <li style="width: 10% !important;">
                               <span>Finish Unloading</span>
                               <br />
-                              <span>{{this.M_AS_Plan.finish_unloading_date}}</span>
+                              <span>{{this.M_SL_Plan.finish_unloading_date}}</span>
                             </li>
                           </ul>
                         </div>
@@ -151,35 +151,35 @@
                           >
                             <span>Order Number</span>
                             <br />
-                            <span style="color: rgb(153 153 153)">{{M_AS_Plan.order_no}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_SL_Plan.order_no}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span>Date</span>
                             <br />
-                            <span style="color: rgb(153 153 153)">{{M_AS_Plan.date}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_SL_Plan.date}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span>Category</span>
                             <br />
-                            <span style="color: rgb(153 153 153)">{{M_AS_Plan.category}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_SL_Plan.category_descs}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span>From</span>
                             <br />
-                            <span style="color: rgb(153 153 153)">{{M_AS_Plan.from}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_SL_Plan.from}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span>To</span>
                             <br />
-                            <span style="color: rgb(153 153 153)">{{M_AS_Plan.to}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_SL_Plan.to}}</span>
                           </b-col>
                         </b-row>
                         <b-row style="border: solid 1px #e7eaec;border-radius: 0px 0px 5px 5px;">
@@ -188,35 +188,35 @@
                           >
                             <span>Pick Up Date</span>
                             <br />
-                            <span style="color: rgb(153 153 153)">{{M_AS_Plan.pickup_date}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_SL_Plan.pickup_date}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span>KGS</span>
                             <br />
-                            <span style="color: rgb(153 153 153)">{{M_AS_Plan.kgs}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_SL_Plan.kgs}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span>CBM</span>
                             <br />
-                            <span style="color: rgb(153 153 153)">{{M_AS_Plan.cbm}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_SL_Plan.cbm}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span>Vehicle Type</span>
                             <br />
-                            <span style="color: rgb(153 153 153)">{{M_AS_Plan.fleet_type_descs}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_SL_Plan.fleet_type_descs}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span>Vehicle Number</span>
                             <br />
-                            <span style="color: rgb(153 153 153)">{{M_AS_Plan.plat_no}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_SL_Plan.plat_no}}</span>
                           </b-col>
                         </b-row>
                       </b-col>
@@ -239,20 +239,9 @@
                           <b-col style="margin: auto;">
                             <span class="AppointmentTitle">Driver</span>
                             <br />
-                            <span class="AppointmentDescs">{{M_AS_Plan.driver1}}</span>
+                            <span class="AppointmentDescs">{{M_SL_Plan.driver1}}</span>
                           </b-col>
                         </b-row>
-                      </b-col>
-                    </b-row>
-                    <b-row>
-                      <b-col md="12" style="padding-left: 0px !important;">
-                        <b-list-group>
-                          <b-list-group-item>
-                            <span>Description</span>
-                            <br />
-                            <span style="color: #ccc">{{M_DataPost.descs}}</span>
-                          </b-list-group-item>
-                        </b-list-group>
                       </b-col>
                     </b-row>
                     <b-row>
@@ -263,12 +252,12 @@
                               <b-list-group-item>
                                 <span>From :</span>
                                 <br />
-                                <span style="color: rgb(153 153 153)">{{M_AS_Plan.from_address}}</span>
+                                <span style="color: rgb(153 153 153)">{{M_SL_Plan.from_address}}</span>
                               </b-list-group-item>
                               <b-list-group-item>
                                 <span>To :</span>
                                 <br />
-                                <span style="color: rgb(153 153 153)">{{M_AS_Plan.to_address}}</span>
+                                <span style="color: rgb(153 153 153)">{{M_SL_Plan.to_address}}</span>
                               </b-list-group-item>
                             </b-list-group>
                           </b-col>
@@ -307,13 +296,54 @@
                         <b-row>
                           <b-col md="12" style="padding-left: 0px !important;">
                             <span>
-                              <label>Dispath Date</label>
+                              <label>Get Out Date</label>
                             </span>
                             <ACCDateTime
-                              :prop="PI_dispatch_date"
-                              v-model="M_PlanExe.dispatch_date"
-                              ref="ref_dispatch_date"
+                              @input="Onget_out_date_Change"
+                              :prop="PI_get_out_date"
+                              v-model="M_PlanExe.get_out_date"
+                              ref="ref_get_out_date"
                             />
+                          </b-col>
+                        </b-row>
+                        <b-row class="row-view">
+                          <b-col md="12" style="padding-left: 0px !important;">
+                            <span>
+                              <label>Comodity</label>
+                            </span>
+                            <br />
+                            <span style="color: #ccc">
+                              <label>{{M_DataPost.commodity_descs}}</label>
+                            </span>
+                          </b-col>
+                        </b-row>
+                        <b-row>
+                          <b-col class="row-view" md="4" style="padding-left: 0px !important;">
+                            <span>
+                              <label>Total Item</label>
+                            </span>
+                            <br />
+                            <span style="color: #ccc">
+                              <label>{{M_DataPost.total_loading_item}}</label>
+                            </span>
+                          </b-col>
+                          <b-col class="row-view" md="4" style="padding-left: 0px !important;">
+                            <span>
+                              <label>KGS</label>
+                            </span>
+                            <br />
+                            <span style="color: #ccc">
+                              <label>{{M_DataPost.total_loading_kgs}}</label>
+                            </span>
+                          </b-col>
+                          <b-col class="row-view" md="4" style="padding-left: 0px !important;">
+                            <span>
+                              <label>CBM</label>
+                            </span>
+                            <br />
+                            <span style="color: #ccc">
+                              <label>{{M_DataPost.total_loading_cbm}}</label>
+                            </span>
                           </b-col>
                         </b-row>
                         <b-row>
@@ -327,7 +357,7 @@
                         <b-row style="margin-top: 10px;">
                           <b-col md="12" style="padding-left: 0px !important;">
                             <ABSButton
-                              :text="'Start Dispatch'"
+                              :text="'Finish Loading'"
                               classButton="btn btn--default"
                               classIcon="icon-style-default"
                               @click="doSave"
@@ -337,33 +367,16 @@
                         </b-row>
                       </b-col>
                       <b-col md="6">
-                        <b-row>
-                          <b-col md="12" style="padding-left: 0px !important;">
-                            <div>
-                              <img :src="require('@/assets/map.png')" alt style="width: 100%;" />
-                            </div>
-                          </b-col>
-                        </b-row>
-                        <b-row>
-                          <b-col md="11" style="padding-left: 0px !important;">
-                            <span>
-                              <label>Current KM</label>
-                            </span>
-                            <ACCTextBox
-                              :prop="PI_current_km"
-                              v-model="M_PlanExe.current_km"
-                              ref="ref_current_km"
-                            />
-                          </b-col>
-                          <b-col style="margin-top: 35px;">Km</b-col>
-                        </b-row>
+                        <div>
+                          <img :src="require('@/assets/map.png')" alt style="width: 100%;" />
+                        </div>
                       </b-col>
                     </b-row>
 
                     <b-row
                       class="row-bordered"
                       style="margin-top: 10px;"
-                      v-show="M_AS_Plan.category == 'C'"
+                      v-show="M_SL_Plan.category == 'C'"
                     >
                       <b-col md="12">
                         <b-row>
@@ -410,7 +423,48 @@
                     <b-row class="row-bordered" style="margin-top: 10px;">
                       <b-col md="12">
                         <b-row>
-                          <b-col md="3">
+                          <b-col md="1">
+                            <span
+                              style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;"
+                            >Ticket</span>
+                          </b-col>
+                          <b-col md="1">
+                            <b-button
+                              style="background-color: transparent; color: black; border: none; padding: unset !important;"
+                              @click="doCreateTicket"
+                            >
+                              <font-awesome-icon
+                                icon="plus-circle"
+                                class="icon-style-default"
+                                style="margin-right: 5px;"
+                              />Add New
+                            </b-button>
+                          </b-col>
+                        </b-row>
+                        <b-row>
+                          <b-col>
+                            <ACCFormList
+                              :prop="{}"
+                              :title="''"
+                              cStatic
+                              :cHeader="PlanTicket_H"
+                              :cData="PlanTicket_D"
+                              @rowClicked="ticketClick"
+                              ref="ref_SL_Plan_Ticket"
+                            >
+                              <template slot="ticket_date" slot-scope="data">
+                                <span>{{momentDateFormatting(data.item.ticket_date, "YYYY-MM-DD HH:mm")}}</span>
+                              </template>
+                            </ACCFormList>
+                          </b-col>
+                        </b-row>
+                      </b-col>
+                    </b-row>
+
+                    <b-row class="row-bordered" style="margin-top: 10px;">
+                      <b-col md="12">
+                        <b-row>
+                          <b-col md="2">
                             <span
                               style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;"
                             >Extra Pick/Drop</span>
@@ -422,10 +476,10 @@
                               :prop="{}"
                               :title="''"
                               cStatic
-                              :cHeader="PlanPickDrop_H"
-                              :cData="PlanPickDrop_D"
+                              :cHeader="PlanExtra_H"
+                              :cData="PlanExtra_D"
                               @rowClicked="ListDropPickClick"
-                              ref="ref_AS_Plan_Costing"
+                              ref="ref_SL_Plan_Extra"
                               WithDeleteButton
                               @buttonDeleteClicked="doDeleteExtraList"
                             >
@@ -466,7 +520,7 @@
                               :cHeader="PlanCosting_H"
                               :cData="PlanCosting_D"
                               @rowClicked="ListCostingClick"
-                              ref="ref_AS_Plan_Costing"
+                              ref="ref_SL_Plan_Costing"
                               WithDeleteButton
                               @buttonDeleteClicked="doDeleteCostingList"
                             >
@@ -478,9 +532,136 @@
                         </b-row>
                       </b-col>
                     </b-row>
+
+                    <b-row style="margin-top: 10px;">
+                      <b-col md="12">
+                        <b-row>
+                          <b-col md="1">
+                            <span
+                              style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;"
+                            >Document</span>
+                          </b-col>
+                        </b-row>
+                        <b-row>
+                          <template v-for="(doc, id) in PlanDocument">
+                            <b-col style="margin-right: 5px;" v-bind:key="id">
+                              <b-row class="row-bordered" style="height: 100%">
+                                <b-col style="text-align: center;">
+                                  <span
+                                    style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;"
+                                  >{{id + 1}}. {{doc.dokument_type}}</span>
+                                  <br />
+                                  <br />
+                                  <template
+                                    v-if="(doc.doc_file_name && doc.doc_file_name !== '') && (doc.doc_path_file && doc.doc_path_file !== '')"
+                                  >
+                                    <img
+                                      :id="doc.dokument_type"
+                                      :src="url + doc.doc_path_file"
+                                      alt
+                                      width="80%"
+                                      style="cursor: pointer;"
+                                      @click="Show_Pict(doc)"
+                                    />
+                                    <font-awesome-icon
+                                      class="icon-style-danger"
+                                      icon="times-circle"
+                                      size="lg"
+                                      style="cursor: pointer; top: 28px; right: 8%; position: absolute;"
+                                      @click="Delete_Pict(id)"
+                                    />
+                                  </template>
+
+                                  <template v-else>
+                                    <!-- <font-awesome-icon
+                                        icon="plus-circle"
+                                        class="icon-style-default"
+                                        size="4x"
+                                    />-->
+                                    <ACCImageUpload
+                                      :prop="{
+                                          cName: doc.dokument_type,
+                                          cAccept: '.jpg, .png, .gif',
+                                          cTitle: '',
+                                          cModule: 'OP',
+                                          cIcon: 'plus-circle',
+                                          cIconSize: '4x'
+                                        }"
+                                      @change="onDocChange($event, id)"
+                                      v-model="doc.doc_file_name"
+                                    />
+                                    <br />Upload Document
+                                  </template>
+                                </b-col>
+                              </b-row>
+                            </b-col>
+                          </template>
+                          <!-- <b-col style="margin-right: 5px;">
+                                <b-row class="row-bordered">
+                                  <b-col style="text-align: center;">
+                                    <span style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;">
+                                      1. Surat Jalan
+                                    </span>
+                                    <br /><br /><br />
+                                    <font-awesome-icon
+                                      icon="plus-circle"
+                                      class="icon-style-default"
+                                      size="4x"
+                                    />
+                                    <br /><br />
+                                    Upload Document
+                                  </b-col>
+                                </b-row>
+                            </b-col>
+                            <b-col style="margin-right: 5px;">
+                                <b-row class="row-bordered">
+                                  <b-col style="text-align: center;">
+                                    <span style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;">
+                                      2. Shipping Instruction
+                                    </span>
+                                    <br /><br /><br />
+                                    <font-awesome-icon
+                                      icon="plus-circle"
+                                      class="icon-style-default"
+                                      size="4x"
+                                    />
+                                    <br /><br />
+                                    Upload Document
+                                  </b-col>
+                                </b-row>
+                            </b-col>
+                            <b-col>
+                                <b-row class="row-bordered">
+                                  <b-col style="text-align: center;">
+                                    <span style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;">
+                                      3. Delivery Order
+                                    </span>
+                                    <br /><br /><br />
+                                    <font-awesome-icon
+                                      icon="plus-circle"
+                                      class="icon-style-default"
+                                      size="4x"
+                                    />
+                                    <br /><br />
+                                    Upload Document
+                                  </b-col>
+                                </b-row>
+                          </b-col>-->
+                        </b-row>
+                      </b-col>
+                    </b-row>
                   </b-col>
                 </b-row>
               </b-form>
+              <ABSModal id="Show_Picture" ref="Show_Picture" size="sm">
+                <template slot="content">
+                  <b-row>
+                    <b-col md="12" style="text-align: center;">
+                      <img id="show_pict" :src="M_ModalPict.file" alt style="width: 100%;" />
+                    </b-col>
+                  </b-row>
+                </template>
+              </ABSModal>
             </div>
           </div>
         </b-col>
@@ -493,28 +674,72 @@
 export default {
   data() {
     return {
-      PI_dispatch_date: {
+      PI_get_out_date: {
         cValidate: "required",
-        cName: "dispatch_date",
+        cName: "get_out_date",
         cOrder: 1,
         cKey: false,
         cProtect: false,
         cWithTime: true,
         cFormat: "dd/MM/yyyy",
-        cParentForm: "OP_AS_PlanExecution",
+        cParentForm: "OP_FL_PlanExecution",
       },
-      PI_current_km: {
-        cValidate: "",
-        cName: "current_km",
+      PI_comodity: {
+        dataLookUp: {
+          LookUpCd: "GetQuotationCommodity",
+          ColumnDB: "cm_commodity_id",
+          InitialWhere:
+            "ss_portfolio_id='" + this.getDataUser().portfolio_id + "'",
+          ParamWhere: "",
+          OrderBy: "",
+          ParamView: "",
+          SourceField: "",
+          DisplayLookUp: "comodity_cd",
+        },
+        cValidate: "required",
+        cName: "comodity",
+        ckey: false,
         cOrder: 2,
-        cKey: false,
-        cType: "decimal",
         cProtect: false,
-        cParentForm: "OP_AS_PlanExecution",
+        cParentForm: "OP_FL_PlanExecution",
+        cStatic: false,
+        cOption: [],
+        cDisplayColumn: "comodity_cd",
+        cInputStatus: this.inputStatus,
+      },
+      PI_total_item: {
+        cValidate: "required",
+        cName: "total_item",
+        cOrder: 3,
+        cKey: false,
+        cType: "numeric",
+        cProtect: false,
+        cParentForm: "OP_FL_PlanExecution",
         cDecimal: 2,
         cInputStatus: this.inputStatus,
       },
-
+      PI_kgs: {
+        cValidate: "required",
+        cName: "kgs",
+        cOrder: 4,
+        cKey: false,
+        cType: "numeric",
+        cProtect: false,
+        cParentForm: "OP_FL_PlanExecution",
+        cDecimal: 2,
+        cInputStatus: this.inputStatus,
+      },
+      PI_cbm: {
+        cValidate: "required",
+        cName: "cbm",
+        cOrder: 5,
+        cKey: false,
+        cType: "numeric",
+        cProtect: false,
+        cParentForm: "OP_FL_PlanExecution",
+        cDecimal: 2,
+        cInputStatus: this.inputStatus,
+      },
       PI_note: {
         cValidate: "",
         cName: "note",
@@ -523,80 +748,17 @@ export default {
         cProtect: false,
         cResize: false,
         cReadonly: false,
-        cRows: 7,
-        cMaxRows: 7,
+        cRows: 3,
+        cMaxRows: 3,
         cSize: "md",
-        cParentForm: "OP_AS_PlanExecution",
+        cParentForm: "OP_FL_PlanExecution",
         cInputStatus: this.inputStatus,
       },
-      PlanExTable: {
-        Header: [
-          {
-            key: "no",
-            label: "No",
-            thClass: "HeaderTable",
-            tdClass: "ContentTable__Center",
-          },
-          {
-            key: "orderno",
-            label: "Order No",
-            thClass: "HeaderTable",
-            tdClass: "ContentTable__Center",
-          },
-          {
-            key: "pickupdate",
-            label: "pickupdate",
-            thClass: "HeaderTable",
-            tdClass: "ContentTable__Center",
-          },
-          {
-            key: "fromto",
-            label: "From - To",
-            thClass: "HeaderTable",
-            tdClass: "ContentTable__Center",
-          },
-          {
-            key: "company",
-            label: "Company",
-            thClass: "HeaderTable",
-            tdClass: "ContentTable__Center",
-          },
-          {
-            key: "cancel",
-            label: "Cancel",
-            thClass: "HeaderTable",
-            tdClass: "ContentTable__Center",
-          },
-        ],
-        Data: [
-          {
-            no: 1,
-            orderno: "#ORD00001",
-            pickupdate: "01/01/2020 20.00",
-            fromto: "JKT - SMG",
-            company: "PT. Abadi Sentosa",
-            cancel: 1,
-          },
-          {
-            no: 2,
-            orderno: "#ORD00002",
-            pickupdate: "01/01/2020 20.00",
-            fromto: "JKT - SMG",
-            company: "PT. Abadi Sentosa",
-            cancel: 2,
-          },
-          {
-            no: 3,
-            orderno: "#ORD00003",
-            pickupdate: "01/01/2020 20.00",
-            fromto: "JKT - SMG",
-            company: "PT. Abadi Sentosa",
-            cancel: 3,
-          },
-        ],
+      M_ModalPict: {
+        file: "",
       },
       M_DataPost: {},
-      M_AS_Plan: {
+      M_SL_Plan: {
         cm_contact_id: "",
         customer_name: "",
         cm_contact_person_id: "",
@@ -623,8 +785,8 @@ export default {
         to_address: "",
       },
       M_PlanExe: {
-        dispatch_date: "",
-        current_km: 0,
+        get_out_date: "",
+        comodity: "",
         comodityLabel: "",
         total_item: "",
         kgs: "",
@@ -682,6 +844,45 @@ export default {
         },
       ],
       PlanConsole_D: [],
+      PlanTicket_H: [
+        {
+          key: "no",
+          label: "No",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 th-cus-center",
+        },
+        {
+          key: "ticket_no",
+          label: "Ticket No",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center",
+        },
+        {
+          key: "ticket_date",
+          label: "Date",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center",
+        },
+        {
+          key: "category",
+          label: "Category",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center",
+        },
+        {
+          key: "descs",
+          label: "Description",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center",
+        },
+        {
+          key: "attachment",
+          label: "Attachment",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center",
+        },
+      ],
+      PlanTicket_D: [],
       PlanCosting_H: [
         {
           key: "row_number",
@@ -721,7 +922,7 @@ export default {
         },
       ],
       PlanCosting_D: [],
-      PlanPickDrop_H: [
+      PlanExtra_H: [
         {
           key: "row_number",
           label: "No",
@@ -759,46 +960,8 @@ export default {
           thClass: "HeaderACCList2 th-cus-center",
         },
       ],
-      PlanPickDrop_D: [],
-      PlanCosting_H: [
-        {
-          key: "row_number",
-          label: "No",
-          tdClass: "ContentACCList2 notranslate th-cus-center",
-          thClass: "HeaderACCList2 th-cus-center",
-        },
-        {
-          key: "cost_type",
-          label: "Cost Type",
-          tdClass: "ContentACCList2 notranslate th-cus-center",
-          thClass: "HeaderACCList2 S th-cus-center",
-        },
-        {
-          key: "descs",
-          label: "Description",
-          tdClass: "ContentACCList2 notranslate th-cus-center",
-          thClass: "HeaderACCList2 S th-cus-center",
-        },
-        {
-          key: "cost_value",
-          label: "Value",
-          tdClass: "ContentACCList2 notranslate th-cus-center",
-          thClass: "HeaderACCList2 S th-cus-center",
-        },
-        {
-          key: "order_cost_status",
-          label: "Status",
-          tdClass: "ContentACCList2 notranslate th-cus-center",
-          thClass: "HeaderACCList2 S th-cus-center",
-        },
-        {
-          key: "row_id", //untuk button delete
-          label: "",
-          tdClass: "ContentACCList2 notranslate th-cus-center",
-          thClass: "HeaderACCList2 th-cus-center",
-        },
-      ],
-      PlanCosting_D: [],
+      PlanExtra_D: [],
+      PlanDocument: [],
     };
   },
   computed: {
@@ -816,13 +979,8 @@ export default {
     },
   },
   methods: {
-    ListCostingClick(record, index) {
-      var param = this.M_DataPost;
-      param.DetailList = record;
-      param.isEdit = true;
-      this.$store.commit("setParamPage", param);
-      this.$router.push({ name: "OP_PlanExecutionCosting" });
-    },
+    ConsoleClick(record, index) {},
+    ticketClick(record, index) {},
     ListDropPickClick(record, index) {
       var param = this.paramFromList;
       param.DetailList = record;
@@ -844,6 +1002,28 @@ export default {
       param.isPick = p == 1 ? true : false;
       this.$store.commit("setParamPage", param);
       this.$router.push({ name: "OP_PlanExecutionPickDrop" });
+    },
+    ListCostingClick(record, index) {
+      var param = this.paramFromList;
+      param.DetailList = record;
+      param.isEdit = true;
+      param.isPick = record.pick_drop_category == "P" ? true : false;
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "OP_PlanExecutionPickDrop" });
+    },
+    doDeleteCosting(record, index) {
+      var param = {
+        option_url: "/OP/OP_Order",
+        line_no: 1,
+        id: record.row_id,
+        lastupdatestamp: record.lastupdatestamp,
+      };
+      this.deleteJSON(this.getUrlCRUD(), param).then((response) => {
+        if (response == null) return;
+        this.alertSuccess("Data Has Been Deleted").then(() => {
+          this.GetDataBy();
+        });
+      });
     },
     doDeleteExtra(record, index) {
       var param = {
@@ -870,20 +1050,6 @@ export default {
         }
       );
     },
-    doDeleteCosting(record, index) {
-      var param = {
-        option_url: "/OP/OP_Order",
-        line_no: 1,
-        id: record.row_id,
-        lastupdatestamp: record.lastupdatestamp,
-      };
-      this.deleteJSON(this.getUrlCRUD(), param).then((response) => {
-        if (response == null) return;
-        this.alertSuccess("Data Has Been Deleted").then(() => {
-          this.GetDataBy();
-        });
-      });
-    },
     doDeleteCostingList(record, index) {
       this.alertConfirmation("Are You Sure Want To Delete This Data ?").then(
         (ress) => {
@@ -893,15 +1059,39 @@ export default {
         }
       );
     },
+    doDeleteConsole(record, index) {},
+    Onarrive_date_Change(data) {},
+    onDocChange(data, index) {
+      this.PlanDocument[index].doc_file_name = data.name;
+      this.PlanDocument[index].doc_path_file = data.path;
+    },
+    Show_Pict(doc) {
+      this.M_ModalPict.file = this.url + doc.doc_path_file;
+      this.$refs.Show_Picture._show();
+    },
+    Delete_Pict(id) {
+      this.alertConfirmation(
+        "Are You Sure Want To Delete This Document ?"
+      ).then((ress) => {
+        if (ress.value) {
+          this.PlanDocument[id].doc_path_file = "";
+          this.PlanDocument[id].doc_file_name = "";
+        }
+      });
+    },
+    OncomodityChange(data) {
+      this.M_PlanExe.comodity = data.id;
+      this.M_PlanExe.comodityLabel = data.label;
+    },
     doSave() {
       this.$validator._base
-        .validateAll("OP_AS_PlanExecution")
+        .validateAll("OP_FL_PlanExecution")
         .then((result) => {
           if (!result) return;
           this.alertConfirmation("Are You Sure Want To Save This Data ?").then(
             (ress) => {
               if (ress.value) {
-                this.$validator.errors.clear("OP_AS_PlanExecution");
+                this.$validator.errors.clear("OP_FL_PlanExecution");
                 this.M_Update();
               }
             }
@@ -909,266 +1099,312 @@ export default {
         });
     },
     M_Update() {
+      var paramH = {
+          _Method_: "UPDATE",
+          _LineNo_: 0,
+          ss_portfolio_id:
+            this.M_DataPost.ss_portfolio_id &&
+            this.M_DataPost.ss_portfolio_id !== ""
+              ? this.M_DataPost.ss_portfolio_id
+              : "NULL",
+          ss_subportfolio_id:
+            this.M_DataPost.ss_subportfolio_id &&
+            this.M_DataPost.ss_subportfolio_id !== ""
+              ? this.M_DataPost.ss_subportfolio_id
+              : "NULL",
+          op_order_id: this.paramFromList.row_id,
+          order_no:
+            this.M_DataPost.order_no && this.M_DataPost.order_no !== ""
+              ? this.M_DataPost.order_no
+              : "NULL",
+          order_status:
+            this.M_DataPost.order_status && this.M_DataPost.order_status !== ""
+              ? this.M_DataPost.order_status
+              : "NULL",
+          cm_contact_id:
+            this.M_DataPost.cm_contact_id &&
+            this.M_DataPost.cm_contact_id !== ""
+              ? this.M_DataPost.cm_contact_id
+              : "NULL",
+          descs:
+            this.M_DataPost.descs && this.M_DataPost.descs !== ""
+              ? this.M_DataPost.descs
+              : "NULL",
+          pickup_date:
+            this.M_DataPost.pickup_date && this.M_DataPost.pickup_date !== ""
+              ? this.M_DataPost.pickup_date
+              : "NULL",
+          fr_cm_contact_delivery_address_id:
+            this.M_DataPost.fr_cm_contact_delivery_address_id &&
+            this.M_DataPost.fr_cm_contact_delivery_address_id !== ""
+              ? this.M_DataPost.fr_cm_contact_delivery_address_id
+              : "NULL",
+          to_cm_contact_delivery_address_id:
+            this.M_DataPost.to_cm_contact_delivery_address_id &&
+            this.M_DataPost.to_cm_contact_delivery_address_id !== ""
+              ? this.M_DataPost.to_cm_contact_delivery_address_id
+              : "NULL",
+          fr_cm_zone_id:
+            this.M_DataPost.fr_cm_zone_id &&
+            this.M_DataPost.fr_cm_zone_id !== ""
+              ? this.M_DataPost.fr_cm_zone_id
+              : "NULL",
+          to_cm_zone_id:
+            this.M_DataPost.to_cm_zone_id &&
+            this.M_DataPost.to_cm_zone_id !== ""
+              ? this.M_DataPost.to_cm_zone_id
+              : "NULL",
+          fm_fleet_type_id:
+            this.M_DataPost.fm_fleet_type_id &&
+            this.M_DataPost.fm_fleet_type_id !== ""
+              ? this.M_DataPost.fm_fleet_type_id
+              : "NULL",
+          assign_date:
+            this.M_DataPost.assign_date && this.M_DataPost.assign_date !== ""
+              ? this.M_DataPost.assign_date
+              : "NULL",
+          assign_fleet_status:
+            this.M_DataPost.assign_fleet_status &&
+            this.M_DataPost.assign_fleet_status !== ""
+              ? this.M_DataPost.assign_fleet_status
+              : "NULL",
+          vendor_cm_contact_id:
+            this.M_DataPost.vendor_cm_contact_id &&
+            this.M_DataPost.vendor_cm_contact_id !== ""
+              ? this.M_DataPost.vendor_cm_contact_id
+              : "NULL",
+          fm_fleet_mstr_id:
+            this.M_DataPost.fm_fleet_mstr_id &&
+            this.M_DataPost.fm_fleet_mstr_id !== ""
+              ? this.M_DataPost.fm_fleet_mstr_id
+              : "NULL",
+          license_plate_no:
+            this.M_DataPost.license_plate_no &&
+            this.M_DataPost.license_plate_no !== ""
+              ? this.M_DataPost.license_plate_no
+              : "NULL",
+          fm_driver_id:
+            this.M_DataPost.fm_driver_id && this.M_DataPost.fm_driver_id !== ""
+              ? this.M_DataPost.fm_driver_id
+              : "NULL",
+          driver_name:
+            this.M_DataPost.driver_name && this.M_DataPost.driver_name !== ""
+              ? this.M_DataPost.driver_name
+              : "NULL",
+          fm_driver_id2:
+            this.M_DataPost.fm_driver_id2 &&
+            this.M_DataPost.fm_driver_id2 !== ""
+              ? this.M_DataPost.fm_driver_id2
+              : "NULL",
+          driver_name2:
+            this.M_DataPost.driver_name2 && this.M_DataPost.driver_name2 !== ""
+              ? this.M_DataPost.driver_name2
+              : "NULL",
+          remarks:
+            this.M_DataPost.remarks && this.M_DataPost.remarks !== ""
+              ? this.M_DataPost.remarks
+              : "NULL",
+          dispatch_date:
+            this.M_DataPost.dispatch_date &&
+            this.M_DataPost.dispatch_date !== ""
+              ? this.M_DataPost.dispatch_date
+              : "NULL",
+          dispatch_km:
+            this.M_DataPost.dispatch_km && this.M_DataPost.dispatch_km !== ""
+              ? this.M_DataPost.dispatch_km
+              : "NULL",
+          dispatach_notes:
+            this.M_DataPost.dispatach_notes &&
+            this.M_DataPost.dispatach_notes !== ""
+              ? this.M_DataPost.dispatach_notes
+              : "NULL",
+          arrival_date:
+            this.M_DataPost.arrival_date && this.M_DataPost.arrival_date !== ""
+              ? this.M_DataPost.arrival_date
+              : "NULL",
+          arrival_notes:
+            this.M_DataPost.arrival_notes &&
+            this.M_DataPost.arrival_notes !== ""
+              ? this.M_DataPost.arrival_notes
+              : "NULL",
+          start_loading_date:
+            this.M_DataPost.start_loading_date &&
+            this.M_DataPost.start_loading_date !== ""
+              ? this.M_DataPost.start_loading_date
+              : "NULL",
+          start_loading_notes:
+            this.M_DataPost.start_loading_notes &&
+            this.M_DataPost.start_loading_notes !== ""
+              ? this.M_DataPost.start_loading_notes
+              : "NULL",
+          finish_loading_date:
+            this.M_DataPost.finish_loading_date &&
+            this.M_DataPost.finish_loading_date !== ""
+              ? this.M_DataPost.finish_loading_date
+              : "NULL",
+          cm_commodity_id:
+            this.M_DataPost.cm_commodity_id &&
+            this.M_DataPost.cm_commodity_id !== ""
+              ? this.M_DataPost.cm_commodity_id
+              : "NULL",
+          total_loading_item:
+            this.M_DataPost.total_loading_item &&
+            this.M_DataPost.total_loading_item !== ""
+              ? this.M_DataPost.total_loading_item
+              : "NULL",
+          total_loading_kgs:
+            this.M_DataPost.total_loading_kgs &&
+            this.M_DataPost.total_loading_kgs !== ""
+              ? this.M_DataPost.total_loading_kgs
+              : "NULL",
+          total_loading_cbm:
+            this.M_DataPost.total_loading_cbm &&
+            this.M_DataPost.total_loading_cbm !== ""
+              ? this.M_DataPost.total_loading_cbm
+              : "NULL",
+          finish_loading_notes:
+            this.M_DataPost.finish_loading_notes &&
+            this.M_DataPost.finish_loading_notes !== ""
+              ? this.M_DataPost.finish_loading_notes
+              : "NULL",
+          get_out_arrival_date: this.M_PlanExe.get_out_date, //Form input
+          get_out_arrival_notes: this.M_PlanExe.note, //Form input
+          arrival_destination_date:
+            this.M_DataPost.arrival_destination_date &&
+            this.M_DataPost.arrival_destination_date !== ""
+              ? this.M_DataPost.arrival_destination_date
+              : "NULL",
+          arrival_destination_notes:
+            this.M_DataPost.arrival_destination_notes &&
+            this.M_DataPost.arrival_destination_notes !== ""
+              ? this.M_DataPost.arrival_destination_notes
+              : "NULL",
+          start_unloading_date:
+            this.M_DataPost.start_unloading_date &&
+            this.M_DataPost.start_unloading_date !== ""
+              ? this.M_DataPost.start_unloading_date
+              : "NULL",
+          start_unloading_notes:
+            this.M_DataPost.start_unloading_notes &&
+            this.M_DataPost.start_unloading_notes !== ""
+              ? this.M_DataPost.start_unloading_notes
+              : "NULL",
+          finish_unloading_date:
+            this.M_DataPost.finish_unloading_date &&
+            this.M_DataPost.finish_unloading_date !== ""
+              ? this.M_DataPost.finish_unloading_date
+              : "NULL",
+          total_delivered_item:
+            this.M_DataPost.total_delivered_item &&
+            this.M_DataPost.total_delivered_item !== ""
+              ? this.M_DataPost.total_delivered_item
+              : "NULL",
+          total_delivered_kgs:
+            this.M_DataPost.total_delivered_kgs &&
+            this.M_DataPost.total_delivered_kgs !== ""
+              ? this.M_DataPost.total_delivered_kgs
+              : "NULL",
+          total_delivered_cbm:
+            this.M_DataPost.total_delivered_cbm &&
+            this.M_DataPost.total_delivered_cbm !== ""
+              ? this.M_DataPost.total_delivered_cbm
+              : "NULL",
+          finish_unloading_notes:
+            this.M_DataPost.finish_unloading_notes &&
+            this.M_DataPost.finish_unloading_notes !== ""
+              ? this.M_DataPost.finish_unloading_notes
+              : "NULL",
+          get_out_destination_date:
+            this.M_DataPost.get_out_destination_date &&
+            this.M_DataPost.get_out_destination_date !== ""
+              ? this.M_DataPost.get_out_destination_date
+              : "NULL",
+          return_empty_to:
+            this.M_DataPost.return_empty_to &&
+            this.M_DataPost.return_empty_to !== ""
+              ? this.M_DataPost.return_empty_to
+              : "NULL",
+          get_out_destination_km:
+            this.M_DataPost.get_out_destination_km &&
+            this.M_DataPost.get_out_destination_km !== ""
+              ? this.M_DataPost.get_out_destination_km
+              : "NULL",
+          get_out_destination_notes:
+            this.M_DataPost.get_out_destination_notes &&
+            this.M_DataPost.get_out_destination_notes !== ""
+              ? this.M_DataPost.get_out_destination_notes
+              : "NULL",
+          ref_op_order_id:
+            this.M_DataPost.ref_op_order_id &&
+            this.M_DataPost.ref_op_order_id !== ""
+              ? this.M_DataPost.ref_op_order_id
+              : "NULL",
+          ref_op_order_no:
+            this.M_DataPost.ref_op_order_no &&
+            this.M_DataPost.ref_op_order_no !== ""
+              ? this.M_DataPost.ref_op_order_no
+              : "NULL",
+          total_order_amt:
+            this.M_DataPost.total_order_amt &&
+            this.M_DataPost.total_order_amt !== ""
+              ? this.M_DataPost.total_order_amt
+              : "NULL",
+          total_order_cost:
+            this.M_DataPost.total_order_cost &&
+            this.M_DataPost.total_order_cost !== ""
+              ? this.M_DataPost.total_order_cost
+              : "NULL",
+          lastupdatestamp: this.paramFromList.lastupdatestamp,
+          user_edit: this.getDataUser().user_id,
+        },
+        paramD = [];
+
+      for (let i = 0; i < this.PlanDocument.length; i++) {
+        paramD.push({
+          _Method_: "UPDATE",
+          _LineNo_: 4,
+          op_order_document_id: this.PlanDocument[i].row_id,
+          op_order_id: this.M_DataPost.row_id,
+          mk_dokument_type_id: this.PlanDocument[i].mk_dokument_type_id,
+          descs: this.PlanDocument[i].descs,
+          doc_file_name:
+            this.PlanDocument[i].doc_file_name &&
+            this.PlanDocument[i].doc_file_name !== ""
+              ? this.PlanDocument[i].doc_file_name
+              : "NULL",
+          doc_path_file:
+            this.PlanDocument[i].doc_path_file &&
+            this.PlanDocument[i].doc_path_file !== ""
+              ? this.PlanDocument[i].doc_path_file
+              : "NULL",
+          doc_status: this.PlanDocument[i].doc_status,
+          lastupdatestamp: this.PlanDocument[i].lastupdatestamp,
+          user_edit: this.getDataUser().user_id,
+        });
+      }
+
       var param = {
         option_url: "/OP/OP_Order",
         line_no: 0,
-        ss_portfolio_id:
-          this.M_DataPost.ss_portfolio_id &&
-          this.M_DataPost.ss_portfolio_id !== ""
-            ? this.M_DataPost.ss_portfolio_id
-            : "NULL",
-        ss_subportfolio_id:
-          this.M_DataPost.ss_subportfolio_id &&
-          this.M_DataPost.ss_subportfolio_id !== ""
-            ? this.M_DataPost.ss_subportfolio_id
-            : "NULL",
-        op_order_id: this.paramFromList.row_id,
-        order_no:
-          this.M_DataPost.order_no && this.M_DataPost.order_no !== ""
-            ? this.M_DataPost.order_no
-            : "NULL",
-        order_status:
-          this.M_DataPost.order_status && this.M_DataPost.order_status !== ""
-            ? this.M_DataPost.order_status
-            : "NULL",
-        cm_contact_id:
-          this.M_DataPost.cm_contact_id && this.M_DataPost.cm_contact_id !== ""
-            ? this.M_DataPost.cm_contact_id
-            : "NULL",
-        descs:
-          this.M_DataPost.descs && this.M_DataPost.descs !== ""
-            ? this.M_DataPost.descs
-            : "NULL",
-        pickup_date:
-          this.M_DataPost.pickup_date && this.M_DataPost.pickup_date !== ""
-            ? this.M_DataPost.pickup_date
-            : "NULL",
-        fr_cm_contact_delivery_address_id:
-          this.M_DataPost.fr_cm_contact_delivery_address_id &&
-          this.M_DataPost.fr_cm_contact_delivery_address_id !== ""
-            ? this.M_DataPost.fr_cm_contact_delivery_address_id
-            : "NULL",
-        to_cm_contact_delivery_address_id:
-          this.M_DataPost.to_cm_contact_delivery_address_id &&
-          this.M_DataPost.to_cm_contact_delivery_address_id !== ""
-            ? this.M_DataPost.to_cm_contact_delivery_address_id
-            : "NULL",
-        fr_cm_zone_id:
-          this.M_DataPost.fr_cm_zone_id && this.M_DataPost.fr_cm_zone_id !== ""
-            ? this.M_DataPost.fr_cm_zone_id
-            : "NULL",
-        to_cm_zone_id:
-          this.M_DataPost.to_cm_zone_id && this.M_DataPost.to_cm_zone_id !== ""
-            ? this.M_DataPost.to_cm_zone_id
-            : "NULL",
-        fm_fleet_type_id:
-          this.M_DataPost.fm_fleet_type_id &&
-          this.M_DataPost.fm_fleet_type_id !== ""
-            ? this.M_DataPost.fm_fleet_type_id
-            : "NULL",
-        assign_date:
-          this.M_DataPost.assign_date && this.M_DataPost.assign_date !== ""
-            ? this.M_DataPost.assign_date
-            : "NULL",
-        assign_fleet_status:
-          this.M_DataPost.assign_fleet_status &&
-          this.M_DataPost.assign_fleet_status !== ""
-            ? this.M_DataPost.assign_fleet_status
-            : "NULL",
-        vendor_cm_contact_id:
-          this.M_DataPost.vendor_cm_contact_id &&
-          this.M_DataPost.vendor_cm_contact_id !== ""
-            ? this.M_DataPost.vendor_cm_contact_id
-            : "NULL",
-        fm_fleet_mstr_id:
-          this.M_DataPost.fm_fleet_mstr_id &&
-          this.M_DataPost.fm_fleet_mstr_id !== ""
-            ? this.M_DataPost.fm_fleet_mstr_id
-            : "NULL",
-        license_plate_no:
-          this.M_DataPost.license_plate_no &&
-          this.M_DataPost.license_plate_no !== ""
-            ? this.M_DataPost.license_plate_no
-            : "NULL",
-        fm_driver_id:
-          this.M_DataPost.fm_driver_id && this.M_DataPost.fm_driver_id !== ""
-            ? this.M_DataPost.fm_driver_id
-            : "NULL",
-        driver_name:
-          this.M_DataPost.driver_name && this.M_DataPost.driver_name !== ""
-            ? this.M_DataPost.driver_name
-            : "NULL",
-        fm_driver_id2:
-          this.M_DataPost.fm_driver_id2 && this.M_DataPost.fm_driver_id2 !== ""
-            ? this.M_DataPost.fm_driver_id2
-            : "NULL",
-        driver_name2:
-          this.M_DataPost.driver_name2 && this.M_DataPost.driver_name2 !== ""
-            ? this.M_DataPost.driver_name2
-            : "NULL",
-        remarks:
-          this.M_DataPost.remarks && this.M_DataPost.remarks !== ""
-            ? this.M_DataPost.remarks
-            : "NULL",
-        dispatch_date: this.M_PlanExe.dispatch_date, //dari form
-        dispatch_km: this.M_PlanExe.current_km, //dari form
-        dispatach_notes: this.M_PlanExe.note, //dari form
-        arrival_date:
-          this.M_DataPost.arrival_date && this.M_DataPost.arrival_date !== ""
-            ? this.M_DataPost.arrival_date
-            : "NULL",
-        arrival_notes:
-          this.M_DataPost.arrival_notes && this.M_DataPost.arrival_notes !== ""
-            ? this.M_DataPost.arrival_notes
-            : "NULL",
-        start_loading_date:
-          this.M_DataPost.start_loading_date &&
-          this.M_DataPost.start_loading_date !== ""
-            ? this.M_DataPost.start_loading_date
-            : "NULL",
-        start_loading_notes:
-          this.M_DataPost.start_loading_notes &&
-          this.M_DataPost.start_loading_notes !== ""
-            ? this.M_DataPost.start_loading_notes
-            : "NULL",
-        finish_loading_date:
-          this.M_DataPost.finish_loading_date &&
-          this.M_DataPost.finish_loading_date !== ""
-            ? this.M_DataPost.finish_loading_date
-            : "NULL",
-        cm_commodity_id:
-          this.M_DataPost.cm_commodity_id &&
-          this.M_DataPost.cm_commodity_id !== ""
-            ? this.M_DataPost.cm_commodity_id
-            : "NULL",
-        total_loading_item:
-          this.M_DataPost.total_loading_item &&
-          this.M_DataPost.total_loading_item !== ""
-            ? this.M_DataPost.total_loading_item
-            : "NULL",
-        total_loading_kgs:
-          this.M_DataPost.total_loading_kgs &&
-          this.M_DataPost.total_loading_kgs !== ""
-            ? this.M_DataPost.total_loading_kgs
-            : "NULL",
-        total_loading_cbm:
-          this.M_DataPost.total_loading_cbm &&
-          this.M_DataPost.total_loading_cbm !== ""
-            ? this.M_DataPost.total_loading_cbm
-            : "NULL",
-        finish_loading_notes:
-          this.M_DataPost.finish_loading_notes &&
-          this.M_DataPost.finish_loading_notes !== ""
-            ? this.M_DataPost.finish_loading_notes
-            : "NULL",
-        get_out_arrival_date:
-          this.M_DataPost.get_out_arrival_date &&
-          this.M_DataPost.get_out_arrival_date !== ""
-            ? this.M_DataPost.get_out_arrival_date
-            : "NULL",
-        get_out_arrival_notes:
-          this.M_DataPost.get_out_arrival_notes &&
-          this.M_DataPost.get_out_arrival_notes !== ""
-            ? this.M_DataPost.get_out_arrival_notes
-            : "NULL",
-        arrival_destination_date:
-          this.M_DataPost.arrival_destination_date &&
-          this.M_DataPost.arrival_destination_date !== ""
-            ? this.M_DataPost.arrival_destination_date
-            : "NULL",
-        arrival_destination_notes:
-          this.M_DataPost.arrival_destination_notes &&
-          this.M_DataPost.arrival_destination_notes !== ""
-            ? this.M_DataPost.arrival_destination_notes
-            : "NULL",
-        start_unloading_date:
-          this.M_DataPost.start_unloading_date &&
-          this.M_DataPost.start_unloading_date !== ""
-            ? this.M_DataPost.start_unloading_date
-            : "NULL",
-        start_unloading_notes:
-          this.M_DataPost.start_unloading_notes &&
-          this.M_DataPost.start_unloading_notes !== ""
-            ? this.M_DataPost.start_unloading_notes
-            : "NULL",
-        finish_unloading_date:
-          this.M_DataPost.finish_unloading_date &&
-          this.M_DataPost.finish_unloading_date !== ""
-            ? this.M_DataPost.finish_unloading_date
-            : "NULL",
-        total_delivered_item:
-          this.M_DataPost.total_delivered_item &&
-          this.M_DataPost.total_delivered_item !== ""
-            ? this.M_DataPost.total_delivered_item
-            : "NULL",
-        total_delivered_kgs:
-          this.M_DataPost.total_delivered_kgs &&
-          this.M_DataPost.total_delivered_kgs !== ""
-            ? this.M_DataPost.total_delivered_kgs
-            : "NULL",
-        total_delivered_cbm:
-          this.M_DataPost.total_delivered_cbm &&
-          this.M_DataPost.total_delivered_cbm !== ""
-            ? this.M_DataPost.total_delivered_cbm
-            : "NULL",
-        finish_unloading_notes:
-          this.M_DataPost.finish_unloading_notes &&
-          this.M_DataPost.finish_unloading_notes !== ""
-            ? this.M_DataPost.finish_unloading_notes
-            : "NULL",
-        get_out_destination_date:
-          this.M_DataPost.get_out_destination_date &&
-          this.M_DataPost.get_out_destination_date !== ""
-            ? this.M_DataPost.get_out_destination_date
-            : "NULL",
-        return_empty_to:
-          this.M_DataPost.return_empty_to &&
-          this.M_DataPost.return_empty_to !== ""
-            ? this.M_DataPost.return_empty_to
-            : "NULL",
-        get_out_destination_km:
-          this.M_DataPost.get_out_destination_km &&
-          this.M_DataPost.get_out_destination_km !== ""
-            ? this.M_DataPost.get_out_destination_km
-            : "NULL",
-        get_out_destination_notes:
-          this.M_DataPost.get_out_destination_notes &&
-          this.M_DataPost.get_out_destination_notes !== ""
-            ? this.M_DataPost.get_out_destination_notes
-            : "NULL",
-        ref_op_order_id:
-          this.M_DataPost.ref_op_order_id &&
-          this.M_DataPost.ref_op_order_id !== ""
-            ? this.M_DataPost.ref_op_order_id
-            : "NULL",
-        ref_op_order_no:
-          this.M_DataPost.ref_op_order_no &&
-          this.M_DataPost.ref_op_order_no !== ""
-            ? this.M_DataPost.ref_op_order_no
-            : "NULL",
-        total_order_amt:
-          this.M_DataPost.total_order_amt &&
-          this.M_DataPost.total_order_amt !== ""
-            ? this.M_DataPost.total_order_amt
-            : "NULL",
-        total_order_cost:
-          this.M_DataPost.total_order_cost &&
-          this.M_DataPost.total_order_cost !== ""
-            ? this.M_DataPost.total_order_cost
-            : "NULL",
-        lastupdatestamp: this.paramFromList.lastupdatestamp,
-        user_edit: this.getDataUser().user_id,
+        Data: [
+          {
+            A_Update: paramH,
+            B_Looping: paramD,
+          },
+        ],
       };
 
-      this.putJSON(this.getUrlCRUD(), param).then((response) => {
-        // console.log(response)
-        if (response == null) return;
-        this.alertSuccess(response.Message).then(() => {
-          this.doBack();
-        });
-      });
+      this.postJSONMulti(this.getUrlProsesDataPostMulti(), param).then(
+        (response) => {
+          if (response == null) return;
+          this.alertSuccess("Update Data Has Been Successfully").then(() => {
+            this.doBack();
+          });
+        }
+      );
     },
     doCreateTicket() {},
+    doCreateConsole() {},
     doBack() {
       this.$router.go(-1);
     },
@@ -1179,8 +1415,7 @@ export default {
     },
     M_ClearForm() {
       this.M_PlanExe = {
-        dispatch_date: new Date(),
-        current_km: 0,
+        get_out_date: new Date(),
         comodity: "",
         comodityLabel: "",
         total_item: "",
@@ -1205,7 +1440,7 @@ export default {
         this.M_DataPost = data;
         console.log(data);
 
-        this.M_AS_Plan = {
+        this.M_SL_Plan = {
           cm_contact_id: data.cm_contact_id,
           customer_name: data.customer_name,
           cm_contact_person_id: data.cm_contact_person_id,
@@ -1275,27 +1510,11 @@ export default {
           ),
         };
 
-        // this.PlanTicket_D = !data.detail_ticket || data.detail_ticket == null || data.detail_ticket == undefined ? [] : data.detail_ticket
-        this.PlanCosting_D =
-          !data.detail_cost ||
-          data.detail_cost == null ||
-          data.detail_cost == undefined
-            ? []
-            : data.detail_cost;
-
-        this.PlanPickDrop_D =
-          !data.detail_pick_drop ||
-          data.detail_pick_drop == null ||
-          data.detail_pick_drop == undefined
-            ? []
-            : data.detail_pick_drop;
-        this.PlanConsole_D =
-          !data.detail_console ||
-          data.detail_console == null ||
-          data.detail_console == undefined
-            ? []
-            : data.detail_console;
-        // this.PlanDocument = !data.detail_document || data.detail_document == null || data.detail_document == undefined ? [] : data.detail_document
+        this.PlanTicket_D = data.detail_ticket;
+        this.PlanCosting_D = data.detail_cost;
+        this.PlanExtra_D = data.detail_pick_drop;
+        this.PlanConsole_D = data.detail_console;
+        this.PlanDocument = data.detail_document;
 
         this.M_ClearForm();
       });
