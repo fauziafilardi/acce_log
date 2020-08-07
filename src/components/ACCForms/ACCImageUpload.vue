@@ -1,7 +1,7 @@
 <template>
   <div id="ACCImageUpload">
     <label
-      v-if="!cIcon || cIcon == ''"
+      v-if="prop.cIcon == undefined || prop.cIcon == null || prop.cIcon == ''"
       :for="'acc_image_upload_' + prop.cName"
       :style="'background-color: #333399; color: white; width: 100%; text-align: center;border-radius: 5px; margin-top: 10px;border: 1px solid #333399; display: inline-block; padding: 6px 12px; cursor: pointer;' + prop.cStyle"
     >{{prop.cTitle}}</label>

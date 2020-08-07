@@ -866,7 +866,7 @@ data() {
         },
         PlanConsole_H: [
           {
-            key: "no",
+            key: "row_number",
             label: "No",
             tdClass: "ContentACCList2 notranslate th-cus-center",
             thClass: "HeaderACCList2 th-cus-center"
@@ -917,7 +917,7 @@ data() {
         PlanConsole_D: [],
         PlanTicket_H: [
           {
-            key: "no",
+            key: "row_number",
             label: "No",
             tdClass: "ContentACCList2 notranslate th-cus-center",
             thClass: "HeaderACCList2 th-cus-center"
@@ -935,7 +935,7 @@ data() {
             thClass: "HeaderACCList2 S th-cus-center"
           },
           {
-            key: "category",
+            key: "ticket_category",
             label: "Category",
             tdClass: "ContentACCList2 notranslate th-cus-center",
             thClass: "HeaderACCList2 S th-cus-center"
@@ -947,7 +947,7 @@ data() {
             thClass: "HeaderACCList2 S th-cus-center"
           },
           {
-            key: "attachment",
+            key: "doc_file_name",
             label: "Attachment",
             tdClass: "ContentACCList2 notranslate th-cus-center",
             thClass: "HeaderACCList2 S th-cus-center"
@@ -956,7 +956,7 @@ data() {
         PlanTicket_D: [],
         PlanCosting_H: [
           {
-            key: "no",
+            key: "row_number",
             label: "No",
             tdClass: "ContentACCList2 notranslate th-cus-center",
             thClass: "HeaderACCList2 th-cus-center"
@@ -995,7 +995,7 @@ data() {
         PlanCosting_D: [],
         PlanExtra_H: [
           {
-            key: "no",
+            key: "row_number",
             label: "No",
             tdClass: "ContentACCList2 notranslate th-cus-center",
             thClass: "HeaderACCList2 th-cus-center"
@@ -1050,8 +1050,46 @@ data() {
     }
   },
   methods: {
-    doDeleteExtra(record, index) {},
-    doDeleteCosting(record, index) {},
+    doDeleteExtra(record, index) {
+      this.alertConfirmation("Are You Sure Want To Delete This Data ?").then(
+        (ress) => {
+          if (ress.value) {
+            var param = {
+              option_url: "/OP/OP_Order",
+              line_no: 2,
+              id: record.row_id,
+              lastupdatestamp: record.lastupdatestamp,
+            };
+            this.deleteJSON(this.getUrlCRUD(), param).then((response) => {
+              if (response == null) return;
+              this.alertSuccess("Data Has Been Deleted").then(() => {
+                this.GetDataBy();
+              });
+            });
+          }
+        }
+      );
+    },
+    doDeleteCosting(record, index) {
+      this.alertConfirmation("Are You Sure Want To Delete This Data ?").then(
+        (ress) => {
+          if (ress.value) {
+            var param = {
+              option_url: "/OP/OP_Order",
+              line_no: 1,
+              id: record.row_id,
+              lastupdatestamp: record.lastupdatestamp,
+            };
+            this.deleteJSON(this.getUrlCRUD(), param).then((response) => {
+              if (response == null) return;
+              this.alertSuccess("Data Has Been Deleted").then(() => {
+                this.GetDataBy();
+              });
+            });
+          }
+        }
+      );
+    },
     doDeleteConsole(record, index) {},
     Onarrive_date_Change(data) {},
     onDocChange(data, index) {
@@ -1200,6 +1238,43 @@ data() {
 
       this.$refs.Modal_Ticket._show();
     },
+    ticketClick(record, index) {
+      var param = {
+        option_url: "/OP/OP_Order",
+        line_no: 3,
+        id: record.row_id,
+        lastupdatestamp: record.lastupdatestamp
+      };
+
+      this.getJSON(this.getUrlCRUD(), param).then(response => {
+        // response from API
+        if (response == null) return;
+
+        var data = response.Data[0];
+        this.M_Ticket = {
+          op_order_ticket_id: data.op_order_ticket_id,
+          ticket_no: data.ticket_no,
+          ticket_category: data.op_ticket_category_id__lo_1,
+          ticket_categoryLabel: data.ticket_category__lbl_lo_1,
+          descs: data.descs__tb_2,
+          file_name: data.doc_file_name,
+          file_path: data.doc_path_file,
+          ticket_status: data.ticket_status,
+          ticket_date: data.ticket_date,
+          remarks: data.remarks,
+          wo_status: data.wo_status,
+          claim_status: data.claim_status,
+          change_vehicle_status: data.change_vehicle_status,
+          fm_fleet_mstr_id: data.fm_fleet_mstr_id,
+          license_plate_no: data.license_plate_no,
+          fm_driver_id: data.fm_driver_id,
+          fm_driver_id2: data.fm_driver_id2,
+          lastupdatestamp: record.lastupdatestamp
+        }
+
+        this.$refs.Modal_Ticket._show();
+      });
+    },
     Onticket_categoryChange(data) {
       this.M_Ticket.ticket_category = data.id
       this.M_Ticket.ticket_categoryLabel = data.label
@@ -1215,40 +1290,98 @@ data() {
           ress => {
             if (ress.value) {
               this.$validator.errors.clear("M_Ticket");
-              var param = {
-                option_url: "/OP/OP_Order",
-                line_no: 3,
-                ss_portfolio_id: this.getDataUser().portfolio_id,
-                op_order_id: this.paramFromList.row_id,
-                ticket_date: new Date(),
-                op_ticket_category_id: this.M_Ticket.ticket_category,
-                descs: this.M_Ticket.descs,
-                doc_file_name: this.M_Ticket.file_name,
-                doc_path_file: this.M_Ticket.file_path,
-                remarks: '',
-                wo_status: '',
-                claim_status: '',
-                change_vehicle_status: '',
-                fm_fleet_mstr_id: this.M_DataPost.fm_fleet_mstr_id,
-                license_plate_no: this.M_DataPost.license_plate_no,
-                fm_driver_id: this.M_DataPost.fm_driver_id,
-                fm_driver_id2: this.M_DataPost.fm_driver_id2,
-                user_input: this.getDataUser().user_id
-              };
+              var param = {}
+              if (this.M_Ticket.op_order_ticket_id && this.M_Ticket.op_order_ticket_id !== '') {
+                param = {
+                  option_url: "/OP/OP_Order",
+                  line_no: 3,
+                  op_order_ticket_id: this.M_Ticket.op_order_ticket_id,
+                  ss_portfolio_id: this.getDataUser().portfolio_id,
+                  op_order_id: this.paramFromList.row_id,
+                  ticket_no: this.M_Ticket.ticket_no,
+                  ticket_date: this.M_Ticket.ticket_date,
+                  op_ticket_category_id: this.M_Ticket.ticket_category,
+                  descs: this.M_Ticket.ticket_descs,
+                  doc_file_name: this.M_Ticket.file_name,
+                  doc_path_file: this.M_Ticket.file_path,
+                  ticket_status: this.M_Ticket.ticket_status && this.M_Ticket.ticket_status !== '' ? this.M_Ticket.ticket_status : "NULL",
+                  remarks: this.M_Ticket.remarks && this.M_Ticket.remarks !== '' ? this.M_Ticket.remarks : "NULL",
+                  wo_status: this.M_Ticket.wo_status && this.M_Ticket.wo_status !== '' ? this.M_Ticket.wo_status : "NULL",
+                  claim_status: this.M_Ticket.claim_status && this.M_Ticket.claim_status !== '' ? this.M_Ticket.claim_status : "NULL",
+                  change_vehicle_status: this.M_Ticket.change_vehicle_status && this.M_Ticket.change_vehicle_status !== '' ? this.M_Ticket.change_vehicle_status : "NULL",
+                  fm_fleet_mstr_id: this.M_Ticket.fm_fleet_mstr_id && this.M_Ticket.fm_fleet_mstr_id !== '' ? this.M_Ticket.fm_fleet_mstr_id : "NULL",
+                  license_plate_no: this.M_Ticket.license_plate_no && this.M_Ticket.license_plate_no !== '' ? this.M_Ticket.license_plate_no : "NULL",
+                  fm_driver_id: this.M_Ticket.fm_driver_id && this.M_Ticket.fm_driver_id !== '' ? this.M_Ticket.fm_driver_id : "NULL",
+                  fm_driver_id2: this.M_Ticket.fm_driver_id2 && this.M_Ticket.fm_driver_id2 !== '' ? this.M_Ticket.fm_driver_id2 : "NULL",
+                  lastupdatestamp: this.M_Ticket.lastupdatestamp,
+                  user_edit: this.getDataUser().user_id
+                };
 
-              this.postJSON(this.getUrlCRUD(), param).then(response => {
-                if (response == null) return;
-                this.alertSuccess(response.Message).then(() => {
-                  this.$refs.Modal_Ticket._hide();
-                  this.GetDataBy();
+                this.putJSON(this.getUrlCRUD(), param).then(response => {
+                  if (response == null) return;
+                  this.alertSuccess(response.Message).then(() => {
+                    this.$refs.Modal_Ticket._hide();
+                    this.GetDataBy();
+                  });
                 });
-              });
+              }
+              else {
+                param = {
+                  option_url: "/OP/OP_Order",
+                  line_no: 3,
+                  ss_portfolio_id: this.getDataUser().portfolio_id,
+                  op_order_id: this.paramFromList.row_id,
+                  ticket_date: new Date(),
+                  op_ticket_category_id: this.M_Ticket.ticket_category,
+                  descs: this.M_Ticket.ticket_descs,
+                  doc_file_name: this.M_Ticket.file_name,
+                  doc_path_file: this.M_Ticket.file_path,
+                  remarks: 'NULL',
+                  wo_status: 'NULL',
+                  claim_status: 'NULL',
+                  change_vehicle_status: 'NULL',
+                  fm_fleet_mstr_id: this.M_DataPost.fm_fleet_mstr_id,
+                  license_plate_no: this.M_DataPost.license_plate_no,
+                  fm_driver_id: this.M_DataPost.fm_driver_id,
+                  fm_driver_id2: this.M_DataPost.fm_driver_id2,
+                  user_input: this.getDataUser().user_id
+                };
+
+                this.postJSON(this.getUrlCRUD(), param).then(response => {
+                  if (response == null) return;
+                  this.alertSuccess(response.Message).then(() => {
+                    this.$refs.Modal_Ticket._hide();
+                    this.GetDataBy();
+                  });
+                });
+              }
             }
           }
         );
       });
     },
     doCreateConsole() {},
+    doCosting() {
+      var param = this.M_DataPost;
+      param.isEdit = false;
+
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "OP_PlanExecutionCosting" });
+    },
+    doExtraPict() {
+      var param = this.paramFromList;
+      param.isEdit = false;
+      param.isPick = true;
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "OP_PlanExecutionPickDrop" });
+    },
+    doExtraDrop() {
+      var param = this.paramFromList;
+      param.isEdit = false;
+      param.isPick = false;
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "OP_PlanExecutionPickDrop" });
+    },
     doBack() {
       this.$router.go(-1);
     },
