@@ -13,6 +13,10 @@ import OP_PlanExecutionSL from '@/views/OP/OP_PlanExecution/OP_PlanExecutionSL'
 import OP_PlanExecutionFL from '@/views/OP/OP_PlanExecution/OP_PlanExecutionFL'
 import OP_PlanExecutionGO from '@/views/OP/OP_PlanExecution/OP_PlanExecutionGO'
 import OP_PlanExecutionAD from '@/views/OP/OP_PlanExecution/OP_PlanExecutionAD'
+import OP_PlanExecutionSU from '@/views/OP/OP_PlanExecution/OP_PlanExecutionSU'
+import OP_PlanExecutionFU from '@/views/OP/OP_PlanExecution/OP_PlanExecutionFU'
+import OP_PlanExecutionGD from '@/views/OP/OP_PlanExecution/OP_PlanExecutionGD'
+import OP_PlanExecutionPOD from '@/views/OP/OP_PlanExecution/OP_PlanExecutionPOD'
 import OP_PlanExecutionCosting from '@/views/OP/OP_PlanExecution/OP_PlanExecutionCosting'
 import OP_PlanExecutionPickDrop from '@/views/OP/OP_PlanExecution/OP_PlanExecutionPickDrop'
 
@@ -347,6 +351,38 @@ export const OPRender = {
             path: '/OP/PlanExecution/AD',
             name: 'OP_PlanExecutionAD',
             component: OP_PlanExecutionAD,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/PlanExecution/SU',
+            name: 'OP_PlanExecutionSU',
+            component: OP_PlanExecutionSU,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/PlanExecution/FU',
+            name: 'OP_PlanExecutionFU',
+            component: OP_PlanExecutionFU,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/PlanExecution/GD',
+            name: 'OP_PlanExecutionGD',
+            component: OP_PlanExecutionGD,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/PlanExecution/POD',
+            name: 'OP_PlanExecutionPOD',
+            component: OP_PlanExecutionPOD,
             meta: {
                 requiresAuth: true
             }

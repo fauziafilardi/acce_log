@@ -47,7 +47,7 @@
                     <b-row>
                       <b-col>
                         <span style="font-size: 15px; font-weight: bold;">
-                          {{M_SL_Plan.customer_name}}
+                          {{M_FU_Plan.customer_name}}
                         </span>
                       </b-col>
                       <b-col style="text-align: right;">
@@ -65,15 +65,15 @@
                     <b-row class="row-view" style="padding-top: 5px; padding-bottom: 10px;">
                       <b-col>
                         <span>
-                          <font-awesome-icon class="icon-style-default" icon="user" />&nbsp;&nbsp; {{M_SL_Plan.contact_person}}
+                          <font-awesome-icon class="icon-style-default" icon="user" />&nbsp;&nbsp; {{M_FU_Plan.contact_person}}
                         </span> &nbsp;&nbsp;
                         <span>
-                          <font-awesome-icon class="icon-style-default" icon="phone-square-alt" />&nbsp;&nbsp; {{M_SL_Plan.contact_person_phone_no}}
+                          <font-awesome-icon class="icon-style-default" icon="phone-square-alt" />&nbsp;&nbsp; {{M_FU_Plan.contact_person_phone_no}}
                         </span>
                       </b-col>
                       <b-col style="text-align: right;">
                         <span>
-                          <font-awesome-icon class="icon-style-default" icon="user" />&nbsp;&nbsp;User : {{M_SL_Plan.user}}
+                          <font-awesome-icon class="icon-style-default" icon="user" />&nbsp;&nbsp;User : {{M_FU_Plan.user}}
                         </span>
                       </b-col>
                     </b-row>
@@ -84,52 +84,52 @@
                             <li class="active" style="width: 10% !important;">
                                 <span>Order</span>
                                 <br />
-                                <span>{{this.M_SL_Plan.order_date}}</span>
+                                <span>{{this.M_FU_Plan.order_date}}</span>
                             </li>
                             <li class="active" style="width: 10% !important;">
                                 <span>Assign</span>
                                 <br />
-                                <span>{{this.M_SL_Plan.assign_date}}</span>
+                                <span>{{this.M_FU_Plan.assign_date}}</span>
                             </li>
                             <li class="active" style="width: 10% !important;">
                                 <span>Dispatch</span>
                                 <br />
-                                <span>{{this.M_SL_Plan.dispatch_date}}</span>
+                                <span>{{this.M_FU_Plan.dispatch_date}}</span>
                             </li>
                             <li class="active" style="width: 10% !important;">
                                 <span>Arrived</span>
                                 <br />
-                                <span>{{this.M_SL_Plan.arrival_date}}</span>
+                                <span>{{this.M_FU_Plan.arrival_date}}</span>
                             </li>
                             <li class="active" style="width: 10% !important;">
                                 <span>Start Loading</span>
                                 <br />
-                                <span>{{this.M_SL_Plan.start_loading_date}}</span>
+                                <span>{{this.M_FU_Plan.start_loading_date}}</span>
                             </li>
-                            <li style="width: 10% !important;">
+                            <li class="active" style="width: 10% !important;">
                                 <span>Finish Loading</span>
                                 <br />
-                                <span>{{this.M_SL_Plan.finish_loading_date}}</span>
+                                <span>{{this.M_FU_Plan.finish_loading_date}}</span>
                             </li>
-                            <li style="width: 10% !important;">
+                            <li class="active" style="width: 10% !important;">
                                 <span>Get Out</span>
                                 <br />
-                                <span>{{this.M_SL_Plan.get_out_arrival_date}}</span>
+                                <span>{{this.M_FU_Plan.get_out_arrival_date}}</span>
                             </li>
-                            <li style="width: 10% !important;">
+                            <li class="active" style="width: 10% !important;">
                                 <span>Arrive Destination</span>
                                 <br />
-                                <span>{{this.M_SL_Plan.get_out_destination_date}}</span>
+                                <span>{{this.M_FU_Plan.get_out_destination_date}}</span>
                             </li>
-                            <li style="width: 10% !important;">
+                            <li class="active" style="width: 10% !important;">
                                 <span>Start Unloading</span>
                                 <br />
-                                <span>{{this.M_SL_Plan.start_unloading_date}}</span>
+                                <span>{{this.M_FU_Plan.start_unloading_date}}</span>
                             </li>
-                            <li style="width: 10% !important;">
+                            <li class="active" style="width: 10% !important;">
                                 <span>Finish Unloading</span>
                                 <br />
-                                <span>{{this.M_SL_Plan.finish_unloading_date}}</span>
+                                <span>{{this.M_FU_Plan.finish_unloading_date}}</span>
                             </li>
                           </ul>
                         </div>
@@ -145,35 +145,35 @@
                           >
                             <span>Order Number</span>
                             <br />
-                            <span style="color: rgb(153 153 153)">{{M_SL_Plan.order_no}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_FU_Plan.order_no}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span>Date</span>
                             <br />
-                            <span style="color: rgb(153 153 153)">{{M_SL_Plan.date}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_FU_Plan.date}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span>Category</span>
                             <br />
-                            <span style="color: rgb(153 153 153)">{{M_SL_Plan.category_descs}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_FU_Plan.category_descs}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span>From</span>
                             <br />
-                            <span style="color: rgb(153 153 153)">{{M_SL_Plan.from}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_FU_Plan.from}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span>To</span>
                             <br />
-                            <span style="color: rgb(153 153 153)">{{M_SL_Plan.to}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_FU_Plan.to}}</span>
                           </b-col>
                         </b-row>
                         <b-row style="border: solid 1px #e7eaec;border-radius: 0px 0px 5px 5px;">
@@ -182,31 +182,31 @@
                           >
                             <span>Pick Up Date</span>
                             <br />
-                            <span style="color: rgb(153 153 153)">{{M_SL_Plan.pickup_date}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_FU_Plan.pickup_date}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span>KGS</span>
                             <br />
-                            <span style="color: rgb(153 153 153)">{{M_SL_Plan.kgs}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_FU_Plan.kgs}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span>CBM</span>
                             <br />
-                            <span style="color: rgb(153 153 153)">{{M_SL_Plan.cbm}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_FU_Plan.cbm}}</span>
                           </b-col>
                           <b-col style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;">
                             <span>Vehicle Type</span>
                             <br />
-                            <span style="color: rgb(153 153 153)">{{M_SL_Plan.fleet_type_descs}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_FU_Plan.fleet_type_descs}}</span>
                           </b-col>
                           <b-col style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;" >
                             <span>Vehicle Number</span>
                             <br />
-                            <span style="color: rgb(153 153 153)">{{M_SL_Plan.plat_no}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_FU_Plan.plat_no}}</span>
                           </b-col>
                         </b-row>
                       </b-col>
@@ -229,7 +229,7 @@
                           <b-col style="margin: auto;">
                             <span class="AppointmentTitle">Driver</span>
                             <br />
-                            <span class="AppointmentDescs">{{M_SL_Plan.driver1}}</span>
+                            <span class="AppointmentDescs">{{M_FU_Plan.driver1}}</span>
                           </b-col>
                         </b-row>
                       </b-col>
@@ -242,12 +242,12 @@
                               <b-list-group-item>
                                 <span>From :</span>
                                 <br />
-                                <span style="color: rgb(153 153 153)">{{M_SL_Plan.from_address}}</span>
+                                <span style="color: rgb(153 153 153)">{{M_FU_Plan.from_address}}</span>
                               </b-list-group-item>
                               <b-list-group-item>
                                 <span>To :</span>
                                 <br />
-                                <span style="color: rgb(153 153 153)">{{M_SL_Plan.to_address}}</span>
+                                <span style="color: rgb(153 153 153)">{{M_FU_Plan.to_address}}</span>
                               </b-list-group-item>
                             </b-list-group>
                           </b-col>
@@ -255,80 +255,77 @@
                         <b-row>
                           <b-col md="12" style="padding-left: 0px !important;">
                             <span>
-                              <label>Finish Loading Date</label>
+                              <label>Get Out Destination</label>
                             </span>
                             <ACCDateTime
-                              @input="Onfinish_loading_date_Change"
-                              :prop="PI_finish_loading_date"
-                              v-model="M_PlanExe.finish_loading_date"
-                              ref="ref_finish_loading_date"
+                              @input="Onget_out_destination_Change"
+                              :prop="PI_get_out_destination"
+                              v-model="M_PlanExe.get_out_destination"
+                              ref="ref_get_out_destination"
                             />
                           </b-col>
                         </b-row>
-                        <b-row>
+                        <b-row class="row-view">
                             <b-col md="12" style="padding-left: 0px !important;">
                                 <span>
                                     <label>Comodity</label>
                                 </span>
-                                <ACCDropDown
+                                <!-- <ACCDropDown
                                     @change="OncomodityChange"
                                     :prop="PI_comodity"
                                     v-model="M_PlanExe.comodity"
                                     :label="M_PlanExe.comodityLabel"
                                     :ref="'ref_comodity'"
-                                />
+                                /> -->
+                                <br>
+                                <span>
+                                  <label>{{M_FU_Plan.loading_comodity}}</label>
+                                </span>
                             </b-col>
                         </b-row>
-                        <b-row>
+                        <b-row class="row-view">
                             <b-col md="4" style="padding-left: 0px !important;">
                                 <span>
                                     <label>Total Item</label>
                                 </span>
-                                <ACCTextBox
+                                <!-- <ACCTextBox
                                     :prop="PI_total_item"
                                     v-model="M_PlanExe.total_item"
                                     ref="ref_total_item"
-                                />
+                                /> -->
+                                <br>
+                                <span>
+                                  <label>{{M_FU_Plan.loading_total_item}}</label>
+                                </span>
                             </b-col>
                             <b-col md="4" style="padding-left: 0px !important;">
                                 <span>
                                     <label>KGS</label>
                                 </span>
-                                <ACCTextBox
+                                <!-- <ACCTextBox
                                     :prop="PI_kgs"
                                     v-model="M_PlanExe.kgs"
                                     ref="ref_kgs"
-                                />
+                                /> -->
+                                <br>
+                                <span>
+                                  <label>{{M_FU_Plan.loading_kgs}}</label>
+                                </span>
                             </b-col>
                             <b-col md="4" style="padding-left: 0px !important;">
                                 <span>
                                     <label>CBM</label>
                                 </span>
-                                <ACCTextBox
+                                <!-- <ACCTextBox
                                     :prop="PI_cbm"
                                     v-model="M_PlanExe.cbm"
                                     ref="ref_cbm"
-                                />
+                                /> -->
+                                <br>
+                                <span>
+                                  <label>{{M_FU_Plan.loading_cbm}}</label>
+                                </span>
                             </b-col>
-                        </b-row>
-                        <b-row>
-                          <b-col md="12" style="padding-left: 0px !important;">
-                            <span>
-                              <label>Note</label>
-                            </span>
-                            <ACCTextArea :prop="PI_note" v-model="M_PlanExe.note" ref="ref_note" />
-                          </b-col>
-                        </b-row>
-                        <b-row style="margin-top: 10px;">
-                          <b-col md="12" style="padding-left: 0px !important;">
-                            <ABSButton
-                              :text="'Finish Loading'"
-                              classButton="btn btn--default"
-                              classIcon="icon-style-default"
-                              @click="doSave"
-                              styleButton="height: 40px;width: 100%;"
-                            />
-                          </b-col>
                         </b-row>
                       </b-col>
                       <b-col md="6">
@@ -337,8 +334,139 @@
                         </div>
                       </b-col>
                     </b-row>
+                    <b-row>
+                        <b-col class="row-bordered" md="6">
+                            <b-row>
+                                <b-col style="margin-right: 10px !important;">
+                                    <span style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;">
+                                        Delivered
+                                    </span>
+                                </b-col>
+                            </b-row>
+                            <b-row class="row-view">
+                                <b-col md="4">
+                                    <span>
+                                        <label>Total Item</label>
+                                    </span>
+                                    <!-- <ACCTextBox
+                                        :prop="PI_total_item"
+                                        v-model="M_PlanExe.total_delivered_item"
+                                        ref="ref_total_item"
+                                    /> -->
+                                    <br>
+                                    <span>
+                                        <label>{{M_FU_Plan.total_delivered_item}}</label>
+                                    </span>
+                                </b-col>
+                                <b-col md="4">
+                                    <span>
+                                        <label>KGS</label>
+                                    </span>
+                                    <!-- <ACCTextBox
+                                        :prop="PI_kgs"
+                                        v-model="M_PlanExe.total_delivered_kgs"
+                                        ref="ref_kgs"
+                                    /> -->
+                                    <br>
+                                    <span>
+                                        <label>{{M_FU_Plan.total_delivered_kgs}}</label>
+                                    </span>
+                                </b-col>
+                                <b-col md="4">
+                                    <span>
+                                        <label>CBM</label>
+                                    </span>
+                                    <!-- <ACCTextBox
+                                        :prop="PI_cbm"
+                                        v-model="M_PlanExe.total_delivered_cbm"
+                                        ref="ref_cbm"
+                                    /> -->
+                                    <br>
+                                    <span>
+                                        <label>{{M_FU_Plan.total_delivered_cbm}}</label>
+                                    </span>
+                                </b-col>
+                            </b-row>
+                        </b-col>
+                        <b-col md="6" class="row-bordered">
+                            <b-row>
+                                <b-col md="2">
+                                    <span style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;">
+                                        Return Empty
+                                    </span>
+                                </b-col>
+                                <b-col>
+                                    <b-form-checkbox
+                                        @change="return_empty_change"
+                                        v-model="M_PlanExe.return_empty"
+                                        name="check-button"
+                                        switch
+                                        size="lg"
+                                    />
+                                </b-col>
+                            </b-row>
+                            <b-row>
+                                <b-col md="12">
+                                    <span>
+                                        <label>Return To</label>
+                                    </span>
+                                    <ACCDropDown
+                                        @change="Onreturn_empty_toChange"
+                                        :prop="PI_return_empty_to"
+                                        v-model="M_PlanExe.return_empty_to"
+                                        :label="M_PlanExe.return_empty_toLabel"
+                                        ref="ref_return_empty_to"
+                                    />
+                                </b-col>
+                            </b-row>
+                        </b-col>
+                    </b-row>
+                    <b-row>
+                        <b-col md="6">
+                            <b-row>
+                                <b-col>
+                                    <span>
+                                        <label>Note</label>
+                                    </span>
+                                    <ACCTextArea :prop="PI_note" v-model="M_PlanExe.note" ref="ref_note" />
+                                </b-col>
+                            </b-row>
+                            <b-row>
+                                <b-col>
+                                    <ABSButton
+                                        :text="'Get Out Destination'"
+                                        classButton="btn btn--default"
+                                        classIcon="icon-style-default"
+                                        @click="doSave"
+                                        styleButton="height: 40px;width: 100%;"
+                                    />
+                                </b-col>
+                            </b-row>
+                        </b-col>
+                        <b-col class="row-bordered">
+                        <b-row>
+                            <b-col>
+                                <span style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;">
+                                    Current KM
+                                </span>
+                            </b-col>
+                        </b-row>
+                        <b-row>
+                            <b-col md="6">
+                                <span>
+                                    <label>Current KM</label>
+                                </span>
+                                <ACCTextBox
+                                    :prop="PI_current_km"
+                                    v-model="M_PlanExe.current_km"
+                                    ref="ref_current_km"
+                                />
+                            </b-col>
+                        </b-row>
+                        </b-col>
+                    </b-row>
 
-                    <b-row class="row-bordered" style="margin-top: 10px;" v-show="M_SL_Plan.category == 'C'">
+                    <b-row class="row-bordered" style="margin-top: 10px;" v-show="M_FU_Plan.category == 'C'">
                       <b-col md="12">
                         <b-row>
                           <b-col md="1">
@@ -555,61 +683,9 @@
                                 </b-row>
                             </b-col>
                           </template>
-                            <!-- <b-col style="margin-right: 5px;">
-                                <b-row class="row-bordered">
-                                  <b-col style="text-align: center;">
-                                    <span style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;">
-                                      1. Surat Jalan
-                                    </span>
-                                    <br /><br /><br />
-                                    <font-awesome-icon
-                                      icon="plus-circle"
-                                      class="icon-style-default"
-                                      size="4x"
-                                    />
-                                    <br /><br />
-                                    Upload Document
-                                  </b-col>
-                                </b-row>
-                            </b-col>
-                            <b-col style="margin-right: 5px;">
-                                <b-row class="row-bordered">
-                                  <b-col style="text-align: center;">
-                                    <span style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;">
-                                      2. Shipping Instruction
-                                    </span>
-                                    <br /><br /><br />
-                                    <font-awesome-icon
-                                      icon="plus-circle"
-                                      class="icon-style-default"
-                                      size="4x"
-                                    />
-                                    <br /><br />
-                                    Upload Document
-                                  </b-col>
-                                </b-row>
-                            </b-col>
-                            <b-col>
-                                <b-row class="row-bordered">
-                                  <b-col style="text-align: center;">
-                                    <span style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;">
-                                      3. Delivery Order
-                                    </span>
-                                    <br /><br /><br />
-                                    <font-awesome-icon
-                                      icon="plus-circle"
-                                      class="icon-style-default"
-                                      size="4x"
-                                    />
-                                    <br /><br />
-                                    Upload Document
-                                  </b-col>
-                                </b-row>
-                            </b-col> -->
                         </b-row>
                       </b-col>
                     </b-row>
-
                   </b-col>
                 </b-row>
               </b-form>
@@ -745,9 +821,9 @@ data() {
           file_name: "",
           file_path: ""
         },
-        PI_finish_loading_date: {
+        PI_get_out_destination: {
             cValidate: "required",
-            cName: "finish_loading_date",
+            cName: "get_out_destination",
             cOrder: 1,
             cKey: false,
             cProtect: false,
@@ -810,10 +886,43 @@ data() {
             cDecimal: 2,
             cInputStatus: this.inputStatus
         },
+        PI_return_empty_to: {
+            dataLookUp: {
+                LookUpCd:'GetPortfolioDeliveryAddress',
+                ColumnDB:'cm_contact_delivery_address_id',
+                InitialWhere:"ss_portfolio_id='" + this.getDataUser().portfolio_id + "'",
+                ParamWhere:'',
+                OrderBy:'',
+                ParamView:'',
+                SourceField:'',
+                DisplayLookUp:'title'
+            },
+            cValidate: "required",
+            cName: "comodity",
+            ckey: false,
+            cOrder: 3,
+            cProtect: true,
+            cParentForm: "OP_SL_PlanExecution",
+            cStatic: false,
+            cOption: [],
+            cDisplayColumn: "title",
+            cInputStatus: "new"
+        },
+        PI_current_km: {
+            cValidate: "required",
+            cName: "current_km",
+            cOrder: 4,
+            cKey: false,
+            cType: "numeric",
+            cProtect: false,
+            cParentForm: "OP_SL_PlanExecution",
+            cDecimal: 2,
+            cInputStatus: this.inputStatus
+        },
         PI_note: {
             cValidate: "",
             cName: "note",
-            cOrder: 6,
+            cOrder: 2,
             cKey: false,
             cProtect: false,
             cResize: false,
@@ -828,7 +937,7 @@ data() {
           file: ''
         },
         M_DataPost: {},
-        M_SL_Plan: {
+        M_FU_Plan: {
             cm_contact_id: "",
             customer_name: "",
             cm_contact_person_id: "",
@@ -842,6 +951,10 @@ data() {
             category_descs: "",
             from: "",
             to: "",
+            loading_comodity: "",
+            loading_total_item: "",
+            loading_kgs: "",
+            loading_cbm: "",
             fm_driver_id1: "",
             driver1: "",
             pickup_date: "",
@@ -855,12 +968,11 @@ data() {
             to_address: "",
         },
         M_PlanExe: {
-            finish_loading_date: "",
-            comodity: "",
-            comodityLabel: "",
-            total_item: "",
-            kgs: "",
-            cbm: "",
+            get_out_destination: new Date(),
+            return_empty: false,
+            return_empty_to: "",
+            return_empty_toLabel: "",
+            current_km: "",
             note: ""
         },
         PlanConsole_H: [
@@ -1113,6 +1225,23 @@ data() {
         this.M_PlanExe.comodity = data.id;
         this.M_PlanExe.comodityLabel = data.label;
     },
+    return_empty_change(data) {
+        console.log(data)
+        if (data) {
+            this.PI_return_empty_to.cProtect = false
+            this.PI_return_empty_to.cValidate = 'required'
+        }
+        else {
+            this.PI_return_empty_to.cProtect = true
+            this.PI_return_empty_to.cValidate = ''
+            this.M_PlanExe.return_empty_to = ''
+            this.M_PlanExe.return_empty_toLabel = ''
+        }
+    },
+    Onreturn_empty_toChange(data) {
+        this.M_PlanExe.return_empty_to = data.id;
+        this.M_PlanExe.return_empty_toLabel = data.label;
+    },
     doSave() {
       this.$validator._base.validateAll("OP_SL_PlanExecution").then(result => {
         if (!result) return;
@@ -1160,12 +1289,12 @@ data() {
         arrival_notes: this.M_DataPost.arrival_notes && this.M_DataPost.arrival_notes !== '' ? this.M_DataPost.arrival_notes : "NULL",
         start_loading_date: this.M_DataPost.start_loading_date && this.M_DataPost.start_loading_date !== '' ? this.M_DataPost.start_loading_date : "NULL",
         start_loading_notes: this.M_DataPost.start_loading_notes && this.M_DataPost.start_loading_notes !== '' ? this.M_DataPost.start_loading_notes : "NULL",
-        cm_commodity_id: this.M_PlanExe.comodity && this.M_PlanExe.comodity !== '' ? this.M_PlanExe.comodity : "NULL", // DARI FORM
-        total_loading_item: this.M_PlanExe.total_item, // DARI FORM
-        total_loading_kgs: this.M_PlanExe.kgs, // DARI FORM
-        total_loading_cbm: this.M_PlanExe.cbm, // DARI FORM
-        finish_loading_date: this.M_PlanExe.finish_loading_date && this.M_PlanExe.finish_loading_date !== '' ? this.M_PlanExe.finish_loading_date : "NULL", // DARI FORM
-        finish_loading_notes: this.M_PlanExe.note, // DARI FORM
+        finish_loading_date: this.M_DataPost.finish_loading_date && this.M_DataPost.finish_loading_date !== '' ? this.M_DataPost.finish_loading_date : "NULL",
+        cm_commodity_id: this.M_DataPost.cm_commodity_id && this.M_DataPost.cm_commodity_id !== '' ? this.M_DataPost.cm_commodity_id : "NULL",
+        total_loading_item: this.M_DataPost.total_loading_item && this.M_DataPost.total_loading_item !== '' ? this.M_DataPost.total_loading_item : "NULL",
+        total_loading_kgs: this.M_DataPost.total_loading_kgs && this.M_DataPost.total_loading_kgs !== '' ? this.M_DataPost.total_loading_kgs : "NULL",
+        total_loading_cbm: this.M_DataPost.total_loading_cbm && this.M_DataPost.total_loading_cbm !== '' ? this.M_DataPost.total_loading_cbm : "NULL",
+        finish_loading_notes: this.M_DataPost.finish_loading_notes && this.M_DataPost.finish_loading_notes !== '' ? this.M_DataPost.finish_loading_notes : "NULL",
         get_out_arrival_date: this.M_DataPost.get_out_arrival_date && this.M_DataPost.get_out_arrival_date !== '' ? this.M_DataPost.get_out_arrival_date : "NULL",
         get_out_arrival_notes: this.M_DataPost.get_out_arrival_notes && this.M_DataPost.get_out_arrival_notes !== '' ? this.M_DataPost.get_out_arrival_notes : "NULL",
         arrival_destination_date: this.M_DataPost.arrival_destination_date && this.M_DataPost.arrival_destination_date !== '' ? this.M_DataPost.arrival_destination_date : "NULL",
@@ -1175,12 +1304,12 @@ data() {
         total_delivered_item: this.M_DataPost.total_delivered_item && this.M_DataPost.total_delivered_item !== '' ? this.M_DataPost.total_delivered_item : "NULL",
         total_delivered_kgs: this.M_DataPost.total_delivered_kgs && this.M_DataPost.total_delivered_kgs !== '' ? this.M_DataPost.total_delivered_kgs : "NULL",
         total_delivered_cbm: this.M_DataPost.total_delivered_cbm && this.M_DataPost.total_delivered_cbm !== '' ? this.M_DataPost.total_delivered_cbm : "NULL",
-        finish_unloading_date: this.M_DataPost.finish_unloading_date && this.M_DataPost.finish_unloading_date !== '' ? this.M_DataPost.finish_unloading_date : "NULL",
         finish_unloading_notes: this.M_DataPost.finish_unloading_notes && this.M_DataPost.finish_unloading_notes !== '' ? this.M_DataPost.finish_unloading_notes : "NULL",
-        get_out_destination_date: this.M_DataPost.get_out_destination_date && this.M_DataPost.get_out_destination_date !== '' ? this.M_DataPost.get_out_destination_date : "NULL",
-        return_empty_to: this.M_DataPost.return_empty_to && this.M_DataPost.return_empty_to !== '' ? this.M_DataPost.return_empty_to : "NULL",
-        get_out_destination_km: this.M_DataPost.get_out_destination_km && this.M_DataPost.get_out_destination_km !== '' ? this.M_DataPost.get_out_destination_km : "NULL",
-        get_out_destination_notes: this.M_DataPost.get_out_destination_notes && this.M_DataPost.get_out_destination_notes !== '' ? this.M_DataPost.get_out_destination_notes : "NULL",
+        finish_unloading_date: this.M_DataPost.finish_unloading_date && this.M_DataPost.finish_unloading_date !== '' ? this.M_DataPost.finish_unloading_date : "NULL",
+        get_out_destination_date: this.M_PlanExe.get_out_destination && this.M_PlanExe.get_out_destination !== '' ? this.M_PlanExe.get_out_destination : "NULL", // DARI FORM
+        return_empty_to: this.M_PlanExe.return_empty_to && this.M_PlanExe.return_empty_to !== '' ? this.M_PlanExe.return_empty_to : "NULL",
+        get_out_destination_km: this.M_PlanExe.current_km && this.M_PlanExe.current_km !== '' ? this.M_PlanExe.current_km : "NULL",
+        get_out_destination_notes: this.M_PlanExe.note && this.M_PlanExe.note !== '' ? this.M_PlanExe.note : "NULL",
         ref_op_order_id: this.M_DataPost.ref_op_order_id && this.M_DataPost.ref_op_order_id !== '' ? this.M_DataPost.ref_op_order_id : "NULL",
         ref_op_order_no: this.M_DataPost.ref_op_order_no && this.M_DataPost.ref_op_order_no !== '' ? this.M_DataPost.ref_op_order_no : "NULL",
         total_order_amt: this.M_DataPost.total_order_amt && this.M_DataPost.total_order_amt !== '' ? this.M_DataPost.total_order_amt : "NULL",
@@ -1391,12 +1520,11 @@ data() {
     },
     M_ClearForm() {
       this.M_PlanExe = {
-        finish_loading_date: new Date(),
-        comodity: "",
-        comodityLabel: "",
-        total_item: "",
-        kgs: "",
-        cbm: "",
+        get_out_destination: new Date(),
+        return_empty: false,
+        return_empty_to: "",
+        return_empty_toLabel: "",
+        current_km: "",
         note: ""
       }
     },
@@ -1416,7 +1544,7 @@ data() {
         this.M_DataPost = data;
         console.log(data)
         
-        this.M_SL_Plan = {
+        this.M_FU_Plan = {
             cm_contact_id: data.cm_contact_id,
             customer_name: data.customer_name,
             cm_contact_person_id: data.cm_contact_person_id,
@@ -1430,6 +1558,13 @@ data() {
             category_descs: data.category_descs,
             from: data.from_zone,
             to: data.to_zone,
+            loading_comodity: data.commodity_descs,
+            loading_total_item: data.total_loading_item && data.total_loading_item !== '' ? data.total_loading_item : 0,
+            loading_kgs: data.total_loading_kgs && data.total_loading_kgs !== '' ? data.total_loading_kgs : 0,
+            loading_cbm: data.total_loading_cbm && data.total_loading_cbm !== '' ? data.total_loading_cbm : 0,
+            total_delivered_item: data.total_delivered_item && data.total_delivered_item !== '' ? data.total_delivered_item : 0,
+            total_delivered_kgs: data.total_delivered_kgs && data.total_delivered_kgs !== '' ? data.total_delivered_kgs : 0,
+            total_delivered_cbm:  data.total_delivered_cbm && data.total_delivered_cbm !== '' ? data.total_delivered_cbm : 0,
             fm_driver_id1: data.fm_driver_id,
             driver1: data.driver_name,
             pickup_date: this.momentDateFormatting(data.pickup_date, "YYYY-MM-DD HH:mm"),

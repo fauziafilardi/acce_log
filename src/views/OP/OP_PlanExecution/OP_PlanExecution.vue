@@ -176,6 +176,8 @@ export default {
         AD: { key: "AD", label: "Arrive Destination", variant: "Gold" },
         SU: { key: "SU", label: "Start Unloading", variant: "LightGreen" },
         FU: { key: "FU", label: "Finish Unloading", variant: "Pink" },
+        GD: { key: "GD", label: "Get Out", variant: "Red" },
+        POD: { key: "POD", label: "POD", variant: "LightGreen" },
       },
     };
   },
@@ -212,13 +214,16 @@ export default {
           this.$router.push({ name: "OP_PlanExecutionAD" });
           break;
         case "SU":
-          // code block
+          this.$router.push({ name: "OP_PlanExecutionSU" });
           break;
         case "FU":
-          // code block
+          this.$router.push({ name: "OP_PlanExecutionFU" });
+          break;
+        case "GD":
+          this.$router.push({ name: "OP_PlanExecutionGD" });
           break;
         case "POD":
-          // code block
+          this.$router.push({ name: "OP_PlanExecutionPOD" });
           break;
         default:
           this.$router.push({ name: "OP_ViewPlanExecution" });
