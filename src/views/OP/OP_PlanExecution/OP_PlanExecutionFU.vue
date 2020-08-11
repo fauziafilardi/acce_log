@@ -589,7 +589,7 @@
                               Costing
                             </span>
                           </b-col>
-                          <b-col>
+                          <b-col v-show="M_DataPost.cost_over_status == 'Y'">
                             <font-awesome-icon
                               icon="exclamation-circle"
                               class="icon-style-default"
@@ -1201,7 +1201,26 @@ data() {
         }
       );
     },
-    doDeleteConsole(record, index) {},
+    doDeleteConsole(record, index) {
+      this.alertConfirmation("Are You Sure Want To Delete This Data ?").then(
+        (ress) => {
+          if (ress.value) {
+            var param = {
+              option_url: "/OP/OP_Order",
+              line_no: 5,
+              id: record.row_id,
+              lastupdatestamp: record.lastupdatestamp,
+            };
+            this.deleteJSON(this.getUrlCRUD(), param).then((response) => {
+              if (response == null) return;
+              this.alertSuccess("Data Has Been Deleted").then(() => {
+                this.GetDataBy();
+              });
+            });
+          }
+        }
+      );
+    },
     Onarrive_date_Change(data) {},
     onDocChange(data, index) {
       this.PlanDocument[index].doc_file_name = data.name;
@@ -1488,7 +1507,13 @@ data() {
         );
       });
     },
-    doCreateConsole() {},
+    doCreateConsole() {
+      var param = this.M_DataPost;
+      param.isEdit = false;
+
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "OP_PlanExecutionConsole" });
+    },
     doCosting() {
       var param = this.M_DataPost;
       param.isEdit = false;

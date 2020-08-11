@@ -113,7 +113,7 @@
 
           <!-- <template v-for="l in fieldHeader"> -->
             <template v-slot:[`cell(${l.key})`]="data" v-for="l in fieldHeader">
-              <template v-if="l.key == 'row_id'">
+              <template v-if="l.key == 'row_id' && !WithRowId">
                 <ABSButton
                   v-show="(ButtonStatus == null ? false : ButtonStatus.btnView) || WithViewButton"
                   :text="'View'"
@@ -148,6 +148,9 @@
                 </b-button> -->
                 <!-- <span v-if="WithViewButton == false && WithDeleteButton == false">{{data.item.row_id}}</span> -->
               </template>
+              <!-- <template v-else-if="l.key == 'row_id' && WithRowId">
+                
+              </template> -->
               <template v-else>
                 <slot :name="`${l.key}`" :item="data.item"></slot>
 
@@ -487,6 +490,7 @@
 export default {
   props: {
     prop: {
+      OptionUrl: String,
       initialWhere: String,
       LineNo: Number,
       PageLevel: String,
@@ -505,7 +509,8 @@ export default {
     cShowNumber: Boolean,
     urlAdd: String,
     WithViewButton: Boolean,
-    WithDeleteButton: Boolean
+    WithDeleteButton: Boolean,
+    WithRowId: Boolean
   },
   data() {
     return {
@@ -1041,7 +1046,7 @@ export default {
       // }
 
       var param = {
-        option_url: this.getOptionUrl(),
+        option_url: this.prop.OptionUrl,
         line_no: this.prop.LineNo,
         user_id: this.getDataUser().user_id,
         portfolio_id: this.getDataUser().portfolio_id,
@@ -1057,7 +1062,7 @@ export default {
 
       var url = this.getUrlList()
 
-      if(this.getOptionUrl() == "/ADM/ADM_UserManagement") {
+      if(this.prop.OptionUrl == "/ADM/ADM_UserManagement") {
         // param = {
         //   current_page: this.currentPage,
         //   per_page: this.perPage,
@@ -1296,7 +1301,9 @@ export default {
                 );
               } else {
                 if (labelHeader.includes(data.key)) {
-                  if (labelHeader == "Row Id" && (!this.WithViewButton && !this.WithDeleteButton)) continue;
+                  if (!this.WithRowId) {
+                    if (labelHeader == "Row Id" && (!this.WithViewButton && !this.WithDeleteButton)) continue;
+                  }
                   // if (labelHeader == 'Row Id' && !this.WithViewButton) {
 
                   // }
@@ -1427,7 +1434,9 @@ export default {
   mounted() {
   },
   created() {
-    this.GetButtonStatus(this.getDataUser().portfolio_id, this.getDataUser().group_id, this.getDataUser().user_id, this.getOptionUrl())
+    this.prop.OptionUrl = this.prop.OptionUrl && this.prop.OptionUrl !== '' ? this.prop.OptionUrl : this.getOptionUrl();
+    
+    this.GetButtonStatus(this.getDataUser().portfolio_id, this.getDataUser().group_id, this.getDataUser().user_id, this.prop.OptionUrl)
     .then(ress => {
       if (ress.length < 1) {
         this.$store.commit("setButtonStatus", null);

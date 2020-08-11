@@ -40,6 +40,7 @@
       :searchable="prop.cFilter"
       :ref="prop.cName"
       :id="prop.cName"
+      :clearable="true"
       @search:focus="onFocus"
       @search="onSearch"
       @clear="onClear"

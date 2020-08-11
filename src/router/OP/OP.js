@@ -17,6 +17,7 @@ import OP_PlanExecutionSU from '@/views/OP/OP_PlanExecution/OP_PlanExecutionSU'
 import OP_PlanExecutionFU from '@/views/OP/OP_PlanExecution/OP_PlanExecutionFU'
 import OP_PlanExecutionGD from '@/views/OP/OP_PlanExecution/OP_PlanExecutionGD'
 import OP_PlanExecutionPOD from '@/views/OP/OP_PlanExecution/OP_PlanExecutionPOD'
+import OP_PlanExecutionConsole from '@/views/OP/OP_PlanExecution/OP_PlanExecutionConsole'
 import OP_PlanExecutionCosting from '@/views/OP/OP_PlanExecution/OP_PlanExecutionCosting'
 import OP_PlanExecutionPickDrop from '@/views/OP/OP_PlanExecution/OP_PlanExecutionPickDrop'
 
@@ -383,6 +384,14 @@ export const OPRender = {
             path: '/OP/PlanExecution/POD',
             name: 'OP_PlanExecutionPOD',
             component: OP_PlanExecutionPOD,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/PlanExecution/Console',
+            name: 'OP_PlanExecutionConsole',
+            component: OP_PlanExecutionConsole,
             meta: {
                 requiresAuth: true
             }

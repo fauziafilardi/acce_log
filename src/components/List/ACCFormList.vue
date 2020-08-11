@@ -1005,6 +1005,8 @@ export default {
   created() {
     this.prop.PerPage = this.prop.PerPage && this.prop.PerPage !== '' ? this.prop.PerPage : 8
     this.perPage = this.prop.PerPage
+
+    this.prop.OptionUrl = this.prop.OptionUrl && this.prop.OptionUrl !== '' ? this.prop.OptionUrl : this.getOptionUrl();
     
     this.cStatic = this.cStatic == undefined || !this.cStatic ? false : this.cStatic
 
@@ -1013,7 +1015,7 @@ export default {
       this.items = this.cData
     }
 
-    this.GetButtonStatus(this.getDataUser().portfolio_id, this.getDataUser().group_id, this.getDataUser().user_id, this.getOptionUrl())
+    this.GetButtonStatus(this.getDataUser().portfolio_id, this.getDataUser().group_id, this.getDataUser().user_id, this.prop.OptionUrl)
     .then(ress => {
       if (ress.length < 1) {
         this.$store.commit("setButtonStatus", null);
