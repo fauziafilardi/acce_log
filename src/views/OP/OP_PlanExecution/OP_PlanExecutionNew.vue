@@ -945,7 +945,13 @@ export default {
         this.M_PlanExe.vendorLabel = data.label;
       });
     },
-    doCreateConsole(record, index) {},
+    doCreateConsole() {
+      var param = this.M_DataPost;
+      param.isEdit = false;
+
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "OP_PlanExecutionConsole" });
+    },
     doDeleteConsole() {},
     ConsoleClick(record, index) {},
     ListCostingClick(record, index) {

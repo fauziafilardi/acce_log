@@ -1303,7 +1303,13 @@ export default {
       );
     },
     doCreateTicket() {},
-    doCreateConsole() {},
+    doCreateConsole() {
+      var param = this.M_DataPost;
+      param.isEdit = false;
+
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "OP_PlanExecutionConsole" });
+    },
     doBack() {
       this.$router.go(-1);
     },
