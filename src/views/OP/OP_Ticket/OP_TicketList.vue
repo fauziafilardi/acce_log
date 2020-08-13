@@ -38,6 +38,7 @@ export default {
         OrderBy: "ticket_no ASC",
         SourceField: "",
         ParamView: "",
+        ButtonAddDisabled: true,
       },
     };
   },
