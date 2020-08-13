@@ -816,6 +816,13 @@ export default {
     },
   },
   methods: {
+    doCreateConsole() {
+      var param = this.M_DataPost;
+      param.isEdit = false;
+
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "OP_PlanExecutionConsole" });
+    },
     ListCostingClick(record, index) {
       var param = this.M_DataPost;
       param.DetailList = record;

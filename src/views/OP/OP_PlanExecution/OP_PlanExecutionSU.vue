@@ -59,7 +59,7 @@
                             @click="doContact"
                           />
                         </span>
-                        </span>
+                        <!-- </span> -->
                       </b-col>
                     </b-row>
                     <b-row class="row-view" style="padding-top: 5px; padding-bottom: 10px;">
