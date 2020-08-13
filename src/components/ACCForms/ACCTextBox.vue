@@ -368,13 +368,28 @@ export default {
       this.prop.cValidate = false
     }
 
+    this.$validator.extend('less', {
+      getMessage (field, val) {
+        // return 'The ' + field + ' field must be 1 or more.'
+        return 'The ' + field + ' field must less than or equal '+val+'.'
+      },
+      validate (value, field) {
+        // console.log(value, field)
+        if (value > parseInt(field[0])) {
+          return false
+        } else {
+          return true
+        }
+      }
+    })
+
     this.$validator.extend('greater', {
       getMessage (field, val) {
         // return 'The ' + field + ' field must be 1 or more.'
-        return 'The ' + field + ' field must more than 0.'
+        return 'The ' + field + ' field must more than '+val+'.'
       },
       validate (value, field) {
-        if (value <= field) {
+        if (value <= parseInt(field[0])) {
           return false
         } else {
           return true

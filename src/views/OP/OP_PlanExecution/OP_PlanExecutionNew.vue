@@ -38,7 +38,7 @@
               </b-row>
             </div>
             <div class="card__body">
-              <b-form :data-vv-scope="'parent'" :data-vv-value-path="'parent'">
+              <b-form :data-vv-scope="'OP_NW_PlanExecution'" :data-vv-value-path="'OP_NW_PlanExecution'">
                 <b-row>
                   <b-col md="2" style="text-align: center;">
                     <img :src="require('@/assets/paper.png')" alt style="width: 50px;" />
@@ -95,58 +95,58 @@
                       </b-col>
                     </b-row>
                     <b-row>
-                      <b-col>
+                      <b-col style="height: 100px;">
                         <div class="container-step">
                           <ul class="progressbar" style="padding-inline-start: 0px !important;">
-                            <li class="active" style="width: 10% !important;">
-                              <span>Order</span>
+                            <li class="active" style="width: 10% !important; margin-top: 15px;">
+                              <span style="top: -75px; position: relative; font-weight: bold;">Order</span>
                               <br />
-                              <span>{{momentDateFormatting(M_DataPost.order_date, 'DD/MM/YYYY HH:mm')}}</span>
+                              <span style="top: -20px; position: relative;">{{momentDateFormatting(M_DataPost.order_date, 'DD/MM/YYYY HH:mm')}}</span>
                             </li>
-                            <li style="width: 10% !important;">
-                              <span>Assign</span>
+                            <li style="width: 10% !important; margin-top: 15px;">
+                              <span style="top: -75px; position: relative; font-weight: bold;">Assign</span>
                               <br />
-                              <span>{{''}}</span>
+                              <span style="top: -20px; position: relative;">{{''}}</span>
                             </li>
-                            <li style="width: 10% !important;">
-                              <span>Dispatch</span>
+                            <li style="width: 10% !important; margin-top: 15px;">
+                              <span style="top: -75px; position: relative; font-weight: bold;">Dispatch</span>
                               <br />
-                              <span>{{''}}</span>
+                              <span style="top: -20px; position: relative;">{{''}}</span>
                             </li>
-                            <li style="width: 10% !important;">
-                              <span>Arrived</span>
+                            <li style="width: 10% !important; margin-top: 15px;">
+                              <span style="top: -75px; position: relative; font-weight: bold;">Arrived</span>
                               <br />
-                              <span>{{''}}</span>
+                              <span style="top: -20px; position: relative;">{{''}}</span>
                             </li>
-                            <li style="width: 10% !important;">
-                              <span>Start Loading</span>
+                            <li style="width: 10% !important; margin-top: 15px;">
+                              <span style="top: -75px; position: relative; font-weight: bold;">Start Loading</span>
                               <br />
-                              <span>{{''}}</span>
+                              <span style="top: -20px; position: relative;">{{''}}</span>
                             </li>
-                            <li style="width: 10% !important;">
-                              <span>Finish Loading</span>
+                            <li style="width: 10% !important; margin-top: 15px;">
+                              <span style="top: -75px; position: relative; font-weight: bold;">Finish Loading</span>
                               <br />
-                              <span>{{''}}</span>
+                              <span style="top: -20px; position: relative;">{{''}}</span>
                             </li>
-                            <li style="width: 10% !important;">
-                              <span>Get Out</span>
+                            <li style="width: 10% !important; margin-top: 15px;">
+                              <span style="top: -75px; position: relative; font-weight: bold;">Get Out</span>
                               <br />
-                              <span>{{''}}</span>
+                              <span style="top: -20px; position: relative;">{{''}}</span>
                             </li>
-                            <li style="width: 10% !important;">
-                              <span>Arrive Destination</span>
+                            <li style="width: 10% !important; margin-top: 15px;">
+                              <span style="top: -75px; position: relative; font-weight: bold;">Arrive Destination</span>
                               <br />
-                              <span>{{''}}</span>
+                              <span style="top: -20px; position: relative;">{{''}}</span>
                             </li>
-                            <li style="width: 10% !important;">
-                              <span>Start Unloading</span>
+                            <li style="width: 10% !important; margin-top: 15px;">
+                              <span style="top: -75px; position: relative; font-weight: bold;">Start Unloading</span>
                               <br />
-                              <span>{{''}}</span>
+                              <span style="top: -20px; position: relative;">{{''}}</span>
                             </li>
-                            <li style="width: 10% !important;">
-                              <span>Finish Unloading</span>
+                            <li style="width: 10% !important; margin-top: 15px;">
+                              <span style="top: -75px; position: relative; font-weight: bold;">Finish Unloading</span>
                               <br />
-                              <span>{{''}}</span>
+                              <span style="top: -20px; position: relative;">{{''}}</span>
                             </li>
                           </ul>
                         </div>
@@ -449,12 +449,12 @@
                         >
                           <b-col md="12">
                             <b-row>
-                              <b-col md="1">
+                              <b-col style="max-width: fit-content !important;">
                                 <span
                                   style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;"
                                 >Console Detail</span>
                               </b-col>
-                              <b-col md="1">
+                              <b-col style="max-width: fit-content !important;">
                                 <b-button
                                   style="background-color: transparent; color: black; border: none; padding: unset !important;"
                                   @click="doCreateConsole"
@@ -463,6 +463,7 @@
                                     icon="plus-circle"
                                     class="icon-style-default"
                                     style="margin-right: 5px;"
+                                    size="lg"
                                   />Add New
                                 </b-button>
                               </b-col>
@@ -527,7 +528,7 @@
                                   style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;"
                                 >Costing</span>
                               </b-col>
-                              <b-col>
+                              <b-col v-show="M_DataPost.cost_over_status == 'Y'">
                                 <font-awesome-icon
                                   icon="exclamation-circle"
                                   class="icon-style-default"
@@ -666,7 +667,7 @@ export default {
           SourceField: "",
           DisplayLookUp: "",
         },
-        cValidate: "",
+        cValidate: "required",
         cName: "assign_fleet",
         cOrder: 1,
         cKey: false,
@@ -759,13 +760,13 @@ export default {
           SourceField: "",
           DisplayLookUp: "",
         },
-        cValidate: "",
+        cValidate: "required",
         cName: "fm_driver_id",
         cOrder: 14,
         cKey: false,
         cStatic: false,
         cProtect: false,
-        cParentForm: "OP_FormFmFleetMstr",
+        cParentForm: "OP_NW_PlanExecution",
         cOption: [],
         cDisplayColumn: "full_name",
         cInputStatus: this.inputStatus,
@@ -781,20 +782,20 @@ export default {
           SourceField: "",
           DisplayLookUp: "",
         },
-        cValidate: "",
+        cValidate: "required",
         cName: "fm_driver_id",
         cOrder: 14,
         cKey: false,
         cStatic: false,
         cProtect: false,
-        cParentForm: "OP_FormFmFleetMstr",
+        cParentForm: "OP_NW_PlanExecution",
         cOption: [],
         cDisplayColumn: "full_name",
         cInputStatus: this.inputStatus,
       },
       PlanConsole_H: [
         {
-          key: "no",
+          key: "sequence_no",
           label: "No",
           tdClass: "ContentACCList2 notranslate th-cus-center",
           thClass: "HeaderACCList2 th-cus-center",
@@ -824,13 +825,13 @@ export default {
           thClass: "HeaderACCList2 S th-cus-center",
         },
         {
-          key: "kgs",
+          key: "total_kgs",
           label: "KGS",
           tdClass: "ContentACCList2 notranslate th-cus-center",
           thClass: "HeaderACCList2 S th-cus-center",
         },
         {
-          key: "cbm",
+          key: "total_cbm",
           label: "CBM",
           tdClass: "ContentACCList2 notranslate th-cus-center",
           thClass: "HeaderACCList2 S th-cus-center",
@@ -945,14 +946,33 @@ export default {
         this.M_PlanExe.vendorLabel = data.label;
       });
     },
-    doCreateConsole() {
+    doCreateConsole(record, index) {
       var param = this.M_DataPost;
       param.isEdit = false;
 
       this.$store.commit("setParamPage", param);
       this.$router.push({ name: "OP_PlanExecutionConsole" });
     },
-    doDeleteConsole() {},
+    doDeleteConsole() {
+      this.alertConfirmation("Are You Sure Want To Delete This Data ?").then(
+        (ress) => {
+          if (ress.value) {
+            var param = {
+              option_url: "/OP/OP_Order",
+              line_no: 5,
+              id: record.row_id,
+              lastupdatestamp: record.lastupdatestamp,
+            };
+            this.deleteJSON(this.getUrlCRUD(), param).then((response) => {
+              if (response == null) return;
+              this.alertSuccess("Data Has Been Deleted").then(() => {
+                this.GetDataBy();
+              });
+            });
+          }
+        }
+      );
+    },
     ConsoleClick(record, index) {},
     ListCostingClick(record, index) {
       var param = this.M_DataPost;
@@ -1018,34 +1038,56 @@ export default {
     Onassign_fleet_statusChange(data) {
       console.log(data);
       //   this.M_PlanExe.assign_fleet_status = data
-      if (data == "I") {
-        this.PI_Dropvendor.cProtect = true;
-        this.PI_assign_fleet_t.cProtect = true;
-        this.PI_driver_name.cProtect = true;
-        this.PI_co_driver_name.cProtect = true;
-        this.PI_notes2.cProtect = true;
+      this.$nextTick(() => {
+        if (data == "I") {
+          this.PI_Dropvendor.cProtect = true;
+          this.PI_Dropvendor.cValidate = ''
+          this.PI_assign_fleet_t.cProtect = true;
+          this.PI_assign_fleet_t.cValidate = ''
+          this.PI_driver_name.cProtect = true;
+          this.PI_driver_name.cValidate = ''
+          this.PI_co_driver_name.cProtect = true;
+          this.PI_co_driver_name.cValidate = ''
+          this.PI_notes2.cProtect = true;
+  
+          this.PI_Dropassign_fleet.cProtect = false;
+          this.PI_Dropassign_fleet.cValidate = 'required'
+          this.PI_driver_id.cProtect = false;
+          this.PI_driver_id.cValidate = 'required'
+          this.PI_co_driver_id.cProtect = false;
+          this.PI_co_driver_id.cValidate = 'required'
+          this.PI_notes.cProtect = false;
+        } else {
+          this.PI_Dropvendor.cProtect = false;
+          this.PI_Dropvendor.cValidate = 'required'
+          this.PI_assign_fleet_t.cProtect = false;
+          this.PI_assign_fleet_t.cValidate = 'required'
+          this.PI_driver_name.cProtect = false;
+          this.PI_driver_name.cValidate = 'required'
+          this.PI_co_driver_name.cProtect = false;
+          this.PI_co_driver_name.cValidate = 'required'
+          this.PI_notes2.cProtect = false;
+  
+          this.PI_Dropassign_fleet.cProtect = true;
+          this.PI_Dropassign_fleet.cValidate = ''
+          this.PI_driver_id.cProtect = true;
+          this.PI_driver_id.cValidate = ''
+          this.PI_co_driver_id.cProtect = true;
+          this.PI_co_driver_id.cValidate = ''
+          this.PI_notes.cProtect = true;
+        }
+      })
 
-        this.PI_Dropassign_fleet.cProtect = false;
-        this.PI_driver_id.cProtect = false;
-        this.PI_co_driver_id.cProtect = false;
-        this.PI_notes.cProtect = false;
-      } else {
-        this.PI_Dropvendor.cProtect = false;
-        this.PI_assign_fleet_t.cProtect = false;
-        this.PI_driver_name.cProtect = false;
-        this.PI_co_driver_name.cProtect = false;
-        this.PI_notes2.cProtect = false;
-
-        this.PI_Dropassign_fleet.cProtect = true;
-        this.PI_driver_id.cProtect = true;
-        this.PI_co_driver_id.cProtect = true;
-        this.PI_notes.cProtect = true;
-      }
+      this.$forceUpdate();
     },
     Onassign_fleetChange(data) {
       this.$nextTick(() => {
         this.M_PlanExe.assign_fleet_i = data.id;
         this.M_PlanExe.assign_fleetLabel_i = data.label;
+        this.M_PlanExe.driver_id_i = data.fm_driver_id && data.fm_driver_id !== 0 ? data.fm_driver_id : ''
+        this.M_PlanExe.driver_name_i = data.driver
+        this.M_PlanExe.co_driver_id_i = data.fm_driver_id2 && data.fm_driver_id2 !== 0 ? data.fm_driver_id2 : ''
+        this.M_PlanExe.co_driver_name_i = data.driver2
       });
     },
     Ondriver_idChange(data) {

@@ -22,7 +22,7 @@
                     :disabled="isSearchDisable"
                   ></b-form-input>
                 </b-col>
-                <b-col md="1" class="col-right">
+                <b-col style="max-width: fit-content !important;" class="col-right">
                   <span>
                     <ABSButton
                       :text="'Search'"
@@ -51,30 +51,35 @@
                   <b-row>
                     <div
                       :class="'col-md-1 isTabs' + (FilterC == 'F' ? ' active' : '')"
+                      style="cursor: pointer;"
                       @click="filterTable('C', 'F')"
                     >
                       <span style="font-size: 13px; color: white; font-weight: bold;">FTL</span>
                     </div>
                     <div
                       :class="'col-md-1 isTabs' + (FilterC == 'L' ? ' active' : '')"
+                      style="cursor: pointer;"
                       @click="filterTable('C', 'L')"
                     >
                       <span style="font-size: 13px; color: white; font-weight: bold;">LTL</span>
                     </div>
                     <div
                       :class="'col-md-1 isTabs' + (FilterC == 'C' ? ' active' : '')"
+                      style="cursor: pointer;"
                       @click="filterTable('C', 'C')"
                     >
                       <span style="font-size: 13px; color: white; font-weight: bold;">Console</span>
                     </div>
                     <div
                       :class="'col-md-1 isTabs' + (FilterC == 'P' ? ' active' : '')"
+                      style="cursor: pointer;"
                       @click="filterTable('C', 'P')"
                     >
                       <span style="font-size: 13px; color: white; font-weight: bold;">Project</span>
                     </div>
                     <div
-                      :class="'col-md-1 isTabs' + (FilterC == 'R' ? ' active' : '')"
+                      :class="'col isTabs' + (FilterC == 'R' ? ' active' : '')"
+                      style="max-width: fit-content !important; cursor: pointer;"
                       @click="filterTable('C', 'R')"
                     >
                       <span style="font-size: 13px; color: white; font-weight: bold;">Return Empty</span>
@@ -113,7 +118,7 @@
                         >
                           <div
                             :class="'Plan-Dot-' + data.variant"
-                            :style="'margin-top: 10px !important;' + (FilterS == data.key ? 'font-weight: bold;' : '')"
+                            :style="'margin-top: 10px !important; width: 36px !important; height: 36px !important; padding-top: 9px; !important' + (FilterS == data.key ? 'font-weight: bold;' : '')"
                           >
                             <span>{{PlanExecution && PlanExecution.length > 0 ? PlanExecution.filter(x => x.status == data.key).length : 0}}</span>
                           </div>
@@ -138,7 +143,7 @@
               @onRenderData="onRenderData"
             >
               <template slot="status" slot-scope="data">
-                <div :class="'Plan-Dot-' + (Status[data.item.status].variant)">{{data.item.status}}</div>
+                <div :class="'Plan-Dot-' + (Status[data.item.status].variant)" style="font-size: 10px !important; padding-top: 9px !important;">{{data.item.status}}</div>
               </template>
             </ACCFormList>
           </div>
@@ -514,23 +519,24 @@ export default {
     filterTable(fr, data) {
       if (fr == "C") {
         this.FilterC = data;
-        this.FilterS = "";
+        // this.FilterS = "";
         var str = "FTL";
+        var whereStatus = this.FilterS && this.FilterS !== "" ? " AND status='"+this.FilterS+"'" : ""
         switch (data) {
           case "F":
-            this.propList.initialWhere = "category='FTL'";
+            this.propList.initialWhere = "category='FTL'" + whereStatus;
             this.$refs.ref_OrderList.doGetList("");
             break;
           case "L":
-            this.propList.initialWhere = "category='LTL'";
+            this.propList.initialWhere = "category='LTL'" + whereStatus;
             this.$refs.ref_OrderList.doGetList("");
             break;
           case "P":
-            this.propList.initialWhere = "category='Project'";
+            this.propList.initialWhere = "category='Project'" + whereStatus;
             this.$refs.ref_OrderList.doGetList("");
             break;
           case "C":
-            this.propList.initialWhere = "category='Console'";
+            this.propList.initialWhere = "category='Console'" + whereStatus;
             this.$refs.ref_OrderList.doGetList("");
             break;
           case "R":
@@ -543,17 +549,30 @@ export default {
             break;
         }
       } else {
-        console.log(data);
+        // console.log(data);
         if (data == "") {
           this.FilterC = "";
           this.FilterS = data;
           this.propList.initialWhere = data;
           this.$refs.ref_OrderList.doGetList("");
         } else {
-          this.FilterC = "";
+          // this.FilterC = "";
           this.FilterS = data.key;
+          var whereCategory = ""
+          if (this.FilterC == 'F') {
+            whereCategory = "AND category='FTL'";
+          }
+          else if (this.FilterC == 'L') {
+            whereCategory = "AND category='LTL'";
+          }
+          else if (this.FilterC == 'P') {
+            whereCategory = "AND category='Project'";
+          }
+          else if (this.FilterC == 'C') {
+            whereCategory = "AND category='Console'";
+          }
 
-          this.propList.initialWhere = "status='" + data.key + "'";
+          this.propList.initialWhere = "status='" + data.key + "'" + whereCategory;
           this.$refs.ref_OrderList.doGetList("");
         }
       }
