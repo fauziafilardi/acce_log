@@ -98,6 +98,9 @@ import OP_OutsourceVendorDtl from '@/views/OP/OP_OutsourceVendor/OP_OutsourceVen
 import OP_OutsourceVendorViewPending from '@/views/OP/OP_OutsourceVendor/OP_OutsourceVendorViewPending'
 import OP_OutsourceVendorViewCompleted from '@/views/OP/OP_OutsourceVendor/OP_OutsourceVendorViewCompleted'
 
+// Ticket
+import OP_Ticket from '@/views/OP/OP_Ticket/OP_TicketList'
+
 export const OPRender = {
     path: '/OP',
     component: {
@@ -106,6 +109,14 @@ export const OPRender = {
         }
     },
     children: [
+        {
+            path: '/OP/OP_Ticket',
+            name: 'OP_Ticket',
+            component: OP_Ticket,
+            meta: {
+                requiresAuth: true
+            }
+        },
         {
             path: '/OP/OP_OutsourceVendor',
             name: 'OP_OutsourceVendor',
