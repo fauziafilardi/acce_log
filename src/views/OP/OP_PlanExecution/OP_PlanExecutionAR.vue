@@ -449,7 +449,7 @@
                               cStatic
                               :cHeader="PlanExtra_H"
                               :cData="PlanExtra_D"
-                              @rowClicked="ExtraClick"
+                              @rowClicked="ListDropPickClick"
                               ref="ref_SL_Plan_Extra"
                               WithDeleteButton
                               @buttonDeleteClicked="doDeleteExtraList"
@@ -909,8 +909,14 @@ export default {
       this.$store.commit("setParamPage", param);
       this.$router.push({ name: "OP_PlanExecutionPickDrop" });
     },
-
     ListCostingClick(record, index) {
+      var param = this.M_DataPost;
+      param.DetailList = record;
+      param.isEdit = true;
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "OP_PlanExecutionCosting" });
+    },
+    ListDropPickClick(record, index) {
       var param = this.paramFromList;
       param.DetailList = record;
       param.isEdit = true;

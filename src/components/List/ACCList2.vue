@@ -39,7 +39,7 @@
               :text="'Add New'"
               classButton="button button--back2"
               classIcon="icon-style-1"
-              :disabled="ButtonStatus == null ? false : !ButtonStatus.btnAdd"
+              :disabled="ButtonAddDisabled || (ButtonStatus == null ? false : !ButtonStatus.btnAdd)"
               @click="onAddNewClick"
             />
           </span>
@@ -508,6 +508,7 @@ export default {
     hideCheckbox: Boolean,
     cShowNumber: Boolean,
     urlAdd: String,
+    ButtonAddDisabled: Boolean,
     WithViewButton: Boolean,
     WithDeleteButton: Boolean,
     WithRowId: Boolean
