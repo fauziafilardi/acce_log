@@ -92,6 +92,12 @@ import OP_VendorGpsForm from '@/views/OP/OP_VendorGps/OP_VendorGpsForm'
 
 import OP_OrderForm from '@/views/OP/OP_Order/OP_OrderForm';
 
+// Outsource Order
+import OP_OutsourceVendor from '@/views/OP/OP_OutsourceVendor/OP_OutsourceVendorList'
+import OP_OutsourceVendorDtl from '@/views/OP/OP_OutsourceVendor/OP_OutsourceVendorListDtl'
+import OP_OutsourceVendorViewPending from '@/views/OP/OP_OutsourceVendor/OP_OutsourceVendorViewPending'
+import OP_OutsourceVendorViewCompleted from '@/views/OP/OP_OutsourceVendor/OP_OutsourceVendorViewCompleted'
+
 export const OPRender = {
     path: '/OP',
     component: {
@@ -100,6 +106,38 @@ export const OPRender = {
         }
     },
     children: [
+        {
+            path: '/OP/OP_OutsourceVendor',
+            name: 'OP_OutsourceVendor',
+            component: OP_OutsourceVendor,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/OP_OutsourceVendor/dtl',
+            name: 'OP_OutsourceVendorDtl',
+            component: OP_OutsourceVendorDtl,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/OP_OutsourceVendor/pending',
+            name: 'OP_OutsourceVendorViewPending',
+            component: OP_OutsourceVendorViewPending,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/OP_OutsourceVendor/completed',
+            name: 'OP_OutsourceVendorViewCompleted',
+            component: OP_OutsourceVendorViewCompleted,
+            meta: {
+                requiresAuth: true
+            }
+        },
         {
             path: '/OP/OP_VendorGps',
             name: 'OP_VendorGps',
