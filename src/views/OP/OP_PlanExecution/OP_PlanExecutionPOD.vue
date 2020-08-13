@@ -16,7 +16,7 @@
                         classIcon="icon-style-1"
                         @click="doCosting"
                     />
-                    <ABSButton
+                    <!-- <ABSButton
                         :text="'Extra Pick'"
                         classButton="button button--back"
                         classIcon="icon-style-1"
@@ -27,7 +27,7 @@
                         classButton="button button--back"
                         classIcon="icon-style-1"
                         @click="doExtraDrop"
-                    />
+                    /> -->
                   <ABSButton
                     :text="'Back'"
                     classButton="button button--back"
@@ -557,7 +557,7 @@
                       </b-col>
                     </b-row>
 
-                    <b-row class="row-bordered" style="margin-top: 10px;">
+                    <!-- <b-row class="row-bordered" style="margin-top: 10px;">
                       <b-col md="12">
                         <b-row>
                           <b-col md="2">
@@ -578,14 +578,11 @@
                                     ref="ref_SL_Plan_Extra"
                                     @buttonDeleteClicked="doDeleteExtra"
                                 >
-                                  <!-- <template slot="ticket_date" slot-scope="data">
-                                    <span>{{momentDateFormatting(data.item.ticket_date, "YYYY-MM-DD HH:mm")}}</span>
-                                  </template> -->
                                 </ACCFormList>
                             </b-col>
                         </b-row>
                       </b-col>
-                    </b-row>
+                    </b-row> -->
 
                     <b-row class="row-bordered" style="margin-top: 10px;">
                       <b-col md="12">

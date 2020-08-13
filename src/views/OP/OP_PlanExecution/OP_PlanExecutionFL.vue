@@ -1004,12 +1004,11 @@ export default {
       this.$router.push({ name: "OP_PlanExecutionPickDrop" });
     },
     ListCostingClick(record, index) {
-      var param = this.paramFromList;
+      var param = this.M_DataPost;
       param.DetailList = record;
       param.isEdit = true;
-      param.isPick = record.pick_drop_category == "P" ? true : false;
       this.$store.commit("setParamPage", param);
-      this.$router.push({ name: "OP_PlanExecutionPickDrop" });
+      this.$router.push({ name: "OP_PlanExecutionCosting" });
     },
     doDeleteCosting(record, index) {
       var param = {
