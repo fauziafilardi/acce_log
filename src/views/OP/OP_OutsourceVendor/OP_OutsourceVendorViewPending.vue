@@ -11,24 +11,6 @@
                 </b-col>
                 <b-col style="text-align: right;">
                   <ABSButton
-                    :text="'Costing'"
-                    classButton="button button--back"
-                    classIcon="icon-style-1"
-                    @click="doCosting"
-                  />
-                  <ABSButton
-                    :text="'Extra Pick'"
-                    classButton="button button--back"
-                    classIcon="icon-style-1"
-                    @click="doExtraPict"
-                  />
-                  <ABSButton
-                    :text="'Extra Drop'"
-                    classButton="button button--back"
-                    classIcon="icon-style-1"
-                    @click="doExtraDrop"
-                  />
-                  <ABSButton
                     :text="'Back'"
                     classButton="button button--back"
                     classIcon="icon-style-1"
@@ -245,7 +227,7 @@
                       </b-col>
                     </b-row>
                     <b-row>
-                      <b-col md="6" style="padding-left: 0px !important;">
+                      <b-col md="12" style="padding-left: 0px !important;">
                         <b-row>
                           <b-col md="12" style="padding-left: 0px !important;">
                             <b-list-group>
@@ -262,81 +244,6 @@
                             </b-list-group>
                           </b-col>
                         </b-row>
-                        <b-row>
-                          <b-col md="12" style="padding-left: 0px !important;">
-                            <span>
-                              <label>Finish Loading Date</label>
-                            </span>
-                            <ACCDateTime
-                              @input="Onfinish_loading_date_Change"
-                              :prop="PI_finish_loading_date"
-                              v-model="M_PlanExe.finish_loading_date"
-                              ref="ref_finish_loading_date"
-                            />
-                          </b-col>
-                        </b-row>
-                        <b-row>
-                          <b-col md="12" style="padding-left: 0px !important;">
-                            <span>
-                              <label>Comodity</label>
-                            </span>
-                            <ACCDropDown
-                              @change="OncomodityChange"
-                              :prop="PI_comodity"
-                              v-model="M_PlanExe.comodity"
-                              :label="M_PlanExe.comodityLabel"
-                              :ref="'ref_comodity'"
-                            />
-                          </b-col>
-                        </b-row>
-                        <b-row>
-                          <b-col md="4" style="padding-left: 0px !important;">
-                            <span>
-                              <label>Total Item</label>
-                            </span>
-                            <ACCTextBox
-                              :prop="PI_total_item"
-                              v-model="M_PlanExe.total_item"
-                              ref="ref_total_item"
-                            />
-                          </b-col>
-                          <b-col md="4" style="padding-left: 0px !important;">
-                            <span>
-                              <label>KGS</label>
-                            </span>
-                            <ACCTextBox :prop="PI_kgs" v-model="M_PlanExe.kgs" ref="ref_kgs" />
-                          </b-col>
-                          <b-col md="4" style="padding-left: 0px !important;">
-                            <span>
-                              <label>CBM</label>
-                            </span>
-                            <ACCTextBox :prop="PI_cbm" v-model="M_PlanExe.cbm" ref="ref_cbm" />
-                          </b-col>
-                        </b-row>
-                        <b-row>
-                          <b-col md="12" style="padding-left: 0px !important;">
-                            <span>
-                              <label>Note</label>
-                            </span>
-                            <ACCTextArea :prop="PI_note" v-model="M_PlanExe.note" ref="ref_note" />
-                          </b-col>
-                        </b-row>
-                        <b-row style="margin-top: 10px;">
-                          <b-col md="12" style="padding-left: 0px !important;">
-                            <ABSButton
-                              :text="'Finish Loading'"
-                              classButton="btn btn--default"
-                              classIcon="icon-style-default"
-                              @click="doSave"
-                              styleButton="height: 40px;width: 100%;"
-                            />
-                          </b-col>
-                        </b-row>
-                      </b-col>
-                      <b-col md="6">
-                        <div>
-                          <img :src="require('@/assets/map.png')" alt style="width: 100%;" />
-                        </div>
                       </b-col>
                     </b-row>
 
@@ -352,7 +259,7 @@
                               style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;"
                             >Console Detail</span>
                           </b-col>
-                          <b-col md="1">
+                          <!-- <b-col md="1">
                             <b-button
                               style="background-color: transparent; color: black; border: none; padding: unset !important;"
                               @click="doCreateConsole"
@@ -363,7 +270,7 @@
                                 style="margin-right: 5px;"
                               />Add New
                             </b-button>
-                          </b-col>
+                          </b-col>-->
                         </b-row>
                         <b-row>
                           <b-col>
@@ -395,7 +302,7 @@
                               style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;"
                             >Ticket</span>
                           </b-col>
-                          <b-col md="1">
+                          <!-- <b-col md="1">
                             <b-button
                               style="background-color: transparent; color: black; border: none; padding: unset !important;"
                               @click="doCreateTicket"
@@ -406,7 +313,7 @@
                                 style="margin-right: 5px;"
                               />Add New
                             </b-button>
-                          </b-col>
+                          </b-col>-->
                         </b-row>
                         <b-row>
                           <b-col>
@@ -1467,41 +1374,38 @@ export default {
       this.$refs.Modal_Ticket._show();
     },
     ticketClick(record, index) {
-      var param = {
-        option_url: "/OP/OP_Order",
-        line_no: 3,
-        id: record.row_id,
-        lastupdatestamp: record.lastupdatestamp,
-      };
-
-      this.getJSON(this.getUrlCRUD(), param).then((response) => {
-        // response from API
-        if (response == null) return;
-
-        var data = response.Data[0];
-        this.M_Ticket = {
-          op_order_ticket_id: data.op_order_ticket_id,
-          ticket_no: data.ticket_no,
-          ticket_category: data.op_ticket_category_id__lo_1,
-          ticket_categoryLabel: data.ticket_category__lbl_lo_1,
-          descs: data.descs__tb_2,
-          file_name: data.doc_file_name,
-          file_path: data.doc_path_file,
-          ticket_status: data.ticket_status,
-          ticket_date: data.ticket_date,
-          remarks: data.remarks,
-          wo_status: data.wo_status,
-          claim_status: data.claim_status,
-          change_vehicle_status: data.change_vehicle_status,
-          fm_fleet_mstr_id: data.fm_fleet_mstr_id,
-          license_plate_no: data.license_plate_no,
-          fm_driver_id: data.fm_driver_id,
-          fm_driver_id2: data.fm_driver_id2,
-          lastupdatestamp: record.lastupdatestamp,
-        };
-
-        this.$refs.Modal_Ticket._show();
-      });
+      //   var param = {
+      //     option_url: "/OP/OP_Order",
+      //     line_no: 3,
+      //     id: record.row_id,
+      //     lastupdatestamp: record.lastupdatestamp,
+      //   };
+      //   this.getJSON(this.getUrlCRUD(), param).then((response) => {
+      //     // response from API
+      //     if (response == null) return;
+      //     var data = response.Data[0];
+      //     this.M_Ticket = {
+      //       op_order_ticket_id: data.op_order_ticket_id,
+      //       ticket_no: data.ticket_no,
+      //       ticket_category: data.op_ticket_category_id__lo_1,
+      //       ticket_categoryLabel: data.ticket_category__lbl_lo_1,
+      //       descs: data.descs__tb_2,
+      //       file_name: data.doc_file_name,
+      //       file_path: data.doc_path_file,
+      //       ticket_status: data.ticket_status,
+      //       ticket_date: data.ticket_date,
+      //       remarks: data.remarks,
+      //       wo_status: data.wo_status,
+      //       claim_status: data.claim_status,
+      //       change_vehicle_status: data.change_vehicle_status,
+      //       fm_fleet_mstr_id: data.fm_fleet_mstr_id,
+      //       license_plate_no: data.license_plate_no,
+      //       fm_driver_id: data.fm_driver_id,
+      //       fm_driver_id2: data.fm_driver_id2,
+      //       lastupdatestamp: record.lastupdatestamp,
+      //     };
+      //     this.$refs.Modal_Ticket._show();
+      //   });
     },
     Onticket_categoryChange(data) {
       this.M_Ticket.ticket_category = data.id;
@@ -1631,27 +1535,7 @@ export default {
       this.$store.commit("setParamPage", param);
       this.$router.push({ name: "OP_PlanExecutionConsole" });
     },
-    doCosting() {
-      var param = this.M_DataPost;
-      param.isEdit = false;
 
-      this.$store.commit("setParamPage", param);
-      this.$router.push({ name: "OP_PlanExecutionCosting" });
-    },
-    doExtraPict() {
-      var param = this.paramFromList;
-      param.isEdit = false;
-      param.isPick = true;
-      this.$store.commit("setParamPage", param);
-      this.$router.push({ name: "OP_PlanExecutionPickDrop" });
-    },
-    doExtraDrop() {
-      var param = this.paramFromList;
-      param.isEdit = false;
-      param.isPick = false;
-      this.$store.commit("setParamPage", param);
-      this.$router.push({ name: "OP_PlanExecutionPickDrop" });
-    },
     doBack() {
       this.$router.go(-1);
     },
@@ -1675,8 +1559,8 @@ export default {
       var param = {
         option_url: "/OP/OP_Order",
         line_no: 0,
-        id: this.paramFromList.row_id,
-        lastupdatestamp: this.paramFromList.lastupdatestamp,
+        id: this.paramFromList.detailList.row_id,
+        lastupdatestamp: this.paramFromList.detailList.lastupdatestamp,
       };
 
       this.getJSON(this.getUrlCRUD(), param).then((response) => {

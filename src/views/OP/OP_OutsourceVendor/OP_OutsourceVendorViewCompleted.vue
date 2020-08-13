@@ -1761,8 +1761,8 @@ export default {
       var param = {
         option_url: "/OP/OP_Order",
         line_no: 0,
-        id: this.paramFromList.row_id,
-        lastupdatestamp: this.paramFromList.lastupdatestamp,
+        id: this.paramFromList.detailList.row_id,
+        lastupdatestamp: this.paramFromList.detailList.lastupdatestamp,
       };
 
       this.getJSON(this.getUrlCRUD(), param).then((response) => {

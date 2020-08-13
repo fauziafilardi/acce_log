@@ -296,7 +296,8 @@ export default {
       this.doGetList(this.search, "onSearchEnter");
     },
     viewClicked(record, index) {
-      var param = record;
+      var param = this.paramFromList;
+      param.detailList = record;
       param.isView = true;
       this.$store.commit("setParamPage", param);
       if (record.status == "Pending") {
