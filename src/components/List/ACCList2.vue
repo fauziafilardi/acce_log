@@ -34,7 +34,7 @@
             />
           </span>
 
-          <span>
+          <span v-show="!(!urlAdd || urlAdd == '' || urlAdd == undefined || urlAdd == null)">
             <ABSButton
               :text="'Add New'"
               classButton="button button--back2"
