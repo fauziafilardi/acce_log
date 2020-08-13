@@ -10,7 +10,7 @@
                   <span>Plan Execution</span>
                 </b-col>
                 <b-col style="text-align: right;">
-                  <ABSButton
+                  <!-- <ABSButton
                     :text="'Costing'"
                     classButton="button button--back"
                     classIcon="icon-style-1"
@@ -27,7 +27,7 @@
                     classButton="button button--back"
                     classIcon="icon-style-1"
                     @click="doExtraDrop"
-                  />
+                  />-->
                   <ABSButton
                     :text="'Back'"
                     classButton="button button--back"
@@ -337,7 +337,7 @@
                             </span>
                           </b-col>
                         </b-row>
-                        <b-row>
+                        <!-- <b-row>
                           <b-col md="6" style="padding-left: 0px !important;">
                             <b-row class="row-bordered">
                               <b-col>
@@ -382,10 +382,7 @@
                                 </b-row>
                               </b-col>
                             </b-row>
-                            <!-- <span>
-                              <label>Note</label>
-                            </span>
-                            <ACCTextArea :prop="PI_note" v-model="M_PlanExe.note" ref="ref_note" />-->
+                           
                           </b-col>
                           <b-col md="6" style="padding-left: 0px !important;">
                             <span>
@@ -393,8 +390,8 @@
                             </span>
                             <ACCTextArea :prop="PI_note" v-model="M_PlanExe.note" ref="ref_note" />
                           </b-col>
-                        </b-row>
-                        <b-row style="margin-top: 10px;">
+                        </b-row>-->
+                        <!-- <b-row style="margin-top: 10px;">
                           <b-col md="12" style="padding-left: 0px !important;">
                             <ABSButton
                               :text="'Finish Unloading'"
@@ -404,7 +401,7 @@
                               styleButton="height: 40px;width: 100%;"
                             />
                           </b-col>
-                        </b-row>
+                        </b-row>-->
                       </b-col>
                       <b-col md="6">
                         <div>
@@ -468,7 +465,7 @@
                               style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;"
                             >Ticket</span>
                           </b-col>
-                          <b-col md="1">
+                          <!-- <b-col md="1">
                             <b-button
                               style="background-color: transparent; color: black; border: none; padding: unset !important;"
                               @click="doCreateTicket"
@@ -479,7 +476,7 @@
                                 style="margin-right: 5px;"
                               />Add New
                             </b-button>
-                          </b-col>
+                          </b-col>-->
                         </b-row>
                         <b-row>
                           <b-col>
@@ -520,10 +517,9 @@
                               :cData="PlanExtra_D"
                               @rowClicked="ExtraClick"
                               ref="ref_SL_Plan_Extra"
-                              WithDeleteButton
                               @buttonDeleteClicked="doDeleteExtra"
                             >
-                              <!-- <template slot="ticket_date" slot-scope="data">
+                              <!-- WithDeleteButton <template slot="ticket_date" slot-scope="data">
                                     <span>{{momentDateFormatting(data.item.ticket_date, "YYYY-MM-DD HH:mm")}}</span>
                               </template>-->
                             </ACCFormList>
@@ -561,10 +557,9 @@
                               :cData="PlanCosting_D"
                               @rowClicked="CostingClick"
                               ref="ref_SL_Plan_Costing"
-                              WithDeleteButton
                               @buttonDeleteClicked="doDeleteCosting"
                             >
-                              <!-- <template slot="ticket_date" slot-scope="data">
+                              <!-- WithDeleteButton <template slot="ticket_date" slot-scope="data">
                                     <span>{{momentDateFormatting(data.item.ticket_date, "YYYY-MM-DD HH:mm")}}</span>
                               </template>-->
                             </ACCFormList>
@@ -576,7 +571,7 @@
                     <b-row style="margin-top: 10px;">
                       <b-col md="12">
                         <b-row>
-                          <b-col md="1">
+                          <b-col style="max-width: fit-content !important;">
                             <span
                               style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;"
                             >Document</span>
@@ -584,9 +579,19 @@
                         </b-row>
                         <b-row>
                           <template v-for="(doc, id) in PlanDocument">
-                            <b-col style="margin-right: 5px;" v-bind:key="id">
+                            <b-col md="4" style="margin-top: 10px;" v-bind:key="id">
                               <b-row class="row-bordered" style="height: 100%">
                                 <b-col style="text-align: center;">
+                                  <b-form-checkbox
+                                    :disabled="!((doc.doc_file_name && doc.doc_file_name !== '') && (doc.doc_path_file && doc.doc_path_file !== ''))"
+                                    style="display: inline-flex;"
+                                    v-model="doc.doc_status"
+                                    name="check-button"
+                                    switch
+                                    value="Y"
+                                    unchecked-value="N"
+                                    size="lg"
+                                  />
                                   <span
                                     style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;"
                                   >{{id + 1}}. {{doc.dokument_type}}</span>
@@ -636,57 +641,17 @@
                               </b-row>
                             </b-col>
                           </template>
-                          <!-- <b-col style="margin-right: 5px;">
-                                <b-row class="row-bordered">
-                                  <b-col style="text-align: center;">
-                                    <span style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;">
-                                      1. Surat Jalan
-                                    </span>
-                                    <br /><br /><br />
-                                    <font-awesome-icon
-                                      icon="plus-circle"
-                                      class="icon-style-default"
-                                      size="4x"
-                                    />
-                                    <br /><br />
-                                    Upload Document
-                                  </b-col>
-                                </b-row>
-                            </b-col>
-                            <b-col style="margin-right: 5px;">
-                                <b-row class="row-bordered">
-                                  <b-col style="text-align: center;">
-                                    <span style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;">
-                                      2. Shipping Instruction
-                                    </span>
-                                    <br /><br /><br />
-                                    <font-awesome-icon
-                                      icon="plus-circle"
-                                      class="icon-style-default"
-                                      size="4x"
-                                    />
-                                    <br /><br />
-                                    Upload Document
-                                  </b-col>
-                                </b-row>
-                            </b-col>
-                            <b-col>
-                                <b-row class="row-bordered">
-                                  <b-col style="text-align: center;">
-                                    <span style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;">
-                                      3. Delivery Order
-                                    </span>
-                                    <br /><br /><br />
-                                    <font-awesome-icon
-                                      icon="plus-circle"
-                                      class="icon-style-default"
-                                      size="4x"
-                                    />
-                                    <br /><br />
-                                    Upload Document
-                                  </b-col>
-                                </b-row>
-                          </b-col>-->
+                        </b-row>
+                        <b-row style="margin-top: 10px;">
+                          <b-col>
+                            <ABSButton
+                              :text="'Settlement'"
+                              classButton="btn btn--default"
+                              classIcon="icon-style-default"
+                              @click="doSave"
+                              styleButton="height: 40px;width: 100%;"
+                            />
+                          </b-col>
                         </b-row>
                       </b-col>
                     </b-row>
@@ -1071,12 +1036,12 @@ export default {
           tdClass: "ContentACCList2 notranslate th-cus-center",
           thClass: "HeaderACCList2 S th-cus-center",
         },
-        {
-          key: "row_id", //untuk button delete
-          label: "",
-          tdClass: "ContentACCList2 notranslate th-cus-center",
-          thClass: "HeaderACCList2 th-cus-center",
-        },
+        // {
+        //   key: "row_id", //untuk button delete
+        //   label: "",
+        //   tdClass: "ContentACCList2 notranslate th-cus-center",
+        //   thClass: "HeaderACCList2 th-cus-center",
+        // },
       ],
       PlanCosting_D: [],
       PlanExtra_H: [
@@ -1087,7 +1052,7 @@ export default {
           thClass: "HeaderACCList2 th-cus-center",
         },
         {
-          key: "location",
+          key: "address_name",
           label: "Location",
           tdClass: "ContentACCList2 notranslate th-cus-center",
           thClass: "HeaderACCList2 S th-cus-center",
@@ -1099,7 +1064,7 @@ export default {
           thClass: "HeaderACCList2 S th-cus-center",
         },
         {
-          key: "category",
+          key: "pickdrop_category",
           label: "Category",
           tdClass: "ContentACCList2 notranslate th-cus-center",
           thClass: "HeaderACCList2 S th-cus-center",
@@ -1110,12 +1075,12 @@ export default {
           tdClass: "ContentACCList2 notranslate th-cus-center",
           thClass: "HeaderACCList2 S th-cus-center",
         },
-        {
-          key: "row_id", //untuk button delete
-          label: "",
-          tdClass: "ContentACCList2 notranslate th-cus-center",
-          thClass: "HeaderACCList2 th-cus-center",
-        },
+        // {
+        //   key: "row_id", //untuk button delete
+        //   label: "",
+        //   tdClass: "ContentACCList2 notranslate th-cus-center",
+        //   thClass: "HeaderACCList2 th-cus-center",
+        // },
       ],
       PlanExtra_D: [],
       PlanDocument: [],
@@ -1220,6 +1185,7 @@ export default {
       this.M_PlanExe.comodityLabel = data.label;
     },
     doSave() {
+      return;
       this.$validator._base
         .validateAll("OP_SL_PlanExecution")
         .then((result) => {
