@@ -47,7 +47,7 @@
                     <b-row>
                       <b-col>
                         <span style="font-size: 15px; font-weight: bold;">
-                          {{M_FU_Plan.customer_name}}
+                          {{M_GD_Plan.customer_name}}
                         </span>
                       </b-col>
                       <b-col style="text-align: right;">
@@ -65,71 +65,71 @@
                     <b-row class="row-view" style="padding-top: 5px; padding-bottom: 10px;">
                       <b-col>
                         <span>
-                          <font-awesome-icon class="icon-style-default" icon="user" />&nbsp;&nbsp; {{M_FU_Plan.contact_person}}
+                          <font-awesome-icon class="icon-style-default" icon="user" />&nbsp;&nbsp; {{M_GD_Plan.contact_person}}
                         </span> &nbsp;&nbsp;
                         <span>
-                          <font-awesome-icon class="icon-style-default" icon="phone-square-alt" />&nbsp;&nbsp; {{M_FU_Plan.contact_person_phone_no}}
+                          <font-awesome-icon class="icon-style-default" icon="phone-square-alt" />&nbsp;&nbsp; {{M_GD_Plan.contact_person_phone_no}}
                         </span>
                       </b-col>
                       <b-col style="text-align: right;">
                         <span>
-                          <font-awesome-icon class="icon-style-default" icon="user" />&nbsp;&nbsp;User : {{M_FU_Plan.user}}
+                          <font-awesome-icon class="icon-style-default" icon="user" />&nbsp;&nbsp;User : {{M_GD_Plan.user}}
                         </span>
                       </b-col>
                     </b-row>
                     <b-row>
-                      <b-col>
+                      <b-col style="height: 100px;">
                         <div class="container-step">
                           <ul class="progressbar" style="padding-inline-start: 0px !important;">
-                            <li class="active" style="width: 10% !important;">
-                                <span>Order</span>
-                                <br />
-                                <span>{{this.M_FU_Plan.order_date}}</span>
+                            <li class="active" style="width: 10% !important; margin-top: 15px;">
+                              <span style="top: -75px; position: relative; font-weight: bold;">Order</span>
+                              <br />
+                              <span style="top: -20px; position: relative;">{{M_GD_Plan.order_date}}</span>
                             </li>
-                            <li class="active" style="width: 10% !important;">
-                                <span>Assign</span>
-                                <br />
-                                <span>{{this.M_FU_Plan.assign_date}}</span>
+                            <li class="active" style="width: 10% !important; margin-top: 15px;">
+                              <span style="top: -75px; position: relative; font-weight: bold;">Assign</span>
+                              <br />
+                              <span style="top: -20px; position: relative;">{{M_GD_Plan.assign_date}}</span>
                             </li>
-                            <li class="active" style="width: 10% !important;">
-                                <span>Dispatch</span>
-                                <br />
-                                <span>{{this.M_FU_Plan.dispatch_date}}</span>
+                            <li class="active" style="width: 10% !important; margin-top: 15px;">
+                              <span style="top: -75px; position: relative; font-weight: bold;">Dispatch</span>
+                              <br />
+                              <span style="top: -20px; position: relative;">{{M_GD_Plan.dispatch_date}}</span>
                             </li>
-                            <li class="active" style="width: 10% !important;">
-                                <span>Arrived</span>
-                                <br />
-                                <span>{{this.M_FU_Plan.arrival_date}}</span>
+                            <li class="active" style="width: 10% !important; margin-top: 15px;">
+                              <span style="top: -75px; position: relative; font-weight: bold;">Arrived</span>
+                              <br />
+                              <span style="top: -20px; position: relative;">{{M_GD_Plan.arrival_date}}</span>
                             </li>
-                            <li class="active" style="width: 10% !important;">
-                                <span>Start Loading</span>
-                                <br />
-                                <span>{{this.M_FU_Plan.start_loading_date}}</span>
+                            <li class="active" style="width: 10% !important; margin-top: 15px;">
+                              <span style="top: -75px; position: relative; font-weight: bold;">Start Loading</span>
+                              <br />
+                              <span style="top: -20px; position: relative;">{{M_GD_Plan.start_loading_date}}</span>
                             </li>
-                            <li class="active" style="width: 10% !important;">
-                                <span>Finish Loading</span>
-                                <br />
-                                <span>{{this.M_FU_Plan.finish_loading_date}}</span>
+                            <li class="active" style="width: 10% !important; margin-top: 15px;">
+                              <span style="top: -75px; position: relative; font-weight: bold;">Finish Loading</span>
+                              <br />
+                              <span style="top: -20px; position: relative;">{{M_GD_Plan.finish_loading_date}}</span>
                             </li>
-                            <li class="active" style="width: 10% !important;">
-                                <span>Get Out</span>
-                                <br />
-                                <span>{{this.M_FU_Plan.get_out_arrival_date}}</span>
+                            <li class="active" style="width: 10% !important; margin-top: 15px;">
+                              <span style="top: -75px; position: relative; font-weight: bold;">Get Out</span>
+                              <br />
+                              <span style="top: -20px; position: relative;">{{M_GD_Plan.get_out_arrival_date}}</span>
                             </li>
-                            <li class="active" style="width: 10% !important;">
-                                <span>Arrive Destination</span>
-                                <br />
-                                <span>{{this.M_FU_Plan.get_out_destination_date}}</span>
+                            <li class="active" style="width: 10% !important; margin-top: 15px;">
+                              <span style="top: -75px; position: relative; font-weight: bold;">Arrive Destination</span>
+                              <br />
+                              <span style="top: -36px; position: relative;">{{M_GD_Plan.arrival_destination_date}}</span>
                             </li>
-                            <li class="active" style="width: 10% !important;">
-                                <span>Start Unloading</span>
-                                <br />
-                                <span>{{this.M_FU_Plan.start_unloading_date}}</span>
+                            <li class="active" style="width: 10% !important; margin-top: 15px;">
+                              <span style="top: -75px; position: relative; font-weight: bold;">Start Unloading</span>
+                              <br />
+                              <span style="top: -36px; position: relative;">{{M_GD_Plan.start_unloading_date}}</span>
                             </li>
-                            <li class="active" style="width: 10% !important;">
-                                <span>Finish Unloading</span>
-                                <br />
-                                <span>{{this.M_FU_Plan.finish_unloading_date}}</span>
+                            <li class="active" style="width: 10% !important; margin-top: 15px;">
+                              <span style="top: -75px; position: relative; font-weight: bold;">Finish Unloading</span>
+                              <br />
+                              <span style="top: -36px; position: relative;">{{M_GD_Plan.finish_unloading_date}}</span>
                             </li>
                           </ul>
                         </div>
@@ -145,35 +145,35 @@
                           >
                             <span>Order Number</span>
                             <br />
-                            <span style="color: rgb(153 153 153)">{{M_FU_Plan.order_no}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_GD_Plan.order_no}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span>Date</span>
                             <br />
-                            <span style="color: rgb(153 153 153)">{{M_FU_Plan.date}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_GD_Plan.date}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span>Category</span>
                             <br />
-                            <span style="color: rgb(153 153 153)">{{M_FU_Plan.category_descs}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_GD_Plan.category_descs}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span>From</span>
                             <br />
-                            <span style="color: rgb(153 153 153)">{{M_FU_Plan.from}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_GD_Plan.from}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span>To</span>
                             <br />
-                            <span style="color: rgb(153 153 153)">{{M_FU_Plan.to}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_GD_Plan.to}}</span>
                           </b-col>
                         </b-row>
                         <b-row style="border: solid 1px #e7eaec;border-radius: 0px 0px 5px 5px;">
@@ -182,31 +182,31 @@
                           >
                             <span>Pick Up Date</span>
                             <br />
-                            <span style="color: rgb(153 153 153)">{{M_FU_Plan.pickup_date}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_GD_Plan.pickup_date}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span>KGS</span>
                             <br />
-                            <span style="color: rgb(153 153 153)">{{M_FU_Plan.kgs}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_GD_Plan.kgs}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span>CBM</span>
                             <br />
-                            <span style="color: rgb(153 153 153)">{{M_FU_Plan.cbm}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_GD_Plan.cbm}}</span>
                           </b-col>
                           <b-col style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;">
                             <span>Vehicle Type</span>
                             <br />
-                            <span style="color: rgb(153 153 153)">{{M_FU_Plan.fleet_type_descs}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_GD_Plan.fleet_type_descs}}</span>
                           </b-col>
                           <b-col style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;" >
                             <span>Vehicle Number</span>
                             <br />
-                            <span style="color: rgb(153 153 153)">{{M_FU_Plan.plat_no}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_GD_Plan.plat_no}}</span>
                           </b-col>
                         </b-row>
                       </b-col>
@@ -229,7 +229,7 @@
                           <b-col style="margin: auto;">
                             <span class="AppointmentTitle">Driver</span>
                             <br />
-                            <span class="AppointmentDescs">{{M_FU_Plan.driver1}}</span>
+                            <span class="AppointmentDescs">{{M_GD_Plan.driver1}}</span>
                           </b-col>
                         </b-row>
                       </b-col>
@@ -242,12 +242,12 @@
                               <b-list-group-item>
                                 <span>From :</span>
                                 <br />
-                                <span style="color: rgb(153 153 153)">{{M_FU_Plan.from_address}}</span>
+                                <span style="color: rgb(153 153 153)">{{M_GD_Plan.from_address}}</span>
                               </b-list-group-item>
                               <b-list-group-item>
                                 <span>To :</span>
                                 <br />
-                                <span style="color: rgb(153 153 153)">{{M_FU_Plan.to_address}}</span>
+                                <span style="color: rgb(153 153 153)">{{M_GD_Plan.to_address}}</span>
                               </b-list-group-item>
                             </b-list-group>
                           </b-col>
@@ -279,7 +279,7 @@
                                 /> -->
                                 <br>
                                 <span>
-                                  <label>{{M_FU_Plan.loading_comodity}}</label>
+                                  <label>{{M_GD_Plan.loading_comodity}}</label>
                                 </span>
                             </b-col>
                         </b-row>
@@ -295,7 +295,7 @@
                                 /> -->
                                 <br>
                                 <span>
-                                  <label>{{M_FU_Plan.loading_total_item}}</label>
+                                  <label>{{M_GD_Plan.loading_total_item}}</label>
                                 </span>
                             </b-col>
                             <b-col md="4" style="padding-left: 0px !important;">
@@ -309,7 +309,7 @@
                                 /> -->
                                 <br>
                                 <span>
-                                  <label>{{M_FU_Plan.loading_kgs}}</label>
+                                  <label>{{M_GD_Plan.loading_kgs}}</label>
                                 </span>
                             </b-col>
                             <b-col md="4" style="padding-left: 0px !important;">
@@ -323,7 +323,7 @@
                                 /> -->
                                 <br>
                                 <span>
-                                  <label>{{M_FU_Plan.loading_cbm}}</label>
+                                  <label>{{M_GD_Plan.loading_cbm}}</label>
                                 </span>
                             </b-col>
                         </b-row>
@@ -355,7 +355,7 @@
                                     /> -->
                                     <br>
                                     <span>
-                                        <label>{{M_FU_Plan.total_delivered_item}}</label>
+                                        <label>{{M_GD_Plan.total_delivered_item}}</label>
                                     </span>
                                 </b-col>
                                 <b-col md="4">
@@ -369,7 +369,7 @@
                                     /> -->
                                     <br>
                                     <span>
-                                        <label>{{M_FU_Plan.total_delivered_kgs}}</label>
+                                        <label>{{M_GD_Plan.total_delivered_kgs}}</label>
                                     </span>
                                 </b-col>
                                 <b-col md="4">
@@ -383,14 +383,14 @@
                                     /> -->
                                     <br>
                                     <span>
-                                        <label>{{M_FU_Plan.total_delivered_cbm}}</label>
+                                        <label>{{M_GD_Plan.total_delivered_cbm}}</label>
                                     </span>
                                 </b-col>
                             </b-row>
                         </b-col>
                         <b-col md="6" class="row-bordered">
                             <b-row>
-                                <b-col md="2">
+                                <b-col md="3">
                                     <span style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;">
                                         Return Empty
                                     </span>
@@ -419,7 +419,7 @@
                                     /> -->
                                     <br>
                                     <span>
-                                        <label>{{M_FU_Plan.return_empty_toLabel}}</label>
+                                        <label>{{M_GD_Plan.return_empty_toLabel}}</label>
                                     </span>
                                 </b-col>
                             </b-row>
@@ -467,22 +467,22 @@
                                 /> -->
                                 <br>
                                 <span>
-                                    <label>{{M_FU_Plan.current_km}}</label>
+                                    <label>{{M_GD_Plan.current_km}}</label>
                                 </span>
                             </b-col>
                         </b-row>
                         </b-col>
                     </b-row>
 
-                    <b-row class="row-bordered" style="margin-top: 10px;" v-show="M_FU_Plan.category == 'C'">
+                    <b-row class="row-bordered" style="margin-top: 10px;" v-show="M_GD_Plan.category == 'C'">
                       <b-col md="12">
                         <b-row>
-                          <b-col md="1">
+                          <b-col style="max-width: fit-content !important;">
                             <span style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;">
                               Console Detail
                             </span>
                           </b-col>
-                          <b-col md="1">
+                          <b-col style="max-width: fit-content !important;">
                             <b-button
                               style="background-color: transparent; color: black; border: none; padding: unset !important;"
                               @click="doCreateConsole"
@@ -519,12 +519,12 @@
                     <b-row class="row-bordered" style="margin-top: 10px;">
                       <b-col md="12">
                         <b-row>
-                          <b-col md="1">
+                          <b-col style="max-width: fit-content !important;">
                             <span style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;">
                               Ticket
                             </span>
                           </b-col>
-                          <b-col md="1">
+                          <b-col style="max-width: fit-content !important;">
                             <b-button
                               style="background-color: transparent; color: black; border: none; padding: unset !important;"
                               @click="doCreateTicket"
@@ -630,7 +630,7 @@
                     <b-row style="margin-top: 10px;">
                       <b-col md="12">
                         <b-row>
-                          <b-col md="1">
+                          <b-col style="max-width: fit-content !important;">
                             <span style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;">
                               Document
                             </span>
@@ -638,10 +638,11 @@
                         </b-row>
                         <b-row>
                           <template v-for="(doc, id) in PlanDocument">
-                            <b-col style="margin-right: 5px;" v-bind:key="id">
+                            <b-col md="4" style="margin-top: 10px;" v-bind:key="id">
                                 <b-row class="row-bordered" style="height: 100%">
                                   <b-col style="text-align: center;">
                                         <b-form-checkbox
+                                            :disabled="!((doc.doc_file_name && doc.doc_file_name !== '') && (doc.doc_path_file && doc.doc_path_file !== ''))"
                                             style="display: inline-flex;"
                                             v-model="doc.doc_status"
                                             name="check-button"
@@ -962,7 +963,7 @@ data() {
           file: ''
         },
         M_DataPost: {},
-        M_FU_Plan: {
+        M_GD_Plan: {
             cm_contact_id: "",
             customer_name: "",
             cm_contact_person_id: "",
@@ -1002,7 +1003,7 @@ data() {
         },
         PlanConsole_H: [
           {
-            key: "row_number",
+            key: "sequence_no",
             label: "No",
             tdClass: "ContentACCList2 notranslate th-cus-center",
             thClass: "HeaderACCList2 th-cus-center"
@@ -1032,13 +1033,13 @@ data() {
             thClass: "HeaderACCList2 S th-cus-center"
           },
           {
-            key: "kgs",
+            key: "total_kgs",
             label: "KGS",
             tdClass: "ContentACCList2 notranslate th-cus-center",
             thClass: "HeaderACCList2 S th-cus-center"
           },
           {
-            key: "cbm",
+            key: "total_cbm",
             label: "CBM",
             tdClass: "ContentACCList2 notranslate th-cus-center",
             thClass: "HeaderACCList2 S th-cus-center"
@@ -1134,37 +1135,37 @@ data() {
             key: "row_number",
             label: "No",
             tdClass: "ContentACCList2 notranslate th-cus-center",
-            thClass: "HeaderACCList2 th-cus-center"
+            thClass: "HeaderACCList2 th-cus-center",
           },
           {
-            key: "location",
+            key: "address_name",
             label: "Location",
             tdClass: "ContentACCList2 notranslate th-cus-center",
-            thClass: "HeaderACCList2 S th-cus-center"
+            thClass: "HeaderACCList2 S th-cus-center",
           },
           {
             key: "address",
             label: "Address",
             tdClass: "ContentACCList2 notranslate th-cus-center",
-            thClass: "HeaderACCList2 S th-cus-center"
+            thClass: "HeaderACCList2 S th-cus-center",
           },
           {
-            key: "category",
+            key: "pickdrop_category",
             label: "Category",
             tdClass: "ContentACCList2 notranslate th-cus-center",
-            thClass: "HeaderACCList2 S th-cus-center"
+            thClass: "HeaderACCList2 S th-cus-center",
           },
           {
             key: "descs",
             label: "Description",
             tdClass: "ContentACCList2 notranslate th-cus-center",
-            thClass: "HeaderACCList2 S th-cus-center"
+            thClass: "HeaderACCList2 S th-cus-center",
           },
           {
             key: "row_id", //untuk button delete
             label: "",
             tdClass: "ContentACCList2 notranslate th-cus-center",
-            thClass: "HeaderACCList2 th-cus-center"
+            thClass: "HeaderACCList2 th-cus-center",
           },
         ],
         PlanExtra_D: [],
@@ -1607,7 +1608,7 @@ data() {
         this.M_DataPost = data;
         console.log(data)
         
-        this.M_FU_Plan = {
+        this.M_GD_Plan = {
             cm_contact_id: data.cm_contact_id,
             customer_name: data.customer_name,
             cm_contact_person_id: data.cm_contact_person_id,
@@ -1642,16 +1643,16 @@ data() {
             descs: data.descs,
             from_address: data.from_address,
             to_address: data.to_address,
-            order_date: this.momentDateFormatting(data.order_date, "YYYY-MM-DD HH:mm"),
-            assign_date: this.momentDateFormatting(data.assign_date, "YYYY-MM-DD HH:mm"),
-            dispatch_date: this.momentDateFormatting(data.dispatch_date, "YYYY-MM-DD HH:mm"),
-            arrival_date: this.momentDateFormatting(data.arrival_date, "YYYY-MM-DD HH:mm"),
-            start_loading_date: this.momentDateFormatting(data.start_loading_date, "YYYY-MM-DD HH:mm"),
-            finish_loading_date: this.momentDateFormatting(data.finish_loading_date, "YYYY-MM-DD HH:mm"),
-            get_out_arrival_date: this.momentDateFormatting(data.get_out_arrival_date, "YYYY-MM-DD HH:mm"),
-            get_out_destination_date: this.momentDateFormatting(data.get_out_destination_date, "YYYY-MM-DD HH:mm"),
-            start_unloading_date: this.momentDateFormatting(data.start_unloading_date, "YYYY-MM-DD HH:mm"),
-            finish_unloading_date: this.momentDateFormatting(data.finish_unloading_date, "YYYY-MM-DD HH:mm")
+            order_date: this.momentDateFormatting(data.order_date, "DD-MM-YYYY HH:mm"),
+            assign_date: this.momentDateFormatting(data.assign_date, "DD-MM-YYYY HH:mm"),
+            dispatch_date: this.momentDateFormatting(data.dispatch_date, "DD-MM-YYYY HH:mm"),
+            arrival_date: this.momentDateFormatting(data.arrival_date, "DD-MM-YYYY HH:mm"),
+            start_loading_date: this.momentDateFormatting(data.start_loading_date, "DD-MM-YYYY HH:mm"),
+            finish_loading_date: this.momentDateFormatting(data.finish_loading_date, "DD-MM-YYYY HH:mm"),
+            get_out_arrival_date: this.momentDateFormatting(data.get_out_arrival_date, "DD-MM-YYYY HH:mm"),
+            arrival_destination_date: this.momentDateFormatting(data.arrival_destination_date, "DD-MM-YYYY HH:mm"),
+            start_unloading_date: this.momentDateFormatting(data.start_unloading_date, "DD-MM-YYYY HH:mm"),
+            finish_unloading_date: this.momentDateFormatting(data.finish_unloading_date, "DD-MM-YYYY HH:mm")
         }
 
         this.PlanTicket_D = !data.detail_ticket || data.detail_ticket == null || data.detail_ticket == undefined ? [] : data.detail_ticket

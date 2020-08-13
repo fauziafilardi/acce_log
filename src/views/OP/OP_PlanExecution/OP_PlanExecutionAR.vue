@@ -51,7 +51,7 @@
                       <b-col>
                         <span
                           style="font-size: 15px; font-weight: bold;"
-                        >{{M_DP_Plan.customer_name}}</span>
+                        >{{M_AR_Plan.customer_name}}</span>
                       </b-col>
                       <b-col style="text-align: right;">
                         <span>
@@ -69,73 +69,73 @@
                       <b-col>
                         <span>
                           <font-awesome-icon class="icon-style-default" icon="user" />
-                          &nbsp;&nbsp; {{M_DP_Plan.contact_person}}
+                          &nbsp;&nbsp; {{M_AR_Plan.contact_person}}
                         </span> &nbsp;&nbsp;
                         <span>
                           <font-awesome-icon class="icon-style-default" icon="phone-square-alt" />
-                          &nbsp;&nbsp; {{M_DP_Plan.contact_person_phone_no}}
+                          &nbsp;&nbsp; {{M_AR_Plan.contact_person_phone_no}}
                         </span>
                       </b-col>
                       <b-col style="text-align: right;">
                         <span>
                           <font-awesome-icon class="icon-style-default" icon="user" />
-                          &nbsp;&nbsp;User : {{M_DP_Plan.user}}
+                          &nbsp;&nbsp;User : {{M_AR_Plan.user}}
                         </span>
                       </b-col>
                     </b-row>
                     <b-row>
-                      <b-col>
+                      <b-col style="height: 100px">
                         <div class="container-step">
                           <ul class="progressbar" style="padding-inline-start: 0px !important;">
-                            <li class="active" style="width: 10% !important;">
-                              <span>Order</span>
+                            <li class="active" style="width: 10% !important; margin-top: 15px;">
+                              <span style="top: -75px; position: relative; font-weight: bold;">Order</span>
                               <br />
-                              <span>{{this.M_DP_Plan.order_date}}</span>
+                              <span style="top: -20px; position: relative;">{{M_AR_Plan.order_date}}</span>
                             </li>
-                            <li class="active" style="width: 10% !important;">
-                              <span>Assign</span>
+                            <li class="active" style="width: 10% !important; margin-top: 15px;">
+                              <span style="top: -75px; position: relative; font-weight: bold;">Assign</span>
                               <br />
-                              <span>{{this.M_DP_Plan.assign_date}}</span>
+                              <span style="top: -20px; position: relative;">{{M_AR_Plan.assign_date}}</span>
                             </li>
-                            <li class="active" style="width: 10% !important;">
-                              <span>Dispatch</span>
+                            <li class="active" style="width: 10% !important; margin-top: 15px;">
+                              <span style="top: -75px; position: relative; font-weight: bold;">Dispatch</span>
                               <br />
-                              <span>{{this.M_DP_Plan.dispatch_date}}</span>
+                              <span style="top: -20px; position: relative;">{{M_AR_Plan.dispatch_date}}</span>
                             </li>
-                            <li class="active" style="width: 10% !important;">
-                              <span>Arrived</span>
+                            <li class="active" style="width: 10% !important; margin-top: 15px;">
+                              <span style="top: -75px; position: relative; font-weight: bold;">Arrived</span>
                               <br />
-                              <span>{{this.M_DP_Plan.arrival_date}}</span>
+                              <span style="top: -20px; position: relative;">{{M_AR_Plan.arrival_date}}</span>
                             </li>
-                            <li style="width: 10% !important;">
-                              <span>Start Loading</span>
+                            <li style="width: 10% !important; margin-top: 15px;">
+                              <span style="top: -75px; position: relative; font-weight: bold;">Start Loading</span>
                               <br />
-                              <span>{{this.M_DP_Plan.start_loading_date}}</span>
+                              <span style="top: -20px; position: relative;">{{''}}</span>
                             </li>
-                            <li style="width: 10% !important;">
-                              <span>Finish Loading</span>
+                            <li style="width: 10% !important; margin-top: 15px;">
+                              <span style="top: -75px; position: relative; font-weight: bold;">Finish Loading</span>
                               <br />
-                              <span>{{this.M_DP_Plan.finish_loading_date}}</span>
+                              <span style="top: -20px; position: relative;">{{''}}</span>
                             </li>
-                            <li style="width: 10% !important;">
-                              <span>Get Out</span>
+                            <li style="width: 10% !important; margin-top: 15px;">
+                              <span style="top: -75px; position: relative; font-weight: bold;">Get Out</span>
                               <br />
-                              <span>{{this.M_DP_Plan.get_out_arrival_date}}</span>
+                              <span style="top: -20px; position: relative;">{{''}}</span>
                             </li>
-                            <li style="width: 10% !important;">
-                              <span>Arrive Destination</span>
+                            <li style="width: 10% !important; margin-top: 15px;">
+                              <span style="top: -75px; position: relative; font-weight: bold;">Arrive Destination</span>
                               <br />
-                              <span>{{this.M_DP_Plan.get_out_destination_date}}</span>
+                              <span style="top: -20px; position: relative;">{{''}}</span>
                             </li>
-                            <li style="width: 10% !important;">
-                              <span>Start Unloading</span>
+                            <li style="width: 10% !important; margin-top: 15px;">
+                              <span style="top: -75px; position: relative; font-weight: bold;">Start Unloading</span>
                               <br />
-                              <span>{{this.M_DP_Plan.start_unloading_date}}</span>
+                              <span style="top: -20px; position: relative;">{{''}}</span>
                             </li>
-                            <li style="width: 10% !important;">
-                              <span>Finish Unloading</span>
+                            <li style="width: 10% !important; margin-top: 15px;">
+                              <span style="top: -75px; position: relative; font-weight: bold;">Finish Unloading</span>
                               <br />
-                              <span>{{this.M_DP_Plan.finish_unloading_date}}</span>
+                              <span style="top: -20px; position: relative;">{{''}}</span>
                             </li>
                           </ul>
                         </div>
@@ -151,35 +151,35 @@
                           >
                             <span>Order Number</span>
                             <br />
-                            <span style="color: rgb(153 153 153)">{{M_DP_Plan.order_no}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_AR_Plan.order_no}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span>Date</span>
                             <br />
-                            <span style="color: rgb(153 153 153)">{{M_DP_Plan.date}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_AR_Plan.date}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span>Category</span>
                             <br />
-                            <span style="color: rgb(153 153 153)">{{M_DP_Plan.category_descs}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_AR_Plan.category_descs}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span>From</span>
                             <br />
-                            <span style="color: rgb(153 153 153)">{{M_DP_Plan.from}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_AR_Plan.from}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span>To</span>
                             <br />
-                            <span style="color: rgb(153 153 153)">{{M_DP_Plan.to}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_AR_Plan.to}}</span>
                           </b-col>
                         </b-row>
                         <b-row style="border: solid 1px #e7eaec;border-radius: 0px 0px 5px 5px;">
@@ -188,35 +188,35 @@
                           >
                             <span>Pick Up Date</span>
                             <br />
-                            <span style="color: rgb(153 153 153)">{{M_DP_Plan.pickup_date}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_AR_Plan.pickup_date}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span>KGS</span>
                             <br />
-                            <span style="color: rgb(153 153 153)">{{M_DP_Plan.kgs}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_AR_Plan.kgs}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span>CBM</span>
                             <br />
-                            <span style="color: rgb(153 153 153)">{{M_DP_Plan.cbm}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_AR_Plan.cbm}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span>Vehicle Type</span>
                             <br />
-                            <span style="color: rgb(153 153 153)">{{M_DP_Plan.fleet_type_descs}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_AR_Plan.fleet_type_descs}}</span>
                           </b-col>
                           <b-col
                             style="border-right: solid 1px #e7eaec; padding: 10px !important; max-width: 20% !important;"
                           >
                             <span>Vehicle Number</span>
                             <br />
-                            <span style="color: rgb(153 153 153)">{{M_DP_Plan.plat_no}}</span>
+                            <span style="color: rgb(153 153 153)">{{M_AR_Plan.plat_no}}</span>
                           </b-col>
                         </b-row>
                       </b-col>
@@ -239,7 +239,7 @@
                           <b-col style="margin: auto;">
                             <span class="AppointmentTitle">Driver</span>
                             <br />
-                            <span class="AppointmentDescs">{{M_DP_Plan.driver1}}</span>
+                            <span class="AppointmentDescs">{{M_AR_Plan.driver1}}</span>
                           </b-col>
                         </b-row>
                       </b-col>
@@ -263,12 +263,12 @@
                               <b-list-group-item>
                                 <span>From :</span>
                                 <br />
-                                <span style="color: rgb(153 153 153)">{{M_DP_Plan.from_address}}</span>
+                                <span style="color: rgb(153 153 153)">{{M_AR_Plan.from_address}}</span>
                               </b-list-group-item>
                               <b-list-group-item>
                                 <span>To :</span>
                                 <br />
-                                <span style="color: rgb(153 153 153)">{{M_DP_Plan.to_address}}</span>
+                                <span style="color: rgb(153 153 153)">{{M_AR_Plan.to_address}}</span>
                               </b-list-group-item>
                             </b-list-group>
                           </b-col>
@@ -346,16 +346,16 @@
                     <b-row
                       class="row-bordered"
                       style="margin-top: 10px;"
-                      v-show="M_DP_Plan.category == 'C'"
+                      v-show="M_AR_Plan.category == 'C'"
                     >
                       <b-col md="12">
                         <b-row>
-                          <b-col md="1">
+                          <b-col style="max-width: fit-content !important;">
                             <span
                               style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;"
                             >Console Detail</span>
                           </b-col>
-                          <b-col md="1">
+                          <b-col style="max-width: fit-content !important;">
                             <b-button
                               style="background-color: transparent; color: black; border: none; padding: unset !important;"
                               @click="doCreateConsole"
@@ -393,12 +393,12 @@
                     <b-row class="row-bordered" style="margin-top: 10px;">
                       <b-col md="12">
                         <b-row>
-                          <b-col md="1">
+                          <b-col style="max-width: fit-content !important;">
                             <span
                               style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;"
                             >Ticket</span>
                           </b-col>
-                          <b-col md="1">
+                          <b-col style="max-width: fit-content !important;">
                             <b-button
                               style="background-color: transparent; color: black; border: none; padding: unset !important;"
                               @click="doCreateTicket"
@@ -407,6 +407,7 @@
                                 icon="plus-circle"
                                 class="icon-style-default"
                                 style="margin-right: 5px;"
+                                size="lg"
                               />Add New
                             </b-button>
                           </b-col>
@@ -673,7 +674,7 @@ export default {
         file: "",
       },
       M_DataPost: {},
-      M_DP_Plan: {
+      M_AR_Plan: {
         cm_contact_id: "",
         customer_name: "",
         cm_contact_person_id: "",
@@ -708,9 +709,9 @@ export default {
         cbm: "",
         note: "",
       },
-      PlanTicket_H: [
+      PlanConsole_H: [
         {
-          key: "no",
+          key: "sequence_no",
           label: "No",
           tdClass: "ContentACCList2 notranslate th-cus-center",
           thClass: "HeaderACCList2 th-cus-center",
@@ -740,13 +741,13 @@ export default {
           thClass: "HeaderACCList2 S th-cus-center",
         },
         {
-          key: "kgs",
+          key: "total_kgs",
           label: "KGS",
           tdClass: "ContentACCList2 notranslate th-cus-center",
           thClass: "HeaderACCList2 S th-cus-center",
         },
         {
-          key: "cbm",
+          key: "total_cbm",
           label: "CBM",
           tdClass: "ContentACCList2 notranslate th-cus-center",
           thClass: "HeaderACCList2 S th-cus-center",
@@ -1339,7 +1340,7 @@ export default {
         this.M_DataPost = data;
         console.log(data);
 
-        this.M_DP_Plan = {
+        this.M_AR_Plan = {
           cm_contact_id: data.cm_contact_id,
           customer_name: data.customer_name,
           cm_contact_person_id: data.cm_contact_person_id,
@@ -1369,51 +1370,51 @@ export default {
           to_address: data.to_address,
           order_date: this.momentDateFormatting(
             data.order_date,
-            "YYYY-MM-DD HH:mm"
+            "DD-MM-YYYY HH:mm"
           ),
           assign_date: this.momentDateFormatting(
             data.assign_date,
-            "YYYY-MM-DD HH:mm"
+            "DD-MM-YYYY HH:mm"
           ),
           dispatch_date: this.momentDateFormatting(
             data.dispatch_date,
-            "YYYY-MM-DD HH:mm"
+            "DD-MM-YYYY HH:mm"
           ),
           arrival_date: this.momentDateFormatting(
             data.arrival_date,
-            "YYYY-MM-DD HH:mm"
+            "DD-MM-YYYY HH:mm"
           ),
           start_loading_date: this.momentDateFormatting(
             data.start_loading_date,
-            "YYYY-MM-DD HH:mm"
+            "DD-MM-YYYY HH:mm"
           ),
           finish_loading_date: this.momentDateFormatting(
             data.finish_loading_date,
-            "YYYY-MM-DD HH:mm"
+            "DD-MM-YYYY HH:mm"
           ),
           get_out_arrival_date: this.momentDateFormatting(
             data.get_out_arrival_date,
-            "YYYY-MM-DD HH:mm"
+            "DD-MM-YYYY HH:mm"
           ),
           get_out_destination_date: this.momentDateFormatting(
             data.get_out_destination_date,
-            "YYYY-MM-DD HH:mm"
+            "DD-MM-YYYY HH:mm"
           ),
           start_unloading_date: this.momentDateFormatting(
             data.start_unloading_date,
-            "YYYY-MM-DD HH:mm"
+            "DD-MM-YYYY HH:mm"
           ),
           finish_unloading_date: this.momentDateFormatting(
             data.finish_unloading_date,
-            "YYYY-MM-DD HH:mm"
+            "DD-MM-YYYY HH:mm"
           ),
         };
 
-        this.PlanTicket_D = data.detail_ticket;
-        this.PlanCosting_D = data.detail_cost;
-        this.PlanExtra_D = data.detail_pick_drop;
-        this.PlanConsole_D = data.detail_console;
-        this.PlanDocument = data.detail_document;
+        this.PlanTicket_D = !data.detail_ticket || data.detail_ticket == null || data.detail_ticket == undefined ? [] : data.detail_ticket
+        this.PlanCosting_D = !data.detail_cost || data.detail_cost == null || data.detail_cost == undefined ? [] : data.detail_cost
+        this.PlanExtra_D = !data.detail_pick_drop || data.detail_pick_drop == null || data.detail_pick_drop == undefined ? [] : data.detail_pick_drop
+        this.PlanConsole_D = !data.detail_console || data.detail_console == null || data.detail_console == undefined ? [] : data.detail_console
+        this.PlanDocument = !data.detail_document || data.detail_document == null || data.detail_document == undefined ? [] : data.detail_document
 
         this.M_ClearForm();
       });

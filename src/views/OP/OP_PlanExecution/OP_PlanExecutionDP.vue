@@ -84,58 +84,58 @@
                       </b-col>
                     </b-row>
                     <b-row>
-                      <b-col>
+                      <b-col style="height: 100px">
                         <div class="container-step">
                           <ul class="progressbar" style="padding-inline-start: 0px !important;">
-                            <li class="active" style="width: 10% !important;">
-                              <span>Order</span>
+                            <li class="active" style="width: 10% !important; margin-top: 15px;">
+                              <span style="top: -75px; position: relative; font-weight: bold;">Order</span>
                               <br />
-                              <span>{{this.M_DP_Plan.order_date}}</span>
+                              <span style="top: -20px; position: relative;">{{M_DP_Plan.order_date}}</span>
                             </li>
-                            <li class="active" style="width: 10% !important;">
-                              <span>Assign</span>
+                            <li class="active" style="width: 10% !important; margin-top: 15px;">
+                              <span style="top: -75px; position: relative; font-weight: bold;">Assign</span>
                               <br />
-                              <span>{{this.M_DP_Plan.assign_date}}</span>
+                              <span style="top: -20px; position: relative;">{{M_DP_Plan.assign_date}}</span>
                             </li>
-                            <li class="active" style="width: 10% !important;">
-                              <span>Dispatch</span>
+                            <li class="active" style="width: 10% !important; margin-top: 15px;">
+                              <span style="top: -75px; position: relative; font-weight: bold;">Dispatch</span>
                               <br />
-                              <span>{{this.M_DP_Plan.dispatch_date}}</span>
+                              <span style="top: -20px; position: relative;">{{M_DP_Plan.dispatch_date}}</span>
                             </li>
-                            <li style="width: 10% !important;">
-                              <span>Arrived</span>
+                            <li style="width: 10% !important; margin-top: 15px;">
+                              <span style="top: -75px; position: relative; font-weight: bold;">Arrived</span>
                               <br />
-                              <span>{{this.M_DP_Plan.arrival_date}}</span>
+                              <span style="top: -20px; position: relative;">{{''}}</span>
                             </li>
-                            <li style="width: 10% !important;">
-                              <span>Start Loading</span>
+                            <li style="width: 10% !important; margin-top: 15px;">
+                              <span style="top: -75px; position: relative; font-weight: bold;">Start Loading</span>
                               <br />
-                              <span>{{this.M_DP_Plan.start_loading_date}}</span>
+                              <span style="top: -20px; position: relative;">{{''}}</span>
                             </li>
-                            <li style="width: 10% !important;">
-                              <span>Finish Loading</span>
+                            <li style="width: 10% !important; margin-top: 15px;">
+                              <span style="top: -75px; position: relative; font-weight: bold;">Finish Loading</span>
                               <br />
-                              <span>{{this.M_DP_Plan.finish_loading_date}}</span>
+                              <span style="top: -20px; position: relative;">{{''}}</span>
                             </li>
-                            <li style="width: 10% !important;">
-                              <span>Get Out</span>
+                            <li style="width: 10% !important; margin-top: 15px;">
+                              <span style="top: -75px; position: relative; font-weight: bold;">Get Out</span>
                               <br />
-                              <span>{{this.M_DP_Plan.get_out_arrival_date}}</span>
+                              <span style="top: -20px; position: relative;">{{''}}</span>
                             </li>
-                            <li style="width: 10% !important;">
-                              <span>Arrive Destination</span>
+                            <li style="width: 10% !important; margin-top: 15px;">
+                              <span style="top: -75px; position: relative; font-weight: bold;">Arrive Destination</span>
                               <br />
-                              <span>{{this.M_DP_Plan.get_out_destination_date}}</span>
+                              <span style="top: -20px; position: relative;">{{''}}</span>
                             </li>
-                            <li style="width: 10% !important;">
-                              <span>Start Unloading</span>
+                            <li style="width: 10% !important; margin-top: 15px;">
+                              <span style="top: -75px; position: relative; font-weight: bold;">Start Unloading</span>
                               <br />
-                              <span>{{this.M_DP_Plan.start_unloading_date}}</span>
+                              <span style="top: -20px; position: relative;">{{''}}</span>
                             </li>
-                            <li style="width: 10% !important;">
-                              <span>Finish Unloading</span>
+                            <li style="width: 10% !important; margin-top: 15px;">
+                              <span style="top: -75px; position: relative; font-weight: bold;">Finish Unloading</span>
                               <br />
-                              <span>{{this.M_DP_Plan.finish_unloading_date}}</span>
+                              <span style="top: -20px; position: relative;">{{''}}</span>
                             </li>
                           </ul>
                         </div>
@@ -350,12 +350,12 @@
                     >
                       <b-col md="12">
                         <b-row>
-                          <b-col md="1">
+                          <b-col style="max-width: fit-content !important;">
                             <span
                               style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;"
                             >Console Detail</span>
                           </b-col>
-                          <b-col md="1">
+                          <b-col style="max-width: fit-content !important;">
                             <b-button
                               style="background-color: transparent; color: black; border: none; padding: unset !important;"
                               @click="doCreateConsole"
@@ -398,7 +398,7 @@
                               style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;"
                             >Ticket</span>
                           </b-col>
-                          <b-col md="1">
+                          <b-col md="2">
                             <b-button
                               style="background-color: transparent; color: black; border: none; padding: unset !important;"
                               @click="doCreateTicket"
@@ -407,6 +407,7 @@
                                 icon="plus-circle"
                                 class="icon-style-default"
                                 style="margin-right: 5px;"
+                                size="lg"
                               />Add New
                             </b-button>
                           </b-col>
@@ -708,9 +709,9 @@ export default {
         cbm: "",
         note: "",
       },
-      PlanTicket_H: [
+      PlanConsole_H: [
         {
-          key: "no",
+          key: "sequence_no",
           label: "No",
           tdClass: "ContentACCList2 notranslate th-cus-center",
           thClass: "HeaderACCList2 th-cus-center",
@@ -740,13 +741,13 @@ export default {
           thClass: "HeaderACCList2 S th-cus-center",
         },
         {
-          key: "kgs",
+          key: "total_kgs",
           label: "KGS",
           tdClass: "ContentACCList2 notranslate th-cus-center",
           thClass: "HeaderACCList2 S th-cus-center",
         },
         {
-          key: "cbm",
+          key: "total_cbm",
           label: "CBM",
           tdClass: "ContentACCList2 notranslate th-cus-center",
           thClass: "HeaderACCList2 S th-cus-center",
@@ -1376,43 +1377,43 @@ export default {
           to_address: data.to_address,
           order_date: this.momentDateFormatting(
             data.order_date,
-            "YYYY-MM-DD HH:mm"
+            "DD-MM-YYYY HH:mm"
           ),
           assign_date: this.momentDateFormatting(
             data.assign_date,
-            "YYYY-MM-DD HH:mm"
+            "DD-MM-YYYY HH:mm"
           ),
           dispatch_date: this.momentDateFormatting(
             data.dispatch_date,
-            "YYYY-MM-DD HH:mm"
+            "DD-MM-YYYY HH:mm"
           ),
           arrival_date: this.momentDateFormatting(
             data.arrival_date,
-            "YYYY-MM-DD HH:mm"
+            "DD-MM-YYYY HH:mm"
           ),
           start_loading_date: this.momentDateFormatting(
             data.start_loading_date,
-            "YYYY-MM-DD HH:mm"
+            "DD-MM-YYYY HH:mm"
           ),
           finish_loading_date: this.momentDateFormatting(
             data.finish_loading_date,
-            "YYYY-MM-DD HH:mm"
+            "DD-MM-YYYY HH:mm"
           ),
           get_out_arrival_date: this.momentDateFormatting(
             data.get_out_arrival_date,
-            "YYYY-MM-DD HH:mm"
+            "DD-MM-YYYY HH:mm"
           ),
           get_out_destination_date: this.momentDateFormatting(
             data.get_out_destination_date,
-            "YYYY-MM-DD HH:mm"
+            "DD-MM-YYYY HH:mm"
           ),
           start_unloading_date: this.momentDateFormatting(
             data.start_unloading_date,
-            "YYYY-MM-DD HH:mm"
+            "DD-MM-YYYY HH:mm"
           ),
           finish_unloading_date: this.momentDateFormatting(
             data.finish_unloading_date,
-            "YYYY-MM-DD HH:mm"
+            "DD-MM-YYYY HH:mm"
           ),
         };
 

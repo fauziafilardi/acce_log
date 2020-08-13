@@ -47,6 +47,7 @@
                     icon="plus-circle"
                     class="icon-style-default"
                     style="margin-right: 5px;"
+                    size="lg"
                     /> Add
                 </b-button>
             </template>
@@ -157,12 +158,12 @@ export default {
             line_no: 5,
             ss_portfolio_id: this.paramFromList.ss_portfolio_id,
             ss_subportfolio_id: this.paramFromList.ss_subportfolio_id,
-            console_op_order_id: data.row_id,
-            op_order_id: this.paramFromList.row_id,
-            tmp_fr_cm_zone_id: data.fr_cm_zone_id,
-            tmp_to_cm_zone_id: data.to_cm_zone_id,
+            console_op_order_id: this.paramFromList.row_id,
+            op_order_id: data.row_id,
+            tmp_fr_cm_zone_id: this.paramFromList.fr_cm_zone_id,
+            tmp_to_cm_zone_id: this.paramFromList.to_cm_zone_id,
             tmp_fm_fleet_type_id: this.paramFromList.fm_fleet_type_id,
-            tmp_schedule_date: data.pickup_date,
+            tmp_schedule_date: this.paramFromList.pickup_date,
             user_input: this.getDataUser().user_id
         };
 

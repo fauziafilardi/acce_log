@@ -78,58 +78,58 @@
                       </b-col>
                     </b-row>
                     <b-row>
-                      <b-col>
+                      <b-col style="height: 100px;">
                         <div class="container-step">
                           <ul class="progressbar" style="padding-inline-start: 0px !important;">
-                            <li class="active" style="width: 10% !important;">
-                                <span>Order</span>
-                                <br />
-                                <span>{{this.M_SU_Plan.order_date}}</span>
+                            <li class="active" style="width: 10% !important; margin-top: 15px;">
+                              <span style="top: -75px; position: relative; font-weight: bold;">Order</span>
+                              <br />
+                              <span style="top: -20px; position: relative;">{{M_SU_Plan.order_date}}</span>
                             </li>
-                            <li class="active" style="width: 10% !important;">
-                                <span>Assign</span>
-                                <br />
-                                <span>{{this.M_SU_Plan.assign_date}}</span>
+                            <li class="active" style="width: 10% !important; margin-top: 15px;">
+                              <span style="top: -75px; position: relative; font-weight: bold;">Assign</span>
+                              <br />
+                              <span style="top: -20px; position: relative;">{{M_SU_Plan.assign_date}}</span>
                             </li>
-                            <li class="active" style="width: 10% !important;">
-                                <span>Dispatch</span>
-                                <br />
-                                <span>{{this.M_SU_Plan.dispatch_date}}</span>
+                            <li class="active" style="width: 10% !important; margin-top: 15px;">
+                              <span style="top: -75px; position: relative; font-weight: bold;">Dispatch</span>
+                              <br />
+                              <span style="top: -20px; position: relative;">{{M_SU_Plan.dispatch_date}}</span>
                             </li>
-                            <li class="active" style="width: 10% !important;">
-                                <span>Arrived</span>
-                                <br />
-                                <span>{{this.M_SU_Plan.arrival_date}}</span>
+                            <li class="active" style="width: 10% !important; margin-top: 15px;">
+                              <span style="top: -75px; position: relative; font-weight: bold;">Arrived</span>
+                              <br />
+                              <span style="top: -20px; position: relative;">{{M_SU_Plan.arrival_date}}</span>
                             </li>
-                            <li class="active" style="width: 10% !important;">
-                                <span>Start Loading</span>
-                                <br />
-                                <span>{{this.M_SU_Plan.start_loading_date}}</span>
+                            <li class="active" style="width: 10% !important; margin-top: 15px;">
+                              <span style="top: -75px; position: relative; font-weight: bold;">Start Loading</span>
+                              <br />
+                              <span style="top: -20px; position: relative;">{{M_SU_Plan.start_loading_date}}</span>
                             </li>
-                            <li class="active" style="width: 10% !important;">
-                                <span>Finish Loading</span>
-                                <br />
-                                <span>{{this.M_SU_Plan.finish_loading_date}}</span>
+                            <li class="active" style="width: 10% !important; margin-top: 15px;">
+                              <span style="top: -75px; position: relative; font-weight: bold;">Finish Loading</span>
+                              <br />
+                              <span style="top: -20px; position: relative;">{{M_SU_Plan.finish_loading_date}}</span>
                             </li>
-                            <li class="active" style="width: 10% !important;">
-                                <span>Get Out</span>
-                                <br />
-                                <span>{{this.M_SU_Plan.get_out_arrival_date}}</span>
+                            <li class="active" style="width: 10% !important; margin-top: 15px;">
+                              <span style="top: -75px; position: relative; font-weight: bold;">Get Out</span>
+                              <br />
+                              <span style="top: -20px; position: relative;">{{M_SU_Plan.get_out_arrival_date}}</span>
                             </li>
-                            <li class="active" style="width: 10% !important;">
-                                <span>Arrive Destination</span>
-                                <br />
-                                <span>{{this.M_SU_Plan.get_out_destination_date}}</span>
+                            <li class="active" style="width: 10% !important; margin-top: 15px;">
+                              <span style="top: -75px; position: relative; font-weight: bold;">Arrive Destination</span>
+                              <br />
+                              <span style="top: -36px; position: relative;">{{M_SU_Plan.arrival_destination_date}}</span>
                             </li>
-                            <li class="active" style="width: 10% !important;">
-                                <span>Start Unloading</span>
-                                <br />
-                                <span>{{this.M_SU_Plan.start_unloading_date}}</span>
+                            <li class="active" style="width: 10% !important; margin-top: 15px;">
+                              <span style="top: -75px; position: relative; font-weight: bold;">Start Unloading</span>
+                              <br />
+                              <span style="top: -36px; position: relative;">{{M_SU_Plan.start_unloading_date}}</span>
                             </li>
-                            <li style="width: 10% !important;">
-                                <span>Finish Unloading</span>
-                                <br />
-                                <span>{{this.M_SU_Plan.finish_unloading_date}}</span>
+                            <li style="width: 10% !important; margin-top: 15px;">
+                              <span style="top: -75px; position: relative; font-weight: bold;">Finish Unloading</span>
+                              <br />
+                              <span style="top: -20px; position: relative;">{{''}}</span>
                             </li>
                           </ul>
                         </div>
@@ -327,74 +327,6 @@
                                 </span>
                             </b-col>
                         </b-row>
-                        <b-row>
-                          <b-col md="6" style="padding-left: 0px !important;">
-                              <b-row class="row-bordered">
-                                  <b-col>
-                                        <b-row>
-                                            <b-col style="padding-left: 0px !important;">
-                                                <span style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;">
-                                                    Delivered
-                                                </span>
-                                            </b-col>
-                                        </b-row>
-                                        <b-row>
-                                            <b-col md="4" style="padding-left: 0px !important;">
-                                                <span>
-                                                    <label>Total Item</label>
-                                                </span>
-                                                <ACCTextBox
-                                                    :prop="PI_total_item"
-                                                    v-model="M_PlanExe.total_delivered_item"
-                                                    ref="ref_total_item"
-                                                />
-                                            </b-col>
-                                            <b-col md="4" style="padding-left: 0px !important;">
-                                                <span>
-                                                    <label>KGS</label>
-                                                </span>
-                                                <ACCTextBox
-                                                    :prop="PI_kgs"
-                                                    v-model="M_PlanExe.total_delivered_kgs"
-                                                    ref="ref_kgs"
-                                                />
-                                            </b-col>
-                                            <b-col md="4" style="padding-left: 0px !important;">
-                                                <span>
-                                                    <label>CBM</label>
-                                                </span>
-                                                <ACCTextBox
-                                                    :prop="PI_cbm"
-                                                    v-model="M_PlanExe.total_delivered_cbm"
-                                                    ref="ref_cbm"
-                                                />
-                                            </b-col>
-                                        </b-row>
-                                  </b-col>
-                              </b-row>
-                            <!-- <span>
-                              <label>Note</label>
-                            </span>
-                            <ACCTextArea :prop="PI_note" v-model="M_PlanExe.note" ref="ref_note" /> -->
-                          </b-col>
-                          <b-col md="6" style="padding-left: 0px !important;">
-                            <span>
-                              <label>Note</label>
-                            </span>
-                            <ACCTextArea :prop="PI_note" v-model="M_PlanExe.note" ref="ref_note" />
-                          </b-col>
-                        </b-row>
-                        <b-row style="margin-top: 10px;">
-                          <b-col md="12" style="padding-left: 0px !important;">
-                            <ABSButton
-                              :text="'Finish Unloading'"
-                              classButton="btn btn--default"
-                              classIcon="icon-style-default"
-                              @click="doSave"
-                              styleButton="height: 40px;width: 100%;"
-                            />
-                          </b-col>
-                        </b-row>
                       </b-col>
                       <b-col md="6">
                         <div>
@@ -402,16 +334,84 @@
                         </div>
                       </b-col>
                     </b-row>
+                    <b-row>
+                      <b-col md="6" style="padding-left: 0px !important;">
+                          <b-row class="row-bordered">
+                              <b-col>
+                                    <b-row>
+                                        <b-col style="padding-left: 0px !important;">
+                                            <span style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;">
+                                                Delivered
+                                            </span>
+                                        </b-col>
+                                    </b-row>
+                                    <b-row>
+                                        <b-col md="4" style="padding-left: 0px !important;">
+                                            <span>
+                                                <label>Total Item</label>
+                                            </span>
+                                            <ACCTextBox
+                                                :prop="PI_total_item"
+                                                v-model="M_PlanExe.total_delivered_item"
+                                                ref="ref_total_item"
+                                            />
+                                        </b-col>
+                                        <b-col md="4" style="padding-left: 0px !important;">
+                                            <span>
+                                                <label>KGS</label>
+                                            </span>
+                                            <ACCTextBox
+                                                :prop="PI_kgs"
+                                                v-model="M_PlanExe.total_delivered_kgs"
+                                                ref="ref_kgs"
+                                            />
+                                        </b-col>
+                                        <b-col md="4" style="padding-left: 0px !important;">
+                                            <span>
+                                                <label>CBM</label>
+                                            </span>
+                                            <ACCTextBox
+                                                :prop="PI_cbm"
+                                                v-model="M_PlanExe.total_delivered_cbm"
+                                                ref="ref_cbm"
+                                            />
+                                        </b-col>
+                                    </b-row>
+                              </b-col>
+                          </b-row>
+                        <!-- <span>
+                          <label>Note</label>
+                        </span>
+                        <ACCTextArea :prop="PI_note" v-model="M_PlanExe.note" ref="ref_note" /> -->
+                      </b-col>
+                      <b-col md="6" style="padding-left: 0px !important;">
+                        <span>
+                          <label>Note</label>
+                        </span>
+                        <ACCTextArea :prop="PI_note" v-model="M_PlanExe.note" ref="ref_note" />
+                      </b-col>
+                    </b-row>
+                    <b-row style="margin-top: 10px;">
+                      <b-col md="6">
+                        <ABSButton
+                          :text="'Start Unloading'"
+                          classButton="btn btn--default"
+                          classIcon="icon-style-default"
+                          @click="doSave"
+                          styleButton="height: 40px;width: 100%;"
+                        />
+                      </b-col>
+                    </b-row>
 
                     <b-row class="row-bordered" style="margin-top: 10px;" v-show="M_SU_Plan.category == 'C'">
                       <b-col md="12">
                         <b-row>
-                          <b-col md="1">
+                          <b-col style="max-width: fit-content !important;">
                             <span style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;">
                               Console Detail
                             </span>
                           </b-col>
-                          <b-col md="1">
+                          <b-col style="max-width: fit-content !important;">
                             <b-button
                               style="background-color: transparent; color: black; border: none; padding: unset !important;"
                               @click="doCreateConsole"
@@ -449,12 +449,12 @@
                     <b-row class="row-bordered" style="margin-top: 10px;">
                       <b-col md="12">
                         <b-row>
-                          <b-col md="1">
+                          <b-col style="max-width: fit-content !important;">
                             <span style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;">
                               Ticket
                             </span>
                           </b-col>
-                          <b-col md="1">
+                          <b-col style="max-width: fit-content !important;">
                             <b-button
                               style="background-color: transparent; color: black; border: none; padding: unset !important;"
                               @click="doCreateTicket"
@@ -562,7 +562,7 @@
                     <b-row style="margin-top: 10px;">
                       <b-col md="12">
                         <b-row>
-                          <b-col md="1">
+                          <b-col style="max-width: fit-content !important;">
                             <span style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;">
                               Document
                             </span>
@@ -570,7 +570,7 @@
                         </b-row>
                         <b-row>
                           <template v-for="(doc, id) in PlanDocument">
-                            <b-col style="margin-right: 5px;" v-bind:key="id">
+                            <b-col md="4" style="margin-top: 10px;" v-bind:key="id">
                                 <b-row class="row-bordered" style="height: 100%">
                                   <b-col style="text-align: center;">
                                     <span style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;">
@@ -932,7 +932,7 @@ data() {
         },
         PlanConsole_H: [
           {
-            key: "row_number",
+            key: "sequence_no",
             label: "No",
             tdClass: "ContentACCList2 notranslate th-cus-center",
             thClass: "HeaderACCList2 th-cus-center"
@@ -962,13 +962,13 @@ data() {
             thClass: "HeaderACCList2 S th-cus-center"
           },
           {
-            key: "kgs",
+            key: "total_kgs",
             label: "KGS",
             tdClass: "ContentACCList2 notranslate th-cus-center",
             thClass: "HeaderACCList2 S th-cus-center"
           },
           {
-            key: "cbm",
+            key: "total_cbm",
             label: "CBM",
             tdClass: "ContentACCList2 notranslate th-cus-center",
             thClass: "HeaderACCList2 S th-cus-center"
@@ -1064,37 +1064,37 @@ data() {
             key: "row_number",
             label: "No",
             tdClass: "ContentACCList2 notranslate th-cus-center",
-            thClass: "HeaderACCList2 th-cus-center"
+            thClass: "HeaderACCList2 th-cus-center",
           },
           {
-            key: "location",
+            key: "address_name",
             label: "Location",
             tdClass: "ContentACCList2 notranslate th-cus-center",
-            thClass: "HeaderACCList2 S th-cus-center"
+            thClass: "HeaderACCList2 S th-cus-center",
           },
           {
             key: "address",
             label: "Address",
             tdClass: "ContentACCList2 notranslate th-cus-center",
-            thClass: "HeaderACCList2 S th-cus-center"
+            thClass: "HeaderACCList2 S th-cus-center",
           },
           {
-            key: "category",
+            key: "pickdrop_category",
             label: "Category",
             tdClass: "ContentACCList2 notranslate th-cus-center",
-            thClass: "HeaderACCList2 S th-cus-center"
+            thClass: "HeaderACCList2 S th-cus-center",
           },
           {
             key: "descs",
             label: "Description",
             tdClass: "ContentACCList2 notranslate th-cus-center",
-            thClass: "HeaderACCList2 S th-cus-center"
+            thClass: "HeaderACCList2 S th-cus-center",
           },
           {
             key: "row_id", //untuk button delete
             label: "",
             tdClass: "ContentACCList2 notranslate th-cus-center",
-            thClass: "HeaderACCList2 th-cus-center"
+            thClass: "HeaderACCList2 th-cus-center",
           },
         ],
         PlanExtra_D: [],
@@ -1535,16 +1535,16 @@ data() {
             descs: data.descs,
             from_address: data.from_address,
             to_address: data.to_address,
-            order_date: this.momentDateFormatting(data.order_date, "YYYY-MM-DD HH:mm"),
-            assign_date: this.momentDateFormatting(data.assign_date, "YYYY-MM-DD HH:mm"),
-            dispatch_date: this.momentDateFormatting(data.dispatch_date, "YYYY-MM-DD HH:mm"),
-            arrival_date: this.momentDateFormatting(data.arrival_date, "YYYY-MM-DD HH:mm"),
-            start_loading_date: this.momentDateFormatting(data.start_loading_date, "YYYY-MM-DD HH:mm"),
-            finish_loading_date: this.momentDateFormatting(data.finish_loading_date, "YYYY-MM-DD HH:mm"),
-            get_out_arrival_date: this.momentDateFormatting(data.get_out_arrival_date, "YYYY-MM-DD HH:mm"),
-            get_out_destination_date: this.momentDateFormatting(data.get_out_destination_date, "YYYY-MM-DD HH:mm"),
-            start_unloading_date: this.momentDateFormatting(data.start_unloading_date, "YYYY-MM-DD HH:mm"),
-            finish_unloading_date: this.momentDateFormatting(data.finish_unloading_date, "YYYY-MM-DD HH:mm")
+            order_date: this.momentDateFormatting(data.order_date, "DD-MM-YYYY HH:mm"),
+            assign_date: this.momentDateFormatting(data.assign_date, "DD-MM-YYYY HH:mm"),
+            dispatch_date: this.momentDateFormatting(data.dispatch_date, "DD-MM-YYYY HH:mm"),
+            arrival_date: this.momentDateFormatting(data.arrival_date, "DD-MM-YYYY HH:mm"),
+            start_loading_date: this.momentDateFormatting(data.start_loading_date, "DD-MM-YYYY HH:mm"),
+            finish_loading_date: this.momentDateFormatting(data.finish_loading_date, "DD-MM-YYYY HH:mm"),
+            get_out_arrival_date: this.momentDateFormatting(data.get_out_arrival_date, "DD-MM-YYYY HH:mm"),
+            arrival_destination_date: this.momentDateFormatting(data.arrival_destination_date, "DD-MM-YYYY HH:mm"),
+            start_unloading_date: this.momentDateFormatting(data.start_unloading_date, "DD-MM-YYYY HH:mm"),
+            finish_unloading_date: this.momentDateFormatting(data.finish_unloading_date, "DD-MM-YYYY HH:mm")
         }
 
         this.PlanTicket_D = !data.detail_ticket || data.detail_ticket == null || data.detail_ticket == undefined ? [] : data.detail_ticket
@@ -1552,6 +1552,9 @@ data() {
         this.PlanExtra_D = !data.detail_pick_drop || data.detail_pick_drop == null || data.detail_pick_drop == undefined ? [] : data.detail_pick_drop
         this.PlanConsole_D = !data.detail_console || data.detail_console == null || data.detail_console == undefined ? [] : data.detail_console
         this.PlanDocument = !data.detail_document || data.detail_document == null || data.detail_document == undefined ? [] : data.detail_document
+
+        this.PI_kgs.cValidate = 'required|less:' + data.total_kgs
+        this.PI_cbm.cValidate = 'required|less:' + data.total_cbm
 
         this.M_ClearForm();
       });
