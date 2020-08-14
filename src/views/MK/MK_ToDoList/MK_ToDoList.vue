@@ -243,13 +243,13 @@ export default {
         initialWhere:
           "ss_portfolio_id='" +
           this.getDataUser().portfolio_id +
-          "' appointment_type = 'T' AND status_logbook = 'N' ",
+          "' AND appointment_type = 'T' AND status_logbook = 'N' ",
         LineNo: 0,
         PageLevel: 1,
         TabIndex: 1,
         OrderBy: "",
         SourceField: "",
-        ParamView: ""
+        ParamView: "",
       },
 
       //For List
@@ -282,7 +282,7 @@ export default {
         { value: 60, text: "60" },
         { value: 80, text: "80" },
         { value: 100, text: "100" },
-        { value: 1000, text: "1000" }
+        { value: 1000, text: "1000" },
       ],
 
       fileName: "TestExport",
@@ -297,7 +297,7 @@ export default {
 
       sortedField: [{ field: "time_edit", sort: "DESC" }],
       isDisableTable: false,
-      responses: []
+      responses: [],
     };
   },
   methods: {
@@ -343,10 +343,10 @@ export default {
         option_function_cd: "GenToDoList",
         module_cd: "MK",
         ss_portfolio_id: this.getDataUser().portfolio_id,
-        user_id: this.getDataUser().user_id
+        user_id: this.getDataUser().user_id,
       };
 
-      this.CallFunction(param).then(response => {
+      this.CallFunction(param).then((response) => {
         // response from API
         if (response == null) return;
         this.dogetget();
@@ -365,10 +365,10 @@ export default {
         initial_where: this.propList.initialWhere,
         sort_field: this.sort,
         source_field: this.propList.SourceField,
-        param_view: this.propList.ParamView
+        param_view: this.propList.ParamView,
       };
 
-      this.postJSON(this.getUrlList(), param).then(response => {
+      this.postJSON(this.getUrlList(), param).then((response) => {
         if (response == null) return;
         this.selected = false;
 
@@ -406,7 +406,7 @@ export default {
 
         this.allColumn_bf.forEach((val, idx) => {
           var thClass = "HeaderACCList2";
-          var isSorted = this.sortedField.map(x => x.field).indexOf(val);
+          var isSorted = this.sortedField.map((x) => x.field).indexOf(val);
           if (isSorted > -1) {
             if (this.sortedField[isSorted].sort == "ASC") {
               thClass = thClass + " AscSorted";
@@ -420,26 +420,26 @@ export default {
             key: val,
             thClass: thClass,
             tdClass: "ContentACCList2 notranslate",
-            text: val
+            text: val,
           });
 
           filteredColumn.push({
             value: idx + 1,
             key: val,
             thClass: thClass,
-            tdClass: "ContentACCList2 notranslate"
+            tdClass: "ContentACCList2 notranslate",
           });
         });
 
         for (var i = 0; i < str_array.length; i++) {
-          filteredColumn = filteredColumn.filter(val => {
+          filteredColumn = filteredColumn.filter((val) => {
             if (val.key == str_array[i]) {
               definedColumn.push({
                 value: val.value,
                 key: val.key,
                 thClass: val.thClass,
                 tdClass: val.tdClass,
-                text: val.key
+                text: val.key,
               });
             }
 
@@ -467,7 +467,7 @@ export default {
           }
 
           var isSorted = this.sortedField
-            .map(x => x.field)
+            .map((x) => x.field)
             .indexOf(str_array[i]);
           if (isSorted > -1) {
             if (this.sortedField[isSorted].sort == "ASC") {
@@ -483,7 +483,7 @@ export default {
               key: str_array[i],
               thClass: thClass,
               tdClass: tdClass,
-              label: this.$t(str_array[i])
+              label: this.$t(str_array[i]),
             });
           } else {
             if (str_array[i] == "lastupdatestamp") continue;
@@ -491,48 +491,48 @@ export default {
             var listReplace = [
               {
                 key: "_",
-                value: " "
+                value: " ",
               },
               {
                 key: "Amt",
-                value: " Amount"
+                value: " Amount",
               },
               {
                 key: "Cd",
-                value: " Code"
+                value: " Code",
               },
               {
                 key: "Descs",
-                value: " Description"
+                value: " Description",
               },
               {
                 key: "Time Edit",
-                value: "Last Update"
+                value: "Last Update",
               },
               {
                 key: "Batch Status",
-                value: "Status"
+                value: "Status",
               },
               {
                 key: "garing",
-                value: "/"
+                value: "/",
               },
               {
                 key: "titik",
-                value: "."
+                value: ".",
               },
               {
                 key: "SnP",
-                value: "SnP "
+                value: "SnP ",
               },
               {
                 key: "VO",
-                value: "VO "
+                value: "VO ",
               },
               {
                 key: "Row Id",
-                value: "View"
-              }
+                value: "View",
+              },
             ];
             var isGotIt = false;
             var labelHeader = undefined;
@@ -543,7 +543,7 @@ export default {
               labelHeader = str_array[i]
                 .toLowerCase()
                 .split("_")
-                .map(s => {
+                .map((s) => {
                   return s.charAt(0).toUpperCase() + s.substring(1);
                 })
                 .join(" ");
@@ -586,7 +586,7 @@ export default {
               key: str_array[i],
               thClass: thClass,
               tdClass: tdClass,
-              label: labelHeader
+              label: labelHeader,
             });
           }
         }
@@ -618,7 +618,7 @@ export default {
         return true;
       }
       return false;
-    }
+    },
   },
   mounted() {
     // this.doGetList("");
@@ -626,7 +626,7 @@ export default {
   },
   created() {
     this.GenDoList();
-  }
+  },
 };
 </script>
 

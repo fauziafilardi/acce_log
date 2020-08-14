@@ -108,7 +108,7 @@
                   @row-clicked="viewClicked"
                   class="table-sm table-style-3"
                 >
-                  <template v-slot:cell(row_id)="data">
+                  <!-- <template v-slot:cell(row_id)="data">
                     <b-button
                       v-if="WithViewButton == true"
                       size="sm"
@@ -117,7 +117,7 @@
                       class="btn btn--default"
                     >View</b-button>
                     <span v-else>{{data.item.row_id}}</span>
-                  </template>
+                  </template>-->
                   <!-- <template v-slot:cell(status)="data">
                       <span
                   </template>-->
@@ -188,7 +188,7 @@ export default {
       fieldHeader: [],
       items: [],
       firstSort: true,
-      sort: "order_no ASC",
+      sort: "status desc,order_no ASC",
 
       totalRows: 0,
       currentPage: 1,
@@ -448,6 +448,7 @@ export default {
             });
           } else {
             if (str_array[i] == "lastupdatestamp") continue;
+            if (str_array[i] == "row_id") continue;
 
             var listReplace = [
               {

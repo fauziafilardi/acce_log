@@ -32,7 +32,7 @@
                           style="font-size: 15px; font-weight: bold;"
                         >{{M_OP_Ticket.customer_name}}</span>
                       </b-col>
-                      <b-col style="text-align: right;">
+                      <!-- <b-col style="text-align: right;">
                         <span>
                           <ABSButton
                             :text="'Chat'"
@@ -41,8 +41,7 @@
                             @click="doContact"
                           />
                         </span>
-                        <!-- </span> -->
-                      </b-col>
+                      </b-col>-->
                     </b-row>
                     <b-row class="row-view" style="padding-top: 5px; padding-bottom: 10px;">
                       <b-col>
@@ -715,9 +714,17 @@ export default {
         if (data == "Y") {
           this.PI_driver.cProtect = false;
           this.PI_driver_co.cProtect = false;
+
+          this.PI_driver.cValidate = "required";
+          this.PI_driver_co.cValidate = "required";
         } else {
           this.PI_driver.cProtect = true;
           this.PI_driver_co.cProtect = true;
+
+          this.M_PlanExe.driver_co = null;
+          this.M_PlanExe.driver = null;
+          this.M_PlanExe.driver_coLabel = null;
+          this.M_PlanExe.driverLabel = null;
         }
       });
     },
@@ -729,6 +736,11 @@ export default {
         } else {
           this.PI_vehicle_type.cProtect = true;
           this.PI_vehicle_number.cProtect = true;
+
+          this.M_PlanExe.vehicle_number = null;
+          this.M_PlanExe.vehicle_type = null;
+          this.M_PlanExe.vehicle_numberLabel = null;
+          this.M_PlanExe.vehicle_typeLabel = null;
         }
       });
     },
@@ -888,12 +900,22 @@ export default {
           wo_status: this.M_PlanExe.wo_status,
           claim_status: this.M_PlanExe.claim_status,
           change_vehicle_status: this.M_PlanExe.change_vehicle,
-          fm_fleet_type_id: this.M_PlanExe.vehicle_type,
-          fm_fleet_mstr_id: this.M_PlanExe.vehicle_number,
+          fm_fleet_type_id:
+            this.M_PlanExe.vehicle_type == null
+              ? "NULL"
+              : this.M_PlanExe.vehicle_type,
+          fm_fleet_mstr_id:
+            this.M_PlanExe.vehicle_number == null
+              ? "NULL"
+              : this.M_PlanExe.vehicle_number,
           license_plate_no: this.M_PlanExe.vehicle_numberLabel,
           change_driver_status: this.M_PlanExe.change_driver,
-          fm_driver_id: this.M_PlanExe.driver,
-          fm_driver_id2: this.M_PlanExe.driver_co,
+          fm_driver_id:
+            this.M_PlanExe.driver == null ? "NULL" : this.M_PlanExe.driver,
+          fm_driver_id2:
+            this.M_PlanExe.driver_co == null
+              ? "NULL"
+              : this.M_PlanExe.driver_co,
           lastupdatestamp: this.paramFromList.lastupdatestamp,
           user_edit: this.getDataUser().user_id,
         },
@@ -1003,10 +1025,10 @@ export default {
           vehicle_typeLabel: data.vehicle_type_cd,
           vehicle_number: data.fm_fleet_mstr_id,
           vehicle_numberLabel: data.license_plate_no,
-          driver: data.order_fm_driver_id,
-          driverLabel: data.order_driver_name,
-          driver_co: data.order_fm_driver_id2,
-          driver_coLabel: data.order_driver_name2,
+          driver: data.fm_driver_id,
+          driverLabel: data.driver_name,
+          driver_co: data.fm_driver_id2,
+          driver_coLabel: data.driver_name2,
           note: data.remarks,
         };
 
@@ -1014,6 +1036,11 @@ export default {
           this.PI_vehicle_type.cProtect = false;
           this.PI_vehicle_number.cProtect = false;
         }
+        if (data.change_driver_status && data.change_driver_status == "Y") {
+          this.PI_driver.cProtect = false;
+          this.PI_driver_co.cProtect = false;
+        }
+
         this.PI_vehicle_number.dataLookUp.InitialWhere =
           "ss_portfolio_id='" +
           this.getDataUser().portfolio_id +
