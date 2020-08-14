@@ -35,7 +35,7 @@
                     <b-row>
                       <b-col md="6">
                         <span>
-                          <label>Dokument Type</label>
+                          <label>Document Type</label>
                         </span>
                         <ACCTextBox
                           :prop="PI_dokument_type"
@@ -47,7 +47,7 @@
                     <b-row>
                       <b-col md="6">
                         <span>
-                          <label>Descs</label>
+                          <label>Description</label>
                         </span>
                         <ACCTextBox
                           :prop="PI_descs"
@@ -95,7 +95,7 @@ export default {
         time_input: "",
         time_edit: "",
         row_id: 0,
-        lastupdatestamp: 0
+        lastupdatestamp: 0,
       },
       PI_dokument_type: {
         cValidate: "",
@@ -106,7 +106,7 @@ export default {
         cProtect: false,
         cParentForm: "MK_FormMkDokumentType",
         cDecimal: 2,
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
       PI_descs: {
         cValidate: "",
@@ -117,8 +117,8 @@ export default {
         cProtect: false,
         cParentForm: "MK_FormMkDokumentType",
         cDecimal: 2,
-        cInputStatus: this.inputStatus
-      }
+        cInputStatus: this.inputStatus,
+      },
     };
   },
   computed: {
@@ -133,7 +133,7 @@ export default {
       } else {
         return "new";
       }
-    }
+    },
   },
   methods: {
     doBack() {
@@ -151,17 +151,17 @@ export default {
         time_input: "",
         time_edit: "",
         row_id: 0,
-        lastupdatestamp: 0
+        lastupdatestamp: 0,
       };
     },
 
     doSave() {
       this.$validator._base
         .validateAll("MK_FormMkDokumentType")
-        .then(result => {
+        .then((result) => {
           if (!result) return;
           this.alertConfirmation("Are You Sure Want To Save This Data ?").then(
-            ress => {
+            (ress) => {
               if (ress.value) {
                 this.$validator.errors.clear("MK_FormMkDokumentType");
                 if (this.inputStatus == "edit") {
@@ -181,10 +181,10 @@ export default {
         ss_portfolio_id: this.getDataUser().portfolio_id,
         dokument_type: this.M_MkDokumentType.dokument_type,
         descs: this.M_MkDokumentType.descs,
-        user_input: this.getDataUser().user_id
+        user_input: this.getDataUser().user_id,
       };
 
-      this.postJSON(this.getUrlCRUD(), param).then(response => {
+      this.postJSON(this.getUrlCRUD(), param).then((response) => {
         if (response == null) return;
         this.alertSuccess(response.Message).then(() => {
           this.doBack();
@@ -200,10 +200,10 @@ export default {
         dokument_type: this.M_MkDokumentType.dokument_type,
         descs: this.M_MkDokumentType.descs,
         lastupdatestamp: this.paramFromList.lastupdatestamp,
-        user_edit: this.getDataUser().user_id
+        user_edit: this.getDataUser().user_id,
       };
 
-      this.putJSON(this.getUrlCRUD(), param).then(response => {
+      this.putJSON(this.getUrlCRUD(), param).then((response) => {
         if (response == null) return;
         this.alertSuccess(response.Message).then(() => {
           this.doBack();
@@ -215,10 +215,10 @@ export default {
         option_url: "/MK/MK_Document_Type",
         line_no: 0,
         id: this.paramFromList.row_id,
-        lastupdatestamp: this.paramFromList.lastupdatestamp
+        lastupdatestamp: this.paramFromList.lastupdatestamp,
       };
 
-      this.getJSON(this.getUrlCRUD(), param).then(response => {
+      this.getJSON(this.getUrlCRUD(), param).then((response) => {
         // response from API
         if (response == null) return;
 
@@ -234,10 +234,10 @@ export default {
           time_input: data.time_input,
           time_edit: data.time_edit,
           row_id: data.row_id,
-          lastupdatestamp: data.lastupdatestamp
+          lastupdatestamp: data.lastupdatestamp,
         };
       });
-    }
+    },
   },
   mounted() {
     this.M_ClearForm();
@@ -247,7 +247,7 @@ export default {
     } else {
       this.title = "Add";
     }
-  }
+  },
 };
 </script>
 

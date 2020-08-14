@@ -53,7 +53,7 @@
                           style="font-size: 15px; font-weight: bold;"
                         >{{M_DP_Plan.customer_name}}</span>
                       </b-col>
-                      <b-col style="text-align: right;">
+                      <!-- <b-col style="text-align: right;">
                         <span>
                           <ABSButton
                             :text="'Chat'"
@@ -62,8 +62,7 @@
                             @click="doContact"
                           />
                         </span>
-                        <!-- </span> -->
-                      </b-col>
+                      </b-col>-->
                     </b-row>
                     <b-row class="row-view" style="padding-top: 5px; padding-bottom: 10px;">
                       <b-col>
@@ -1470,41 +1469,12 @@ export default {
       this.$refs.Modal_Ticket._show();
     },
     ticketClick(record, index) {
-      var param = {
-        option_url: "/OP/OP_Order",
-        line_no: 3,
-        id: record.row_id,
-        lastupdatestamp: record.lastupdatestamp,
-      };
+      var param = this.paramFromList;
+      param.Ticket = record;
+      param.isEdit = true;
 
-      this.getJSON(this.getUrlCRUD(), param).then((response) => {
-        // response from API
-        if (response == null) return;
-
-        var data = response.Data[0];
-        this.M_Ticket = {
-          op_order_ticket_id: data.op_order_ticket_id,
-          ticket_no: data.ticket_no,
-          ticket_category: data.op_ticket_category_id__lo_1,
-          ticket_categoryLabel: data.ticket_category__lbl_lo_1,
-          descs: data.descs__tb_2,
-          file_name: data.doc_file_name,
-          file_path: data.doc_path_file,
-          ticket_status: data.ticket_status,
-          ticket_date: data.ticket_date,
-          remarks: data.remarks,
-          wo_status: data.wo_status,
-          claim_status: data.claim_status,
-          change_vehicle_status: data.change_vehicle_status,
-          fm_fleet_mstr_id: data.fm_fleet_mstr_id,
-          license_plate_no: data.license_plate_no,
-          fm_driver_id: data.fm_driver_id,
-          fm_driver_id2: data.fm_driver_id2,
-          lastupdatestamp: record.lastupdatestamp,
-        };
-
-        this.$refs.Modal_Ticket._show();
-      });
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "OP_PlanExecutionTicket" });
     },
     Onticket_categoryChange(data) {
       this.$nextTick(() => {
@@ -1796,7 +1766,7 @@ export default {
           user: this.getDataUser().user_name,
           status: data.order_status,
           order_no: data.order_no,
-          date: this.momentDateFormatting(data.order_date, "YYYY-MM-DD HH:mm"),
+          date: this.momentDateFormatting(data.order_date, "DD-MM-YYYY HH:mm"),
           category: data.category,
           category_descs: data.category_descs,
           from: data.from_zone,
@@ -1805,7 +1775,7 @@ export default {
           driver1: data.driver_name,
           pickup_date: this.momentDateFormatting(
             data.pickup_date,
-            "YYYY-MM-DD HH:mm"
+            "DD-MM-YYYY HH:mm"
           ),
           kgs: data.total_kgs,
           cbm: data.total_cbm,

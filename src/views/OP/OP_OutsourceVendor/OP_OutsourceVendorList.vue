@@ -16,7 +16,6 @@
             @headTable="M_Head_Table"
             @refreshColumn="refreshColumn"
             ref="ref_OpCostType"
-            WithViewButton
             @buttonViewClicked="doViewClick"
           />
         </b-col>
