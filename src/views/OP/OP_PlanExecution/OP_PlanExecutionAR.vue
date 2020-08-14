@@ -471,7 +471,7 @@
                               style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;"
                             >Costing</span>
                           </b-col>
-                          <b-col>
+                          <b-col v-show="M_DataPost.cost_over_status == 'Y'">
                             <font-awesome-icon
                               icon="exclamation-circle"
                               class="icon-style-default"
@@ -762,7 +762,7 @@ export default {
       PlanConsole_D: [],
       PlanTicket_H: [
         {
-          key: "no",
+          key: "row_number",
           label: "No",
           tdClass: "ContentACCList2 notranslate th-cus-center",
           thClass: "HeaderACCList2 th-cus-center",
@@ -780,7 +780,7 @@ export default {
           thClass: "HeaderACCList2 S th-cus-center",
         },
         {
-          key: "category",
+          key: "ticket_category",
           label: "Category",
           tdClass: "ContentACCList2 notranslate th-cus-center",
           thClass: "HeaderACCList2 S th-cus-center",
@@ -792,7 +792,7 @@ export default {
           thClass: "HeaderACCList2 S th-cus-center",
         },
         {
-          key: "attachment",
+          key: "doc_file_name",
           label: "Attachment",
           tdClass: "ContentACCList2 notranslate th-cus-center",
           thClass: "HeaderACCList2 S th-cus-center",
@@ -980,7 +980,8 @@ export default {
     },
     Show_Pict(doc) {
       this.M_ModalPict.file = this.url + doc.doc_path_file;
-      this.$refs.Show_Picture._show();
+      // this.$refs.Show_Picture._show();
+      window.open(this.M_ModalPict.file, "_blank");
     },
     Delete_Pict(id) {
       this.alertConfirmation(
@@ -1309,7 +1310,22 @@ export default {
         }
       );
     },
-    doCreateTicket() {},
+    doCreateTicket() {
+      var param = this.paramFromList;
+      param.Ticket = this.M_DataPost;
+      param.isEdit = false;
+
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "OP_PlanExecutionTicket" });
+    },
+    ticketClick(record, index) {
+      var param = this.paramFromList;
+      param.Ticket = this.M_DataPost;
+      param.isEdit = true;
+
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "OP_PlanExecutionTicket" });
+    },
     doCreateConsole() {
       var param = this.M_DataPost;
       param.isEdit = false;

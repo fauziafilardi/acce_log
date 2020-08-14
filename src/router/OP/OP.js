@@ -3,7 +3,7 @@ import OP_AddBookingEntry from '@/views/OP/OP_BookingEntry/OP_AddBookingEntry'
 import OP_ViewBookingEntry from '@/views/OP/OP_BookingEntry/OP_ViewBookingEntry'
 
 // Plan Execution
-import OP_PlanExecution from '@/views/OP/OP_PlanExecution/OP_PlanExecution'
+import OP_PlanExecution from '@/views/OP/OP_PlanExecution/OP_PlanExecution2'
 import OP_ViewPlanExecution from '@/views/OP/OP_PlanExecution/OP_ViewPlanExecution'
 import OP_PlanExecutionNew from '@/views/OP/OP_PlanExecution/OP_PlanExecutionNew'
 import OP_PlanExecutionAS from '@/views/OP/OP_PlanExecution/OP_PlanExecutionAS'
@@ -92,6 +92,7 @@ import OP_VendorGps from '@/views/OP/OP_VendorGps/OP_VendorGpsList'
 import OP_VendorGpsForm from '@/views/OP/OP_VendorGps/OP_VendorGpsForm'
 
 import OP_OrderForm from '@/views/OP/OP_Order/OP_OrderForm';
+import OP_OrderConsole from '@/views/OP/OP_OrderConsole/OP_OrderConsole';
 
 // Outsource Order
 import OP_OutsourceVendor from '@/views/OP/OP_OutsourceVendor/OP_OutsourceVendorList'
@@ -664,6 +665,15 @@ export const OPRender = {
             path: '/OP/OP_Order/Form',
             name: 'OP_OrderForm',
             component: OP_OrderForm,
+            meta: {
+                requiresAuth: true
+            }
+        },
+
+        {
+            path: '/OP/OP_OrderConsole',
+            name: 'OP_OrderConsole',
+            component: OP_OrderConsole,
             meta: {
                 requiresAuth: true
             }

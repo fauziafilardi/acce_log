@@ -7,7 +7,7 @@
             <div class="card__title">
               <b-row>
                 <b-col style="max-width:fit-content !important;">
-                  <span>Add Ticket</span>
+                  <span>Ticket</span>
                 </b-col>
                 <b-col style="text-align: right;">
                   <ABSButton
@@ -157,7 +157,7 @@ export default {
   computed: {
     paramFromList() {
         var param = this.$store.getters.getParamPage;
-        param = param.Ticket
+        // param = param
         // console.log(param)
         if (param == null || param == undefined) {
             this.doBack();
@@ -241,10 +241,11 @@ export default {
         wo_status: 'NULL',
         claim_status: 'NULL',
         change_vehicle_status: 'NULL',
-        fm_fleet_mstr_id: this.paramFromList.fm_fleet_mstr_id && this.paramFromList.fm_fleet_mstr_id !== '' ? this.paramFromList.fm_fleet_mstr_id : "NULL",
-        license_plate_no: this.paramFromList.license_plate_no && this.paramFromList.license_plate_no !== '' ? this.paramFromList.license_plate_no : "NULL",
-        fm_driver_id: this.paramFromList.fm_driver_id && this.paramFromList.fm_driver_id !== '' ? this.paramFromList.fm_driver_id : "NULL",
-        fm_driver_id2: this.paramFromList.fm_driver_id2 && this.paramFromList.fm_driver_id2 !== '' ? this.paramFromList.fm_driver_id2 : "NULL",
+        fm_fleet_mstr_id: this.paramFromList.Ticket.fm_fleet_mstr_id && this.paramFromList.Ticket.fm_fleet_mstr_id !== '' ? this.paramFromList.Ticket.fm_fleet_mstr_id : "NULL",
+        license_plate_no: this.paramFromList.Ticket.license_plate_no && this.paramFromList.Ticket.license_plate_no !== '' ? this.paramFromList.Ticket.license_plate_no : "NULL",
+        change_driver_status: "NULL",
+        fm_driver_id: this.paramFromList.Ticket.fm_driver_id && this.paramFromList.Ticket.fm_driver_id !== '' ? this.paramFromList.Ticket.fm_driver_id : "NULL",
+        fm_driver_id2: this.paramFromList.Ticket.fm_driver_id2 && this.paramFromList.Ticket.fm_driver_id2 !== '' ? this.paramFromList.Ticket.fm_driver_id2 : "NULL",
         user_input: this.getDataUser().user_id
       };
 
@@ -259,7 +260,7 @@ export default {
       var param = {
         option_url: "/OP/OP_Order",
         line_no: 3,
-        op_order_ticket_id: this.M_Ticket.op_order_ticket_id,
+        op_order_ticket_id: this.paramFromList.Ticket.row_id,
         ss_portfolio_id: this.getDataUser().portfolio_id,
         op_order_id: this.paramFromList.row_id,
         ticket_no: this.M_Ticket.ticket_no,
@@ -273,11 +274,12 @@ export default {
         wo_status: this.M_Ticket.wo_status && this.M_Ticket.wo_status !== '' ? this.M_Ticket.wo_status : "NULL",
         claim_status: this.M_Ticket.claim_status && this.M_Ticket.claim_status !== '' ? this.M_Ticket.claim_status : "NULL",
         change_vehicle_status: this.M_Ticket.change_vehicle_status && this.M_Ticket.change_vehicle_status !== '' ? this.M_Ticket.change_vehicle_status : "NULL",
+        change_driver_status: this.M_Ticket.change_driver_status && this.M_Ticket.change_driver_status !== '' ? this.M_Ticket.change_driver_status : "NULL",
         fm_fleet_mstr_id: this.M_Ticket.fm_fleet_mstr_id && this.M_Ticket.fm_fleet_mstr_id !== '' ? this.M_Ticket.fm_fleet_mstr_id : "NULL",
         license_plate_no: this.M_Ticket.license_plate_no && this.M_Ticket.license_plate_no !== '' ? this.M_Ticket.license_plate_no : "NULL",
         fm_driver_id: this.M_Ticket.fm_driver_id && this.M_Ticket.fm_driver_id !== '' ? this.M_Ticket.fm_driver_id : "NULL",
         fm_driver_id2: this.M_Ticket.fm_driver_id2 && this.M_Ticket.fm_driver_id2 !== '' ? this.M_Ticket.fm_driver_id2 : "NULL",
-        lastupdatestamp: this.M_Ticket.lastupdatestamp,
+        lastupdatestamp: this.paramFromList.Ticket.lastupdatestamp,
         user_edit: this.getDataUser().user_id
       };
 
@@ -292,8 +294,8 @@ export default {
       var param = {
         option_url: "/OP/OP_Order",
         line_no: 3,
-        id: this.paramFromList.row_id,
-        lastupdatestamp: this.paramFromList.lastupdatestamp,
+        id: this.paramFromList.Ticket.row_id,
+        lastupdatestamp: this.paramFromList.Ticket.lastupdatestamp,
       };
 
       this.getJSON(this.getUrlCRUD(), param).then((response) => {
@@ -315,11 +317,12 @@ export default {
           wo_status: data.wo_status,
           claim_status: data.claim_status,
           change_vehicle_status: data.change_vehicle_status,
+          change_driver_status: data.change_driver_status,
           fm_fleet_mstr_id: data.fm_fleet_mstr_id,
           license_plate_no: data.license_plate_no,
           fm_driver_id: data.fm_driver_id,
           fm_driver_id2: data.fm_driver_id2,
-          lastupdatestamp: record.lastupdatestamp
+          lastupdatestamp: this.paramFromList.Ticket.lastupdatestamp
         }
       });
     },

@@ -1098,6 +1098,7 @@ export default {
         this.fieldHeader = [];
 
         this.items = this.responses.Data;
+        this.$emit("onRenderData", this.responses.Data)
 
         var str_array =
           this.responses.DefineColumn && this.responses.DefineColumn !== ""
