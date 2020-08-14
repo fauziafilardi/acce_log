@@ -7,7 +7,7 @@
             <div class="card__title">
               <b-row>
                 <b-col style="max-width:fit-content !important;">
-                  <span>Plan Execution</span>
+                  <span>Ticket</span>
                 </b-col>
                 <b-col style="text-align: right;">
                   <ABSButton
@@ -20,10 +20,7 @@
               </b-row>
             </div>
             <div class="card__body">
-              <b-form
-                :data-vv-scope="'OP_DP_PlanExecution'"
-                :data-vv-value-path="'OP_DP_PlanExecution'"
-              >
+              <b-form :data-vv-scope="'OP_Ticket'" :data-vv-value-path="'OP_Ticket'">
                 <b-row>
                   <b-col md="2" style="text-align: center;">
                     <img :src="require('@/assets/paper.png')" alt style="width: 50px;" />
@@ -177,19 +174,6 @@
                               style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;"
                             >Ticket</span>
                           </b-col>
-                          <!-- <b-col md="2">
-                            <b-button
-                              style="background-color: transparent; color: black; border: none; padding: unset !important;"
-                              @click="doCreateTicket"
-                            >
-                              <font-awesome-icon
-                                icon="plus-circle"
-                                class="icon-style-default"
-                                style="margin-right: 5px;"
-                                size="lg"
-                              />Add New
-                            </b-button>
-                          </b-col>-->
                         </b-row>
                         <b-row>
                           <b-col>
@@ -208,16 +192,285 @@
                             </ACCFormList>
                           </b-col>
                         </b-row>
+
+                        <b-row>
+                          <b-col md="6" style="padding-left: 0px !important;">
+                            <b-row>
+                              <b-col>
+                                <span>
+                                  <label>Description</label>
+                                </span>
+                                <ACCTextArea
+                                  :prop="PI_notes"
+                                  v-model="M_PlanExe.note"
+                                  ref="ref_notes"
+                                />
+                              </b-col>
+                            </b-row>
+                            <b-row>
+                              <b-col sm="6">
+                                <span>
+                                  <label>Create Work Order</label>
+                                </span>
+                                &nbsp;&nbsp;
+                                <span
+                                  style="margin-top:35px;"
+                                >
+                                  <b-form-checkbox
+                                    style="display: inline-flex;"
+                                    v-model="M_PlanExe.wo_status"
+                                    name="check-button"
+                                    switch
+                                    value="Y"
+                                    unchecked-value="N"
+                                    size="lg"
+                                  ></b-form-checkbox>
+                                </span>
+                              </b-col>
+                              <b-col sm="6">
+                                <span>
+                                  <label>Claims</label>
+                                </span>
+                                &nbsp;&nbsp;
+                                <span
+                                  style="margin-top:35px;"
+                                >
+                                  <b-form-checkbox
+                                    style="display: inline-flex;"
+                                    v-model="M_PlanExe.claim_status"
+                                    name="check-button"
+                                    switch
+                                    value="Y"
+                                    unchecked-value="N"
+                                    size="lg"
+                                  ></b-form-checkbox>
+                                </span>
+                              </b-col>
+                            </b-row>
+                            <b-row>
+                              <b-col>
+                                <span>
+                                  <label>Upload Multiple Photo</label>
+                                </span>
+                              </b-col>
+                            </b-row>
+                            <b-row class="row-bordered" style="background-color: #ced4da;">
+                              <b-col md="12">
+                                <b-row style="margin-bottom: 10px">
+                                  <template v-for="(pict, index) in M_Picture">
+                                    <b-col
+                                      style="max-width: fit-content !important;"
+                                      v-bind:key="index"
+                                    >
+                                      <img
+                                        :id="'pict_'+index"
+                                        :src="pict.file_show"
+                                        alt
+                                        style="width: 150px; cursor: pointer; "
+                                        @click="showPict(pict)"
+                                      />
+                                      <font-awesome-icon
+                                        class="icon-style-danger"
+                                        icon="times-circle"
+                                        size="lg"
+                                        style="cursor: pointer; top: -5px; right: 0px; position: absolute;"
+                                        @click="Delete_Pict(index)"
+                                      />
+                                    </b-col>
+                                  </template>
+                                </b-row>
+                                <b-row>
+                                  <b-col md="12">
+                                    <div @click="addPict" style="width: 20%; cursor: pointer;">
+                                      <font-awesome-icon
+                                        class="icon-style-default"
+                                        icon="plus-circle"
+                                        size="2x"
+                                      />&nbsp; &nbsp;
+                                      <span
+                                        style="position: absolute; font-size: 15px; color: #333399; font-weight: bold;"
+                                      >Add More Photo</span>
+                                    </div>
+                                  </b-col>
+                                </b-row>
+                              </b-col>
+                            </b-row>
+                          </b-col>
+
+                          <b-col md="6" style="padding-left: 0px !important;">
+                            <b-row class="row-bordered" style="margin-top:25px;">
+                              <b-col md="12">
+                                <b-row>
+                                  <b-col sm="6">
+                                    <span>
+                                      <label>Change Vehicle</label>
+                                    </span>
+                                    &nbsp;&nbsp;
+                                    <span
+                                      style="margin-top:35px;"
+                                    >
+                                      <b-form-checkbox
+                                        @change="OnChangeVehicle"
+                                        style="display: inline-flex;"
+                                        v-model="M_PlanExe.change_vehicle"
+                                        name="check-button"
+                                        switch
+                                        value="Y"
+                                        unchecked-value="N"
+                                        size="lg"
+                                      ></b-form-checkbox>
+                                    </span>
+                                  </b-col>
+                                </b-row>
+                                <b-row>
+                                  <b-col sm="6">
+                                    <span>
+                                      <label>Vehicle Type</label>
+                                    </span>
+                                    <ACCDropDown
+                                      @change="Onvehicle_typeChange"
+                                      :prop="PI_vehicle_type"
+                                      v-model="M_PlanExe.vehicle_type"
+                                      :label="M_PlanExe.vehicle_typeLabel"
+                                      ref="ref_vehicle_type"
+                                    />
+                                  </b-col>
+                                  <b-col sm="6">
+                                    <span>
+                                      <label>Vehicle Number</label>
+                                    </span>
+                                    <ACCDropDown
+                                      @change="Onvehicle_numberChange"
+                                      :prop="PI_vehicle_number"
+                                      v-model="M_PlanExe.vehicle_number"
+                                      :label="M_PlanExe.vehicle_numberLabel"
+                                      ref="ref_vehicle_number"
+                                    />
+                                  </b-col>
+                                </b-row>
+                              </b-col>
+                            </b-row>
+                            <b-row class="row-bordered">
+                              <b-col md="12">
+                                <b-row>
+                                  <b-col sm="6">
+                                    <span>
+                                      <label>Change Driver</label>
+                                    </span>
+                                    &nbsp;&nbsp;
+                                    <span
+                                      style="margin-top:35px;"
+                                    >
+                                      <b-form-checkbox
+                                        @change="OnChangeDriver"
+                                        style="display: inline-flex;"
+                                        v-model="M_PlanExe.change_driver"
+                                        name="check-button"
+                                        switch
+                                        value="Y"
+                                        unchecked-value="N"
+                                        size="lg"
+                                      ></b-form-checkbox>
+                                    </span>
+                                  </b-col>
+                                </b-row>
+                                <b-row>
+                                  <b-col sm="6">
+                                    <span>
+                                      <label>Driver</label>
+                                    </span>
+                                    <ACCDropDown
+                                      @change="OndriverChange"
+                                      :prop="PI_driver"
+                                      v-model="M_PlanExe.driver"
+                                      :label="M_PlanExe.driverLabel"
+                                      ref="ref_driver"
+                                    />
+                                  </b-col>
+                                  <b-col sm="6">
+                                    <span>
+                                      <label>Co Driver</label>
+                                    </span>
+                                    <ACCDropDown
+                                      @change="Ondriver_coChange"
+                                      :prop="PI_driver_co"
+                                      v-model="M_PlanExe.driver_co"
+                                      :label="M_PlanExe.driver_coLabel"
+                                      ref="ref_driver_co"
+                                    />
+                                  </b-col>
+                                </b-row>
+                              </b-col>
+                            </b-row>
+                          </b-col>
+                        </b-row>
+                        <b-row style="margin-top: 10px;">
+                          <b-col offset="3" md="6" style="text-align: center">
+                            <ABSButton
+                              :text="'Save'"
+                              classButton="btn btn--default"
+                              classIcon="icon-style-default"
+                              @click="doSave"
+                              styleButton="height: 40px;width: 70%;"
+                            />
+                          </b-col>
+                        </b-row>
                       </b-col>
                     </b-row>
                   </b-col>
                 </b-row>
               </b-form>
+              <ABSModal id="Modal_Picture" ref="Modal_Picture" size="sm">
+                <template slot="headerTitle">Add Picture</template>
+                <template slot="content">
+                  <b-row>
+                    <b-col md="12">
+                      <b-form
+                        :data-vv-scope="'Parent_Picture'"
+                        :data-vv-value-path="'Parent_Picture'"
+                      >
+                        <b-row>
+                          <b-col md="12">
+                            <b-row>
+                              <b-col md="12" style="text-align: center;">
+                                <img
+                                  id="logo"
+                                  :src="M_ModalPict.file_show"
+                                  alt
+                                  style="width: 200px;"
+                                />
+                              </b-col>
+                              <b-col md="12">
+                                <ACCImageUpload
+                                  :prop="PI_add_pict"
+                                  @change="Onadd_pictChange"
+                                  v-model="M_ModalPict.file_logo"
+                                />
+                              </b-col>
+                            </b-row>
+                            <b-row>
+                              <b-col style="text-align: center;">
+                                <ABSButton
+                                  :text="'Save Picture'"
+                                  classButton="btn btn--default"
+                                  classIcon="icon-style-default"
+                                  @click="doAddPict"
+                                  styleButton="height: 40px;width: 70%;"
+                                />
+                              </b-col>
+                            </b-row>
+                          </b-col>
+                        </b-row>
+                      </b-form>
+                    </b-col>
+                  </b-row>
+                </template>
+              </ABSModal>
               <ABSModal id="Show_Picture" ref="Show_Picture" size="sm">
                 <template slot="content">
                   <b-row>
                     <b-col md="12" style="text-align: center;">
-                      <img id="show_pict" :src="M_ModalPict.file" alt style="width: 100%;" />
+                      <img id="show_pict" :src="M_ModalPict.file_show" alt style="width: 100%;" />
                     </b-col>
                   </b-row>
                 </template>
@@ -241,9 +494,63 @@ export default {
         file_name: "",
         file_path: "",
       },
-
-      M_ModalPict: {
-        file: "",
+      PI_notes: {
+        cValidate: "",
+        cName: "note",
+        cOrder: 1,
+        cKey: false,
+        cProtect: false,
+        cResize: false,
+        cReadonly: false,
+        cRows: 3,
+        cMaxRows: 3,
+        cSize: "md",
+        cParentForm: "OP_Ticket",
+        cInputStatus: this.inputStatus,
+      },
+      PI_driver: {
+        dataLookUp: {
+          LookUpCd: "GetDriver",
+          ColumnDB: "driver_id",
+          InitialWhere: "",
+          ParamWhere: "",
+          OrderBy: "",
+          ParamView: "",
+          SourceField: "",
+          DisplayLookUp: "",
+        },
+        cValidate: "",
+        cName: "driver",
+        cOrder: 4,
+        cKey: false,
+        cStatic: false,
+        cProtect: true,
+        cParentForm: "OP_Ticket",
+        cOption: [],
+        cDisplayColumn: "full_name",
+        cInputStatus: this.inputStatus,
+      },
+      PI_driver_co: {
+        dataLookUp: {
+          LookUpCd: "GetDriver",
+          ColumnDB: "driver_id",
+          InitialWhere: "",
+          ParamWhere: "",
+          OrderBy: "",
+          ParamView: "",
+          SourceField: "",
+          DisplayLookUp: "",
+        },
+        cValidate: "",
+        cName: "driver_co",
+        cOrder: 5,
+        cKey: false,
+        cStatic: false,
+        cProtect: true,
+        cParentForm: "OP_Ticket",
+        cOption: [],
+        cDisplayColumn: "full_name",
+        cInputStatus: this.inputStatus,
       },
       M_DataPost: {},
       M_OP_Ticket: {
@@ -274,14 +581,72 @@ export default {
       },
       M_PlanExe: {
         arrival_date: new Date(),
-        comodity: "",
-        comodityLabel: "",
-        total_item: "",
-        kgs: "",
-        cbm: "",
+        wo_status: "N",
+        claim_status: "N",
+        change_vehicle: "N",
+        vehicle_type: "",
+        vehicle_typeLabel: "",
+        vehicle_number: "",
+        vehicle_numberLabel: "",
+        change_driver: "N",
+        driver: "",
+        driverLabel: "",
+        driver_co: "",
+        driver_coLabel: "",
         note: "",
       },
-
+      PI_vehicle_type: {
+        dataLookUp: {
+          LookUpCd: "GetFleetType",
+          ColumnDB: "fleet_type_id",
+          InitialWhere:
+            "ss_portfolio_id='" + this.getDataUser().portfolio_id + "'",
+          ParamWhere: "",
+          OrderBy: "",
+          ParamView: "",
+          SourceField: "",
+          DisplayLookUp: "vehicle_type,descs",
+        },
+        cValidate: "",
+        cName: "fm_fleet_type_id",
+        cOrder: 6,
+        cKey: false,
+        cStatic: false,
+        cProtect: true,
+        cParentForm: "OP_Ticket",
+        cOption: [],
+        cDisplayColumn: "vehicle_type,descs",
+        cInputStatus: this.inputStatus,
+      },
+      PI_vehicle_number: {
+        dataLookUp: {
+          LookUpCd: "GetFleetMstr",
+          ColumnDB: "fm_fleet_mstr_id",
+          InitialWhere: "",
+          ParamWhere: "",
+          OrderBy: "",
+          ParamView: "",
+          SourceField: "",
+          DisplayLookUp: "",
+        },
+        cValidate: "",
+        cName: "vehicle_number",
+        cOrder: 2,
+        cKey: false,
+        cStatic: false,
+        cProtect: true,
+        cParentForm: "OP_Ticket",
+        cOption: [],
+        cDisplayColumn: "maintenance_type",
+        cInputStatus: this.inputStatus,
+      },
+      M_Picture: [],
+      PI_add_pict: {
+        cName: "picture",
+        cAccept: ".jpg, .png, .gif",
+        cTitle: "Browse",
+        cModule: "OP",
+      },
       PlanTicket_H: [
         {
           key: "row_number",
@@ -321,7 +686,12 @@ export default {
         },
       ],
       PlanTicket_D: [],
-
+      M_ModalPict: {
+        file_logo: "",
+        file_logo_name: "",
+        file_logo_path: "",
+        file_show: require("@/assets/default_photo_.png"),
+      },
       PlanDocument: [],
     };
   },
@@ -340,40 +710,115 @@ export default {
     },
   },
   methods: {
+    OnChangeDriver(data) {
+      this.$nextTick(() => {
+        if (data == "Y") {
+          this.PI_driver.cProtect = false;
+          this.PI_driver_co.cProtect = false;
+        } else {
+          this.PI_driver.cProtect = true;
+          this.PI_driver_co.cProtect = true;
+        }
+      });
+    },
+    OnChangeVehicle(data) {
+      this.$nextTick(() => {
+        if (data == "Y") {
+          this.PI_vehicle_type.cProtect = false;
+          this.PI_vehicle_number.cProtect = false;
+        } else {
+          this.PI_vehicle_type.cProtect = true;
+          this.PI_vehicle_number.cProtect = true;
+        }
+      });
+    },
+    OndriverChange(data) {
+      this.$nextTick(() => {
+        this.M_PlanExe.driver = data.id;
+        this.M_PlanExe.driverLabel = data.label;
+      });
+    },
+    Ondriver_coChange(data) {
+      this.$nextTick(() => {
+        this.M_PlanExe.driver_co = data.id;
+        this.M_PlanExe.driver_coLabel = data.label;
+      });
+    },
+    Onvehicle_numberChange(data) {
+      this.$nextTick(() => {
+        this.M_PlanExe.vehicle_number = data.id;
+        this.M_PlanExe.vehicle_numberLabel = data.label;
+      });
+    },
+    Onvehicle_typeChange(data) {
+      this.$nextTick(() => {
+        this.M_PlanExe.vehicle_type = data.id;
+        this.M_PlanExe.vehicle_typeLabel = data.label;
+
+        this.PI_vehicle_number.dataLookUp.InitialWhere =
+          "ss_portfolio_id='" +
+          this.getDataUser().portfolio_id +
+          "' AND fm_fleet_type_id = " +
+          data.id +
+          " AND license_plate_no <> '" +
+          this.M_OP_Ticket.plat_no +
+          "'";
+      });
+    },
+    Onadd_pictChange(data) {
+      this.M_ModalPict.file_logo_name = data.name;
+      this.M_ModalPict.file_logo_path = data.path;
+      this.M_ModalPict.file_show = this.url + data.path;
+    },
+    addPict() {
+      this.$refs.Modal_Picture._show();
+      this.M_ModalPict = {
+        file_logo: "",
+        file_logo_name: "",
+        file_logo_path: "",
+        file_show: require("@/assets/default_photo_.png"),
+      };
+    },
+    doAddPict() {
+      this.M_Picture.push(this.M_ModalPict);
+      this.$refs.Modal_Picture._hide();
+    },
+    showPict(pict) {
+      this.M_ModalPict = pict;
+      this.$refs.Show_Picture._show();
+    },
     Onarrive_date_Change(data) {},
     onDocChange(data, index) {
       this.PlanDocument[index].doc_file_name = data.name;
       this.PlanDocument[index].doc_path_file = data.path;
     },
-    Show_Pict(doc) {
-      this.M_ModalPict.file = this.url + doc.doc_path_file;
-      this.$refs.Show_Picture._show();
-    },
-    Delete_Pict(id) {
-      this.alertConfirmation(
-        "Are You Sure Want To Delete This Document ?"
-      ).then((ress) => {
-        if (ress.value) {
-          this.PlanDocument[id].doc_path_file = "";
-          this.PlanDocument[id].doc_file_name = "";
-        }
-      });
+
+    // Delete_Pict(id) {
+    //   this.alertConfirmation(
+    //     "Are You Sure Want To Delete This Document ?"
+    //   ).then((ress) => {
+    //     if (ress.value) {
+    //       this.PlanDocument[id].doc_path_file = "";
+    //       this.PlanDocument[id].doc_file_name = "";
+    //     }
+    //   });
+    // },
+    Delete_Pict(i) {
+      this.M_Picture.splice(i, 1);
     },
 
     doSave() {
-      this.$validator._base
-        .validateAll("OP_DP_PlanExecution")
-        .then((result) => {
-          if (!result) return;
-          this.alertConfirmation("Are You Sure Want To Save This Data ?").then(
-            (ress) => {
-              if (ress.value) {
-                this.$validator.errors.clear("OP_DP_PlanExecution");
-                this.M_Update();
-              }
+      this.$validator._base.validateAll("OP_Ticket").then((result) => {
+        if (!result) return;
+        this.alertConfirmation("Are You Sure Want To Save This Data ?").then(
+          (ress) => {
+            if (ress.value) {
+              this.$validator.errors.clear("OP_Ticket");
+              this.M_Update();
             }
-          );
-        });
+          }
+        );
+      });
     },
 
     // doCreateTicket() {
@@ -425,118 +870,81 @@ export default {
       });
     },
 
-    Save_Ticket() {
-      this.$validator._base.validateAll("M_Ticket").then((result) => {
-        if (!result) return;
-        this.alertConfirmation("Are You Sure Want To Save This Data ?").then(
-          (ress) => {
-            if (ress.value) {
-              this.$validator.errors.clear("M_Ticket");
-              var param = {};
-              if (
-                this.M_Ticket.op_order_ticket_id &&
-                this.M_Ticket.op_order_ticket_id !== ""
-              ) {
-                param = {
-                  option_url: "/OP/OP_Ticket",
-                  line_no: 3,
-                  op_order_ticket_id: this.M_Ticket.op_order_ticket_id,
-                  ss_portfolio_id: this.getDataUser().portfolio_id,
-                  op_order_id: this.paramFromList.row_id,
-                  ticket_no: this.M_Ticket.ticket_no,
-                  ticket_date: this.M_Ticket.ticket_date,
-                  op_ticket_category_id: this.M_Ticket.ticket_category,
-                  descs: this.M_Ticket.ticket_descs,
-                  doc_file_name: this.M_Ticket.file_name,
-                  doc_path_file: this.M_Ticket.file_path,
-                  ticket_status:
-                    this.M_Ticket.ticket_status &&
-                    this.M_Ticket.ticket_status !== ""
-                      ? this.M_Ticket.ticket_status
-                      : "NULL",
-                  remarks:
-                    this.M_Ticket.remarks && this.M_Ticket.remarks !== ""
-                      ? this.M_Ticket.remarks
-                      : "NULL",
-                  wo_status:
-                    this.M_Ticket.wo_status && this.M_Ticket.wo_status !== ""
-                      ? this.M_Ticket.wo_status
-                      : "NULL",
-                  claim_status:
-                    this.M_Ticket.claim_status &&
-                    this.M_Ticket.claim_status !== ""
-                      ? this.M_Ticket.claim_status
-                      : "NULL",
-                  change_vehicle_status:
-                    this.M_Ticket.change_vehicle_status &&
-                    this.M_Ticket.change_vehicle_status !== ""
-                      ? this.M_Ticket.change_vehicle_status
-                      : "NULL",
-                  fm_fleet_mstr_id:
-                    this.M_Ticket.fm_fleet_mstr_id &&
-                    this.M_Ticket.fm_fleet_mstr_id !== ""
-                      ? this.M_Ticket.fm_fleet_mstr_id
-                      : "NULL",
-                  license_plate_no:
-                    this.M_Ticket.license_plate_no &&
-                    this.M_Ticket.license_plate_no !== ""
-                      ? this.M_Ticket.license_plate_no
-                      : "NULL",
-                  fm_driver_id:
-                    this.M_Ticket.fm_driver_id &&
-                    this.M_Ticket.fm_driver_id !== ""
-                      ? this.M_Ticket.fm_driver_id
-                      : "NULL",
-                  fm_driver_id2:
-                    this.M_Ticket.fm_driver_id2 &&
-                    this.M_Ticket.fm_driver_id2 !== ""
-                      ? this.M_Ticket.fm_driver_id2
-                      : "NULL",
-                  lastupdatestamp: this.M_Ticket.lastupdatestamp,
-                  user_edit: this.getDataUser().user_id,
-                };
+    M_Update() {
+      var paramH = {
+          _Method_: "UPDATE",
+          _LineNo_: 0,
+          op_ticket_id: this.M_DataPost.op_ticket_id,
+          ss_portfolio_id: this.getDataUser().portfolio_id,
+          op_order_id: this.M_DataPost.op_order_id,
+          ticket_no: this.M_DataPost.ticket_no,
+          ticket_date: this.M_DataPost.ticket_date,
+          op_ticket_category_id: this.M_DataPost.op_ticket_category_id,
+          descs: this.M_DataPost.descs,
+          doc_file_name: this.M_DataPost.doc_file_name,
+          doc_path_file: this.M_DataPost.doc_path_file,
+          ticket_status: this.M_DataPost.ticket_status,
+          remarks: this.M_PlanExe.note,
+          wo_status: this.M_PlanExe.wo_status,
+          claim_status: this.M_PlanExe.claim_status,
+          change_vehicle_status: this.M_PlanExe.change_vehicle,
+          fm_fleet_type_id: this.M_PlanExe.vehicle_type,
+          fm_fleet_mstr_id: this.M_PlanExe.vehicle_number,
+          license_plate_no: this.M_PlanExe.vehicle_numberLabel,
+          change_driver_status: this.M_PlanExe.change_driver,
+          fm_driver_id: this.M_PlanExe.driver,
+          fm_driver_id2: this.M_PlanExe.driver_co,
+          lastupdatestamp: this.paramFromList.lastupdatestamp,
+          user_edit: this.getDataUser().user_id,
+        },
+        paramD = [];
 
-                this.putJSON(this.getUrlCRUD(), param).then((response) => {
-                  if (response == null) return;
-                  this.alertSuccess(response.Message).then(() => {
-                    this.$refs.Modal_Ticket._hide();
-                    this.GetDataBy();
-                  });
-                });
-              } else {
-                param = {
-                  option_url: "/OP/OP_Ticket",
-                  line_no: 3,
-                  ss_portfolio_id: this.getDataUser().portfolio_id,
-                  op_order_id: this.paramFromList.row_id,
-                  ticket_date: new Date(),
-                  op_ticket_category_id: this.M_Ticket.ticket_category,
-                  descs: this.M_Ticket.ticket_descs,
-                  doc_file_name: this.M_Ticket.file_name,
-                  doc_path_file: this.M_Ticket.file_path,
-                  remarks: "NULL",
-                  wo_status: "NULL",
-                  claim_status: "NULL",
-                  change_vehicle_status: "NULL",
-                  fm_fleet_mstr_id: this.M_DataPost.fm_fleet_mstr_id,
-                  license_plate_no: this.M_DataPost.license_plate_no,
-                  fm_driver_id: this.M_DataPost.fm_driver_id,
-                  fm_driver_id2: this.M_DataPost.fm_driver_id2,
-                  user_input: this.getDataUser().user_id,
-                };
+      for (let i = 0; i < this.M_Picture.length; i++) {
+        paramD.push({
+          _Method_: "SAVE",
+          _LineNo_: 1,
+          op_ticket_id: this.M_DataPost.op_ticket_id,
+          doc_file_name:
+            this.M_Picture[i].file_logo_name &&
+            this.M_Picture[i].file_logo_name !== ""
+              ? this.M_Picture[i].file_logo_name
+              : "NULL",
+          doc_path_file:
+            this.M_Picture[i].file_logo_path &&
+            this.M_Picture[i].file_logo_path !== ""
+              ? this.M_Picture[i].file_logo_path
+              : "NULL",
+          user_input: this.getDataUser().user_id,
+        });
+      }
 
-                this.postJSON(this.getUrlCRUD(), param).then((response) => {
-                  if (response == null) return;
-                  this.alertSuccess(response.Message).then(() => {
-                    this.$refs.Modal_Ticket._hide();
-                    this.GetDataBy();
-                  });
-                });
-              }
-            }
-          }
-        );
-      });
+      var paramDel = {
+        _Method_: "DELETE",
+        _LineNo_: 1,
+        row_id: this.M_DataPost.op_ticket_id,
+        lastupdatestamp: 0,
+      };
+
+      var param = {
+        option_url: "/OP/OP_Ticket",
+        line_no: 0,
+        Data: [
+          {
+            A_Update: paramH,
+            B_DeleteDOc: paramDel,
+            C_Looping: paramD,
+          },
+        ],
+      };
+
+      this.postJSONMulti(this.getUrlProsesDataPostMulti(), param).then(
+        (response) => {
+          if (response == null) return;
+          this.alertSuccess("Update Data Has Been Successfully").then(() => {
+            this.doBack();
+          });
+        }
+      );
     },
 
     doBack() {
@@ -550,11 +958,18 @@ export default {
     M_ClearForm() {
       this.M_PlanExe = {
         arrival_date: new Date(),
-        comodity: "",
-        comodityLabel: "",
-        total_item: "",
-        kgs: "",
-        cbm: "",
+        wo_status: "",
+        claim_status: "",
+        change_vehicle: "N",
+        vehicle_type: "",
+        vehicle_typeLabel: "",
+        vehicle_number: "",
+        vehicle_numberLabel: "",
+        change_driver: "N",
+        driver: "",
+        driverLabel: "",
+        driver_co: "",
+        driver_coLabel: "",
         note: "",
       };
     },
@@ -563,17 +978,50 @@ export default {
       var param = {
         option_url: "/OP/OP_Ticket",
         line_no: 0,
-        id: this.paramFromList.detailList.row_id,
-        lastupdatestamp: this.paramFromList.detailList.lastupdatestamp,
+        id: this.paramFromList.row_id,
+        lastupdatestamp: this.paramFromList.lastupdatestamp,
       };
 
       this.getJSON(this.getUrlCRUD(), param).then((response) => {
         // response from API
         if (response == null) return;
 
-        var data = JSON.parse(response.Data[0].fop_ticket_s)[0];
+        var datas = JSON.parse(response.Data[0].fop_ticket_s);
+        var data = datas[0];
         this.M_DataPost = data;
         console.log(data);
+        this.M_PlanExe = {
+          wo_status: data.wo_status == null ? "N" : data.wo_status,
+          claim_status: data.claim_status == null ? "N" : data.claim_status,
+          change_vehicle:
+            data.change_vehicle_status == null
+              ? "N"
+              : data.change_vehicle_status,
+          change_driver:
+            data.change_driver_status == null ? "N" : data.change_driver_status,
+          vehicle_type: data.fm_fleet_type_id,
+          vehicle_typeLabel: data.vehicle_type_cd,
+          vehicle_number: data.fm_fleet_mstr_id,
+          vehicle_numberLabel: data.license_plate_no,
+          driver: data.order_fm_driver_id,
+          driverLabel: data.order_driver_name,
+          driver_co: data.order_fm_driver_id2,
+          driver_coLabel: data.order_driver_name2,
+          note: data.remarks,
+        };
+
+        if (data.change_vehicle_status && data.change_vehicle_status == "Y") {
+          this.PI_vehicle_type.cProtect = false;
+          this.PI_vehicle_number.cProtect = false;
+        }
+        this.PI_vehicle_number.dataLookUp.InitialWhere =
+          "ss_portfolio_id='" +
+          this.getDataUser().portfolio_id +
+          "' AND fm_fleet_type_id = " +
+          data.fm_fleet_type_id +
+          " AND license_plate_no <> '" +
+          data.license_plate_no +
+          "'";
 
         this.M_OP_Ticket = {
           cm_contact_id: data.cm_contact_id,
@@ -590,7 +1038,7 @@ export default {
           from: data.from_zone,
           to: data.to_zone,
           fm_driver_id1: data.fm_driver_id,
-          driver1: data.driver_name,
+          driver1: data.order_driver_name,
           pickup_date: this.momentDateFormatting(
             data.pickup_date,
             "YYYY-MM-DD HH:mm"
@@ -603,55 +1051,37 @@ export default {
           descs: data.descs,
           from_address: data.from_address,
           to_address: data.to_address,
-          //   order_date: this.momentDateFormatting(
-          //     data.order_date,
-          //     "DD-MM-YYYY HH:mm"
-          //   ),
-          //   assign_date: this.momentDateFormatting(
-          //     data.assign_date,
-          //     "DD-MM-YYYY HH:mm"
-          //   ),
-          //   dispatch_date: this.momentDateFormatting(
-          //     data.dispatch_date,
-          //     "DD-MM-YYYY HH:mm"
-          //   ),
-          //   arrival_date: this.momentDateFormatting(
-          //     data.arrival_date,
-          //     "DD-MM-YYYY HH:mm"
-          //   ),
-          //   start_loading_date: this.momentDateFormatting(
-          //     data.start_loading_date,
-          //     "DD-MM-YYYY HH:mm"
-          //   ),
-          //   finish_loading_date: this.momentDateFormatting(
-          //     data.finish_loading_date,
-          //     "DD-MM-YYYY HH:mm"
-          //   ),
-          //   get_out_arrival_date: this.momentDateFormatting(
-          //     data.get_out_arrival_date,
-          //     "DD-MM-YYYY HH:mm"
-          //   ),
-          //   get_out_destination_date: this.momentDateFormatting(
-          //     data.get_out_destination_date,
-          //     "DD-MM-YYYY HH:mm"
-          //   ),
-          //   start_unloading_date: this.momentDateFormatting(
-          //     data.start_unloading_date,
-          //     "DD-MM-YYYY HH:mm"
-          //   ),
-          //   finish_unloading_date: this.momentDateFormatting(
-          //     data.finish_unloading_date,
-          //     "DD-MM-YYYY HH:mm"
-          //   ),
         };
 
-        // this.PlanTicket_D = data.detail_ticket;
-        // this.PlanCosting_D = data.detail_cost;
-        // this.PlanExtra_D = data.detail_pick_drop;
-        // this.PlanConsole_D = data.detail_console;
-        // this.PlanDocument = data.detail_document;
+        for (var i = 0; i < datas.length; i++) {
+          this.PlanTicket_D.push({
+            row_number: i + 1,
+            ticket_no: datas[i].ticket_no,
+            ticket_date: datas[i].ticket_date,
+            ticket_category: datas[i].ticket_category,
+            descs: datas[i].descs,
+            doc_file_name: datas[i].doc_file_name,
+          });
+        }
+        var detail_document = data.detail_document;
+        var pict = [];
+        if (detail_document.length > 0) {
+          for (let i = 0; i < detail_document.length; i++) {
+            pict.push({
+              file_logo: "dtfile_" + i,
+              file_logo_name: detail_document[i].doc_file_name,
+              file_logo_path: detail_document[i].doc_path_file,
+              file_show:
+                detail_document[i].doc_path_file &&
+                detail_document[i].doc_path_file !== ""
+                  ? this.url + detail_document[i].doc_path_file
+                  : require("@/assets/default_photo_.png"),
+            });
+          }
+        }
+        this.M_Picture = pict;
 
-        this.M_ClearForm();
+        // this.M_ClearForm();
       });
     },
   },

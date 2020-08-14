@@ -101,6 +101,7 @@ import OP_OutsourceVendorViewCompleted from '@/views/OP/OP_OutsourceVendor/OP_Ou
 
 // Ticket
 import OP_Ticket from '@/views/OP/OP_Ticket/OP_TicketList'
+import OP_TicketForm from '@/views/OP/OP_Ticket/OP_TicketForm'
 
 export const OPRender = {
     path: '/OP',
@@ -114,6 +115,14 @@ export const OPRender = {
             path: '/OP/OP_Ticket',
             name: 'OP_Ticket',
             component: OP_Ticket,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/OP_Ticket/Form',
+            name: 'OP_TicketForm',
+            component: OP_TicketForm,
             meta: {
                 requiresAuth: true
             }

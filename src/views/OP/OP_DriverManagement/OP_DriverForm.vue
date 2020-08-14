@@ -213,7 +213,7 @@
                               />&nbsp; &nbsp;
                               <span
                                 style="position: absolute; font-size: 15px; color: #333399; font-weight: bold;"
-                              >Add Picture</span>
+                              >Add Picture bro</span>
                             </div>
                           </b-col>
                         </b-row>

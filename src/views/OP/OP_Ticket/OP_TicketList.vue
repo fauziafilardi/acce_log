@@ -38,7 +38,6 @@ export default {
         OrderBy: "ticket_no ASC",
         SourceField: "",
         ParamView: "",
-        ButtonAddDisabled: true,
       },
     };
   },
@@ -50,9 +49,8 @@ export default {
       var param = record;
       param.isEdit = true;
       param.isView = true;
-      console.log("doViewClick", param);
       this.$store.commit("setParamPage", param);
-      this.$router.push({ name: "OP_TicketDtl" });
+      this.$router.push({ name: "OP_TicketForm" });
     },
     doDoubleClick(record, index) {},
     doDeleteClick(record, index) {
