@@ -721,6 +721,8 @@ export default {
           this.PI_driver.cProtect = true;
           this.PI_driver_co.cProtect = true;
 
+          this.PI_driver.cValidate = "";
+          this.PI_driver_co.cValidate = "";
           this.M_PlanExe.driver_co = null;
           this.M_PlanExe.driver = null;
           this.M_PlanExe.driver_coLabel = null;
@@ -733,10 +735,15 @@ export default {
         if (data == "Y") {
           this.PI_vehicle_type.cProtect = false;
           this.PI_vehicle_number.cProtect = false;
+
+          this.PI_vehicle_type.cValidate = "required";
+          this.PI_vehicle_number.cValidate = "required";
         } else {
           this.PI_vehicle_type.cProtect = true;
           this.PI_vehicle_number.cProtect = true;
 
+          this.PI_vehicle_type.cValidate = "";
+          this.PI_vehicle_number.cValidate = "";
           this.M_PlanExe.vehicle_number = null;
           this.M_PlanExe.vehicle_type = null;
           this.M_PlanExe.vehicle_numberLabel = null;
