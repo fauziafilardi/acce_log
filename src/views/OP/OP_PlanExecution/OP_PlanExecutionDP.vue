@@ -471,7 +471,7 @@
                               style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;"
                             >Costing</span>
                           </b-col>
-                          <b-col>
+                          <b-col v-show="M_DataPost.cost_over_status == 'Y'">
                             <font-awesome-icon
                               icon="exclamation-circle"
                               class="icon-style-default"
@@ -1095,7 +1095,8 @@ export default {
     },
     Show_Pict(doc) {
       this.M_ModalPict.file = this.url + doc.doc_path_file;
-      this.$refs.Show_Picture._show();
+      // this.$refs.Show_Picture._show();
+      window.open(this.M_ModalPict.file, "_blank");
     },
     Delete_Pict(id) {
       this.alertConfirmation(
@@ -1426,52 +1427,55 @@ export default {
       );
     },
     doCreateTicket() {
-      this.M_Ticket = {
-        ticket_category: "",
-        ticket_categoryLabel: "",
-        descs: "",
-        file_name: "",
-        file_path: "",
-      };
+      var param = this.paramFromList;
+      param.Ticket = this.M_DataPost;
+      param.isEdit = false;
 
-      this.$refs.Modal_Ticket._show();
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "OP_PlanExecutionTicket" });
     },
     ticketClick(record, index) {
-      var param = {
-        option_url: "/OP/OP_Order",
-        line_no: 3,
-        id: record.row_id,
-        lastupdatestamp: record.lastupdatestamp,
-      };
+      var param = this.paramFromList;
+      param.Ticket = record;
+      param.isEdit = true;
 
-      this.getJSON(this.getUrlCRUD(), param).then((response) => {
-        // response from API
-        if (response == null) return;
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "OP_PlanExecutionTicket" });
+      // var param = {
+      //   option_url: "/OP/OP_Order",
+      //   line_no: 3,
+      //   id: record.row_id,
+      //   lastupdatestamp: record.lastupdatestamp,
+      // };
 
-        var data = response.Data[0];
-        this.M_Ticket = {
-          op_order_ticket_id: data.op_order_ticket_id,
-          ticket_no: data.ticket_no,
-          ticket_category: data.op_ticket_category_id__lo_1,
-          ticket_categoryLabel: data.ticket_category__lbl_lo_1,
-          descs: data.descs__tb_2,
-          file_name: data.doc_file_name,
-          file_path: data.doc_path_file,
-          ticket_status: data.ticket_status,
-          ticket_date: data.ticket_date,
-          remarks: data.remarks,
-          wo_status: data.wo_status,
-          claim_status: data.claim_status,
-          change_vehicle_status: data.change_vehicle_status,
-          fm_fleet_mstr_id: data.fm_fleet_mstr_id,
-          license_plate_no: data.license_plate_no,
-          fm_driver_id: data.fm_driver_id,
-          fm_driver_id2: data.fm_driver_id2,
-          lastupdatestamp: record.lastupdatestamp,
-        };
+      // this.getJSON(this.getUrlCRUD(), param).then((response) => {
+      //   // response from API
+      //   if (response == null) return;
 
-        this.$refs.Modal_Ticket._show();
-      });
+      //   var data = response.Data[0];
+      //   this.M_Ticket = {
+      //     op_order_ticket_id: data.op_order_ticket_id,
+      //     ticket_no: data.ticket_no,
+      //     ticket_category: data.op_ticket_category_id__lo_1,
+      //     ticket_categoryLabel: data.ticket_category__lbl_lo_1,
+      //     descs: data.descs__tb_2,
+      //     file_name: data.doc_file_name,
+      //     file_path: data.doc_path_file,
+      //     ticket_status: data.ticket_status,
+      //     ticket_date: data.ticket_date,
+      //     remarks: data.remarks,
+      //     wo_status: data.wo_status,
+      //     claim_status: data.claim_status,
+      //     change_vehicle_status: data.change_vehicle_status,
+      //     fm_fleet_mstr_id: data.fm_fleet_mstr_id,
+      //     license_plate_no: data.license_plate_no,
+      //     fm_driver_id: data.fm_driver_id,
+      //     fm_driver_id2: data.fm_driver_id2,
+      //     lastupdatestamp: record.lastupdatestamp,
+      //   };
+
+      //   this.$refs.Modal_Ticket._show();
+      // });
     },
     Onticket_categoryChange(data) {
       this.$nextTick(() => {

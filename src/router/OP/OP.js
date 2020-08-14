@@ -3,7 +3,7 @@ import OP_AddBookingEntry from '@/views/OP/OP_BookingEntry/OP_AddBookingEntry'
 import OP_ViewBookingEntry from '@/views/OP/OP_BookingEntry/OP_ViewBookingEntry'
 
 // Plan Execution
-import OP_PlanExecution from '@/views/OP/OP_PlanExecution/OP_PlanExecution'
+import OP_PlanExecution from '@/views/OP/OP_PlanExecution/OP_PlanExecution2'
 import OP_ViewPlanExecution from '@/views/OP/OP_PlanExecution/OP_ViewPlanExecution'
 import OP_PlanExecutionNew from '@/views/OP/OP_PlanExecution/OP_PlanExecutionNew'
 import OP_PlanExecutionAS from '@/views/OP/OP_PlanExecution/OP_PlanExecutionAS'

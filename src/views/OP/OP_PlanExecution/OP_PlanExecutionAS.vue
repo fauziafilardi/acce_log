@@ -446,7 +446,7 @@
                               style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;"
                             >Costing</span>
                           </b-col>
-                          <b-col>
+                          <b-col v-show="M_DataPost.cost_over_status == 'Y'">
                             <font-awesome-icon
                               icon="exclamation-circle"
                               class="icon-style-default"
@@ -508,7 +508,7 @@ export default {
         cName: "current_km",
         cOrder: 2,
         cKey: false,
-        cType: "decimal",
+        cType: "numeric",
         cProtect: false,
         cParentForm: "OP_AS_PlanExecution",
         cDecimal: 2,

@@ -339,6 +339,7 @@ export default {
 
     if (this.prop.cType == 'numeric') {
       // this.style = { 'text-align': 'right' }
+      this.style = "text-align: right !important; " + this.prop.cStyle
     }
 
     // get max, for maxlength

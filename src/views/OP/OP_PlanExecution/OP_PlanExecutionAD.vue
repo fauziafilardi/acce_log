@@ -526,11 +526,11 @@
                                     </span>
                                     <br /><br />
                                     <template v-if="(doc.doc_file_name && doc.doc_file_name !== '') && (doc.doc_path_file && doc.doc_path_file !== '')">
-                                      <img 
+                                      <img
                                         :id="doc.dokument_type"
-                                        :src="url + doc.doc_path_file"
-                                        alt
-                                        width="80%"
+                                        :src="url + (doc.doc_file_name.includes('.jpg') || doc.doc_file_name.includes('.png') || doc.doc_file_name.includes('.jpeg') ? doc.doc_path_file : 'FileUpload\\OP\\637329379610836086.jpeg')"
+                                        alt=""
+                                        width="50%"
                                         style="cursor: pointer;"
                                         @click="Show_Pict(doc)"
                                       />
@@ -552,7 +552,7 @@
                                       <ACCImageUpload
                                         :prop="{
                                           cName: doc.dokument_type,
-                                          cAccept: '.jpg, .png, .gif',
+                                          cAccept: '',
                                           cTitle: '',
                                           cModule: 'OP',
                                           cIcon: 'plus-circle',
@@ -1133,7 +1133,9 @@ data() {
     },
     Show_Pict(doc) {
       this.M_ModalPict.file = this.url + doc.doc_path_file;
-      this.$refs.Show_Picture._show();
+      // this.$refs.Show_Picture._show();
+      window.open(this.M_ModalPict.file, "_blank");
+      
     },
     Delete_Pict(id) {
       this.alertConfirmation("Are You Sure Want To Delete This Document ?").then(
