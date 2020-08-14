@@ -18,7 +18,7 @@
           class="table-sm table-style-3"
         >
             <template v-slot:[`cell(${l.key})`]="data" v-for="l in fieldHeader">
-              <template v-if="l.key == 'row_id'">
+              <template v-if="l.key == 'row_id'" && !WithRowId>
                 <!-- <ABSButton
                   v-show="(ButtonStatus == null ? false  : ButtonStatus.btnView) || WithViewButton"
                   :text="'View'"
@@ -72,7 +72,8 @@ export default {
     cShowNumber: Boolean,
     // urlAdd: String,
     // WithViewButton: Boolean,
-    WithDeleteButton: Boolean
+    WithDeleteButton: Boolean,
+    WithRowId: Boolean
   },
   data() {
     return {
@@ -872,7 +873,10 @@ export default {
                 );
               } else {
                 if (labelHeader.includes(data.key)) {
-                  if (labelHeader == "Row Id" && (!this.WithDeleteButton)) continue;
+                  if (!this.WithRowId) {
+                    if (labelHeader == "Row Id" && (!this.WithViewButton && !this.WithDeleteButton)) continue;
+                  }
+                  // if (labelHeader == "Row Id" && (!this.WithDeleteButton)) continue;
                   // if (labelHeader == 'Row Id' && !this.WithViewButton) {
 
                   // }

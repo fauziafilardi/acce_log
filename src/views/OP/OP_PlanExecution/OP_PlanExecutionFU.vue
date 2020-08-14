@@ -390,7 +390,7 @@
                         </b-col>
                         <b-col md="6" class="row-bordered">
                             <b-row>
-                                <b-col md="2">
+                                <b-col style="max-width: fit-content !important;">
                                     <span style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;">
                                         Return Empty
                                     </span>
@@ -402,6 +402,7 @@
                                         name="check-button"
                                         switch
                                         size="lg"
+                                        :disabled="M_DataPost.assign_fleet_status && M_DataPost.assign_fleet_status == 'E'"
                                     />
                                 </b-col>
                             </b-row>
@@ -895,7 +896,7 @@ data() {
                 DisplayLookUp:'title'
             },
             cValidate: "required",
-            cName: "comodity",
+            cName: "return_empty_to",
             ckey: false,
             cOrder: 3,
             cProtect: true,

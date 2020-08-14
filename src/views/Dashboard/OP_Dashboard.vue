@@ -191,10 +191,11 @@
                 <b-col style="text-align: right;">
                   <span>
                     <ABSButton
-                      :text="'View All'"
+                      :text="'Create Console'"
                       classButton="button button--new"
                       classIcon="icon-style-1"
-                      :disabled="true"
+                      :disabled="false"
+                      @click="doCreateConsole"
                     />
                   </span>
                 </b-col>
@@ -866,6 +867,9 @@ export default {
         var dataNew = this.DataTable.filter(x => x.status == status);
         this.PlanExTable.Data = dataNew;
       }
+    },
+    doCreateConsole(){
+      this.$router.push({ name: "OP_OrderConsole" });
     }
   },
   mounted() {

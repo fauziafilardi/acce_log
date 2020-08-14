@@ -1569,8 +1569,9 @@ data() {
         this.PlanConsole_D = !data.detail_console || data.detail_console == null || data.detail_console == undefined ? [] : data.detail_console
         this.PlanDocument = !data.detail_document || data.detail_document == null || data.detail_document == undefined ? [] : data.detail_document
 
-        this.PI_kgs.cValidate = 'required|less:' + data.total_kgs
-        this.PI_cbm.cValidate = 'required|less:' + data.total_cbm
+        this.PI_total_item.cValidate = 'required|less:' + this.M_SU_Plan.loading_total_item
+        this.PI_kgs.cValidate = 'required|less:' + this.M_SU_Plan.loading_kgs
+        this.PI_cbm.cValidate = 'required|less:' + this.M_SU_Plan.loading_cbm
 
         this.M_ClearForm();
       });
