@@ -3,105 +3,9 @@
     <div class="dashboard-page-chart__body">
       <b-row class="dashboardBody">
         <b-col md="12">
-          <div class="card">
-            <div class="card__title" style="border-bottom-style: unset !important;">
-              <b-row>
-                <b-col>
-                  <span>Plan Execution</span> &nbsp;
-                  <span>
-                    <b-badge variant="primary">&nbsp;</b-badge>
-                    <span
-                      style="color: #666666; font-size:12px; font-weight: normal !important; padding-left: 5px;"
-                    >Project</span> &nbsp;
-                    <b-badge variant="primary">&nbsp;</b-badge>
-                    <span
-                      style="color: #666666; font-size:12px; font-weight: normal !important; padding-left: 5px;"
-                    >Console</span> &nbsp;
-                    <b-badge variant="primary">&nbsp;</b-badge>
-                    <span
-                      style="color: #666666; font-size:12px; font-weight: normal !important; padding-left: 5px;"
-                    >FTL</span> &nbsp;
-                    <b-badge variant="primary">&nbsp;</b-badge>
-                    <span
-                      style="color: #666666; font-size:12px; font-weight: normal !important; padding-left: 5px;"
-                    >LTL</span> &nbsp;
-                  </span>
-                </b-col>
-                <b-col md="4" style="text-align: right;">
-                  <span>
-                    <ABSButton
-                      :text="'View All'"
-                      classButton="button button--new"
-                      classIcon="icon-style-1"
-                      :disabled="true"
-                    />
-                  </span>
-                </b-col>
-              </b-row>
-            </div>
-            <div class="card__body">
-              <div class="bedge-container">
-                <b-row style="min-width: 800px;">
-                  <!-- <div class="bedge-container" style="width:100%;"> -->
-                  <b-col class="ChartLegend__Wrap" style="min-width:712px;">
-                    <b-row style="padding-top:10px !important;">
-                      <b-col
-                        v-for="(data, index) in PlanExecution"
-                        v-bind:key="index"
-                        style="margin-bottom: 10px; cursor: pointer;"
-                        @click="filterTable(data)"
-                      >
-                        <div :class="'Plan-Dot-' + data.variant">
-                          <span>{{data.dataLength}}</span>
-                        </div>
-                        <div class="Plan-Dot-Text">{{data.label}}</div>
-                      </b-col>
-                    </b-row>
-                  </b-col>
-                  <!-- </div> -->
-                </b-row>
-                <b-row style="margin-top: 15px; min-width:800px;">
-                  <b-col>
-                    <b-table
-                      :responsive="false"
-                      :striped="false"
-                      :bordered="true"
-                      :outlined="false"
-                      :small="false"
-                      :hover="false"
-                      :dark="false"
-                      :fixed="false"
-                      :foot-clone="false"
-                      :fields="PlanExTable.Header"
-                      :items="PlanExTable.Data"
-                      thStyle="padding: 5px !important;"
-                    >
-                      <!-- class="table-sm table-style-1" -->
-                      <template v-slot:cell(no)="data">{{data.index + 1}}</template>
-                      <template v-slot:cell(fleetsource)="data">
-                        <font-awesome-icon
-                          style="color: #333399;"
-                          icon="arrow-alt-circle-left"
-                          size="lg"
-                          v-if="data.item.fleetsource == 'l'"
-                        />
-                        <font-awesome-icon
-                          style="color: #333399;"
-                          icon="arrow-alt-circle-right"
-                          size="lg"
-                          v-if="data.item.fleetsource == 'r'"
-                        />
-                      </template>
-                      <template v-slot:cell(from)="data">{{ data.item.from + ' - ' + data.item.to }}</template>
-                      <template v-slot:cell(status)="data">
-                        <div :class="'Plan-DotTable-' + PlanExecution[data.item.status].variant"></div>
-                      </template>
-                    </b-table>
-                  </b-col>
-                </b-row>
-              </div>
-            </div>
-          </div>
+          <keep-alive>
+            <component :ref="'ref_PlanExecution_Comp'" :is="PlanExecution_Comp"/>
+          </keep-alive>
         </b-col>
       </b-row>
       <b-row class="dashboardBody">
@@ -578,7 +482,8 @@ export default {
             type: "Maintenance"
           }
         ]
-      }
+      },
+      PlanExecution_Comp: null
     };
   },
   computed: {},
@@ -874,6 +779,7 @@ export default {
   },
   mounted() {
     this.renderPlan();
+    this.PlanExecution_Comp = () => import("./OP/Dashboard_PlanExecution.vue")
   }
 };
 </script>

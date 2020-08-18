@@ -92,7 +92,7 @@ import OP_VendorGps from '@/views/OP/OP_VendorGps/OP_VendorGpsList'
 import OP_VendorGpsForm from '@/views/OP/OP_VendorGps/OP_VendorGpsForm'
 
 import OP_OrderForm from '@/views/OP/OP_Order/OP_OrderForm';
-// import OP_OrderConsole from '@/views/OP/OP_OrderConsole/OP_OrderConsole';
+import OP_OrderConsole from '@/views/OP/OP_OrderConsole/OP_OrderConsole';
 
 // Outsource Order
 import OP_OutsourceVendor from '@/views/OP/OP_OutsourceVendor/OP_OutsourceVendorList'
@@ -670,13 +670,13 @@ export const OPRender = {
             }
         },
 
-        // {
-        //     path: '/OP/OP_OrderConsole',
-        //     name: 'OP_OrderConsole',
-        //     component: OP_OrderConsole,
-        //     meta: {
-        //         requiresAuth: true
-        //     }
-        // },
+        {
+            path: '/OP/OP_OrderConsole',
+            name: 'OP_OrderConsole',
+            component: OP_OrderConsole,
+            meta: {
+                requiresAuth: true
+            }
+        },
     ]
 }
