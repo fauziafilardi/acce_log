@@ -1,64 +1,3 @@
-<!--<template>
-  <div class="dashboard-page-chart">
-    <div class="dashboard-page-chart__body">
-      <b-row class="dashboardBody">
-        <b-col md="12">
-          <b-row class="row-bordered" style="margin-top: 10px;">
-            <b-col md="12">
-              <b-row>
-                <b-col md="2">
-                  <span
-                    style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;"
-                  >Fleet Availability</span>
-                </b-col>
-              </b-row>
-              <b-row>
-                <b-col>
-                  <ACCList2
-                    :prop="propList"
-                    :title="titleList"
-                    @rowClicked="rowClicked"
-                    @buttonDeleteClicked="doDeleteClick"
-                    @rowDblClicked="doDoubleClick"
-                    @rowLinkClick="rowLink"
-                    @pageSize="M_PageSize"
-                    @pagination="M_Pagination"
-                    @filter="M_Advance_Filter"
-                    @headTable="M_Head_Table"
-                    @refreshColumn="refreshColumn"
-                    ref="ref_OPFleetAvailability"
-                    @buttonViewClicked="doViewClick"
-                  />
-                </b-col>
-              </b-row>
-              <b-row>
-                <b-col>
-                  <ACCList2
-                    :prop="propList2"
-                    :title="'Incoming Fleet'"
-                    @rowClicked="rowClicked"
-                    @buttonDeleteClicked="doDeleteClick"
-                    @rowDblClicked="doDoubleClick"
-                    @rowLinkClick="rowLink"
-                    @pageSize="M_PageSize"
-                    @pagination="M_Pagination"
-                    @filter="M_Advance_Filter"
-                    @headTable="M_Head_Table"
-                    @refreshColumn="refreshColumn"
-                    ref="ref_OPIncomingAvailability"
-                    @buttonViewClicked="doViewClick"
-                  />
-                </b-col>
-              </b-row>
-            </b-col>
-          </b-row>
-        </b-col>
-      </b-row>
-    </div>
-  </div>
-</template>
--->
-
 <template>
   <div class="dashboard-page-chart">
     <div class="dashboard-page-chart__body">
@@ -68,7 +7,7 @@
             <div class="card__title">
               <b-row>
                 <b-col style="max-width:fit-content !important;">
-                  <span>Plan Execution</span>
+                  <span>Fleet Availability</span>
                 </b-col>
                 <b-col style="text-align: right;">
                   <ABSButton
@@ -96,6 +35,7 @@
                     @headTable="M_Head_Table"
                     @refreshColumn="refreshColumn"
                     ref="ref_OPFleetAvailability"
+                    ButtonBackDisabled
                     @buttonViewClicked="doViewClick"
                   />
                 </b-col>
@@ -115,6 +55,7 @@
                     @headTable="M_Head_Table"
                     @refreshColumn="refreshColumn"
                     ref="ref_OPIncomingAvailability"
+                    ButtonBackDisabled
                     @buttonViewClicked="doViewClick"
                   />
                 </b-col>
@@ -123,6 +64,15 @@
           </div>
         </b-col>
       </b-row>
+      <ABSModal id="Show_Maps" ref="Show_Maps" size="lg">
+        <template slot="content">
+          <b-row>
+            <b-col md="12" style="text-align: center;">
+              <img :src="require('@/assets/map.png')" alt style="width: 100%;" />
+            </b-col>
+          </b-row>
+        </template>
+      </ABSModal>
     </div>
   </div>
 </template>
@@ -178,13 +128,27 @@ export default {
       this.doViewClick(record, index);
     },
     doViewClick(record, index) {
-      var param = record;
-      param.isEdit = true;
-      param.isView = true;
-      this.$store.commit("setParamPage", param);
-      this.$router.push({ name: "OP_FleetAvailabilitydtl" });
+      console.log(record);
+      var param = this.paramFromList;
+      param.detailList = record;
+      if (record.fleet_status == "S") {
+        param.isEdit = true;
+        param.isView = true;
+        this.$store.commit("setParamPage", param);
+        this.$router.push({ name: "OP_FleetAvailabilityAssign" });
+      } else if (record.fleet_status == "A") {
+        param.isEdit = true;
+        param.isView = true;
+        this.$store.commit("setParamPage", param);
+        this.$router.push({ name: "OP_FleetAvailabilityForm" });
+      } else {
+      }
     },
     rowClicked2(record, index) {
+      console.log(record);
+      // if(record.fleet_gps_id){
+      this.$refs.Show_Maps._show();
+      // }
       // this.doViewClick(record, index);
     },
     doDoubleClick(record, index) {},
