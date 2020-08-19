@@ -185,10 +185,10 @@ export default {
       },
       PI_user_id: {
         dataLookUp: {
-          LookUpCd: "GetMarketing",
-          ColumnDB: "marketing_id",
+          LookUpCd: "GetUser",
+          ColumnDB: "ss_user_id",
           InitialWhere:
-            "ss_portfolio_id='" + this.getDataUser().portfolio_id + "'",
+            "portfolio_id='" + this.getDataUser().portfolio_id + "'",
           ParamWhere: "",
           OrderBy: "",
           ParamView: "",
@@ -321,7 +321,7 @@ export default {
       this.$nextTick(() => {
         this.M_MkMarketing.marketing_id = data.id;
         this.M_MkMarketing.nameLabel = data.label;
-        this.M_MkMarketing.name = data.name;
+        this.M_MkMarketing.name = data.user_name;
       });
     },
 

@@ -104,6 +104,17 @@ import OP_OutsourceVendorViewCompleted from '@/views/OP/OP_OutsourceVendor/OP_Ou
 import OP_Ticket from '@/views/OP/OP_Ticket/OP_TicketList'
 import OP_TicketForm from '@/views/OP/OP_Ticket/OP_TicketForm'
 
+//Fleet Availability
+import OP_FleetAvailability from '@/views/OP/OP_FleetAvailability/OP_FleetAvailabilityList'
+import OP_FleetAvailabilitydtl from '@/views/OP/OP_FleetAvailability/OP_FleetAvailabilityListdtl'
+import OP_FleetAvailabilityForm from '@/views/OP/OP_FleetAvailability/OP_FleetAvailabilityForm'
+import OP_FleetAvailabilityAssign from '@/views/OP/OP_FleetAvailability/OP_FleetAvailabilityAssign'
+
+// OP_PettyCashList
+import OP_PettyCash from '@/views/OP/OP_PettyCash/OP_PettyCashList'
+import OP_PettyCashdtl from '@/views/OP/OP_PettyCash/OP_PettyCashdtl'
+
+OP_FleetAvailabilityForm
 export const OPRender = {
     path: '/OP',
     component: {
@@ -112,6 +123,54 @@ export const OPRender = {
         }
     },
     children: [
+        {
+            path: '/OP/OP_PettyCash',
+            name: 'OP_PettyCash',
+            component: OP_PettyCash,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/OP_PettyCash/dtl',
+            name: 'OP_PettyCashdtl',
+            component: OP_PettyCashdtl,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/OP_FleetAvailability',
+            name: 'OP_FleetAvailability',
+            component: OP_FleetAvailability,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/OP_FleetAvailability/dtl',
+            name: 'OP_FleetAvailabilitydtl',
+            component: OP_FleetAvailabilitydtl,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/OP_FleetAvailability/Form',
+            name: 'OP_FleetAvailabilityForm',
+            component: OP_FleetAvailabilityForm,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/OP_FleetAvailability/Assign',
+            name: 'OP_FleetAvailabilityAssign',
+            component: OP_FleetAvailabilityAssign,
+            meta: {
+                requiresAuth: true
+            }
+        },
         {
             path: '/OP/OP_Ticket',
             name: 'OP_Ticket',
