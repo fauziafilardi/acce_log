@@ -18,24 +18,37 @@
           class="table-sm table-style-3"
         >
             <template v-slot:[`cell(${l.key})`]="data" v-for="l in fieldHeader">
-              <template v-if="l.key == 'row_id'" && !WithRowId>
-                <!-- <ABSButton
-                  v-show="(ButtonStatus == null ? false  : ButtonStatus.btnView) || WithViewButton"
-                  :text="'View'"
-                  classButton="btn btn--default"
-                  classIcon="icon-style-1"
-                  @click="viewClicked(data.item, data.index)"
-                /> -->
-                <ABSButton
-                  v-show="(ButtonStatus == null ? false : ButtonStatus.btnDelete) || WithDeleteButton"
-                  :icon="'trash'"
-                  classButton="button button--delete"
-                  classIcon="icon-style-1"
-                  @click="deleteClicked(data.item, data.index)"
-                />
+              <!-- {{l.key}}
+              {{WithRowId + ', ' + !(WithRowId)}} -->
+              <template v-if="l.key == 'row_id'">
+                <template v-if="WithRowId">
+                  <slot :name="`${l.key}`" :item="data.item"></slot>
+
+                  <span v-show="!hasSlot(`${l.key}`)">
+                    {{data.item[`${l.key}`]}}
+                  </span>
+                </template>
+                <template v-else>
+                  <!-- {{'yes'}} -->
+                  <!-- <ABSButton
+                    v-show="(ButtonStatus == null ? false  : ButtonStatus.btnView) || WithViewButton"
+                    :text="'View'"
+                    classButton="btn btn--default"
+                    classIcon="icon-style-1"
+                    @click="viewClicked(data.item, data.index)"
+                  /> -->
+                  <ABSButton
+                    v-show="(ButtonStatus == null ? false : ButtonStatus.btnDelete) || WithDeleteButton"
+                    :icon="'trash'"
+                    classButton="button button--delete"
+                    classIcon="icon-style-1"
+                    @click="deleteClicked(data.item, data.index)"
+                  />
+                </template>
               </template>
               <template v-else>
-                <slot :name="`${l.key}`" :item="data.item"></slot>
+                <!-- {{'no'}} -->
+                <slot :name="`${l.key}`" :item="data.item" :index="data.index"></slot>
 
                 <span v-show="!hasSlot(`${l.key}`)">
                   {{data.item[`${l.key}`]}}
