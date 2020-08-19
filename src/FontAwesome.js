@@ -79,7 +79,9 @@ import {
     faDiceD6,
     faCopyright,
     faClipboardList,
-    faFillDrip
+    faFillDrip,
+    faArrowAltCircleUp,
+    faArrowAltCircleDown
 } from '@fortawesome/free-solid-svg-icons'
 
 
@@ -162,5 +164,7 @@ library.add(faDiceD6)
 library.add(faCopyright)
 library.add(faClipboardList)
 library.add(faFillDrip)
+library.add(faArrowAltCircleUp)
+library.add(faArrowAltCircleDown)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)

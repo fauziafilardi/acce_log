@@ -44,7 +44,7 @@
             />
           </span>
 
-          <span>
+          <span v-show="!ButtonBackDisabled">
             <ABSButton
               :text="'Back'"
               classButton="button button--back2"
@@ -509,6 +509,7 @@ export default {
     cShowNumber: Boolean,
     urlAdd: String,
     ButtonAddDisabled: Boolean,
+    ButtonBackDisabled: Boolean,
     WithViewButton: Boolean,
     WithDeleteButton: Boolean,
     WithRowId: Boolean
