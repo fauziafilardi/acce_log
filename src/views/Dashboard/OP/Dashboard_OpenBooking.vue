@@ -51,7 +51,7 @@
                     </b-row>
                 </b-col>
                 <b-col md="1" style="border-left: solid 1px rgb(127, 129, 134);">
-                    <div class="CardTag-Title" style="border-radius: 10px !important; padding-top: 40px; padding-top: 25px !important; padding-bottom: 26px !important;">
+                    <div class="CardTag-Title" style="border-radius: 10px !important; padding-top: 40px; padding-top: 20px !important; padding-bottom: 14px !important;">
                         <span> Incoming Booking</span>
                         <br> <br>
                         <span style="font-size: 15px;"> {{'6'}} </span>
