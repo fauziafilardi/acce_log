@@ -269,7 +269,7 @@ export default {
   methods: {
     OncompanyChange(data) {
       this.$nextTick(() => {
-        var filter = "cm_contact_id = " + data.cm_contact_id;
+        var filter = "cm_contact_id = " + data.id;
         this.propList.initialWhere = filter;
         this.doGetList(this.search);
       });

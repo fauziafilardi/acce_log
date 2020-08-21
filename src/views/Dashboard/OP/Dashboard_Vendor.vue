@@ -3,7 +3,7 @@
     <div class="card__title">
       <b-row>
         <b-col style="max-width:fit-content !important;">
-          <span>Vendor</span> &nbsp;
+          <span>Outsource Order</span> &nbsp;
         </b-col>
         <b-col style="text-align: right;">
           <span>
