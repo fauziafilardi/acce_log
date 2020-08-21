@@ -9,7 +9,7 @@
                     <span>
                         <ABSButton
                             :text="'Create Console'"
-                            classButton="button button--new"
+                            classButton="button button--back2"
                             classIcon="icon-style-1"
                             :disabled="false"
                             @click="doCreateConsole"

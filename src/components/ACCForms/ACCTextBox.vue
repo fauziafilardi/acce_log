@@ -376,7 +376,7 @@ export default {
       },
       validate (value, field) {
         // console.log(value, field)
-        if (value > parseInt(field[0])) {
+        if (parseFloat(value) > parseInt(field[0])) {
           return false
         } else {
           return true
@@ -390,7 +390,10 @@ export default {
         return 'The ' + field + ' field must more than '+val+'.'
       },
       validate (value, field) {
-        if (value <= parseInt(field[0])) {
+        // console.log(value, field[0])
+        // console.log(parseFloat(value))
+        // console.log(parseFloat(value) <= parseInt(field[0]))
+        if (parseFloat(value) <= parseInt(field[0])) {
           return false
         } else {
           return true

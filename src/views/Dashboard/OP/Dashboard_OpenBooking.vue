@@ -2,8 +2,8 @@
     <div class="card">
         <div class="card__title" style="border-bottom-style: unset !important;">
             <b-row>
-                <b-col md="9">Open Booking</b-col>
-                <b-col md="2" class="col-right">
+                <b-col md="8">Open Booking</b-col>
+                <b-col md="3" class="col-right">
                     <span>
                         <ABSButton
                             :text="'Create Booking'"
@@ -34,20 +34,24 @@
                             style="margin-bottom: 5px"
                         >
                             <div>
-                                <div class="CardTag-Title">{{data.from_to}}</div>
+                                <div class="CardTag-Title" style="height: 50px; font-size: 13px !important;">{{data.from_to}}</div>
                                 <div class="CardTag-Descs">
-                                    <span style="color: #333399; font-weight: bold;">{{data.customer}}</span>
-                                    <br />
-                                    <span style="color: #7f8186">{{data.category !== 'LTL' ? (data.category + ' | ' + data.fleet_type) : data.category}}</span>
-                                    <br />
-                                    <span style="color: #7f8186">{{data.status}}</span>
+                                    <div style="margin-bottom: 5px; heigth: 10px; height: 18px; overflow-y: hidden;">
+                                        <span style="color: #333399; font-weight: bold;">{{data.customer}}</span>
+                                    </div>
+                                    <div style="margin-bottom: 5px;">
+                                        <span style="color: #7f8186">{{data.category !== 'LTL' ? (data.category + ' | ' + data.fleet_type) : data.category}}</span>
+                                    </div>
+                                    <div style="margin-bottom: 5px;">
+                                        <span style="color: #7f8186">{{data.status}}</span>
+                                    </div>
                                 </div>
                             </div>
                         </b-col>
                     </b-row>
                 </b-col>
                 <b-col md="1" style="border-left: solid 1px rgb(127, 129, 134);">
-                    <div class="CardTag-Title" style="border-radius: 10px !important; padding-top: 40px; padding-top: 25px !important; padding-bottom: 9px !important;">
+                    <div class="CardTag-Title" style="border-radius: 10px !important; padding-top: 40px; padding-top: 25px !important; padding-bottom: 26px !important;">
                         <span> Incoming Booking</span>
                         <br> <br>
                         <span style="font-size: 15px;"> {{'6'}} </span>

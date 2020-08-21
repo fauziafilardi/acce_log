@@ -771,6 +771,7 @@ export default {
           return responses
         })
         .catch(err => {
+          console.log('yay')
           this.$store.commit('setStatusError', true)
           this.checkResponseCode(err)
           this.$store.commit('setStatusLoader', false)
@@ -911,6 +912,7 @@ export default {
           }
         )
         .then(response => {
+          // console.log('then', response)
           let responses = response.data
           // console.log(responses)
 
@@ -938,6 +940,7 @@ export default {
           return responses
         })
         .catch(err => {
+          // console.log('error', err)
           this.checkResponseCode(err)
           this.$store.commit('setStatusLoader', false)
           return null
@@ -1570,11 +1573,12 @@ export default {
           }
         })
         .then(response => {
+          // console.log('then', response)
           let responses = response.data
           // console.log(responses)
 
-          let error = responses.error
-          let message = responses.message
+          let error = responses.Error
+          let message = responses.Message
           // this.error = true
 
           this.$store.commit('setStatusLoader', false)
@@ -1585,6 +1589,7 @@ export default {
           return responses
         })
         .catch(err => {
+          // console.log('error', err)
           this.checkResponseCode(err)
           this.$store.commit('setStatusLoader', false)
           return null

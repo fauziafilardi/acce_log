@@ -515,12 +515,18 @@ export default {
             this.propListA.initialWhere += " AND tmp_fr_cm_zone_id=" + this.M_ConsoleData.fr_cm_zone_id
             this.propListB.initialWhere += " AND fr_cm_zone_id=" + this.M_ConsoleData.fr_cm_zone_id
         }
+        else {
+          this.propListB.initialWhere += " AND fr_cm_zone_id=0"
+        }
+
         if (this.M_ConsoleData.to_cm_zone_id && this.M_ConsoleData.to_cm_zone_id !== '') {
             this.propListA.initialWhere += " AND tmp_to_cm_zone_id=" + this.M_ConsoleData.to_cm_zone_id
         }
+
         if (this.M_ConsoleData.schedule_date && this.M_ConsoleData.schedule_date !== '') {
             this.propListA.initialWhere += " AND tmp_schedule_date='" + this.M_ConsoleData.schedule_date + "'"
         }
+
         if (this.M_FilterZone.zone_id && this.M_FilterZone.zone_id !== '') {
             this.propListB.initialWhere += " AND to_cm_zone_id=" + this.M_FilterZone.zone_id
         }
@@ -649,6 +655,7 @@ export default {
               tmp_schedule_date: this.M_ConsoleData.schedule_date,
               user_input: this.getDataUser().user_id
             };
+            // console.log(param); return;
             this.putJSON(this.getUrlCRUD(), param).then(response => {
               // response from API
               if (response == null) return;
