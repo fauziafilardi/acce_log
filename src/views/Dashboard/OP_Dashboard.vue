@@ -4,7 +4,7 @@
       <b-row class="dashboardBody">
         <b-col md="12">
           <keep-alive>
-            <component :ref="'ref_PlanExecution_Comp'" :is="PlanExecution_Comp"/>
+            <component :ref="'ref_PlanExecution_Comp'" :is="PlanExecution_Comp" />
           </keep-alive>
         </b-col>
       </b-row>
@@ -201,86 +201,14 @@
       </b-row>
       <b-row class="dashboardBody">
         <b-col md="5">
-          <div class="card">
-            <div class="card__title">
-              <b-row>
-                <b-col style="max-width:fit-content !important;">
-                  <span>Vendor</span> &nbsp;
-                </b-col>
-                <b-col style="text-align: right;">
-                  <span>
-                    <ABSButton
-                      :text="'View All'"
-                      classButton="button button--new"
-                      classIcon="icon-style-1"
-                      :disabled="true"
-                    />
-                  </span>
-                </b-col>
-              </b-row>
-            </div>
-            <div class="card__body">
-              <div>
-                <b-table
-                  :responsive="true"
-                  :striped="false"
-                  :bordered="true"
-                  :outlined="false"
-                  :small="false"
-                  :hover="false"
-                  :dark="false"
-                  :fixed="false"
-                  :foot-clone="false"
-                  :fields="Vendor.Header"
-                  :items="Vendor.Data"
-                  thStyle="padding: 5px !important;"
-                >
-                  <!-- class="table-sm table-style-1" -->
-                  <template v-slot:cell(no)="data">{{data.index + 1}}</template>
-                </b-table>
-              </div>
-            </div>
-          </div>
+          <keep-alive>
+            <component :ref="'ref_Vendor_Comp'" :is="Vendor_Comp" />
+          </keep-alive>
         </b-col>
         <b-col md="7">
-          <div class="card">
-            <div class="card__title">
-              <b-row>
-                <b-col style="max-width:fit-content !important;">
-                  <span>Ticket</span> &nbsp;
-                </b-col>
-                <b-col style="text-align: right;">
-                  <span>
-                    <ABSButton
-                      :text="'View All'"
-                      classButton="button button--new"
-                      classIcon="icon-style-1"
-                      :disabled="true"
-                    />
-                  </span>
-                </b-col>
-              </b-row>
-            </div>
-            <div class="card__body">
-              <b-table
-                :responsive="true"
-                :striped="false"
-                :bordered="true"
-                :outlined="false"
-                :small="false"
-                :hover="false"
-                :dark="false"
-                :fixed="false"
-                :foot-clone="false"
-                :fields="Ticket.Header"
-                :items="Ticket.Data"
-                thStyle="padding: 5px !important;"
-              >
-                <!-- class="table-sm table-style-1" -->
-                <template v-slot:cell(no)="data">{{data.index + 1}}</template>
-              </b-table>
-            </div>
-          </div>
+          <keep-alive>
+            <component :ref="'ref_Ticket_Comp'" :is="Ticket_Comp" />
+          </keep-alive>
         </b-col>
       </b-row>
     </div>
@@ -296,45 +224,45 @@ export default {
       DataTable: [],
       PlanExTable: {
         Header: [],
-        Data: []
+        Data: [],
       },
       PendingOrder: [
         {
           orderno: "#ORD33242",
           company: "PT Abadi Sentosa",
           from: "JKT",
-          to: "SBY"
+          to: "SBY",
         },
         {
           orderno: "#ORD33243",
           company: "PT Abadi Sentosa",
           from: "JKT",
-          to: "SBY"
+          to: "SBY",
         },
         {
           orderno: "#ORD33244",
           company: "PT Abadi Sentosa",
           from: "JKT",
-          to: "SBY"
+          to: "SBY",
         },
         {
           orderno: "#ORD33245",
           company: "PT Abadi Sentosa",
           from: "JKT",
-          to: "SBY"
+          to: "SBY",
         },
         {
           orderno: "#ORD33246",
           company: "PT Abadi Sentosa",
           from: "JKT",
-          to: "SBY"
+          to: "SBY",
         },
         {
           orderno: "#ORD33247",
           company: "PT Abadi Sentosa",
           from: "JKT",
-          to: "SBY"
-        }
+          to: "SBY",
+        },
       ],
       OPPettyCash: [
         { city: "Jakarta", name: "Ivan", cash: "- 1,500,000" },
@@ -342,14 +270,14 @@ export default {
         { city: "Bandung", name: "Steven", cash: "- 2,250,000" },
         { city: "Surabaya", name: "Lutfie", cash: "- 1,750,000" },
         { city: "Semarang", name: "Wahyu", cash: "- 3,500,000" },
-        { city: "Cirebon", name: "Ikbal", cash: "- 3,000,000" }
+        { city: "Cirebon", name: "Ikbal", cash: "- 3,000,000" },
       ],
       ConsoleIncoming: [
         { zone: "Jakarta", m3: 150, kg: 210, available: 5, incoming: 7 },
         { zone: "Bandung", m3: 250, kg: 334, available: 7, incoming: 6 },
         { zone: "Semarang", m3: 310, kg: 250, available: 8, incoming: 4 },
         { zone: "Malang", m3: 120, kg: 334, available: 3, incoming: 5 },
-        { zone: "Yogyakarta", m3: 245, kg: 334, available: 6, incoming: 5 }
+        { zone: "Yogyakarta", m3: 245, kg: 334, available: 6, incoming: 5 },
       ],
       Vendor: {
         Header: [
@@ -357,59 +285,59 @@ export default {
             key: "no",
             label: "No",
             thClass: "HeaderTable",
-            tdClass: "ContentTable__Center"
+            tdClass: "ContentTable__Center",
           },
           {
             key: "vendorname",
             label: "Vendor Name",
             thClass: "HeaderTable",
-            tdClass: "ContentTable__Center"
+            tdClass: "ContentTable__Center",
           },
           {
             key: "pending",
             label: "Pending",
             thClass: "HeaderTable",
-            tdClass: "ContentTable__Center"
+            tdClass: "ContentTable__Center",
           },
           {
             key: "completed",
             label: "Completed",
             thClass: "HeaderTable",
-            tdClass: "ContentTable__Center"
-          }
+            tdClass: "ContentTable__Center",
+          },
         ],
         Data: [
           {
             vendorname: "PT Trans Maju Jaya",
             pending: 2,
-            completed: 3
+            completed: 3,
           },
           {
             vendorname: "PT Transportasi Pratama",
             pending: 3,
-            completed: 3
+            completed: 3,
           },
           {
             vendorname: "PT Truck Cepat",
             pending: 5,
-            completed: 5
+            completed: 5,
           },
           {
             vendorname: "PT Maju Jaya",
             pending: 2,
-            completed: 2
+            completed: 2,
           },
           {
             vendorname: "PT Logistic Mega Cipta",
             pending: 6,
-            completed: 6
+            completed: 6,
           },
           {
             vendorname: "PT Log Truck Generasi",
             pending: 2,
-            completed: 2
-          }
-        ]
+            completed: 2,
+          },
+        ],
       },
       Ticket: {
         Header: [
@@ -417,73 +345,75 @@ export default {
             key: "no",
             label: "No",
             thClass: "HeaderTable",
-            tdClass: "ContentTable__Center"
+            tdClass: "ContentTable__Center",
           },
           {
             key: "date",
             label: "Date",
             thClass: "HeaderTable",
-            tdClass: "ContentTable__Center"
+            tdClass: "ContentTable__Center",
           },
           {
             key: "customer",
             label: "Customer",
             thClass: "HeaderTable",
-            tdClass: "ContentTable__Center"
+            tdClass: "ContentTable__Center",
           },
           {
             key: "orderno",
             label: "Order No",
             thClass: "HeaderTable",
-            tdClass: "ContentTable__Center"
+            tdClass: "ContentTable__Center",
           },
           {
             key: "type",
             label: "Type",
             thClass: "HeaderTable",
-            tdClass: "ContentTable__Center"
-          }
+            tdClass: "ContentTable__Center",
+          },
         ],
         Data: [
           {
             date: "10/01/2020 12.00",
             customer: "PT Trans Maju Jaya",
             orderno: "#ORD31231",
-            type: "Maintenance"
+            type: "Maintenance",
           },
           {
             date: "10/01/2020 12.00",
             customer: "PT Transportasi Pratama",
             orderno: "#ORD31232",
-            type: "Claim"
+            type: "Claim",
           },
           {
             date: "10/01/2020 12.00",
             customer: "PT Truck Cepat",
             orderno: "#ORD31233",
-            type: "Claim"
+            type: "Claim",
           },
           {
             date: "10/01/2020 12.00",
             customer: "PT Maju Jaya",
             orderno: "#ORD31234",
-            type: "Maintenance"
+            type: "Maintenance",
           },
           {
             date: "10/01/2020 12.00",
             customer: "PT Logistic Mega Cipta",
             orderno: "#ORD31235",
-            type: "Claim"
+            type: "Claim",
           },
           {
             date: "10/01/2020 12.00",
             customer: "PT Log Truck Generasi",
             orderno: "#ORD31236",
-            type: "Maintenance"
-          }
-        ]
+            type: "Maintenance",
+          },
+        ],
       },
-      PlanExecution_Comp: null
+      PlanExecution_Comp: null,
+      Vendor_Comp: null,
+      Ticket_Comp: null,
     };
   },
   computed: {},
@@ -501,7 +431,7 @@ export default {
         { label: "Arrive Destination", variant: "Gold" },
         { label: "Start Unloading", variant: "LightGreen" },
         { label: "Finish Unloading", variant: "Pink" },
-        { label: "Get Out Destination", variant: "Yellow" }
+        { label: "Get Out Destination", variant: "Yellow" },
       ];
 
       var dataTable = [
@@ -516,7 +446,7 @@ export default {
           fleetno: "B 1234 AA",
           company: "PT Abadi Sentosa",
           status: 1,
-          error: false
+          error: false,
         },
         {
           fleetsource: "l",
@@ -529,7 +459,7 @@ export default {
           fleetno: "B 1235 AB",
           company: "PT Abadi Sentosa Raya",
           status: 2,
-          error: false
+          error: false,
         },
         {
           fleetsource: "r",
@@ -542,7 +472,7 @@ export default {
           fleetno: "B 1236 AC",
           company: "PT Gemini Perkasa Abadi",
           status: 3,
-          error: false
+          error: false,
         },
         {
           fleetsource: "l",
@@ -555,7 +485,7 @@ export default {
           fleetno: "B 1237 AD",
           company: "PT Abadi Sentosa",
           status: 4,
-          error: false
+          error: false,
         },
         {
           fleetsource: "r",
@@ -568,7 +498,7 @@ export default {
           fleetno: "B 1238 AE",
           company: "PT Abadi Sentosa Raya",
           status: 5,
-          error: false
+          error: false,
         },
         {
           fleetsource: "l",
@@ -581,7 +511,7 @@ export default {
           fleetno: "B 1239 AF",
           company: "PT Gemini Perkasa Abadi",
           status: 6,
-          error: false
+          error: false,
         },
         {
           fleetsource: "l",
@@ -594,7 +524,7 @@ export default {
           fleetno: "B 1240 AG",
           company: "PT Provost Abadi",
           status: 7,
-          error: true
+          error: true,
         },
         {
           fleetsource: "r",
@@ -607,7 +537,7 @@ export default {
           fleetno: "B 1241 AH",
           company: "PT Abadi Sentosa",
           status: 8,
-          error: false
+          error: false,
         },
         {
           fleetsource: "l",
@@ -620,7 +550,7 @@ export default {
           fleetno: "B 1242 AI",
           company: "PT Abadi Sentosa Raya",
           status: 1,
-          error: false
+          error: false,
         },
         {
           fleetsource: "r",
@@ -633,7 +563,7 @@ export default {
           fleetno: "B 1243 AJ",
           company: "PT Abadi Sentosa",
           status: 9,
-          error: false
+          error: false,
         },
         {
           fleetsource: "r",
@@ -646,7 +576,7 @@ export default {
           fleetno: "B 1244 AK",
           company: "PT Gemini Perkasa Abadi",
           status: 10,
-          error: false
+          error: false,
         },
         {
           fleetsource: "l",
@@ -659,7 +589,7 @@ export default {
           fleetno: "B 1245 AL",
           company: "PT Provost Abadi",
           status: 11,
-          error: true
+          error: true,
         },
         {
           fleetsource: "r",
@@ -672,8 +602,8 @@ export default {
           fleetno: "B 1246 AM",
           company: "PT Garuda Perkasa",
           status: 4,
-          error: false
-        }
+          error: false,
+        },
       ];
 
       var arr = [];
@@ -682,79 +612,79 @@ export default {
           key: "no",
           label: "No",
           thClass: "HeaderTable",
-          tdClass: "ContentTable__Center"
+          tdClass: "ContentTable__Center",
         },
         {
           key: "fleetsource",
           label: "Fleet Source",
           thClass: "HeaderTable",
-          tdClass: "ContentTable__Center"
+          tdClass: "ContentTable__Center",
         },
         {
           key: "orderno",
           label: "Order No",
           thClass: "HeaderTable",
-          tdClass: "ContentTable__Center"
+          tdClass: "ContentTable__Center",
         },
         {
           key: "pickupdate",
           label: "Pick Up Date",
           thClass: "HeaderTable",
-          tdClass: "ContentTable__Center"
+          tdClass: "ContentTable__Center",
         },
         {
           key: "from",
           label: "From To",
           thClass: "HeaderTable",
-          tdClass: "ContentTable__Center"
+          tdClass: "ContentTable__Center",
         },
         {
           key: "category",
           label: "Category",
           thClass: "HeaderTable",
-          tdClass: "ContentTable__Center"
+          tdClass: "ContentTable__Center",
         },
         {
           key: "fleettype",
           label: "Fleet Type",
           thClass: "HeaderTable",
-          tdClass: "ContentTable__Center"
+          tdClass: "ContentTable__Center",
         },
         {
           key: "fleetno",
           label: "Fleet No",
           thClass: "HeaderTable",
-          tdClass: "ContentTable__Center"
+          tdClass: "ContentTable__Center",
         },
         {
           key: "company",
           label: "Company",
           thClass: "HeaderTable",
-          tdClass: "ContentTable__Center"
+          tdClass: "ContentTable__Center",
         },
         {
           key: "status",
           label: "Status",
           thClass: "HeaderTable",
-          tdClass: "ContentTable__Center"
-        }
+          tdClass: "ContentTable__Center",
+        },
       ];
 
       arr.push({
         status: 0,
         label: statusD[0].label,
         dataLength: dataTable.length,
-        variant: statusD[0].variant
+        variant: statusD[0].variant,
       });
 
       for (let x = 0; x < dataTable.length; x++) {
-        if (arr.map(x => x.status).indexOf(dataTable[x].status) < 0) {
+        if (arr.map((x) => x.status).indexOf(dataTable[x].status) < 0) {
           arr.push({
             status: dataTable[x].status,
             label: statusD[dataTable[x].status].label,
-            dataLength: dataTable.filter(r => r.status == dataTable[x].status)
+            dataLength: dataTable.filter((r) => r.status == dataTable[x].status)
               .length,
-            variant: statusD[dataTable[x].status].variant
+            variant: statusD[dataTable[x].status].variant,
           });
         }
       }
@@ -769,17 +699,19 @@ export default {
       if (status == 0) {
         this.PlanExTable.Data = this.DataTable;
       } else {
-        var dataNew = this.DataTable.filter(x => x.status == status);
+        var dataNew = this.DataTable.filter((x) => x.status == status);
         this.PlanExTable.Data = dataNew;
       }
     },
-    doCreateConsole(){
+    doCreateConsole() {
       this.$router.push({ name: "OP_OrderConsole" });
-    }
+    },
   },
   mounted() {
     this.renderPlan();
-    this.PlanExecution_Comp = () => import("./OP/Dashboard_PlanExecution.vue")
-  }
+    this.PlanExecution_Comp = () => import("./OP/Dashboard_PlanExecution.vue");
+    this.Vendor_Comp = () => import("./OP/Dashboard_Vendor.vue");
+    this.Ticket_Comp = () => import("./OP/Dashboard_Ticket.vue");
+  },
 };
 </script>
