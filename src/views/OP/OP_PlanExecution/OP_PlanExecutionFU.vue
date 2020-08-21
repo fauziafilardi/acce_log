@@ -895,7 +895,7 @@ data() {
                 SourceField:'',
                 DisplayLookUp:'title'
             },
-            cValidate: "required",
+            cValidate: "",
             cName: "return_empty_to",
             ckey: false,
             cOrder: 3,

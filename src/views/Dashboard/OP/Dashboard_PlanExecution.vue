@@ -111,7 +111,7 @@
                             v-bind:key="index"
                             style="margin-bottom: 10px; cursor: pointer;"
                             @click="filterTable('S', data)"
-                        >
+                        > 
                             <div
                             :class="'Plan-Dot-' + data.variant"
                             :style="'margin-top: 10px !important; width: 36px !important; height: 36px !important; padding-top: 9px; !important' + (FilterS == data.key ? 'font-weight: bold;' : '')"

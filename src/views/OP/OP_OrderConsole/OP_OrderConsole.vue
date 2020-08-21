@@ -15,13 +15,17 @@
                       :text="'Back'"
                       classButton="button button--back2"
                       classIcon="icon-style-1"
-                      @click="$router.go(-1)"
+                      @click="doBack"
                     />
                   </span>
                 </b-col>
               </b-row>
             </div>
             <div class="card__body">
+              <b-form
+                :data-vv-scope="'OP_OrderConsole'"
+                :data-vv-value-path="'OP_OrderConsole'"
+              >
                 <b-row class="row-bordered">
                     <b-col md="6" offset="3">
                         <b-row>
@@ -76,7 +80,15 @@
                             </b-col>
                         </b-row>
                         <b-row>
-                            <b-col md="12"></b-col>
+                            <b-col md="12">
+                              <ABSButton
+                                :text="'Create Console'"
+                                classButton="btn btn--default"
+                                classIcon="icon-style-default"
+                                @click="doSave"
+                                styleButton="height: 40px;width: 100%;"
+                              />
+                            </b-col>
                         </b-row>
                     </b-col>
                 </b-row>
@@ -146,24 +158,26 @@
                                     WithDeleteButton
                                     @buttonDeleteClicked="deleteOrderA"
                                 >
-                                  <template slot="sequence_no" slot-scope="data">
+                                  <template slot="sequence_no" slot-scope="{index}">
                                     <b-row>
                                       <b-col md="6" style="text-align: center;">
                                         <font-awesome-icon
-                                          v-show="data.index !== 0"
-                                          icon="arrow-alt-circle-up"
-                                          class="icon-style-default"
-                                          style="margin-right: 5px;"
-                                          size="lg"
-                                        />
-                                      </b-col>
-                                      <b-col md="6" style="text-align: center;">
-                                        <font-awesome-icon
-                                          v-show="data.index < DataOrder.length"
+                                          v-show="index < (DataOrder.length - 1)"
                                           icon="arrow-alt-circle-down"
                                           class="icon-style-default"
                                           style="margin-right: 5px;"
                                           size="lg"
+                                          @click="onOrderDown(index)"
+                                        />
+                                      </b-col>
+                                      <b-col md="6" style="text-align: center;">
+                                        <font-awesome-icon
+                                          v-show="index !== 0"
+                                          icon="arrow-alt-circle-up"
+                                          class="icon-style-default"
+                                          style="margin-right: 5px;"
+                                          size="lg"
+                                          @click="onOrderUp(index)"
                                         />
                                       </b-col>
                                     </b-row>
@@ -211,7 +225,7 @@
                                         class="icon-style-default"
                                         style="margin-right: 5px;"
                                         size="lg"
-                                      />Add New
+                                      />Add
                                     </b-button>
                                   </template>
                                 </ACCFormList>
@@ -219,6 +233,7 @@
                         </b-row>
                     </b-col>
                 </b-row>
+              </b-form>
             </div>
           </div>
         </b-col>
@@ -260,7 +275,7 @@ export default {
           SourceField: "",
           DisplayLookUp: "",
         },
-        cValidate: "",
+        cValidate: "required",
         cName: "fr_cm_zone_id",
         cOrder: 1,
         cKey: false,
@@ -282,7 +297,7 @@ export default {
           SourceField: "",
           DisplayLookUp: "",
         },
-        cValidate: "",
+        cValidate: "required",
         cName: "to_cm_zone_id",
         cOrder: 2,
         cKey: false,
@@ -294,7 +309,7 @@ export default {
         cInputStatus: "new",
       },
       PI_date: {
-        cValidate: "",
+        cValidate: "required",
         cName: "date",
         cOrder: 3,
         cKey: false,
@@ -315,7 +330,7 @@ export default {
           SourceField: "",
           DisplayLookUp: "descs"
         },
-        cValidate: "",
+        cValidate: "required",
         cName: "fm_fleet_type_id",
         cOrder: 4,
         cKey: false,
@@ -370,6 +385,104 @@ export default {
   },
   computed: {},
   methods: {
+    doBack() {
+      if (this.DataOrder.length > 0) {
+        this.alertConfirmation("Your pick order setting will be lost, Are You Sure ?").then(
+        ress => {
+          if (ress.value) {
+            // this.M_DeletePickOrder();
+            this.$router.go(-1);
+          }
+        });
+      }
+      else {
+        this.$router.go(-1);
+      }
+    },
+    onOrderDown(index){
+      var dtD = this.DataOrder[index + 1], dt = this.DataOrder[index];
+      var param = []
+      this.DataOrder.forEach((data, id) => {
+        var sq = data.sequence_no
+        if (id == index) {
+          sq = dtD.sequence_no
+        }
+        else if (id == (index + 1)) {
+          sq = dt.sequence_no
+        }
+
+        param.push({
+          _Method_: "UPDATE",
+          _LineNo_: 0,
+          op_order_console_tmp_id: data.row_id,
+          ss_portfolio_id: data.ss_portfolio_id,
+          ss_subportfolio_id: data.ss_subportfolio_id,
+          tmp_fr_cm_zone_id: data.tmp_fr_cm_zone_id,
+          tmp_to_cm_zone_id: data.tmp_to_cm_zone_id,
+          tmp_fm_fleet_type_id: data.tmp_fm_fleet_type_id,
+          tmp_schedule_date: data.tmp_schedule_date,
+          op_order_id: data.op_order_id,
+          sequence_no: sq,
+          lastupdatestamp: data.lastupdatestamp,
+          user_edit: this.getDataUser().user_id
+        })
+      })
+
+      var param = {
+        option_url: "/OP/OP_OrderConsole",
+        line_no: 0,
+        Data: [{
+          A_Looping: param
+        }]
+      };
+
+      this.postJSONMulti(this.getUrlProsesDataPostMulti(), param).then(response => {
+        if (response == null) return;
+        this.RenderData();
+      });
+    },
+    onOrderUp(index){
+      var dtU = this.DataOrder[index - 1], dt = this.DataOrder[index];
+      var param = []
+      this.DataOrder.forEach((data, id) => {
+        var sq = data.sequence_no
+        if (id == index) {
+          sq = dtU.sequence_no
+        }
+        else if (id == (index - 1)) {
+          sq = dt.sequence_no
+        }
+
+        param.push({
+          _Method_: "UPDATE",
+          _LineNo_: 0,
+          op_order_console_tmp_id: data.row_id,
+          ss_portfolio_id: data.ss_portfolio_id,
+          ss_subportfolio_id: data.ss_subportfolio_id,
+          tmp_fr_cm_zone_id: data.tmp_fr_cm_zone_id,
+          tmp_to_cm_zone_id: data.tmp_to_cm_zone_id,
+          tmp_fm_fleet_type_id: data.tmp_fm_fleet_type_id,
+          tmp_schedule_date: data.tmp_schedule_date,
+          op_order_id: data.op_order_id,
+          sequence_no: sq,
+          lastupdatestamp: data.lastupdatestamp,
+          user_edit: this.getDataUser().user_id
+        })
+      })
+
+      var param = {
+        option_url: "/OP/OP_OrderConsole",
+        line_no: 0,
+        Data: [{
+          A_Looping: param
+        }]
+      };
+
+      this.postJSONMulti(this.getUrlProsesDataPostMulti(), param).then(response => {
+        if (response == null) return;
+        this.RenderData();
+      });
+    },
     Onfr_cm_zone_idChange(data) {
         this.M_ConsoleData.fr_cm_zone_id = data.id
         this.M_ConsoleData.fr_cm_zone_idLabel = data.label
@@ -450,21 +563,24 @@ export default {
       );
     },
     doAddOrder(data) {
-      this.alertConfirmation("Are You Sure Want To Cancel This Data ?").then(
-        ress => {
+      this.$validator._base.validateAll("OP_OrderConsole").then((result) => {
+        if (!result) return;
+        this.alertConfirmation("Are You Sure Want To Add This Data ?").then(ress => {
           if (ress.value) {
             var param = {
               option_url: "/OP/OP_OrderConsole",
-              line_no: 1,
+              line_no: 0,
               ss_portfolio_id: this.getDataUser().portfolio_id,
               ss_subportfolio_id: this.getDataUser().subportfolio_id,
               tmp_fr_cm_zone_id: this.M_ConsoleData.fr_cm_zone_id,
               tmp_to_cm_zone_id: this.M_ConsoleData.to_cm_zone_id,
               tmp_fm_fleet_type_id: this.M_ConsoleData.fleet_type,
               tmp_schedule_date: this.M_ConsoleData.schedule_date,
+              op_order_id: data.row_id,
+              sequence_no: this.DataOrder.length,
               user_input: this.getDataUser().user_id,
             };
-            this.putJSON(this.getUrlCRUD(), param).then(response => {
+            this.postJSON(this.getUrlCRUD(), param).then(response => {
               // response from API
               if (response == null) return;
 
@@ -473,8 +589,8 @@ export default {
               });
             });
           }
-        }
-      );
+        });
+      });
     },
     M_ClearForm() {
         this.M_ConsoleData = {
@@ -491,11 +607,69 @@ export default {
             max_cbm: 0,
         }
     },
+    M_DeletePickOrder() {
+      var param = []
+      this.DataOrder.forEach((data, index) => {
+        param.push({
+          _Method_: "DELETE",
+          _LineNo_: 0,
+          row_id: data.row_id,
+          lastupdatestamp: data.lastupdatestamp
+        })
+      })
+
+      var param = {
+        option_url: "/OP/OP_OrderConsole",
+        line_no: 0,
+        Data: [{
+          A_Looping: param
+        }]
+      };
+
+      this.postJSONMulti(this.getUrlProsesDataPostMulti(), param).then(response => {
+        if (response == null) return;
+          // this.alertSuccess("Save Data Has Been Successfully").then(() => {
+          //   this.doBack();
+          // });
+      });
+    },
+    doSave() {
+      this.$validator._base.validateAll("OP_OrderConsole").then((result) => {
+        if (!result) return;
+        this.alertConfirmation("Are You Sure Want To Create This Console ?").then(ress => {
+          if (ress.value) {
+            var param = {
+              option_url: "/OP/OP_OrderConsole",
+              line_no: 1,
+              ss_portfolio_id: this.getDataUser().portfolio_id,
+              ss_subportfolio_id: this.getDataUser().subportfolio_id,
+              tmp_fr_cm_zone_id: this.M_ConsoleData.fr_cm_zone_id,
+              tmp_to_cm_zone_id: this.M_ConsoleData.to_cm_zone_id,
+              tmp_fm_fleet_type_id: this.M_ConsoleData.fleet_type,
+              tmp_schedule_date: this.M_ConsoleData.schedule_date,
+              user_input: this.getDataUser().user_id
+            };
+            this.putJSON(this.getUrlCRUD(), param).then(response => {
+              // response from API
+              if (response == null) return;
+
+              this.alertSuccess("Console Has Been Created").then(() => {
+                this.$router.go(-1);
+              });
+            });
+          }
+        });
+      });
+    },
   },
   mounted() {
     this.M_ClearForm();
     this.RenderData();
   },
+  beforeDestroy() {
+    // alert('hey ho')
+    this.M_DeletePickOrder();
+  }
 };
 </script>
 
