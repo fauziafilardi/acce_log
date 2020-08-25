@@ -721,7 +721,7 @@ export default {
         this.alertError(message)
       }
 
-      if (String(message) === 'Error: Request failed with status code 404') {}
+      if (String(message) === 'Error: Request failed with status code 404') { }
     },
 
     postEncode(fullUrl, param) {
@@ -736,21 +736,21 @@ export default {
       }
 
       // loader off when lookup and click add button toolbar
-      if (fullUrl === this.getUrlLookup() || fullUrl === this.getUrlTanalysisAdd()) {} else {
+      if (fullUrl === this.getUrlLookup() || fullUrl === this.getUrlTanalysisAdd()) { } else {
         this.$store.commit('setStatusLoader', true)
       }
       return axios
         .post(
           fullUrl,
           this.queryString.stringify(param), {
-            headers: {
-              'Content-Type': this.urlEncoded,
-              // 'Content-Type': this.json,
-              Accept: this.json,
-              // Session_Id: this.getSession().Session_Id
-              Token: fullUrl === this.getUrlLogin() ? '' : this.getSession().Session_Id
-            }
+          headers: {
+            'Content-Type': this.urlEncoded,
+            // 'Content-Type': this.json,
+            Accept: this.json,
+            // Session_Id: this.getSession().Session_Id
+            Token: fullUrl === this.getUrlLogin() ? '' : this.getSession().Session_Id
           }
+        }
         )
         .then(response => {
           let responses = response.data
@@ -793,13 +793,13 @@ export default {
         .post(
           fullUrl,
           param, {
-            headers: {
-              'Content-Type': this.json,
-              Accept: this.json,
-              // Session_Id: this.getSession().Session_Id
-              Token: this.getSession().Session_Id
-            }
+          headers: {
+            'Content-Type': this.json,
+            Accept: this.json,
+            // Session_Id: this.getSession().Session_Id
+            Token: this.getSession().Session_Id
           }
+        }
         )
         .then(response => {
           let responses = response.data
@@ -838,20 +838,20 @@ export default {
       //   this.$store.commit('setParamInsertPopup', param)
       // }
 
-      if (fullUrl === this.getUrlAPIChat()) {} else {
+      if (fullUrl === this.getUrlAPIChat()) { } else {
         this.$store.commit('setStatusLoader', true)
       }
       return axios
         .post(
           fullUrl,
           param, {
-            headers: {
-              'Content-Type': this.json,
-              Accept: this.json,
-              // Session_Id: this.getSession().Session_Id
-              Token: this.getSession().Session_Id
-            }
+          headers: {
+            'Content-Type': this.json,
+            Accept: this.json,
+            // Session_Id: this.getSession().Session_Id
+            Token: this.getSession().Session_Id
           }
+        }
         )
         .then(response => {
           let responses = response.data
@@ -902,13 +902,13 @@ export default {
         .put(
           fullUrl,
           param, {
-            headers: {
-              'Content-Type': this.json,
-              Accept: this.json,
-              // Session_Id: this.getSession().Session_Id
-              Token: this.getSession().Session_Id
-            }
+          headers: {
+            'Content-Type': this.json,
+            Accept: this.json,
+            // Session_Id: this.getSession().Session_Id
+            Token: this.getSession().Session_Id
           }
+        }
         )
         .then(response => {
           let responses = response.data
@@ -971,13 +971,13 @@ export default {
         .put(
           fullUrl,
           param, {
-            headers: {
-              'Content-Type': this.json,
-              Accept: this.json,
-              // Session_Id: this.getSession().Session_Id
-              Token: this.getSession().Session_Id
-            }
+          headers: {
+            'Content-Type': this.json,
+            Accept: this.json,
+            // Session_Id: this.getSession().Session_Id
+            Token: this.getSession().Session_Id
           }
+        }
         )
         .then(response => {
           console.log(response)
@@ -1182,13 +1182,13 @@ export default {
         .post(
           fullUrl,
           param, {
-            headers: {
-              'Content-Type': this.json,
-              Accept: this.json,
-              // Session_Id: this.getSession().Session_Id
-              Token: this.getSession().Session_Id
-            }
+          headers: {
+            'Content-Type': this.json,
+            Accept: this.json,
+            // Session_Id: this.getSession().Session_Id
+            Token: this.getSession().Session_Id
           }
+        }
         )
         .then(response => {
           console.log(response)
@@ -1394,13 +1394,13 @@ export default {
         .post(
           fullUrl,
           param, {
-            headers: {
-              'Content-Type': this.urlEncoded,
-              Accept: this.json,
-              // Session_Id: this.getSession().Session_Id
-              Token: this.getSession().Session_Id
-            }
+          headers: {
+            'Content-Type': this.urlEncoded,
+            Accept: this.json,
+            // Session_Id: this.getSession().Session_Id
+            Token: this.getSession().Session_Id
           }
+        }
         )
         .then(response => {
           let responses = response.data
@@ -1514,7 +1514,7 @@ export default {
     },
 
     getJSON(url, param) {
-      if (url === this.getUrlAPIChat()) {} else {
+      if (url === this.getUrlAPIChat()) { } else {
         this.$store.commit('setStatusLoader', true)
       }
 
@@ -1545,7 +1545,7 @@ export default {
           }
 
           if (error) {
-            if(url !== this.getUrlAPIChat()) {
+            if (url !== this.getUrlAPIChat()) {
               this.alertError(message)
             }
             return null
@@ -1585,6 +1585,7 @@ export default {
           return responses
         })
         .catch(err => {
+          console.log(err)
           this.checkResponseCode(err)
           this.$store.commit('setStatusLoader', false)
           return null
@@ -1595,12 +1596,12 @@ export default {
         .post(
           this.url + this.segmentDynamicFunction,
           param, {
-            headers: {
-              'Content-Type': this.json,
-              Accept: this.json,
-              Token: this.getSession().Session_Id
-            }
+          headers: {
+            'Content-Type': this.json,
+            Accept: this.json,
+            Token: this.getSession().Session_Id
           }
+        }
         )
         .then(response => {
           let responses = response.data
