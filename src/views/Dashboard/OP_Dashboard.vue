@@ -17,42 +17,9 @@
       </b-row>
       <b-row class="dashboardBody">
         <b-col md="4">
-          <div class="card">
-            <div class="card__title">
-              <b-row>
-                <b-col>
-                  <span style="float: left !important;">Operation Petty Cash</span> &nbsp;
-                  <span style="float: right !important;">
-                    <ABSButton
-                      :text="'View All'"
-                      classButton="button button--new"
-                      classIcon="icon-style-1"
-                      :disabled="true"
-                    />
-                  </span>
-                </b-col>
-                <!-- <b-col style="text-align: right;">
-                </b-col>-->
-              </b-row>
-            </div>
-            <div class="card__body">
-              <b-row class="row-petty-cash">
-                <b-col
-                  md="4"
-                  v-for="(data, index) in OPPettyCash"
-                  v-bind:key="index"
-                  style="margin-bottom: 10px; padding-right: 15px !important;width:33% !important"
-                >
-                  <div class="CardTag-Title" style="font-size:13px !important;">{{data.city}}</div>
-                  <div class="CardTag-Descs" style="padding-top:9px; padding-bottom:10px;">
-                    <span>{{data.name}}</span>
-                    <br />
-                    <span style="color: red">{{data.cash}}</span>
-                  </div>
-                </b-col>
-              </b-row>
-            </div>
-          </div>
+          <keep-alive>
+            <component :ref="'ref_PettyCash_Comp'" :is="PettyCash_Comp"/>
+          </keep-alive>
         </b-col>
         <b-col md="4">
           <keep-alive>
@@ -60,61 +27,9 @@
           </keep-alive>
         </b-col>
         <b-col md="4">
-          <div class="card">
-            <div class="card__title">
-              <b-row>
-                <b-col style="max-width:fit-content !important;">
-                  <span>Incoming Fleet</span> &nbsp;
-                </b-col>
-                <b-col style="text-align: right;">
-                  <span>
-                    <ABSButton
-                      :text="'View All'"
-                      classButton="button button--new"
-                      classIcon="icon-style-1"
-                      :disabled="true"
-                    />
-                  </span>
-                </b-col>
-              </b-row>
-            </div>
-            <div class="card__body">
-              <b-row class="ListingRowHeader">
-                <b-col md="4" style="width: 30% !important;">
-                  <font-awesome-icon style="color: #333399;" icon="map-marker-alt" size="lg" />&nbsp;
-                  <span>Zone</span>
-                </b-col>
-                <b-col md="4" class="col-header-fleet">
-                  <b-badge variant="success">&nbsp;</b-badge>&nbsp;
-                  <span>Available</span>
-                </b-col>
-                <b-col md="4" class="col-header-fleet">
-                  <b-badge variant="primary">&nbsp;</b-badge>&nbsp;
-                  <span>Incoming</span>
-                </b-col>
-              </b-row>
-              <b-row
-                v-for="(data, index) in ConsoleIncoming"
-                v-bind:key="index"
-                class="ListingRowBody"
-                style="height: 29.25px !important;"
-              >
-                <b-col md="4" style="width: 30% !important;">
-                  <span>{{data.zone}}</span>
-                </b-col>
-                <b-col md="4" style="width: 35% !important;text-align: center;">
-                  <span>
-                    <b-badge variant="success">{{data.available}}</b-badge>
-                  </span>
-                </b-col>
-                <b-col md="4" style="width: 35% !important;text-align: center;">
-                  <span>
-                    <b-badge variant="primary">{{data.incoming}}</b-badge>
-                  </span>
-                </b-col>
-              </b-row>
-            </div>
-          </div>
+          <keep-alive>
+            <component :ref="'ref_FleetAvailability_Comp'" :is="FleetAvailability_Comp"/>
+          </keep-alive>
         </b-col>
       </b-row>
       <b-row class="dashboardBody">
@@ -332,6 +247,8 @@ export default {
       PlanExecution_Comp: null,
       OpenBooking_Comp: null,
       Console_Comp: null,
+      PettyCash_Comp: null,
+      FleetAvailability_Comp: null,
       Vendor_Comp: null,
       Ticket_Comp: null,
     };
@@ -632,6 +549,8 @@ export default {
     this.PlanExecution_Comp = () => import("./OP/Dashboard_PlanExecution.vue");
     this.OpenBooking_Comp = () => import("./OP/Dashboard_OpenBooking.vue");
     this.Console_Comp = () => import("./OP/Dashboard_Console.vue");
+    this.PettyCash_Comp = () => import("./OP/Dashboard_PettyCash.vue");
+    this.FleetAvailability_Comp = () => import("./OP/Dashboard_FleetAvailability.vue");
     this.Vendor_Comp = () => import("./OP/Dashboard_Vendor.vue");
     this.Ticket_Comp = () => import("./OP/Dashboard_Ticket.vue");
   },

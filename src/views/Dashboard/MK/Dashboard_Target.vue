@@ -114,6 +114,10 @@
             doViewAllTarget() {
                 this.$router.push({ name: "MK_DashboardTarget" });
             },
+            ChartClick(evt) {
+                alert('hah')
+                console.log(evt)
+            },
             renderChart() {
                 var param = {
                     option_function_cd: "GetMarketingTargetDash",
@@ -202,6 +206,8 @@
                             datasets: valuedata2
                         },
                         options: {
+                            // events: ['click'],
+                            // onClick: ChartClick,
                             // barValueSpacing: 20,
                             maintainAspectRatio: false,
                             legend: { display: false },

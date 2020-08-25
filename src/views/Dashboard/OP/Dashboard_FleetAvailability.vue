@@ -3,16 +3,16 @@
         <div class="card__title">
             <b-row>
                 <b-col style="max-width:fit-content !important;">
-                    <span>Console</span> &nbsp;
+                    <span>Fleet Availability</span> &nbsp;
                 </b-col>
                 <b-col style="text-align: right;">
                     <span>
                         <ABSButton
-                            :text="'Create Console'"
+                            :text="'View All'"
                             classButton="button button--back2"
                             classIcon="icon-style-1"
                             :disabled="false"
-                            @click="doCreateConsole"
+                            @click="doViewAll"
                         />
                     </span>
                 </b-col>
@@ -26,28 +26,30 @@
                         <span>Zone</span>
                     </b-col>
                     <b-col md="4" style="width: 35% !important; text-align:center;">
-                        <font-awesome-icon style="color: #333399;" icon="dice-d6" size="lg" />&nbsp;
-                        <span>m3</span>
+                        <!-- <font-awesome-icon style="color: #333399;" icon="dice-d6" size="lg" />&nbsp; -->
+                        <b-badge variant="success">&nbsp;</b-badge>&nbsp;
+                        <span>Available</span>
                     </b-col>
                     <b-col md="4" style="width: 35% !important; text-align:center;">
-                        <font-awesome-icon style="color: #333399;" icon="balance-scale" size="lg" />&nbsp;
-                        <span>Kg</span>
+                        <!-- <font-awesome-icon style="color: #333399;" icon="balance-scale" size="lg" />&nbsp; -->
+                        <b-badge variant="primary">&nbsp;</b-badge>&nbsp;
+                        <span>Incoming</span>
                     </b-col>
                 </b-row>
                 <b-row
-                    v-for="(data, index) in Console"
+                    v-for="(data, index) in FleetAvailability"
                     v-bind:key="index"
                     class="ListingRowBody"
                 >
                     <!-- style="height: 29.25px !important;" -->
                     <b-col md="4" style="width: 30% !important;">
-                        <span>{{data.zone}}</span>
+                        <span>{{data.zone_cd}}</span>
                     </b-col>
                     <b-col md="4" style="width: 35% !important; text-align:center;">
-                        <span>{{data.total_cbm}}</span>
+                        <span>{{data.available}}</span>
                     </b-col>
                     <b-col md="4" style="width: 35% !important; text-align:center;">
-                        <span>{{data.total_kgs}}</span>
+                        <span>{{data.incoming_fleet}}</span>
                     </b-col>
                 </b-row>
             </div>
@@ -59,14 +61,14 @@
 export default {
     data() {
         return {
-            Console: []
+            FleetAvailability: []
         }
     },
     methods: {
         doGetList() {
             var param = {
                 option_url: "/OP/OP_Dashboard",
-                line_no: 4,
+                line_no: 5,
                 user_id: this.getDataUser().user_id,
                 portfolio_id: this.getDataUser().portfolio_id,
                 subportfolio_id: this.getDataUser().subportfolio_id,
@@ -82,11 +84,11 @@ export default {
             this.postJSON(this.getUrlList(), param).then(response => {
                 if (response == null) return;
                 var data = response.Data;
-                this.Console = data;
+                this.FleetAvailability = data;
             })
         },
-        doCreateConsole(){
-            this.$router.push({ name: "OP_OrderConsole" });
+        doViewAll(){
+            this.$router.push({ name: "OP_FleetAvailability" });
         }
     },
     mounted() {

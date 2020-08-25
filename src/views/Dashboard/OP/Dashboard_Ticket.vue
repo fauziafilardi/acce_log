@@ -9,7 +9,7 @@
           <span>
             <ABSButton
               :text="'View All'"
-              classButton="button button--new"
+              classButton="button button--back2"
               classIcon="icon-style-1"
               :disabled="false"
               @click="doViewALl"
@@ -18,7 +18,7 @@
         </b-col>
       </b-row>
     </div>
-    <div class="card__body">
+    <div class="card__body" style="height: 230px;">
       <div>
         <!-- <b-table
                   :responsive="true"
