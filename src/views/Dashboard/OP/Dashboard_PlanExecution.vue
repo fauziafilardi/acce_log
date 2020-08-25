@@ -181,6 +181,10 @@ export default {
   },
   computed: {},
   methods: {
+    onHistory() {},
+    onViewAll() {
+      this.$router.push({name: "OP_PlanExecution"});
+    },
     rowClicked(record, index) {
         var param = record;
         this.$store.commit("setParamPage", param);

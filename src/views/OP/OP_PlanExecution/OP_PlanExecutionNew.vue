@@ -922,7 +922,7 @@ export default {
         },
       ],
       PlanCosting_D: [],
-      M_DataPost: null,
+      M_DataPost: {},
     };
   },
   computed: {

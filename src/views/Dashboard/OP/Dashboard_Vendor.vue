@@ -18,7 +18,7 @@
         </b-col>
       </b-row>
     </div>
-    <div class="card__body">
+    <div class="card__body" style="height: 225px;">
       <div>
         <!-- <b-table
                   :responsive="true"

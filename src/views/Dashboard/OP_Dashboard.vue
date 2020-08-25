@@ -10,40 +10,9 @@
       </b-row>
       <b-row class="dashboardBody">
         <b-col md="12">
-          <div class="card">
-            <div class="card__title" style="border-bottom-style: unset !important;">Pending Order</div>
-            <div class="card__body">
-              <b-row>
-                <b-col
-                  v-for="(data, index) in PendingOrder"
-                  v-bind:key="index"
-                  style="margin:auto !important;"
-                >
-                  <div style="padding:5px">
-                    <div class="CardTag-Title">{{data.orderno}}</div>
-                    <div class="CardTag-Descs">
-                      <span style="color: #333399; font-weight: bold;">{{data.company}}</span>
-                      <br />
-                      <span style="color: #7f8186">{{data.from + ' - ' + data.to}}</span>
-                    </div>
-                  </div>
-                </b-col>
-                <b-col style="margin:auto !important;">
-                  <div class="ChartLegend__Wrap" style="height:74px;margin:5px;">
-                    <div
-                      class="ChartLegend-Content"
-                      style="margin-left: auto !important;margin-right: auto !important;margin-top: 17px !important;"
-                    >
-                      <span style="font-size: 14px; padding-right: 5px;">View All</span>
-                      <span>
-                        <font-awesome-icon icon="chevron-right" size="lg" />
-                      </span>
-                    </div>
-                  </div>
-                </b-col>
-              </b-row>
-            </div>
-          </div>
+          <keep-alive>
+            <component :ref="'ref_OpenBooking_Comp'" :is="OpenBooking_Comp"/>
+          </keep-alive>
         </b-col>
       </b-row>
       <b-row class="dashboardBody">
@@ -86,60 +55,9 @@
           </div>
         </b-col>
         <b-col md="4">
-          <div class="card">
-            <div class="card__title">
-              <b-row>
-                <b-col style="max-width:fit-content !important;">
-                  <span>Console</span> &nbsp;
-                </b-col>
-                <b-col style="text-align: right;">
-                  <span>
-                    <ABSButton
-                      :text="'Create Console'"
-                      classButton="button button--new"
-                      classIcon="icon-style-1"
-                      :disabled="false"
-                      @click="doCreateConsole"
-                    />
-                  </span>
-                </b-col>
-              </b-row>
-            </div>
-            <div class="card__body">
-              <div class="div-console">
-                <b-row class="ListingRowHeader">
-                  <b-col md="4" style="width: 30% !important;">
-                    <font-awesome-icon style="color: #333399;" icon="map-marker-alt" size="lg" />&nbsp;
-                    <span>Zone</span>
-                  </b-col>
-                  <b-col md="4" style="width: 35% !important; text-align:center;">
-                    <font-awesome-icon style="color: #333399;" icon="dice-d6" size="lg" />&nbsp;
-                    <span>m3</span>
-                  </b-col>
-                  <b-col md="4" style="width: 35% !important; text-align:center;">
-                    <font-awesome-icon style="color: #333399;" icon="balance-scale" size="lg" />&nbsp;
-                    <span>Kg</span>
-                  </b-col>
-                </b-row>
-                <b-row
-                  v-for="(data, index) in ConsoleIncoming"
-                  v-bind:key="index"
-                  class="ListingRowBody"
-                  style="height: 29.25px !important;"
-                >
-                  <b-col md="4" style="width: 30% !important;">
-                    <span>{{data.zone}}</span>
-                  </b-col>
-                  <b-col md="4" style="width: 35% !important; text-align:center;">
-                    <span>{{data.m3}}</span>
-                  </b-col>
-                  <b-col md="4" style="width: 35% !important; text-align:center;">
-                    <span>{{data.kg}}</span>
-                  </b-col>
-                </b-row>
-              </div>
-            </div>
-          </div>
+          <keep-alive>
+            <component :ref="'ref_Console_Comp'" :is="Console_Comp"/>
+          </keep-alive>
         </b-col>
         <b-col md="4">
           <div class="card">
@@ -200,12 +118,12 @@
         </b-col>
       </b-row>
       <b-row class="dashboardBody">
-        <b-col md="5">
+        <b-col md="6">
           <keep-alive>
             <component :ref="'ref_Vendor_Comp'" :is="Vendor_Comp" />
           </keep-alive>
         </b-col>
-        <b-col md="7">
+        <b-col md="6">
           <keep-alive>
             <component :ref="'ref_Ticket_Comp'" :is="Ticket_Comp" />
           </keep-alive>
@@ -412,6 +330,8 @@ export default {
         ],
       },
       PlanExecution_Comp: null,
+      OpenBooking_Comp: null,
+      Console_Comp: null,
       Vendor_Comp: null,
       Ticket_Comp: null,
     };
@@ -710,6 +630,8 @@ export default {
   mounted() {
     this.renderPlan();
     this.PlanExecution_Comp = () => import("./OP/Dashboard_PlanExecution.vue");
+    this.OpenBooking_Comp = () => import("./OP/Dashboard_OpenBooking.vue");
+    this.Console_Comp = () => import("./OP/Dashboard_Console.vue");
     this.Vendor_Comp = () => import("./OP/Dashboard_Vendor.vue");
     this.Ticket_Comp = () => import("./OP/Dashboard_Ticket.vue");
   },

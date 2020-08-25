@@ -21,8 +21,8 @@
             </div>
             <div class="card__body">
               <b-form
-                :data-vv-scope="'OP_FormOpOrderCost'"
-                :data-vv-value-path="'OP_FormOpOrderCost'"
+                :data-vv-scope="'OP_PlanExecutionConsole'"
+                :data-vv-value-path="'OP_PlanExecutionConsole'"
               >
                 <b-row>
                   <b-col md="2">
@@ -120,7 +120,7 @@ export default {
       },
       PI_op_cost_type_id: {
         dataLookUp: {
-          LookUpCd: "GetOpCost",
+          LookUpCd: "GetCostType",
           ColumnDB: "op_cost_type_id",
           InitialWhere: "",
           ParamWhere: "",
@@ -129,19 +129,19 @@ export default {
           SourceField: "",
           DisplayLookUp: "",
         },
-        cValidate: "",
+        cValidate: "required",
         cName: "op_cost_type_id",
         cOrder: 1,
         cKey: false,
         cStatic: false,
         cProtect: false,
-        cParentForm: "OP_FormOpOrderCost",
+        cParentForm: "OP_PlanExecutionConsole",
         cOption: [],
         cDisplayColumn: "cost_type",
         cInputStatus: this.inputStatus,
       },
       PI_descs: {
-        cValidate: "",
+        cValidate: "required",
         cName: "descs",
         cOrder: 3,
         cKey: false,
@@ -151,17 +151,17 @@ export default {
         cRows: 2,
         cMaxRows: 3,
         cSize: "md",
-        cParentForm: "OP_FormOpOrderCost",
+        cParentForm: "OP_PlanExecutionConsole",
         cInputStatus: this.inputStatus,
       },
       PI_cost_value: {
-        cValidate: "",
+        cValidate: "required|greater:0",
         cName: "cost_value",
         cOrder: 3,
         cKey: false,
         cType: "decimal",
         cProtect: false,
-        cParentForm: "OP_FormFmFleetMstrMaintenanceItem",
+        cParentForm: "OP_PlanExecutionConsole",
         cDecimal: 2,
         cInputStatus: this.inputStatus,
       },
@@ -186,9 +186,9 @@ export default {
       this.$nextTick(() => {
         this.M_OpOrderCost.op_cost_type_id = data.id;
         this.M_OpOrderCost.op_cost_type_idLabel = data.label;
-        this.M_OpOrderCost.op_order_price_id = data.op_pricing_costing_id;
-        this.M_OpOrderCost.descs = data.descs;
-        this.M_OpOrderCost.cost_value = data.cost_value;
+        this.M_OpOrderCost.op_order_price_id = 0;
+        this.M_OpOrderCost.descs = data.description;
+        // this.M_OpOrderCost.cost_value = data.cost_value;
       });
     },
     doBack() {
@@ -342,15 +342,7 @@ export default {
     } else {
       this.title = "Add";
     }
-    this.PI_op_cost_type_id.dataLookUp.InitialWhere =
-      "ss_portfolio_id='" +
-      this.getDataUser().portfolio_id +
-      "' AND fr_cm_zone_id=" +
-      this.paramFromList.fr_cm_zone_id +
-      " AND to_cm_zone_id=" +
-      this.paramFromList.to_cm_zone_id +
-      " AND fm_fleet_type_id=" +
-      this.paramFromList.fm_fleet_type_id;
+    this.PI_op_cost_type_id.dataLookUp.InitialWhere = "ss_portfolio_id='" + this.getDataUser().portfolio_id + "'";
   },
 };
 </script>
