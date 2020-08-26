@@ -120,21 +120,21 @@
                       </b-col>
                     </b-row>
                     <b-row class="row-view">
-                      <b-col md="4">
+                      <b-col md="3">
                         <span>
                           <label style="margin-bottom: 0px !important;">Phone No</label>
                         </span>
                         <br />
                         <span style="color: #999999;">{{ M_Customer.phone_no }}</span>
                       </b-col>
-                      <b-col md="4">
+                      <b-col md="3">
                         <span>
                           <label style="margin-bottom: 0px !important;">Email</label>
                         </span>
                         <br />
                         <span style="color: #999999;">{{ M_Customer.email }}</span>
                       </b-col>
-                      <b-col md="4">
+                      <b-col md="6">
                         <span>
                           <label style="margin-bottom: 0px !important;">NPWM Number</label>
                         </span>
@@ -909,6 +909,12 @@ export default {
           thClass: "HeaderACCList2 S th-cus-center",
         },
         {
+          key: "position",
+          label: "Position",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center",
+        },
+        {
           key: "phone_no",
           label: "Phone No",
           tdClass: "ContentACCList2 notranslate th-cus-center",
@@ -1548,7 +1554,7 @@ export default {
           npwp_no: data.npwp_no,
         };
         var dataDoc = data.detail_document;
-        if (dataDoc.length > 0) {
+        if (dataDoc != null) {
           for (let i = 0; i < dataDoc.length; i++) {
             this.M_Picture.push({
               file_logo: "dtfile_" + i,

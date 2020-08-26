@@ -62,11 +62,11 @@ export default {
       // this.doViewClick(record, index);
     },
     doViewClick(record, index) {
-      var param = record;
-      param.isEdit = true;
-      param.isView = true;
+      var param = this.paramFromList;
+      param.isEdit = record == null ? false : true;
+      param.DetailList = record;
       this.$store.commit("setParamPage", param);
-      this.$router.push({ name: "OP_PettyCashdtl" });
+      this.$router.push({ name: "ViewDetailOrder" });
     },
     doDoubleClick(record, index) {},
     doDeleteClick(record, index) {

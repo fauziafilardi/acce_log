@@ -92,7 +92,10 @@
                           ref="ref_phone_no_1"
                         />
                       </b-col>
-                      <span style="margin-top: 35px;">-</span>
+                      <!-- <b-col md="1" style="margin-top: 35px;">
+                        <span>&nbsp;&nbsp;-</span>
+                      </b-col>-->
+
                       <b-col md="4" class="col-p-3">
                         <span>
                           <label>&nbsp;</label>
@@ -103,8 +106,6 @@
                           ref="ref_phone_no_2"
                         />
                       </b-col>
-                    </b-row>
-                    <b-row>
                       <b-col md="6">
                         <span>
                           <label>Email</label>
@@ -112,6 +113,14 @@
                         <ACCTextBox :prop="PI_email" v-model="M_NewProspect.email" ref="ref_email" />
                       </b-col>
                     </b-row>
+                    <!-- <b-row>
+                      <b-col md="6">
+                        <span>
+                          <label>Email</label>
+                        </span>
+                        <ACCTextBox :prop="PI_email" v-model="M_NewProspect.email" ref="ref_email" />
+                      </b-col>
+                    </b-row>-->
                     <b-row>
                       <b-col md="6">
                         <span>
