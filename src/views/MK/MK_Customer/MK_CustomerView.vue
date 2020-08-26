@@ -236,7 +236,7 @@
                           @row-clicked="doPickUp"
                           thStyle="padding: 5px !important;"
                         >
-                          <template v-slot:cell(no)="data">{{data.index + 1}}</template>
+                          <!-- <template v-slot:cell(no)="data">{{data.index + 1}}</template> -->
                           <template v-slot:cell(row_id)="data">
                             <ABSButton
                               :icon="'trash'"
@@ -285,7 +285,6 @@
                           @row-clicked="doPIC"
                           thStyle="padding: 5px !important;"
                         >
-                          <template v-slot:cell(no)="data">{{data.index + 1}}</template>
                           <template v-slot:cell(row_id)="data">
                             <ABSButton
                               :icon="'trash'"
@@ -359,7 +358,7 @@
                                     classButton="button button--new"
                                     classIcon="icon-style-1"
                                     :disabled="false"
-                                    @click="doViewAllFTL"
+                                    @click="doViewAllLTL"
                                   />
                                 </span>
                               </b-col>
@@ -515,6 +514,12 @@
                             <span v-else-if="data.item.order_status=='P'">Progress</span>
                             <span v-else>Issue</span>
                           </template>-->
+                          <template v-slot:cell(status)="data">
+                            <div
+                              :class="'Plan-Dot-' + (StatusOrder[data.item.status].variant)"
+                              style="font-size: 10px !important; padding-top: 9px !important;"
+                            >{{data.item.status}}</div>
+                          </template>
                           <template v-slot:cell(pickup_date)="data">
                             {{momentDateFormatting(
                             new Date(data.item.pickup_date),
@@ -530,23 +535,45 @@
                           <b-col style="max-width:fit-content !important;">
                             <span>Required Document</span>
                           </b-col>
+                          <b-col style="text-align: right;">
+                            <span>
+                              <ABSButton
+                                :text="'View All'"
+                                classButton="button button--new"
+                                classIcon="icon-style-1"
+                                :disabled="false"
+                                @click="doViewAllReqDoc"
+                              />
+                            </span>
+                          </b-col>
                         </b-row>
                       </div>
                       <div class="card__body">
-                        <ACCFormList
-                          :prop="propListReqDoc"
-                          :title="'Required Document'"
-                          @rowClicked="rowClicked"
-                          @rowDblClicked="doDoubleClick"
-                          @rowLinkClick="rowLink"
-                          @pageSize="M_PageSize"
-                          @pagination="M_Pagination"
-                          @filter="M_Advance_Filter"
-                          @headTable="M_Head_Table"
-                          ref="ref_CustomerRequiredDoc"
-                          WithDeleteButton
-                          @buttonDeleteClicked="doDeleteListRequiredDocClick"
-                        />
+                        <b-table
+                          :responsive="true"
+                          :striped="false"
+                          :bordered="true"
+                          :outlined="false"
+                          :small="false"
+                          :hover="false"
+                          :dark="false"
+                          :fixed="false"
+                          :foot-clone="false"
+                          :fields="RequiredDocumentHeader"
+                          :items="RequiredDocumentItems"
+                          class="table-sm table-style-3"
+                          @row-clicked="doQuotation"
+                          thStyle="padding: 5px !important;"
+                        >
+                          <template v-slot:cell(row_id)="data">
+                            <ABSButton
+                              :icon="'trash'"
+                              classButton="button button--delete"
+                              classIcon="icon-style-1"
+                              @click="doDeleteList(3,data.item, data.index)"
+                            />
+                          </template>
+                        </b-table>
                       </div>
                     </div>
 
@@ -555,6 +582,17 @@
                         <b-row>
                           <b-col style="max-width:fit-content !important;">
                             <span>Outstanding Payment</span>
+                          </b-col>
+                          <b-col style="text-align: right;">
+                            <span>
+                              <ABSButton
+                                :text="'View All'"
+                                classButton="button button--new"
+                                classIcon="icon-style-1"
+                                :disabled="false"
+                                @click="doViewAllOutStanding"
+                              />
+                            </span>
                           </b-col>
                         </b-row>
                       </div>
@@ -575,17 +613,14 @@
                           @row-clicked="doOutstanding"
                           thStyle="padding: 5px !important;"
                         >
-                          <template v-slot:cell(no)="data">{{data.index + 1}}</template>
-                          <template v-slot:cell(row_id)="data">
-                            <ABSButton
-                              :icon="'trash'"
-                              classButton="button button--delete"
-                              classIcon="icon-style-1"
-                              @click="doDeletedQuotation(data.item, data.index)"
-                            />
+                          <template v-slot:cell(invoice_date)="data">
+                            <span>{{momentDateFormatting(data.item.invoice_date,"DD/MM/YYYY HH:mm")}}</span>
                           </template>
-                          <template v-slot:cell(outstanding_amt)="data">
-                            <span>{{isCurrency(data.item.outstanding_amt,decimal)}}</span>
+                          <template v-slot:cell(due_date)="data">
+                            <span>{{momentDateFormatting(data.item.due_date,"DD/MM/YYYY HH:mm")}}</span>
+                          </template>
+                          <template v-slot:cell(trx_amt)="data">
+                            <span>{{isCurrency(data.item.trx_amt,decimal)}}</span>
                           </template>
                         </b-table>
                       </div>
@@ -596,6 +631,17 @@
                         <b-row>
                           <b-col style="max-width:fit-content !important;">
                             <span>Log Book</span>
+                          </b-col>
+                          <b-col style="text-align: right;">
+                            <span>
+                              <ABSButton
+                                :text="'View All'"
+                                classButton="button button--new"
+                                classIcon="icon-style-1"
+                                :disabled="false"
+                                @click="doViewAllLogBook"
+                              />
+                            </span>
                           </b-col>
                         </b-row>
                       </div>
@@ -615,7 +661,7 @@
                           class="table-sm table-style-3"
                           thStyle="padding: 5px !important;"
                         >
-                          <template v-slot:cell(no)="data">{{data.index + 1}}</template>
+                          <!-- <template v-slot:cell(no)="data">{{data.index + 1}}</template> -->
                           <template v-slot:cell(logbook_date)="data">
                             {{momentDateFormatting(
                             new Date(data.item.logbook_date),
@@ -624,12 +670,6 @@
                           </template>
 
                           <template v-slot:cell(row_id)="data">
-                            <!-- <ABSButton
-                              :icon="'trash'"
-                              classButton="button button--delete"
-                              classIcon="icon-style-1"
-                              @click="doDeletedQuotation(data.item, data.index)"
-                            />-->
                             <span>
                               <font-awesome-icon
                                 class="icon-style-default"
@@ -767,11 +807,25 @@ export default {
       M_LogBook: {
         descs: "",
       },
+      StatusOrder: {
+        NW: { key: "NW", label: "New", variant: "Magenta" },
+        AS: { key: "AS", label: "Assign", variant: "Lime" },
+        DP: { key: "DP", label: "Dispatch", variant: "Green" },
+        AR: { key: "AR", label: "Arrived", variant: "Purple" },
+        SL: { key: "SL", label: "Start Loading", variant: "Blue" },
+        FL: { key: "FL", label: "Finish Loading", variant: "Orange" },
+        GO: { key: "GO", label: "Get Out", variant: "Red" },
+        AD: { key: "AD", label: "Arrive Destination", variant: "Gold" },
+        SU: { key: "SU", label: "Start Unloading", variant: "LightGreen" },
+        FU: { key: "FU", label: "Finish Unloading", variant: "Pink" },
+        GD: { key: "GD", label: "Get Out", variant: "Red" },
+        POD: { key: "POD", label: "POD", variant: "LightGreen" },
+      },
       AllData: {},
       responses: {},
       PickUpHeader: [
         {
-          key: "no",
+          key: "row_number",
           label: "No",
           tdClass: "ContentACCList2 notranslate th-cus-center",
           thClass: "HeaderACCList2 th-cus-center",
@@ -804,20 +858,38 @@ export default {
       PickUpItems: [],
       OutstandingHeader: [
         {
-          key: "no",
+          key: "row_number",
           label: "No",
           tdClass: "ContentACCList2 notranslate th-cus-center",
           thClass: "HeaderACCList2 th-cus-center",
         },
         {
-          key: "customer_name",
-          label: "Customer",
+          key: "invoice_no",
+          label: "Invoice No",
           tdClass: "ContentACCList2 notranslate th-cus-center",
           thClass: "HeaderACCList2 S th-cus-center",
         },
         {
-          key: "outstanding_amt",
-          label: "Total Outstanding Payemnt",
+          key: "invoice_date",
+          label: "Invoice Date",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center",
+        },
+        {
+          key: "due_date",
+          label: "Due Date",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center",
+        },
+        {
+          key: "trx_amt",
+          label: "Value",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center",
+        },
+        {
+          key: "overdue",
+          label: "Overdue",
           tdClass: "ContentACCList2 notranslate th-cus-center",
           thClass: "HeaderACCList2 S th-cus-center",
         },
@@ -825,7 +897,7 @@ export default {
       OutstandingItems: [],
       PICHeader: [
         {
-          key: "no",
+          key: "row_number",
           label: "No",
           tdClass: "ContentACCList2 notranslate th-cus-center",
           thClass: "HeaderACCList2 th-cus-center",
@@ -1030,6 +1102,33 @@ export default {
         },
       ],
       QuotationProjectItems: [],
+      RequiredDocumentHeader: [
+        {
+          key: "row_number",
+          label: "No",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 th-cus-center",
+        },
+        {
+          key: "dokument_type",
+          label: "Type",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center",
+        },
+        {
+          key: "descs",
+          label: "Description",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center",
+        },
+        {
+          key: "row_id",
+          label: "",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center",
+        },
+      ],
+      RequiredDocumentItems: [],
       OrderHeader: [
         {
           key: "row_number",
@@ -1083,7 +1182,7 @@ export default {
       OrderItems: [],
       LogBookHeader: [
         {
-          key: "no",
+          key: "row_number",
           label: "No",
           tdClass: "ContentACCList2 notranslate th-cus-center",
           thClass: "HeaderACCList2 th-cus-center",
@@ -1134,6 +1233,66 @@ export default {
     },
   },
   methods: {
+    doViewAllAddress() {
+      var param = this.paramFromList;
+      param.isEdit = false;
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "ViewAll_Delivery_Address" });
+    },
+    doViewAllPIC() {
+      var param = this.paramFromList;
+      param.isEdit = false;
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "ViewAll_PIC" });
+    },
+    doViewAllFTL() {
+      var param = this.paramFromList;
+      param.isEdit = false;
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "ViewAll_FTL" });
+    },
+    doViewAllLTL() {
+      var param = this.paramFromList;
+      param.isEdit = false;
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "ViewAll_LTL" });
+    },
+    doViewAllRental() {
+      var param = this.paramFromList;
+      param.isEdit = false;
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "ViewAll_Rental" });
+    },
+    doViewAllProject() {
+      var param = this.paramFromList;
+      param.isEdit = false;
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "ViewAll_Project" });
+    },
+    doViewAllOrder() {
+      var param = this.paramFromList;
+      param.isEdit = false;
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "ViewAll_Order" });
+    },
+    doViewAllReqDoc() {
+      var param = this.paramFromList;
+      param.isEdit = false;
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "ViewAll_ReqDoc" });
+    },
+    doViewAllOutStanding() {
+      var param = this.paramFromList;
+      param.isEdit = false;
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "ViewAll_Outstanding" });
+    },
+    doViewAllLogBook() {
+      var param = this.paramFromList;
+      param.isEdit = false;
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "ViewAll_LogBook" });
+    },
     showPict(pict) {
       this.M_ModalPict = pict;
       this.$refs.Show_Picture._show();
@@ -1300,7 +1459,7 @@ export default {
       param.isEdit = record == null ? false : true;
       param.DetailList = record;
       this.$store.commit("setParamPage", param);
-      this.$router.push({ name: "MK_ViewOrder" });
+      this.$router.push({ name: "ViewDetailOrder" });
     },
     doLogBook(record) {
       var param = this.AllData;
@@ -1470,16 +1629,19 @@ export default {
           });
         }
 
-        this.propListReqDoc.initialWhere =
-          "cm_contact_id=" + data.cm_contact_id;
-        this.$refs.ref_CustomerRequiredDoc.doGetList("");
+        this.RequiredDocumentItems = data.detail_requiered_doc;
+        this.OutstandingItems = data.detail_outstanding_payment;
+        this.LogBookItems = data.detail_log_book;
+        // this.propListReqDoc.initialWhere =
+        //   "cm_contact_id=" + data.cm_contact_id;
+        // this.$refs.ref_CustomerRequiredDoc.doGetList("");
 
         // this.GetPickUpList();
-        this.GetOutstandingList();
+        // this.GetOutstandingList();
         // this.GetPICList();
         // this.GetQuotationList();
         // this.GetOrderList();
-        this.GetLogBookList();
+        // this.GetLogBookList();
       });
     },
     // GetPickUpList() {
@@ -1496,23 +1658,9 @@ export default {
     //     this.PickUpItems = data;
     //   });
     // },
-    GetOutstandingList() {
-      var param = {
-        option_function_cd: "GetListMkCustomerOutstanding",
-        module_cd: "MK",
-        row_id: this.paramFromList.row_id,
-      };
-
-      this.CallFunction(param).then((response) => {
-        if (response == null) return;
-        var data = response.Data;
-
-        this.OutstandingItems = data;
-      });
-    },
-    // GetPICList() {
+    // GetOutstandingList() {
     //   var param = {
-    //     option_function_cd: "GetListMkCustomerPIC",
+    //     option_function_cd: "GetListMkCustomerOutstanding",
     //     module_cd: "MK",
     //     row_id: this.paramFromList.row_id,
     //   };
@@ -1521,12 +1669,13 @@ export default {
     //     if (response == null) return;
     //     var data = response.Data;
 
-    //     this.PICItems = data;
+    //     this.OutstandingItems = data;
     //   });
     // },
-    // GetQuotationList() {
+
+    // GetLogBookList() {
     //   var param = {
-    //     option_function_cd: "GetListMkCustomerQuotation",
+    //     option_function_cd: "GetListMkCustomerLogBook",
     //     module_cd: "MK",
     //     row_id: this.paramFromList.row_id,
     //   };
@@ -1535,37 +1684,9 @@ export default {
     //     if (response == null) return;
     //     var data = response.Data;
 
-    //     this.QuotationFTLItems = data;
+    //     this.LogBookItems = data;
     //   });
     // },
-    // GetOrderList() {
-    //   var param = {
-    //     option_function_cd: "GetListMkCustomerOrder",
-    //     module_cd: "MK",
-    //     row_id: this.paramFromList.row_id,
-    //   };
-
-    //   this.CallFunction(param).then((response) => {
-    //     if (response == null) return;
-    //     var data = response.Data;
-
-    //     this.OrderItems = data;
-    //   });
-    // },
-    GetLogBookList() {
-      var param = {
-        option_function_cd: "GetListMkCustomerLogBook",
-        module_cd: "MK",
-        row_id: this.paramFromList.row_id,
-      };
-
-      this.CallFunction(param).then((response) => {
-        if (response == null) return;
-        var data = response.Data;
-
-        this.LogBookItems = data;
-      });
-    },
   },
   mounted() {
     this.M_ClearForm();

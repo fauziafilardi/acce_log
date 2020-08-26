@@ -825,7 +825,7 @@ export default {
           if (response == null) return;
           this.alertSuccess("Save Data Has Been Successfully").then(() => {
             this.inputStatus = "edit";
-            // this.doBack();
+            this.doBack();
           });
         }
       );
@@ -911,7 +911,7 @@ export default {
           if (response == null) return;
           this.alertSuccess("Update Data Has Been Successfully").then(() => {
             this.inputStatus = "edit";
-            // this.doBack();
+            this.doBack();
           });
         }
       );
