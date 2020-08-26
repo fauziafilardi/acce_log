@@ -120,32 +120,82 @@
                       </b-col>
                     </b-row>
                     <b-row class="row-view">
-                      <b-col>
+                      <b-col md="4">
                         <span>
                           <label style="margin-bottom: 0px !important;">Phone No</label>
                         </span>
                         <br />
                         <span style="color: #999999;">{{ M_Customer.phone_no }}</span>
                       </b-col>
-                    </b-row>
-                    <b-row class="row-view">
-                      <b-col>
+                      <b-col md="4">
                         <span>
                           <label style="margin-bottom: 0px !important;">Email</label>
                         </span>
                         <br />
-                        <span style="color: #999999; text-align: justify;">{{ M_Customer.email }}</span>
+                        <span style="color: #999999;">{{ M_Customer.email }}</span>
                       </b-col>
-                    </b-row>
-                    <b-row class="row-view">
-                      <b-col>
+                      <b-col md="4">
                         <span>
-                          <label style="margin-bottom: 0px !important;">Website</label>
+                          <label style="margin-bottom: 0px !important;">NPWM Number</label>
                         </span>
                         <br />
-                        <span style="color: #999999;">{{ M_Customer.website }}</span>
+                        <span style="color: #999999;">{{ M_Customer.npwp_no }}</span>
                       </b-col>
                     </b-row>
+                    <b-row>
+                      <b-col md="6">
+                        <b-row class="row-view">
+                          <b-col>
+                            <span>
+                              <label style="margin-bottom: 0px !important;">Website</label>
+                            </span>
+                            <br />
+                            <span
+                              style="color: #999999; text-align: justify;"
+                            >{{ M_Customer.website }}</span>
+                          </b-col>
+                        </b-row>
+                        <b-row class="row-view">
+                          <b-col md="6">
+                            <span>
+                              <label style="margin-bottom: 0px !important;">Bank Name</label>
+                            </span>
+                            <br />
+                            <span style="color: #999999;">{{ M_Customer.bank_name }}</span>
+                          </b-col>
+                          <b-col md="6">
+                            <span>
+                              <label style="margin-bottom: 0px !important;">Bank Account</label>
+                            </span>
+                            <br />
+                            <span style="color: #999999;">{{ M_Customer.bank_acct_no }}</span>
+                          </b-col>
+                        </b-row>
+                      </b-col>
+                      <b-col md="6">
+                        <b-row class="row-bordered" style="background-color: #ced4da;">
+                          <b-col md="12">
+                            <b-row style="margin-bottom: 10px">
+                              <template v-for="(pict, index) in M_Picture">
+                                <b-col
+                                  style="max-width: fit-content !important;"
+                                  v-bind:key="index"
+                                >
+                                  <img
+                                    :id="'pict_'+index"
+                                    :src="pict.file_show"
+                                    alt
+                                    style="width: 150px; cursor: pointer; "
+                                    @click="showPict(pict)"
+                                  />
+                                </b-col>
+                              </template>
+                            </b-row>
+                          </b-col>
+                        </b-row>
+                      </b-col>
+                    </b-row>
+
                     <br />
 
                     <br />
@@ -155,6 +205,17 @@
                         <b-row>
                           <b-col style="max-width:fit-content !important;">
                             <span>Pick Up / Delivery Address</span>
+                          </b-col>
+                          <b-col style="text-align: right;">
+                            <span>
+                              <ABSButton
+                                :text="'View All'"
+                                classButton="button button--new"
+                                classIcon="icon-style-1"
+                                :disabled="false"
+                                @click="doViewAllAddress"
+                              />
+                            </span>
                           </b-col>
                         </b-row>
                       </div>
@@ -193,6 +254,17 @@
                         <b-row>
                           <b-col style="max-width:fit-content !important;">
                             <span>PIC</span>
+                          </b-col>
+                          <b-col style="text-align: right;">
+                            <span>
+                              <ABSButton
+                                :text="'View All'"
+                                classButton="button button--new"
+                                classIcon="icon-style-1"
+                                :disabled="false"
+                                @click="doViewAllPIC"
+                              />
+                            </span>
                           </b-col>
                         </b-row>
                       </div>
@@ -235,32 +307,162 @@
                         </b-row>
                       </div>
                       <div class="card__body">
-                        <b-table
-                          :responsive="true"
-                          :striped="false"
-                          :bordered="true"
-                          :outlined="false"
-                          :small="false"
-                          :hover="false"
-                          :dark="false"
-                          :fixed="false"
-                          :foot-clone="false"
-                          :fields="QuotationHeader"
-                          :items="QuotationItems"
-                          class="table-sm table-style-3"
-                          @row-clicked="doQuotation"
-                          thStyle="padding: 5px !important;"
-                        >
-                          <template v-slot:cell(no)="data">{{data.index + 1}}</template>
-                          <template v-slot:cell(row_id)="data">
-                            <ABSButton
-                              :icon="'trash'"
-                              classButton="button button--delete"
-                              classIcon="icon-style-1"
-                              @click="doDeletedQuotation(data.item, data.index)"
-                            />
-                          </template>
-                        </b-table>
+                        <b-row>
+                          <b-col>
+                            <b-row>
+                              <b-col style="max-width:fit-content !important;">
+                                <span>FTL</span>
+                              </b-col>
+                              <b-col style="text-align: right;">
+                                <span>
+                                  <ABSButton
+                                    :text="'View All'"
+                                    classButton="button button--new"
+                                    classIcon="icon-style-1"
+                                    :disabled="false"
+                                    @click="doViewAllFTL"
+                                  />
+                                </span>
+                              </b-col>
+                            </b-row>
+
+                            <b-row>
+                              <b-table
+                                :responsive="true"
+                                :striped="false"
+                                :bordered="true"
+                                :outlined="false"
+                                :small="false"
+                                :hover="false"
+                                :dark="false"
+                                :fixed="false"
+                                :foot-clone="false"
+                                :fields="QuotationFTLHeader"
+                                :items="QuotationFTLItems"
+                                class="table-sm table-style-3"
+                                @row-clicked="doQuotation"
+                                thStyle="padding: 5px !important;"
+                              ></b-table>
+                            </b-row>
+                          </b-col>
+                        </b-row>
+                        <b-row>
+                          <b-col>
+                            <b-row>
+                              <b-col style="max-width:fit-content !important;">
+                                <span>LTL</span>
+                              </b-col>
+                              <b-col style="text-align: right;">
+                                <span>
+                                  <ABSButton
+                                    :text="'View All'"
+                                    classButton="button button--new"
+                                    classIcon="icon-style-1"
+                                    :disabled="false"
+                                    @click="doViewAllFTL"
+                                  />
+                                </span>
+                              </b-col>
+                            </b-row>
+
+                            <b-row>
+                              <b-table
+                                :responsive="true"
+                                :striped="false"
+                                :bordered="true"
+                                :outlined="false"
+                                :small="false"
+                                :hover="false"
+                                :dark="false"
+                                :fixed="false"
+                                :foot-clone="false"
+                                :fields="QuotationLTLHeader"
+                                :items="QuotationLTLItems"
+                                class="table-sm table-style-3"
+                                @row-clicked="doQuotation"
+                                thStyle="padding: 5px !important;"
+                              ></b-table>
+                            </b-row>
+                          </b-col>
+                        </b-row>
+                        <b-row>
+                          <b-col>
+                            <b-row>
+                              <b-col style="max-width:fit-content !important;">
+                                <span>Rental</span>
+                              </b-col>
+                              <b-col style="text-align: right;">
+                                <span>
+                                  <ABSButton
+                                    :text="'View All'"
+                                    classButton="button button--new"
+                                    classIcon="icon-style-1"
+                                    :disabled="false"
+                                    @click="doViewAllRental"
+                                  />
+                                </span>
+                              </b-col>
+                            </b-row>
+
+                            <b-row>
+                              <b-table
+                                :responsive="true"
+                                :striped="false"
+                                :bordered="true"
+                                :outlined="false"
+                                :small="false"
+                                :hover="false"
+                                :dark="false"
+                                :fixed="false"
+                                :foot-clone="false"
+                                :fields="QuotationRentalHeader"
+                                :items="QuotationRentalItems"
+                                class="table-sm table-style-3"
+                                @row-clicked="doQuotation"
+                                thStyle="padding: 5px !important;"
+                              ></b-table>
+                            </b-row>
+                          </b-col>
+                        </b-row>
+                        <b-row>
+                          <b-col>
+                            <b-row>
+                              <b-col style="max-width:fit-content !important;">
+                                <span>Project</span>
+                              </b-col>
+                              <b-col style="text-align: right;">
+                                <span>
+                                  <ABSButton
+                                    :text="'View All'"
+                                    classButton="button button--new"
+                                    classIcon="icon-style-1"
+                                    :disabled="false"
+                                    @click="doViewAllProject"
+                                  />
+                                </span>
+                              </b-col>
+                            </b-row>
+
+                            <b-row>
+                              <b-table
+                                :responsive="true"
+                                :striped="false"
+                                :bordered="true"
+                                :outlined="false"
+                                :small="false"
+                                :hover="false"
+                                :dark="false"
+                                :fixed="false"
+                                :foot-clone="false"
+                                :fields="QuotationProjectHeader"
+                                :items="QuotationProjectItems"
+                                class="table-sm table-style-3"
+                                @row-clicked="doQuotation"
+                                thStyle="padding: 5px !important;"
+                              ></b-table>
+                            </b-row>
+                          </b-col>
+                        </b-row>
                       </div>
                     </div>
 
@@ -269,6 +471,17 @@
                         <b-row>
                           <b-col style="max-width:fit-content !important;">
                             <span>Order</span>
+                          </b-col>
+                          <b-col style="text-align: right;">
+                            <span>
+                              <ABSButton
+                                :text="'View All'"
+                                classButton="button button--new"
+                                classIcon="icon-style-1"
+                                :disabled="false"
+                                @click="doViewAllOrder"
+                              />
+                            </span>
                           </b-col>
                         </b-row>
                       </div>
@@ -289,25 +502,24 @@
                           @row-clicked="doOrder"
                           thStyle="padding: 5px !important;"
                         >
-                          <template v-slot:cell(no)="data">{{data.index + 1}}</template>
-                          <template v-slot:cell(row_id)="data">
+                          <!-- <template v-slot:cell(row_id)="data">
                             <ABSButton
                               :icon="'trash'"
                               classButton="button button--delete"
                               classIcon="icon-style-1"
                               @click="doDeletedQuotation(data.item, data.index)"
                             />
-                          </template>
-                          <template v-slot:cell(order_date)="data">
-                            {{momentDateFormatting(
-                            new Date(data.item.order_date),
-                            "DD/MM/YYYY HH:mm"
-                            )}}
-                          </template>
+                          </template>                         
                           <template v-slot:cell(order_status)="data">
                             <span v-if="data.item.order_status=='N'">Pending</span>
                             <span v-else-if="data.item.order_status=='P'">Progress</span>
                             <span v-else>Issue</span>
+                          </template>-->
+                          <template v-slot:cell(pickup_date)="data">
+                            {{momentDateFormatting(
+                            new Date(data.item.pickup_date),
+                            "DD/MM/YYYY HH:mm"
+                            )}}
                           </template>
                         </b-table>
                       </div>
@@ -331,7 +543,6 @@
                           @pagination="M_Pagination"
                           @filter="M_Advance_Filter"
                           @headTable="M_Head_Table"
-                          @refreshColumn="refreshColumn"
                           ref="ref_CustomerRequiredDoc"
                           WithDeleteButton
                           @buttonDeleteClicked="doDeleteListRequiredDocClick"
@@ -434,6 +645,15 @@
                   </b-col>
                 </b-row>
               </b-form>
+              <ABSModal id="Show_Picture" ref="Show_Picture" size="sm">
+                <template slot="content">
+                  <b-row>
+                    <b-col md="12" style="text-align: center;">
+                      <img id="show_pict" :src="M_ModalPict.file_show" alt style="width: 200px;" />
+                    </b-col>
+                  </b-row>
+                </template>
+              </ABSModal>
             </div>
           </div>
         </b-col>
@@ -519,8 +739,17 @@ export default {
         email: "",
         website: "",
         file_show: "",
+        bank_name: "",
+        bank_acct_no: "",
+        npwp_no: "",
       },
-
+      M_Picture: [],
+      M_ModalPict: {
+        file_logo: "",
+        file_logo_name: "",
+        file_logo_path: "",
+        file_show: require("@/assets/default_photo_.png"),
+      },
       PI_logbook_descs: {
         cValidate: "",
         cName: "logbook_descs",
@@ -627,16 +856,22 @@ export default {
         },
       ],
       PICItems: [],
-      QuotationHeader: [
+      QuotationFTLHeader: [
         {
-          key: "no",
+          key: "row_number",
           label: "No",
           tdClass: "ContentACCList2 notranslate th-cus-center",
           thClass: "HeaderACCList2 th-cus-center",
         },
         {
-          key: "customer",
-          label: "Customer",
+          key: "from",
+          label: "From",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center",
+        },
+        {
+          key: "to",
+          label: "To",
           tdClass: "ContentACCList2 notranslate th-cus-center",
           thClass: "HeaderACCList2 S th-cus-center",
         },
@@ -647,37 +882,160 @@ export default {
           thClass: "HeaderACCList2 S th-cus-center",
         },
         {
-          key: "date",
-          label: "Date",
+          key: "valid_until",
+          label: "Valid Thrue",
           tdClass: "ContentACCList2 notranslate th-cus-center",
           thClass: "HeaderACCList2 S th-cus-center",
         },
         {
-          key: "type",
-          label: "Type",
+          key: "fleet_cd",
+          label: "Vehicle Type",
           tdClass: "ContentACCList2 notranslate th-cus-center",
           thClass: "HeaderACCList2 S th-cus-center",
         },
         {
-          key: "status",
-          label: "Status",
+          key: "price",
+          label: "Price",
           tdClass: "ContentACCList2 notranslate th-cus-center",
           thClass: "HeaderACCList2 S th-cus-center",
         },
       ],
-      QuotationItems: [],
-      OrderHeader: [
+      QuotationFTLItems: [],
+      QuotationLTLHeader: [
         {
-          key: "no",
+          key: "row_number",
           label: "No",
           tdClass: "ContentACCList2 notranslate th-cus-center",
           thClass: "HeaderACCList2 th-cus-center",
         },
         {
-          key: "customer_name",
-          label: "Customer",
+          key: "from",
+          label: "From",
           tdClass: "ContentACCList2 notranslate th-cus-center",
           thClass: "HeaderACCList2 S th-cus-center",
+        },
+        {
+          key: "to",
+          label: "To",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center",
+        },
+        {
+          key: "quotation_no",
+          label: "Quotation No",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center",
+        },
+        {
+          key: "valid_until",
+          label: "Valid Thrue",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center",
+        },
+        {
+          key: "commodity_cd",
+          label: "Commodity",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center",
+        },
+        {
+          key: "price",
+          label: "Price",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center",
+        },
+      ],
+      QuotationLTLItems: [],
+      QuotationRentalHeader: [
+        {
+          key: "row_number",
+          label: "No",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 th-cus-center",
+        },
+        {
+          key: "fleet_cd",
+          label: "Vehicle Type",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center",
+        },
+        {
+          key: "include_driver",
+          label: "Include Driver",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center",
+        },
+        {
+          key: "quotation_no",
+          label: "Quotation No",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center",
+        },
+        {
+          key: "valid_until",
+          label: "Valid Thrue",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center",
+        },
+        {
+          key: "price",
+          label: "Price",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center",
+        },
+      ],
+      QuotationRentalItems: [],
+      QuotationProjectHeader: [
+        {
+          key: "row_number",
+          label: "No",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 th-cus-center",
+        },
+        {
+          key: "from",
+          label: "From",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center",
+        },
+        {
+          key: "to",
+          label: "To",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center",
+        },
+        {
+          key: "quotation_no",
+          label: "Quotation No",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center",
+        },
+        {
+          key: "valid_until",
+          label: "Valid Thrue",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center",
+        },
+        {
+          key: "charge_by",
+          label: "Change By",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center",
+        },
+        {
+          key: "price",
+          label: "Price",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center",
+        },
+      ],
+      QuotationProjectItems: [],
+      OrderHeader: [
+        {
+          key: "row_number",
+          label: "No",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 th-cus-center",
         },
         {
           key: "order_no",
@@ -686,13 +1044,37 @@ export default {
           thClass: "HeaderACCList2 S th-cus-center",
         },
         {
-          key: "order_date",
-          label: "Order Date",
+          key: "pickup_date",
+          label: "Pickup Date",
           tdClass: "ContentACCList2 notranslate th-cus-center",
           thClass: "HeaderACCList2 S th-cus-center",
         },
         {
-          key: "order_status",
+          key: "from_to",
+          label: "From To",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center",
+        },
+        {
+          key: "category",
+          label: "Category",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 M th-cus-center",
+        },
+        {
+          key: "fleet_type",
+          label: "Fleet Type",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 M th-cus-center",
+        },
+        {
+          key: "fleet_no",
+          label: "Fleet No",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 M th-cus-center",
+        },
+        {
+          key: "status",
           label: "Status",
           tdClass: "ContentACCList2 notranslate th-cus-center",
           thClass: "HeaderACCList2 M th-cus-center",
@@ -752,6 +1134,10 @@ export default {
     },
   },
   methods: {
+    showPict(pict) {
+      this.M_ModalPict = pict;
+      this.$refs.Show_Picture._show();
+    },
     doDeleteListRequiredDocClick(record, index) {
       this.alertConfirmation("Are You Sure Want To Delete This Data ?").then(
         (ress) => {
@@ -815,7 +1201,8 @@ export default {
       this.deleteJSON(this.getUrlCRUD(), param).then((response) => {
         if (response == null) return;
         this.alertSuccess(response.Message).then(() => {
-          this.GetPICList();
+          // this.GetPICList();
+          this.GetDataBy();
         });
       });
     },
@@ -973,7 +1360,9 @@ export default {
         // response from API
         if (response == null) return;
 
-        var data = response.Data[0];
+        var data = JSON.parse(response.Data[0].fcm_contact_s_new)[0];
+        // var data = response.Data[0];
+        console.log(data);
 
         this.AllData = data;
 
@@ -995,33 +1384,118 @@ export default {
                 )
               : "-",
           file_show: data.path_file != "" ? this.url + data.path_file : "",
+          bank_name: data.bank_name,
+          bank_acct_no: data.bank_acct_no,
+          npwp_no: data.npwp_no,
         };
+        var dataDoc = data.detail_document;
+        if (dataDoc.length > 0) {
+          for (let i = 0; i < dataDoc.length; i++) {
+            this.M_Picture.push({
+              file_logo: "dtfile_" + i,
+              file_logo_name: dataDoc[i].doc_file_name,
+              file_logo_path: dataDoc[i].doc_path_file,
+              file_show:
+                dataDoc[i].doc_path_file && dataDoc[i].doc_path_file !== ""
+                  ? this.url + dataDoc[i].doc_path_file
+                  : require("@/assets/default_photo_.png"),
+            });
+          }
+        }
+        this.PickUpItems = data.detail_address;
+        this.PICItems = data.detail_pic;
+        this.OrderItems = data.detail_order;
+        // this.QuotationFTLItems = data.detail_qoutation_ftl;
+        data.detail_qoutation_ftl.forEach((dt, index) => {
+          this.QuotationFTLItems.push({
+            row_number: dt.row_number,
+            from: dt.from,
+            to: dt.to,
+            quotation_no: dt.quotation_no,
+            valid_until: this.momentDateFormatting(
+              dt.valid_until,
+              "DD/MM/YYYY"
+            ),
+            fleet_cd: dt.fleet_cd,
+            price: this.isCurrency(dt.price, this.decimal),
+          });
+        });
+        if (data.detail_qoutation_ltl != null) {
+          data.detail_qoutation_ltl.forEach((dt, index) => {
+            this.QuotationLTLItems.push({
+              row_number: dt.row_number,
+              from: dt.from,
+              to: dt.to,
+              quotation_no: dt.quotation_no,
+              valid_until: this.momentDateFormatting(
+                dt.valid_until,
+                "DD/MM/YYYY"
+              ),
+              commodity_cd: dt.commodity_cd,
+              price: this.isCurrency(dt.price, this.decimal),
+            });
+          });
+        }
+
+        if (data.detail_qoutation_rental != null) {
+          data.detail_qoutation_rental.forEach((dt, index) => {
+            this.QuotationRentalItems.push({
+              row_number: dt.row_number,
+              fleet_cd: dt.fleet_cd,
+              include_driver: dt.include_driver,
+              quotation_no: dt.quotation_no,
+              valid_until: this.momentDateFormatting(
+                dt.valid_until,
+                "DD/MM/YYYY"
+              ),
+              price: this.isCurrency(dt.price, this.decimal),
+            });
+          });
+        }
+
+        if (data.detail_qoutation_project != null) {
+          data.detail_qoutation_project.forEach((dt, index) => {
+            this.QuotationProjectItems.push({
+              row_number: dt.row_number,
+              from: dt.from,
+              to: dt.to,
+              quotation_no: dt.quotation_no,
+              valid_until: this.momentDateFormatting(
+                dt.valid_until,
+                "DD/MM/YYYY"
+              ),
+              charge_by: dt.charge_by,
+              price: this.isCurrency(dt.price, this.decimal),
+            });
+          });
+        }
+
         this.propListReqDoc.initialWhere =
           "cm_contact_id=" + data.cm_contact_id;
         this.$refs.ref_CustomerRequiredDoc.doGetList("");
 
-        this.GetPickUpList();
+        // this.GetPickUpList();
         this.GetOutstandingList();
-        this.GetPICList();
-        this.GetQuotationList();
-        this.GetOrderList();
+        // this.GetPICList();
+        // this.GetQuotationList();
+        // this.GetOrderList();
         this.GetLogBookList();
       });
     },
-    GetPickUpList() {
-      var param = {
-        option_function_cd: "GetListMkCustomerAddress",
-        module_cd: "MK",
-        row_id: this.paramFromList.row_id,
-      };
+    // GetPickUpList() {
+    //   var param = {
+    //     option_function_cd: "GetListMkCustomerAddress",
+    //     module_cd: "MK",
+    //     row_id: this.paramFromList.row_id,
+    //   };
 
-      this.CallFunction(param).then((response) => {
-        if (response == null) return;
-        var data = response.Data;
+    //   this.CallFunction(param).then((response) => {
+    //     if (response == null) return;
+    //     var data = response.Data;
 
-        this.PickUpItems = data;
-      });
-    },
+    //     this.PickUpItems = data;
+    //   });
+    // },
     GetOutstandingList() {
       var param = {
         option_function_cd: "GetListMkCustomerOutstanding",
@@ -1036,48 +1510,48 @@ export default {
         this.OutstandingItems = data;
       });
     },
-    GetPICList() {
-      var param = {
-        option_function_cd: "GetListMkCustomerPIC",
-        module_cd: "MK",
-        row_id: this.paramFromList.row_id,
-      };
+    // GetPICList() {
+    //   var param = {
+    //     option_function_cd: "GetListMkCustomerPIC",
+    //     module_cd: "MK",
+    //     row_id: this.paramFromList.row_id,
+    //   };
 
-      this.CallFunction(param).then((response) => {
-        if (response == null) return;
-        var data = response.Data;
+    //   this.CallFunction(param).then((response) => {
+    //     if (response == null) return;
+    //     var data = response.Data;
 
-        this.PICItems = data;
-      });
-    },
-    GetQuotationList() {
-      var param = {
-        option_function_cd: "GetListMkCustomerQuotation",
-        module_cd: "MK",
-        row_id: this.paramFromList.row_id,
-      };
+    //     this.PICItems = data;
+    //   });
+    // },
+    // GetQuotationList() {
+    //   var param = {
+    //     option_function_cd: "GetListMkCustomerQuotation",
+    //     module_cd: "MK",
+    //     row_id: this.paramFromList.row_id,
+    //   };
 
-      this.CallFunction(param).then((response) => {
-        if (response == null) return;
-        var data = response.Data;
+    //   this.CallFunction(param).then((response) => {
+    //     if (response == null) return;
+    //     var data = response.Data;
 
-        this.QuotationItems = data;
-      });
-    },
-    GetOrderList() {
-      var param = {
-        option_function_cd: "GetListMkCustomerOrder",
-        module_cd: "MK",
-        row_id: this.paramFromList.row_id,
-      };
+    //     this.QuotationFTLItems = data;
+    //   });
+    // },
+    // GetOrderList() {
+    //   var param = {
+    //     option_function_cd: "GetListMkCustomerOrder",
+    //     module_cd: "MK",
+    //     row_id: this.paramFromList.row_id,
+    //   };
 
-      this.CallFunction(param).then((response) => {
-        if (response == null) return;
-        var data = response.Data;
+    //   this.CallFunction(param).then((response) => {
+    //     if (response == null) return;
+    //     var data = response.Data;
 
-        this.OrderItems = data;
-      });
-    },
+    //     this.OrderItems = data;
+    //   });
+    // },
     GetLogBookList() {
       var param = {
         option_function_cd: "GetListMkCustomerLogBook",
@@ -1092,31 +1566,6 @@ export default {
         this.LogBookItems = data;
       });
     },
-    // GetLogBookList() {
-    //   var param = {
-    //     option_url: "/MK/MK_Customer",
-    //     line_no: 2,
-    //     user_id: this.getDataUser().user_id,
-    //     portfolio_id: this.getDataUser().portfolio_id,
-    //     subportfolio_id: this.getDataUser().subportfolio_id,
-    //     current_page: 1,
-    //     per_page: 1000,
-    //     param_where: "",
-    //     initial_where: "",
-    //     sort_field: "",
-    //     source_field: "",
-    //     param_view: ""
-    //   };
-
-    //   this.postJSON(this.getUrlList(), param).then(response => {
-    //     if (response == null) return;
-    //     this.responses = response;
-    //     // console.log(this.cmbMarketing, ix)
-    //     // this.LogBookItems = [];
-    //     // this.LogBookHeader = [];
-    //     this.LogBookItems = this.responses.Data;
-    //   });
-    // }
   },
   mounted() {
     this.M_ClearForm();

@@ -752,9 +752,9 @@ export default {
       });
     },
     M_Save() {
-      var param = {
-        option_url: "/MK/MK_MarketingSpec",
-        line_no: 0,
+      var paramH = {
+        _Method_: "SAVE",
+        _LineNo_: 0,
         ss_portfolio_id: this.getDataUser().portfolio_id,
         action_call_point: this.M_Spec.action_call_point,
         action_visit_point: this.M_Spec.action_visit_point,
@@ -771,16 +771,71 @@ export default {
           this.M_Spec.cm_contact_id == null || this.M_Spec.cm_contact_id == 0
             ? null
             : this.M_Spec.cm_contact_id,
+        achievement_order_status: this.M_Spec.achievement_order_status,
+        document_fleet_expiry_kpi: this.M_Spec.document_fleet_expiry_kpi,
+        quotation_expiry_warning: this.M_Spec.quotation_expiry_warning,
+        quotation_paid_on: this.M_Spec.quotation_paid_on,
         user_input: this.getDataUser().user_id,
       };
 
-      this.postJSON(this.getUrlCRUD(), param).then((response) => {
-        // console.log(response)
-        if (response == null) return;
-        this.alertSuccess(response.Message).then(() => {
-          this.inputStatus = "edit";
+      var paramOrderStatus = [];
+
+      this.order_status_ftl.forEach((dt, index) => {
+        paramOrderStatus.push({
+          _Method_: "UPDATE",
+          _LineNo_: 1,
+          op_order_status_id: dt.op_order_status_id,
+          flag_status: dt.flag_status,
+          user_edit: this.getDataUser().user_id,
         });
       });
+
+      this.order_status_project.forEach((dt, index) => {
+        paramOrderStatus.push({
+          _Method_: "UPDATE",
+          _LineNo_: 1,
+          op_order_status_id: dt.op_order_status_id,
+          flag_status: dt.flag_status,
+          user_edit: this.getDataUser().user_id,
+        });
+      });
+
+      this.order_status_return_empty.forEach((dt, index) => {
+        paramOrderStatus.push({
+          _Method_: "UPDATE",
+          _LineNo_: 1,
+          op_order_status_id: dt.op_order_status_id,
+          flag_status: dt.flag_status,
+          user_edit: this.getDataUser().user_id,
+        });
+      });
+      var param = {
+        option_url: "/MK/MK_MarketingSpec",
+        line_no: 0,
+        Data: [
+          {
+            A_Save: paramH,
+            B_Looping: paramOrderStatus,
+          },
+        ],
+      };
+      this.postJSONMulti(this.getUrlProsesDataPostMulti(), param).then(
+        (response) => {
+          // console.log(response)
+          if (response == null) return;
+          this.alertSuccess("Save Data Has Been Successfully").then(() => {
+            this.inputStatus = "edit";
+            // this.doBack();
+          });
+        }
+      );
+      // this.postJSON(this.getUrlCRUD(), param).then((response) => {
+      //   // console.log(response)
+      //   if (response == null) return;
+      //   this.alertSuccess(response.Message).then(() => {
+      //     this.inputStatus = "edit";
+      //   });
+      // });
     },
     M_Update() {
       var paramH = {
@@ -854,7 +909,7 @@ export default {
         (response) => {
           // console.log(response)
           if (response == null) return;
-          this.alertSuccess("Save Data Has Been Successfully").then(() => {
+          this.alertSuccess("Update Data Has Been Successfully").then(() => {
             this.inputStatus = "edit";
             // this.doBack();
           });
