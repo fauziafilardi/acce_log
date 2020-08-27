@@ -62,7 +62,6 @@
                             @click="doContact"
                           />
                         </span>
-                        <!-- </span> -->
                       </b-col>
                     </b-row>
                     <b-row class="row-view" style="padding-top: 5px; padding-bottom: 10px;">
@@ -690,7 +689,7 @@
                             <b-col md="4" style="margin-top: 10px;" v-bind:key="id">
                               <b-row class="row-bordered" style="height: 100%">
                                 <b-col style="text-align: center;">
-                                  <b-form-checkbox
+                                  <!-- <b-form-checkbox
                                     :disabled="!((doc.doc_file_name && doc.doc_file_name !== '') && (doc.doc_path_file && doc.doc_path_file !== ''))"
                                     style="display: inline-flex;"
                                     v-model="doc.doc_status"
@@ -699,7 +698,7 @@
                                     value="Y"
                                     unchecked-value="N"
                                     size="lg"
-                                  />
+                                  /> -->
                                   <span
                                     style="font-size: 15px; color: rgb(51, 51, 153); font-weight: bold;"
                                   >{{id + 1}}. {{doc.dokument_type}}</span>
@@ -716,13 +715,13 @@
                                       style="cursor: pointer;"
                                       @click="Show_Pict(doc)"
                                     />
-                                    <font-awesome-icon
+                                    <!-- <font-awesome-icon
                                       class="icon-style-danger"
                                       icon="times-circle"
                                       size="lg"
                                       style="cursor: pointer; top: 28px; right: 8%; position: absolute;"
                                       @click="Delete_Pict(id)"
-                                    />
+                                    /> -->
                                   </template>
 
                                   <template v-else>
@@ -750,7 +749,7 @@
                             </b-col>
                           </template>
                         </b-row>
-                        <b-row style="margin-top: 10px;">
+                        <!-- <b-row style="margin-top: 10px;">
                           <b-col>
                             <ABSButton
                               :text="'Submit'"
@@ -760,7 +759,7 @@
                               styleButton="height: 40px;width: 100%;"
                             />
                           </b-col>
-                        </b-row>
+                        </b-row> -->
                       </b-col>
                     </b-row>
                   </b-col>

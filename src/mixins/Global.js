@@ -22,7 +22,7 @@ export default {
         this.$store.dispatch('handleTextMenu', false)
       }
     },
-    isCurrency (num = 0, decimal = 2, from = '') {
+    isCurrency (num = 0, decimal, from = '') {
       // if (from === 'a') console.log('before1', num)
       if (num === null || num === undefined || !num || num === '') {
         num = 0

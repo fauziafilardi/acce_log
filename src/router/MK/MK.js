@@ -46,7 +46,7 @@ import MK_Customer2View from '@/views/MK/MK_Customer2/MK_Customer2View'
 import MK_Customer2Form from '@/views/MK/MK_Customer2/MK_Customer2Form'
 
 import MK_ListOrder from '@/views/MK/MK_Order/MK_ListOrder'
-import MK_ViewOrder from '@/views/MK/MK_Order/MK_ViewOrder'
+import MK_ViewOrder from '@/views/MK/MK_Order/MK_ViewOrder2'
 
 import MK_ToDoList from '@/views/MK/MK_ToDoList/MK_ToDoList'
 import MK_EditToDoList from '@/views/MK/MK_ToDoList/MK_EditToDoList'

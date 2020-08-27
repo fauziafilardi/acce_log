@@ -80,6 +80,21 @@
                     >
                         <span style="font-size: 13px; color: white; font-weight: bold;">Return Empty</span>
                     </div>
+                    <div
+                      class="col col-right"
+                      style="cursor: pointer;"
+                    >
+                      <!-- <span style="font-size: 13px; color: white; font-weight: bold;">POD</span> -->
+                      <span>
+                        <ABSButton
+                            :text="'POD'"
+                            classButton="button button--primary"
+                            styleButton="background-color: #359a9a;"
+                            classIcon="icon-style-1"
+                            @click="goPOD"
+                        />
+                      </span>
+                    </div>
                     </b-row>
                 </div>
                 <div
@@ -106,23 +121,25 @@
                             </div>
                             <div class="Plan-Dot-Text">All</div>
                         </b-col>
-                        <b-col
-                            v-for="(data, index) in Status"
-                            v-bind:key="index"
-                            style="margin-bottom: 10px; cursor: pointer;"
-                            @click="filterTable('S', data)"
-                        > 
-                            <div
-                            :class="'Plan-Dot-' + data.variant"
-                            :style="'margin-top: 10px !important; width: 36px !important; height: 36px !important; padding-top: 9px; !important' + (FilterS == data.key ? 'font-weight: bold;' : '')"
-                            >
-                            <span>{{PlanExecution && PlanExecution.length > 0 ? PlanExecution.filter(x => x.status == data.key).length : 0}}</span>
-                            </div>
-                            <div
-                            class="Plan-Dot-Text"
-                            :style="FilterS == data.key ? 'font-weight: bold;' : ''"
-                            >{{data.label}}</div>
-                        </b-col>
+                        <template v-for="(data, index) in Status">
+                          <b-col
+                              v-bind:key="index"
+                              style="margin-bottom: 10px; cursor: pointer;"
+                              @click="filterTable('S', data)"
+                              v-if="data.label !== 'POD'"
+                          > 
+                              <div
+                              :class="'Plan-Dot-' + data.variant"
+                              :style="'margin-top: 10px !important; width: 36px !important; height: 36px !important; padding-top: 9px; !important' + (FilterS == data.key ? 'font-weight: bold;' : '')"
+                              >
+                              <span>{{PlanExecution && PlanExecution.length > 0 ? PlanExecution.filter(x => x.status == data.key).length : 0}}</span>
+                              </div>
+                              <div
+                              class="Plan-Dot-Text"
+                              :style="FilterS == data.key ? 'font-weight: bold;' : ''"
+                              >{{data.label}}</div>
+                          </b-col>
+                        </template>
                         </b-row>
                     </b-col>
                     </b-row>
@@ -137,7 +154,7 @@
                         @onRenderData="onRenderData"
                     >
                         <template slot="status" slot-scope="data">
-                        <div :class="'Plan-Dot-' + (Status[data.item.status].variant)" style="font-size: 10px !important; padding-top: 9px !important;">{{data.item.status}}</div>
+                        <div :class="'Plan-Dot-' + (Status[data.item.status].variant)" :style="(data.item.status == 'POD' ? 'font-size: 9px !important;' : 'font-size: 10px !important;') +  'padding-top: 9px !important;'">{{data.item.status}}</div>
                         </template>
                     </ACCFormList>
                 </div>
@@ -174,14 +191,19 @@ export default {
         AD: { key: "AD", label: "Arrive Destination", variant: "Gold" },
         SU: { key: "SU", label: "Start Unloading", variant: "LightGreen" },
         FU: { key: "FU", label: "Finish Unloading", variant: "Pink" },
-        GD: { key: "GD", label: "Get Out", variant: "Red" },
+        GD: { key: "GD", label: "Get Out Destination", variant: "Red" },
         POD: { key: "POD", label: "POD", variant: "LightGreen" },
       },
     };
   },
   computed: {},
   methods: {
-    onHistory() {},
+    onHistory() {
+      this.$router.push({name: "OP_PlanExecutionHistory"});
+    },
+    goPOD() {
+      this.$router.push({name: "OP_PlanExecutionPODList"});
+    },
     onViewAll() {
       this.$router.push({name: "OP_PlanExecution"});
     },

@@ -1,6 +1,9 @@
 import OP_BookingEntry from '@/views/OP/OP_BookingEntry/OP_BookingEntry'
+import OP_IncomingBooking from '@/views/OP/OP_BookingEntry/OP_IncomingBooking'
 import OP_AddBookingEntry from '@/views/OP/OP_BookingEntry/OP_AddBookingEntry'
 import OP_ViewBookingEntry from '@/views/OP/OP_BookingEntry/OP_ViewBookingEntry'
+import OP_ViewIncomingBooking from '@/views/OP/OP_BookingEntry/OP_ViewIncomingBooking'
+import OP_IncomingBooking_Form from '@/views/OP/OP_BookingEntry/OP_IncomingBooking_Form'
 
 // Plan Execution
 import OP_PlanExecution from '@/views/OP/OP_PlanExecution/OP_PlanExecution2'
@@ -17,6 +20,9 @@ import OP_PlanExecutionSU from '@/views/OP/OP_PlanExecution/OP_PlanExecutionSU'
 import OP_PlanExecutionFU from '@/views/OP/OP_PlanExecution/OP_PlanExecutionFU'
 import OP_PlanExecutionGD from '@/views/OP/OP_PlanExecution/OP_PlanExecutionGD'
 import OP_PlanExecutionPOD from '@/views/OP/OP_PlanExecution/OP_PlanExecutionPOD'
+import OP_PlanExecutionPOD_History from '@/views/OP/OP_PlanExecution/OP_PlanExecutionPOD_History'
+import OP_PlanExecutionPODList from '@/views/OP/OP_PlanExecution/OP_PlanExecution_PODList'
+import OP_PlanExecutionHistory from '@/views/OP/OP_PlanExecution/OP_PlanExecution_HistoryList'
 import OP_PlanExecutionConsole from '@/views/OP/OP_PlanExecution/OP_PlanExecutionConsole'
 import OP_PlanExecutionTicket from '@/views/OP/OP_PlanExecution/OP_PlanExecutionTicket'
 import OP_PlanExecutionCosting from '@/views/OP/OP_PlanExecution/OP_PlanExecutionCosting'
@@ -388,6 +394,14 @@ export const OPRender = {
             }
         },
         {
+            path: '/OP/OP_IncomingBooking',
+            name: 'OP_IncomingBooking',
+            component: OP_IncomingBooking,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
             path: '/OP/OP_Booking/Form',
             name: 'OP_AddBookingEntry',
             component: OP_AddBookingEntry,
@@ -399,6 +413,22 @@ export const OPRender = {
             path: '/OP/OP_Booking/View',
             name: 'OP_ViewBookingEntry',
             component: OP_ViewBookingEntry,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/OP_IncomingBooking/View',
+            name: 'OP_ViewIncomingBooking',
+            component: OP_ViewIncomingBooking,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/OP_IncomingBooking/Form',
+            name: 'OP_IncomingBooking_Form',
+            component: OP_IncomingBooking_Form,
             meta: {
                 requiresAuth: true
             }
@@ -444,7 +474,7 @@ export const OPRender = {
             }
         },
         {
-            path: '/OP/PlanExecution/SL',
+            path: '/OP/OP_PlanExecution/SL',
             name: 'OP_PlanExecutionSL',
             component: OP_PlanExecutionSL,
             meta: {
@@ -452,7 +482,7 @@ export const OPRender = {
             }
         },
         {
-            path: '/OP/PlanExecution/FL',
+            path: '/OP/OP_PlanExecution/FL',
             name: 'OP_PlanExecutionFL',
             component: OP_PlanExecutionFL,
             meta: {
@@ -460,7 +490,7 @@ export const OPRender = {
             }
         },
         {
-            path: '/OP/PlanExecution/GO',
+            path: '/OP/OP_PlanExecution/GO',
             name: 'OP_PlanExecutionGO',
             component: OP_PlanExecutionGO,
             meta: {
@@ -468,7 +498,7 @@ export const OPRender = {
             }
         },
         {
-            path: '/OP/PlanExecution/AD',
+            path: '/OP/OP_PlanExecution/AD',
             name: 'OP_PlanExecutionAD',
             component: OP_PlanExecutionAD,
             meta: {
@@ -476,7 +506,7 @@ export const OPRender = {
             }
         },
         {
-            path: '/OP/PlanExecution/SU',
+            path: '/OP/OP_PlanExecution/SU',
             name: 'OP_PlanExecutionSU',
             component: OP_PlanExecutionSU,
             meta: {
@@ -484,7 +514,7 @@ export const OPRender = {
             }
         },
         {
-            path: '/OP/PlanExecution/FU',
+            path: '/OP/OP_PlanExecution/FU',
             name: 'OP_PlanExecutionFU',
             component: OP_PlanExecutionFU,
             meta: {
@@ -492,7 +522,7 @@ export const OPRender = {
             }
         },
         {
-            path: '/OP/PlanExecution/GD',
+            path: '/OP/OP_PlanExecution/GD',
             name: 'OP_PlanExecutionGD',
             component: OP_PlanExecutionGD,
             meta: {
@@ -500,7 +530,7 @@ export const OPRender = {
             }
         },
         {
-            path: '/OP/PlanExecution/POD',
+            path: '/OP/OP_PlanExecution/POD',
             name: 'OP_PlanExecutionPOD',
             component: OP_PlanExecutionPOD,
             meta: {
@@ -508,7 +538,31 @@ export const OPRender = {
             }
         },
         {
-            path: '/OP/PlanExecution/Console',
+            path: '/OP/OP_PlanExecution/POD_History',
+            name: 'OP_PlanExecutionPOD_History',
+            component: OP_PlanExecutionPOD_History,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/OP_PlanExecution/PODList',
+            name: 'OP_PlanExecutionPODList',
+            component: OP_PlanExecutionPODList,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/OP_PlanExecution/History',
+            name: 'OP_PlanExecutionHistory',
+            component: OP_PlanExecutionHistory,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/OP_PlanExecution/Console',
             name: 'OP_PlanExecutionConsole',
             component: OP_PlanExecutionConsole,
             meta: {
@@ -516,7 +570,7 @@ export const OPRender = {
             }
         },
         {
-            path: '/OP/PlanExecution/Ticket',
+            path: '/OP/OP_PlanExecution/Ticket',
             name: 'OP_PlanExecutionTicket',
             component: OP_PlanExecutionTicket,
             meta: {

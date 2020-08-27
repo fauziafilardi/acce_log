@@ -3,7 +3,7 @@
         <div class="card__title">
             <b-row>
                 <b-col style="max-width:fit-content !important;">
-                    <span>Fleet Availability</span> &nbsp;
+                    <span>Operation Petty Cash</span> &nbsp;
                 </b-col>
                 <b-col style="text-align: right;">
                     <span>
@@ -29,9 +29,9 @@
                     >
                         <div class="CardTag-Title" style="font-size:13px !important;">{{data.coverage}}</div>
                         <div class="CardTag-Descs" style="padding-top:9px; padding-bottom:10px;">
-                            <span>{{data.user_id}}</span>
+                            <span>{{data.pic}}</span>
                             <br />
-                            <span style="color: red">{{data.balance_amt}}</span>
+                            <span style="color: red">{{data.balance_amt && data.balance_amt !== '' ? isCurrency(data.balance_amt, 0) : 0}}</span>
                         </div>
                     </b-col>
                 </b-row>

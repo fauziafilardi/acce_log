@@ -51,10 +51,13 @@
                     </b-row>
                 </b-col>
                 <b-col md="1" style="border-left: solid 1px rgb(127, 129, 134);">
-                    <div class="CardTag-Title" style="border-radius: 10px !important; padding-top: 40px; padding-top: 20px !important; padding-bottom: 14px !important;">
+                    <div 
+                        class="CardTag-Title" style="border-radius: 10px !important; padding-top: 40px; padding-top: 20px !important; padding-bottom: 14px !important; cursor: pointer;"
+                        @click="IncomingClick"
+                    >
                         <span> Incoming Booking</span>
                         <br> <br>
-                        <span style="font-size: 15px;"> {{'6'}} </span>
+                        <span style="font-size: 15px;"> {{IncomingBookingCount}} </span>
                     </div>
                     <!-- <div class="ChartLegend__Wrap" style="height:74px;margin:5px;">
                         <div
@@ -77,7 +80,8 @@
 export default {
     data() {
         return {
-            OpenBooking: []
+            OpenBooking: [],
+            IncomingBookingCount: 0
         }
     },
     methods: {
@@ -90,6 +94,9 @@ export default {
         },
         onViewAll() {
             this.$router.push({name: "OP_BookingEntry"});
+        },
+        IncomingClick() {
+            this.$router.push({name: "OP_IncomingBooking"});
         },
         doGetList() {
             var param = {
@@ -112,10 +119,26 @@ export default {
                 var data = response.Data;
                 this.OpenBooking = data;
             })
+        },
+        GetIncomingBookingCount() {
+            var param = {
+                option_function_cd: "GetSumIncomingBooking",
+                module_cd: "OP",
+                ss_portfolio_id: this.getDataUser().portfolio_id,
+                user_id: this.getDataUser().user_id
+            };
+            
+            this.CallFunction(param).then(response => {
+                if (response == null) return
+                var data = response.Data[0];
+
+                this.IncomingBookingCount = data.fop_sum_incoming_booking && data.fop_sum_incoming_booking !== '' ? data.fop_sum_incoming_booking : 0
+            })
         }
     },
     mounted() {
         this.doGetList();
+        this.GetIncomingBookingCount();
     }
 }
 </script>

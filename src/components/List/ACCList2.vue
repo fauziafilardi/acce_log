@@ -6,7 +6,7 @@
           <span>{{title}}</span>
         </b-col>
         <b-col style="text-align: right;">
-          <b-row>
+          <b-row v-show="!SearchDisabled">
             <b-col>
               <span>
                 <b-form-input
@@ -25,7 +25,7 @@
           </b-row>
         </b-col>
         <b-col style="max-width:fit-content !important;" class="col-right">
-          <span>
+          <span v-show="!SearchDisabled">
             <ABSButton
               :text="'Search'"
               classButton="button button--back2"
@@ -510,6 +510,7 @@ export default {
     urlAdd: String,
     ButtonAddDisabled: Boolean,
     ButtonBackDisabled: Boolean,
+    SearchDisabled: Boolean,
     WithViewButton: Boolean,
     WithDeleteButton: Boolean,
     WithRowId: Boolean
@@ -1166,9 +1167,9 @@ export default {
           });
 
           var thClass = "HeaderACCList2 ";
-          if (str_array[i] !== "no") {
-            thClass += defineSize[i];
-          }
+          // if (str_array[i] !== "no") {
+          //   thClass += defineSize[i];
+          // }
           // var thClass = "HeaderACCList2 ";
 
           var tdClass = "ContentACCList2 notranslate";
@@ -1179,7 +1180,11 @@ export default {
             str_array[i].toLowerCase().includes("price")
           ) {
             tdClass = "ABStdClassList2 notranslate";
-            thClass = "ABSthClassList2";
+            thClass = "ABSthClassList2 ";
+          }
+
+          if (str_array[i] !== "no") {
+            thClass += defineSize[i];
           }
 
           var isSorted = this.sortedField

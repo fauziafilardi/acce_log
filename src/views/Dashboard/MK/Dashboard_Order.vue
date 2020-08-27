@@ -27,6 +27,7 @@
         </div>
         <div class="card__body">
             <b-table
+            class="table-sm table-style-3"
             :responsive="true"
             :striped="false"
             :bordered="true"
@@ -38,6 +39,7 @@
             :foot-clone="false"
             :fields="Order.Header"
             :items="Order.Data"
+            @row-clicked="doViewClick"
             >
             <template v-slot:cell(no)="data">{{data.index + 1}}</template>
             <template v-slot:cell(customer_status)="data">
@@ -92,6 +94,11 @@ export default {
         }
     },
     methods: {
+        doViewClick(record, index) {
+            var param = record;
+            this.$store.commit("setParamPage", param);
+            this.$router.push({ name: "MK_ViewOrder" });
+        },
         doViewAllOrder() {
             var url = "MK_ListOrder";
             if (!url || url == "" || url == undefined) return;
