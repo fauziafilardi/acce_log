@@ -1006,6 +1006,9 @@ export default {
         next_descs: "NULL",
         next_cm_contact_person_id: "NULL",
         status: "N",
+        marketing_id: "NULL",
+        co_marketing_id1: "NULL",
+        co_marketing_id2: "NULL",
         user_input: this.getDataUser().user_id,
         lastupdatestamp: this.paramFromList.lastupdatestamp,
       };

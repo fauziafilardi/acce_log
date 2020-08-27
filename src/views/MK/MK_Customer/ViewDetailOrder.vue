@@ -365,7 +365,7 @@
                           </b-col>
                         </b-row>-->
                       </b-col>
-                      <b-col md="6">
+                      <b-col md="6" v-show="M_DataPost.order_status!='NW'">
                         <div>
                           <img :src="require('@/assets/map.png')" alt style="width: 100%;" />
                         </div>

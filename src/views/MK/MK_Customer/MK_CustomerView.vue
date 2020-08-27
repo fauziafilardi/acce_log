@@ -136,7 +136,7 @@
                       </b-col>
                       <b-col md="6">
                         <span>
-                          <label style="margin-bottom: 0px !important;">NPWM Number</label>
+                          <label style="margin-bottom: 0px !important;">NPWP Number</label>
                         </span>
                         <br />
                         <span style="color: #999999;">{{ M_Customer.npwp_no }}</span>
@@ -312,7 +312,7 @@
                               <b-col style="max-width:fit-content !important;">
                                 <span>FTL</span>
                               </b-col>
-                              <b-col style="text-align: right;">
+                              <b-col style="text-align: right;margin-bottom: 5px;">
                                 <span>
                                   <ABSButton
                                     :text="'View All'"
@@ -351,7 +351,7 @@
                               <b-col style="max-width:fit-content !important;">
                                 <span>LTL</span>
                               </b-col>
-                              <b-col style="text-align: right;">
+                              <b-col style="text-align: right;margin-bottom: 5px;">
                                 <span>
                                   <ABSButton
                                     :text="'View All'"
@@ -390,7 +390,7 @@
                               <b-col style="max-width:fit-content !important;">
                                 <span>Rental</span>
                               </b-col>
-                              <b-col style="text-align: right;">
+                              <b-col style="text-align: right;margin-bottom: 5px;">
                                 <span>
                                   <ABSButton
                                     :text="'View All'"
@@ -429,7 +429,7 @@
                               <b-col style="max-width:fit-content !important;">
                                 <span>Project</span>
                               </b-col>
-                              <b-col style="text-align: right;">
+                              <b-col style="text-align: right;margin-bottom: 5px;">
                                 <span>
                                   <ABSButton
                                     :text="'View All'"
@@ -1453,12 +1453,12 @@ export default {
     //   this.$router.push({ name: "MK_Quotation_rentalForm" });
     // },
     doQuotation(record) {
-      var param = this.paramFromList;
-      param.isEdit = record == null ? false : true;
-      param.FromCustomer = true;
-      param.DetailList = record;
-      this.$store.commit("setParamPage", param);
-      this.$router.push({ name: "MK_ViewQuotation" });
+      // var param = this.paramFromList;
+      // param.isEdit = record == null ? false : true;
+      // param.FromCustomer = true;
+      // param.DetailList = record;
+      // this.$store.commit("setParamPage", param);
+      // this.$router.push({ name: "MK_ViewQuotation" });
     },
     doOrder(record) {
       var param = this.paramFromList;

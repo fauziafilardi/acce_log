@@ -17,9 +17,9 @@
             @refreshColumn="refreshColumn"
             ref="ref_CmContact"
             urlAdd="OP_VendorForm"
-            WithViewButton
-            @buttonViewClicked="doViewClick"
           />
+          <!-- @buttonViewClicked="doViewClick"
+          WithViewButton-->
         </b-col>
       </b-row>
     </div>
@@ -40,8 +40,8 @@ export default {
         TabIndex: 1,
         OrderBy: "",
         SourceField: "",
-        ParamView: ""
-      }
+        ParamView: "",
+      },
     };
   },
   methods: {
@@ -58,7 +58,7 @@ export default {
     doDoubleClick(record, index) {},
     doDeleteClick(record, index) {
       this.alertConfirmation("Are You Sure Want To Delete This Data ?").then(
-        ress => {
+        (ress) => {
           if (ress.value) {
             this.M_Delete(record, index);
           }
@@ -70,9 +70,9 @@ export default {
         option_url: "/OP/OP_Vendor",
         line_no: 0,
         id: record.row_id,
-        lastupdatestamp: record.lastupdatestamp
+        lastupdatestamp: record.lastupdatestamp,
       };
-      this.deleteJSON(this.getUrlCRUD(), param).then(response => {
+      this.deleteJSON(this.getUrlCRUD(), param).then((response) => {
         // response from API
         if (response == null) return;
 
@@ -86,14 +86,14 @@ export default {
     M_Pagination() {},
     M_Advance_Filter() {},
     M_Head_Table() {},
-    refreshColumn() {}
+    refreshColumn() {},
   },
   mounted() {
     this.$refs.ref_CmContact.doGetList("");
   },
   created() {
     this.$store.comit("setParamPage", {});
-  }
+  },
 };
 </script>
 

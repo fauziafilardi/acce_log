@@ -102,7 +102,7 @@
                     <b-row style="margin-top: 10px;">
                       <b-col md="6">
                         <ABSButton
-                          :text="'Save Customer'"
+                          :text="'Save'"
                           classButton="btn btn--default"
                           classIcon="icon-style-default"
                           @click="doSave"
@@ -318,7 +318,11 @@ export default {
           if (this.inputStatus == "new") {
             this.doBack();
           } else {
-            this.$router.replace({ name: "MK_CustomerView" });
+            if (this.paramFromList.contact_type == "V") {
+              this.$router.replace({ name: "OP_VendorView" });
+            } else {
+              this.$router.replace({ name: "MK_CustomerView" });
+            }
           }
         });
       });

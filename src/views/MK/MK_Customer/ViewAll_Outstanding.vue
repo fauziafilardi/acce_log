@@ -20,9 +20,9 @@
             <template slot="value" slot-scope="data">
               <span>{{ isCurrency(data.item.value,decimal) }}</span>
             </template>
-            <template slot="overdue" slot-scope="data">
+            <!-- <template slot="overdue" slot-scope="data">
               <span>{{ data.item.overdue +` Days`}}</span>
-            </template>
+            </template>-->
           </ACCList2>
           <!-- @buttonViewClicked="doViewClick" -->
         </b-col>
