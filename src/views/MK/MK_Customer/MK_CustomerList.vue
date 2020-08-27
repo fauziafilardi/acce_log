@@ -41,8 +41,8 @@
                       classButton="button button--back2"
                       classIcon="icon-style-1"
                       @click="doAdd"
-                      :disabled="ButtonStatus == null ? false : !ButtonStatus.btnAdd"
                     />
+                    <!-- :disabled="ButtonStatus == null ? false : !ButtonStatus.btnAdd" -->
                   </span>
                   <span>
                     <ABSButton
@@ -82,10 +82,10 @@
                   :foot-clone="false"
                   :fields="fieldHeader"
                   :items="dataList.items"
-                  @rowClicked="rowClicked"
+                  @row-clicked="viewClicked"
                   class="table-sm table-style-3"
                 >
-                  <template v-slot:cell(row_id)="data">
+                  <!-- <template v-slot:cell(row_id)="data">
                     <b-button
                       v-if="WithViewButton == true"
                       size="sm"
@@ -94,7 +94,7 @@
                       class="btn btn--default"
                     >View</b-button>
                     <span v-else>{{data.item.row_id}}</span>
-                  </template>
+                  </template>-->
 
                   <template v-slot:cell(status)="data">
                     <!-- <span>
@@ -186,7 +186,7 @@ export default {
       //For List
       cmbMarketing: [],
       cmbYear: [],
-      WithViewButton: true,
+      WithViewButton: false,
       isFirst: false,
       selected: false,
       rowSelected: [],
@@ -491,10 +491,10 @@ export default {
                 key: "VO",
                 value: "VO ",
               },
-              {
-                key: "Row Id",
-                value: "View",
-              },
+              // {
+              //   key: "Row Id",
+              //   value: "View",
+              // },
             ];
             var isGotIt = false;
             var labelHeader = undefined;

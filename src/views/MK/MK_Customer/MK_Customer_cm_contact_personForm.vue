@@ -35,12 +35,24 @@
                     <b-row>
                       <b-col md="6">
                         <span>
-                          <label>Name</label>
+                          <label>Contact Person</label>
                         </span>
                         <ACCTextBox
                           :prop="PI_name"
                           v-model="M_CmContactPerson.name"
                           ref="ref_name"
+                        />
+                      </b-col>
+                    </b-row>
+                    <b-row>
+                      <b-col md="6">
+                        <span>
+                          <label>Position</label>
+                        </span>
+                        <ACCTextBox
+                          :prop="PI_position"
+                          v-model="M_CmContactPerson.position"
+                          ref="ref_position"
                         />
                       </b-col>
                     </b-row>
@@ -90,7 +102,7 @@
                     <b-row style="margin-top: 10px;">
                       <b-col md="6">
                         <ABSButton
-                          :text="'Save Customer'"
+                          :text="'Save'"
                           classButton="btn btn--default"
                           classIcon="icon-style-default"
                           @click="doSave"
@@ -119,6 +131,7 @@ export default {
         cm_contact_person_id: 0,
         cm_contact_id: 0,
         name: "",
+        position: "",
         phone_no_1: "+62",
         phone_no_1Label: "+62",
         phone_no_2: "",
@@ -130,7 +143,7 @@ export default {
         time_input: "",
         time_edit: "",
         row_id: 0,
-        lastupdatestamp: 0
+        lastupdatestamp: 0,
       },
       PI_name: {
         cValidate: "",
@@ -141,7 +154,18 @@ export default {
         cProtect: false,
         cParentForm: "MK_FormCmContactPerson",
         cDecimal: 2,
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
+      },
+      PI_position: {
+        cValidate: "",
+        cName: "position",
+        cOrder: 2,
+        cKey: false,
+        cType: "text",
+        cProtect: false,
+        cParentForm: "MK_FormCmContactPerson",
+        cDecimal: 2,
+        cInputStatus: this.inputStatus,
       },
       PI_phone_no_1: {
         dataLookUp: null,
@@ -154,7 +178,7 @@ export default {
         cStatic: true,
         cOption: [{ id: "+62", label: "+62" }],
         cDisplayColumn: "action_type,descs",
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
 
       PI_phone_no_2: {
@@ -166,7 +190,7 @@ export default {
         cProtect: false,
         cParentForm: "MK_FormCmContactPerson",
         cDecimal: 2,
-        cInputStatus: this.inputStatus
+        cInputStatus: this.inputStatus,
       },
       PI_email: {
         cValidate: "",
@@ -177,8 +201,8 @@ export default {
         cProtect: false,
         cParentForm: "MK_FormCmContactPerson",
         cDecimal: 2,
-        cInputStatus: this.inputStatus
-      }
+        cInputStatus: this.inputStatus,
+      },
     };
   },
   computed: {
@@ -193,7 +217,7 @@ export default {
       } else {
         return "new";
       }
-    }
+    },
   },
   methods: {
     doBack() {
@@ -210,6 +234,7 @@ export default {
         cm_contact_person_id: 0,
         cm_contact_id: 0,
         name: "",
+        position: "",
         phone_no_1: "+62",
         phone_no_1Label: "+62",
         phone_no_2: "",
@@ -221,17 +246,17 @@ export default {
         time_input: "",
         time_edit: "",
         row_id: 0,
-        lastupdatestamp: 0
+        lastupdatestamp: 0,
       };
     },
 
     doSave() {
       this.$validator._base
         .validateAll("MK_FormCmContactPerson")
-        .then(result => {
+        .then((result) => {
           if (!result) return;
           this.alertConfirmation("Are You Sure Want To Save This Data ?").then(
-            ress => {
+            (ress) => {
               if (ress.value) {
                 this.$validator.errors.clear("MK_FormCmContactPerson");
                 if (this.inputStatus == "edit") {
@@ -250,6 +275,7 @@ export default {
         line_no: 1,
         cm_contact_id: this.paramFromList.row_id,
         name: this.M_CmContactPerson.name,
+        position: this.M_CmContactPerson.position,
         phone_no:
           this.M_CmContactPerson.phone_no_1 +
           "-" +
@@ -257,10 +283,10 @@ export default {
         email: this.M_CmContactPerson.email,
         position: this.M_CmContactPerson.position,
         descs: this.M_CmContactPerson.descs,
-        user_input: this.getDataUser().user_id
+        user_input: this.getDataUser().user_id,
       };
 
-      this.postJSON(this.getUrlCRUD(), param).then(response => {
+      this.postJSON(this.getUrlCRUD(), param).then((response) => {
         if (response == null) return;
         this.alertSuccess(response.Message).then(() => {
           this.doBack();
@@ -274,6 +300,7 @@ export default {
         cm_contact_person_id: this.M_CmContactPerson.cm_contact_person_id,
         cm_contact_id: this.paramFromList.row_id,
         name: this.M_CmContactPerson.name,
+        position: this.M_CmContactPerson.position,
         phone_no:
           this.M_CmContactPerson.phone_no_1 +
           "-" +
@@ -282,23 +309,27 @@ export default {
         position: this.M_CmContactPerson.position,
         descs: this.M_CmContactPerson.descs,
         lastupdatestamp: this.paramFromList.DetailList.lastupdatestamp,
-        user_edit: this.getDataUser().user_id
+        user_edit: this.getDataUser().user_id,
       };
 
-      this.putJSON(this.getUrlCRUD(), param).then(response => {
+      this.putJSON(this.getUrlCRUD(), param).then((response) => {
         if (response == null) return;
         this.alertSuccess(response.Message).then(() => {
           if (this.inputStatus == "new") {
             this.doBack();
           } else {
-            this.$router.replace({ name: "MK_Customer" });
+            if (this.paramFromList.contact_type == "V") {
+              this.$router.replace({ name: "OP_VendorView" });
+            } else {
+              this.$router.replace({ name: "MK_CustomerView" });
+            }
           }
         });
       });
     },
     doDelete() {
       this.alertConfirmation("Are You Sure Want To Delete This Data ?").then(
-        ress => {
+        (ress) => {
           if (ress.value) {
             this.M_Delete();
           }
@@ -310,9 +341,9 @@ export default {
         option_url: "/MK/MK_Customer",
         line_no: { LineNo },
         id: this.paramFromList.row_id,
-        lastupdatestamp: this.paramFromList.lastupdatestamp
+        lastupdatestamp: this.paramFromList.lastupdatestamp,
       };
-      this.deleteJSON(this.getUrlCRUD(), param).then(response => {
+      this.deleteJSON(this.getUrlCRUD(), param).then((response) => {
         if (response == null) return;
         this.alertSuccess("Data Has Been Deleted").then(() => {
           this.doBack();
@@ -324,10 +355,10 @@ export default {
         option_url: "/MK/MK_Customer",
         line_no: 1,
         id: this.paramFromList.DetailList.row_id,
-        lastupdatestamp: this.paramFromList.DetailList.lastupdatestamp
+        lastupdatestamp: this.paramFromList.DetailList.lastupdatestamp,
       };
 
-      this.getJSON(this.getUrlCRUD(), param).then(response => {
+      this.getJSON(this.getUrlCRUD(), param).then((response) => {
         // response from API
         if (response == null) return;
 
@@ -341,6 +372,7 @@ export default {
           cm_contact_person_id: data.cm_contact_person_id,
           cm_contact_id: data.cm_contact_id,
           name: data.name__tb_1,
+          position: data.position,
           // phone_no_1 : data.phone_no__tb_2,
           phone_no_1: phone_no !== "" ? phone_no[0] : phone_no,
           phone_no_2: phone_no !== "" ? phone_no[1] : phone_no,
@@ -352,10 +384,10 @@ export default {
           time_input: data.time_input,
           time_edit: data.time_edit,
           row_id: data.row_id,
-          lastupdatestamp: data.lastupdatestamp
+          lastupdatestamp: data.lastupdatestamp,
         };
       });
-    }
+    },
   },
   mounted() {
     this.M_ClearForm();
@@ -365,7 +397,7 @@ export default {
     } else {
       this.title = "Add";
     }
-  }
+  },
 };
 </script>
 

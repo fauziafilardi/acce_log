@@ -213,7 +213,7 @@
                               />&nbsp; &nbsp;
                               <span
                                 style="position: absolute; font-size: 15px; color: #333399; font-weight: bold;"
-                              >Add Picture bro</span>
+                              >Add Picture</span>
                             </div>
                           </b-col>
                         </b-row>
@@ -1018,7 +1018,6 @@ export default {
           //         : require("@/assets/default_photo_.png")
           //   });
           // }
-          console.log(data[i].dt_doc_file_name.length);
           if (data[i].dt_doc_file_name.length > 0) {
             this.M_Picture.push({
               file_logo: "dtfile_" + i,

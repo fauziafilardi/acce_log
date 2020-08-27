@@ -5,7 +5,7 @@
         <b-col md="12">
           <ACCList2
             :prop="propList"
-            :title="'Vendor Master'"
+            :title="Title"
             @rowClicked="rowClicked"
             @buttonDeleteClicked="doDeleteClick"
             @rowDblClicked="doDoubleClick"
@@ -15,11 +15,16 @@
             @filter="M_Advance_Filter"
             @headTable="M_Head_Table"
             @refreshColumn="refreshColumn"
-            ref="ref_CmContact"
-            urlAdd="OP_VendorForm"
-          />
-          <!-- @buttonViewClicked="doViewClick"
-          WithViewButton-->
+            ref="ref_MKFTL"
+          >
+            <template slot="value" slot-scope="data">
+              <span>{{ isCurrency(data.item.value,decimal) }}</span>
+            </template>
+            <!-- <template slot="overdue" slot-scope="data">
+              <span>{{ data.item.overdue +` Days`}}</span>
+            </template>-->
+          </ACCList2>
+          <!-- @buttonViewClicked="doViewClick" -->
         </b-col>
       </b-row>
     </div>
@@ -30,30 +35,46 @@
 export default {
   data() {
     return {
+      Title: "Customer Master | Outstanding Payment",
       propList: {
-        initialWhere:
-          "ss_portfolio_id='" +
-          this.getDataUser().portfolio_id +
-          "' AND contact_type = 'V'",
-        LineNo: 0,
+        OptionUrl: "/MK/MK_Customer",
+        initialWhere: "",
+        LineNo: 11,
         PageLevel: 1,
         TabIndex: 1,
-        OrderBy: "",
+        OrderBy: "invoice_no ASC",
         SourceField: "",
         ParamView: "",
       },
     };
   },
+  computed: {
+    paramFromList() {
+      var param = this.$store.getters.getParamPage;
+      if (param == null || param == undefined) {
+        this.doBack();
+      } else {
+        if (Object.keys(param).length < 1) {
+          this.doBack();
+        } else {
+          return param;
+        }
+      }
+    },
+    ButtonStatus() {
+      return this.$store.getters.getButtonStatus;
+    },
+  },
   methods: {
     rowClicked(record, index) {
-      this.doViewClick(record, index);
+      // this.doViewClick(record, index);
     },
     doViewClick(record, index) {
       var param = record;
       param.isEdit = true;
       param.isView = true;
       this.$store.commit("setParamPage", param);
-      this.$router.push({ name: "OP_VendorView" });
+      this.$router.push({ name: "OP_PettyCashdtl" });
     },
     doDoubleClick(record, index) {},
     doDeleteClick(record, index) {
@@ -67,7 +88,7 @@ export default {
     },
     M_Delete(record, index) {
       var param = {
-        option_url: "/OP/OP_Vendor",
+        option_url: "/MK/MK_Customer",
         line_no: 0,
         id: record.row_id,
         lastupdatestamp: record.lastupdatestamp,
@@ -77,7 +98,7 @@ export default {
         if (response == null) return;
 
         this.alertSuccess("Data Has Been Deleted").then(() => {
-          this.$refs.ref_CmContact.doGetList("");
+          this.$refs.ref_MKFTL.doGetList("");
         });
       });
     },
@@ -89,10 +110,17 @@ export default {
     refreshColumn() {},
   },
   mounted() {
-    this.$refs.ref_CmContact.doGetList("");
+    if (this.paramFromList.contact_type == "V") {
+      this.Title = "Vendor Master | Outstanding Payment";
+    } else {
+      this.Title = "Customer Master | Outstanding Payment";
+    }
+    this.propList.initialWhere =
+      "cm_contact_id=" + this.paramFromList.cm_contact_id;
+    this.$refs.ref_MKFTL.doGetList("");
   },
   created() {
-    this.$store.comit("setParamPage", {});
+    // this.$store.commit("setParamPage", {});
   },
 };
 </script>

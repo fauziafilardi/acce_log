@@ -45,6 +45,21 @@ import MK_Customer2 from '@/views/MK/MK_Customer2/MK_Customer2List'
 import MK_Customer2View from '@/views/MK/MK_Customer2/MK_Customer2View'
 import MK_Customer2Form from '@/views/MK/MK_Customer2/MK_Customer2Form'
 
+// Customer View All
+import ViewAll_Delivery_Address from '@/views/MK/MK_Customer/ViewAll_Delivery_Address'
+import ViewAll_PIC from '@/views/MK/MK_Customer/ViewAll_PIC'
+import ViewAll_FTL from '@/views/MK/MK_Customer/ViewAll_FTL'
+import ViewAll_LTL from '@/views/MK/MK_Customer/ViewAll_LTL'
+import ViewAll_Rental from '@/views/MK/MK_Customer/ViewAll_Rental'
+import ViewAll_Project from '@/views/MK/MK_Customer/ViewAll_Project'
+import ViewAll_Order from '@/views/MK/MK_Customer/ViewAll_Order'
+import ViewAll_ReqDoc from '@/views/MK/MK_Customer/ViewAll_ReqDoc'
+import ViewAll_Outstanding from '@/views/MK/MK_Customer/ViewAll_Outstanding'
+import ViewAll_LogBook from '@/views/MK/MK_Customer/ViewAll_LogBook'
+import ViewDetailOrder from '@/views/MK/MK_Customer/ViewDetailOrder'
+
+
+
 import MK_ListOrder from '@/views/MK/MK_Order/MK_ListOrder'
 import MK_ViewOrder from '@/views/MK/MK_Order/MK_ViewOrder2'
 
@@ -322,6 +337,94 @@ export const MKRender = {
         path: '/MK/MK_Customer/View',
         name: 'MK_CustomerView',
         component: MK_CustomerView,
+        meta: {
+            requiresAuth: true
+        },
+    },
+    {
+        path: '/MK/MK_Customer/ViewAll/DeliveryAddress',
+        name: 'ViewAll_Delivery_Address',
+        component: ViewAll_Delivery_Address,
+        meta: {
+            requiresAuth: true
+        },
+    },
+    {
+        path: '/MK/MK_Customer/ViewAll/PIC',
+        name: 'ViewAll_PIC',
+        component: ViewAll_PIC,
+        meta: {
+            requiresAuth: true
+        },
+    },
+    {
+        path: '/MK/MK_Customer/ViewAll/FTL',
+        name: 'ViewAll_FTL',
+        component: ViewAll_FTL,
+        meta: {
+            requiresAuth: true
+        },
+    },
+    {
+        path: '/MK/MK_Customer/ViewAll/LTL',
+        name: 'ViewAll_LTL',
+        component: ViewAll_LTL,
+        meta: {
+            requiresAuth: true
+        },
+    },
+    {
+        path: '/MK/MK_Customer/ViewAll/Rental',
+        name: 'ViewAll_Rental',
+        component: ViewAll_Rental,
+        meta: {
+            requiresAuth: true
+        },
+    },
+    {
+        path: '/MK/MK_Customer/ViewAll/Project',
+        name: 'ViewAll_Project',
+        component: ViewAll_Project,
+        meta: {
+            requiresAuth: true
+        },
+    },
+    {
+        path: '/MK/MK_Customer/ViewAll/Order',
+        name: 'ViewAll_Order',
+        component: ViewAll_Order,
+        meta: {
+            requiresAuth: true
+        },
+    },
+    {
+        path: '/MK/MK_Customer/ViewAll/ReqDoc',
+        name: 'ViewAll_ReqDoc',
+        component: ViewAll_ReqDoc,
+        meta: {
+            requiresAuth: true
+        },
+    },
+    {
+        path: '/MK/MK_Customer/ViewAll/Outstanding',
+        name: 'ViewAll_Outstanding',
+        component: ViewAll_Outstanding,
+        meta: {
+            requiresAuth: true
+        },
+    },
+    {
+        path: '/MK/MK_Customer/ViewAll/LogBook',
+        name: 'ViewAll_LogBook',
+        component: ViewAll_LogBook,
+        meta: {
+            requiresAuth: true
+        },
+    },
+    {
+        path: '/MK/MK_Customer/Order/dtl',
+        name: 'ViewDetailOrder',
+        component: ViewDetailOrder,
         meta: {
             requiresAuth: true
         },
