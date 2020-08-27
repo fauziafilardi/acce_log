@@ -997,7 +997,7 @@ export default {
         cm_contact_person_id: this.M_Appointment.contact_person,
         action_type: this.M_Appointment.action,
         meeting_address: "", //this.M_Dt_Appointment.addr,
-        descs: this.M_Appointment.descs,
+        descs: this.M_Appointment.descs2,
         appointment_date: this.momentDate(new Date()), //this.M_Appointment.appointment_date,
         appointment_type: "A",
         next_action_type: "NULL",

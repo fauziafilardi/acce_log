@@ -5,7 +5,7 @@
         <b-col md="12">
           <ACCList2
             :prop="propList"
-            :title="'Customer Master | Order Detail'"
+            :title="Title"
             @rowClicked="rowClicked"
             @buttonDeleteClicked="doDeleteClick"
             @rowDblClicked="doDoubleClick"
@@ -35,6 +35,7 @@
 export default {
   data() {
     return {
+      Title: "Customer Master | Order Detail",
       propList: {
         OptionUrl: "/MK/MK_Customer",
         initialWhere: "",
@@ -123,6 +124,11 @@ export default {
     refreshColumn() {},
   },
   mounted() {
+    if (this.paramFromList.contact_type == "V") {
+      this.Title = "Vendor Master | Order Detail";
+    } else {
+      this.Title = "Customer Master | Order Detail";
+    }
     this.propList.initialWhere =
       "cm_contact_id=" + this.paramFromList.cm_contact_id;
     this.$refs.ref_MKFTL.doGetList("");
