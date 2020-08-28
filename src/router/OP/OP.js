@@ -69,7 +69,8 @@ import OP_MaintenanceItemForm from '@/views/OP/OP_MaintenanceItem/OP_Maintenance
 import OP_PricingCosting from '@/views/OP/OP_PricingCosting/OP_PricingCostingList'
 import OP_PricingCostingFTL from '@/views/OP/OP_PricingCosting/OP_PricingCostingFTL'
 import OP_PricingCostingLTL from '@/views/OP/OP_PricingCosting/OP_PricingCostingLTL'
-import OP_PricingCostingView from '@/views/OP/OP_PricingCosting/OP_PricingCostingView'
+import OP_PricingCostingViewFTL from '@/views/OP/OP_PricingCosting/OP_PricingCostingViewFTL'
+import OP_PricingCostingViewLTL from '@/views/OP/OP_PricingCosting/OP_PricingCostingViewLTL'
 import OP_PricingCostingFormDetail from '@/views/OP/OP_PricingCosting/OP_PricingCosting_op_pricing_costing_dtlForm'
 
 //cost type
@@ -354,9 +355,17 @@ export const OPRender = {
             }
         },
         {
-            path: '/OP/OP_PricingCosting/View',
-            name: 'OP_PricingCostingView',
-            component: OP_PricingCostingView,
+            path: '/OP/OP_PricingCosting/ViewFTL',
+            name: 'OP_PricingCostingViewFTL',
+            component: OP_PricingCostingViewFTL,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/OP/OP_PricingCosting/ViewLTL',
+            name: 'OP_PricingCostingViewLTL',
+            component: OP_PricingCostingViewLTL,
             meta: {
                 requiresAuth: true
             }

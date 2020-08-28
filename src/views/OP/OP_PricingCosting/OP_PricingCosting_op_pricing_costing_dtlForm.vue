@@ -7,7 +7,7 @@
             <div class="card__title">
               <b-row>
                 <b-col style="max-width:fit-content !important;">
-                  <span>{{title}} Standard Pricing & Costing</span>
+                  <span>{{title}} Standard Pricing & Costing {{category_decs}}</span>
                 </b-col>
                 <b-col style="text-align: right;">
                   <ABSButton
@@ -46,7 +46,7 @@
                         />
                       </b-col>
                     </b-row>
-                    <b-row>
+                    <b-row v-show="paramFromList.category=='F'">
                       <b-col md="6">
                         <span>
                           <label>Value</label>
@@ -58,7 +58,29 @@
                         />
                       </b-col>
                     </b-row>
-                    <b-row>
+                    <b-row v-show="paramFromList.category!='F'">
+                      <b-col md="3">
+                        <span>
+                          <label>Value CBM</label>
+                        </span>
+                        <ACCTextBox
+                          :prop="PI_cost_value_cbm"
+                          v-model="M_OpPricingCostingDtl.cost_value_cbm"
+                          ref="ref_cost_value_cbm"
+                        />
+                      </b-col>
+                      <b-col md="3">
+                        <span>
+                          <label>Value KGS</label>
+                        </span>
+                        <ACCTextBox
+                          :prop="PI_cost_value_kgs"
+                          v-model="M_OpPricingCostingDtl.cost_value_kgs"
+                          ref="ref_cost_value_kgs"
+                        />
+                      </b-col>
+                    </b-row>
+                    <b-row v-show="paramFromList.category=='F'">
                       <b-col md="6">
                         <b-row>
                           <b-col sm="2">
@@ -95,7 +117,7 @@
                         <span>
                           <label>Description</label>
                         </span>
-                        <ACCTextBox
+                        <ACCTextArea
                           :prop="PI_descs"
                           v-model="M_OpPricingCostingDtl.descs"
                           ref="ref_descs"
@@ -130,7 +152,7 @@ export default {
   data() {
     return {
       title: "",
-
+      category_decs: "",
       M_OpPricingCostingDtl: {
         op_pricing_costing_dtl_id: 0,
         ss_portfolio_id: 0,
@@ -138,6 +160,8 @@ export default {
         op_cost_type_id: 0,
         cost_typeLabel: "",
         cost_value: 0,
+        cost_value_cbm: 0,
+        cost_value_kgs: 0,
         descs: "",
         user_input: "",
         user_edit: "",
@@ -182,15 +206,40 @@ export default {
         cDecimal: 2,
         cInputStatus: this.inputStatus,
       },
+      PI_cost_value_cbm: {
+        cValidate: "",
+        cName: "cost_value_cbm",
+        cOrder: 2,
+        cKey: false,
+        cType: "decimal",
+        cProtect: false,
+        cParentForm: "OP_FormOpPricingCostingDtl",
+        cDecimal: 2,
+        cInputStatus: this.inputStatus,
+      },
+      PI_cost_value_kgs: {
+        cValidate: "",
+        cName: "cost_value_kgs",
+        cOrder: 2,
+        cKey: false,
+        cType: "decimal",
+        cProtect: false,
+        cParentForm: "OP_FormOpPricingCostingDtl",
+        cDecimal: 2,
+        cInputStatus: this.inputStatus,
+      },
       PI_descs: {
         cValidate: "",
         cName: "descs",
         cOrder: 3,
         cKey: false,
-        cType: "text",
         cProtect: false,
+        cResize: false,
+        cReadonly: false,
+        cRows: 3,
+        cMaxRows: 3,
+        cSize: "md",
         cParentForm: "OP_FormOpPricingCostingDtl",
-        cDecimal: 2,
         cInputStatus: this.inputStatus,
       },
     };
@@ -228,6 +277,8 @@ export default {
         op_cost_type_id: 0,
         cost_typeLabel: "",
         cost_value: 0,
+        cost_value_cbm: 0,
+        cost_value_kgs: 0,
         descs: "",
         user_input: "",
         user_edit: "",
@@ -266,7 +317,18 @@ export default {
         ss_portfolio_id: this.getDataUser().portfolio_id,
         op_pricing_costing_id: this.paramFromList.row_id,
         op_cost_type_id: this.M_OpPricingCostingDtl.op_cost_type_id,
-        cost_value: this.M_OpPricingCostingDtl.cost_value,
+        cost_value:
+          this.paramFromList.category == "F"
+            ? this.M_OpPricingCostingDtl.cost_value
+            : 0,
+        cost_value_cbm:
+          this.paramFromList.category == "F"
+            ? 0
+            : this.M_OpPricingCostingDtl.cost_value_cbm,
+        cost_value_kgs:
+          this.paramFromList.category == "F"
+            ? 0
+            : this.M_OpPricingCostingDtl.cost_value_kgs,
         descs: this.M_OpPricingCostingDtl.descs,
         status_on_order: this.M_OpPricingCostingDtl.status_on_order ? "Y" : "N",
         status_return_empty: this.M_OpPricingCostingDtl.status_return_empty
@@ -290,7 +352,18 @@ export default {
         ss_portfolio_id: this.getDataUser().portfolio_id,
         op_pricing_costing_id: this.M_OpPricingCostingDtl.op_pricing_costing_id,
         op_cost_type_id: this.M_OpPricingCostingDtl.op_cost_type_id,
-        cost_value: this.M_OpPricingCostingDtl.cost_value,
+        cost_value:
+          this.paramFromList.category == "F"
+            ? this.M_OpPricingCostingDtl.cost_value
+            : 0,
+        cost_value_cbm:
+          this.paramFromList.category == "F"
+            ? 0
+            : this.M_OpPricingCostingDtl.cost_value_cbm,
+        cost_value_kgs:
+          this.paramFromList.category == "F"
+            ? 0
+            : this.M_OpPricingCostingDtl.cost_value_kgs,
         descs: this.M_OpPricingCostingDtl.descs,
         status_on_order: this.M_OpPricingCostingDtl.status_on_order ? "Y" : "N",
         status_return_empty: this.M_OpPricingCostingDtl.status_return_empty
@@ -351,6 +424,8 @@ export default {
           op_cost_type_id: data.op_cost_type_id__lo_1,
           cost_typeLabel: data.cost_type__lbl__lo_1,
           cost_value: data.cost_value__tb_2,
+          cost_value_cbm: data.cost_value_cbm,
+          cost_value_kgs: data.cost_value_kgs,
           descs: data.descs__tb_3,
           user_input: data.user_input,
           user_edit: data.user_edit,
@@ -366,6 +441,7 @@ export default {
   },
   mounted() {
     this.M_ClearForm();
+    this.category_decs = this.paramFromList.category_descs;
     if (this.inputStatus == "edit") {
       this.title = "Edit";
       this.GetDataBy();

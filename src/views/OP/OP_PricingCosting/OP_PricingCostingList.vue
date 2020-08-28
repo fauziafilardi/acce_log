@@ -69,7 +69,7 @@
                   <ACCList2
                     :prop="propListFTL"
                     :title="'FTL'"
-                    @rowClicked="rowClicked"
+                    @rowClicked="rowClickedFTL"
                     @buttonDeleteClicked="doDeleteClick"
                     @rowDblClicked="doDoubleClick"
                     @rowLinkClick="rowLink"
@@ -100,7 +100,7 @@
                   <ACCList2
                     :prop="propListLTL"
                     :title="'LTL'"
-                    @rowClicked="rowClicked2"
+                    @rowClicked="rowClickedLTL"
                     @buttonDeleteClicked="doDeleteClick"
                     @rowDblClicked="doDoubleClick"
                     @rowLinkClick="rowLink"
@@ -190,6 +190,20 @@ export default {
     },
   },
   methods: {
+    onFTLEnter() {
+      var param = {
+        isEdit: false,
+      };
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "OP_PricingCostingFTL" });
+    },
+    onLTLEnter() {
+      var param = {
+        isEdit: false,
+      };
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "OP_PricingCostingLTL" });
+    },
     onSearchEnter(data) {
       this.propListFTL.ParamWhere = this.search;
       this.propListLTL.ParamWhere = this.search;
@@ -199,14 +213,21 @@ export default {
     doBack() {
       this.$router.go(-1);
     },
-    rowClicked(record, index) {
-      this.doViewClick(record, index);
-    },
-    doViewClick(record, index) {
+    rowClickedFTL(record, index) {
       console.log(record);
       var param = record;
+      param.isView = true;
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "OP_PricingCostingViewFTL" });
     },
-    rowClicked2(record, index) {},
+    doViewClick(record, index) {},
+    rowClickedLTL(record, index) {
+      console.log(record);
+      var param = record;
+      param.isView = true;
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "OP_PricingCostingViewLTL" });
+    },
     doDoubleClick(record, index) {},
     doDeleteClick(record, index) {
       this.alertConfirmation("Are You Sure Want To Delete This Data ?").then(

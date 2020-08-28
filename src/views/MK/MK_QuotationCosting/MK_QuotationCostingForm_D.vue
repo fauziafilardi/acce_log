@@ -7,7 +7,7 @@
             <div class="card__title">
               <b-row>
                 <b-col style="max-width:fit-content !important;">
-                  <span>{{Stype == "M" ? "Maintenance Item" : "Maintenance"}}</span>
+                  <span>{{title}} Quotation Costing {{category_decs}}</span>
                 </b-col>
                 <b-col style="text-align: right;">
                   <span>
@@ -105,7 +105,8 @@
 export default {
   data() {
     return {
-      Stype: "M",
+      category_decs: "",
+      title: "",
       M_MKQuotationCosting: {
         cost_type: "",
         cost_typeLabel: "",
@@ -275,23 +276,15 @@ export default {
         };
       });
     },
-    // CheckType() {
-    //     if (this.paramFromList.ForMaintenance == null || this.paramFromList.ForMaintenance == undefined) {
-    //         this.Stype = "M"
-    //     } else {
-    //         if (Object.keys(this.paramFromList.ForMaintenance).length < 1) {
-    //             this.Stype = "M"
-    //         } else {
-    //             this.Stype = "D"
-    //         }
-    //     }
-    // }
   },
   mounted() {
     this.M_ClearForm();
-    // this.CheckType();
+    this.category_decs = this.paramFromList.category;
     if (this.inputStatus == "edit") {
       this.GetDataBy();
+      this.title = "Edit";
+    } else {
+      this.title = "New";
     }
   },
 };

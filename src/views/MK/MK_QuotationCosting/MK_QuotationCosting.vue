@@ -163,7 +163,7 @@ export default {
       //For List
       cmbMarketing: [],
       cmbYear: [],
-      WithViewButton: true,
+      WithViewButton: false,
       isFirst: false,
       selected: false,
       rowSelected: [],
