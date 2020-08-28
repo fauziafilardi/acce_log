@@ -7,7 +7,7 @@
         </b-col>
         <b-col style="text-align: right;">
           <b-row v-show="!SearchDisabled">
-            <b-col>
+            <b-col md="6" offset="6">
               <span>
                 <b-form-input
                   id="txtSearch"

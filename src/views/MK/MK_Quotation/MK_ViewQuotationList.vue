@@ -120,6 +120,9 @@
                             >View</b-button>
                             <span v-else>{{data.item.row_id}}</span>
                           </template>
+                          <template v-slot:cell(status)="data">
+                            {{data.item.status_descs}}
+                          </template>
                         </b-table>
                       </b-col>
                     </b-row>
@@ -192,13 +195,13 @@ export default {
       },
 
       //For List
-      WithViewButton: true,
+      WithViewButton: false,
 
       search: "",
       fieldHeader: [],
       items: [],
       firstSort: true,
-      sort: "time_edit DESC",
+      sort: "status_descs ASC",
 
       totalRows: 0,
       currentPage: 1,
@@ -217,7 +220,7 @@ export default {
         { value: 1000, text: "1000" }
       ],
 
-      sortedField: [{ field: "time_edit", sort: "DESC" }],
+      sortedField: [{ field: "status_descs", sort: "ASC" }],
       isDisableTable: false,
       responses: []
     };
@@ -326,7 +329,7 @@ export default {
           this.paramFromList.cm_contact_id +
           " and quotation_type = '" +
           this.paramFromList.quotation_type +
-          "'",
+          "' and status IN ('N','P')",
         sort_field: this.sort,
         source_field: this.propList.SourceField,
         param_view: this.propList.ParamView

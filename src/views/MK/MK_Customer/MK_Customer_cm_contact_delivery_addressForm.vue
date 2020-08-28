@@ -227,7 +227,7 @@ export default {
       var param = {
         option_url: "/MK/MK_Customer",
         line_no: 2,
-        cm_contact_id: this.paramFromList.row_id,
+        cm_contact_id: this.paramFromList.cm_contact_id,
         address_name: this.M_CmContactDeliveryAddress.address_name,
         address: this.M_CmContactDeliveryAddress.address,
         cm_zone_id: this.M_CmContactDeliveryAddress.cm_zone_id,
@@ -247,7 +247,7 @@ export default {
         line_no: 2,
         cm_contact_delivery_address_id: this.M_CmContactDeliveryAddress
           .cm_contact_delivery_address_id,
-        cm_contact_id: this.paramFromList.row_id,
+        cm_contact_id: this.paramFromList.cm_contact_id,
         address_name: this.M_CmContactDeliveryAddress.address_name,
         address: this.M_CmContactDeliveryAddress.address,
         cm_zone_id: this.M_CmContactDeliveryAddress.cm_zone_id,

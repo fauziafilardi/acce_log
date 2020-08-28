@@ -10,18 +10,24 @@
                   <span>Order</span>
                 </b-col>
                 <b-col style="text-align: center;">
-                  <b-form-input
-                    id="txtSearch"
-                    v-model="search"
-                    type="text"
-                    placeholder="Search...."
-                    v-shortkey.focus="['f1']"
-                    class="text-field-search"
-                    @keyup.enter.native="onSearchEnter"
-                    autocomplete="off"
-                    :disabled="isSearchDisable"
-                    style="width: 100% !important;"
-                  ></b-form-input>
+                  <b-row v-show="!SearchDisabled">
+                    <b-col md="6" offset="6">
+                      <span>
+                        <b-form-input
+                          id="txtSearch"
+                          v-model="search"
+                          type="text"
+                          placeholder="Search...."
+                          v-shortkey.focus="['f1']"
+                          class="text-field-search"
+                          @keyup.enter.native="onSearchEnter"
+                          autocomplete="off"
+                          :disabled="isSearchDisable"
+                          style="width: 100% !important;"
+                        ></b-form-input>
+                      </span>
+                    </b-col>
+                  </b-row>
                 </b-col>
                 <b-col style="max-width:fit-content !important;" class="col-right">
                   <span>

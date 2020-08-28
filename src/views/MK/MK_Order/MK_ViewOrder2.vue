@@ -6,7 +6,7 @@
             <ACCList2
                 :prop="propList"
                 :title="'Order'"
-                @row-clicked="rowClicked"
+                @rowClicked="rowClicked"
                 ref="ref_ViewOrder"
             >
                 <template slot="HeaderTable">
@@ -64,6 +64,9 @@
                         </b-col>
                     </b-row>
                 </template>
+                <template slot="status" slot-scope="data">
+                  <div :class="'Plan-Dot-' + (Status[data.item.status].variant)" :style="(data.item.status == 'POD' ? 'font-size: 9px !important;' : 'font-size: 10px !important;') +  'padding-top: 9px !important;'">{{data.item.status}}</div>
+                </template>
             </ACCList2>
           </b-col>
       </b-row>
@@ -96,7 +99,21 @@ export default {
         pic: "",
         pic_phone_no: ""
       },
-      responses: []
+
+      Status: {
+        NW: { key: "NW", label: "New", variant: "Magenta" },
+        AS: { key: "AS", label: "Assign", variant: "Lime" },
+        DP: { key: "DP", label: "Dispatch", variant: "Green" },
+        AR: { key: "AR", label: "Arrived", variant: "Purple" },
+        SL: { key: "SL", label: "Start Loading", variant: "Blue" },
+        FL: { key: "FL", label: "Finish Loading", variant: "Orange" },
+        GO: { key: "GO", label: "Get Out", variant: "Red" },
+        AD: { key: "AD", label: "Arrive Destination", variant: "Gold" },
+        SU: { key: "SU", label: "Start Unloading", variant: "LightGreen" },
+        FU: { key: "FU", label: "Finish Unloading", variant: "Pink" },
+        GD: { key: "GD", label: "Get Out Destination", variant: "Red" },
+        POD: { key: "POD", label: "POD", variant: "LightGreen" },
+      },
     };
   },
   computed: {
@@ -131,6 +148,13 @@ export default {
       this.$router.push({ name: "MK_ViewOrder" });
     },
     rowClicked(record, index) {
+      var param = this.paramFromList;
+      param.isEdit = record == null ? false : true;
+      param.DetailList = record;
+      this.$store.commit("setParamPage", param);
+      this.$router.push({ name: "ViewDetailOrder" });
+    },
+    rowClicked2(record, index) {
         var param = record;
         this.$store.commit("setParamPage", param);
         //   console.log(record);

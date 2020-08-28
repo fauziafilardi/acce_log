@@ -10,7 +10,7 @@
                   <span>Quotation</span>
                 </b-col>
                 <b-col style="text-align: right;">
-                  <ABSButton
+                  <!-- <ABSButton
                     v-show="is_hide_button"
                     :text="'Add Pick Up / Delivery Address'"
                     classButton="button button--back"
@@ -58,7 +58,7 @@
                     classButton="button button--back"
                     classIcon="icon-style-1"
                     @click="doLogBook"
-                  />
+                  /> -->
                   <ABSButton
                     :text="'Back'"
                     classButton="button button--back"
@@ -1091,7 +1091,7 @@ export default {
         ckey: false,
         cOrder: 3,
         cProtect: false,
-        cParentForm: "",
+        cParentForm: "CancelQuotation",
         cStatic: false,
         cOption: [],
         cDisplayColumn: "reason_cd,descs",
@@ -1108,7 +1108,7 @@ export default {
         cRows: 1,
         cMaxRows: 2,
         cSize: "md",
-        cParentForm: "",
+        cParentForm: "CancelQuotation",
         cInputStatus: this.inputStatus
       },
       PI_to: {

@@ -35,7 +35,7 @@
                       @click="doSearch"
                     />
                   </span>
-                  <span>
+                  <!-- <span>
                     <ABSButton
                       :text="'Add'"
                       classButton="button button--back2"
@@ -43,7 +43,7 @@
                       @click="doAdd"
                       :disabled="ButtonStatus == null ? false : !ButtonStatus.btnAdd"
                     />
-                  </span>
+                  </span> -->
                   <span>
                     <ABSButton
                       :text="'Back'"
@@ -217,7 +217,7 @@ export default {
       selectedColumnSelected: [],
 
       sortedField: [
-        { field: "status_descs", sort: "ASC" }
+        { field: "time_edit", sort: "DESC" },
       ],
       isDisableTable: false,
       responses: [],
@@ -257,7 +257,7 @@ export default {
     viewClicked(record, index) {
       var param = record;
       this.$store.commit("setParamPage", param);
-      this.$router.push({ name: "MK_ViewQuotation" });
+      this.$router.push({ name: "MK_ViewQuotation_ExpireSoon" });
     },
     rowLink(url) {},
     M_PageSize() {},
@@ -277,7 +277,7 @@ export default {
       var currentPage = this.cmbMarketing[ix].currentPage,
       perPage = this.cmbMarketing[ix].perPage,
       limit = this.cmbMarketing[ix].limit,
-      where = "ss_portfolio_id='" + this.getDataUser().portfolio_id + "' AND marketing_id='" + this.cmbMarketing[ix].marketing_id + "'",
+      where = "ss_portfolio_id='" + this.getDataUser().portfolio_id + "' AND marketing_id='" + this.cmbMarketing[ix].marketing_id + "' AND warning_expiry_status='Y'",
       // marketing_id
       param = {
         option_url: "/MK/MK_Quotation",
@@ -289,7 +289,7 @@ export default {
         per_page: perPage,
         param_where: this.search,
         initial_where: where,
-        sort_field: 'status_descs ASC',
+        sort_field: 'time_edit DESC',
         source_field: '',
         param_view: ''
       };

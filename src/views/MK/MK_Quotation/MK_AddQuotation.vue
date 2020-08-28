@@ -10,12 +10,12 @@
                   <span>Add Quotation</span>
                 </b-col>
                 <b-col style="text-align: right;">
-                  <ABSButton
+                  <!-- <ABSButton
                     :text="'Add Order'"
                     classButton="button button--back"
                     classIcon="icon-style-1"
                     @click="doAddOrder"
-                  />
+                  /> -->
 
                   <ABSButton
                     :text="'Back'"
@@ -510,7 +510,7 @@ export default {
         cm_contact_id: this.M_Quotation.customer && this.M_Quotation.customer !== '' ? this.M_Quotation.customer : "NULL",
         cm_contact_person_id: this.M_Quotation.pic && this.M_Quotation.pic !== '' ? this.M_Quotation.pic : "NULL",
         quotation_date: this.momentDate(new Date()),
-        quotation_type: this.M_Quotation.type,
+        // quotation_type: this.M_Quotation.type,
         project_name: this.M_Quotation.project_name,
         descs: this.M_Quotation.descs,
         // project_value: this.M_Quotation.project_value && this.M_Quotation.project_value !== '' ? this.replaceAllString(this.M_Quotation.project_value, ',', '', 'number') : 0,
@@ -519,6 +519,7 @@ export default {
         extra_pick_drop_charges: this.replaceAllString(this.M_Quotation.extra_charge, ',', '', 'number'),
         over_night_charges: this.replaceAllString(this.M_Quotation.overnight_charge, ',', '', 'number'),
         status: "N",
+        old_mk_quotation_id: "NULL",
         user_input: this.getDataUser().user_id
       };
 

@@ -18,9 +18,11 @@ import MK_AddAppointment from '@/views/MK/MK_Appointment/MK_AddAppointment'
 import MK_EditAppointment from '@/views/MK/MK_Appointment/MK_EditAppointment'
 
 import MK_Quotation from '@/views/MK/MK_Quotation/MK_Quotation'
+import MK_Quotation_ExpireSoon from '@/views/MK/MK_Quotation/MK_Quotation_ExpireSoon'
 import MK_AddQuotation from '@/views/MK/MK_Quotation/MK_AddQuotation'
 import MK_ViewQuotationList from '@/views/MK/MK_Quotation/MK_ViewQuotationList'
 import MK_ViewQuotation from '@/views/MK/MK_Quotation/MK_ViewQuotation'
+import MK_ViewQuotation_ExpireSoon from '@/views/MK/MK_Quotation/MK_ViewQuotation_ExpireSoon'
 import MK_ChatQuotation from '@/views/MK/MK_Quotation/MK_ChatQuotation'
 
 import MK_Quotation_ftlForm from '@/views/MK/MK_Quotation/MK_Quotation_ftlForm'
@@ -229,6 +231,14 @@ export const MKRender = {
         }
     },
     {
+        path: '/MK/MK_Quotation_ExpireSoon',
+        name: 'MK_Quotation_ExpireSoon',
+        component: MK_Quotation_ExpireSoon,
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
         path: '/MK/MK_Quotation/Form',
         name: 'MK_AddQuotation',
         component: MK_AddQuotation,
@@ -248,6 +258,14 @@ export const MKRender = {
         path: '/MK/MK_Quotation/View',
         name: 'MK_ViewQuotation',
         component: MK_ViewQuotation,
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/MK/MK_Quotation/ViewExpireSoon',
+        name: 'MK_ViewQuotation_ExpireSoon',
+        component: MK_ViewQuotation_ExpireSoon,
         meta: {
             requiresAuth: true
         }
