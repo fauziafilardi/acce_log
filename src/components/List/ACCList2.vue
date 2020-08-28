@@ -497,7 +497,8 @@ export default {
       TabIndex: String,
       OrderBy: String,
       SourceField: String,
-      ParamView: String
+      ParamView: String,
+	  ParamWhere: String
     },
     title: String,
     isProcess: Boolean,
@@ -1010,6 +1011,10 @@ export default {
       // } else if (this.getIsPopup() && method == 'eb_getList') {
       //     return
       // }
+	  if (this.prop.ParamWhere != undefined){
+	    search = search == "" ? this.prop.ParamWhere:search;  
+	  }
+	  
       var data = {
         Event: method,
         PageLevel: this.prop.PageLevel,

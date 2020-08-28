@@ -7,7 +7,7 @@
             <div class="card__title">
               <b-row>
                 <b-col style="max-width:fit-content !important;">
-                  <span>View Standard Pricing & Costing</span>
+                  <span>View Standard Pricing & Costing FTL</span>
                 </b-col>
                 <b-col style="text-align: right;">
                   <span>
@@ -80,7 +80,7 @@
                             class="table-sm table-style-3"
                           >
                             <template v-slot:cell(margin)="data">
-                              <span style="text-align:rigth;">
+                              <span style="text-align:center;">
                                 {{isCurrency(data.item.margin,decimal)}}
                                 <b>({{data.item.margin_percent}}%)</b>
                               </span>
@@ -170,7 +170,7 @@ export default {
         TabIndex: 1,
         OrderBy: "zone_from ASC ",
         SourceField: "",
-        ParamView: ""
+        ParamView: "",
       },
       M_OpPricingCosting: {
         op_pricing_costing_id: 0,
@@ -194,12 +194,62 @@ export default {
         time_input: "",
         time_edit: "",
         row_id: 0,
-        lastupdatestamp: 0
+        lastupdatestamp: 0,
       },
-      fieldHeader2: [],
+      fieldHeader2: [
+        {
+          value: 1,
+          key: "no",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 th-cus-center",
+          label: "No",
+        },
+        {
+          value: 2,
+          key: "cost_type",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center",
+          label: "Cost Type",
+        },
+        {
+          value: 3,
+          key: "descs",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 L th-cus-center",
+          label: "Description",
+        },
+        {
+          value: 4,
+          key: "on_order",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center",
+          label: "On Order",
+        },
+        {
+          value: 5,
+          key: "return_empty",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center",
+          label: "Return Empty",
+        },
+        {
+          value: 6,
+          key: "value",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center",
+          label: "Value",
+        },
+        {
+          value: 7,
+          key: "row_id",
+          thClass: "HeaderACCList2",
+          tdClass: "ContentACCList2 notranslate",
+          label: "",
+        },
+      ],
       items2: [],
       //For List
-      WithViewButton: true,
+      WithViewButton: false,
       isFirst: false,
       selected: false,
       rowSelected: [],
@@ -209,7 +259,56 @@ export default {
 
       search: "",
       isSearchDisable: false,
-      fieldHeader: [],
+      fieldHeader: [
+        {
+          key: "no",
+          label: "No",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 th-cus-center",
+        },
+        {
+          key: "from_zone",
+          label: "From Zone",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center",
+        },
+        {
+          key: "to_zone",
+          label: "To Zone",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center",
+        },
+        {
+          key: "fleet_cd",
+          label: "Type",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center",
+        },
+        {
+          key: "period",
+          label: "Period",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center",
+        },
+        {
+          key: "selling_price",
+          label: "Selling Price",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center",
+        },
+        {
+          key: "cost_price",
+          label: "Cost Price",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center",
+        },
+        {
+          key: "margin",
+          label: "Margin",
+          tdClass: "ContentACCList2 notranslate th-cus-center",
+          thClass: "HeaderACCList2 S th-cus-center",
+        },
+      ],
       items: [],
       firstSort: true,
       sort: "from_zone ASC",
@@ -228,7 +327,7 @@ export default {
         { value: 60, text: "60" },
         { value: 80, text: "80" },
         { value: 100, text: "100" },
-        { value: 1000, text: "1000" }
+        { value: 1000, text: "1000" },
       ],
 
       fileName: "TestExport",
@@ -243,7 +342,7 @@ export default {
 
       sortedField: [{ field: "marketing_id", sort: "ASC" }],
       isDisableTable: false,
-      responses: []
+      responses: [],
     };
   },
   computed: {
@@ -258,7 +357,7 @@ export default {
           return param;
         }
       }
-    }
+    },
   },
   methods: {
     doBack() {
@@ -290,307 +389,14 @@ export default {
         this.$router.push({ name: "OP_PricingCostingFTL" });
       }
     },
-    doGetList(search, a = null) {
-      var param = {
-        option_url: "/OP/OP_PricingCosting",
-        line_no: 0,
-        user_id: this.getDataUser().user_id,
-        portfolio_id: this.getDataUser().portfolio_id,
-        subportfolio_id: this.getDataUser().subportfolio_id,
-        current_page: this.currentPage,
-        per_page: this.perPage,
-        param_where: search,
-        initial_where: this.propList.initialWhere,
-        sort_field: this.sort,
-        source_field: this.propList.SourceField,
-        param_view: this.propList.ParamView
-      };
 
-      this.postJSON(this.getUrlList(), param).then(response => {
-        if (response == null) return;
-        this.selected = false;
-
-        this.rowSelected = [];
-
-        this.rowSel = 0;
-
-        this.responses = response;
-
-        this.ExportToken = this.responses.ExportToken;
-
-        if (this.responses.Data.length > 0) {
-        }
-        this.items = [];
-        this.fieldHeader = [];
-
-        this.items = this.responses.Data;
-
-        var str_array =
-          this.responses.DefineColumn && this.responses.DefineColumn !== ""
-            ? this.responses.DefineColumn.split(",")
-            : this.responses.AllColumn.split(",");
-        var x = ",S,S,S,S,S,S,S";
-        // var defineSize = this.responses.DefineSize.split(",");
-        var defineSize = x.split(",");
-
-        this.allColumn_bf = this.responses.AllColumn.split(",");
-        var index = this.allColumn_bf.indexOf("lastupdatestamp");
-        if (index > -1) {
-          this.allColumn_bf.splice(index, 1);
-        }
-        var allColumn = [];
-        var filteredColumn = [];
-        var definedColumn = [];
-
-        this.allColumn_bf.forEach((val, idx) => {
-          var thClass = "HeaderACCList2";
-          var isSorted = this.sortedField.map(x => x.field).indexOf(val);
-          if (isSorted > -1) {
-            if (this.sortedField[isSorted].sort == "ASC") {
-              thClass = thClass + " AscSorted";
-            } else {
-              thClass = thClass + " DescSorted";
-            }
-          }
-
-          allColumn.push({
-            value: idx + 1,
-            key: val,
-            thClass: thClass,
-            tdClass: "ContentACCList2 notranslate",
-            text: val
-          });
-
-          filteredColumn.push({
-            value: idx + 1,
-            key: val,
-            thClass: thClass,
-            tdClass: "ContentACCList2 notranslate"
-          });
-        });
-
-        for (var i = 0; i < str_array.length; i++) {
-          filteredColumn = filteredColumn.filter(val => {
-            if (val.key == str_array[i]) {
-              definedColumn.push({
-                value: val.value,
-                key: val.key,
-                thClass: val.thClass,
-                tdClass: val.tdClass,
-                text: val.key
-              });
-            }
-
-            return val.key != str_array[i];
-          });
-
-          var thClass = "HeaderACCList " + defineSize[i];
-          if (str_array[i] !== "no") {
-            thClass += defineSize[i];
-          }
-          //   var thClass = "HeaderACCList2 L";
-
-          var tdClass = "ContentACCList notranslate";
-          if (
-            str_array[i].toLowerCase().includes("amount") ||
-            str_array[i].toLowerCase().includes("amt") ||
-            str_array[i].toLowerCase().includes("rate") ||
-            str_array[i].toLowerCase().includes("price")
-          ) {
-            tdClass = "ABStdClassList2 notranslate";
-            thClass = "ABSthClassList2";
-          } else if (str_array[i].toLowerCase() == "action") {
-            thClass += " th-cus-center";
-            tdClass += " td-cus-center";
-          }
-
-          var isSorted = this.sortedField
-            .map(x => x.field)
-            .indexOf(str_array[i]);
-          if (isSorted > -1) {
-            if (this.sortedField[isSorted].sort == "ASC") {
-              thClass = thClass + " AscSorted";
-            } else {
-              thClass = thClass + " DescSorted";
-            }
-          }
-
-          if (this.languageStatus) {
-            this.fieldHeader.push({
-              value: i + 1,
-              key: str_array[i],
-              thClass: thClass,
-              tdClass: tdClass,
-              label: this.$t(str_array[i])
-            });
-          } else {
-            if (str_array[i] == "lastupdatestamp") continue;
-
-            var listReplace = [
-              {
-                key: "_",
-                value: " "
-              },
-              {
-                key: "Amt",
-                value: " Amount"
-              },
-              {
-                key: "Cd",
-                value: " Code"
-              },
-              {
-                key: "Descs",
-                value: " Description"
-              },
-              {
-                key: "Time Edit",
-                value: "Last Update"
-              },
-              {
-                key: "Batch Status",
-                value: "Status"
-              },
-              {
-                key: "garing",
-                value: "/"
-              },
-              {
-                key: "titik",
-                value: "."
-              },
-              {
-                key: "SnP",
-                value: "SnP "
-              },
-              {
-                key: "VO",
-                value: "VO "
-              },
-              {
-                key: "Row Id",
-                value: "View"
-              },
-              {
-                key: "Row  Id",
-                value: "View"
-              },
-              {
-                key: "Name",
-                value: "Marketing Name"
-              }
-            ];
-            var isGotIt = false;
-            var labelHeader = undefined;
-
-            // console.log(str_array[i])
-
-            if (str_array[i].includes("_")) {
-              labelHeader = str_array[i]
-                .toLowerCase()
-                .split("_")
-                .map(s => {
-                  return s.charAt(0).toUpperCase() + s.substring(1);
-                })
-                .join(" ");
-            } else {
-              // if (str_array[i] !== 'lastupdatestamp') {
-              labelHeader =
-                str_array[i].charAt(0).toUpperCase() +
-                str_array[i].substring(1);
-              // }
-            }
-
-            for (var data of listReplace) {
-              if (labelHeader == undefined) {
-                labelHeader = this.replaceAllString(
-                  str_array[i],
-                  data.key,
-                  data.value
-                );
-              } else {
-                if (labelHeader.includes(data.key)) {
-                  if (labelHeader == "Row Id" && !this.WithViewButton) continue;
-                  // if (labelHeader == 'Row Id' && !this.WithViewButton) {
-
-                  // }
-                  // else {
-                  labelHeader = this.replaceAllString(
-                    labelHeader,
-                    data.key,
-                    data.value
-                  );
-                  // }
-                }
-              }
-            }
-
-            if (labelHeader == "Row Id") continue;
-
-            this.fieldHeader.push({
-              value: i + 1,
-              key: str_array[i],
-              thClass: thClass,
-              tdClass: tdClass,
-              label: labelHeader
-            });
-          }
-        }
-
-        this.availableColumn = filteredColumn;
-        this.selectedColumn = definedColumn;
-
-        this.availableColumnTemp = filteredColumn;
-        this.selectedColumnTemp = definedColumn;
-        this.totalRows = this.responses.Total;
-        this.lastPage = this.responses.Last_Page;
-      });
-    },
     doGetList2() {
-      this.fieldHeader2 = [
-        {
-          value: 1,
-          key: "no",
-          thClass: "HeaderACCList2",
-          tdClass: "ContentACCList2 notranslate",
-          label: "No"
-        },
-        {
-          value: 2,
-          key: "cost_type",
-          thClass: "HeaderACCList2  S",
-          tdClass: "ContentACCList notranslate",
-          label: "Cost Type"
-        },
-        {
-          value: 3,
-          key: "descs",
-          thClass: "HeaderACCList2 L",
-          tdClass: "ContentACCList notranslate",
-          label: "Description"
-        },
-        {
-          value: 4,
-          key: "value",
-          thClass: "HeaderACCList2  M",
-          tdClass: "ABStdClassList2 notranslate",
-          label: "Value"
-        },
-        {
-          value: 5,
-          key: "row_id",
-          thClass: "HeaderACCList2",
-          tdClass: "ContentACCList2 notranslate",
-          label: ""
-        }
-      ];
-
       var param = {
         option_function_cd: "GetListOPPricingDtl",
         module_cd: "OP",
-        row_id: this.paramFromList.row_id
+        row_id: this.paramFromList.row_id,
       };
-      this.CallFunction(param).then(response => {
+      this.CallFunction(param).then((response) => {
         // response from API
         if (response == null) return;
         this.$nextTick(() => {
@@ -602,8 +408,10 @@ export default {
               cost_type: response.Data[i].cost_type,
               value: this.isCurrency(response.Data[i].cost_value, this.decimal),
               descs: response.Data[i].description,
+              on_order: response.Data[i].on_order,
+              return_empty: response.Data[i].return_empty,
               row_id: response.Data[i].row_id,
-              lastupdatestamp: response.Data[i].lastupdatestamp
+              lastupdatestamp: response.Data[i].lastupdatestamp,
             });
           }
         });
@@ -614,7 +422,7 @@ export default {
 
     doSave() {
       this.alertConfirmation("Are You Sure Want To Save This Data ?").then(
-        ress => {
+        (ress) => {
           if (ress.value) {
             this.M_Save();
           }
@@ -631,17 +439,17 @@ export default {
           join_date: data.join_date2,
           monthly_point: data.monthly_point,
           monthly_new_prospect: data.monthly_new_prospect,
-          is_my_team: data.is_my_team
+          is_my_team: data.is_my_team,
         });
       });
 
       var param = {
         portfolio_id: this.getDataUser().portfolio_id,
         user_id: this.getDataUser().user_id,
-        data_team: paramInsert
+        data_team: paramInsert,
       };
 
-      this.postJSON(this.getUrlMarketingTeam(), param).then(response => {
+      this.postJSON(this.getUrlMarketingTeam(), param).then((response) => {
         if (response == null) return;
         this.alertSuccess("Save Data Has Been Successfully").then(() => {
           this.doBack();
@@ -650,7 +458,7 @@ export default {
     },
     doDelete() {
       this.alertConfirmation("Are You Sure Want To Delete This Data ?").then(
-        ress => {
+        (ress) => {
           if (ress.value) {
             this.M_Delete();
           }
@@ -659,7 +467,7 @@ export default {
     },
     doDeletedtl(record, index) {
       this.alertConfirmation("Are You Sure Want To Delete This Data ?").then(
-        ress => {
+        (ress) => {
           if (ress.value) {
             this.M_DeleteDtl(record, index);
           }
@@ -671,9 +479,9 @@ export default {
         option_url: "/OP/OP_PricingCosting",
         line_no: 0,
         id: this.paramFromList.row_id,
-        lastupdatestamp: this.paramFromList.lastupdatestamp
+        lastupdatestamp: this.paramFromList.lastupdatestamp,
       };
-      this.deleteJSON(this.getUrlCRUD(), param).then(response => {
+      this.deleteJSON(this.getUrlCRUD(), param).then((response) => {
         // response from API
         if (response == null) return;
 
@@ -687,9 +495,9 @@ export default {
         option_url: "/OP/OP_PricingCosting",
         line_no: 1,
         id: record.row_id,
-        lastupdatestamp: record.lastupdatestamp
+        lastupdatestamp: record.lastupdatestamp,
       };
-      this.deleteJSON(this.getUrlCRUD(), param).then(response => {
+      this.deleteJSON(this.getUrlCRUD(), param).then((response) => {
         // response from API
         if (response == null) return;
 
@@ -703,15 +511,37 @@ export default {
         option_url: "/OP/OP_PricingCosting",
         line_no: 0,
         id: this.paramFromList.row_id,
-        lastupdatestamp: this.paramFromList.lastupdatestamp
+        lastupdatestamp: this.paramFromList.lastupdatestamp,
       };
 
-      this.getJSON(this.getUrlCRUD(), param).then(response => {
+      this.getJSON(this.getUrlCRUD(), param).then((response) => {
         // response from API
         if (response == null) return;
 
         var data = response.Data[0];
+        // var st_date = data.start_date == null ? "" : data.start_date;
+        // var ex_date = data.expired_date == null ? "" : data.expired_date;
+        // var period_data = "";
+        // if (data.start_date == null && data.expired_date == null) {
+        //   period_data = "-";
+        // } else {
+        //   period_data =
+        //     this.momentDateFormatting(data.start_date, "DD/MM/YYYY") +
+        //     " - " +
+        //     this.momentDateFormatting(data.expired_date, "DD/MM/YYYY");
+        // }
 
+        this.items.push({
+          no: 1,
+          from_zone: data.fr_zone_cd__lbl__lo_1,
+          to_zone: data.to_zone_cd__lbl__lo_2, //this.isCurrency(response.Data[i].cost_value, this.decimal),
+          fleet_cd: data.fleet_cd__lbl__lo_3,
+          period: data.period,
+          selling_price: data.selling_price__tb_5,
+          cost_price: data.total_cost_value,
+          margin: data.margin_ftl,
+          margin_percent: data.margin_percent_ftl,
+        });
         this.M_OpPricingCosting = {
           op_pricing_costing_id: data.op_pricing_costing_id,
           ss_portfolio_id: data.ss_portfolio_id,
@@ -734,19 +564,18 @@ export default {
           time_input: data.time_input,
           time_edit: data.time_edit,
           row_id: data.row_id,
-          lastupdatestamp: data.lastupdatestamp
+          lastupdatestamp: data.lastupdatestamp,
         };
         var filter = " AND row_id = " + data.row_id;
         this.propList.initialWhere += filter;
-        this.doGetList(this.search);
         this.doGetList2();
       });
-    }
+    },
   },
   mounted() {
     this.GetDataBy();
   },
-  beforeMount() {}
+  beforeMount() {},
 };
 </script>
 

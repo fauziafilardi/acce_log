@@ -7,7 +7,7 @@
             <div class="card__title">
               <b-row>
                 <b-col style="max-width:fit-content !important;">
-                  <span>{{title}} Standard Pricing & Costing</span>
+                  <span>{{title}} Standard Pricing & Costing LTL</span>
                 </b-col>
                 <b-col style="text-align: right;">
                   <ABSButton
@@ -95,11 +95,33 @@
                       </b-col>
                     </b-row>
                     <b-row>
+                      <b-col md="3">
+                        <span>
+                          <label>Valid From</label>
+                        </span>
+                        <ACCDateTime
+                          :prop="PI_start_date"
+                          v-model="M_OpPricingCosting.start_date"
+                          ref="ref_start_date"
+                        />
+                      </b-col>
+                      <b-col md="3">
+                        <span>
+                          <label>Valid Until</label>
+                        </span>
+                        <ACCDateTime
+                          :prop="PI_expired_date"
+                          v-model="M_OpPricingCosting.expired_date"
+                          ref="ref_expired_date"
+                        />
+                      </b-col>
+                    </b-row>
+                    <b-row>
                       <b-col md="6">
                         <span>
                           <label>Remarks</label>
                         </span>
-                        <ACCTextBox
+                        <ACCTextArea
                           :prop="PI_remarks"
                           v-model="M_OpPricingCosting.remarks"
                           ref="ref_remarks"
@@ -151,6 +173,8 @@ export default {
         cbm_selling_price: 0,
         kgs_selling_price: 0,
         total_cost_value: 0,
+        start_date: new Date(),
+        expired_date: new Date(),
         remarks: "",
         user_input: "",
         user_edit: "",
@@ -258,15 +282,38 @@ export default {
         cDecimal: 2,
         cInputStatus: this.inputStatus,
       },
+      PI_start_date: {
+        cValidate: "",
+        cName: "start_date",
+        cOrder: 8,
+        cKey: false,
+        cProtect: false,
+        cWithTime: false,
+        cFormat: "dd/MM/yyyy",
+        cParentForm: "OP_FormOpPricingCosting",
+      },
+      PI_expired_date: {
+        cValidate: "required",
+        cName: "expired_date",
+        cOrder: 9,
+        cKey: false,
+        cProtect: false,
+        cWithTime: false,
+        cFormat: "dd/MM/yyyy",
+        cParentForm: "OP_FormOpPricingCosting",
+      },
       PI_remarks: {
         cValidate: "",
         cName: "remarks",
-        cOrder: 8,
+        cOrder: 10,
         cKey: false,
-        cType: "text",
         cProtect: false,
+        cResize: false,
+        cReadonly: false,
+        cRows: 3,
+        cMaxRows: 3,
+        cSize: "md",
         cParentForm: "OP_FormOpPricingCosting",
-        cDecimal: 2,
         cInputStatus: this.inputStatus,
       },
     };
@@ -325,6 +372,8 @@ export default {
         cbm_selling_price: 0,
         kgs_selling_price: 0,
         total_cost_value: 0,
+        start_date: new Date(),
+        expired_date: new Date(),
         remarks: "",
         user_input: "",
         user_edit: "",
@@ -364,10 +413,14 @@ export default {
         to_cm_zone_id: this.M_OpPricingCosting.to_cm_zone_id,
         fm_fleet_type_id: "NULL",
         cm_commodity_id: this.M_OpPricingCosting.cm_commodity_id,
-        selling_price: "NULL",
+        selling_price: 0,
         cbm_selling_price: this.M_OpPricingCosting.cbm_selling_price,
         kgs_selling_price: this.M_OpPricingCosting.kgs_selling_price,
         total_cost_value: this.M_OpPricingCosting.total_cost_value,
+        total_cost_cbm: 0,
+        total_cost_kgs: 0,
+        start_date: this.M_OpPricingCosting.start_date,
+        expired_date: this.M_OpPricingCosting.expired_date,
         remarks: this.M_OpPricingCosting.remarks,
         user_input: this.getDataUser().user_id,
       };
@@ -394,6 +447,10 @@ export default {
         cbm_selling_price: this.M_OpPricingCosting.cbm_selling_price,
         kgs_selling_price: this.M_OpPricingCosting.kgs_selling_price,
         total_cost_value: this.M_OpPricingCosting.total_cost_value,
+        total_cost_cbm: 0,
+        total_cost_kgs: 0,
+        start_date: this.M_OpPricingCosting.start_date,
+        expired_date: this.M_OpPricingCosting.expired_date,
         remarks: this.M_OpPricingCosting.remarks,
         lastupdatestamp: this.paramFromList.lastupdatestamp,
         user_edit: this.getDataUser().user_id,

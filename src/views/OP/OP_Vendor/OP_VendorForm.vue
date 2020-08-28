@@ -224,7 +224,7 @@
                                   />&nbsp; &nbsp;
                                   <span
                                     style="position: absolute; font-size: 15px; color: #333399; font-weight: bold;"
-                                  >Add Picture</span>
+                                  >Upload NPWP & Document</span>
                                 </div>
                               </b-col>
                             </b-row>
@@ -249,7 +249,7 @@
                 </b-row>
               </b-form>
               <ABSModal id="Modal_Picture" ref="Modal_Picture" size="sm">
-                <template slot="headerTitle">Add Picture</template>
+                <template slot="headerTitle">Upload NPWP & Document</template>
                 <template slot="content">
                   <b-row>
                     <b-col md="12">
@@ -279,7 +279,7 @@
                             <b-row>
                               <b-col style="text-align: center;">
                                 <ABSButton
-                                  :text="'Save Picture'"
+                                  :text="'Save'"
                                   classButton="btn btn--default"
                                   classIcon="icon-style-default"
                                   @click="doAddPict"
@@ -704,11 +704,11 @@ export default {
           user_input: this.getDataUser().user_id,
         });
       });
-      // option_url: "/MK/MK_Customer",
+      // option_url: "/OP/OP_Vendor",
       //   line_no: 0,
 
       var param = {
-        option_url: "/MK/MK_Customer",
+        option_url: "/OP/OP_Vendor",
         line_no: 0,
         Data: [
           {
@@ -755,7 +755,7 @@ export default {
     },
     GetDataBy() {
       var param = {
-        option_url: "/MK/MK_Customer",
+        option_url: "/OP/OP_Vendor",
         line_no: 0,
         id: this.paramFromList.row_id,
         lastupdatestamp: this.paramFromList.lastupdatestamp,
@@ -883,7 +883,7 @@ export default {
       };
 
       var param = {
-        option_url: "/MK/MK_Customer",
+        option_url: "/OP/OP_Vendor",
         line_no: 0,
         Data: [
           {
