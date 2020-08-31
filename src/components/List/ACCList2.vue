@@ -1267,6 +1267,14 @@ export default {
               {
                 key: "Ltl",
                 value: "LTL"
+              },
+              {
+                key: "Cbm",
+                value: "CBM"
+              },
+              {
+                key: "Kgs",
+                value: "KGS"
               }
             ];
             var isGotIt = false;

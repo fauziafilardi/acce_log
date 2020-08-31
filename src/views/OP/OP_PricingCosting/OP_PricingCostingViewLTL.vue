@@ -140,6 +140,7 @@
                             >
                               <template v-slot:cell(row_id)="data">
                                 <ABSButton
+                                  v-show="data.item.footer == false"
                                   :icon="'trash'"
                                   classButton="button button--delete"
                                   classIcon="icon-style-1"
@@ -426,7 +427,15 @@ export default {
         this.$nextTick(() => {
           this.items2 = [];
           this.responses2 = response.Data;
+
+          var cbm = 0, kgs = 0;
           for (let i = 0; i < response.Data.length; i++) {
+            if (response.Data[i].cost_value_cbm && response.Data[i].cost_value_cbm !== '') {
+              cbm += parseFloat(response.Data[i].cost_value_cbm);
+            }
+            if (response.Data[i].cost_value_kgs && response.Data[i].cost_value_kgs !== '') {
+              kgs += parseFloat(response.Data[i].cost_value_kgs);
+            }
             this.items2.push({
               no: i + 1,
               cost_type: response.Data[i].cost_type,
@@ -444,6 +453,28 @@ export default {
               // return_empty: response.Data[i].return_empty,
               row_id: response.Data[i].row_id,
               lastupdatestamp: response.Data[i].lastupdatestamp,
+              footer: false,
+            });
+          }
+
+          if (response.Data.length > 0) {
+            this.items2.push({
+              no: '',
+              cost_type: 'Total',
+              value: '',
+              value_cbm: this.isCurrency(
+                cbm,
+                this.decimal
+              ),
+              value_kgs: this.isCurrency(
+                kgs,
+                this.decimal
+              ),
+              descs: '',
+              row_id: '',
+              lastupdatestamp: '',
+              footer: true,
+              _rowVariant: 'dark'
             });
           }
         });
@@ -616,4 +647,8 @@ export default {
 </script>
 
 <style>
+  .table-dark td {
+    border-color: #95999c !important;
+    color: black !important;
+  }
 </style>

@@ -123,6 +123,7 @@
                             >
                               <template v-slot:cell(row_id)="data">
                                 <ABSButton
+                                  v-show="data.item.footer == false"
                                   :icon="'trash'"
                                   classButton="button button--delete"
                                   classIcon="icon-style-1"
@@ -364,6 +365,7 @@ export default {
       this.$router.go(-1);
     },
     doEditCosting(record, index) {
+      if (record.footer == true) return
       var param = this.paramFromList;
       param.isEdit = true;
       param.DetailList = record;
@@ -402,7 +404,11 @@ export default {
         this.$nextTick(() => {
           this.items2 = [];
           this.responses2 = response.Data;
+          var ttl = 0;
           for (let i = 0; i < response.Data.length; i++) {
+            if (response.Data[i].cost_value && response.Data[i].cost_value !== '') {
+              ttl += parseFloat(response.Data[i].cost_value);
+            }
             this.items2.push({
               no: i + 1,
               cost_type: response.Data[i].cost_type,
@@ -412,6 +418,21 @@ export default {
               return_empty: response.Data[i].return_empty,
               row_id: response.Data[i].row_id,
               lastupdatestamp: response.Data[i].lastupdatestamp,
+              footer: false
+            });
+          }
+          if (response.Data.length > 0) {
+            this.items2.push({
+              no: '',
+              cost_type: 'Total',
+              value: this.isCurrency(ttl, this.decimal),
+              descs: '',
+              on_order: '',
+              return_empty: '',
+              row_id: '',
+              lastupdatestamp: '',
+              footer: true,
+              _rowVariant: 'dark'
             });
           }
         });
@@ -580,4 +601,8 @@ export default {
 </script>
 
 <style>
+  .table-dark td {
+    border-color: #95999c !important;
+    color: black !important;
+  }
 </style>
